@@ -1,0 +1,45 @@
+@(form: Form[Application.Login])
+
+@main("Dvd Database") {
+   
+   <div class="row-fluid">
+   <div class="span4"></div>
+   <div class="span4">
+   @helper.form(routes.Application.authenticate,'class -> "well") {
+   
+   
+     <h4>Login</h4>
+     <hr />
+   
+       @if(form.hasGlobalErrors) { 
+         <p class="alert alert-error">
+           @form.globalError.message
+         </p>
+       }
+            
+       @if(flash.contains("success")) {
+         <p class="alert alert-success"">
+           @flash.get("success")
+         </p>
+       }
+       
+       
+     
+       <input name="username" type="text" placeholder="Username ..." class="tooltip-top" title="Enter username" />
+       <input name="password" type="password" placeholder="Password ..." class="tooltip-top" title="Enter password" />
+       
+       
+       <div class="form-actions">
+         <button type="submit" clasS="btn btn-primary"><i class="icon-signin"></i>Login</button>
+         <a class="btn btn-warning" href="@routes.Application.register"><i class="icon-user"></i>Register</a>
+       </div>
+   
+   
+   
+   
+ 
+  }
+  </div>
+  <div class="span4"></div>
+</div>
+}

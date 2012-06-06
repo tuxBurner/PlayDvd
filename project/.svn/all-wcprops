@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/projects/!svn/ver/707/dvdDataBase/trunk/project
+END
+build.properties
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/projects/!svn/ver/707/dvdDataBase/trunk/project/build.properties
+END
+Build.scala
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/projects/!svn/ver/738/dvdDataBase/trunk/project/Build.scala
+END
+plugins.sbt
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/projects/!svn/ver/738/dvdDataBase/trunk/project/plugins.sbt
+END

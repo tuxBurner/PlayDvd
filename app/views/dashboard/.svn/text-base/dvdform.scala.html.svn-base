@@ -1,0 +1,105 @@
+@(dvdForm: Form[forms.DvdForm])(mode: String)
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@scripts = {
+  <script src="@routes.Assets.at("tagit/js/tag-it.js")" type="text/javascript"></script>
+
+   <script type="text/javascript" charset="utf-8">
+     var avaibleGenres = @Html(dvdForm.get().getAvaibleAttributesAsJson(EAttributeType.GENRE));
+     var avaibleActors = @Html(dvdForm.get().getAvaibleAttributesAsJson(EAttributeType.ACTOR));
+   </script>
+
+  <script src="@routes.Assets.at("javascripts/dvdForm.js")" type="text/javascript"></script>
+}
+
+@styles = {
+  <link rel="stylesheet" href="@routes.Assets.at("tagit/css/jquery.tagit.css")">
+}
+
+@mainmenu("Dvd Database - Add a dvd",scripts,styles) {
+
+
+     @form(routes.Dashboard.addDvd(mode),'class -> "well",'enctype -> "multipart/form-data") {
+
+      <fieldset>
+
+        <legend>@if(mode == "edit") {Edit Dvd} else {Add a Dvd}</legend>  
+      
+  
+     
+         @if(mode == Dashboard.DVD_FORM_EDIT_MODE) {
+           <input type="hidden" name="dvdId" id="dvdId" value="@dvdForm.get().dvdId"/>
+         }
+     
+         @inputText(dvdForm("title"),'_label -> "Title", '_showConstraints -> true, 'placeholder -> "Enter Dvd title", 'class -> "span10")
+         <button class="btn btn-info" id="tmdbButton" type="button"><i class="icon-film"></i> Look up with TMDB</button>
+         <hr />
+         
+         @textarea(dvdForm("plot"),'_label -> "Plot",'class -> "span10", 'rows -> "10")
+         
+         @inputText(dvdForm("year"),'_label -> "Year", '_showConstraints -> true, 'class-> "span1")
+         
+         @inputText(dvdForm("runtime"),'_label -> "Runtime in Min:")
+         
+         @inputText(dvdForm("hullNr"),'_label -> "Hull Nr.", 'class -> "span4")
+         
+         @inputText(dvdForm("box"),'_label -> "Box", 'class -> "span4")
+         
+         @inputText(dvdForm("collection"),'_label -> "Collection", 'class -> "span4")
+         
+         
+         <hr />
+  
+         <label for="genres">Genres</label>   
+         <input type="hidden" name="genres" id="genres" value="@dvdForm.get().getDvdFormAttributesAsString(dvdForm.get().genres)"/>
+         <ul id="genresTags" class="tags"></ul>
+        
+           
+           
+         
+       
+         <hr  />
+         @inputText(dvdForm("director"),'_label -> "Director")
+         
+         <label for="actors">Actors</label>
+         <input type="hidden" name="actors" id="actors" value="@dvdForm.get().getDvdFormAttributesAsString(dvdForm.get().actors)"/>
+         <ul id="actorsTags" class="tags"></ul>
+         
+         <hr class="alt2" />
+         <label for="poster">Poster</label>
+         <input type="file" name="posterFile">
+         @inputText(dvdForm("posterUrl"),'_label -> "Poster url",'placeholder -> "Url to a poster image")
+        <img id="poster_preview" class="caption" title="Currently selected poster" src="@if(mode == Dashboard.DVD_FORM_ADD_MODE) {http://placehold.it/92x138/4D99E0/ffffff.png&text=No%20Poster} else { @routes.Dashboard.streamImage(dvdForm.get().dvdId,"POSTER","SMALL") }" width="92" height="138" />  
+         
+          
+         <label for="backDrop">Backdrop</label>
+         <input type="file" name="backDropFile">
+         @inputText(dvdForm("backDropUrl"),'_label -> "Back Drop url",'placeholder -> "Url to a back drop image")
+         <img  class="caption" id="backDrop_preview" title="Currently selected backdrop" src="@if(mode == Dashboard.DVD_FORM_ADD_MODE) {http://placehold.it/291x136/4D99E0/ffffff.png&text=No%20Backdrop} else { @routes.Dashboard.streamImage(dvdForm.get().dvdId,"BACKDROP","SMALL") }" width="291" height="163" />
+       
+       
+       
+       <div class="form-actions">
+         @if(mode == "edit") {
+           <button type="submit" class="btn btn-primary"><i class="icon-edit"></i>Edit Dvd</button>
+         } else {
+           <button type="submit" class="btn  btn-primary"><i class="icon-plus"></i>Add Dvd</button>
+         }
+         <a class="btn" href="@routes.Application.index"><i class="icon-arrow-left"></i>Back</a>
+       </div>
+
+     </fieldset>
+       
+     }
+  
+  
+
+  <!-- TMDB DIALOG -->
+  <div id="tmdbDialog" title="Movie info from tmdb">
+    <div class="dialogContent">
+      
+    </div>
+  </div>
+}

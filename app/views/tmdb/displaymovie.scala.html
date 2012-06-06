@@ -1,0 +1,79 @@
+@(movieinfo : com.github.savvasdalkitsis.jtmdb.Movie,dvdToEditId: Long,mode: String)
+
+@import helper._
+
+<div class="col_12">
+  <h1>@movieinfo.getName()</h1>
+
+
+
+  @form(routes.Dashboard.addDvdByTmdbId(mode),'class -> "vertical",'id -> "tmdbMovieForm") {
+  
+    <input type="hidden" name="movieId" id="movieId"  value="@movieinfo.getID()"/>
+    <input type="hidden" name="dvdId" id="dvdEditId" value="@dvdToEditId" />
+  
+    <fieldset>
+      <legend>Description</legend>
+      <p>
+        @movieinfo.getOverview()
+      </p>
+    </fieldset>
+  
+    @if(movieinfo.getImages() != null && movieinfo.getImages().posters != null) {
+    <fieldset class="span12">
+      <legend>Posters</legend>
+       
+       <ul class="thumbnails">
+        @for((poster,index) <- movieinfo.getImages().posters.zipWithIndex) {
+          <li class="span3" style="height: 160px;">
+            <div class="thumbnail" style="height: 160px;">
+              <img src="@poster.getSmallestImage()"/>
+              <div class="caption">
+                <input @if(index == 0){checked="checked"} type="radio" name="tmdbPoster" value="@poster.getID()"/>
+              </div>
+            </div>
+          </li>
+        }
+      </ul>
+   
+    </fieldset>
+  }
+  
+  @if(movieinfo.getImages() != null && movieinfo.getImages().backdrops != null) {
+    <fieldset>
+      <legend>Backdrops</legend>
+      <ul class="thumbnails">
+        @for((backdrop,index) <- movieinfo.getImages().backdrops.zipWithIndex) {
+          <li class="span4" style="height: 190px;">
+            <div class="thumbnail" style="height: 190px;">
+              <img src="@backdrop.getSmallestImage()" />
+              <div class="caption">
+                <input @if(index == 0){checked="checked"} type="radio" name="tmdbBackDrop" value="@backdrop.getID()"/>
+              </div>
+            </div>
+          </li>
+        }
+      </ul>
+    
+   
+    </fieldset>
+  }
+  
+  
+  
+  }
+</div>
+
+<script>
+  /**
+  * If the popup is opened by edit mode we want to keep the dvdId
+  */
+  $(function() {
+	var dvdToEdit = $('#dvdId').val();
+	if(isNaN(dvdToEdit) == false) {
+		$('#dvdEditId').val(dvdToEdit);
+	}
+	  
+  });
+</script>
+

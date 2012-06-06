@@ -1,0 +1,73 @@
+@(dvd: forms.DvdForm) 
+
+<div class="row-fluid">
+<div class="span12">
+
+  <fieldset class="well">
+    <h2>Plot:</h2>
+    <p>@dvd.plot</span>
+  </fieldset>
+  
+  <fieldset class="well">
+    <h2>Info:</h2>
+    
+    <div class="row-fluid">
+      <label class="span1">Owner:</label>
+      <span><a href="@routes.ListDvds.listByUser(dvd.ownerName,0)">@dvd.ownerName</a></span>
+    </div>
+    
+    <div class="row-fluid">
+      <label class="span1">Hull Nr.:</label>
+      <span>@dvd.hullNr</span>
+    </div>
+    
+    <div class="row-fluid">
+      <label class="span1">Runtime:</label>
+      <span>@dvd.runtime</span>
+    </div>  
+    
+    <div class="row-fluid">
+      <label class="span1">Year:</label>
+      <span>@dvd.year</span>
+    </div>
+    
+    <div class="row-fluid">
+      <label class="span1">Director:</label>
+      <span>@dvd.director</span>
+    </div>
+    
+    <hr />
+    
+    <div class="span12">
+      <dl>
+        <dt>Genres:</dt>
+        @for(genre <- dvd.genres) {
+          <dd><a href="@routes.ListDvds.listByGenre(genre,0)">@genre</a></dd>
+        }
+      </dl>
+    </div>
+    
+    <hr />
+    <div class="span12">
+      <dt>Actors:</dt>
+      <dl>
+        @for(actor <- dvd.actors) {
+          <dd>@actor</dd>
+        }
+      </dl>
+    </div>
+    
+  </fieldset>  
+
+</div>
+</div>
+
+<script type="text/javascript">
+@if(dvd.hasBackdrop != null && dvd.hasBackdrop == true) {
+  $('#dvdInfoDialog').css('background-image',"url('@routes.Dashboard.streamImage(dvd.dvdId,"BACKDROP","ORIGINAL")')");
+} else {
+	$('#dvdInfoDialog').css('background-image',null);
+}
+</script>
+
+

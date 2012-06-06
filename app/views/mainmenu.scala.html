@@ -1,0 +1,46 @@
+@(title: String,scripts: Html = Html(""),styles: Html = Html(""))(content: Html)
+
+@menuContent = {
+  <div class="btn-group pull-right">
+    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+      <i class="icon-user"></i> Username
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+      <li><a href="#">Profile</a></li>
+      <li class="divider"></li>
+      <li><a href="@routes.Application.logout"><i class="icon-signout"></i>Sign Out</a></li>
+    </ul>
+  </div>
+          
+  <div class="nav-collapse">
+    <ul class="nav">
+            
+      <!--    DVD LIST MENU --> 
+      <li class="dropdown" id="listMenu">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#listMenu">List<b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-toggle" href="@routes.ListDvds.listdvds(0)"><i class="icon-list-alt"></i>List All</a></li>
+          <li id="genreMenuReplace"></li>
+        </ul>
+      </li>
+      
+            
+      <li><a href="@routes.Dashboard.showAddDvd"><i class="icon-plus"></i>Add a dvd</a></li>
+      <li><a href="@routes.Dashboard.showAddDvd"><i class="icon-shopping-cart"></i>Dvds to borrow</a></li>
+      
+      
+      <form class="navbar-search pull-left">
+        <i class="icon-search"></i>
+        <input type="text" class="search-query span2">
+      </form>      
+    </ul>
+  </div>
+}
+
+@main(title,menuContent,scripts,styles) {  
+  
+   
+  @content
+  
+}

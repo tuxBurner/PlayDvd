@@ -1,0 +1,55 @@
+body {
+	padding-top: 60px;
+	padding-bottom: 40px;
+	background-image: url('../images/background.png');
+	background-size: 100% 100%;
+	-o-background-size: 100% 100%; /*  Opera  */
+	-webkit-background-size: 100% 100%; /*  Safari  */
+	-khtml-background-size: 100% 100%; /*  Konqueror  */
+	-moz-background-size: 100% 100%; /*not working in Firefox as yet */
+}
+
+/* dialoginfo stuff */
+#dvdInfoDialog fieldset {
+	opacity: 0.77;
+}
+
+/* no border arround genres and actors*/
+#dvdInfoDialog ul.chzn-choices {
+	border: none;
+	background: none;
+}
+
+ul.tags {
+	margin: 0 0 0 0;
+}
+
+.dvdListHeight {
+	height: 220px;
+}
+
+.dvdDisplayContainer {
+	opacity: 0.9;
+}
+
+.dvdDisplayContainer .caption {
+	text-align: center; 
+	height: 61px;
+}
+
+.dvdDisplayContainer h5 {
+	height: 35px;
+}
+
+.dvdDisplayContainer .btn-group {
+  text-align: center; 
+  display:inline-block; 
+}
+
+#dvdInfoDialog {
+	background-size: 100% 100%;
+	-o-background-size: 100% 100%; /*  Opera  */
+	-webkit-background-size: 100% 100%; /*  Safari  */
+	-khtml-background-size: 100% 100%; /*  Konqueror  */
+	-moz-background-size: 100% 100%; /*not working in Firefox as yet */
+}

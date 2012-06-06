@@ -1,0 +1,185 @@
+package forms;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import models.Dvd;
+import models.DvdAttibute;
+import models.EAttributeType;
+import play.data.validation.Constraints.Required;
+
+/**
+ * Form which handles all the inputs for adding, editing a dvd
+ * 
+ * @author tuxburner
+ * 
+ */
+public class DvdForm {
+
+  public Long dvdId;
+
+  @Required
+  public String title;
+
+  @Required
+  public Integer year;
+
+  public Integer runtime;
+
+  public String plot;
+
+  public Integer hullNr;
+
+  public String posterUrl;
+
+  public String backDropUrl;
+
+  public List<String> genres = new ArrayList<String>();
+
+  public List<String> actors = new ArrayList<String>();
+
+  public String director;
+
+  public String box;
+
+  public String collection;
+
+  public Boolean hasBackdrop;
+
+  public Boolean hasPoster;
+
+  public String ownerName;
+
+  /**
+   * Transforms a {@link Dvd} to a {@link DvdForm} for editing the dvd in the
+   * frontend
+   * 
+   * @param dvd
+   * @return
+   */
+  public static DvdForm dvdToDvdForm(final Dvd dvd) {
+
+    final DvdForm dvdForm = new DvdForm();
+
+    dvdForm.dvdId = dvd.id;
+    dvdForm.title = dvd.title;
+    dvdForm.year = dvd.year;
+    dvdForm.runtime = dvd.runtime;
+    dvdForm.plot = dvd.description;
+    dvdForm.hullNr = dvd.hullNr;
+    dvdForm.hasBackdrop = dvd.hasBackdrop;
+    dvdForm.hasPoster = dvd.hasPoster;
+    dvdForm.ownerName = dvd.owner.userName;
+
+    final Set<DvdAttibute> attributes = dvd.attributes;
+    for (final DvdAttibute dvdAttibute : attributes) {
+      if (EAttributeType.GENRE.equals(dvdAttibute.attributeType)) {
+        dvdForm.genres.add(dvdAttibute.value);
+      }
+
+      if (EAttributeType.ACTOR.equals(dvdAttibute.attributeType)) {
+        dvdForm.actors.add(dvdAttibute.value);
+      }
+
+      if (EAttributeType.DIRECTOR.equals(dvdAttibute.attributeType)) {
+        dvdForm.director = dvdAttibute.value;
+      }
+
+      if (EAttributeType.BOX.equals(dvdAttibute.attributeType)) {
+        dvdForm.box = dvdAttibute.value;
+      }
+
+      if (EAttributeType.COLLECTION.equals(dvdAttibute.attributeType)) {
+        dvdForm.collection = dvdAttibute.value;
+      }
+    }
+
+    Collections.sort(dvdForm.actors);
+    Collections.sort(dvdForm.genres);
+
+    return dvdForm;
+  }
+
+  /**
+   * Gathers all attributes for the given type from the db and checks if the dvd
+   * 
+   * @param attributeType
+   * @return
+   */
+  public List<DvdFormAttribute> getDvdAttributes(final EAttributeType attributeType, final Map<Integer, String> formVals) {
+
+    final List<DvdFormAttribute> result = new ArrayList<DvdFormAttribute>();
+
+    // merge wit the attributes from the database
+    final List<DvdAttibute> genres = DvdAttibute.getAllByType(attributeType);
+    final Set<String> newGenreMatchedWithDb = new HashSet<String>();
+    for (final DvdAttibute dvdAttibute : genres) {
+
+      final String value = dvdAttibute.value;
+      boolean selected = false;
+      for (final String dvdGenre : formVals.values()) {
+        if (value.equals(dvdGenre)) {
+          newGenreMatchedWithDb.add(dvdGenre);
+          selected = true;
+          break;
+        }
+      }
+
+      result.add(new DvdFormAttribute(selected, value));
+    }
+
+    // add all attributes which where not in the database :)
+    for (final String genre : formVals.values()) {
+      if (newGenreMatchedWithDb.contains(genre) == false) {
+        result.add(new DvdFormAttribute(true, genre));
+      }
+    }
+
+    return result;
+  }
+
+  /**
+   * Gets the avaible {@link DvdAttibute}s as string for the tagit element
+   * 
+   * @param attributeType
+   * @return
+   */
+  // TODO: gson here ?
+  public final String getAvaibleAttributesAsJson(final EAttributeType attributeType) {
+    String returnVal = "[";
+
+    final List<DvdAttibute> attributes = DvdAttibute.getAllByType(attributeType);
+    String sep = "";
+    for (final DvdAttibute dvdAttibute : attributes) {
+      returnVal += sep + "\"" + dvdAttibute.value + "\"";
+      sep = ",";
+    }
+
+    returnVal += "]";
+
+    return returnVal;
+  }
+
+  /**
+   * This returns the values as a , seperated string
+   * 
+   * @param values
+   * @return
+   */
+  public final String getDvdFormAttributesAsString(final List<String> values) {
+    String returnVal = "";
+
+    String sep = "";
+    for (final String value : values) {
+      returnVal += sep + value;
+      sep = ",";
+    }
+
+    return returnVal;
+  }
+
+}

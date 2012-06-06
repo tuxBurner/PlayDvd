@@ -1,0 +1,7 @@
+@(genres: List[models.DvdAttibute])
+@if(genres != null && genres.size() > 0) {
+  <li class="divider"></li>
+  @for(genre <- genres) {
+    <li><a href="@routes.ListDvds.listByGenre(genre.value,0)">@genre.value</a></li>
+  } 
+}          

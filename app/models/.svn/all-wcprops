@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/projects/!svn/ver/707/dvdDataBase/trunk/app/models
+END
+EDvdStatus.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/projects/!svn/ver/707/dvdDataBase/trunk/app/models/EDvdStatus.java
+END
+DvdAttibute.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/projects/!svn/ver/749/dvdDataBase/trunk/app/models/DvdAttibute.java
+END
+User.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/projects/!svn/ver/719/dvdDataBase/trunk/app/models/User.java
+END
+Dvd.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/projects/!svn/ver/754/dvdDataBase/trunk/app/models/Dvd.java
+END
+EAttributeType.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/projects/!svn/ver/751/dvdDataBase/trunk/app/models/EAttributeType.java
+END

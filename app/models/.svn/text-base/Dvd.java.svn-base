@@ -1,0 +1,263 @@
+package models;
+
+import helpers.EImageSize;
+import helpers.EImageType;
+import helpers.ImageHelper;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+import org.apache.commons.lang.StringUtils;
+
+import play.data.validation.Constraints.Required;
+import play.db.ebean.Model;
+
+import com.avaje.ebean.Ebean;
+import com.avaje.ebean.ExpressionList;
+import com.avaje.ebean.Page;
+
+import forms.DvdForm;
+
+@Entity
+public class Dvd extends Model {
+
+  /**
+	 * 
+	 */
+  private static final long serialVersionUID = -8607299241692950618L;
+
+  @Id
+  public Long id;
+
+  @Required
+  public String title;
+
+  public Boolean hasPoster;
+
+  public Boolean hasBackdrop;
+
+  @Lob
+  public String description;
+
+  @Required
+  @Column(nullable = false)
+  public Integer year;
+
+  public Integer runtime;
+
+  @Required
+  @Column(nullable = false)
+  public Long createdDate;
+
+  @ManyToOne
+  public User owner;
+
+  @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "dvds")
+  public Set<DvdAttibute> attributes;
+
+  @OneToOne
+  public User borrower;
+
+  /**
+   * If this is set the user entered a free name which does not exists in the
+   * database
+   */
+  public String borrowerName;
+
+  /**
+   * The number off the hull off the dvd
+   */
+  public Integer hullNr;
+
+  public static Finder<Long, Dvd> find = new Finder<Long, Dvd>(Long.class, Dvd.class);
+
+  /**
+   * Persists the {@link Dvd} to the database
+   * 
+   * @param dvd
+   * @return
+   */
+  public static Dvd create(final Dvd dvd) {
+    dvd.save();
+    return dvd;
+  }
+
+/**
+	 * Creates a dvd from a {@link DvdForm)
+	 * @param userName
+	 * @param dvdForm
+	 * @return 
+	 * @throws Exception 
+	 */
+  public static Dvd createFromForm(final String userName, final DvdForm dvdForm) throws Exception {
+
+    final User owner = User.getUserByName(userName);
+    if (owner == null) {
+      throw new Exception("User does not exist in the Database");
+    }
+
+    final Dvd dvd = new Dvd();
+    dvd.owner = owner;
+
+    return Dvd.createOrUpdateFromForm(dvdForm, dvd);
+  }
+
+  /**
+   * Edits a dvd from the informations from the form
+   * 
+   * @param userName
+   * @param dvdForm
+   * @throws Exception
+   */
+  public static Dvd editFromForm(final String userName, final DvdForm dvdForm) throws Exception {
+    final Dvd dvdForUser = Dvd.getDvdForUser(dvdForm.dvdId, userName);
+    if (dvdForUser == null) {
+      throw new Exception("The dvd could not been edited !");
+    }
+
+    return Dvd.createOrUpdateFromForm(dvdForm, dvdForUser);
+  }
+
+  /**
+   * Creates or updates the given dvd
+   * 
+   * @param userName
+   * @param dvdForm
+   * @param dvd
+   * @return
+   * @throws Exception
+   */
+  private static Dvd createOrUpdateFromForm(final DvdForm dvdForm, final Dvd dvd) throws Exception {
+
+    dvd.title = dvdForm.title;
+    dvd.description = dvdForm.plot;
+    dvd.year = dvdForm.year;
+    dvd.runtime = dvdForm.runtime;
+    dvd.hullNr = dvdForm.hullNr;
+
+    Dvd dvdDb = null;
+    if (dvd.id == null) {
+      dvd.createdDate = new Date().getTime();
+      dvd.hasPoster = false;
+      dvd.hasBackdrop = false;
+      dvdDb = Dvd.create(dvd);
+    } else {
+      Ebean.deleteManyToManyAssociations(dvd, "attributes");
+      dvdDb = dvd;
+    }
+
+    // add the images if we have some :)
+    final Boolean newPoster = ImageHelper.createFileFromUrl(dvdDb.id, dvdForm.posterUrl, EImageType.POSTER, EImageSize.ORIGINAL);
+    if (dvdDb.hasPoster == false || dvdDb.hasPoster == null) {
+      dvdDb.hasPoster = newPoster;
+    }
+
+    final Boolean newBackDrop = ImageHelper.createFileFromUrl(dvdDb.id, dvdForm.backDropUrl, EImageType.BACKDROP, EImageSize.ORIGINAL);
+    if (dvdDb.hasBackdrop == false || dvdDb.hasBackdrop == null) {
+      dvdDb.hasBackdrop = newBackDrop;
+    }
+
+    dvdDb.update();
+
+    dvdDb.attributes = new HashSet<DvdAttibute>();
+
+    // gather all the genres and add them to the dvd
+    final Set<DvdAttibute> genres = DvdAttibute.gatherAndAddAttributes(new HashSet<String>(dvdForm.genres), EAttributeType.GENRE);
+    dvdDb.attributes.addAll(genres);
+
+    final Set<DvdAttibute> actors = DvdAttibute.gatherAndAddAttributes(new HashSet<String>(dvdForm.actors), EAttributeType.ACTOR);
+    dvdDb.attributes.addAll(actors);
+
+    Dvd.addSingleAttribute(dvdForm.director, EAttributeType.DIRECTOR, dvdDb);
+    Dvd.addSingleAttribute(dvdForm.box, EAttributeType.BOX, dvdDb);
+    Dvd.addSingleAttribute(dvdForm.collection, EAttributeType.COLLECTION, dvdDb);
+
+    // save all the attributes to the database :)
+    dvdDb.saveManyToManyAssociations("attributes");
+
+    return dvdDb;
+  }
+
+  /**
+   * Adds a single Attribute to the dvd
+   * 
+   * @param attrToAdd
+   * @param attributeType
+   * @param dvd
+   */
+  private static void addSingleAttribute(final String attrToAdd, final EAttributeType attributeType, final Dvd dvd) {
+    if (StringUtils.isEmpty(attrToAdd) == true) {
+      return;
+    }
+    final Set<String> attribute = new HashSet<String>();
+    attribute.add(attrToAdd);
+    final Set<DvdAttibute> dbAttrs = DvdAttibute.gatherAndAddAttributes(attribute, attributeType);
+    dvd.attributes.addAll(dbAttrs);
+  }
+
+  /**
+   * Gets all dvds for the given username ordered by the date
+   * 
+   * @param username
+   * @return
+   */
+  public static Page<Dvd> getUserDvds(final String username, final Integer pageNr) {
+    return Dvd.getByDefaultPaging(Dvd.find.where().eq("owner.userName", username), pageNr);
+  }
+
+  /**
+   * Gets a dvd by a username and the id this should be used for deleting and
+   * editing where only the owner can do this
+   * 
+   * @param id
+   * @param username
+   * @return
+   */
+  public static Dvd getDvdForUser(final Long id, final String username) {
+    final Dvd userDvd = Dvd.find.where().eq("owner.userName", username).eq("id", id).findUnique();
+    return userDvd;
+
+  }
+
+  public static Page<Dvd> getDvds(final Integer pageNr) {
+    return Dvd.getByDefaultPaging(Dvd.find.where(), pageNr);
+  }
+
+  /**
+   * Gets all {@link Dvd} which have the ginven genre as {@link DvdAttibute}
+   * 
+   * @param genrePk
+   * @return
+   */
+  public static Page<Dvd> getByGenre(final String genreName, final Integer pageNr) {
+    return Dvd.getByDefaultPaging(Dvd.find.where().eq("attributes.value", genreName).eq("attributes.attributeType", EAttributeType.GENRE), pageNr);
+  }
+
+  /**
+   * This does all the default paging etc stuff
+   * 
+   * @param expressionList
+   * @return
+   */
+  private static Page<Dvd> getByDefaultPaging(final ExpressionList<Dvd> expressionList, Integer pageNr) {
+
+    if (pageNr == null) {
+      pageNr = 0;
+    }
+
+    final Page<Dvd> page = expressionList.orderBy("createdDate desc").fetch("owner", "userName").findPagingList(2).getPage(pageNr);
+    return page;
+  }
+
+}
