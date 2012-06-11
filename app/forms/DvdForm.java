@@ -167,6 +167,24 @@ public class DvdForm {
   }
 
   /**
+   * Gets all {@link DvdAttibute}s from the given {@link EAttributeType}
+   * 
+   * @param attributeType
+   * @return
+   */
+  public final List<String> getAvaibleAttributes(final EAttributeType attributeType) {
+    final List<DvdAttibute> attributes = DvdAttibute.getAllByType(attributeType);
+
+    final List<String> list = new ArrayList<String>();
+    list.add("");
+    for (final DvdAttibute dvdAttibute : attributes) {
+      list.add(dvdAttibute.value);
+    }
+
+    return list;
+  }
+
+  /**
    * This returns the values as a , seperated string
    * 
    * @param values

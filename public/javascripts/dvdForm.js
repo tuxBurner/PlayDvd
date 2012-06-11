@@ -26,7 +26,14 @@ $(function() {
 		'availableTags' : avaibleActors,
 		'singleFieldNode' : $('#actors')
 	});
-	//$("#actors").chosen();
+
+	
+	 $('.chosen_select').chosen({
+		    create_option: true,
+		    // persistent_create_option decides if you can add any term, even if part of the term is also found, or only unique, not overlapping terms
+		    persistent_create_option: false,
+		    allow_single_deselect: true
+		  });
 	
 	// enable the button for tmdb 
 	var title = $('#title').val();

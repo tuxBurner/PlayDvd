@@ -1,11 +1,38 @@
-@(dvd: forms.DvdForm) 
+@(dvd: forms.InfoDvd) 
+
+@subDvdDisplay(subDvds : List[forms.CollectionDvd], dvd:forms.InfoDvd, title: String, subTitle: String) = {
+  @if(subDvds != null) {
+    <fieldset class="well">
+      <h3>Dvds in the @title <i>@subTitle:</i></h3>
+      
+       <div class="row-fluid">
+       <ul class="thumbnails">
+         @for(subDvd <- subDvds) {
+           <li class="span3 dvdListHeight">             
+             <a class="thumbnail dvdDisplayContainer dvdListHeight btn displayInfoButton" href="#" data-dvd-id="@subDvd.id">
+               @if(subDvd.hasPoster != null && subDvd.hasPoster == true) {
+                 <img src="@routes.Dashboard.streamImage(subDvd.id,"POSTER","SMALL")"/>
+               } else {
+                 <img src="http://placehold.it/92x138/4D99E0/ffffff.png&text=No%20Poster"/>
+               }
+               <div class="caption">  
+                 <h5>@subDvd.title</h5>
+               </div>
+             </a>
+           </li>
+         }
+       </ul>       
+       </div>      
+    </fieldset>
+  }
+}
 
 <div class="row-fluid">
 <div class="span12">
 
   <fieldset class="well">
     <h2>Plot:</h2>
-    <p>@dvd.plot</span>
+    <p>@dvd.dvdForm.plot</span>
   </fieldset>
   
   <fieldset class="well">
@@ -13,27 +40,34 @@
     
     <div class="row-fluid">
       <label class="span1">Owner:</label>
-      <span><a href="@routes.ListDvds.listByUser(dvd.ownerName,0)">@dvd.ownerName</a></span>
+      <span><a href="@routes.ListDvds.listByUser(dvd.dvdForm.ownerName,0)">@dvd.dvdForm.ownerName</a></span>
     </div>
+    
+    @if(dvd.borrowedBy != null) {
+      <div class="row-fluid">
+        <label class="span1">Borrowed by:</label>
+        <span>@dvd.borrowedBy (@dvd.borrowedOn)</span>
+      </div>
+    }
     
     <div class="row-fluid">
       <label class="span1">Hull Nr.:</label>
-      <span>@dvd.hullNr</span>
+      <span>@dvd.dvdForm.hullNr</span>
     </div>
     
     <div class="row-fluid">
       <label class="span1">Runtime:</label>
-      <span>@dvd.runtime</span>
+      <span>@dvd.dvdForm.runtime</span>
     </div>  
     
     <div class="row-fluid">
       <label class="span1">Year:</label>
-      <span>@dvd.year</span>
+      <span>@dvd.dvdForm.year</span>
     </div>
     
     <div class="row-fluid">
       <label class="span1">Director:</label>
-      <span>@dvd.director</span>
+      <span>@dvd.dvdForm.director</span>
     </div>
     
     <hr />
@@ -41,7 +75,7 @@
     <div class="span12">
       <dl>
         <dt>Genres:</dt>
-        @for(genre <- dvd.genres) {
+        @for(genre <- dvd.dvdForm.genres) {
           <dd><a href="@routes.ListDvds.listByGenre(genre,0)">@genre</a></dd>
         }
       </dl>
@@ -51,22 +85,26 @@
     <div class="span12">
       <dt>Actors:</dt>
       <dl>
-        @for(actor <- dvd.actors) {
+        @for(actor <- dvd.dvdForm.actors) {
           <dd>@actor</dd>
         }
       </dl>
     </div>
     
   </fieldset>  
+  
+  @subDvdDisplay(dvd.boxDvds, dvd, "box",dvd.dvdForm.box)
+  
+  @subDvdDisplay(dvd.collectionDvds, dvd, "collection",dvd.dvdForm.collection)
 
 </div>
 </div>
 
 <script type="text/javascript">
-@if(dvd.hasBackdrop != null && dvd.hasBackdrop == true) {
-  $('#dvdInfoDialog').css('background-image',"url('@routes.Dashboard.streamImage(dvd.dvdId,"BACKDROP","ORIGINAL")')");
+@if(dvd.dvdForm.hasBackdrop != null && dvd.dvdForm.hasBackdrop == true) {
+  $('#dvdInfoDialog').css('background-image',"url('@routes.Dashboard.streamImage(dvd.dvdForm.dvdId,"BACKDROP","ORIGINAL")')");
 } else {
-	$('#dvdInfoDialog').css('background-image',null);
+	$('#dvdInfoDialog').css('background-image','none');
 }
 </script>
 

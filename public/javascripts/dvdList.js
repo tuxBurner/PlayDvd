@@ -1,5 +1,8 @@
 $(function() {
 	
+	/**
+	 * INFO DIALOG
+	 */
 	$('#dvdInfoDialog').dialog({ 
 		width: '90%',
 		height: '710',
@@ -9,7 +12,7 @@ $(function() {
 	
 	// open the info dialog when the user clicks on the info button
 	$('.displayInfoButton').live('click',function(event){
-		pAjax(jsRoutes.controllers.Dashboard.displayDvd($(this).data('dvdId')),null,
+	  pAjax(jsRoutes.controllers.Dashboard.displayDvd($(this).data('dvdId')),null,
 				  function(data){
 				    $('#dvdInfoDialog .dialogContent').html(data);
 					$('#dvdInfoDialog').dialog('open');
@@ -18,6 +21,65 @@ $(function() {
 				    console.error(err);
 				});	
 		
-	}); 
+	});
+	/**
+	 * EO INFO DIALOG
+	 */
+	
+	/**
+	 * LEND DIALOG
+	 */
+	$( "#dvdLendDialog" ).dialog({
+	  resizable: false,
+	  height:340,
+	  width:440,
+	  autoOpen: false,
+	  modal: true,
+	  buttons: {
+			"Lend": function() {
+				
+				var userVal = $('#userName').val();
+				var freeVal = $('#freeName').val();
+				
+				if((userVal == null || userVal == "") && (freeVal == null || freeVal == "")) {
+					return;
+				}
+				
+				if(userVal != null && userVal != "" && freeVal != null && freeVal != "") {
+					return;
+				}
+				
+				pAjax(jsRoutes.controllers.Dashboard.lendDvd(
+				  $("#lendDvdId").val()),
+				  {"userName" : userVal, "freeName" : freeVal},
+			      function(data){
+				    alert('aww');
+				   },
+				   function(err) {
+				  }
+				 );
+				
+				$( this ).dialog( "close" );
+			},
+			Cancel: function() {
+				$( this ).dialog( "close" );
+			}
+		}
+	});
+	
+	$('.lendDvdBtn').live('click',function(event){
+		pAjax(jsRoutes.controllers.Dashboard.lendDialogContent($(this).data('dvdId')),null,
+				  function(data){
+				    $('#dvdLendDialog .dialogContent').html(data);
+				    $('#dvdLendDialog').dialog('open');
+				  },
+				  function(err) {
+				    
+				});
+		
+	});
+	/**
+	 * EO LEND DIALOG
+	 */
 	
 });

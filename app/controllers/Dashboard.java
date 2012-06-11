@@ -6,9 +6,10 @@ import helpers.ImageHelper;
 import helpers.RequestToCollectionHelper;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
 
 import models.Dvd;
 import models.DvdAttibute;
@@ -23,8 +24,11 @@ import tmdb.InfoGrabber;
 import views.html.genremenu;
 import views.html.dashboard.displaydvd;
 import views.html.dashboard.dvdform;
-import views.html.dashboard.listdvds;
+import views.html.dashboard.lendform;
+
 import forms.DvdForm;
+import forms.InfoDvd;
+import forms.LendForm;
 import forms.TmdbInfoForm;
 
 @Security.Authenticated(Secured.class)
@@ -74,9 +78,9 @@ public class Dashboard extends Controller {
       return Results.badRequest("Dvd with the given Id was not found");
     }
 
-    final DvdForm dvdForm = DvdForm.dvdToDvdForm(dvd);
+    final InfoDvd infoDvd = new InfoDvd(dvd);
 
-    return Results.ok(displaydvd.render(dvdForm));
+    return Results.ok(displaydvd.render(infoDvd));
   }
 
   /**
@@ -113,7 +117,7 @@ public class Dashboard extends Controller {
         return Results.badRequest(dvdform.render(dvdForm, mode));
       }
 
-      return Results.redirect(routes.ListDvds.listdvds(0));
+      return Results.redirect(routes.ListDvds.listdvds(null));
     }
   }
 
@@ -142,6 +146,7 @@ public class Dashboard extends Controller {
         }
 
         dvdForm.dvdId = dvd.id;
+        dvdForm.hullNr = dvd.hullNr;
       }
 
       final Form<DvdForm> form = Controller.form(DvdForm.class);
@@ -150,7 +155,49 @@ public class Dashboard extends Controller {
     } catch (final GrabberException e) {
       return Results.badRequest("Internal Error happend");
     }
+  }
 
+  /**
+   * Displays the dialog content for lending a dvd to a another {@link User}
+   * 
+   * @return
+   */
+  public static Result lendDialogContent(final Long dvdId) {
+    // check if the user may see the dvd
+    final String userName = Controller.ctx().session().get(Secured.AUTH_SESSION);
+    final Dvd dvdForUser = Dvd.getDvdForUser(dvdId, userName);
+    if (dvdForUser == null) {
+      return Results.forbidden();
+    }
+
+    final Form<LendForm> form = Controller.form(LendForm.class);
+    return Results.ok(lendform.render(form, dvdForUser));
+  }
+
+  /**
+   * This actually lends a dvd to a user this is called via ajax
+   * 
+   * @param dvdId
+   * @return
+   */
+  public static Result lendDvd(final Long dvdId) {
+
+    final Form<LendForm> form = Controller.form(LendForm.class).bindFromRequest();
+
+    // check if the form is okay
+    final LendForm lendForm = form.get();
+    final String userName = StringUtils.trimToNull(lendForm.userName);
+    final String freeName = StringUtils.trimToNull(lendForm.freeName);
+
+    if ((StringUtils.isEmpty(userName) == true && StringUtils.isEmpty(freeName) == true)) {
+      System.out.println("username: " + userName + " freename: " + freeName);
+      return Results.internalServerError();
+    }
+
+    final String ownerName = Controller.ctx().session().get(Secured.AUTH_SESSION);
+    Dvd.lendDvdToUser(dvdId, ownerName, userName, freeName);
+
+    return Results.TODO;
   }
 
   /**

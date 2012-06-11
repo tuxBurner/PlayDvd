@@ -42,7 +42,7 @@
     <ul class="thumbnails">
     @for(dvd <- dvdPage.list) {
       <li class="span3 dvdListHeight">
-        <div class="thumbnail dvdDisplayContainer dvdListHeight well">
+        <div class="thumbnail dvdDisplayContainer dvdListHeight well @if(dvd.borrower != null || dvd.borrowerName != null) {borrowed}  @if(dvd.borrower != null && dvd.borrower.userName == Controller.ctx().session().get(Secured.AUTH_SESSION)) { selfBorrowed }">
           @if(dvd.hasPoster != null && dvd.hasPoster == true) {
             <img src="@routes.Dashboard.streamImage(dvd.id,"POSTER","SMALL")"/>
           } else {
@@ -55,10 +55,23 @@
           <div class="btn-group">
             <a class="btn displayInfoButton" href="#" data-dvd-id="@dvd.id"><i class="icon-info-sign"></i></a>
             @if(dvd.owner.userName == username) {
+              
+              @if(dvd.borrower == null && dvd.borrowerName == null) {
+                <a class="btn lendDvdBtn" href="#" data-dvd-id="@dvd.id"><i class="icon-share"></i></a>
+              } else {
+                <a class="btn unlendDvdBtn" href="#" data-dvd-id="@dvd.id"><i class="icon-download"></i></a>
+              }
+              
               <a class="btn" href="@routes.Dashboard.showEditDvd(dvd.id)"><i class="icon-edit"></i></a>
-              <a class="btn" href=""><i class="icon-trash"></i></a>
+              <a class="btn deleteDvdBtn" href="#" data-dvd-id="@dvd.id"><i class="icon-trash"></i></a>
             } else {
-              <a class="btn" href=""><i class="icon-shopping-cart"></i></a>
+            
+              @if(dvd.borrower == null && dvd.borrowerName == null) {
+                <a class="btn" href=""><i class="icon-shopping-cart"></i></a>
+              }
+              
+              
+              
             }
           </div>
         </div>
@@ -70,7 +83,15 @@
     
   </div>
   
+  <!-- DIALOG FOR DISPLAYING MOVIE -->
   <div id="dvdInfoDialog" title="Movie Infos">
+    <div class="dialogContent">
+      
+    </div>
+  </div>
+  
+  <!-- DIALOG FOR SHARING MOVIE -->
+  <div id="dvdLendDialog" title="Lend Dvd">
     <div class="dialogContent">
       
     </div>

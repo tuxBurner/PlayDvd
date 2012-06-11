@@ -2,16 +2,13 @@ body {
 	padding-top: 60px;
 	padding-bottom: 40px;
 	background-image: url('../images/background.png');
-	background-size: 100% 100%;
-	-o-background-size: 100% 100%; /*  Opera  */
-	-webkit-background-size: 100% 100%; /*  Safari  */
-	-khtml-background-size: 100% 100%; /*  Konqueror  */
-	-moz-background-size: 100% 100%; /*not working in Firefox as yet */
+	background-size: cover;
+	
 }
 
 /* dialoginfo stuff */
 #dvdInfoDialog fieldset {
-	opacity: 0.77;
+	opacity: 0.80;
 }
 
 /* no border arround genres and actors*/
@@ -52,4 +49,12 @@ ul.tags {
 	-webkit-background-size: 100% 100%; /*  Safari  */
 	-khtml-background-size: 100% 100%; /*  Konqueror  */
 	-moz-background-size: 100% 100%; /*not working in Firefox as yet */
+}
+
+.borrowed {
+	background-color: #DA4F49;
+}
+
+.selfBorrowed {
+	background-color: #F89406;
 }

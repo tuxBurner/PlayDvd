@@ -1,34 +1,0 @@
-10
-
-dir
-707
-https://svn.muchtel.de/projects/dvdDataBase/trunk/public/kickstart
-https://svn.muchtel.de/projects
-
-
-
-2012-03-25T23:07:22.883881Z
-707
-tuxBurner
-
-
-svn:special svn:externals svn:needs-lock
-
-
-
-
-
-
-
-
-
-
-
-67bec100-ffa4-11db-9c43-836a544258fa
-
-css
-dir
-
-js
-dir
-

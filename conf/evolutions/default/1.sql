@@ -14,6 +14,7 @@ create table dvd (
   created_date              bigint not null,
   owner_id                  bigint,
   borrower_id               bigint,
+  borrow_date               bigint,
   borrower_name             varchar(255),
   hull_nr                   integer,
   constraint pk_dvd primary key (id))

@@ -6,6 +6,7 @@ import helpers.ImageHelper;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -20,14 +21,17 @@ import javax.persistence.OneToOne;
 
 import org.apache.commons.lang.StringUtils;
 
+import play.Logger;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.ExpressionList;
 import com.avaje.ebean.Page;
+import com.typesafe.config.ConfigFactory;
 
 import forms.DvdForm;
+import forms.DvdListFrom;
 
 @Entity
 public class Dvd extends Model {
@@ -68,6 +72,10 @@ public class Dvd extends Model {
 
   @OneToOne
   public User borrower;
+
+  public Long borrowDate;
+
+  private final static int DEFAULT_DVDS_PER_PAGE = ConfigFactory.load().getInt("dvddb.dvds.perpage");
 
   /**
    * If this is set the user entered a free name which does not exists in the
@@ -193,6 +201,21 @@ public class Dvd extends Model {
   }
 
   /**
+   * Gets all dvds which have the same owner and the same attribute excluding
+   * the given {@link Dvd}
+   * 
+   * @param attributeType
+   * @param dvd
+   * @return
+   */
+  public static List<Dvd> getDvdByAttrAndUser(final EAttributeType attributeType, final String attrValue, final Dvd dvd) {
+
+    final List<Dvd> findList = Dvd.find.where().eq("attributes.attributeType", attributeType).eq("attributes.value", attrValue).eq("owner.id", dvd.owner.id).ne("id", dvd.id).findList();
+
+    return findList;
+  }
+
+  /**
    * Adds a single Attribute to the dvd
    * 
    * @param attrToAdd
@@ -219,6 +242,24 @@ public class Dvd extends Model {
     return Dvd.getByDefaultPaging(Dvd.find.where().eq("owner.userName", username), pageNr);
   }
 
+  public static Page<Dvd> getDvdsByForm(final DvdListFrom listFrom) {
+    final ExpressionList<Dvd> where = Dvd.find.where();
+
+    if (StringUtils.isEmpty(listFrom.searchFor) == false) {
+      where.like("title", "%" + listFrom.searchFor + "%");
+    }
+
+    if (StringUtils.isEmpty(listFrom.genre) == false) {
+      where.eq("attributes.value", listFrom.genre).eq("attributes.attributeType", EAttributeType.GENRE);
+    }
+
+    if (StringUtils.isEmpty(listFrom.userName) == false) {
+      where.eq("owner.userName", listFrom.userName);
+    }
+
+    return Dvd.getByDefaultPaging(where, listFrom.currentPage);
+  }
+
   /**
    * Gets a dvd by a username and the id this should be used for deleting and
    * editing where only the owner can do this
@@ -233,8 +274,18 @@ public class Dvd extends Model {
 
   }
 
+  /**
+   * Get dvds for the given page number
+   * 
+   * @param pageNr
+   * @return
+   */
   public static Page<Dvd> getDvds(final Integer pageNr) {
     return Dvd.getByDefaultPaging(Dvd.find.where(), pageNr);
+  }
+
+  public static Page<Dvd> getSearchDvds(final Integer pageNr, final String searchString) {
+    return Dvd.getByDefaultPaging(Dvd.find.where().like("title", "%" + searchString + "%"), pageNr);
   }
 
   /**
@@ -259,8 +310,44 @@ public class Dvd extends Model {
       pageNr = 0;
     }
 
-    final Page<Dvd> page = expressionList.orderBy("createdDate desc").fetch("owner", "userName").findPagingList(2).getPage(pageNr);
+    final Page<Dvd> page = expressionList.orderBy("createdDate desc").fetch("owner", "userName").fetch("borrower", "userName").findPagingList(Dvd.DEFAULT_DVDS_PER_PAGE).getPage(pageNr);
     return page;
   }
 
+  /**
+   * Lends the {@link Dvd} to a user or to a freename
+   * 
+   * @param dvdId
+   * @param ownerName
+   * @param userName
+   * @param freeName
+   */
+  public static void lendDvdToUser(final Long dvdId, final String ownerName, final String userName, final String freeName) {
+    final Dvd dvdForUser = Dvd.getDvdForUser(dvdId, ownerName);
+
+    boolean updated = false;
+
+    if (dvdForUser != null) {
+      if (StringUtils.isEmpty(userName) == false) {
+        final User userByName = User.getUserByName(userName);
+        if (userByName != null) {
+          dvdForUser.borrower = userByName;
+          updated = true;
+        }
+      }
+
+      if (StringUtils.isEmpty(freeName) == false && updated == false) {
+        dvdForUser.borrowerName = freeName;
+        updated = true;
+      }
+
+      if (updated == true) {
+        dvdForUser.borrowDate = new Date().getTime();
+        dvdForUser.update();
+      }
+      return;
+    }
+
+    Logger.error("Could not find dvd: " + dvdId + " for owner: " + ownerName);
+  }
 }

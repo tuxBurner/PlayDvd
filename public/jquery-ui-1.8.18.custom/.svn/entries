@@ -1,34 +1,0 @@
-10
-
-dir
-712
-https://svn.muchtel.de/projects/dvdDataBase/trunk/public/jquery-ui-1.8.18.custom
-https://svn.muchtel.de/projects
-
-
-
-2012-03-25T23:40:32.599281Z
-712
-tuxBurner
-
-
-svn:special svn:externals svn:needs-lock
-
-
-
-
-
-
-
-
-
-
-
-67bec100-ffa4-11db-9c43-836a544258fa
-
-css
-dir
-
-js
-dir
-

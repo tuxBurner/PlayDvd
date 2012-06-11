@@ -15,16 +15,22 @@ GET     /register                   controllers.Application.register()
 POST    /register                   controllers.Application.registeruser()
 
 # DVD Lists
-GET     /dvds                       controllers.ListDvds.listdvds(pageNr: Integer ?= 0)
+GET     /dvds                       controllers.ListDvds.listdvds(pageNr: Integer ?= null)
+GET     /dvds/all                   controllers.ListDvds.listAlldvds()
 GET     /dvds/by/Genre/:genreName   controllers.ListDvds.listByGenre(genreName: String,pageNr: Integer ?= 0)
 GET     /dvds/by/user/:userName     controllers.ListDvds.listByUser(userName: String,pageNr: Integer ?= 0)
+GET     /dvds/search                controllers.ListDvds.searchDvd()
 
 
-GET     /genremenu                  controllers.Dashboard.menuGenres()
-GET     /image/:dvdId/:imgType/:imgSize      controllers.Dashboard.streamImage(dvdId: Long, imgType: String, imgSize: String)
+GET     /genremenu                         controllers.Dashboard.menuGenres()
+GET     /image/:dvdId/:imgType/:imgSize    controllers.Dashboard.streamImage(dvdId: Long, imgType: String, imgSize: String)
 
 # Display the Dvd
 GET     /showdvd/:dvdId              controllers.Dashboard.displayDvd(dvdId: Long)
+
+# Lend DVD
+GET     /lendDvd/:dvdId              controllers.Dashboard.lendDialogContent(dvdId: Long)
+POST    /lendDvd/:dvdId              controllers.Dashboard.lendDvd(dvdId: Long)
 
 # ADD edit DVD
 GET    /dvd/add                  controllers.Dashboard.showAddDvd()

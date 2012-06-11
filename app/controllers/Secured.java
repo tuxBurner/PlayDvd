@@ -2,6 +2,7 @@ package controllers;
 
 import models.User;
 import play.mvc.Result;
+import play.mvc.Results;
 import play.mvc.Security;
 import play.mvc.Http.Context;
 
@@ -13,27 +14,27 @@ import play.mvc.Http.Context;
  */
 public class Secured extends Security.Authenticator {
 
-	public static final String AUTH_SESSION = "email";
+  public static final String AUTH_SESSION = "email";
 
-	@Override
-	public String getUsername(Context ctx) {
+  @Override
+  public String getUsername(final Context ctx) {
 
-		String username = ctx.session().get(AUTH_SESSION);
+    final String username = ctx.session().get(Secured.AUTH_SESSION);
 
-		if (username != null) {
+    if (username != null) {
 
-			boolean checkIfUserExsists = User.checkIfUserExsists(username);
-			if (checkIfUserExsists == false) {
-				ctx.session().clear();
-				return null;
-			}
-		}
+      final boolean checkIfUserExsists = User.checkIfUserExsists(username);
+      if (checkIfUserExsists == false) {
+        ctx.session().clear();
+        return null;
+      }
+    }
 
-		return username;
-	}
+    return username;
+  }
 
-	@Override
-	public Result onUnauthorized(Context arg0) {
-		return redirect(routes.Application.login());
-	}
+  @Override
+  public Result onUnauthorized(final Context arg0) {
+    return Results.redirect(routes.Application.login());
+  }
 }

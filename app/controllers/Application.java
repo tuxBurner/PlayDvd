@@ -80,7 +80,7 @@ public class Application extends Controller {
 
   @Security.Authenticated(Secured.class)
   public static Result index() {
-    return Results.redirect(routes.ListDvds.listdvds(0));
+    return Results.redirect(routes.ListDvds.listAlldvds());
   }
 
   /**
@@ -126,7 +126,6 @@ public class Application extends Controller {
    * @return
    */
   public static Result registeruser() {
-
     final Form<Register> registerForm = Controller.form(Register.class).bindFromRequest();
     if (registerForm.hasErrors()) {
       return Results.badRequest(register.render(registerForm));
@@ -144,13 +143,12 @@ public class Application extends Controller {
    * 
    * @return
    */
-  // TODO; this should be a generic method done by the routes :P
   public static Result jsRoutes() {
     Controller.response().setContentType("text/javascript");
 
     return Results.ok(
 
-    Routes.javascriptRouter("jsRoutes", controllers.routes.javascript.Tmdb.searchTmdb(), controllers.routes.javascript.Tmdb.getMovieById(), controllers.routes.javascript.Dashboard.displayDvd(), controllers.routes.javascript.Dashboard.menuGenres()));
+    Routes.javascriptRouter("jsRoutes", controllers.routes.javascript.Tmdb.searchTmdb(), controllers.routes.javascript.Tmdb.getMovieById(), controllers.routes.javascript.Dashboard.displayDvd(), controllers.routes.javascript.Dashboard.menuGenres(), controllers.routes.javascript.Dashboard.lendDialogContent(), controllers.routes.javascript.Dashboard.lendDvd()));
 
   }
 
