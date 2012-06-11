@@ -1,0 +1,23 @@
+@(lendForm: Form[forms.LendForm], dvd: Dvd)
+
+@import helper._
+@import helper.twitterBootstrap._
+
+<link rel="stylesheet" href="@routes.Assets.at("chosen/chosen.css")" />
+
+<fieldset>
+  <legend>Lend Dvd: <i>@dvd.title</i></legend>
+  
+  <input type="hidden" id="lendDvdId" value="@dvd.id" />
+  
+  @defining(forms.LendForm.getOtherUsers()) { otherUsers =>
+    @if(otherUsers != null) {
+      @select(lendForm("userName"), options(otherUsers),'_label->"To user",'class-> "span5")
+    }
+  }
+  @inputText(lendForm("freeName"),'_label -> "To free name", 'class -> "span5")
+  
+</fieldset>
+
+<script src="@routes.Assets.at("chosen/chosen.jquery.min.js")" type="text/javascript"></script>
+<script src="@routes.Assets.at("javascripts/lendDvd.js")" type="text/javascript"></script>
