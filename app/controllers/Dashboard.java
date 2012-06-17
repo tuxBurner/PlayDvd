@@ -228,9 +228,9 @@ public class Dashboard extends Controller {
    * 
    * @return
    */
-  public static Result gravatar() {
+  public static Result gravatar(final Integer size, final String userName) {
 
-    final String ownerName = Controller.ctx().session().get(Secured.AUTH_SESSION);
+    final String ownerName = (userName == null) ? Controller.ctx().session().get(Secured.AUTH_SESSION) : userName;
     final User userByName = User.getUserByName(ownerName);
 
     if (userByName == null) {
@@ -238,7 +238,7 @@ public class Dashboard extends Controller {
     }
 
     final Gravatar gravatar = new Gravatar();
-    gravatar.setSize(16);
+    gravatar.setSize(size);
     gravatar.setRating(GravatarRating.GENERAL_AUDIENCES);
     gravatar.setDefaultImage(GravatarDefaultImage.IDENTICON);
     final byte[] jpg = gravatar.download(userByName.email);

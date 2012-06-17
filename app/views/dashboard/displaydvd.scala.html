@@ -40,7 +40,12 @@
     
     <div class="row-fluid">
       <label class="span1">Owner:</label>
-      <span><a href="@routes.ListDvds.listByUser(dvd.dvdForm.ownerName,0)">@dvd.dvdForm.ownerName</a></span>
+      <span>
+        <a href="@routes.ListDvds.listByUser(dvd.dvdForm.ownerName,0)">
+          <img src="@routes.Dashboard.gravatar(50,dvd.dvdForm.ownerName)" />
+          @dvd.dvdForm.ownerName
+        </a>
+      </span>
     </div>
     
     @if(dvd.borrowedBy != null) {
