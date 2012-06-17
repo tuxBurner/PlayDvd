@@ -25,9 +25,13 @@
           @if(dvdPage.page.hasPrev) {
             <li><a href="@routes.ListDvds.listdvds(dvdPage.page.getPageIndex-1)">Prev</a></li>
           }
-          @for(idx <- 1 to dvdPage.page.getTotalPageCount) {
-            <li @if((idx-1) == dvdPage.page.getPageIndex){class="active"}>
-              <a href="@routes.ListDvds.listdvds(idx-1)">@idx</a>
+          @for(nav <- dvdPage.nav) {
+            <li @if((nav.idx) == dvdPage.page.getPageIndex){class="active"}>
+            @if(nav.idx == null) {
+              <a href="#">@nav.displayVal</a>
+            } else {
+              <a  href="@routes.ListDvds.listdvds(nav.idx)">@nav.displayVal</a>
+            }
             </li>
           }
           
