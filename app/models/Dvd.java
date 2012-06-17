@@ -242,6 +242,12 @@ public class Dvd extends Model {
     return Dvd.getByDefaultPaging(Dvd.find.where().eq("owner.userName", username), pageNr);
   }
 
+  /**
+   * Gets all dvds which fit into the Filter int the {@link DvdListFrom}
+   * 
+   * @param listFrom
+   * @return
+   */
   public static Page<Dvd> getDvdsByForm(final DvdListFrom listFrom) {
     final ExpressionList<Dvd> where = Dvd.find.where();
 
@@ -255,6 +261,10 @@ public class Dvd extends Model {
 
     if (StringUtils.isEmpty(listFrom.userName) == false) {
       where.eq("owner.userName", listFrom.userName);
+
+      if (listFrom.lendDvd == true) {
+        where.isNotNull("borrowDate");
+      }
     }
 
     return Dvd.getByDefaultPaging(where, listFrom.currentPage);

@@ -20,6 +20,7 @@ GET     /dvds                       controllers.ListDvds.listdvds(pageNr: Intege
 GET     /dvds/all                   controllers.ListDvds.listAlldvds()
 GET     /dvds/by/Genre/:genreName   controllers.ListDvds.listByGenre(genreName: String,pageNr: Integer ?= 0)
 GET     /dvds/by/user/:userName     controllers.ListDvds.listByUser(userName: String,pageNr: Integer ?= 0)
+GET     /dvds/lend                  controllers.ListDvds.listLendDvd()
 GET     /dvds/search                controllers.ListDvds.searchDvd()
 
 

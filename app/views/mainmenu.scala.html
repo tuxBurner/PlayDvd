@@ -25,6 +25,7 @@
         <ul class="dropdown-menu">
           <li><a class="dropdown-toggle" href="@routes.ListDvds.listAlldvds()"><i class="icon-list-alt"></i>List All</a></li>
           <li><a class="dropdown-toggle" href="@routes.ListDvds.listByUser(Controller.ctx().session().get(Secured.AUTH_SESSION),0)"><i class="icon-user"></i>List Own</a></li>
+          <li><a class="dropdown-toggle" href="@routes.ListDvds.listLendDvd()"><i class="icon-user"></i>List Lend</a></li>
           <li id="genreMenuReplace"></li>
         </ul>
       </li>

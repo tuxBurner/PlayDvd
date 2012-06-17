@@ -34,6 +34,11 @@ public class DvdListFrom {
   public String userName = null;
 
   /**
+   * If set to true and username is set only lend dvds will be shown
+   */
+  public boolean lendDvd = false;
+
+  /**
    * Gets the current search form from the cache if the cache is empty a new one
    * is created
    * 
