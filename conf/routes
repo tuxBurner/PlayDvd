@@ -9,6 +9,7 @@ GET     /                           controllers.Application.index()
 GET     /login                      controllers.Application.login()
 POST    /login                      controllers.Application.authenticate()
 GET     /logout                     controllers.Application.logout()
+GET     /profile                    controllers.Dashboard.profile()
 
 # Register
 GET     /register                   controllers.Application.register()
@@ -24,7 +25,6 @@ GET     /dvds/search                controllers.ListDvds.searchDvd()
 
 GET     /genremenu                         controllers.Dashboard.menuGenres()
 GET     /image/:dvdId/:imgType/:imgSize    controllers.Dashboard.streamImage(dvdId: Long, imgType: String, imgSize: String)
-
 GET     /gravatar/:userName                controllers.Dashboard.gravatar(size: Integer, userName: String)
 
 

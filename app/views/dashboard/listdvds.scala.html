@@ -28,7 +28,7 @@
           @for(nav <- dvdPage.nav) {
             <li @if((nav.idx) == dvdPage.page.getPageIndex){class="active"}>
             @if(nav.idx == null) {
-              <a href="#">@nav.displayVal</a>
+              <a href="#" class="disabled">@nav.displayVal</a>
             } else {
               <a  href="@routes.ListDvds.listdvds(nav.idx)">@nav.displayVal</a>
             }

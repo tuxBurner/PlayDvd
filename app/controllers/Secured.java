@@ -1,6 +1,7 @@
 package controllers;
 
 import models.User;
+import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
@@ -16,9 +17,12 @@ public class Secured extends Security.Authenticator {
 
   public static final String AUTH_SESSION = "email";
 
+  public static String getUsername() {
+    return Controller.ctx().session().get(Secured.AUTH_SESSION);
+  }
+
   @Override
   public String getUsername(final Context ctx) {
-
     final String username = ctx.session().get(Secured.AUTH_SESSION);
 
     if (username != null) {
