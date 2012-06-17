@@ -5,7 +5,8 @@
 @menuContent = {
   <div class="btn-group pull-right">
     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-      <i class="icon-user"></i> @Controller.ctx().session().get(Secured.AUTH_SESSION)
+      <img src="@routes.Dashboard.gravatar()" />
+      @Controller.ctx().session().get(Secured.AUTH_SESSION)
       <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">

@@ -24,6 +24,7 @@ GET     /dvds/search                controllers.ListDvds.searchDvd()
 
 GET     /genremenu                         controllers.Dashboard.menuGenres()
 GET     /image/:dvdId/:imgType/:imgSize    controllers.Dashboard.streamImage(dvdId: Long, imgType: String, imgSize: String)
+GET     /gravatar                          controllers.Dashboard.gravatar()
 
 # Display the Dvd
 GET     /showdvd/:dvdId              controllers.Dashboard.displayDvd(dvdId: Long)

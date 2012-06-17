@@ -15,7 +15,8 @@ object ApplicationBuild extends Build {
       "commons-collections" % "commons-collections" % "3.2.1",
       "com.github.twitter" % "bootstrap" % "2.0.3",
       "com.jquery" % "jquery" % "1.7.1",
-      "com.google.code.gson" % "gson" % "2.2.1"
+      "com.google.code.gson" % "gson" % "2.2.1",
+      "br.com.objectos" % "jgravatar" % "1.0.1-SNAPSHOT"
     )
 
     val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA).settings(

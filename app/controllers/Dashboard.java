@@ -9,11 +9,16 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-
+import jgravatar.Gravatar;
+import jgravatar.GravatarDefaultImage;
+import jgravatar.GravatarRating;
 import models.Dvd;
 import models.DvdAttibute;
 import models.EAttributeType;
+import models.User;
+
+import org.apache.commons.lang.StringUtils;
+
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -25,7 +30,6 @@ import views.html.genremenu;
 import views.html.dashboard.displaydvd;
 import views.html.dashboard.dvdform;
 import views.html.dashboard.lendform;
-
 import forms.DvdForm;
 import forms.InfoDvd;
 import forms.LendForm;
@@ -217,6 +221,29 @@ public class Dashboard extends Controller {
       return Results.ok(file);
     }
     return Results.ok();
+  }
+
+  /**
+   * Gets the gravatar for the user
+   * 
+   * @return
+   */
+  public static Result gravatar() {
+
+    final String ownerName = Controller.ctx().session().get(Secured.AUTH_SESSION);
+    final User userByName = User.getUserByName(ownerName);
+
+    if (userByName == null) {
+      return Results.ok();
+    }
+
+    final Gravatar gravatar = new Gravatar();
+    gravatar.setSize(16);
+    gravatar.setRating(GravatarRating.GENERAL_AUDIENCES);
+    gravatar.setDefaultImage(GravatarDefaultImage.IDENTICON);
+    final byte[] jpg = gravatar.download(userByName.email);
+    return Results.ok(jpg);
+
   }
 
 }
