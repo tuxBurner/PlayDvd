@@ -51,7 +51,11 @@
     @if(dvd.borrowedBy != null) {
       <div class="row-fluid">
         <label class="span1">Borrowed by:</label>
-        <span>@dvd.borrowedBy (@dvd.borrowedOn)</span>
+        <span>
+          <img src="@routes.Dashboard.gravatar(50,dvd.borrowedBy)" />
+          @dvd.borrowedBy 
+          (@dvd.borrowedOn)
+        </span>
       </div>
     }
     

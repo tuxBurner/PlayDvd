@@ -54,7 +54,14 @@
           }
         
           <div class="caption">  
-          <h5  >@dvd.title (@dvd.owner.userName)</h5>
+          <h5>
+            @dvd.title (@dvd.owner.userName)
+            @if(dvd.borrower != null || dvd.borrowerName != null){
+              -> @if(dvd.borrower != null){ @dvd.borrower.userName } else { @dvd.borrowerName }
+            }
+          </h5>
+          
+          
           
           <div class="btn-group">
             <a class="btn displayInfoButton" href="#" data-dvd-id="@dvd.id"><i class="icon-info-sign"></i></a>
