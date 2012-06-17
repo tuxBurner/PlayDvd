@@ -27,9 +27,8 @@ import play.mvc.Security;
 import tmdb.GrabberException;
 import tmdb.InfoGrabber;
 import views.html.genremenu;
-import views.html.dashboard.displaydvd;
-import views.html.dashboard.dvdform;
-import views.html.dashboard.lendform;
+import views.html.dashboard.*;
+
 import forms.DvdForm;
 import forms.InfoDvd;
 import forms.LendForm;
@@ -244,6 +243,16 @@ public class Dashboard extends Controller {
     final byte[] jpg = gravatar.download(userByName.email);
     return Results.ok(jpg);
 
+  }
+
+  /**
+   * This displays the user a select with dvds stored in the database so when he
+   * wants to add a new dvd he can select one to prefill the informations
+   */
+  public static Result listExistingDvds(final Long dvdToEdit) {
+    final List<Dvd> dvds = Dvd.listByDistinctTitle();
+
+    return Results.ok(listExistingDvds.render(dvds, dvdToEdit));
   }
 
   /**

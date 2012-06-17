@@ -50,12 +50,50 @@ $(function() {
 		modal: true
 	});
 	
+	$('#existingDvdDialog').dialog({
+		height: '450',
+		width: '660',
+		top: 60,
+		autoOpen: false,
+		modal: true
+	});
+	
 	
 	/**
 	 * clicking on the tmdb button opens an popup where the user can search for the movie online
 	 */
 	$('#tmdbButton').click(function() {
 		searchTmdb($('#title').val(),$('#dvdId').val());
+	});
+	
+	/**
+	 * clicking on the existing dvd button creates a popup which lets the user select a dvd from a dropdown
+	 */
+	$('#existingDvdButton').click(function() {
+		
+		showWaitDiaLog();
+		
+		var dvdIdToEdit =  $('#dvdId').val();
+		if(dvdIdToEdit == null) {
+			dvdIdToEdit = 0;
+		}
+		
+		
+		pAjax(jsRoutes.controllers.Dashboard.listExistingDvds(dvdIdToEdit),null,
+				  function(data){
+					$('#existingDvdDialog .dialogContent').html(data);
+					$('#existingDvdDialog').dialog( "option", "buttons",[{
+					      text: 'Ok',
+			              click: function() {
+			            	 $('#selectExistingDvdForm').submit();
+			              }
+					    }]).dialog('open');
+					closeWaitDiaLog();
+				  },
+				  function(err) {
+					console.error(err);
+					closeWaitDiaLog();
+				});
 	});
 	
 	/**

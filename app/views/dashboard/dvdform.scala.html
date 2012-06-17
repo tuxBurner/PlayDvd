@@ -38,6 +38,10 @@
      
          @inputText(dvdForm("title"),'_label -> "Title", '_showConstraints -> true, 'placeholder -> "Enter Dvd title", 'class -> "span10")
          <button class="btn btn-info" id="tmdbButton" type="button"><i class="icon-film"></i> Look up with TMDB</button>
+         
+         <button class="btn btn-info" id="existingDvdButton" type="button"><i class="icon-copy"></i> From existing DVD</button>
+         
+         
          <hr />
          
          @textarea(dvdForm("plot"),'_label -> "Plot",'class -> "span10", 'rows -> "10")
@@ -101,6 +105,13 @@
 
   <!-- TMDB DIALOG -->
   <div id="tmdbDialog" title="Movie info from tmdb">
+    <div class="dialogContent">
+      
+    </div>
+  </div>
+  
+  <!-- EXISTING DIALOG -->
+  <div id="existingDvdDialog" title="Movie info from existing Dvd">
     <div class="dialogContent">
       
     </div>

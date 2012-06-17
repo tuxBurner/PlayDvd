@@ -1,0 +1,20 @@
+@(dvds: List[Dvd],dvdToEditId: Long)
+
+@import helper._
+
+@form(routes.Dashboard.addDvdByTmdbId("ADD"),'class -> "vertical",'id -> "selectExistingDvdForm") {
+  <input type="hidden" name="dvdToEditId"  value="@dvdToEditId" />
+
+  <select id="existingDvdSelect" name="dvdToCopy" class="span8">
+    @for(dvd <- dvds) {
+      <option value="@dvd.id">@dvd.title</option>
+    }
+  </select>
+  
+}
+
+<script>
+  $(function(){
+    $('#existingDvdSelect').chosen();
+  });
+</script>

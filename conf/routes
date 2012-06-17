@@ -40,7 +40,9 @@ POST    /lendDvd/:dvdId              controllers.Dashboard.lendDvd(dvdId: Long)
 GET    /dvd/add                  controllers.Dashboard.showAddDvd()
 POST   /dvd/addDvdByTmdb/:mode   controllers.Dashboard.addDvdByTmdbId(mode: String)
 POST   /dvd/:mode                controllers.Dashboard.addDvd(mode: String)
-GET    /dvd/edit/:dvdId          controllers.Dashboard.showEditDvd(dvdId: Long) 
+GET    /dvd/edit/:dvdId          controllers.Dashboard.showEditDvd(dvdId: Long)
+GET    /dvd/listFormDvds         controllers.Dashboard.listExistingDvds(dvdToEdit: Long ?= 0) 
+
 
 # TMDB 
 GET    /tmdb/search                 controllers.Tmdb.searchTmdb(searchTerm = "")

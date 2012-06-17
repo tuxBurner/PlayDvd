@@ -294,20 +294,6 @@ public class Dvd extends Model {
     return Dvd.getByDefaultPaging(Dvd.find.where(), pageNr);
   }
 
-  public static Page<Dvd> getSearchDvds(final Integer pageNr, final String searchString) {
-    return Dvd.getByDefaultPaging(Dvd.find.where().like("title", "%" + searchString + "%"), pageNr);
-  }
-
-  /**
-   * Gets all {@link Dvd} which have the ginven genre as {@link DvdAttibute}
-   * 
-   * @param genrePk
-   * @return
-   */
-  public static Page<Dvd> getByGenre(final String genreName, final Integer pageNr) {
-    return Dvd.getByDefaultPaging(Dvd.find.where().eq("attributes.value", genreName).eq("attributes.attributeType", EAttributeType.GENRE), pageNr);
-  }
-
   /**
    * This does all the default paging etc stuff
    * 
@@ -359,5 +345,15 @@ public class Dvd extends Model {
     }
 
     Logger.error("Could not find dvd: " + dvdId + " for owner: " + ownerName);
+  }
+
+  /**
+   * List all dvds selected distinct by title
+   * 
+   * @return
+   */
+  public static List<Dvd> listByDistinctTitle() {
+    return Dvd.find.setDistinct(true).select("id,title").order("title asc").findList();
+
   }
 }
