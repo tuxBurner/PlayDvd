@@ -16,7 +16,7 @@ object ApplicationBuild extends Build {
       "com.github.twitter" % "bootstrap" % "2.0.3",
       "com.jquery" % "jquery" % "1.7.1",
       "com.google.code.gson" % "gson" % "2.2.1",
-      "br.com.objectos" % "jgravatar" % "1.0.1-SNAPSHOT"
+      "com.github.ralfebert" % "jgravatar" % "1.0-SNAPSHOT"
     )
 
     val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA).settings(
