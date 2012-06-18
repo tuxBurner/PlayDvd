@@ -58,3 +58,7 @@ ul.tags {
 .selfBorrowed {
 	background-color: #F89406;
 }
+
+.pagination a:hover, .pagination a {
+	background-color: #C3C3C3;
+}
