@@ -16,12 +16,14 @@ GET     /register                   controllers.Application.register()
 POST    /register                   controllers.Application.registeruser()
 
 # DVD Lists
-GET     /dvds                       controllers.ListDvds.listdvds(pageNr: Integer ?= null)
-GET     /dvds/all                   controllers.ListDvds.listAlldvds()
-GET     /dvds/by/Genre/:genreName   controllers.ListDvds.listByGenre(genreName: String,pageNr: Integer ?= 0)
-GET     /dvds/by/user/:userName     controllers.ListDvds.listByUser(userName: String,pageNr: Integer ?= 0)
-GET     /dvds/lend                  controllers.ListDvds.listLendDvd()
-GET     /dvds/search                controllers.ListDvds.searchDvd()
+GET     /dvds                             controllers.ListDvds.listdvds(pageNr: Integer ?= null)
+GET     /dvds/all                         controllers.ListDvds.listAlldvds()
+GET     /dvds/by/genre/:genreName         controllers.ListDvds.listByGenre(genreName: String,pageNr: Integer ?= 0)
+GET     /dvds/by/actor/:actorName         controllers.ListDvds.listByActor(actorName: String)
+GET     /dvds/by/director/:directorName   controllers.ListDvds.listByDirector(directorName: String)
+GET     /dvds/by/user/:userName           controllers.ListDvds.listByUser(userName: String,pageNr: Integer ?= 0)
+GET     /dvds/lend                        controllers.ListDvds.listLendDvd()
+GET     /dvds/search                      controllers.ListDvds.searchDvd()
 
 
 GET     /genremenu                         controllers.Dashboard.menuGenres()

@@ -29,6 +29,16 @@ public class DvdListFrom {
   public String genre = null;
 
   /**
+   * If the user wants to see movies by an actor
+   */
+  public String actor = null;
+
+  /**
+   * If the user wants to see a movie by a director
+   */
+  public String director = null;
+
+  /**
    * If the user wants to see dvds from a user
    */
   public String userName = null;

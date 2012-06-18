@@ -259,6 +259,14 @@ public class Dvd extends Model {
       where.eq("attributes.value", listFrom.genre).eq("attributes.attributeType", EAttributeType.GENRE);
     }
 
+    if (StringUtils.isEmpty(listFrom.actor) == false) {
+      where.eq("attributes.value", listFrom.actor).eq("attributes.attributeType", EAttributeType.ACTOR);
+    }
+
+    if (StringUtils.isEmpty(listFrom.director) == false) {
+      where.eq("attributes.value", listFrom.director).eq("attributes.attributeType", EAttributeType.DIRECTOR);
+    }
+
     if (StringUtils.isEmpty(listFrom.userName) == false) {
       where.eq("owner.userName", listFrom.userName);
 

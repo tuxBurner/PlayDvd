@@ -76,7 +76,7 @@
     
     <div class="row-fluid">
       <label class="span1">Director:</label>
-      <span>@dvd.dvdForm.director</span>
+      <span><a href="@routes.ListDvds.listByDirector(dvd.dvdForm.director)">@dvd.dvdForm.director</a></span>
     </div>
     
     <hr />
@@ -95,7 +95,7 @@
       <dt>Actors:</dt>
       <dl>
         @for(actor <- dvd.dvdForm.actors) {
-          <dd>@actor</dd>
+          <dd><a href="@routes.ListDvds.listByActor(actor)">@actor<a></a></dd>
         }
       </dl>
     </div>

@@ -77,6 +77,40 @@ public class ListDvds extends Controller {
   }
 
   /**
+   * List the dvds by the actor
+   * 
+   * @param actorName
+   * @return
+   */
+  public static Result listByActor(final String actorName) {
+    if (StringUtils.isEmpty(actorName)) {
+      return Results.internalServerError("No actorname given");
+    }
+
+    final DvdListFrom dvdListFrom = new DvdListFrom();
+    dvdListFrom.actor = actorName;
+
+    return ListDvds.returnList(dvdListFrom);
+  }
+
+  /**
+   * Lists all {@link Dvd}s by the given director
+   * 
+   * @param directorName
+   * @return
+   */
+  public static Result listByDirector(final String directorName) {
+    if (StringUtils.isEmpty(directorName)) {
+      return Results.internalServerError("No directorname given");
+    }
+
+    final DvdListFrom dvdListFrom = new DvdListFrom();
+    dvdListFrom.director = directorName;
+
+    return ListDvds.returnList(dvdListFrom);
+  }
+
+  /**
    * Lists all the dvd the user lend to somebody
    * 
    * @return
