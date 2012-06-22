@@ -9,13 +9,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -44,31 +41,8 @@ public class Dvd extends Model {
   @Id
   public Long id;
 
-  @Required
-  public String title;
-
-  public Boolean hasPoster;
-
-  public Boolean hasBackdrop;
-
-  @Lob
-  public String description;
-
-  @Required
-  @Column(nullable = false)
-  public Integer year;
-
-  public Integer runtime;
-
-  @Required
-  @Column(nullable = false)
-  public Long createdDate;
-
   @ManyToOne
   public User owner;
-
-  @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "dvds")
-  public Set<DvdAttibute> attributes;
 
   @OneToOne
   public User borrower;
@@ -89,9 +63,20 @@ public class Dvd extends Model {
   public Integer hullNr;
 
   /**
+   * The movie which is on the dvd
+   */
+  @ManyToOne(fetch = FetchType.LAZY)
+  @Column(nullable = false)
+  public Movie movie;
+
+  /**
    * The finder for the database for searching in the database
    */
   public static Finder<Long, Dvd> find = new Finder<Long, Dvd>(Long.class, Dvd.class);
+
+  @Required
+  @Column(nullable = false)
+  public Long createdDate;
 
   /**
    * Persists the {@link Dvd} to the database
@@ -151,51 +136,58 @@ public class Dvd extends Model {
    */
   private static Dvd createOrUpdateFromForm(final DvdForm dvdForm, final Dvd dvd) throws Exception {
 
-    dvd.title = dvdForm.title;
-    dvd.description = dvdForm.plot;
-    dvd.year = dvdForm.year;
-    dvd.runtime = dvdForm.runtime;
+    if (dvd.movie == null) {
+      dvd.movie = new Movie();
+    }
+
+    dvd.movie.title = dvdForm.title;
+    dvd.movie.description = dvdForm.plot;
+    dvd.movie.year = dvdForm.year;
+    dvd.movie.runtime = dvdForm.runtime;
     dvd.hullNr = dvdForm.hullNr;
 
     Dvd dvdDb = null;
     if (dvd.id == null) {
       dvd.createdDate = new Date().getTime();
-      dvd.hasPoster = false;
-      dvd.hasBackdrop = false;
+      dvd.movie.hasPoster = false;
+      dvd.movie.hasBackdrop = false;
+      dvd.movie.save();
       dvdDb = Dvd.create(dvd);
     } else {
-      Ebean.deleteManyToManyAssociations(dvd, "attributes");
+      Ebean.deleteManyToManyAssociations(dvd.movie, "attributes");
       dvdDb = dvd;
     }
 
     // add the images if we have some :)
-    final Boolean newPoster = ImageHelper.createFileFromUrl(dvdDb.id, dvdForm.posterUrl, EImageType.POSTER, EImageSize.ORIGINAL);
-    if (dvdDb.hasPoster == false || dvdDb.hasPoster == null) {
-      dvdDb.hasPoster = newPoster;
+    final Boolean newPoster = ImageHelper.createFileFromUrl(dvdDb.movie.id, dvdForm.posterUrl, EImageType.POSTER, EImageSize.ORIGINAL);
+    if (dvdDb.movie.hasPoster == false || dvdDb.movie.hasPoster == null) {
+      dvdDb.movie.hasPoster = newPoster;
     }
 
-    final Boolean newBackDrop = ImageHelper.createFileFromUrl(dvdDb.id, dvdForm.backDropUrl, EImageType.BACKDROP, EImageSize.ORIGINAL);
-    if (dvdDb.hasBackdrop == false || dvdDb.hasBackdrop == null) {
-      dvdDb.hasBackdrop = newBackDrop;
+    final Boolean newBackDrop = ImageHelper.createFileFromUrl(dvdDb.movie.id, dvdForm.backDropUrl, EImageType.BACKDROP, EImageSize.ORIGINAL);
+    if (dvdDb.movie.hasBackdrop == false || dvdDb.movie.hasBackdrop == null) {
+      dvdDb.movie.hasBackdrop = newBackDrop;
     }
+
+    dvd.movie.update();
 
     dvdDb.update();
 
-    dvdDb.attributes = new HashSet<DvdAttibute>();
+    dvdDb.movie.attributes = new HashSet<DvdAttibute>();
 
     // gather all the genres and add them to the dvd
     final Set<DvdAttibute> genres = DvdAttibute.gatherAndAddAttributes(new HashSet<String>(dvdForm.genres), EAttributeType.GENRE);
-    dvdDb.attributes.addAll(genres);
+    dvdDb.movie.attributes.addAll(genres);
 
     final Set<DvdAttibute> actors = DvdAttibute.gatherAndAddAttributes(new HashSet<String>(dvdForm.actors), EAttributeType.ACTOR);
-    dvdDb.attributes.addAll(actors);
+    dvdDb.movie.attributes.addAll(actors);
 
     Dvd.addSingleAttribute(dvdForm.director, EAttributeType.DIRECTOR, dvdDb);
     Dvd.addSingleAttribute(dvdForm.box, EAttributeType.BOX, dvdDb);
     Dvd.addSingleAttribute(dvdForm.collection, EAttributeType.COLLECTION, dvdDb);
 
     // save all the attributes to the database :)
-    dvdDb.saveManyToManyAssociations("attributes");
+    dvdDb.movie.saveManyToManyAssociations("attributes");
 
     return dvdDb;
   }
@@ -229,7 +221,7 @@ public class Dvd extends Model {
     final Set<String> attribute = new HashSet<String>();
     attribute.add(attrToAdd);
     final Set<DvdAttibute> dbAttrs = DvdAttibute.gatherAndAddAttributes(attribute, attributeType);
-    dvd.attributes.addAll(dbAttrs);
+    dvd.movie.attributes.addAll(dbAttrs);
   }
 
   /**
@@ -252,19 +244,19 @@ public class Dvd extends Model {
     final ExpressionList<Dvd> where = Dvd.find.where();
 
     if (StringUtils.isEmpty(listFrom.searchFor) == false) {
-      where.like("title", "%" + listFrom.searchFor + "%");
+      where.like("movie.title", "%" + listFrom.searchFor + "%");
     }
 
     if (StringUtils.isEmpty(listFrom.genre) == false) {
-      where.eq("attributes.value", listFrom.genre).eq("attributes.attributeType", EAttributeType.GENRE);
+      where.eq("movie.attributes.value", listFrom.genre).eq("movie.attributes.attributeType", EAttributeType.GENRE);
     }
 
     if (StringUtils.isEmpty(listFrom.actor) == false) {
-      where.eq("attributes.value", listFrom.actor).eq("attributes.attributeType", EAttributeType.ACTOR);
+      where.eq("movie.attributes.value", listFrom.actor).eq("movie.attributes.attributeType", EAttributeType.ACTOR);
     }
 
     if (StringUtils.isEmpty(listFrom.director) == false) {
-      where.eq("attributes.value", listFrom.director).eq("attributes.attributeType", EAttributeType.DIRECTOR);
+      where.eq("movie.attributes.value", listFrom.director).eq("movie.attributes.attributeType", EAttributeType.DIRECTOR);
     }
 
     if (StringUtils.isEmpty(listFrom.userName) == false) {
@@ -287,7 +279,7 @@ public class Dvd extends Model {
    * @return
    */
   public static Dvd getDvdForUser(final Long id, final String username) {
-    final Dvd userDvd = Dvd.find.where().eq("owner.userName", username).eq("id", id).findUnique();
+    final Dvd userDvd = Dvd.find.fetch("movie").where().eq("owner.userName", username).eq("id", id).findUnique();
     return userDvd;
 
   }
@@ -314,7 +306,7 @@ public class Dvd extends Model {
       pageNr = 0;
     }
 
-    final Page<Dvd> page = expressionList.orderBy("createdDate desc").fetch("owner", "userName").fetch("borrower", "userName").findPagingList(Dvd.DEFAULT_DVDS_PER_PAGE).getPage(pageNr);
+    final Page<Dvd> page = expressionList.orderBy("createdDate desc").fetch("owner", "userName").fetch("borrower", "userName").fetch("movie").findPagingList(Dvd.DEFAULT_DVDS_PER_PAGE).getPage(pageNr);
     return page;
   }
 

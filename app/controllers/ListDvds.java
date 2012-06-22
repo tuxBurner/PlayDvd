@@ -149,7 +149,7 @@ public class ListDvds extends Controller {
 
     final String username = Controller.request().username();
     final Page<Dvd> dvdsByForm = Dvd.getDvdsByForm(dvdListFrom);
-    return Results.ok(listdvds.render(new DvdPage(dvdsByForm), username));
+    return Results.ok(listdvds.render(new DvdPage(dvdsByForm), dvdListFrom, username));
   }
 
 }

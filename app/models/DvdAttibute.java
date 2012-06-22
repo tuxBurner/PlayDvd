@@ -13,8 +13,6 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-import com.google.gson.annotations.Expose;
-
 import play.db.ebean.Model;
 
 /**
@@ -46,7 +44,7 @@ public class DvdAttibute extends Model {
   public String value;
 
   @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  public Set<Dvd> dvds;
+  public Set<Movie> movies;
 
   /**
    * finds all {@link DvdAttibute} by the given values and the given

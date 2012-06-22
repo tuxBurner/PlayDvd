@@ -16,8 +16,8 @@ public class CollectionDvd {
   public Long id;
 
   public CollectionDvd(final Dvd dvd) {
-    hasPoster = dvd.hasPoster;
-    title = dvd.title;
+    hasPoster = dvd.movie.hasPoster;
+    title = dvd.movie.title;
     id = dvd.id;
   }
 

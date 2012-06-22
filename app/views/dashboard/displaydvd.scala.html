@@ -111,7 +111,7 @@
 
 <script type="text/javascript">
 @if(dvd.dvdForm.hasBackdrop != null && dvd.dvdForm.hasBackdrop == true) {
-  $('#dvdInfoDialog').css('background-image',"url('@routes.Dashboard.streamImage(dvd.dvdForm.dvdId,"BACKDROP","ORIGINAL")')");
+  $('#dvdInfoDialog').css('background-image',"url('@routes.Dashboard.streamImage(dvd.dvdForm.movieId,"BACKDROP","ORIGINAL")')");
 } else {
 	$('#dvdInfoDialog').css('background-image','none');
 }

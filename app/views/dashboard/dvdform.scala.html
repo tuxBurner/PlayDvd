@@ -78,13 +78,13 @@
          <label for="poster">Poster</label>
          <input type="file" name="posterFile">
          @inputText(dvdForm("posterUrl"),'_label -> "Poster url",'placeholder -> "Url to a poster image")
-        <img id="poster_preview" class="caption" title="Currently selected poster" src="@if(mode == Dashboard.DVD_FORM_ADD_MODE) {http://placehold.it/92x138/4D99E0/ffffff.png&text=No%20Poster} else { @routes.Dashboard.streamImage(dvdForm.get().dvdId,"POSTER","SMALL") }" width="92" height="138" />  
+        <img id="poster_preview" class="caption" title="Currently selected poster" src="@if(mode == Dashboard.DVD_FORM_ADD_MODE) {http://placehold.it/92x138/4D99E0/ffffff.png&text=No%20Poster} else { @routes.Dashboard.streamImage(dvdForm.get().movieId,"POSTER","SMALL") }" width="92" height="138" />  
          
           
          <label for="backDrop">Backdrop</label>
          <input type="file" name="backDropFile">
          @inputText(dvdForm("backDropUrl"),'_label -> "Back Drop url",'placeholder -> "Url to a back drop image")
-         <img  class="caption" id="backDrop_preview" title="Currently selected backdrop" src="@if(mode == Dashboard.DVD_FORM_ADD_MODE) {http://placehold.it/291x136/4D99E0/ffffff.png&text=No%20Backdrop} else { @routes.Dashboard.streamImage(dvdForm.get().dvdId,"BACKDROP","SMALL") }" width="291" height="163" />
+         <img  class="caption" id="backDrop_preview" title="Currently selected backdrop" src="@if(mode == Dashboard.DVD_FORM_ADD_MODE) {http://placehold.it/291x136/4D99E0/ffffff.png&text=No%20Backdrop} else { @routes.Dashboard.streamImage(dvdForm.get().movieId,"BACKDROP","SMALL") }" width="291" height="163" />
        
        
        

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import models.Dvd;
+import models.Movie;
 import models.User;
 
 import org.apache.commons.io.FileUtils;
@@ -45,11 +46,12 @@ public class Global extends GlobalSettings {
               final String string = readLines.get(i);
               final String[] split = string.split(",");
               final Dvd dvd = new Dvd();
+              dvd.movie = new Movie();
               dvd.createdDate = new Date().getTime();
               dvd.owner = user;
-              dvd.title = split[1].trim();
-              dvd.hasPoster = false;
-              dvd.hasBackdrop = false;
+              dvd.movie.title = split[1].trim();
+              dvd.movie.hasPoster = false;
+              dvd.movie.hasBackdrop = false;
               final String trimToNull = StringUtils.trimToNull(split[0]);
               if (StringUtils.isEmpty(trimToNull) == false && StringUtils.isNumeric(trimToNull)) {
                 dvd.hullNr = Integer.valueOf(trimToNull);
@@ -58,12 +60,12 @@ public class Global extends GlobalSettings {
               if (split.length == 3) {
                 final String trimToNull2 = StringUtils.trimToNull(split[2]);
                 if (StringUtils.isEmpty(trimToNull2) == false && StringUtils.isNumeric(trimToNull2)) {
-                  dvd.year = Integer.valueOf(trimToNull2);
+                  dvd.movie.year = Integer.valueOf(trimToNull2);
                 } else {
-                  dvd.year = 2012;
+                  dvd.movie.year = 2012;
                 }
               } else {
-                dvd.year = 2012;
+                dvd.movie.year = 2012;
               }
 
               dvd.save();

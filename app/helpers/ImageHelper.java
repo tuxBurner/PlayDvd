@@ -16,109 +16,101 @@ import org.apache.commons.lang.StringUtils;
 
 public class ImageHelper {
 
-	private static File IMAGE_ROOT = new File("images");
+  private static File IMAGE_ROOT = new File("images");
 
-	/**
-	 * Loads the image from the given url and saves it to the filesystem
-	 * 
-	 * @param dvd
-	 * @param urlStr
-	 * @param type
-	 * @return
-	 */
-	public static boolean createFileFromUrl(final Long dvdId,
-			final String urlStr, final EImageType imageType,
-			final EImageSize imageSize) {
+  /**
+   * Loads the image from the given url and saves it to the filesystem
+   * 
+   * @param dvd
+   * @param urlStr
+   * @param type
+   * @return
+   */
+  public static boolean createFileFromUrl(final Long dvdId, final String urlStr, final EImageType imageType, final EImageSize imageSize) {
 
-		if (StringUtils.isEmpty(urlStr) == true) {
-			return false;
-		}
+    if (StringUtils.isEmpty(urlStr) == true) {
+      return false;
+    }
 
-		try {
-			URL url = new URL(urlStr);
-			final InputStream is = url.openStream();
+    try {
+      final URL url = new URL(urlStr);
+      final InputStream is = url.openStream();
 
-			final File file = createFile(dvdId, imageType, imageSize);
+      final File file = ImageHelper.createFile(dvdId, imageType, imageSize);
 
-			if (file.exists() == true) {
-				file.delete();
-				
-				final IOFileFilter fileFilter = new PrefixFileFilter(dvdId+"_"+imageType.name()); 
-				// delete the thumbnails :)
-				final Iterator<File> iterateFiles = FileUtils.iterateFiles(IMAGE_ROOT, fileFilter , null);
-				while(iterateFiles.hasNext()) {
-					iterateFiles.next().delete();
-				}
-			}
+      if (file.exists() == true) {
+        file.delete();
 
-			final FileOutputStream fos = new FileOutputStream(file);
+        final IOFileFilter fileFilter = new PrefixFileFilter(dvdId + "_" + imageType.name());
+        // delete the thumbnails :)
+        final Iterator<File> iterateFiles = FileUtils.iterateFiles(ImageHelper.IMAGE_ROOT, fileFilter, null);
+        while (iterateFiles.hasNext()) {
+          iterateFiles.next().delete();
+        }
+      }
 
-			byte[] buffer = new byte[4096];
-			int bytesRead;
-			while ((bytesRead = is.read(buffer)) != -1) {
-				fos.write(buffer, 0, bytesRead);
-			}
-			fos.close();
-			is.close();
+      final FileOutputStream fos = new FileOutputStream(file);
 
-			return true;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
+      final byte[] buffer = new byte[4096];
+      int bytesRead;
+      while ((bytesRead = is.read(buffer)) != -1) {
+        fos.write(buffer, 0, bytesRead);
+      }
+      fos.close();
+      is.close();
 
-	}
+      return true;
+    } catch (final Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+      return false;
+    }
 
-	public static File getImageFile(final Long dvdId,
-			final EImageType imageType, final EImageSize imageSize) {
-		final File file = createFile(dvdId, imageType, imageSize);
+  }
 
-		// if this is not the original one we will creat one :)
-		if (file.exists() == false
-				&& imageSize.equals(EImageSize.ORIGINAL) == false) {
-			// first we load the original one
-			final File origFile = createFile(dvdId, imageType,
-					EImageSize.ORIGINAL);
-			
-			if(origFile.exists() == false) {
-				return null;
-			}
-			
-			resizeImage(origFile, file, imageSize);
-		}
+  public static File getImageFile(final Long dvdId, final EImageType imageType, final EImageSize imageSize) {
+    final File file = ImageHelper.createFile(dvdId, imageType, imageSize);
 
-		if (file.exists() == true) {
-			return file;
-		} else {
-			return null;
-		}
+    // if this is not the original one we will creat one :)
+    if (file.exists() == false && imageSize.equals(EImageSize.ORIGINAL) == false) {
+      // first we load the original one
+      final File origFile = ImageHelper.createFile(dvdId, imageType, EImageSize.ORIGINAL);
 
-	}
+      if (origFile.exists() == false) {
+        return null;
+      }
 
-	/**
-	 * resizes the image
-	 * 
-	 * @param origImgFile
-	 * @param destSize
-	 */
-	private static void resizeImage(final File origImgFile,
-			final File destImgFile, final EImageSize destSize) {
-		
-		try {
-			Thumbnails.of(origImgFile).size(destSize.getWidth(), destSize.getHeight()).toFile(destImgFile);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
+      ImageHelper.resizeImage(origFile, file, imageSize);
+    }
 
-	private static File createFile(final Long dvdId,
-			final EImageType imageType, final EImageSize imageSize) {
-		final File file = new File(IMAGE_ROOT, dvdId + "_" + imageType.name()
-				+ "_" + imageSize.name() + ".jpg");
-		return file;
-	}
+    if (file.exists() == true) {
+      return file;
+    } else {
+      return null;
+    }
+
+  }
+
+  /**
+   * resizes the image
+   * 
+   * @param origImgFile
+   * @param destSize
+   */
+  private static void resizeImage(final File origImgFile, final File destImgFile, final EImageSize destSize) {
+
+    try {
+      Thumbnails.of(origImgFile).size(destSize.getWidth(), destSize.getHeight()).toFile(destImgFile);
+    } catch (final IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+
+  }
+
+  private static File createFile(final Long dvdId, final EImageType imageType, final EImageSize imageSize) {
+    final File file = new File(ImageHelper.IMAGE_ROOT, dvdId + "_" + imageType.name() + "_" + imageSize.name() + ".jpg");
+    return file;
+  }
 
 }

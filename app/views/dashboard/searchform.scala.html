@@ -1,0 +1,13 @@
+@(dvdListForm: forms.DvdListFrom)
+
+<div class="row">
+  <form class="well horizontal">
+    @if(dvdListForm.genre != null) {
+     ??Genre?? @dvdListForm.genre
+    }
+    
+    @if(dvdListForm.userName != null) {
+      ??Username?? @dvdListForm.userName
+    }
+  </form>
+</div>

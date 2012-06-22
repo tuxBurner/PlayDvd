@@ -26,6 +26,8 @@ public class DvdForm {
 
   public Long dvdId;
 
+  public Long movieId;
+
   @Required
   public String title;
 
@@ -69,17 +71,18 @@ public class DvdForm {
 
     final DvdForm dvdForm = new DvdForm();
 
+    dvdForm.movieId = dvd.movie.id;
     dvdForm.dvdId = dvd.id;
-    dvdForm.title = dvd.title;
-    dvdForm.year = dvd.year;
-    dvdForm.runtime = dvd.runtime;
-    dvdForm.plot = dvd.description;
+    dvdForm.title = dvd.movie.title;
+    dvdForm.year = dvd.movie.year;
+    dvdForm.runtime = dvd.movie.runtime;
+    dvdForm.plot = dvd.movie.description;
     dvdForm.hullNr = dvd.hullNr;
-    dvdForm.hasBackdrop = dvd.hasBackdrop;
-    dvdForm.hasPoster = dvd.hasPoster;
+    dvdForm.hasBackdrop = dvd.movie.hasBackdrop;
+    dvdForm.hasPoster = dvd.movie.hasPoster;
     dvdForm.ownerName = dvd.owner.userName;
 
-    final Set<DvdAttibute> attributes = dvd.attributes;
+    final Set<DvdAttibute> attributes = dvd.movie.attributes;
     for (final DvdAttibute dvdAttibute : attributes) {
       if (EAttributeType.GENRE.equals(dvdAttibute.attributeType)) {
         dvdForm.genres.add(dvdAttibute.value);

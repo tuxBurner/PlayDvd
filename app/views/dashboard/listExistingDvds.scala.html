@@ -7,7 +7,7 @@
 
   <select id="existingDvdSelect" name="dvdToCopy" class="span8">
     @for(dvd <- dvds) {
-      <option value="@dvd.id">@dvd.title</option>
+      <option value="@dvd.id">@dvd.movie.title</option>
     }
   </select>
   
