@@ -1,4 +1,4 @@
-@(dvds: List[Dvd],dvdToEditId: Long)
+@(movies: List[Movie],dvdToEditId: Long)
 
 @import helper._
 
@@ -6,8 +6,8 @@
   <input type="hidden" name="dvdToEditId"  value="@dvdToEditId" />
 
   <select id="existingDvdSelect" name="dvdToCopy" class="span8">
-    @for(dvd <- dvds) {
-      <option value="@dvd.id">@dvd.movie.title</option>
+    @for(movie <- movies) {
+      <option value="@movie.id">@movie.title</option>
     }
   </select>
   

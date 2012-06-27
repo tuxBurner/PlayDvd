@@ -79,7 +79,7 @@ $(function() {
 		}
 		
 		
-		pAjax(jsRoutes.controllers.Dashboard.listExistingDvds(dvdIdToEdit),null,
+		pAjax(jsRoutes.controllers.Dashboard.listExistingMovies(dvdIdToEdit),null,
 				  function(data){
 					$('#existingDvdDialog .dialogContent').html(data);
 					$('#existingDvdDialog').dialog( "option", "buttons",[{

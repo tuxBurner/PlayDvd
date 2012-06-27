@@ -1,5 +1,6 @@
 package models;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -48,5 +49,14 @@ public class Movie extends Model {
    * The finder for the database for searching in the database
    */
   public static Finder<Long, Movie> find = new Finder<Long, Movie>(Long.class, Movie.class);
+
+  /**
+   * List all movies orderd by the title only fetching id and title
+   * 
+   * @return
+   */
+  public static List<Movie> listByDistinctTitle() {
+    return Movie.find.select("id,title").order("title asc").findList();
+  }
 
 }

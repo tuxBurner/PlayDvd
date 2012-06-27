@@ -347,13 +347,4 @@ public class Dvd extends Model {
     Logger.error("Could not find dvd: " + dvdId + " for owner: " + ownerName);
   }
 
-  /**
-   * List all dvds selected distinct by title
-   * 
-   * @return
-   */
-  public static List<Dvd> listByDistinctTitle() {
-    return Dvd.find.setDistinct(true).select("id,title").order("title asc").findList();
-
-  }
 }

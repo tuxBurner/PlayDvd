@@ -15,6 +15,7 @@ import jgravatar.GravatarRating;
 import models.Dvd;
 import models.DvdAttibute;
 import models.EAttributeType;
+import models.Movie;
 import models.User;
 
 import org.apache.commons.lang.StringUtils;
@@ -27,8 +28,10 @@ import play.mvc.Security;
 import tmdb.GrabberException;
 import tmdb.InfoGrabber;
 import views.html.genremenu;
-import views.html.dashboard.*;
-
+import views.html.dashboard.displaydvd;
+import views.html.dashboard.dvdform;
+import views.html.dashboard.lendform;
+import views.html.dashboard.listExistingMovies;
 import forms.DvdForm;
 import forms.InfoDvd;
 import forms.LendForm;
@@ -249,10 +252,10 @@ public class Dashboard extends Controller {
    * This displays the user a select with dvds stored in the database so when he
    * wants to add a new dvd he can select one to prefill the informations
    */
-  public static Result listExistingDvds(final Long dvdToEdit) {
-    final List<Dvd> dvds = Dvd.listByDistinctTitle();
+  public static Result listExistingMovies(final Long dvdToEdit) {
+    final List<Movie> movies = Movie.listByDistinctTitle();
 
-    return Results.ok(listExistingDvds.render(dvds, dvdToEdit));
+    return Results.ok(listExistingMovies.render(movies, dvdToEdit));
   }
 
   /**
