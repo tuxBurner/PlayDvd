@@ -10,10 +10,10 @@ import models.User;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 
-import com.typesafe.config.ConfigFactory;
-
 import play.Application;
 import play.GlobalSettings;
+
+import com.typesafe.config.ConfigFactory;
 
 public class Global extends GlobalSettings {
 
