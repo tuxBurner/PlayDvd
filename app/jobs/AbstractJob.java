@@ -44,7 +44,7 @@ public abstract class AbstractJob implements Runnable {
     try {
       runInternal();
     } catch (final Exception e) {
-      Logger.error("An error happend in the internal implementation of the job: " + this.getClass().getName());
+      Logger.error("An error happend in the internal implementation of the job: " + this.getClass().getName(), e);
     }
 
     scheduleJob();
