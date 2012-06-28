@@ -58,27 +58,8 @@ public class JobPlugin extends Plugin {
         // instanziate the job
         final Class<AbstractJob> abstractJobClass = (Class<AbstractJob>) forName;
 
-        final Annotation annotation = abstractJobClass.getAnnotation(AkkaJob.class);
-        final AkkaJob akkaJob = (AkkaJob) annotation;
-
-        final String annoCronExpression = akkaJob.cronExpression().trim();
-
-        final boolean validExpression = CronExpression.isValidExpression(annoCronExpression);
-        if (validExpression == false) {
-          Logger.error("The annotated cronExpression: " + annoCronExpression + " is not a valid CronExpression in class: " + clazz);
-          continue;
-        }
-
-        final CronExpression cronExpression = new CronExpression(annoCronExpression);
-        final long nextInterval = cronExpression.getNextInterval(new Date());
-
         final Constructor<AbstractJob> constructor = abstractJobClass.getConstructor(null);
         final AbstractJob abstractJobInstance = constructor.newInstance(null);
-
-        // todo parse the crontype expression and create a duration from it
-        final FiniteDuration create = Duration.create(0, TimeUnit.MILLISECONDS);
-
-        Akka.system().scheduler().schedule(Duration.create(nextInterval, TimeUnit.MILLISECONDS), Duration.create(10, TimeUnit.SECONDS), abstractJobInstance);
 
       } catch (final NoSuchMethodException e) {
         Logger.error("Could not find default constructor with no parameters in: " + clazz, e);
@@ -94,8 +75,6 @@ public class JobPlugin extends Plugin {
         Logger.error("Error while initializing class: " + clazz, e);
       } catch (final ClassNotFoundException e) {
         Logger.error("Cannot load class: " + clazz, e);
-      } catch (final ParseException e) {
-        Logger.error("Cannot parse cronExpression in class: " + clazz, e);
       }
     }
 
