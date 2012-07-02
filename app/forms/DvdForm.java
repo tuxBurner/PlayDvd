@@ -50,9 +50,22 @@ public class DvdForm {
 
   public String director;
 
+  /**
+   * This describes the box in which the DVD is in for example Arnolds Ultimate
+   * Collectors Box
+   */
   public String box;
 
+  /**
+   * This describes a collection of boxses for example
+   */
   public String collection;
+
+  /**
+   * This describes in which series the movie is for example Alien, Terminator,
+   * Indiana Jones are Series of movies
+   */
+  public String series;
 
   public Boolean hasBackdrop;
 

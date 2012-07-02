@@ -113,7 +113,7 @@ public class DvdAttibute extends Model {
         }
       }
 
-      // attr does not exists in the db ? we will create id
+      // attr does not exists in the db ? we will create it
       if (dvdAttibuteToAdd == null) {
         dvdAttibuteToAdd = DvdAttibute.createAttribute(type, formAttr);
       }

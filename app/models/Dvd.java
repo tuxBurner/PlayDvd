@@ -136,60 +136,20 @@ public class Dvd extends Model {
    */
   private static Dvd createOrUpdateFromForm(final DvdForm dvdForm, final Dvd dvd) throws Exception {
 
-    if (dvd.movie == null) {
-      dvd.movie = new Movie();
-    }
+    // create or add the movie to the database by the information from the form
+    final Movie movie = Movie.editOrAddFromForm(dvdForm, dvd.movie);
 
-    dvd.movie.title = dvdForm.title;
-    dvd.movie.description = dvdForm.plot;
-    dvd.movie.year = dvdForm.year;
-    dvd.movie.runtime = dvdForm.runtime;
+    dvd.movie = movie;
     dvd.hullNr = dvdForm.hullNr;
 
-    Dvd dvdDb = null;
     if (dvd.id == null) {
       dvd.createdDate = new Date().getTime();
-      dvd.movie.hasPoster = false;
-      dvd.movie.hasBackdrop = false;
-      dvd.movie.save();
-      dvdDb = Dvd.create(dvd);
+      Dvd.create(dvd);
     } else {
-      Ebean.deleteManyToManyAssociations(dvd.movie, "attributes");
-      dvdDb = dvd;
+      dvd.update();
     }
 
-    // add the images if we have some :)
-    final Boolean newPoster = ImageHelper.createFileFromUrl(dvdDb.movie.id, dvdForm.posterUrl, EImageType.POSTER, EImageSize.ORIGINAL);
-    if (dvdDb.movie.hasPoster == false || dvdDb.movie.hasPoster == null) {
-      dvdDb.movie.hasPoster = newPoster;
-    }
-
-    final Boolean newBackDrop = ImageHelper.createFileFromUrl(dvdDb.movie.id, dvdForm.backDropUrl, EImageType.BACKDROP, EImageSize.ORIGINAL);
-    if (dvdDb.movie.hasBackdrop == false || dvdDb.movie.hasBackdrop == null) {
-      dvdDb.movie.hasBackdrop = newBackDrop;
-    }
-
-    dvd.movie.update();
-
-    dvdDb.update();
-
-    dvdDb.movie.attributes = new HashSet<DvdAttibute>();
-
-    // gather all the genres and add them to the dvd
-    final Set<DvdAttibute> genres = DvdAttibute.gatherAndAddAttributes(new HashSet<String>(dvdForm.genres), EAttributeType.GENRE);
-    dvdDb.movie.attributes.addAll(genres);
-
-    final Set<DvdAttibute> actors = DvdAttibute.gatherAndAddAttributes(new HashSet<String>(dvdForm.actors), EAttributeType.ACTOR);
-    dvdDb.movie.attributes.addAll(actors);
-
-    Dvd.addSingleAttribute(dvdForm.director, EAttributeType.DIRECTOR, dvdDb);
-    Dvd.addSingleAttribute(dvdForm.box, EAttributeType.BOX, dvdDb);
-    Dvd.addSingleAttribute(dvdForm.collection, EAttributeType.COLLECTION, dvdDb);
-
-    // save all the attributes to the database :)
-    dvdDb.movie.saveManyToManyAssociations("attributes");
-
-    return dvdDb;
+    return dvd;
   }
 
   /**
@@ -205,23 +165,6 @@ public class Dvd extends Model {
     final List<Dvd> findList = Dvd.find.where().eq("attributes.attributeType", attributeType).eq("attributes.value", attrValue).eq("owner.id", dvd.owner.id).ne("id", dvd.id).findList();
 
     return findList;
-  }
-
-  /**
-   * Adds a single Attribute to the dvd
-   * 
-   * @param attrToAdd
-   * @param attributeType
-   * @param dvd
-   */
-  private static void addSingleAttribute(final String attrToAdd, final EAttributeType attributeType, final Dvd dvd) {
-    if (StringUtils.isEmpty(attrToAdd) == true) {
-      return;
-    }
-    final Set<String> attribute = new HashSet<String>();
-    attribute.add(attrToAdd);
-    final Set<DvdAttibute> dbAttrs = DvdAttibute.gatherAndAddAttributes(attribute, attributeType);
-    dvd.movie.attributes.addAll(dbAttrs);
   }
 
   /**
