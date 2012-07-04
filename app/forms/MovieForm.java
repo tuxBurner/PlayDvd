@@ -63,6 +63,7 @@ public class MovieForm {
   public static MovieForm movieToForm(final Movie movie) {
     final MovieForm movieForm = new MovieForm();
 
+    movieForm.movieId = movie.id;
     movieForm.title = movie.title;
     movieForm.year = movie.year;
     movieForm.runtime = movie.runtime;
