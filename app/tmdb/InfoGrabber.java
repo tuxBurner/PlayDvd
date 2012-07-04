@@ -18,6 +18,7 @@ import com.github.savvasdalkitsis.jtmdb.MovieBackdrop;
 import com.github.savvasdalkitsis.jtmdb.MoviePoster;
 
 import forms.DvdForm;
+import forms.MovieForm;
 import forms.TmdbInfoForm;
 
 public class InfoGrabber {
@@ -54,34 +55,34 @@ public class InfoGrabber {
 
   }
 
-  public static DvdForm fillDvdFormWithMovieInfo(final TmdbInfoForm tmdbInfoForm) throws GrabberException {
+  public static MovieForm fillDvdFormWithMovieInfo(final TmdbInfoForm tmdbInfoForm) throws GrabberException {
 
     final Movie movieInfo = InfoGrabber.getMovieInfo(tmdbInfoForm.movieId);
 
-    final DvdForm dvdForm = new DvdForm();
-    dvdForm.title = movieInfo.getName();
-    dvdForm.plot = movieInfo.getOverview();
-    dvdForm.runtime = movieInfo.getRuntime();
+    final MovieForm movieForm = new MovieForm();
+    movieForm.title = movieInfo.getName();
+    movieForm.plot = movieInfo.getOverview();
+    movieForm.runtime = movieInfo.getRuntime();
 
     final Date releasedDate = movieInfo.getReleasedDate();
     final Calendar releaseCal = Calendar.getInstance();
     releaseCal.setTime(releasedDate);
-    dvdForm.year = releaseCal.get(Calendar.YEAR);
+    movieForm.year = releaseCal.get(Calendar.YEAR);
 
     final Set<Genre> genres = movieInfo.getGenres();
     for (final Genre genre : genres) {
-      dvdForm.genres.add(genre.getName());
+      movieForm.genres.add(genre.getName());
     }
 
     final Set<CastInfo> cast = movieInfo.getCast();
     for (final CastInfo castInfo : cast) {
       if ("Director".equals(castInfo.getJob())) {
-        dvdForm.director = castInfo.getName();
+        movieForm.director = castInfo.getName();
         continue;
       }
 
       if ("Actor".equals(castInfo.getJob())) {
-        dvdForm.actors.add(castInfo.getName());
+        movieForm.actors.add(castInfo.getName());
 
         continue;
       }
@@ -92,7 +93,7 @@ public class InfoGrabber {
       final Set<MovieBackdrop> backdrops = movieInfo.getImages().backdrops;
       for (final MovieBackdrop movieBackdrop : backdrops) {
         if (movieBackdrop.getID().equals(tmdbBackDrop) == true) {
-          dvdForm.backDropUrl = movieBackdrop.getLargestImage().toString();
+          movieForm.backDropUrl = movieBackdrop.getLargestImage().toString();
           break;
         }
       }
@@ -103,13 +104,13 @@ public class InfoGrabber {
       final Set<MoviePoster> posters = movieInfo.getImages().posters;
       for (final MoviePoster poster : posters) {
         if (poster.getID().equals(tmdbPoster) == true) {
-          dvdForm.posterUrl = poster.getLargestImage().toString();
+          movieForm.posterUrl = poster.getLargestImage().toString();
           break;
         }
       }
     }
 
-    return dvdForm;
+    return movieForm;
 
   }
 

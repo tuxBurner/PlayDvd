@@ -23,6 +23,24 @@ public class Global extends GlobalSettings {
     if (boolean1 == true) {
       InitialData.insert(app);
     }
+
+    // final Yaml yaml = new Yaml();
+    // final Map<String, Object> map = new HashMap<String, Object>();
+    //
+    // final List<User> users = User.find.all();
+    // map.put(User.class.getCanonicalName(), users);
+    //
+    // final List<Dvd> dvds = Dvd.find.all();
+    // map.put(Dvd.class.getCanonicalName(), dvds);
+    //
+    // final List<Movie> movies = Movie.find.all();
+    // map.put(Movie.class.getCanonicalName(), movies);
+    //
+    // final List<MovieAttibute> movieAttributes = MovieAttibute.finder.all();
+    // map.put(MovieAttibute.class.getCanonicalName(), movieAttributes);
+    //
+    // final String dump = yaml.dump(map);
+    // System.out.println(dump);
   }
 
   static class InitialData {

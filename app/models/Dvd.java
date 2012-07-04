@@ -138,7 +138,15 @@ public class Dvd extends Model {
   private static Dvd createOrUpdateFromForm(final DvdForm dvdForm, final Dvd dvd) throws Exception {
 
     // create or add the movie to the database by the information from the form
-    final Movie movie = Movie.editOrAddFromForm(dvdForm, dvd.movie);
+    // final Movie movie = Movie.editOrAddFromForm(dvdForm, dvd.movie);
+
+    final Movie movie = Movie.find.byId(dvdForm.movieId);
+
+    if (movie == null) {
+      final String message = "No movie by the id: " + dvdForm.movieId + " found.";
+      Logger.error(message);
+      throw new Exception(message);
+    }
 
     dvd.movie = movie;
     dvd.hullNr = dvdForm.hullNr;

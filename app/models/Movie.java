@@ -22,6 +22,7 @@ import org.apache.commons.lang.StringUtils;
 import com.avaje.ebean.Ebean;
 
 import forms.DvdForm;
+import forms.MovieForm;
 
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
@@ -69,15 +70,15 @@ public class Movie extends Model {
    * @return
    * @throws Exception
    */
-  public static Movie editOrAddFromForm(final DvdForm dvdForm, Movie movie) throws Exception {
+  public static Movie editOrAddFromForm(final MovieForm movieForm, Movie movie) throws Exception {
     if (movie == null) {
       movie = new Movie();
     }
 
-    movie.title = dvdForm.title;
-    movie.description = dvdForm.plot;
-    movie.year = dvdForm.year;
-    movie.runtime = dvdForm.runtime;
+    movie.title = movieForm.title;
+    movie.description = movieForm.plot;
+    movie.year = movieForm.year;
+    movie.runtime = movieForm.runtime;
 
     if (movie.id == null) {
       movie.hasPoster = false;
@@ -88,12 +89,12 @@ public class Movie extends Model {
     }
 
     // add the images if we have some :)
-    final Boolean newPoster = ImageHelper.createFileFromUrl(movie.id, dvdForm.posterUrl, EImageType.POSTER, EImageSize.ORIGINAL);
+    final Boolean newPoster = ImageHelper.createFileFromUrl(movie.id, movieForm.posterUrl, EImageType.POSTER, EImageSize.ORIGINAL);
     if (movie.hasPoster == false || movie.hasPoster == null) {
       movie.hasPoster = newPoster;
     }
 
-    final Boolean newBackDrop = ImageHelper.createFileFromUrl(movie.id, dvdForm.backDropUrl, EImageType.BACKDROP, EImageSize.ORIGINAL);
+    final Boolean newBackDrop = ImageHelper.createFileFromUrl(movie.id, movieForm.backDropUrl, EImageType.BACKDROP, EImageSize.ORIGINAL);
     if (movie.hasBackdrop == false || movie.hasBackdrop == null) {
       movie.hasBackdrop = newBackDrop;
     }
@@ -101,13 +102,13 @@ public class Movie extends Model {
     movie.attributes = new HashSet<MovieAttibute>();
 
     // gather all the genres and add them to the dvd
-    final Set<MovieAttibute> genres = MovieAttibute.gatherAndAddAttributes(new HashSet<String>(dvdForm.genres), EMovieAttributeType.GENRE);
+    final Set<MovieAttibute> genres = MovieAttibute.gatherAndAddAttributes(new HashSet<String>(movieForm.genres), EMovieAttributeType.GENRE);
     movie.attributes.addAll(genres);
 
-    final Set<MovieAttibute> actors = MovieAttibute.gatherAndAddAttributes(new HashSet<String>(dvdForm.actors), EMovieAttributeType.ACTOR);
+    final Set<MovieAttibute> actors = MovieAttibute.gatherAndAddAttributes(new HashSet<String>(movieForm.actors), EMovieAttributeType.ACTOR);
     movie.attributes.addAll(actors);
 
-    Movie.addSingleAttribute(dvdForm.director, EMovieAttributeType.DIRECTOR, movie);
+    Movie.addSingleAttribute(movieForm.director, EMovieAttributeType.DIRECTOR, movie);
 
     movie.update();
 

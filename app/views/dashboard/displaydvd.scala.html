@@ -32,7 +32,7 @@
 
   <fieldset class="well">
     <h2>Plot:</h2>
-    <p>@dvd.dvdForm.plot</span>
+    <p>@dvd.movieForm.plot</span>
   </fieldset>
   
   <fieldset class="well">
@@ -66,17 +66,17 @@
     
     <div class="row-fluid">
       <label class="span1">Runtime:</label>
-      <span>@dvd.dvdForm.runtime</span>
+      <span>@dvd.movieForm.runtime</span>
     </div>  
     
     <div class="row-fluid">
       <label class="span1">Year:</label>
-      <span>@dvd.dvdForm.year</span>
+      <span>@dvd.movieForm.year</span>
     </div>
     
     <div class="row-fluid">
       <label class="span1">Director:</label>
-      <span><a href="@routes.ListDvds.listByDirector(dvd.dvdForm.director)">@dvd.dvdForm.director</a></span>
+      <span><a href="@routes.ListDvds.listByDirector(dvd.movieForm.director)">@dvd.movieForm.director</a></span>
     </div>
     
     <hr />
@@ -84,7 +84,7 @@
     <div class="span12">
       <dl>
         <dt>Genres:</dt>
-        @for(genre <- dvd.dvdForm.genres) {
+        @for(genre <- dvd.movieForm.genres) {
           <dd><a href="@routes.ListDvds.listByGenre(genre,0)">@genre</a></dd>
         }
       </dl>
@@ -94,7 +94,7 @@
     <div class="span12">
       <dt>Actors:</dt>
       <dl>
-        @for(actor <- dvd.dvdForm.actors) {
+        @for(actor <- dvd.movieForm.actors) {
           <dd><a href="@routes.ListDvds.listByActor(actor)">@actor<a></a></dd>
         }
       </dl>
@@ -110,8 +110,8 @@
 </div>
 
 <script type="text/javascript">
-@if(dvd.dvdForm.hasBackdrop != null && dvd.dvdForm.hasBackdrop == true) {
-  $('#dvdInfoDialog').css('background-image',"url('@routes.Dashboard.streamImage(dvd.dvdForm.movieId,"BACKDROP","ORIGINAL")')");
+@if(dvd.movieForm.hasBackdrop != null && dvd.movieForm.hasBackdrop == true) {
+  $('#dvdInfoDialog').css('background-image',"url('@routes.Dashboard.streamImage(dvd.movieForm.movieId,"BACKDROP","ORIGINAL")')");
 } else {
 	$('#dvdInfoDialog').css('background-image','none');
 }

@@ -1,0 +1,90 @@
+@(movieForm: Form[forms.MovieForm])(mode: String)
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@scripts = {
+  <script src="@routes.Assets.at("tagit/js/tag-it.js")" type="text/javascript"></script>
+
+   <script type="text/javascript" charset="utf-8">
+     var avaibleGenres = @Html(models.MovieAttibute.getAvaibleAttributesAsJson(EMovieAttributeType.GENRE));
+     var avaibleActors = @Html(models.MovieAttibute.getAvaibleAttributesAsJson(EMovieAttributeType.ACTOR));
+   </script>
+   
+   
+  <script src="@routes.Assets.at("chosen/chosen.jquery.min.js")" type="text/javascript"></script>
+}
+
+@styles = {
+  <link rel="stylesheet" href="@routes.Assets.at("tagit/css/jquery.tagit.css")" />
+  <link rel="stylesheet" href="@routes.Assets.at("chosen/chosen.css")" />
+}
+
+@mainmenu("Dvd Database - Add a movie",scripts,styles) {
+
+
+  <fieldset>
+    <legend>@if(mode == "edit") {Edit Move} else {Add a Movie}</legend>
+     @form(routes.Dashboard.addDvd(mode),'enctype -> "multipart/form-data",'class -> "well") {
+     
+         @if(mode == Dashboard.DVD_FORM_EDIT_MODE) {
+           <input type="hidden" name="movieId" id="dvdId" value="@movieForm.get().movieId"/>
+         }
+         
+         
+         @inputText(movieForm("title"),'_label -> "Title", '_showConstraints -> true, 'placeholder -> "Enter Dvd title", 'class -> "span10")
+         <button class="btn btn-info" id="tmdbButton" type="button"><i class="icon-film"></i> Look up with TMDB</button>
+         <hr />
+         
+         
+         @textarea(movieForm("plot"),'_label -> "Plot",'class -> "span10", 'rows -> "10")
+         
+         @inputText(movieForm("year"),'_label -> "Year", '_showConstraints -> true, 'class-> "span1")
+         
+         @inputText(movieForm("runtime"),'_label -> "Runtime in Min:")
+         
+         <hr />
+         <label for="genres">Genres</label>   
+         <input type="hidden" name="genres" id="genres" value="@movieForm.get().getDvdFormAttributesAsString(movieForm.get().genres)"/>
+         <ul id="genresTags" class="tags"></ul>
+        
+       
+         <hr  />
+         @inputText(movieForm("director"),'_label -> "Director")
+         
+         <label for="actors">Actors</label>
+         <input type="hidden" name="actors" id="actors" value="@movieForm.get().getDvdFormAttributesAsString(movieForm.get().actors)"/>
+         <ul id="actorsTags" class="tags"></ul>
+         
+         <hr class="alt2" />
+         <label for="poster">Poster</label>
+         <input type="file" name="posterFile">
+         @inputText(movieForm("posterUrl"),'_label -> "Poster url",'placeholder -> "Url to a poster image")
+        <img id="poster_preview" class="caption" title="Currently selected poster" src="@if(mode == Dashboard.DVD_FORM_ADD_MODE) {http://placehold.it/92x138/4D99E0/ffffff.png&text=No%20Poster} else { @routes.Dashboard.streamImage(movieForm.get().movieId,"POSTER","SMALL") }" width="92" height="138" />  
+         
+          
+         <label for="backDrop">Backdrop</label>
+         <input type="file" name="backDropFile">
+         @inputText(movieForm("backDropUrl"),'_label -> "Back Drop url",'placeholder -> "Url to a back drop image")
+         <img  class="caption" id="backDrop_preview" title="Currently selected backdrop" src="@if(mode == Dashboard.DVD_FORM_ADD_MODE) {http://placehold.it/291x136/4D99E0/ffffff.png&text=No%20Backdrop} else { @routes.Dashboard.streamImage(movieForm.get().movieId,"BACKDROP","SMALL") }" width="291" height="163" />
+       
+         
+     }
+     </fieldset>
+  
+  
+
+  <!-- TMDB DIALOG -->
+  <div id="tmdbDialog" title="Movie info from tmdb">
+    <div class="dialogContent">
+      
+    </div>
+  </div>
+  
+  <!-- EXISTING DIALOG -->
+  <div id="existingDvdDialog" title="Movie info from existing Dvd">
+    <div class="dialogContent">
+      
+    </div>
+  </div>
+}

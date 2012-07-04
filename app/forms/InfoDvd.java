@@ -22,8 +22,11 @@ public class InfoDvd {
 
   public Date borrowedOn;
 
+  public MovieForm movieForm;
+
   public InfoDvd(final Dvd dvd) {
     dvdForm = DvdForm.dvdToDvdForm(dvd);
+    movieForm = MovieForm.movieToForm(dvd.movie);
 
     if (dvd.borrower != null) {
       borrowedBy = dvd.borrower.userName;

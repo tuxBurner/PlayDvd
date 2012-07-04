@@ -5,7 +5,7 @@ package forms;
  * 
  * @author tuxburner
  */
-public class DvdFormAttribute {
+public class MovieFormAttribute {
 
   public boolean selected = false;
   public String value;
@@ -14,7 +14,7 @@ public class DvdFormAttribute {
    * @param selected
    * @param value
    */
-  public DvdFormAttribute(final boolean selected, final String value) {
+  public MovieFormAttribute(final boolean selected, final String value) {
     super();
     this.selected = selected;
     this.value = value;

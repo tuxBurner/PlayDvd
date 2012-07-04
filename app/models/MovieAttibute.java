@@ -16,6 +16,9 @@ import javax.persistence.ManyToMany;
 
 import org.apache.commons.collections.CollectionUtils;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import play.db.ebean.Model;
 
 /**
@@ -126,6 +129,26 @@ public class MovieAttibute extends Model {
     }
 
     return attributes;
+  }
+
+  /**
+   * Gets the avaible {@link MovieAttibute}s as string for the tagit element
+   * 
+   * @param attributeType
+   * @return
+   */
+  public static String getAvaibleAttributesAsJson(final EMovieAttributeType attributeType) {
+
+    final List<MovieAttibute> attributes = MovieAttibute.getAllByType(attributeType);
+    final List<String> attrMap = new ArrayList<String>();
+    for (final MovieAttibute dvdAttibute : attributes) {
+      attrMap.add(dvdAttibute.value);
+    }
+
+    final Gson gson = new GsonBuilder().create();
+    final String json = gson.toJson(attrMap);
+
+    return json;
   }
 
 }

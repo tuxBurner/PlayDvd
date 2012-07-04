@@ -30,11 +30,13 @@ import tmdb.InfoGrabber;
 import views.html.genremenu;
 import views.html.dashboard.displaydvd;
 import views.html.dashboard.dvdform;
+import views.html.dashboard.movieform;
 import views.html.dashboard.lendform;
 import views.html.dashboard.listExistingMovies;
 import forms.DvdForm;
 import forms.InfoDvd;
 import forms.LendForm;
+import forms.MovieForm;
 import forms.TmdbInfoForm;
 
 @Security.Authenticated(Secured.class)
@@ -109,13 +111,13 @@ public class Dashboard extends Controller {
 
         if (Dashboard.DVD_FORM_ADD_MODE.equals(mode) == true) {
           // try to create the dvd from the form
-          Dvd.createFromForm(userName, dvdForm.get());
-          Controller.flash("success", "Dvd: " + dvdForm.get().title + " added");
+          final Dvd createFromForm = Dvd.createFromForm(userName, dvdForm.get());
+          Controller.flash("success", "Dvd: " + createFromForm.movie.title + " added");
         }
 
         if (Dashboard.DVD_FORM_EDIT_MODE.equals(mode) == true) {
-          Dvd.editFromForm(userName, dvdForm.get());
-          Controller.flash("success", "Dvd: " + dvdForm.get().title + " edited");
+          final Dvd editFromForm = Dvd.editFromForm(userName, dvdForm.get());
+          Controller.flash("success", "Dvd: " + editFromForm.movie.title + " edited");
         }
 
       } catch (final Exception e) {
@@ -139,7 +141,7 @@ public class Dashboard extends Controller {
     try {
 
       final Form<TmdbInfoForm> tmdbInfoForm = Controller.form(TmdbInfoForm.class).bindFromRequest();
-      final DvdForm dvdForm = InfoGrabber.fillDvdFormWithMovieInfo(tmdbInfoForm.get());
+      final MovieForm movieForm = InfoGrabber.fillDvdFormWithMovieInfo(tmdbInfoForm.get());
 
       if (tmdbInfoForm.get().dvdId != null) {
         // check if we can edit this dvd
@@ -151,13 +153,12 @@ public class Dashboard extends Controller {
           return Results.badRequest();
         }
 
-        dvdForm.dvdId = dvd.id;
-        dvdForm.hullNr = dvd.hullNr;
+        movieForm.movieId = dvd.id;
       }
 
-      final Form<DvdForm> form = Controller.form(DvdForm.class);
+      final Form<MovieForm> form = Controller.form(MovieForm.class);
 
-      return Results.ok(dvdform.render(form.fill(dvdForm), mode));
+      return Results.ok(movieform.render(form.fill(movieForm), mode));
     } catch (final GrabberException e) {
       return Results.badRequest("Internal Error happend");
     }
