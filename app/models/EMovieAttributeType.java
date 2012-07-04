@@ -1,6 +1,6 @@
 package models;
 
-public enum EAttributeType {
+public enum EMovieAttributeType {
 
   ACTOR, GENRE, DIRECTOR
 

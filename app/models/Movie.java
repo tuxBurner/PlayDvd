@@ -101,13 +101,13 @@ public class Movie extends Model {
     movie.attributes = new HashSet<MovieAttibute>();
 
     // gather all the genres and add them to the dvd
-    final Set<MovieAttibute> genres = MovieAttibute.gatherAndAddAttributes(new HashSet<String>(dvdForm.genres), EAttributeType.GENRE);
+    final Set<MovieAttibute> genres = MovieAttibute.gatherAndAddAttributes(new HashSet<String>(dvdForm.genres), EMovieAttributeType.GENRE);
     movie.attributes.addAll(genres);
 
-    final Set<MovieAttibute> actors = MovieAttibute.gatherAndAddAttributes(new HashSet<String>(dvdForm.actors), EAttributeType.ACTOR);
+    final Set<MovieAttibute> actors = MovieAttibute.gatherAndAddAttributes(new HashSet<String>(dvdForm.actors), EMovieAttributeType.ACTOR);
     movie.attributes.addAll(actors);
 
-    Movie.addSingleAttribute(dvdForm.director, EAttributeType.DIRECTOR, movie);
+    Movie.addSingleAttribute(dvdForm.director, EMovieAttributeType.DIRECTOR, movie);
 
     movie.update();
 
@@ -121,7 +121,7 @@ public class Movie extends Model {
    * @param attributeType
    * @param dvd
    */
-  private static void addSingleAttribute(final String attrToAdd, final EAttributeType attributeType, final Movie movie) {
+  private static void addSingleAttribute(final String attrToAdd, final EMovieAttributeType attributeType, final Movie movie) {
     if (StringUtils.isEmpty(attrToAdd) == true) {
       return;
     }

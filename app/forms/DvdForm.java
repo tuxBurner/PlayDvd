@@ -8,8 +8,10 @@ import java.util.Map;
 import java.util.Set;
 
 import models.Dvd;
+import models.DvdAttibute;
+import models.EDvdAttributeType;
 import models.MovieAttibute;
-import models.EAttributeType;
+import models.EMovieAttributeType;
 import play.data.validation.Constraints.Required;
 
 import com.google.gson.Gson;
@@ -96,18 +98,28 @@ public class DvdForm {
 
     final Set<MovieAttibute> attributes = dvd.movie.attributes;
     for (final MovieAttibute dvdAttibute : attributes) {
-      if (EAttributeType.GENRE.equals(dvdAttibute.attributeType)) {
+      if (EMovieAttributeType.GENRE.equals(dvdAttibute.attributeType)) {
         dvdForm.genres.add(dvdAttibute.value);
       }
 
-      if (EAttributeType.ACTOR.equals(dvdAttibute.attributeType)) {
+      if (EMovieAttributeType.ACTOR.equals(dvdAttibute.attributeType)) {
         dvdForm.actors.add(dvdAttibute.value);
       }
 
-      if (EAttributeType.DIRECTOR.equals(dvdAttibute.attributeType)) {
+      if (EMovieAttributeType.DIRECTOR.equals(dvdAttibute.attributeType)) {
         dvdForm.director = dvdAttibute.value;
       }
+    }
 
+    final Set<DvdAttibute> dvdAttrs = dvd.attributes;
+    for (final DvdAttibute dvdAttibute : dvdAttrs) {
+      if (EDvdAttributeType.BOX.equals(dvdAttibute.attributeType)) {
+        dvdForm.box = dvdAttibute.value;
+      }
+
+      if (EDvdAttributeType.COLLECTION.equals(dvdAttibute.attributeType)) {
+        dvdForm.collection = dvdAttibute.value;
+      }
     }
 
     Collections.sort(dvdForm.actors);
@@ -122,7 +134,7 @@ public class DvdForm {
    * @param attributeType
    * @return
    */
-  public List<DvdFormAttribute> getDvdAttributes(final EAttributeType attributeType, final Map<Integer, String> formVals) {
+  public List<DvdFormAttribute> getDvdAttributes(final EMovieAttributeType attributeType, final Map<Integer, String> formVals) {
 
     final List<DvdFormAttribute> result = new ArrayList<DvdFormAttribute>();
 
@@ -160,7 +172,7 @@ public class DvdForm {
    * @param attributeType
    * @return
    */
-  public final String getAvaibleAttributesAsJson(final EAttributeType attributeType) {
+  public final String getAvaibleAttributesAsJson(final EMovieAttributeType attributeType) {
 
     final List<MovieAttibute> attributes = MovieAttibute.getAllByType(attributeType);
     final List<String> attrMap = new ArrayList<String>();
@@ -175,12 +187,12 @@ public class DvdForm {
   }
 
   /**
-   * Gets all {@link MovieAttibute}s from the given {@link EAttributeType}
+   * Gets all {@link MovieAttibute}s from the given {@link EMovieAttributeType}
    * 
    * @param attributeType
    * @return
    */
-  public final List<String> getAvaibleAttributes(final EAttributeType attributeType) {
+  public final List<String> getAvaibleAttributes(final EMovieAttributeType attributeType) {
     final List<MovieAttibute> attributes = MovieAttibute.getAllByType(attributeType);
 
     final List<String> list = new ArrayList<String>();

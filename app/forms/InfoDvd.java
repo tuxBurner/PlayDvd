@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import models.Dvd;
-import models.EAttributeType;
+import models.EDvdAttributeType;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -37,8 +37,8 @@ public class InfoDvd {
       borrowedOn = new Date(dvd.borrowDate);
     }
 
-    boxDvds = getDvdsByBoxOrCollection(dvd, true, dvdForm.box);
-    collectionDvds = getDvdsByBoxOrCollection(dvd, false, dvdForm.collection);
+    boxDvds = getDvdsByBoxOrCollection(dvd, EDvdAttributeType.BOX, dvdForm.box);
+    collectionDvds = getDvdsByBoxOrCollection(dvd, EDvdAttributeType.COLLECTION, dvdForm.collection);
 
   }
 
@@ -50,13 +50,13 @@ public class InfoDvd {
    * @param attrvalue
    * @return
    */
-  private List<CollectionDvd> getDvdsByBoxOrCollection(final Dvd dvd, final boolean box, final String attrvalue) {
+  private List<CollectionDvd> getDvdsByBoxOrCollection(final Dvd dvd, final EDvdAttributeType attrType, final String attrvalue) {
 
     if (StringUtils.isEmpty(attrvalue) == true) {
       return null;
     }
 
-    final List<Dvd> boxDbDvds = Dvd.getDvdByBoxOrCollection(box, attrvalue, dvd);
+    final List<Dvd> boxDbDvds = Dvd.getDvdByBoxOrCollection(attrType, attrvalue, dvd);
     List<CollectionDvd> returnList = null;
     if (CollectionUtils.isEmpty(boxDbDvds) == false) {
       returnList = new ArrayList<CollectionDvd>();

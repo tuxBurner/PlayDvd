@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,6 +13,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+
+import org.apache.commons.collections.CollectionUtils;
 
 import play.db.ebean.Model;
 
@@ -39,7 +42,7 @@ public class MovieAttibute extends Model {
 
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)
-  public EAttributeType attributeType;
+  public EMovieAttributeType attributeType;
 
   public String value;
 
@@ -48,11 +51,11 @@ public class MovieAttibute extends Model {
 
   /**
    * finds all {@link MovieAttibute} by the given values and the given
-   * {@link EAttributeType}
+   * {@link EMovieAttributeType}
    * 
    * @return
    */
-  public static Set<MovieAttibute> findAttributesByName(final Set<String> values, final EAttributeType type) {
+  public static Set<MovieAttibute> findAttributesByName(final Set<String> values, final EMovieAttributeType type) {
     final Set<MovieAttibute> findSet = MovieAttibute.finder.where().in("value", values).eq("attributeType", type).findSet();
     return findSet;
   }
@@ -63,19 +66,20 @@ public class MovieAttibute extends Model {
    * @param type
    * @return
    */
-  public static List<MovieAttibute> getAllByType(final EAttributeType type) {
+  public static List<MovieAttibute> getAllByType(final EMovieAttributeType type) {
     final List<MovieAttibute> findList = MovieAttibute.finder.where().eq("attributeType", type).order("value ASC").findList();
     return findList;
   }
 
   /**
-   * Creates a {@link MovieAttibute} by the given {@link EAttributeType} and value
+   * Creates a {@link MovieAttibute} by the given {@link EMovieAttributeType}
+   * and value
    * 
    * @param type
    * @param value
    * @return
    */
-  public static MovieAttibute createAttribute(final EAttributeType type, final String value) {
+  public static MovieAttibute createAttribute(final EMovieAttributeType type, final String value) {
     final MovieAttibute dvdAttibute = new MovieAttibute();
     dvdAttibute.attributeType = type;
     dvdAttibute.value = value;
@@ -93,7 +97,7 @@ public class MovieAttibute extends Model {
    * @param type
    * @return
    */
-  public static Set<MovieAttibute> gatherAndAddAttributes(final Set<String> attributeValues, final EAttributeType type) {
+  public static Set<MovieAttibute> gatherAndAddAttributes(final Set<String> attributeValues, final EMovieAttributeType type) {
 
     Set<MovieAttibute> dbAttributes = MovieAttibute.findAttributesByName(attributeValues, type);
     if (dbAttributes == null) {

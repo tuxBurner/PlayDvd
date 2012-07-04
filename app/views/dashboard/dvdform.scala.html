@@ -7,8 +7,8 @@
   <script src="@routes.Assets.at("tagit/js/tag-it.js")" type="text/javascript"></script>
 
    <script type="text/javascript" charset="utf-8">
-     var avaibleGenres = @Html(dvdForm.get().getAvaibleAttributesAsJson(EAttributeType.GENRE));
-     var avaibleActors = @Html(dvdForm.get().getAvaibleAttributesAsJson(EAttributeType.ACTOR));
+     var avaibleGenres = @Html(dvdForm.get().getAvaibleAttributesAsJson(EMovieAttributeType.GENRE));
+     var avaibleActors = @Html(dvdForm.get().getAvaibleAttributesAsJson(EMovieAttributeType.ACTOR));
    </script>
    
    
@@ -51,9 +51,9 @@
          
          @inputText(dvdForm("hullNr"),'_label -> "Hull Nr.", 'class -> "span4")
 
-         @select(field = dvdForm("box"), options(Dvd.getUserBoxesOrCollections(true)),'_label->"Box",'class-> "span4 chosen_select")
+         @select(field = dvdForm("box"), options(DvdAttibute.getAllByTypeAsValue(EDvdAttributeType.BOX)),'_label->"Box",'class-> "span4 chosen_select")
          
-         @select(field = dvdForm("collection"), options(Dvd.getUserBoxesOrCollections(false)),'_label->"Collection",'class-> "span4 chosen_select")
+         @select(field = dvdForm("collection"), options(DvdAttibute.getAllByTypeAsValue(EDvdAttributeType.COLLECTION)),'_label->"Collection",'class-> "span4 chosen_select")
          
          
          <hr />

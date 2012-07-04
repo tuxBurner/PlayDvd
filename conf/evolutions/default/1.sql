@@ -12,9 +12,15 @@ create table dvd (
   hull_nr                   integer,
   movie_id                  bigint,
   created_date              bigint not null,
-  box                       varchar(255),
-  collection                varchar(255),
   constraint pk_dvd primary key (id))
+;
+
+create table dvd_attibute (
+  id                        bigint auto_increment not null,
+  attribute_type            varchar(10) not null,
+  value                     varchar(255),
+  constraint ck_dvd_attibute_attribute_type check (attribute_type in ('BOX','COLLECTION')),
+  constraint pk_dvd_attibute primary key (id))
 ;
 
 create table movie (
@@ -54,6 +60,12 @@ create table user (
 ;
 
 
+create table dvd_attibute_dvd (
+  dvd_attibute_id                bigint not null,
+  dvd_id                         bigint not null,
+  constraint pk_dvd_attibute_dvd primary key (dvd_attibute_id, dvd_id))
+;
+
 create table movie_attibute_movie (
   movie_attibute_pk              bigint not null,
   movie_id                       bigint not null,
@@ -68,6 +80,10 @@ create index ix_dvd_movie_3 on dvd (movie_id);
 
 
 
+alter table dvd_attibute_dvd add constraint fk_dvd_attibute_dvd_dvd_attib_01 foreign key (dvd_attibute_id) references dvd_attibute (id) on delete restrict on update restrict;
+
+alter table dvd_attibute_dvd add constraint fk_dvd_attibute_dvd_dvd_02 foreign key (dvd_id) references dvd (id) on delete restrict on update restrict;
+
 alter table movie_attibute_movie add constraint fk_movie_attibute_movie_movie_01 foreign key (movie_attibute_pk) references movie_attibute (pk) on delete restrict on update restrict;
 
 alter table movie_attibute_movie add constraint fk_movie_attibute_movie_movie_02 foreign key (movie_id) references movie (id) on delete restrict on update restrict;
@@ -77,6 +93,10 @@ alter table movie_attibute_movie add constraint fk_movie_attibute_movie_movie_02
 SET FOREIGN_KEY_CHECKS=0;
 
 drop table dvd;
+
+drop table dvd_attibute_dvd;
+
+drop table dvd_attibute;
 
 drop table movie;
 

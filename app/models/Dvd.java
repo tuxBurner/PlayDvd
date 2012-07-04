@@ -1,13 +1,16 @@
 package models;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -17,6 +20,7 @@ import play.Logger;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 
+import com.avaje.ebean.Ebean;
 import com.avaje.ebean.ExpressionList;
 import com.avaje.ebean.Page;
 import com.typesafe.config.ConfigFactory;
@@ -40,6 +44,9 @@ public class Dvd extends Model {
 
   @OneToOne
   public User borrower;
+
+  @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "dvds")
+  public Set<DvdAttibute> attributes;
 
   public Long borrowDate;
 
@@ -71,10 +78,6 @@ public class Dvd extends Model {
   @Required
   @Column(nullable = false)
   public Long createdDate;
-
-  public String box;
-
-  public String collection;
 
   /**
    * Persists the {@link Dvd} to the database
@@ -140,47 +143,39 @@ public class Dvd extends Model {
     dvd.movie = movie;
     dvd.hullNr = dvdForm.hullNr;
 
-    dvd.box = dvdForm.box;
-    dvd.collection = dvdForm.collection;
-
     if (dvd.id == null) {
       dvd.createdDate = new Date().getTime();
       Dvd.create(dvd);
     } else {
+      Ebean.deleteManyToManyAssociations(dvd, "attributes");
       dvd.update();
     }
+
+    Dvd.addSingleAttribute(dvdForm.box, EDvdAttributeType.BOX, dvd);
+    Dvd.addSingleAttribute(dvdForm.collection, EDvdAttributeType.COLLECTION, dvd);
+
+    dvd.update();
 
     return dvd;
   }
 
   /**
-   * Gets the distinct name of all boxes and collections in the database to the
-   * dvd
+   * Adds a single Attribute to the dvd
    * 
-   * @param box
-   * @return
+   * @param attrToAdd
+   * @param attributeType
+   * @param dvd
    */
-  public static List<String> getUserBoxesOrCollections(final boolean box) {
-
-    final String boxOrCollectionAttr = Dvd.boxOrCollectionAttr(box);
-
-    final List<Dvd> findList = Dvd.find.setDistinct(true).select(boxOrCollectionAttr).orderBy(boxOrCollectionAttr + " asc").findList();
-
-    // final RawSql rawsql = RawSqlBuilder.parse("").create();
-    // Dvd.find.setRawSql(parse);
-
-    // TODO: do we need this transformation or can we make the select make this
-    final List<String> returnVal = new ArrayList<String>();
-    returnVal.add("");
-    for (final Dvd dvd : findList) {
-      if (box) {
-        returnVal.add(dvd.box);
-      } else {
-        returnVal.add(dvd.collection);
-      }
+  // TODO: do we need this when we have the new EBEAN nand check also movie and
+  // attributes
+  private static void addSingleAttribute(final String attrToAdd, final EDvdAttributeType attributeType, final Dvd dvd) {
+    if (StringUtils.isEmpty(attrToAdd) == true) {
+      return;
     }
-
-    return returnVal;
+    final Set<String> attribute = new HashSet<String>();
+    attribute.add(attrToAdd);
+    final Set<DvdAttibute> dbAttrs = DvdAttibute.gatherAndAddAttributes(attribute, attributeType);
+    dvd.attributes.addAll(dbAttrs);
   }
 
   /**
@@ -191,18 +186,11 @@ public class Dvd extends Model {
    * @param dvd
    * @return
    */
-  public static List<Dvd> getDvdByBoxOrCollection(final boolean box, final String attrValue, final Dvd dvd) {
+  public static List<Dvd> getDvdByBoxOrCollection(final EDvdAttributeType attrType, final String attrValue, final Dvd dvd) {
 
-    final String attrName = Dvd.boxOrCollectionAttr(box);
-
-    final List<Dvd> findList = Dvd.find.where().eq(attrName, attrValue).eq("owner.id", dvd.owner.id).ne("id", dvd.id).findList();
+    final List<Dvd> findList = Dvd.find.where().eq("attributes.attributeType", attrType).eq("attributes.value", attrValue).eq("owner.id", dvd.owner.id).ne("id", dvd.id).findList();
 
     return findList;
-  }
-
-  private static String boxOrCollectionAttr(final boolean box) {
-    final String attrName = (box == true) ? "box" : "collection";
-    return attrName;
   }
 
   /**
@@ -229,15 +217,15 @@ public class Dvd extends Model {
     }
 
     if (StringUtils.isEmpty(listFrom.genre) == false) {
-      where.eq("movie.attributes.value", listFrom.genre).eq("movie.attributes.attributeType", EAttributeType.GENRE);
+      where.eq("movie.attributes.value", listFrom.genre).eq("movie.attributes.attributeType", EMovieAttributeType.GENRE);
     }
 
     if (StringUtils.isEmpty(listFrom.actor) == false) {
-      where.eq("movie.attributes.value", listFrom.actor).eq("movie.attributes.attributeType", EAttributeType.ACTOR);
+      where.eq("movie.attributes.value", listFrom.actor).eq("movie.attributes.attributeType", EMovieAttributeType.ACTOR);
     }
 
     if (StringUtils.isEmpty(listFrom.director) == false) {
-      where.eq("movie.attributes.value", listFrom.director).eq("movie.attributes.attributeType", EAttributeType.DIRECTOR);
+      where.eq("movie.attributes.value", listFrom.director).eq("movie.attributes.attributeType", EMovieAttributeType.DIRECTOR);
     }
 
     if (StringUtils.isEmpty(listFrom.userName) == false) {
