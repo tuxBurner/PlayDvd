@@ -22,7 +22,7 @@ import play.db.ebean.Model;
  * 
  */
 @Entity
-public class DvdAttibute extends Model {
+public class MovieAttibute extends Model {
 
   /**
 	 * 
@@ -30,9 +30,9 @@ public class DvdAttibute extends Model {
   private static final long serialVersionUID = -6491899975286773215L;
 
   /**
-   * Default finder for the {@link DvdAttibute}
+   * Default finder for the {@link MovieAttibute}
    */
-  public static Finder<Long, DvdAttibute> finder = new Finder<Long, DvdAttibute>(Long.class, DvdAttibute.class);
+  public static Finder<Long, MovieAttibute> finder = new Finder<Long, MovieAttibute>(Long.class, MovieAttibute.class);
 
   @Id
   public Long pk;
@@ -47,13 +47,13 @@ public class DvdAttibute extends Model {
   public Set<Movie> movies;
 
   /**
-   * finds all {@link DvdAttibute} by the given values and the given
+   * finds all {@link MovieAttibute} by the given values and the given
    * {@link EAttributeType}
    * 
    * @return
    */
-  public static Set<DvdAttibute> findAttributesByName(final Set<String> values, final EAttributeType type) {
-    final Set<DvdAttibute> findSet = DvdAttibute.finder.where().in("value", values).eq("attributeType", type).findSet();
+  public static Set<MovieAttibute> findAttributesByName(final Set<String> values, final EAttributeType type) {
+    final Set<MovieAttibute> findSet = MovieAttibute.finder.where().in("value", values).eq("attributeType", type).findSet();
     return findSet;
   }
 
@@ -63,20 +63,20 @@ public class DvdAttibute extends Model {
    * @param type
    * @return
    */
-  public static List<DvdAttibute> getAllByType(final EAttributeType type) {
-    final List<DvdAttibute> findList = DvdAttibute.finder.where().eq("attributeType", type).order("value ASC").findList();
+  public static List<MovieAttibute> getAllByType(final EAttributeType type) {
+    final List<MovieAttibute> findList = MovieAttibute.finder.where().eq("attributeType", type).order("value ASC").findList();
     return findList;
   }
 
   /**
-   * Creates a {@link DvdAttibute} by the given {@link EAttributeType} and value
+   * Creates a {@link MovieAttibute} by the given {@link EAttributeType} and value
    * 
    * @param type
    * @param value
    * @return
    */
-  public static DvdAttibute createAttribute(final EAttributeType type, final String value) {
-    final DvdAttibute dvdAttibute = new DvdAttibute();
+  public static MovieAttibute createAttribute(final EAttributeType type, final String value) {
+    final MovieAttibute dvdAttibute = new MovieAttibute();
     dvdAttibute.attributeType = type;
     dvdAttibute.value = value;
 
@@ -86,27 +86,27 @@ public class DvdAttibute extends Model {
   }
 
   /**
-   * Gathers all {@link DvdAttibute} from the database and adds them if there
+   * Gathers all {@link MovieAttibute} from the database and adds them if there
    * are not in the database
    * 
    * @param attributeValues
    * @param type
    * @return
    */
-  public static Set<DvdAttibute> gatherAndAddAttributes(final Set<String> attributeValues, final EAttributeType type) {
+  public static Set<MovieAttibute> gatherAndAddAttributes(final Set<String> attributeValues, final EAttributeType type) {
 
-    Set<DvdAttibute> dbAttributes = DvdAttibute.findAttributesByName(attributeValues, type);
+    Set<MovieAttibute> dbAttributes = MovieAttibute.findAttributesByName(attributeValues, type);
     if (dbAttributes == null) {
-      dbAttributes = new HashSet<DvdAttibute>();
+      dbAttributes = new HashSet<MovieAttibute>();
     }
 
-    final Set<DvdAttibute> attributes = new HashSet<DvdAttibute>();
+    final Set<MovieAttibute> attributes = new HashSet<MovieAttibute>();
 
     for (final String formAttr : attributeValues) {
 
-      DvdAttibute dvdAttibuteToAdd = null;
+      MovieAttibute dvdAttibuteToAdd = null;
 
-      for (final DvdAttibute dvdAttibute : dbAttributes) {
+      for (final MovieAttibute dvdAttibute : dbAttributes) {
         if (dvdAttibute.value.equals(formAttr) == true) {
           dvdAttibuteToAdd = dvdAttibute;
           break;
@@ -115,7 +115,7 @@ public class DvdAttibute extends Model {
 
       // attr does not exists in the db ? we will create it
       if (dvdAttibuteToAdd == null) {
-        dvdAttibuteToAdd = DvdAttibute.createAttribute(type, formAttr);
+        dvdAttibuteToAdd = MovieAttibute.createAttribute(type, formAttr);
       }
 
       attributes.add(dvdAttibuteToAdd);

@@ -1,7 +1,5 @@
 package controllers;
 
-import com.typesafe.config.ConfigFactory;
-
 import models.User;
 import play.Routes;
 import play.data.Form;
@@ -19,6 +17,7 @@ import views.html.register;
 
 public class Application extends Controller {
 
+  // TODO: move to own class
   // -- Authentication
   public static class Login {
 
@@ -36,6 +35,7 @@ public class Application extends Controller {
     }
   }
 
+  // TODO: move to own class
   public static class Register {
 
     @Formats.NonEmpty
@@ -115,7 +115,7 @@ public class Application extends Controller {
     if (loginForm.hasErrors()) {
       return Results.badRequest(login.render(loginForm));
     } else {
-      Controller.session(Secured.AUTH_SESSION, "" + loginForm.get().username);
+      Secured.writeUserToSession(loginForm.get().username);
       return Results.redirect(routes.Application.index());
     }
   }

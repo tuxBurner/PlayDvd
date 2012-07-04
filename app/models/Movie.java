@@ -51,7 +51,7 @@ public class Movie extends Model {
   public Integer runtime;
 
   @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "movies")
-  public Set<DvdAttibute> attributes;
+  public Set<MovieAttibute> attributes;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "movie", orphanRemoval = true)
   public Set<Dvd> dvds;
@@ -98,21 +98,16 @@ public class Movie extends Model {
       movie.hasBackdrop = newBackDrop;
     }
 
-    movie.attributes = new HashSet<DvdAttibute>();
+    movie.attributes = new HashSet<MovieAttibute>();
 
     // gather all the genres and add them to the dvd
-    final Set<DvdAttibute> genres = DvdAttibute.gatherAndAddAttributes(new HashSet<String>(dvdForm.genres), EAttributeType.GENRE);
+    final Set<MovieAttibute> genres = MovieAttibute.gatherAndAddAttributes(new HashSet<String>(dvdForm.genres), EAttributeType.GENRE);
     movie.attributes.addAll(genres);
 
-    final Set<DvdAttibute> actors = DvdAttibute.gatherAndAddAttributes(new HashSet<String>(dvdForm.actors), EAttributeType.ACTOR);
+    final Set<MovieAttibute> actors = MovieAttibute.gatherAndAddAttributes(new HashSet<String>(dvdForm.actors), EAttributeType.ACTOR);
     movie.attributes.addAll(actors);
 
     Movie.addSingleAttribute(dvdForm.director, EAttributeType.DIRECTOR, movie);
-    Movie.addSingleAttribute(dvdForm.box, EAttributeType.BOX, movie);
-    Movie.addSingleAttribute(dvdForm.collection, EAttributeType.COLLECTION, movie);
-
-    // save all the attributes to the database :)
-    // movie.saveManyToManyAssociations("attributes");
 
     movie.update();
 
@@ -132,7 +127,7 @@ public class Movie extends Model {
     }
     final Set<String> attribute = new HashSet<String>();
     attribute.add(attrToAdd);
-    final Set<DvdAttibute> dbAttrs = DvdAttibute.gatherAndAddAttributes(attribute, attributeType);
+    final Set<MovieAttibute> dbAttrs = MovieAttibute.gatherAndAddAttributes(attribute, attributeType);
     movie.attributes.addAll(dbAttrs);
   }
 

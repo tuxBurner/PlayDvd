@@ -21,12 +21,22 @@ public class Secured extends Security.Authenticator {
     return Controller.ctx().session().get(Secured.AUTH_SESSION);
   }
 
+  /**
+   * Sets the user to the session
+   * 
+   * @param username
+   * @return
+   */
+  public static void writeUserToSession(final String username) {
+    final User userByName = User.getUserByName(username);
+    Controller.session(Secured.AUTH_SESSION, "" + userByName.userName);
+  }
+
   @Override
   public String getUsername(final Context ctx) {
     final String username = ctx.session().get(Secured.AUTH_SESSION);
 
     if (username != null) {
-
       final boolean checkIfUserExsists = User.checkIfUserExsists(username);
       if (checkIfUserExsists == false) {
         ctx.session().clear();

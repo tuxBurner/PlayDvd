@@ -2,19 +2,18 @@ package forms;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import models.Dvd;
-import models.DvdAttibute;
+import models.MovieAttibute;
 import models.EAttributeType;
 import play.data.validation.Constraints.Required;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * Form which handles all the inputs for adding, editing a dvd
@@ -95,8 +94,8 @@ public class DvdForm {
     dvdForm.hasPoster = dvd.movie.hasPoster;
     dvdForm.ownerName = dvd.owner.userName;
 
-    final Set<DvdAttibute> attributes = dvd.movie.attributes;
-    for (final DvdAttibute dvdAttibute : attributes) {
+    final Set<MovieAttibute> attributes = dvd.movie.attributes;
+    for (final MovieAttibute dvdAttibute : attributes) {
       if (EAttributeType.GENRE.equals(dvdAttibute.attributeType)) {
         dvdForm.genres.add(dvdAttibute.value);
       }
@@ -109,13 +108,6 @@ public class DvdForm {
         dvdForm.director = dvdAttibute.value;
       }
 
-      if (EAttributeType.BOX.equals(dvdAttibute.attributeType)) {
-        dvdForm.box = dvdAttibute.value;
-      }
-
-      if (EAttributeType.COLLECTION.equals(dvdAttibute.attributeType)) {
-        dvdForm.collection = dvdAttibute.value;
-      }
     }
 
     Collections.sort(dvdForm.actors);
@@ -135,9 +127,9 @@ public class DvdForm {
     final List<DvdFormAttribute> result = new ArrayList<DvdFormAttribute>();
 
     // merge wit the attributes from the database
-    final List<DvdAttibute> genres = DvdAttibute.getAllByType(attributeType);
+    final List<MovieAttibute> genres = MovieAttibute.getAllByType(attributeType);
     final Set<String> newGenreMatchedWithDb = new HashSet<String>();
-    for (final DvdAttibute dvdAttibute : genres) {
+    for (final MovieAttibute dvdAttibute : genres) {
 
       final String value = dvdAttibute.value;
       boolean selected = false;
@@ -163,16 +155,16 @@ public class DvdForm {
   }
 
   /**
-   * Gets the avaible {@link DvdAttibute}s as string for the tagit element
+   * Gets the avaible {@link MovieAttibute}s as string for the tagit element
    * 
    * @param attributeType
    * @return
    */
   public final String getAvaibleAttributesAsJson(final EAttributeType attributeType) {
 
-    final List<DvdAttibute> attributes = DvdAttibute.getAllByType(attributeType);
+    final List<MovieAttibute> attributes = MovieAttibute.getAllByType(attributeType);
     final List<String> attrMap = new ArrayList<String>();
-    for (final DvdAttibute dvdAttibute : attributes) {
+    for (final MovieAttibute dvdAttibute : attributes) {
       attrMap.add(dvdAttibute.value);
     }
 
@@ -183,17 +175,17 @@ public class DvdForm {
   }
 
   /**
-   * Gets all {@link DvdAttibute}s from the given {@link EAttributeType}
+   * Gets all {@link MovieAttibute}s from the given {@link EAttributeType}
    * 
    * @param attributeType
    * @return
    */
   public final List<String> getAvaibleAttributes(final EAttributeType attributeType) {
-    final List<DvdAttibute> attributes = DvdAttibute.getAllByType(attributeType);
+    final List<MovieAttibute> attributes = MovieAttibute.getAllByType(attributeType);
 
     final List<String> list = new ArrayList<String>();
     list.add("");
-    for (final DvdAttibute dvdAttibute : attributes) {
+    for (final MovieAttibute dvdAttibute : attributes) {
       list.add(dvdAttibute.value);
     }
 

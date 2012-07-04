@@ -37,8 +37,8 @@ public class InfoDvd {
       borrowedOn = new Date(dvd.borrowDate);
     }
 
-    boxDvds = getDvdsByAttr(dvd, EAttributeType.BOX, dvdForm.box);
-    collectionDvds = getDvdsByAttr(dvd, EAttributeType.COLLECTION, dvdForm.collection);
+    boxDvds = getDvdsByBoxOrCollection(dvd, true, dvdForm.box);
+    collectionDvds = getDvdsByBoxOrCollection(dvd, false, dvdForm.collection);
 
   }
 
@@ -50,13 +50,13 @@ public class InfoDvd {
    * @param attrvalue
    * @return
    */
-  private List<CollectionDvd> getDvdsByAttr(final Dvd dvd, final EAttributeType attributeType, final String attrvalue) {
+  private List<CollectionDvd> getDvdsByBoxOrCollection(final Dvd dvd, final boolean box, final String attrvalue) {
 
     if (StringUtils.isEmpty(attrvalue) == true) {
       return null;
     }
 
-    final List<Dvd> boxDbDvds = Dvd.getDvdByAttrAndUser(attributeType, attrvalue, dvd);
+    final List<Dvd> boxDbDvds = Dvd.getDvdByBoxOrCollection(box, attrvalue, dvd);
     List<CollectionDvd> returnList = null;
     if (CollectionUtils.isEmpty(boxDbDvds) == false) {
       returnList = new ArrayList<CollectionDvd>();

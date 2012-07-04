@@ -1,13 +1,8 @@
 package models;
 
-import helpers.EImageSize;
-import helpers.EImageType;
-import helpers.ImageHelper;
-
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +17,6 @@ import play.Logger;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 
-import com.avaje.ebean.Ebean;
 import com.avaje.ebean.ExpressionList;
 import com.avaje.ebean.Page;
 import com.typesafe.config.ConfigFactory;
@@ -77,6 +71,10 @@ public class Dvd extends Model {
   @Required
   @Column(nullable = false)
   public Long createdDate;
+
+  public String box;
+
+  public String collection;
 
   /**
    * Persists the {@link Dvd} to the database
@@ -142,6 +140,9 @@ public class Dvd extends Model {
     dvd.movie = movie;
     dvd.hullNr = dvdForm.hullNr;
 
+    dvd.box = dvdForm.box;
+    dvd.collection = dvdForm.collection;
+
     if (dvd.id == null) {
       dvd.createdDate = new Date().getTime();
       Dvd.create(dvd);
@@ -153,18 +154,55 @@ public class Dvd extends Model {
   }
 
   /**
+   * Gets the distinct name of all boxes and collections in the database to the
+   * dvd
+   * 
+   * @param box
+   * @return
+   */
+  public static List<String> getUserBoxesOrCollections(final boolean box) {
+
+    final String boxOrCollectionAttr = Dvd.boxOrCollectionAttr(box);
+
+    final List<Dvd> findList = Dvd.find.setDistinct(true).select(boxOrCollectionAttr).orderBy(boxOrCollectionAttr + " asc").findList();
+
+    // final RawSql rawsql = RawSqlBuilder.parse("").create();
+    // Dvd.find.setRawSql(parse);
+
+    // TODO: do we need this transformation or can we make the select make this
+    final List<String> returnVal = new ArrayList<String>();
+    returnVal.add("");
+    for (final Dvd dvd : findList) {
+      if (box) {
+        returnVal.add(dvd.box);
+      } else {
+        returnVal.add(dvd.collection);
+      }
+    }
+
+    return returnVal;
+  }
+
+  /**
    * Gets all dvds which have the same owner and the same attribute excluding
    * the given {@link Dvd}
    * 
-   * @param attributeType
+   * @param box
    * @param dvd
    * @return
    */
-  public static List<Dvd> getDvdByAttrAndUser(final EAttributeType attributeType, final String attrValue, final Dvd dvd) {
+  public static List<Dvd> getDvdByBoxOrCollection(final boolean box, final String attrValue, final Dvd dvd) {
 
-    final List<Dvd> findList = Dvd.find.where().eq("attributes.attributeType", attributeType).eq("attributes.value", attrValue).eq("owner.id", dvd.owner.id).ne("id", dvd.id).findList();
+    final String attrName = Dvd.boxOrCollectionAttr(box);
+
+    final List<Dvd> findList = Dvd.find.where().eq(attrName, attrValue).eq("owner.id", dvd.owner.id).ne("id", dvd.id).findList();
 
     return findList;
+  }
+
+  private static String boxOrCollectionAttr(final boolean box) {
+    final String attrName = (box == true) ? "box" : "collection";
+    return attrName;
   }
 
   /**

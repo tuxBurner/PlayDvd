@@ -51,9 +51,9 @@
          
          @inputText(dvdForm("hullNr"),'_label -> "Hull Nr.", 'class -> "span4")
 
-         @select(field = dvdForm("box"), options(dvdForm.get().getAvaibleAttributes(EAttributeType.BOX)),'_label->"Box",'class-> "span4 chosen_select")
+         @select(field = dvdForm("box"), options(Dvd.getUserBoxesOrCollections(true)),'_label->"Box",'class-> "span4 chosen_select")
          
-         @select(field = dvdForm("collection"), options(dvdForm.get().getAvaibleAttributes(EAttributeType.COLLECTION)),'_label->"Collection",'class-> "span4 chosen_select")
+         @select(field = dvdForm("collection"), options(Dvd.getUserBoxesOrCollections(false)),'_label->"Collection",'class-> "span4 chosen_select")
          
          
          <hr />

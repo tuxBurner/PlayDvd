@@ -1,7 +1,6 @@
 package models;
 
 import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import javax.persistence.Column;
@@ -10,12 +9,12 @@ import javax.persistence.Id;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import com.typesafe.config.ConfigFactory;
-
 import play.Logger;
 import play.data.format.Formats;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
+
+import com.typesafe.config.ConfigFactory;
 
 @Entity
 public class User extends Model {
