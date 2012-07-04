@@ -1,5 +1,4 @@
 $(function() {
-	
 	// check the url stuff and change the image if it is set
 	createPrevsrciewFromUrl('poster');
 	createPrevsrciewFromUrl('backDrop');

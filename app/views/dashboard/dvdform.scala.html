@@ -17,7 +17,6 @@
 }
 
 @styles = {
-  <link rel="stylesheet" href="@routes.Assets.at("tagit/css/jquery.tagit.css")" />
   <link rel="stylesheet" href="@routes.Assets.at("chosen/chosen.css")" />
 }
 
@@ -25,43 +24,33 @@
 
      @form(routes.Dashboard.addDvd(mode),'enctype -> "multipart/form-data", 'class -> "well") {
 
-<fieldset>
-<legend>@if(mode == "edit") {Edit Dvd} else {Add a Dvd}</legend>
+     <fieldset>
+       <legend>@if(mode == "edit") {Edit Dvd} else {Add a Dvd}</legend>
              
      
-         @if(mode == Dashboard.DVD_FORM_EDIT_MODE) {
-           <input type="hidden" name="dvdId" id="dvdId" value="@dvdForm.get().dvdId"/>
-         }
+       @if(mode == Dashboard.DVD_FORM_EDIT_MODE) {
+         <input type="hidden" name="dvdId" id="dvdId" value="@dvdForm.get().dvdId"/>
+       }
          
-              @inputText(dvdForm("hullNr"),'_label -> "Hull Nr.", 'class -> "span4")
-              @select(field = dvdForm("box"), options(DvdAttibute.getAllByTypeAsValue(EDvdAttributeType.BOX)),'_label->"Box",'class-> "span4 chosen_select")
-              @select(field = dvdForm("collection"), options(DvdAttibute.getAllByTypeAsValue(EDvdAttributeType.COLLECTION)),'_label->"Collection",'class-> "span4 chosen_select")
-              <hr />
+       @inputText(dvdForm("hullNr"),'_label -> "Hull Nr.", 'class -> "span4")
+       @select(field = dvdForm("box"), options(DvdAttibute.getAllByTypeAsValue(EDvdAttributeType.BOX)),'_label->"Box",'class-> "span4 chosen_select")
+       @select(field = dvdForm("collection"), options(DvdAttibute.getAllByTypeAsValue(EDvdAttributeType.COLLECTION)),'_label->"Collection",'class-> "span4 chosen_select")
+       <hr />
+             
+       <button class="btn btn-info" id="existingDvdButton" type="button"><i class="icon-copy"></i> From existing Movie</button>
+       <button class="btn btn-inverse" id="newMovieInfos" type="button"><i class="icon-film"></i> New Movie</button>
               
-              @select(field = dvdForm("collection"), options(DvdAttibute.getAllByTypeAsValue(EDvdAttributeType.COLLECTION)),'_label->"Collection",'class-> "span4 chosen_select")
-              
-              <button class="btn btn-info" id="existingDvdButton" type="button"><i class="icon-copy"></i> From existing Movie</button>
-              <button class="btn btn-inverse" id="newMovieInfos" type="button"><i class="icon-film"></i> New Movie</button>
-              
-              <div class="form-actions">
-                @if(mode == "edit") {
-                  <button type="submit" class="btn btn-primary"><i class="icon-edit"></i>Edit Dvd</button>
-                } else {
-                  <button type="submit" class="btn  btn-primary"><i class="icon-plus"></i>Add Dvd</button>
-                }
-                <a class="btn" href="@routes.Application.index"><i class="icon-arrow-left"></i>Back</a>
+       <div class="form-actions">
+       @if(mode == "edit") {
+         <button type="submit" class="btn btn-primary"><i class="icon-edit"></i>Edit Dvd</button>
+       } else {
+         <button type="submit" class="btn  btn-primary"><i class="icon-plus"></i>Add Dvd</button>
+       }
+       <a class="btn" href="@routes.Application.index"><i class="icon-arrow-left"></i>Back</a>
          
-</fieldset>         
+     </fieldset>         
      }
 
-  
-
-  <!-- TMDB DIALOG -->
-  <div id="tmdbDialog" title="Movie info from tmdb">
-    <div class="dialogContent">
-      
-    </div>
-  </div>
   
   <!-- EXISTING DIALOG -->
   <div id="existingDvdDialog" title="Movie info from existing Dvd">
