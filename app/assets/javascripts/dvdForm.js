@@ -2,6 +2,7 @@ $(function() {
 
 	// we need an empty option here
 	$('#movieId').prepend('<option></option>');
+	$('#movieId').val("");
 	
 	 $('.def_chosen_select').chosen({
        allow_single_deselect: true
