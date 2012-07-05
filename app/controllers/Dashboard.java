@@ -130,41 +130,6 @@ public class Dashboard extends Controller {
   }
 
   /**
-   * When the user selected a movie from the tmdb popup we fill out the form and
-   * display it
-   * 
-   * @param movieId
-   * @return
-   */
-  public static Result addDvdByTmdbId(final String mode) {
-
-    try {
-
-      final Form<TmdbInfoForm> tmdbInfoForm = Controller.form(TmdbInfoForm.class).bindFromRequest();
-      final MovieForm movieForm = InfoGrabber.fillDvdFormWithMovieInfo(tmdbInfoForm.get());
-
-      if (tmdbInfoForm.get().dvdId != null) {
-        // check if we can edit this dvd
-        final String userName = Controller.ctx().session().get(Secured.AUTH_SESSION);
-        final Dvd dvd = Dvd.getDvdForUser(tmdbInfoForm.get().dvdId, userName);
-
-        // user is not allowed to edit this dvd
-        if (dvd == null) {
-          return Results.badRequest();
-        }
-
-        movieForm.movieId = dvd.id;
-      }
-
-      final Form<MovieForm> form = Controller.form(MovieForm.class);
-
-      return Results.ok(movieform.render(form.fill(movieForm), mode));
-    } catch (final GrabberException e) {
-      return Results.badRequest("Internal Error happend");
-    }
-  }
-
-  /**
    * Displays the dialog content for lending a dvd to a another {@link User}
    * 
    * @return
@@ -247,16 +212,6 @@ public class Dashboard extends Controller {
     final byte[] jpg = gravatar.download(userByName.email);
     return Results.ok(jpg);
 
-  }
-
-  /**
-   * This displays the user a select with dvds stored in the database so when he
-   * wants to add a new dvd he can select one to prefill the informations
-   */
-  public static Result listExistingMovies(final Long dvdToEdit) {
-    final List<Movie> movies = Movie.listByDistinctTitle();
-
-    return Results.ok(listExistingMovies.render(movies, dvdToEdit));
   }
 
   /**

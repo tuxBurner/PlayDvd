@@ -43,7 +43,7 @@ GET    /dvd/add                  controllers.Dashboard.showAddDvd()
 POST   /dvd/addDvdByTmdb/:mode   controllers.Dashboard.addDvdByTmdbId(mode: String)
 POST   /dvd/:mode                controllers.Dashboard.addDvd(mode: String)
 GET    /dvd/edit/:dvdId          controllers.Dashboard.showEditDvd(dvdId: Long)
-GET    /dvd/listFormMovies       controllers.Dashboard.listExistingMovies(dvdToEdit: Long ?= 0) 
+GET    /dvd/listFormMovies       controllers.MovieController.listExistingMovies(dvdToEdit: Long ?= 0) 
 
 
 # TMDB 
