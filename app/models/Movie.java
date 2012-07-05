@@ -43,6 +43,12 @@ public class Movie extends Model {
 
   public Boolean hasBackdrop;
 
+  /**
+   * If true the movie has to be reviewed is for mass imports etc importand
+   */
+  @Column(nullable = false)
+  public Boolean hasToBeReviewed = false;
+
   @Lob
   public String description;
 

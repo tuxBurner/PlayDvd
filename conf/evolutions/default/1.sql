@@ -28,6 +28,7 @@ create table movie (
   title                     varchar(255),
   has_poster                tinyint(1) default 0,
   has_backdrop              tinyint(1) default 0,
+  has_to_be_reviewed        tinyint(1) default 0 not null,
   description               longtext,
   year                      integer not null,
   runtime                   integer,
