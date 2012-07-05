@@ -74,7 +74,7 @@
                 <a class="btn unlendDvdBtn" href="#" data-dvd-id="@dvd.id"><i class="icon-download"></i></a>
               }
               
-              <a class="btn" href="@routes.Dashboard.showEditDvd(dvd.id)"><i class="icon-edit"></i></a>
+              <a class="btn" href="@routes.DvdController.showEditDvd(dvd.id)"><i class="icon-edit"></i></a>
               <a class="btn deleteDvdBtn" href="#" data-dvd-id="@dvd.id"><i class="icon-trash"></i></a>
             } else {
               @if(dvd.borrower == null && dvd.borrowerName == null) {

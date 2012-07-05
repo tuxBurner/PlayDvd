@@ -76,7 +76,7 @@ public class Tmdb extends Controller {
 
       final Movie movieInfo = InfoGrabber.getMovieInfo(movieId);
 
-      final String mode = (dvdToEditId == null) ? Dashboard.DVD_FORM_ADD_MODE : Dashboard.DVD_FORM_EDIT_MODE;
+      final String mode = (dvdToEditId == null) ? DvdController.DVD_FORM_ADD_MODE : DvdController.DVD_FORM_EDIT_MODE;
 
       return Results.ok(displaymovie.render(movieInfo, dvdToEditId, mode));
 

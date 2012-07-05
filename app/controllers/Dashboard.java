@@ -3,11 +3,9 @@ package controllers;
 import helpers.EImageSize;
 import helpers.EImageType;
 import helpers.ImageHelper;
-import helpers.RequestToCollectionHelper;
 
 import java.io.File;
 import java.util.List;
-import java.util.Map;
 
 import jgravatar.Gravatar;
 import jgravatar.GravatarDefaultImage;
@@ -26,45 +24,12 @@ import play.mvc.Results;
 import play.mvc.Security;
 import views.html.genremenu;
 import views.html.dashboard.displaydvd;
-import views.html.dashboard.dvdform;
 import views.html.dashboard.lendform;
-import forms.DvdForm;
 import forms.InfoDvd;
 import forms.LendForm;
 
 @Security.Authenticated(Secured.class)
 public class Dashboard extends Controller {
-
-  public static final String DVD_FORM_ADD_MODE = "add";
-
-  public static final String DVD_FORM_EDIT_MODE = "edit";
-
-  /**
-   * Shows the add Dvd form
-   * 
-   * @return
-   */
-  public static Result showAddDvd() {
-    final Form<DvdForm> form = Controller.form(forms.DvdForm.class);
-    return Results.ok(dvdform.render(form.fill(new DvdForm()), Dashboard.DVD_FORM_ADD_MODE));
-  }
-
-  /**
-   * Shows the edit dvd form
-   * 
-   * @return
-   */
-  public static Result showEditDvd(final Long dvdId) {
-
-    final Dvd dvdToEdit = Dvd.getDvdForUser(dvdId, Controller.request().username());
-
-    if (dvdToEdit == null) {
-      return Results.badRequest("U ARE NOT ALLOWED TO EDIT :) ");
-    }
-
-    final Form<DvdForm> form = Controller.form(forms.DvdForm.class);
-    return Results.ok(dvdform.render(form.fill(DvdForm.dvdToDvdForm(dvdToEdit)), Dashboard.DVD_FORM_EDIT_MODE));
-  }
 
   /**
    * Display the dvd and its informations
@@ -82,44 +47,6 @@ public class Dashboard extends Controller {
     final InfoDvd infoDvd = new InfoDvd(dvd);
 
     return Results.ok(displaydvd.render(infoDvd));
-  }
-
-  /**
-   * This is called when the user submits the add Dvd Form
-   * 
-   * @return
-   */
-  public static Result addDvd(final String mode) {
-
-    final Map<String, String> map = RequestToCollectionHelper.requestToFormMap(Controller.request(), "actors", "genres");
-    final Form<DvdForm> dvdForm = new Form<DvdForm>(DvdForm.class).bind(map);
-
-    if (dvdForm.hasErrors()) {
-      return Results.badRequest(dvdform.render(dvdForm, mode));
-    } else {
-
-      try {
-
-        final String userName = Controller.ctx().session().get(Secured.AUTH_SESSION);
-
-        if (Dashboard.DVD_FORM_ADD_MODE.equals(mode) == true) {
-          // try to create the dvd from the form
-          final Dvd createFromForm = Dvd.createFromForm(userName, dvdForm.get());
-          Controller.flash("success", "Dvd: " + createFromForm.movie.title + " added");
-        }
-
-        if (Dashboard.DVD_FORM_EDIT_MODE.equals(mode) == true) {
-          final Dvd editFromForm = Dvd.editFromForm(userName, dvdForm.get());
-          Controller.flash("success", "Dvd: " + editFromForm.movie.title + " edited");
-        }
-
-      } catch (final Exception e) {
-        e.printStackTrace();
-        return Results.badRequest(dvdform.render(dvdForm, mode));
-      }
-
-      return Results.redirect(routes.ListDvds.listdvds(null));
-    }
   }
 
   /**

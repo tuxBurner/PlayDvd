@@ -2,15 +2,12 @@ $(function() {
 	// check the url stuff and change the image if it is set
 	createPrevsrciewFromUrl('poster');
 	createPrevsrciewFromUrl('backDrop');
-	
 
 	// when the user change the inputs for the images we want to change the preview
-	$('#posterUrl').blur(function() { 
-			
-			if($(this).val() != null) {
-				createPrevsrciewFromUrl('poster');
-			}
-		
+	$('#posterUrl').blur(function() {
+	  if($(this).val() != null) {
+	    createPrevsrciewFromUrl('poster');
+	  }
 	});
 	
 	$("#genresTags").tagit({
@@ -79,6 +76,37 @@ $(function() {
 		    console.error(err);
 		});
 	});
+	
+	/**
+	 * Close the movie form if the user clicks on the button
+	 */
+	$('#movieFormCloseBtn').click(function() {
+		$('#newMovieFormWrapper').html('').hide();
+	});
+	
+	/**
+	 * user clicks on the submit edit or add button for the movie
+	 */
+	$('#movieFormSubmitBtn').click(function() {
+		
+		showWaitDiaLog();
+		
+		var formParams = $('#movieForm').formParams();
+		var mode = $('#movieForm').attr('mode')
+		
+		pAjax(jsRoutes.controllers.MovieController.addOrEditMovie(mode),formParams,
+				function(data) {
+			      $('#newMovieFormWrapper').html(data).show();
+			      closeWaitDiaLog();
+		        },
+				function(err) {
+		        	closeWaitDiaLog();
+		        	$('#newMovieFormWrapper').html(err).show();
+				}
+		);
+				
+		
+	});
 		
 });
 
@@ -90,14 +118,13 @@ function fillFormWithInfoFromTmdb() {
 	showWaitDiaLog();
 	
 	var formParams = $('#tmdbMovieForm').formParams();
-	var movieFormMode = $('#movieFormMode').val();
+	var movieFormMode = $('#tmdbMovieForm').attr('mode');
 	$('#newMovieFormWrapper').html('').hide();
 	
 	pAjax(jsRoutes.controllers.MovieController.addMovieByTmdbId(movieFormMode),formParams,
 			function(data) {
 		      $('#newMovieFormWrapper').html(data).show();
 		      closeWaitDiaLog();
-		      
 	        },
 			function(err) {
 	        	closeWaitDiaLog();

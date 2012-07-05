@@ -7,9 +7,7 @@
 
 
 
-  @form(routes.MovieController.addMovieByTmdbId(mode),'class -> "vertical",'id -> "tmdbMovieForm") {
-  
-    <input type="hidden" name="movieFormMode" id="movieFormMode"  value="@mode"/>
+  @form(routes.MovieController.addMovieByTmdbId(mode),'class -> "vertical",'id -> "tmdbMovieForm", 'mode -> mode) {
      
   
     <input type="hidden" name="movieId" id="movieId"  value="@movieinfo.getID()"/>

@@ -6,7 +6,9 @@ import helpers.ImageHelper;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,6 +26,7 @@ import com.avaje.ebean.Ebean;
 import forms.DvdForm;
 import forms.MovieForm;
 
+import play.Logger;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 
@@ -70,7 +73,19 @@ public class Movie extends Model {
    * @return
    * @throws Exception
    */
-  public static Movie editOrAddFromForm(final MovieForm movieForm, Movie movie) throws Exception {
+  public static Movie editOrAddFromForm(final MovieForm movieForm) throws Exception {
+
+    Movie movie = null;
+
+    if (movieForm.movieId != null) {
+      movie = Movie.find.byId(movieForm.movieId);
+      if (movie == null) {
+        final String message = "No Movie by the id: " + movieForm.movieId + " found !";
+        Logger.error(message);
+        throw new Exception(message);
+      }
+    }
+
     if (movie == null) {
       movie = new Movie();
     }

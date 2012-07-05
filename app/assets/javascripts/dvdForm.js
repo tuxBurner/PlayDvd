@@ -1,21 +1,18 @@
 $(function() {
+
+	// we need an empty option here
+	$('#movieId').prepend('<option></option>');
+	
+	 $('.def_chosen_select').chosen({
+       allow_single_deselect: true
+     });
 	
 	 $('.chosen_select').chosen({
-		    create_option: true,
-		    // persistent_create_option decides if you can add any term, even if part of the term is also found, or only unique, not overlapping terms
-		    persistent_create_option: false,
-		    allow_single_deselect: true
-		  });
-	
-	
-	
-	$('#existingDvdDialog').dialog({
-		height: '450',
-		width: '660',
-		top: 60,
-		autoOpen: false,
-		modal: true
-	});
+	   create_option: true,
+	   // persistent_create_option decides if you can add any term, even if part of the term is also found, or only unique, not overlapping terms
+	   persistent_create_option: false,
+	   allow_single_deselect: true
+	 });
 	
 	
 	/**
@@ -34,36 +31,7 @@ $(function() {
 				});
 				
 	});
-	
-	
-	/**
-	 * clicking on the existing dvd button creates a popup which lets the user select a dvd from a dropdown
-	 */
-	$('#existingDvdButton').click(function() {
-		
-		showWaitDiaLog();
-		
-		var dvdIdToEdit =  $('#dvdId').val();
-		if(dvdIdToEdit == null) {
-			dvdIdToEdit = 0;
-		}
-		
-		pAjax(jsRoutes.controllers.Dashboard.listExistingMovies(dvdIdToEdit),null,
-				  function(data){
-					$('#existingDvdDialog .dialogContent').html(data);
-					$('#existingDvdDialog').dialog( "option", "buttons",[{
-					      text: 'Ok',
-			              click: function() {
-			            	 $('#selectExistingDvdForm').submit();
-			              }
-					    }]).dialog('open');
-					closeWaitDiaLog();
-				  },
-				  function(err) {
-					console.error(err);
-					closeWaitDiaLog();
-				});
-	});
+
 	
 	
 });

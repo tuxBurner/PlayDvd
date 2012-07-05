@@ -1,6 +1,8 @@
 package controllers;
 
-import java.util.List;
+import helpers.RequestToCollectionHelper;
+
+import java.util.Map;
 
 import models.Dvd;
 import models.Movie;
@@ -11,7 +13,6 @@ import play.mvc.Results;
 import play.mvc.Security;
 import tmdb.GrabberException;
 import tmdb.InfoGrabber;
-import views.html.movie.listExistingMovies;
 import views.html.movie.movieform;
 import forms.MovieForm;
 import forms.TmdbInfoForm;
@@ -26,23 +27,43 @@ import forms.TmdbInfoForm;
 public class MovieController extends Controller {
 
   /**
-   * This displays the user a select with dvds stored in the database so when he
-   * wants to add a new dvd he can select one to prefill the informations
-   */
-  public static Result listExistingMovies(final Long dvdToEdit) {
-    final List<Movie> movies = Movie.listByDistinctTitle();
-
-    return Results.ok(listExistingMovies.render(movies, dvdToEdit));
-  }
-
-  /**
    * Displays the {@link MovieForm} to the user in the add mode
    * 
    * @return
    */
   public static Result showAddMovieForm() {
     final Form<MovieForm> form = Controller.form(MovieForm.class);
-    return Results.ok(movieform.render(form.fill(new MovieForm()), Dashboard.DVD_FORM_ADD_MODE));
+    return Results.ok(movieform.render(form.fill(new MovieForm()), DvdController.DVD_FORM_ADD_MODE));
+  }
+
+  /**
+   * This is called when the user submits the add Dvd Form
+   * 
+   * @return
+   */
+  public static Result addOrEditMovie(final String mode) {
+
+    final Map<String, String> map = RequestToCollectionHelper.requestToFormMap(Controller.request(), "actors", "genres");
+    final Form<MovieForm> movieForm = new Form<MovieForm>(MovieForm.class).bind(map);
+
+    if (movieForm.hasErrors()) {
+      return Results.badRequest(movieform.render(movieForm, mode));
+    } else {
+      try {
+        final Movie editOrAddFromForm = Movie.editOrAddFromForm(movieForm.get());
+        if (DvdController.DVD_FORM_ADD_MODE.equals(mode) == true) {
+          Controller.flash("success", "Dvd: " + editOrAddFromForm.title + " added");
+        }
+        if (DvdController.DVD_FORM_EDIT_MODE.equals(mode) == true) {
+          Controller.flash("success", "Dvd: " + editOrAddFromForm.title + " edited");
+        }
+      } catch (final Exception e) {
+        e.printStackTrace();
+        return Results.badRequest(movieform.render(movieForm, mode));
+      }
+
+      return Results.ok();
+    }
   }
 
   /**

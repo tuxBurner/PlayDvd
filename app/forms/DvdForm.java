@@ -1,18 +1,12 @@
 package forms;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
+
+import play.data.validation.Constraints.Required;
 
 import models.Dvd;
 import models.DvdAttribute;
 import models.EDvdAttributeType;
-import models.EMovieAttributeType;
-import models.MovieAttibute;
-import play.data.validation.Constraints.Required;
 
 /**
  * Form which handles all the inputs for adding, editing a dvd
@@ -27,6 +21,7 @@ public class DvdForm {
   /**
    * The id if the movie the dvd references to
    */
+  @Required(message = "No Movie was selected")
   public Long movieId;
 
   /**
