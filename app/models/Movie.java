@@ -6,9 +6,7 @@ import helpers.ImageHelper;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,14 +19,14 @@ import javax.persistence.OneToMany;
 
 import org.apache.commons.lang.StringUtils;
 
+import play.Logger;
+import play.data.validation.Constraints.Required;
+import play.db.ebean.Model;
+
 import com.avaje.ebean.Ebean;
 
 import forms.DvdForm;
 import forms.MovieForm;
-
-import play.Logger;
-import play.data.validation.Constraints.Required;
-import play.db.ebean.Model;
 
 @Entity
 public class Movie extends Model {

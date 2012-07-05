@@ -6,7 +6,11 @@ import java.util.Map;
 
 import models.Dvd;
 import models.Movie;
+
+import org.codehaus.jackson.node.ObjectNode;
+
 import play.data.Form;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
@@ -51,18 +55,15 @@ public class MovieController extends Controller {
     } else {
       try {
         final Movie editOrAddFromForm = Movie.editOrAddFromForm(movieForm.get());
-        if (DvdController.DVD_FORM_ADD_MODE.equals(mode) == true) {
-          Controller.flash("success", "Dvd: " + editOrAddFromForm.title + " added");
-        }
-        if (DvdController.DVD_FORM_EDIT_MODE.equals(mode) == true) {
-          Controller.flash("success", "Dvd: " + editOrAddFromForm.title + " edited");
-        }
+        final ObjectNode result = Json.newObject();
+        result.put("id", editOrAddFromForm.id);
+        result.put("title", editOrAddFromForm.title);
+        return Results.ok(result);
       } catch (final Exception e) {
         e.printStackTrace();
         return Results.badRequest(movieform.render(movieForm, mode));
       }
 
-      return Results.ok();
     }
   }
 

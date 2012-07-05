@@ -14,12 +14,10 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-import org.apache.commons.collections.CollectionUtils;
+import play.db.ebean.Model;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import play.db.ebean.Model;
 
 /**
  * This is the {@link Entity} holding certain attributes

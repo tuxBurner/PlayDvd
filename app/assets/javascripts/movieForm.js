@@ -96,7 +96,12 @@ $(function() {
 		
 		pAjax(jsRoutes.controllers.MovieController.addOrEditMovie(mode),formParams,
 				function(data) {
-			      $('#newMovieFormWrapper').html(data).show();
+			      $('#newMovieFormWrapper').html('').hide();
+			      // write the new movie to the select box and preselect it 
+			      $('#movieId').append('<option value="'+data.id+'">'+data.title+'</option>');
+			  	  $('#movieId').val(data.id);
+			  	  $("#movieId").trigger("liszt:updated");
+			  	  
 			      closeWaitDiaLog();
 		        },
 				function(err) {
