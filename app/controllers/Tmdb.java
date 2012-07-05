@@ -17,7 +17,7 @@ import com.github.savvasdalkitsis.jtmdb.Movie;
 
 public class Tmdb extends Controller {
 
-  public final static String DVD_ID_FIELD_NAME = "tmdbDvdId";
+  public final static String DVD_ID_FIELD_NAME = "tmdbMovieId";
 
   /**
    * This is called when the user wants to search the movie database
@@ -27,7 +27,7 @@ public class Tmdb extends Controller {
    */
   public static Result searchTmdb(final String searchTerm) {
 
-    final Long tmdbDvdId = Tmdb.getDvdToEditIdFromReq();
+    final Long tmdbDvdId = Tmdb.getMovieToEditIdFromReq();
 
     try {
       List<Movie> searchForMovie = new ArrayList<Movie>();
@@ -49,7 +49,7 @@ public class Tmdb extends Controller {
    * @param tmdbDvdId
    * @return
    */
-  private static Long getDvdToEditIdFromReq() {
+  private static Long getMovieToEditIdFromReq() {
 
     Long tmdbDvdId = null;
 
@@ -72,13 +72,13 @@ public class Tmdb extends Controller {
 
     try {
 
-      final Long dvdToEditId = Tmdb.getDvdToEditIdFromReq();
+      final Long movieToEditId = Tmdb.getMovieToEditIdFromReq();
 
       final Movie movieInfo = InfoGrabber.getMovieInfo(movieId);
 
-      final String mode = (dvdToEditId == null) ? DvdController.DVD_FORM_ADD_MODE : DvdController.DVD_FORM_EDIT_MODE;
+      final String mode = (movieToEditId == null) ? DvdController.DVD_FORM_ADD_MODE : DvdController.DVD_FORM_EDIT_MODE;
 
-      return Results.ok(displaymovie.render(movieInfo, dvdToEditId, mode));
+      return Results.ok(displaymovie.render(movieInfo, movieToEditId, mode));
 
     } catch (final GrabberException e) {
       return Results.badRequest("Internal Error happend");

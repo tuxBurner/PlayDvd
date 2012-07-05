@@ -42,14 +42,14 @@ $(function() {
 	 * clicking on the tmdb button opens an popup where the user can search for the movie online
 	 */
 	$('#tmdbButton').click(function() {
-		searchTmdb($('#title').val(),$('#dvdId').val());
+		searchTmdb($('#title').val(),$('#movieId').val());
 	});
 	
 	/**
 	 * button in the popup will be always clickable
 	 */
 	$('#tmdb_search_button').live('click',function() {
-		searchTmdb($('#tmdb_search_input').val(),$('#tmdbDvdId').val());
+		searchTmdb($('#tmdb_search_input').val(),$('#tmdbMovieId').val());
 		return false;
 	});
 	
@@ -59,7 +59,9 @@ $(function() {
 	$('.pickTmdbEntry').live('click',function() {
 		showWaitDiaLog();
 		
-		var params = { "tmdbDvdId" : $('#tmdbDvdId').val()};
+		var params = { "tmdbMovieId" : $('#tmdbMovieId').val()};
+		
+		console.error(params);
 		
 		pAjax(jsRoutes.controllers.Tmdb.getMovieById($(this).data('tmdbId')),params,
 		  function(data){
@@ -97,7 +99,10 @@ $(function() {
 		pAjax(jsRoutes.controllers.MovieController.addOrEditMovie(mode),formParams,
 				function(data) {
 			      $('#newMovieFormWrapper').html('').hide();
-			      // write the new movie to the select box and preselect it 
+			      // write the new movie to the select box and preselect it
+			      
+			      $('#movieId option[value="'+data.id+'"]').remove();
+			      
 			      $('#movieId').append('<option value="'+data.id+'">'+data.title+'</option>');
 			  	  $('#movieId').val(data.id);
 			  	  $("#movieId").trigger("liszt:updated");
@@ -164,11 +169,11 @@ function createPreview(prevName, src) {
  * This searches the tmdb and returns the result via ajax and writes it to the dialog
  * @param title
  */
-function searchTmdb(title,dvdToEditId) {
+function searchTmdb(title,movieToEditId) {
 	
 	showWaitDiaLog();
 	
-	var params = { "tmdbDvdId" : dvdToEditId};
+	var params = { "tmdbMovieId" : movieToEditId};
 	
 	pAjax(jsRoutes.controllers.Tmdb.searchTmdb(title),params,
 	  function(data){

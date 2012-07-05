@@ -14,6 +14,26 @@ $(function() {
 	   persistent_create_option: false,
 	   allow_single_deselect: true
 	 });
+	 
+	 $('#editMovieInfos').click(function() {
+		 
+		 var selectedMovieId = $('#movieId').val();
+		 if(selectedMovieId == null || selectedMovieId == "") {
+			 alert("No Movie selected to edit !");
+			 return;
+		 }
+			
+			$('#newMovieFormWrapper').html('').hide();
+			
+			pAjax(jsRoutes.controllers.MovieController.showEditMovieForm(selectedMovieId),null,
+					function(data) {
+				      $('#newMovieFormWrapper').html(data).show(); 
+			        },
+					function(err) {
+					  console.error(err);
+					});
+					
+		});
 	
 	
 	/**

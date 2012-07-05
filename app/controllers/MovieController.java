@@ -4,11 +4,11 @@ import helpers.RequestToCollectionHelper;
 
 import java.util.Map;
 
-import models.Dvd;
 import models.Movie;
 
 import org.codehaus.jackson.node.ObjectNode;
 
+import play.Logger;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -38,6 +38,25 @@ public class MovieController extends Controller {
   public static Result showAddMovieForm() {
     final Form<MovieForm> form = Controller.form(MovieForm.class);
     return Results.ok(movieform.render(form.fill(new MovieForm()), DvdController.DVD_FORM_ADD_MODE));
+  }
+
+  /**
+   * Shows the edit {@link Movie} form
+   * 
+   * @return
+   */
+  public static Result showEditMovieForm(final Long movieId) {
+
+    final Movie movie = Movie.find.byId(movieId);
+
+    if (movie == null) {
+      final String message = "No Movie found to edit under the id: " + movieId;
+      Logger.error(message);
+      return Results.badRequest(message);
+    }
+
+    final Form<MovieForm> form = Controller.form(MovieForm.class);
+    return Results.ok(movieform.render(form.fill(MovieForm.movieToForm(movie)), DvdController.DVD_FORM_EDIT_MODE));
   }
 
   /**
@@ -82,17 +101,8 @@ public class MovieController extends Controller {
       final Form<TmdbInfoForm> tmdbInfoForm = Controller.form(TmdbInfoForm.class).bindFromRequest();
       final MovieForm movieForm = InfoGrabber.fillDvdFormWithMovieInfo(tmdbInfoForm.get());
 
-      if (tmdbInfoForm.get().dvdId != null) {
-        // check if we can edit this dvd
-        final String userName = Controller.ctx().session().get(Secured.AUTH_SESSION);
-        final Dvd dvd = Dvd.getDvdForUser(tmdbInfoForm.get().dvdId, userName);
-
-        // user is not allowed to edit this dvd
-        if (dvd == null) {
-          return Results.badRequest();
-        }
-
-        movieForm.movieId = dvd.id;
+      if (tmdbInfoForm.get().movieDbId != null) {
+        movieForm.movieId = tmdbInfoForm.get().movieDbId;
       }
 
       final Form<MovieForm> form = Controller.form(MovieForm.class);

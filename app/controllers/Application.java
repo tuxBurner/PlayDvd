@@ -154,6 +154,7 @@ public class Application extends Controller {
         controllers.routes.javascript.Dashboard.lendDialogContent(),
         controllers.routes.javascript.Dashboard.lendDvd(),
         controllers.routes.javascript.MovieController.showAddMovieForm(),
+        controllers.routes.javascript.MovieController.showEditMovieForm(),
         controllers.routes.javascript.MovieController.addMovieByTmdbId(),
         controllers.routes.javascript.MovieController.addOrEditMovie()));
 

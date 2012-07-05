@@ -1,4 +1,4 @@
-@(movieinfo : com.github.savvasdalkitsis.jtmdb.Movie,dvdToEditId: Long,mode: String)
+@(movieinfo : com.github.savvasdalkitsis.jtmdb.Movie,movieToEditId: Long,mode: String)
 
 @import helper._
 
@@ -11,7 +11,7 @@
      
   
     <input type="hidden" name="movieId" id="movieId"  value="@movieinfo.getID()"/>
-    <input type="hidden" name="dvdId" id="dvdEditId" value="@dvdToEditId" />
+    <input type="hidden" name="movieDbId" id="movieDbId" value="@movieToEditId" />
   
     <fieldset>
       <legend>Description</legend>

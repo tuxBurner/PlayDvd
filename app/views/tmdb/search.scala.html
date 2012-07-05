@@ -1,9 +1,9 @@
-@(searchTerm : String,results : List[com.github.savvasdalkitsis.jtmdb.Movie],dvdId: Long)
+@(searchTerm : String,results : List[com.github.savvasdalkitsis.jtmdb.Movie],dbMovieId: Long)
 <form method="GET" >
   		<label>Search Tmdb</label>
   		<input type="text" name="searchTerm" id="tmdb_search_input" value="@searchTerm"/>
   		
-  		<input type="hidden" name="tmdbDvdId" id="tmdbDvdId" value="@dvdId"/>
+  		<input type="hidden" name="tmdbMovieId" id="tmdbMovieId" value="@dbMovieId"/>
   		
   		<button href="#" id="tmdb_search_button" class="btn"><i class="icon-search"></i>Search</button>
 </form>

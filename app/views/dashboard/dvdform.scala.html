@@ -44,6 +44,10 @@
              
       @select(dvdForm("movieId"), models.Movie.listByDistinctTitle().map{ t=> t.id.toString -> (t.title)},'_label->"Existing movie", 'class-> "span5 def_chosen_select")        
       <button class="btn btn-inverse" id="newMovieInfos" type="button"><i class="icon-film"></i> New Movie</button>
+      
+      @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
+        <button class="btn btn-info" id="editMovieInfos" type="button"><i class="icon-edit"></i> Edit Movie</button>      
+      }
               
        <div class="form-actions">
          @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
