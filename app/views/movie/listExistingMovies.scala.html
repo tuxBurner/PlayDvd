@@ -2,7 +2,7 @@
 
 @import helper._
 
-@form(routes.Dashboard.addDvdByTmdbId("ADD"),'class -> "vertical",'id -> "selectExistingDvdForm") {
+@form(routes.MovieController.addMovieByTmdbId("ADD"),'class -> "vertical",'id -> "selectExistingDvdForm") {
   <input type="hidden" name="dvdToEditId"  value="@dvdToEditId" />
 
   <select id="existingDvdSelect" name="dvdToCopy" class="span8">

@@ -2,9 +2,6 @@ package controllers;
 
 import java.util.List;
 
-import forms.MovieForm;
-import forms.TmdbInfoForm;
-
 import models.Dvd;
 import models.Movie;
 import play.data.Form;
@@ -14,8 +11,10 @@ import play.mvc.Results;
 import play.mvc.Security;
 import tmdb.GrabberException;
 import tmdb.InfoGrabber;
-import views.html.dashboard.listExistingMovies;
-import views.html.dashboard.movieform;
+import views.html.movie.listExistingMovies;
+import views.html.movie.movieform;
+import forms.MovieForm;
+import forms.TmdbInfoForm;
 
 /**
  * This {@link Controller} handles all the edit and add {@link Movie} magic
@@ -34,6 +33,16 @@ public class MovieController extends Controller {
     final List<Movie> movies = Movie.listByDistinctTitle();
 
     return Results.ok(listExistingMovies.render(movies, dvdToEdit));
+  }
+
+  /**
+   * Displays the {@link MovieForm} to the user in the add mode
+   * 
+   * @return
+   */
+  public static Result showAddMovieForm() {
+    final Form<MovieForm> form = Controller.form(MovieForm.class);
+    return Results.ok(movieform.render(form.fill(new MovieForm()), Dashboard.DVD_FORM_ADD_MODE));
   }
 
   /**

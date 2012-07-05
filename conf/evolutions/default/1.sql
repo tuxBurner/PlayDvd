@@ -15,12 +15,12 @@ create table dvd (
   constraint pk_dvd primary key (id))
 ;
 
-create table dvd_attibute (
+create table dvd_attribute (
   id                        bigint auto_increment not null,
   attribute_type            varchar(10) not null,
   value                     varchar(255),
-  constraint ck_dvd_attibute_attribute_type check (attribute_type in ('BOX','COLLECTION')),
-  constraint pk_dvd_attibute primary key (id))
+  constraint ck_dvd_attribute_attribute_type check (attribute_type in ('BOX','COLLECTION')),
+  constraint pk_dvd_attribute primary key (id))
 ;
 
 create table movie (
@@ -60,10 +60,10 @@ create table user (
 ;
 
 
-create table dvd_attibute_dvd (
-  dvd_attibute_id                bigint not null,
+create table dvd_attribute_dvd (
+  dvd_attribute_id               bigint not null,
   dvd_id                         bigint not null,
-  constraint pk_dvd_attibute_dvd primary key (dvd_attibute_id, dvd_id))
+  constraint pk_dvd_attribute_dvd primary key (dvd_attribute_id, dvd_id))
 ;
 
 create table movie_attibute_movie (
@@ -80,9 +80,9 @@ create index ix_dvd_movie_3 on dvd (movie_id);
 
 
 
-alter table dvd_attibute_dvd add constraint fk_dvd_attibute_dvd_dvd_attib_01 foreign key (dvd_attibute_id) references dvd_attibute (id) on delete restrict on update restrict;
+alter table dvd_attribute_dvd add constraint fk_dvd_attribute_dvd_dvd_attr_01 foreign key (dvd_attribute_id) references dvd_attribute (id) on delete restrict on update restrict;
 
-alter table dvd_attibute_dvd add constraint fk_dvd_attibute_dvd_dvd_02 foreign key (dvd_id) references dvd (id) on delete restrict on update restrict;
+alter table dvd_attribute_dvd add constraint fk_dvd_attribute_dvd_dvd_02 foreign key (dvd_id) references dvd (id) on delete restrict on update restrict;
 
 alter table movie_attibute_movie add constraint fk_movie_attibute_movie_movie_01 foreign key (movie_attibute_pk) references movie_attibute (pk) on delete restrict on update restrict;
 
@@ -94,9 +94,9 @@ SET FOREIGN_KEY_CHECKS=0;
 
 drop table dvd;
 
-drop table dvd_attibute_dvd;
+drop table dvd_attribute_dvd;
 
-drop table dvd_attibute;
+drop table dvd_attribute;
 
 drop table movie;
 

@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import models.Dvd;
-import models.DvdAttibute;
+import models.DvdAttribute;
 import models.EDvdAttributeType;
 import models.EMovieAttributeType;
 import models.MovieAttibute;
@@ -60,8 +60,8 @@ public class DvdForm {
     dvdForm.ownerName = dvd.owner.userName;
     dvdForm.hullNr = dvd.hullNr;
 
-    final Set<DvdAttibute> dvdAttrs = dvd.attributes;
-    for (final DvdAttibute dvdAttibute : dvdAttrs) {
+    final Set<DvdAttribute> dvdAttrs = dvd.attributes;
+    for (final DvdAttribute dvdAttibute : dvdAttrs) {
       if (EDvdAttributeType.BOX.equals(dvdAttibute.attributeType)) {
         dvdForm.box = dvdAttibute.value;
       }

@@ -40,10 +40,13 @@ POST    /lendDvd/:dvdId              controllers.Dashboard.lendDvd(dvdId: Long)
 
 # ADD edit DVD
 GET    /dvd/add                  controllers.Dashboard.showAddDvd()
-POST   /dvd/addDvdByTmdb/:mode   controllers.Dashboard.addDvdByTmdbId(mode: String)
 POST   /dvd/:mode                controllers.Dashboard.addDvd(mode: String)
 GET    /dvd/edit/:dvdId          controllers.Dashboard.showEditDvd(dvdId: Long)
-GET    /dvd/listFormMovies       controllers.MovieController.listExistingMovies(dvdToEdit: Long ?= 0) 
+
+# MOVIE ROUTES
+POST   /movie/addMovieByTmdb/:mode controllers.MovieController.addMovieByTmdbId(mode: String)
+GET    /dvd/listFormMovies         controllers.MovieController.listExistingMovies(dvdToEdit: Long ?= 0)
+GET    /movie/add                  controllers.MovieController.showAddMovieForm() 
 
 
 # TMDB 

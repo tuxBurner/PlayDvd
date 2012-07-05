@@ -46,7 +46,7 @@ public class Dvd extends Model {
   public User borrower;
 
   @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "dvds")
-  public Set<DvdAttibute> attributes;
+  public Set<DvdAttribute> attributes;
 
   public Long borrowDate;
 
@@ -182,7 +182,7 @@ public class Dvd extends Model {
     }
     final Set<String> attribute = new HashSet<String>();
     attribute.add(attrToAdd);
-    final Set<DvdAttibute> dbAttrs = DvdAttibute.gatherAndAddAttributes(attribute, attributeType);
+    final Set<DvdAttribute> dbAttrs = DvdAttribute.gatherAndAddAttributes(attribute, attributeType);
     dvd.attributes.addAll(dbAttrs);
   }
 

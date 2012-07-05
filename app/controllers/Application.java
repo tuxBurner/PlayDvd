@@ -145,8 +145,17 @@ public class Application extends Controller {
    */
   public static Result jsRoutes() {
     Controller.response().setContentType("text/javascript");
-    return Results.ok(Routes.javascriptRouter("jsRoutes", controllers.routes.javascript.Tmdb.searchTmdb(), controllers.routes.javascript.Tmdb.getMovieById(), controllers.routes.javascript.Dashboard.displayDvd(), controllers.routes.javascript.Dashboard.menuGenres(), controllers.routes.javascript.Dashboard.lendDialogContent(), controllers.routes.javascript.Dashboard.lendDvd(), controllers.routes.javascript.MovieController.listExistingMovies()));
+    return Results.ok(Routes.javascriptRouter(
+        "jsRoutes",
+        controllers.routes.javascript.Tmdb.searchTmdb(),
+        controllers.routes.javascript.Tmdb.getMovieById(),
+        controllers.routes.javascript.Dashboard.displayDvd(),
+        controllers.routes.javascript.Dashboard.menuGenres(),
+        controllers.routes.javascript.Dashboard.lendDialogContent(),
+        controllers.routes.javascript.Dashboard.lendDvd(),
+        controllers.routes.javascript.MovieController.listExistingMovies(),
+        controllers.routes.javascript.MovieController.showAddMovieForm(),
+        controllers.routes.javascript.MovieController.addMovieByTmdbId()));
 
   }
-
 }

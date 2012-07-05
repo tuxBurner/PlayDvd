@@ -13,9 +13,8 @@ import jgravatar.Gravatar;
 import jgravatar.GravatarDefaultImage;
 import jgravatar.GravatarRating;
 import models.Dvd;
-import models.MovieAttibute;
 import models.EMovieAttributeType;
-import models.Movie;
+import models.MovieAttibute;
 import models.User;
 
 import org.apache.commons.lang.StringUtils;
@@ -25,19 +24,13 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
-import tmdb.GrabberException;
-import tmdb.InfoGrabber;
 import views.html.genremenu;
 import views.html.dashboard.displaydvd;
 import views.html.dashboard.dvdform;
-import views.html.dashboard.movieform;
 import views.html.dashboard.lendform;
-import views.html.dashboard.listExistingMovies;
 import forms.DvdForm;
 import forms.InfoDvd;
 import forms.LendForm;
-import forms.MovieForm;
-import forms.TmdbInfoForm;
 
 @Security.Authenticated(Secured.class)
 public class Dashboard extends Controller {
