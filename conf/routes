@@ -24,6 +24,7 @@ GET     /dvds/by/director/:directorName   controllers.ListDvds.listByDirector(di
 GET     /dvds/by/user/:userName           controllers.ListDvds.listByUser(userName: String,pageNr: java.lang.Integer ?= 0)
 GET     /dvds/lend                        controllers.ListDvds.listLendDvd()
 GET     /dvds/search                      controllers.ListDvds.searchDvd()
+POST    /dvds                             controllers.ListDvds.applySearchForm() 
 
 
 GET     /genremenu                         controllers.Dashboard.menuGenres()

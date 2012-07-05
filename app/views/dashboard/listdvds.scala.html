@@ -1,4 +1,4 @@
-@(dvdPage: DvdPage)(dvdListForm: forms.DvdListFrom)(username: String)
+@(dvdPage: DvdPage)(dvdListForm: Form[forms.DvdListFrom])(username: String)
 
 @scripts = {
    <script src="@routes.Assets.at("javascripts/dvdList.js")" type="text/javascript"></script>
@@ -11,6 +11,8 @@
       @flash.get("success")
     </div>
   }
+  
+  @searchform(dvdListForm)
 
   @if(dvdPage.page.getTotalRowCount == 0) {
     <h1>No Dvds found !</h1>
@@ -18,8 +20,6 @@
   <div class="row">
     <h1>Displaying @dvdPage.page.getDisplayXtoYofZ(" to "," of ") DVD's</h1>
     
- 
-   @searchform(dvdListForm)
     
     @if(dvdPage.page.getTotalPageCount > 1) {
     <div class="row">

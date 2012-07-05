@@ -7,6 +7,7 @@ import com.avaje.ebean.Page;
 import forms.DvdListFrom;
 
 import models.Dvd;
+import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
@@ -137,6 +138,19 @@ public class ListDvds extends Controller {
   }
 
   /**
+   * This is called when the user applys the search form above the list of
+   * movies
+   * 
+   * @return
+   */
+  public static Result applySearchForm() {
+
+    final Form<DvdListFrom> form = Controller.form(DvdListFrom.class).bindFromRequest();
+
+    return ListDvds.returnList(form.get());
+  }
+
+  /**
    * Returns the dvds for the template
    * 
    * @param dvdListFrom
@@ -147,9 +161,10 @@ public class ListDvds extends Controller {
 
     DvdListFrom.setCurrentSearchForm(dvdListFrom);
 
+    final Form<DvdListFrom> form = Controller.form(DvdListFrom.class);
+
     final String username = Controller.request().username();
     final Page<Dvd> dvdsByForm = Dvd.getDvdsByForm(dvdListFrom);
-    return Results.ok(listdvds.render(new DvdPage(dvdsByForm), dvdListFrom, username));
+    return Results.ok(listdvds.render(new DvdPage(dvdsByForm), form.fill(dvdListFrom), username));
   }
-
 }

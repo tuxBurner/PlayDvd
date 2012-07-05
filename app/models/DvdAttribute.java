@@ -72,7 +72,7 @@ public class DvdAttribute extends Model {
   }
 
   /**
-   * Gets all the {@link MovieAttibute} as a {@link List} of {@link String}
+   * Gets all the {@link MovieAttribute} as a {@link List} of {@link String}
    * 
    * @param type
    * @return

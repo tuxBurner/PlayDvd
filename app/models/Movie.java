@@ -59,7 +59,7 @@ public class Movie extends Model {
   public Integer runtime;
 
   @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "movies")
-  public Set<MovieAttibute> attributes;
+  public Set<MovieAttribute> attributes;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "movie", orphanRemoval = true)
   public Set<Dvd> dvds;
@@ -118,13 +118,13 @@ public class Movie extends Model {
       movie.hasBackdrop = newBackDrop;
     }
 
-    movie.attributes = new HashSet<MovieAttibute>();
+    movie.attributes = new HashSet<MovieAttribute>();
 
     // gather all the genres and add them to the dvd
-    final Set<MovieAttibute> genres = MovieAttibute.gatherAndAddAttributes(new HashSet<String>(movieForm.genres), EMovieAttributeType.GENRE);
+    final Set<MovieAttribute> genres = MovieAttribute.gatherAndAddAttributes(new HashSet<String>(movieForm.genres), EMovieAttributeType.GENRE);
     movie.attributes.addAll(genres);
 
-    final Set<MovieAttibute> actors = MovieAttibute.gatherAndAddAttributes(new HashSet<String>(movieForm.actors), EMovieAttributeType.ACTOR);
+    final Set<MovieAttribute> actors = MovieAttribute.gatherAndAddAttributes(new HashSet<String>(movieForm.actors), EMovieAttributeType.ACTOR);
     movie.attributes.addAll(actors);
 
     Movie.addSingleAttribute(movieForm.director, EMovieAttributeType.DIRECTOR, movie);
@@ -147,7 +147,7 @@ public class Movie extends Model {
     }
     final Set<String> attribute = new HashSet<String>();
     attribute.add(attrToAdd);
-    final Set<MovieAttibute> dbAttrs = MovieAttibute.gatherAndAddAttributes(attribute, attributeType);
+    final Set<MovieAttribute> dbAttrs = MovieAttribute.gatherAndAddAttributes(attribute, attributeType);
     movie.attributes.addAll(dbAttrs);
   }
 

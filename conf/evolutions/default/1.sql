@@ -35,12 +35,12 @@ create table movie (
   constraint pk_movie primary key (id))
 ;
 
-create table movie_attibute (
+create table movie_attribute (
   pk                        bigint auto_increment not null,
   attribute_type            varchar(8) not null,
   value                     varchar(255),
-  constraint ck_movie_attibute_attribute_type check (attribute_type in ('ACTOR','GENRE','DIRECTOR')),
-  constraint pk_movie_attibute primary key (pk))
+  constraint ck_movie_attribute_attribute_type check (attribute_type in ('ACTOR','GENRE','DIRECTOR')),
+  constraint pk_movie_attribute primary key (pk))
 ;
 
 create table setting (
@@ -67,10 +67,10 @@ create table dvd_attribute_dvd (
   constraint pk_dvd_attribute_dvd primary key (dvd_attribute_id, dvd_id))
 ;
 
-create table movie_attibute_movie (
-  movie_attibute_pk              bigint not null,
+create table movie_attribute_movie (
+  movie_attribute_pk             bigint not null,
   movie_id                       bigint not null,
-  constraint pk_movie_attibute_movie primary key (movie_attibute_pk, movie_id))
+  constraint pk_movie_attribute_movie primary key (movie_attribute_pk, movie_id))
 ;
 alter table dvd add constraint fk_dvd_owner_1 foreign key (owner_id) references user (id) on delete restrict on update restrict;
 create index ix_dvd_owner_1 on dvd (owner_id);
@@ -85,9 +85,9 @@ alter table dvd_attribute_dvd add constraint fk_dvd_attribute_dvd_dvd_attr_01 fo
 
 alter table dvd_attribute_dvd add constraint fk_dvd_attribute_dvd_dvd_02 foreign key (dvd_id) references dvd (id) on delete restrict on update restrict;
 
-alter table movie_attibute_movie add constraint fk_movie_attibute_movie_movie_01 foreign key (movie_attibute_pk) references movie_attibute (pk) on delete restrict on update restrict;
+alter table movie_attribute_movie add constraint fk_movie_attribute_movie_movi_01 foreign key (movie_attribute_pk) references movie_attribute (pk) on delete restrict on update restrict;
 
-alter table movie_attibute_movie add constraint fk_movie_attibute_movie_movie_02 foreign key (movie_id) references movie (id) on delete restrict on update restrict;
+alter table movie_attribute_movie add constraint fk_movie_attribute_movie_movi_02 foreign key (movie_id) references movie (id) on delete restrict on update restrict;
 
 # --- !Downs
 
@@ -101,9 +101,9 @@ drop table dvd_attribute;
 
 drop table movie;
 
-drop table movie_attibute_movie;
+drop table movie_attribute_movie;
 
-drop table movie_attibute;
+drop table movie_attribute;
 
 drop table setting;
 

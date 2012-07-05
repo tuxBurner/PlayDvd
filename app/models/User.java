@@ -2,6 +2,8 @@ package models;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -99,6 +101,19 @@ public class User extends Model {
    */
   public static User getUserByName(final String username) {
     return User.find.where().eq("userName", username).findUnique();
+  }
+
+  public static List<String> getUserNames() {
+    final List<User> users = User.find.select("userName").orderBy("userName asc").findList();
+
+    final List<String> result = new ArrayList<String>();
+    result.add("");
+
+    for (final User user : users) {
+      result.add(user.userName);
+    }
+
+    return result;
   }
 
 }

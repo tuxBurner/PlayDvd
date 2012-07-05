@@ -1,13 +1,25 @@
-@(dvdListForm: forms.DvdListFrom)
+@(dvdListForm: Form[forms.DvdListFrom])
+
+
+@import helper._
+@import helper.twitterBootstrap._
+
 
 <div class="row">
-  <form class="well horizontal">
-    @if(dvdListForm.genre != null) {
-     ??Genre?? @dvdListForm.genre
-    }
-    
-    @if(dvdListForm.userName != null) {
-      ??Username?? @dvdListForm.userName
-    }
-  </form>
+
+     @form(routes.ListDvds.applySearchForm(), 'class -> "well form-inline") {
+     
+       @select(field = dvdListForm("genre"), options(MovieAttribute.getAllByTypeAsValue(EMovieAttributeType.GENRE)),'_label->"Genre",'class-> "span2 chosen_select")
+       
+       @select(field = dvdListForm("userName"), options(User.getUserNames()),'_label->"Owner",'class-> "span2 chosen_select")
+       
+       @select(field = dvdListForm("actor"), options(MovieAttribute.getAllByTypeAsValue(EMovieAttributeType.ACTOR)),'_label->"Actor",'class-> "span2 chosen_select")
+       
+       @select(field = dvdListForm("director"), options(MovieAttribute.getAllByTypeAsValue(EMovieAttributeType.DIRECTOR)),'_label->"Director",'class-> "span2 chosen_select")
+       
+       
+       
+       <button type="submit"><i class="icon-search"></i></button>
+     
+     }
 </div>

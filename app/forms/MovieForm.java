@@ -10,7 +10,7 @@ import java.util.Set;
 import models.Dvd;
 import models.EMovieAttributeType;
 import models.Movie;
-import models.MovieAttibute;
+import models.MovieAttribute;
 import play.data.validation.Constraints.Required;
 
 /**
@@ -72,8 +72,8 @@ public class MovieForm {
     movieForm.hasBackdrop = movie.hasBackdrop;
     movieForm.hasPoster = movie.hasPoster;
 
-    final Set<MovieAttibute> attributes = movie.attributes;
-    for (final MovieAttibute dvdAttibute : attributes) {
+    final Set<MovieAttribute> attributes = movie.attributes;
+    for (final MovieAttribute dvdAttibute : attributes) {
       if (EMovieAttributeType.GENRE.equals(dvdAttibute.attributeType)) {
         movieForm.genres.add(dvdAttibute.value);
       }
@@ -104,9 +104,9 @@ public class MovieForm {
     final List<MovieFormAttribute> result = new ArrayList<MovieFormAttribute>();
 
     // merge wit the attributes from the database
-    final List<MovieAttibute> genres = MovieAttibute.getAllByType(attributeType);
+    final List<MovieAttribute> genres = MovieAttribute.getAllByType(attributeType);
     final Set<String> newGenreMatchedWithDb = new HashSet<String>();
-    for (final MovieAttibute movieAttibute : genres) {
+    for (final MovieAttribute movieAttibute : genres) {
 
       final String value = movieAttibute.value;
       boolean selected = false;

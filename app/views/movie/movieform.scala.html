@@ -5,8 +5,8 @@
 
 
   <script type="text/javascript" charset="utf-8">
-    var avaibleGenres = @Html(models.MovieAttibute.getAvaibleAttributesAsJson(EMovieAttributeType.GENRE));
-    var avaibleActors = @Html(models.MovieAttibute.getAvaibleAttributesAsJson(EMovieAttributeType.ACTOR));
+    var avaibleGenres = @Html(models.MovieAttribute.getAvaibleAttributesAsJson(EMovieAttributeType.GENRE));
+    var avaibleActors = @Html(models.MovieAttribute.getAvaibleAttributesAsJson(EMovieAttributeType.ACTOR));
   </script>
   
   <script src="@routes.Assets.at("javascripts/movieForm.js")" type="text/javascript"></script>

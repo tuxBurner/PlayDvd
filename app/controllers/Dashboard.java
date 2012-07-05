@@ -12,7 +12,7 @@ import jgravatar.GravatarDefaultImage;
 import jgravatar.GravatarRating;
 import models.Dvd;
 import models.EMovieAttributeType;
-import models.MovieAttibute;
+import models.MovieAttribute;
 import models.User;
 
 import org.apache.commons.lang.StringUtils;
@@ -99,7 +99,7 @@ public class Dashboard extends Controller {
    * @return
    */
   public static Result menuGenres() {
-    final List<MovieAttibute> genres = MovieAttibute.getAllByType(EMovieAttributeType.GENRE);
+    final List<MovieAttribute> genres = MovieAttribute.getAllByType(EMovieAttributeType.GENRE);
     return Results.ok(genremenu.render(genres));
   }
 
