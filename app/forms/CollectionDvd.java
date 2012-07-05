@@ -14,10 +14,12 @@ public class CollectionDvd {
   public Boolean hasPoster;
   public String title;
   public Long id;
+  public Long movieId;
 
   public CollectionDvd(final Dvd dvd) {
     hasPoster = dvd.movie.hasPoster;
     title = dvd.movie.title;
+    movieId = dvd.movie.id;
     id = dvd.id;
   }
 

@@ -11,7 +11,7 @@
            <li class="span3 dvdListHeight">             
              <a class="thumbnail dvdDisplayContainer dvdListHeight btn displayInfoButton" href="#" data-dvd-id="@subDvd.id">
                @if(subDvd.hasPoster != null && subDvd.hasPoster == true) {
-                 <img src="@routes.Dashboard.streamImage(subDvd.id,"POSTER","SMALL")"/>
+                 <img src="@routes.Dashboard.streamImage(subDvd.movieId,"POSTER","SMALL")"/>
                } else {
                  <img src="http://placehold.it/92x138/4D99E0/ffffff.png&text=No%20Poster"/>
                }
