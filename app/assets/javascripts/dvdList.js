@@ -38,8 +38,10 @@ $(function() {
 	  buttons: {
 			"Lend": function() {
 				
-				var userVal = $('#userName').val();
+				var userVal = $('#lendToUser').val();
 				var freeVal = $('#freeName').val();
+				var lendOtherInHull = ($('#alsoOthersInHull').attr('checked') == 'checked') ? "true" : "false" ; 
+				
 				
 				if((userVal == null || userVal == "") && (freeVal == null || freeVal == "")) {
 					return;
@@ -51,7 +53,7 @@ $(function() {
 				
 				pAjax(jsRoutes.controllers.Dashboard.lendDvd(
 				  $("#lendDvdId").val()),
-				  {"userName" : userVal, "freeName" : freeVal},
+				  {"userName" : userVal, "freeName" : freeVal, "alsoOthersInHull" :  lendOtherInHull},
 			      function(data){
 				    alert('aww');
 				   },

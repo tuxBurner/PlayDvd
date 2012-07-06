@@ -16,6 +16,8 @@ public class LendForm {
   public String userName;
 
   public String freeName;
+  
+  public Boolean alsoOthersInHull = false;
 
   public static List<String> getOtherUsers() {
     final List<User> findList = User.find.select("userName").where().ne("userName", Controller.ctx().session().get(Secured.AUTH_SESSION)).orderBy("userName asc").findList();

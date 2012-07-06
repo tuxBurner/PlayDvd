@@ -17,6 +17,7 @@ import models.User;
 
 import org.apache.commons.lang.StringUtils;
 
+import play.Logger;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -80,14 +81,15 @@ public class Dashboard extends Controller {
     final LendForm lendForm = form.get();
     final String userName = StringUtils.trimToNull(lendForm.userName);
     final String freeName = StringUtils.trimToNull(lendForm.freeName);
-
+    
     if ((StringUtils.isEmpty(userName) == true && StringUtils.isEmpty(freeName) == true)) {
-      System.out.println("username: " + userName + " freename: " + freeName);
+    	Logger.error("Could not lend dvd because no user or freename is given: "+"username: " + userName + " freename: " + freeName);
+      
       return Results.internalServerError();
     }
 
     final String ownerName = Controller.ctx().session().get(Secured.AUTH_SESSION);
-    Dvd.lendDvdToUser(dvdId, ownerName, userName, freeName);
+    Dvd.lendDvdToUser(dvdId, ownerName, userName, freeName,lendForm.alsoOthersInHull);
 
     return Results.TODO;
   }

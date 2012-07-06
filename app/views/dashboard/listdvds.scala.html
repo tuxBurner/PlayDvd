@@ -60,7 +60,7 @@
         
           <div class="caption">  
           <h5>
-            @dvd.movie.title (@dvd.owner.userName)
+            @dvd.movie.title (@dvd.owner.userName) @if(dvd.hullNr != null) { (@dvd.hullNr) } 
             @if(dvd.borrower != null || dvd.borrowerName != null){
               -> @if(dvd.borrower != null){ @dvd.borrower.userName } else { @dvd.borrowerName }
             }
@@ -69,7 +69,6 @@
            
           <div class="btn-group">
             @if(dvd.owner.userName == username) {
-              
               @if(dvd.borrower == null && dvd.borrowerName == null) {
                 <a class="btn lendDvdBtn" href="#" data-dvd-id="@dvd.id"><i class="icon-share"></i></a>
               } else {
