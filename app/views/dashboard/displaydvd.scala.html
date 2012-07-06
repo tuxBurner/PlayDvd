@@ -8,7 +8,7 @@
        <div class="row-fluid">
        <ul class="thumbnails">
          @for(subDvd <- subDvds) {
-           <li class="span3 dvdListHeight">             
+           <li class="span2 dvdListHeight">             
              <a class="thumbnail dvdDisplayContainer dvdListHeight btn displayInfoButton" href="#" data-dvd-id="@subDvd.id">
                @if(subDvd.hasPoster != null && subDvd.hasPoster == true) {
                  <img src="@routes.Dashboard.streamImage(subDvd.movieId,"POSTER","SMALL")"/>
@@ -36,10 +36,14 @@
   </fieldset>
   
   <fieldset class="well">
+    
     <h2>Info:</h2>
     
     <div class="row-fluid">
-      <label class="span1">Owner:</label>
+      <div class="span4">
+    
+    <div class="row-fluid">
+      <label class="span4">Owner:</label>
       <span>
         <a href="@routes.ListDvds.listByUser(dvd.dvdForm.ownerName,0)">
           <img src="@routes.Dashboard.gravatar(50,dvd.dvdForm.ownerName)" />
@@ -50,7 +54,7 @@
     
     @if(dvd.borrowedBy != null) {
       <div class="row-fluid">
-        <label class="span1">Borrowed by:</label>
+        <label class="span4">Borrowed by:</label>
         <span>
           <img src="@routes.Dashboard.gravatar(50,dvd.borrowedBy)" />
           @dvd.borrowedBy 
@@ -60,26 +64,27 @@
     }
     
     <div class="row-fluid">
-      <label class="span1">Hull Nr.:</label>
+      <label class="span4">Hull Nr.:</label>
       <span>@dvd.dvdForm.hullNr</span>
     </div>
     
     <div class="row-fluid">
-      <label class="span1">Runtime:</label>
+      <label class="span4">Runtime:</label>
       <span>@dvd.movieForm.runtime</span>
     </div>  
     
     <div class="row-fluid">
-      <label class="span1">Year:</label>
+      <label class="span4">Year:</label>
       <span>@dvd.movieForm.year</span>
     </div>
     
     <div class="row-fluid">
-      <label class="span1">Director:</label>
+      <label class="span4">Director:</label>
       <span><a href="@routes.ListDvds.listByDirector(dvd.movieForm.director)">@dvd.movieForm.director</a></span>
     </div>
     
-    <hr />
+    </div>
+    <div class="span4">
     
     <div class="span12">
       <dl>
@@ -89,8 +94,9 @@
         }
       </dl>
     </div>
+    </div>
+    <div class="span4">
     
-    <hr />
     <div class="span12">
       <dt>Actors:</dt>
       <dl>
@@ -99,6 +105,9 @@
         }
       </dl>
     </div>
+    </a>
+    
+  </div>  
     
   </fieldset>  
   

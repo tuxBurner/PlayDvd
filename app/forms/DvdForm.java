@@ -36,7 +36,7 @@ public class DvdForm {
   public String collection;
 
   public String ownerName;
-
+  
   public Integer hullNr;
 
   /**

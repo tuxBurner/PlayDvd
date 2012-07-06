@@ -193,7 +193,7 @@ public class Dvd extends Model {
    */
   public static List<Dvd> getDvdByBoxOrCollection(final EDvdAttributeType attrType, final String attrValue, final Dvd dvd) {
 
-    final List<Dvd> findList = Dvd.find.where().eq("attributes.attributeType", attrType).eq("attributes.value", attrValue).eq("owner.id", dvd.owner.id).ne("id", dvd.id).findList();
+    final List<Dvd> findList = Dvd.find.where().eq("attributes.attributeType", attrType).eq("attributes.value", attrValue).eq("owner.id", dvd.owner.id).ne("id", dvd.id).orderBy("movie.year asc").findList();
 
     return findList;
   }

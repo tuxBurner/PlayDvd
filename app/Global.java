@@ -48,9 +48,10 @@ public class Global extends GlobalSettings {
     public static void insert(final Application app) {
 
       final User user = new User();
-      user.password = "Hallo123";
+      
+      user.password = User.cryptPassword("hallo123");
       user.email = "sebasth@gmx.de";
-      user.userName = "tuxburner";
+      user.userName = "tuxBurner";
       User.create(user);
 
       if (user != null) {
@@ -63,8 +64,9 @@ public class Global extends GlobalSettings {
             for (int i = 1; i < readLines.size(); i++) {
               final String string = readLines.get(i);
               final String[] split = string.split(",");
-              final Dvd dvd = new Dvd();
+              final Dvd dvd = new Dvd();              
               dvd.movie = new Movie();
+              dvd.movie.hasToBeReviewed=true;
               dvd.createdDate = new Date().getTime();
               dvd.owner = user;
               dvd.movie.title = split[1].trim();
@@ -85,6 +87,8 @@ public class Global extends GlobalSettings {
               } else {
                 dvd.movie.year = 2012;
               }
+              
+              dvd.movie.save();
 
               dvd.save();
             }

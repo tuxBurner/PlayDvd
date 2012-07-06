@@ -1,5 +1,8 @@
 package controllers;
 
+import grabbers.GrabberException;
+import grabbers.TmdbInfoGrabber;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,8 +11,6 @@ import org.apache.commons.lang.StringUtils;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
-import tmdb.GrabberException;
-import tmdb.InfoGrabber;
 
 import views.html.tmdb.*;
 
@@ -33,7 +34,7 @@ public class Tmdb extends Controller {
       List<Movie> searchForMovie = new ArrayList<Movie>();
 
       if (StringUtils.isEmpty(searchTerm) == false) {
-        searchForMovie = InfoGrabber.searchForMovie(searchTerm);
+        searchForMovie = TmdbInfoGrabber.searchForMovie(searchTerm);
       }
 
       return Results.ok(search.render(searchTerm, searchForMovie, tmdbDvdId));
@@ -74,7 +75,7 @@ public class Tmdb extends Controller {
 
       final Long movieToEditId = Tmdb.getMovieToEditIdFromReq();
 
-      final Movie movieInfo = InfoGrabber.getMovieInfo(movieId);
+      final Movie movieInfo = TmdbInfoGrabber.getMovieInfo(movieId);
 
       final String mode = (movieToEditId == null) ? DvdController.DVD_FORM_ADD_MODE : DvdController.DVD_FORM_EDIT_MODE;
 

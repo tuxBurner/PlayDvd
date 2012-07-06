@@ -33,9 +33,16 @@ ul.tags {
 	opacity: 0.9;
 }
 
+.dvdDisplayContainer a.displayInfoButton img {
+	max-width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
 .dvdDisplayContainer .caption {
 	text-align: center; 
-	height: 61px;
+	height: 25px;
 }
 
 .dvdDisplayContainer h5 {

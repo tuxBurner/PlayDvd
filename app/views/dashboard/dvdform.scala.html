@@ -40,23 +40,25 @@
        @select(field = dvdForm("box"), options(DvdAttribute.getAllByTypeAsValue(EDvdAttributeType.BOX)),'_label->"Box",'class-> "span5 chosen_select")
        @select(field = dvdForm("collection"), options(DvdAttribute.getAllByTypeAsValue(EDvdAttributeType.COLLECTION)),'_label->"Collection",'class-> "span5 chosen_select")
        <hr />
-             
-             
-      @select(dvdForm("movieId"), models.Movie.listByDistinctTitle().map{ t=> t.id.toString -> (t.title)},'_label->"Existing movie", 'class-> "span5 def_chosen_select")        
-      <button class="btn btn-inverse" id="newMovieInfos" type="button"><i class="icon-film"></i> New Movie</button>
-      
-      @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
-        <button class="btn btn-info" id="editMovieInfos" type="button"><i class="icon-edit"></i> Edit Movie</button>      
-      }
-              
+       
        <div class="form-actions">
          @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
            <button type="submit" class="btn btn-primary"><i class="icon-edit"></i>Edit Dvd</button>
          } else {
            <button type="submit" class="btn  btn-primary"><i class="icon-plus"></i>Add Dvd</button>
          }
-         <a class="btn" href="@routes.Application.index"><i class="icon-arrow-left"></i>Back</a>
-       </div>  
+         <a class="btn" href="@routes.ListDvds.listdvds(null)"><i class="icon-arrow-left"></i>Back</a>
+       </div>
+             
+             
+      @select(dvdForm("movieId"), models.Movie.listByDistinctTitle().map{ t=> t.id.toString -> (t.title)},'_label->"Existing movie", 'class-> "span6 def_chosen_select")        
+      <button class="btn btn-inverse" id="newMovieInfos" type="button"><i class="icon-film"></i> New Movie</button>
+      
+      @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
+        <button class="btn btn-info" id="editMovieInfos" type="button"><i class="icon-edit"></i> Edit Movie</button>      
+      }
+              
+         
          
      </fieldset>         
      }

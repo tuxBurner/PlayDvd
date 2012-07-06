@@ -58,8 +58,8 @@ public class JobPlugin extends Plugin {
         // instanziate the job
         final Class<AbstractJob> abstractJobClass = (Class<AbstractJob>) forName;
 
-        final Constructor<AbstractJob> constructor = abstractJobClass.getConstructor(null);
-        final AbstractJob abstractJobInstance = constructor.newInstance(null);
+        final Constructor<AbstractJob> constructor = abstractJobClass.getConstructor();
+        final AbstractJob abstractJobInstance = constructor.newInstance();
 
       } catch (final NoSuchMethodException e) {
         Logger.error("Could not find default constructor with no parameters in: " + clazz, e);

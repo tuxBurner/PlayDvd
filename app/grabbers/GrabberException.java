@@ -1,4 +1,4 @@
-package tmdb;
+package grabbers;
 
 
 public class GrabberException extends Exception {

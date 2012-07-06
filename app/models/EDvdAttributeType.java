@@ -2,6 +2,5 @@ package models;
 
 public enum EDvdAttributeType {
 
-  BOX, COLLECTION
-
+	BOX, COLLECTION
 }

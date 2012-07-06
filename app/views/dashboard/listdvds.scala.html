@@ -48,11 +48,15 @@
     @for(dvd <- dvdPage.list) {
       <li class="span3 dvdListHeight">
         <div class="thumbnail dvdDisplayContainer dvdListHeight well @if(dvd.borrower != null || dvd.borrowerName != null) {borrowed}  @if(dvd.borrower != null && dvd.borrower.userName == Controller.ctx().session().get(Secured.AUTH_SESSION)) { selfBorrowed }">
+        
+          <a class="displayInfoButton" href="#" data-dvd-id="@dvd.id">
+        
           @if(dvd.movie.hasPoster != null && dvd.movie.hasPoster == true) {
             <img src="@routes.Dashboard.streamImage(dvd.movie.id,"POSTER","SMALL")"/>
           } else {
             <img src="http://placehold.it/92x138/4D99E0/ffffff.png&text=No%20Poster"/>
           }
+          </a>
         
           <div class="caption">  
           <h5>
@@ -64,8 +68,6 @@
           
            
           <div class="btn-group">
-            <a class="btn displayInfoButton" href="#" data-dvd-id="@dvd.id"><i class="icon-info-sign"></i></a>
-            
             @if(dvd.owner.userName == username) {
               
               @if(dvd.borrower == null && dvd.borrowerName == null) {

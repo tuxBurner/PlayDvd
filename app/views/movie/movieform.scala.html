@@ -19,6 +19,15 @@
            <input type="hidden" name="movieId" id="movieId" value="@movieForm.get().movieId"/>
          }
          
+         <div class="form-actions">
+           @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
+             <button type="button" id="movieFormSubmitBtn" class="btn btn-primary"><i class="icon-edit"></i>Edit Movie</button>
+           } else {
+             <button type="button" id="movieFormSubmitBtn" class="btn  btn-primary"><i class="icon-plus"></i>Add Movie</button>
+           }
+           <button type="button"   id="movieFormCloseBtn" class="btn" ><i class="icon-chevron-up"></i>Close</button>
+         </div>
+         
          
          @inputText(movieForm("title"),'_label -> "Title", '_showConstraints -> true, 'placeholder -> "Enter Dvd title", 'class -> "span10")
          <button class="btn btn-info" id="tmdbButton" type="button"><i class="icon-film"></i> Look up with TMDB</button>
@@ -61,7 +70,7 @@
              <button type="button" id="movieFormSubmitBtn" class="btn  btn-primary"><i class="icon-plus"></i>Add Movie</button>
            }
            <button type="button"   id="movieFormCloseBtn" class="btn" ><i class="icon-chevron-up"></i>Close</button>
-       </div>
+         </div>
          
        
      </fieldset>    

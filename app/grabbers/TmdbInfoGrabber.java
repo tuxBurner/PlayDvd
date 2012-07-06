@@ -1,6 +1,7 @@
-package tmdb;
+package grabbers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -17,15 +18,14 @@ import com.github.savvasdalkitsis.jtmdb.Movie;
 import com.github.savvasdalkitsis.jtmdb.MovieBackdrop;
 import com.github.savvasdalkitsis.jtmdb.MoviePoster;
 
-import forms.DvdForm;
 import forms.MovieForm;
 import forms.TmdbInfoForm;
 
-public class InfoGrabber {
+public class TmdbInfoGrabber {
 
   public static List<Movie> searchForMovie(final String movieName) throws GrabberException {
 
-    InfoGrabber.prepareSettings();
+    TmdbInfoGrabber.prepareSettings();
     try {
       final List<Movie> search = Movie.search(movieName);
       return search;
@@ -44,7 +44,7 @@ public class InfoGrabber {
    * @throws GrabberException
    */
   public static Movie getMovieInfo(final Integer tmdbId) throws GrabberException {
-    InfoGrabber.prepareSettings();
+    TmdbInfoGrabber.prepareSettings();
     try {
       return Movie.getInfo(tmdbId);
     } catch (final IOException e) {
@@ -57,7 +57,7 @@ public class InfoGrabber {
 
   public static MovieForm fillDvdFormWithMovieInfo(final TmdbInfoForm tmdbInfoForm) throws GrabberException {
 
-    final Movie movieInfo = InfoGrabber.getMovieInfo(tmdbInfoForm.movieId);
+    final Movie movieInfo = TmdbInfoGrabber.getMovieInfo(tmdbInfoForm.movieId);
 
     final MovieForm movieForm = new MovieForm();
     movieForm.title = movieInfo.getName();
@@ -113,6 +113,27 @@ public class InfoGrabber {
     return movieForm;
 
   }
+  
+  /**
+   * Needed in the displaymovie.scala.html view for tmdb
+   * @param set
+   * @return
+   */
+  public static List<MoviePoster> posterSetToList(final Set<MoviePoster> set) {
+	  final List<MoviePoster> retVal = new ArrayList<MoviePoster>(set);
+	  return retVal;
+  }
+  
+  /**
+   * Needed in the displaymovie.scala.html view for tmdb
+   * @param set
+   * @return
+   */
+  public static List<MovieBackdrop> backdropSetToList(final Set<MovieBackdrop> set) {
+	  final List<MovieBackdrop> retVal = new ArrayList<MovieBackdrop>(set);
+	  return retVal;
+  }
+  
 
   private static void prepareSettings() {
     GeneralSettings.setApiKey("a67216a4ad62ec0f81e3fffbfe18507f");

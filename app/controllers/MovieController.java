@@ -1,5 +1,7 @@
 package controllers;
 
+import grabbers.GrabberException;
+import grabbers.TmdbInfoGrabber;
 import helpers.RequestToCollectionHelper;
 
 import java.util.Map;
@@ -15,8 +17,6 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
-import tmdb.GrabberException;
-import tmdb.InfoGrabber;
 import views.html.movie.movieform;
 import forms.MovieForm;
 import forms.TmdbInfoForm;
@@ -99,7 +99,7 @@ public class MovieController extends Controller {
     try {
 
       final Form<TmdbInfoForm> tmdbInfoForm = Controller.form(TmdbInfoForm.class).bindFromRequest();
-      final MovieForm movieForm = InfoGrabber.fillDvdFormWithMovieInfo(tmdbInfoForm.get());
+      final MovieForm movieForm = TmdbInfoGrabber.fillDvdFormWithMovieInfo(tmdbInfoForm.get());
 
       if (tmdbInfoForm.get().movieDbId != null) {
         movieForm.movieId = tmdbInfoForm.get().movieDbId;
