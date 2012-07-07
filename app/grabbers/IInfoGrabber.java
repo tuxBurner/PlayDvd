@@ -15,4 +15,6 @@ public interface IInfoGrabber {
 
   public List<GrabberSearchMovie> searchForMovie(final String searchTerm) throws GrabberException;
 
+  public GrabberDisplayMovie getDisplayMovie(final String id) throws GrabberException;
+
 }

@@ -1,11 +1,9 @@
 package grabbers;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -21,6 +19,8 @@ import com.moviejukebox.thetvdb.model.Series;
 
 public class TheTvDbGrabber implements IInfoGrabber {
 
+  private static final String API_KEY = "5868F2154308BB82";
+
   private static final String LANGUAGE = Locale.GERMAN.getLanguage();
 
   private final TheTVDB theTVDB;
@@ -28,7 +28,7 @@ public class TheTvDbGrabber implements IInfoGrabber {
   private final EGrabberType type = EGrabberType.THETVDB;
 
   public TheTvDbGrabber() {
-    theTVDB = new TheTVDB("5868F2154308BB82");
+    theTVDB = new TheTVDB(TheTvDbGrabber.API_KEY);
   }
 
   @Override
@@ -69,27 +69,25 @@ public class TheTvDbGrabber implements IInfoGrabber {
             continue;
           }
 
-          final String movieTitle = series.getSeriesName() + " Season: " + episode.getSeasonNumber();
+          final String movieTitle = buildMovieName(series, episode.getSeasonNumber());
           String posterUrl = null;
 
           if (CollectionUtils.isEmpty(seasonBanners) == false) {
             for (final Banner banner : seasonBanners) {
 
               if (banner.getSeason() == episode.getSeasonNumber()) {
-                posterUrl = banner.getUrl();
+                posterUrl = getThumbUrl(banner);
                 break;
               }
             }
           }
 
-          final String systemId = seriesId + "_" + seasonId;
+          final String systemId = seriesId + "_" + episode.getSeasonNumber();
           final GrabberSearchMovie searchMovie = new GrabberSearchMovie(systemId, movieTitle, posterUrl, type);
           returnVal.add(searchMovie);
           seasonIds.add(seasonId);
 
         }
-
-        // returnVal.add(series);
       }
     }
 
@@ -97,10 +95,46 @@ public class TheTvDbGrabber implements IInfoGrabber {
 
   }
 
-  public Series getSeriesInfo(final String id) {
+  private String buildMovieName(final Series series, final int seasonId) {
+    return series.getSeriesName() + " Season: " + seasonId;
+  }
 
-    final Series series = theTVDB.getSeries(id, TheTvDbGrabber.LANGUAGE);
-    return series;
+  @Override
+  public GrabberDisplayMovie getDisplayMovie(final String id) throws GrabberException {
+
+    final String[] split = id.split("_");
+    final String seriesId = split[0];
+    final String seasonId = split[1];
+
+    final Series series = theTVDB.getSeries(seriesId, TheTvDbGrabber.LANGUAGE);
+    if (series == null) {
+      final String message = "Could not find series: " + seriesId;
+      Logger.error(message);
+      throw new GrabberException(message);
+    }
+
+    final Banners banners = theTVDB.getBanners(seriesId);
+    final List<Banner> seasonList = banners.getSeasonList();
+
+    final List<String> posterList = new ArrayList<String>();
+    final Integer season = Integer.valueOf(seasonId);
+    for (final Banner banner : seasonList) {
+      if (season.equals(banner.getSeason()) == true) {
+        posterList.add(getThumbUrl(banner));
+      }
+    }
+
+    final List<Banner> fanartList = banners.getFanartList();
+    final List<String> backdrops = new ArrayList<String>();
+    for (final Banner banner : fanartList) {
+      backdrops.add(getThumbUrl(banner));
+    }
+
+    return new GrabberDisplayMovie(id, buildMovieName(series, season), series.getOverview(), posterList, backdrops, type);
+  }
+
+  private String getThumbUrl(final Banner banner) {
+    return (StringUtils.isEmpty(banner.getThumb())) ? banner.getUrl() : banner.getThumb();
   }
 
 }

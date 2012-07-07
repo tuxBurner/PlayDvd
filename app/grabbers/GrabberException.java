@@ -1,15 +1,18 @@
 package grabbers;
 
-
 public class GrabberException extends Exception {
 
-	public GrabberException(Exception e) {
-      super(e);
-	}
+  public GrabberException(final Exception e) {
+    super(e);
+  }
 
-	/**
+  public GrabberException(final String message) {
+    super(message);
+  }
+
+  /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1394606310445614392L;
+  private static final long serialVersionUID = 1394606310445614392L;
 
 }

@@ -14,7 +14,9 @@ public class TheTvDbGrabberTest {
   }
 
   @Test
-  public void testGetSeriesInfo() {
+  public void testGetSeriesInfo() throws GrabberException {
+    final TheTvDbGrabber grabber = new TheTvDbGrabber();
+    final GrabberDisplayMovie displayMovie = grabber.getDisplayMovie("83268_1");
     // final Series seriesInfo = TheTvDbGrabber.getSeriesInfo("83268");
     System.out.println("sasdas");
   }
