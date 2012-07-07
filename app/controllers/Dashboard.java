@@ -26,8 +26,10 @@ import play.mvc.Security;
 import views.html.genremenu;
 import views.html.dashboard.displaydvd;
 import views.html.dashboard.lendform;
+import views.html.dashboard.unlendform;
 import forms.InfoDvd;
 import forms.LendForm;
+import forms.UnLendForm;
 
 @Security.Authenticated(Secured.class)
 public class Dashboard extends Controller {
@@ -57,7 +59,7 @@ public class Dashboard extends Controller {
    */
   public static Result lendDialogContent(final Long dvdId) {
     // check if the user may see the dvd
-    final String userName = Controller.ctx().session().get(Secured.AUTH_SESSION);
+    final String userName = Secured.getUsername();
     final Dvd dvdForUser = Dvd.getDvdForUser(dvdId, userName);
     if (dvdForUser == null) {
       return Results.forbidden();
@@ -65,6 +67,30 @@ public class Dashboard extends Controller {
 
     final Form<LendForm> form = Controller.form(LendForm.class);
     return Results.ok(lendform.render(form, dvdForUser));
+  }
+
+  /**
+   * Displays the dialog content for unlending a dvd
+   * 
+   * @param dvdId
+   * @return
+   */
+  public static Result unLendDialogContent(final Long dvdId) {
+    // check if the user may see the dvd
+    final String userName = Secured.getUsername();
+    final Dvd dvdForUser = Dvd.getDvdForUser(dvdId, userName);
+    if (dvdForUser == null) {
+      return Results.forbidden();
+    }
+
+    if (dvdForUser.borrowDate == null) {
+      final String message = "The Dvd: " + dvdForUser + " is not borrowed to anybody !";
+      Logger.error(message);
+      return Results.internalServerError(message);
+    }
+
+    return Results.ok(unlendform.render(Controller.form(UnLendForm.class), dvdForUser));
+
   }
 
   /**
@@ -81,15 +107,15 @@ public class Dashboard extends Controller {
     final LendForm lendForm = form.get();
     final String userName = StringUtils.trimToNull(lendForm.userName);
     final String freeName = StringUtils.trimToNull(lendForm.freeName);
-    
+
     if ((StringUtils.isEmpty(userName) == true && StringUtils.isEmpty(freeName) == true)) {
-    	Logger.error("Could not lend dvd because no user or freename is given: "+"username: " + userName + " freename: " + freeName);
-      
+      Logger.error("Could not lend dvd because no user or freename is given: " + "username: " + userName + " freename: " + freeName);
+
       return Results.internalServerError();
     }
 
     final String ownerName = Controller.ctx().session().get(Secured.AUTH_SESSION);
-    Dvd.lendDvdToUser(dvdId, ownerName, userName, freeName,lendForm.alsoOthersInHull);
+    Dvd.lendDvdToUser(dvdId, ownerName, userName, freeName, lendForm.alsoOthersInHull);
 
     return Results.TODO;
   }

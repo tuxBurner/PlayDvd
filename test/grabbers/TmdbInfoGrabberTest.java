@@ -1,4 +1,4 @@
-package tmdb;
+package grabbers;
 
 import static org.junit.Assert.*;
 import grabbers.GrabberException;
@@ -7,7 +7,7 @@ import grabbers.TmdbInfoGrabber;
 import org.junit.Test;
 
 
-public class InfoGrabberTest {
+public class TmdbInfoGrabberTest {
 
 	@Test
 	public void testSearchForMovie() {

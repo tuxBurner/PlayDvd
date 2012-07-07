@@ -119,11 +119,16 @@
 </div>
 
 <script type="text/javascript">
-@if(dvd.movieForm.hasBackdrop != null && dvd.movieForm.hasBackdrop == true) {
-  $('#dvdInfoDialog').css('background-image',"url('@routes.Dashboard.streamImage(dvd.movieForm.movieId,"BACKDROP","ORIGINAL")')");
-} else {
-	$('#dvdInfoDialog').css('background-image','none');
-}
+$(function() {
+  
+  $('#dvdInfoDialog').dialog({'title' : '@dvd.movieForm.title'});	
+	
+  @if(dvd.movieForm.hasBackdrop != null && dvd.movieForm.hasBackdrop == true) {
+    $('#dvdInfoDialog').css('background-image',"url('@routes.Dashboard.streamImage(dvd.movieForm.movieId,"BACKDROP","ORIGINAL")')");
+  } else {
+    $('#dvdInfoDialog').css('background-image','none');
+  }
+});
 </script>
 
 

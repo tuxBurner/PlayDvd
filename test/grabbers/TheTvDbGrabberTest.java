@@ -1,0 +1,22 @@
+package grabbers;
+
+import java.util.List;
+
+import org.junit.Test;
+
+public class TheTvDbGrabberTest {
+
+  @Test
+  public void testSearchForSeries() throws GrabberException {
+    final TheTvDbGrabber grabber = new TheTvDbGrabber();
+    final List<GrabberSearchMovie> searchForMovie = grabber.searchForMovie("Clone Wars");
+    System.out.println("sad");
+  }
+
+  @Test
+  public void testGetSeriesInfo() {
+    // final Series seriesInfo = TheTvDbGrabber.getSeriesInfo("83268");
+    System.out.println("sasdas");
+  }
+
+}

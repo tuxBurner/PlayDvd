@@ -4,7 +4,7 @@ $(function() {
 	 * INFO DIALOG
 	 */
 	$('#dvdInfoDialog').dialog({ 
-		width: '90%',
+		width: '1024',
 		height: '710',
 		autoOpen: false,
 		modal: true
