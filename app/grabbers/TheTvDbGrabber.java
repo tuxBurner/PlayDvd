@@ -17,6 +17,9 @@ import com.moviejukebox.thetvdb.model.Banners;
 import com.moviejukebox.thetvdb.model.Episode;
 import com.moviejukebox.thetvdb.model.Series;
 
+import forms.GrabberInfoForm;
+import forms.MovieForm;
+
 public class TheTvDbGrabber implements IInfoGrabber {
 
   private static final String API_KEY = "5868F2154308BB82";
@@ -116,18 +119,18 @@ public class TheTvDbGrabber implements IInfoGrabber {
     final Banners banners = theTVDB.getBanners(seriesId);
     final List<Banner> seasonList = banners.getSeasonList();
 
-    final List<String> posterList = new ArrayList<String>();
+    final List<GrabberImage> posterList = new ArrayList<GrabberImage>();
     final Integer season = Integer.valueOf(seasonId);
     for (final Banner banner : seasonList) {
       if (season.equals(banner.getSeason()) == true) {
-        posterList.add(getThumbUrl(banner));
+        posterList.add(new GrabberImage(String.valueOf(banner.getId()), getThumbUrl(banner)));
       }
     }
 
     final List<Banner> fanartList = banners.getFanartList();
-    final List<String> backdrops = new ArrayList<String>();
+    final List<GrabberImage> backdrops = new ArrayList<GrabberImage>();
     for (final Banner banner : fanartList) {
-      backdrops.add(getThumbUrl(banner));
+      backdrops.add(new GrabberImage(String.valueOf(banner.getId()), getThumbUrl(banner)));
     }
 
     return new GrabberDisplayMovie(id, buildMovieName(series, season), series.getOverview(), posterList, backdrops, type);
@@ -137,4 +140,76 @@ public class TheTvDbGrabber implements IInfoGrabber {
     return (StringUtils.isEmpty(banner.getThumb())) ? banner.getUrl() : banner.getThumb();
   }
 
+  @Override
+  public MovieForm filleInfoToMovieForm(final GrabberInfoForm grabberInfoForm, final String posterId, final String backdropId) throws GrabberException {
+
+    final String id = grabberInfoForm.grabberMovieId;
+
+    final String[] split = id.split("_");
+    final String seriesId = split[0];
+    final String seasonId = split[1];
+
+    final Series series = theTVDB.getSeries(seriesId, TheTvDbGrabber.LANGUAGE);
+    if (series == null) {
+      final String message = "Could not find series: " + seriesId;
+      Logger.error(message);
+      throw new GrabberException(message);
+    }
+
+    final MovieForm movieForm = new MovieForm();
+
+    final Integer season = Integer.valueOf(seasonId);
+
+    movieForm.title = buildMovieName(series, season);
+    movieForm.plot = series.getOverview();
+
+    // TODO: go over all episodes ?
+    movieForm.runtime = 0;
+
+    final String firstAired = series.getFirstAired();
+    if (StringUtils.isEmpty(firstAired) == false) {
+      final String[] split2 = firstAired.split("-");
+      if (split2.length == 3) {
+        movieForm.year = Integer.valueOf(split[0]);
+      }
+    }
+
+    movieForm.genres.addAll(series.getGenres());
+
+    movieForm.actors.addAll(series.getActors());
+
+    final Banners banners = theTVDB.getBanners(seriesId);
+    final List<Banner> posterList = banners.getSeasonList();
+    final List<Banner> fanartList = banners.getFanartList();
+
+    movieForm.posterUrl = getImageURL(posterList, grabberInfoForm.grabberPosterId);
+    movieForm.backDropUrl = getImageURL(fanartList, grabberInfoForm.grabberBackDropId);
+
+    return movieForm;
+
+  }
+
+  /**
+   * Gets the url for banner from the list for the given id
+   * 
+   * @param banners
+   * @param idStr
+   * @return
+   */
+  private String getImageURL(final List<Banner> banners, final String idStr) {
+
+    if (StringUtils.isEmpty(idStr) == true || CollectionUtils.isEmpty(banners) == true) {
+      return null;
+    }
+    final Integer id = Integer.valueOf(idStr);
+
+    for (final Banner banner : banners) {
+      if (id.equals(banner.getId()) == true) {
+        return banner.getUrl();
+      }
+    }
+
+    return null;
+
+  }
 }

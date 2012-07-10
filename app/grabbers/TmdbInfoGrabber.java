@@ -19,7 +19,7 @@ import com.github.savvasdalkitsis.jtmdb.MovieBackdrop;
 import com.github.savvasdalkitsis.jtmdb.MoviePoster;
 
 import forms.MovieForm;
-import forms.TmdbInfoForm;
+import forms.GrabberInfoForm;
 
 public class TmdbInfoGrabber {
 
@@ -55,9 +55,9 @@ public class TmdbInfoGrabber {
 
   }
 
-  public static MovieForm fillDvdFormWithMovieInfo(final TmdbInfoForm tmdbInfoForm) throws GrabberException {
+  public static MovieForm fillDvdFormWithMovieInfo(final GrabberInfoForm tmdbInfoForm) throws GrabberException {
 
-    final Movie movieInfo = TmdbInfoGrabber.getMovieInfo(tmdbInfoForm.movieId);
+    final Movie movieInfo = TmdbInfoGrabber.getMovieInfo(Integer.valueOf(tmdbInfoForm.grabberMovieId));
 
     final MovieForm movieForm = new MovieForm();
     movieForm.title = movieInfo.getName();
@@ -88,7 +88,7 @@ public class TmdbInfoGrabber {
       }
     }
 
-    final String tmdbBackDrop = tmdbInfoForm.tmdbBackDrop;
+    final String tmdbBackDrop = tmdbInfoForm.grabberBackDropId;
     if (StringUtils.isEmpty(tmdbBackDrop) == false) {
       final Set<MovieBackdrop> backdrops = movieInfo.getImages().backdrops;
       for (final MovieBackdrop movieBackdrop : backdrops) {
@@ -99,7 +99,7 @@ public class TmdbInfoGrabber {
       }
     }
 
-    final String tmdbPoster = tmdbInfoForm.tmdbPoster;
+    final String tmdbPoster = tmdbInfoForm.grabberPosterId;
     if (StringUtils.isEmpty(tmdbPoster) == false) {
       final Set<MoviePoster> posters = movieInfo.getImages().posters;
       for (final MoviePoster poster : posters) {
@@ -113,27 +113,28 @@ public class TmdbInfoGrabber {
     return movieForm;
 
   }
-  
+
   /**
    * Needed in the displaymovie.scala.html view for tmdb
+   * 
    * @param set
    * @return
    */
   public static List<MoviePoster> posterSetToList(final Set<MoviePoster> set) {
-	  final List<MoviePoster> retVal = new ArrayList<MoviePoster>(set);
-	  return retVal;
+    final List<MoviePoster> retVal = new ArrayList<MoviePoster>(set);
+    return retVal;
   }
-  
+
   /**
    * Needed in the displaymovie.scala.html view for tmdb
+   * 
    * @param set
    * @return
    */
   public static List<MovieBackdrop> backdropSetToList(final Set<MovieBackdrop> set) {
-	  final List<MovieBackdrop> retVal = new ArrayList<MovieBackdrop>(set);
-	  return retVal;
+    final List<MovieBackdrop> retVal = new ArrayList<MovieBackdrop>(set);
+    return retVal;
   }
-  
 
   private static void prepareSettings() {
     GeneralSettings.setApiKey("a67216a4ad62ec0f81e3fffbfe18507f");

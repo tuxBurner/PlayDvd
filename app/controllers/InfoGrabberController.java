@@ -12,11 +12,11 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 
-import views.html.tmdb.*;
+import views.html.grabber.*;
 
 import com.github.savvasdalkitsis.jtmdb.Movie;
 
-public class Tmdb extends Controller {
+public class InfoGrabberController extends Controller {
 
   public final static String DVD_ID_FIELD_NAME = "tmdbMovieId";
 
@@ -28,7 +28,7 @@ public class Tmdb extends Controller {
    */
   public static Result searchTmdb(final String searchTerm) {
 
-    final Long tmdbDvdId = Tmdb.getMovieToEditIdFromReq();
+    final Long tmdbDvdId = InfoGrabberController.getMovieToEditIdFromReq();
 
     try {
       List<Movie> searchForMovie = new ArrayList<Movie>();
@@ -54,8 +54,8 @@ public class Tmdb extends Controller {
 
     Long tmdbDvdId = null;
 
-    if (Controller.request().queryString().containsKey(Tmdb.DVD_ID_FIELD_NAME)) {
-      final String[] strings = Controller.request().queryString().get(Tmdb.DVD_ID_FIELD_NAME);
+    if (Controller.request().queryString().containsKey(InfoGrabberController.DVD_ID_FIELD_NAME)) {
+      final String[] strings = Controller.request().queryString().get(InfoGrabberController.DVD_ID_FIELD_NAME);
       if (strings != null && strings.length == 1 && StringUtils.isEmpty(strings[0]) == false) {
         tmdbDvdId = Long.valueOf(strings[0]);
       }
@@ -73,7 +73,7 @@ public class Tmdb extends Controller {
 
     try {
 
-      final Long movieToEditId = Tmdb.getMovieToEditIdFromReq();
+      final Long movieToEditId = InfoGrabberController.getMovieToEditIdFromReq();
 
       final Movie movieInfo = TmdbInfoGrabber.getMovieInfo(movieId);
 

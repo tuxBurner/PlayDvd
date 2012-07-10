@@ -1,5 +1,7 @@
 package grabbers;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 public class GrabberSearchMovie implements Comparable<GrabberSearchMovie> {
 
   /**
@@ -33,5 +35,10 @@ public class GrabberSearchMovie implements Comparable<GrabberSearchMovie> {
   @Override
   public int compareTo(final GrabberSearchMovie o) {
     return movieTitle.compareTo(o.movieTitle);
+  }
+
+  @Override
+  public String toString() {
+    return ToStringBuilder.reflectionToString(this);
   }
 }

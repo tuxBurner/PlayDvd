@@ -19,7 +19,7 @@ import play.mvc.Results;
 import play.mvc.Security;
 import views.html.movie.movieform;
 import forms.MovieForm;
-import forms.TmdbInfoForm;
+import forms.GrabberInfoForm;
 
 /**
  * This {@link Controller} handles all the edit and add {@link Movie} magic
@@ -98,7 +98,7 @@ public class MovieController extends Controller {
 
     try {
 
-      final Form<TmdbInfoForm> tmdbInfoForm = Controller.form(TmdbInfoForm.class).bindFromRequest();
+      final Form<GrabberInfoForm> tmdbInfoForm = Controller.form(GrabberInfoForm.class).bindFromRequest();
       final MovieForm movieForm = TmdbInfoGrabber.fillDvdFormWithMovieInfo(tmdbInfoForm.get());
 
       if (tmdbInfoForm.get().movieDbId != null) {

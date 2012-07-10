@@ -6,22 +6,22 @@ package forms;
  * @author tuxburner
  * 
  */
-public class TmdbInfoForm {
+public class GrabberInfoForm {
 
   /**
    * The id of the selected movieId
    */
-  public Integer movieId;
+  public String grabberMovieId;
 
   /**
    * The id of the selected backdrop
    */
-  public String tmdbBackDrop;
+  public String grabberBackDropId;
 
   /**
    * Id of the selected poster
    */
-  public String tmdbPoster;
+  public String grabberPosterId;
 
   /**
    * If not <code>null</code> than we are in the edit mode we will set this to

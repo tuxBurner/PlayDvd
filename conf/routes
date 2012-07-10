@@ -53,9 +53,9 @@ POST   /movie/:mode                controllers.MovieController.addOrEditMovie(mo
 
 
 # TMDB 
-GET    /tmdb/search                 controllers.Tmdb.searchTmdb(searchTerm = "")
-GET    /tmdb/search/:searchTerm     controllers.Tmdb.searchTmdb(searchTerm: String)
-GET    /tmdb/info/:movieId          controllers.Tmdb.getMovieById(movieId: java.lang.Integer)
+GET    /tmdb/search                 controllers.InfoGrabberController.searchTmdb(searchTerm = "")
+GET    /tmdb/search/:searchTerm     controllers.InfoGrabberController.searchTmdb(searchTerm: String)
+GET    /tmdb/info/:movieId          controllers.InfoGrabberController.getMovieById(movieId: java.lang.Integer)
 
 # Javascript routing
 GET     /assets/javascripts/routes 	 controllers.Application.jsRoutes()

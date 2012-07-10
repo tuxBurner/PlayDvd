@@ -2,6 +2,8 @@ package grabbers;
 
 import java.util.List;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 /**
  * This displays the movie where the user can select the backdrops and posters
  * 
@@ -12,12 +14,12 @@ public class GrabberDisplayMovie {
 
   public final String systemId;
   public final String movieTitle;
-  public final List<String> posterUrls;
-  public final List<String> backDropUrls;
+  public final List<GrabberImage> posterUrls;
+  public final List<GrabberImage> backDropUrls;
   public final EGrabberType grabber;
   public final String plot;
 
-  public GrabberDisplayMovie(final String systemId, final String movieTitle, final String plot, final List<String> posterUrls, final List<String> backDropUrls, final EGrabberType grabber) {
+  public GrabberDisplayMovie(final String systemId, final String movieTitle, final String plot, final List<GrabberImage> posterUrls, final List<GrabberImage> backDropUrls, final EGrabberType grabber) {
     this.systemId = systemId;
     this.movieTitle = movieTitle;
     this.plot = plot;
@@ -27,4 +29,9 @@ public class GrabberDisplayMovie {
 
   }
 
+  @Override
+  public String toString() {
+    return ToStringBuilder.reflectionToString(this);
+
+  }
 }
