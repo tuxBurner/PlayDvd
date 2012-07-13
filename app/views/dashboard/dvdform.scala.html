@@ -24,7 +24,7 @@
 
 @mainmenu("Dvd Database - Add a dvd",scripts,styles) {
 
-  <div class="row">
+  <div class="row" id="dvdFormWrapper">
 
      @form(routes.DvdController.addDvd(mode),'enctype -> "multipart/form-data", 'class -> "well") {
 

@@ -64,6 +64,8 @@ public class Movie extends Model {
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "movie", orphanRemoval = true)
   public Set<Dvd> dvds;
 
+  public String trailerUrl;
+
   /**
    * The finder for the database for searching in the database
    */
@@ -98,6 +100,7 @@ public class Movie extends Model {
     movie.description = movieForm.plot;
     movie.year = movieForm.year;
     movie.runtime = movieForm.runtime;
+    movie.trailerUrl = movieForm.trailerUrl;
 
     if (movie.id == null) {
       movie.hasPoster = false;

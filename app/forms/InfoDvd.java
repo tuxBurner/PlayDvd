@@ -18,6 +18,8 @@ public class InfoDvd {
 
   public List<CollectionDvd> collectionDvds;
 
+  public List<CollectionDvd> seriesDvd;
+
   public String borrowedBy;
 
   public Date borrowedOn;
@@ -42,7 +44,34 @@ public class InfoDvd {
 
     boxDvds = getDvdsByBoxOrCollection(dvd, EDvdAttributeType.BOX, dvdForm.box);
     collectionDvds = getDvdsByBoxOrCollection(dvd, EDvdAttributeType.COLLECTION, dvdForm.collection);
+    seriesDvd = getDvdsByMovieSeries(dvd, movieForm.series);
 
+  }
+
+  /**
+   * Collects all Dvds which have the attribute and the same owner
+   * 
+   * @param dvd
+   * @param attributeType
+   * @param attrvalue
+   * @return
+   */
+  private List<CollectionDvd> getDvdsByMovieSeries(final Dvd dvd, final String attrvalue) {
+
+    if (StringUtils.isEmpty(attrvalue) == true) {
+      return null;
+    }
+
+    final List<Dvd> boxDbDvds = Dvd.getbyMovieSeries(attrvalue, dvd);
+    List<CollectionDvd> returnList = null;
+    if (CollectionUtils.isEmpty(boxDbDvds) == false) {
+      returnList = new ArrayList<CollectionDvd>();
+      for (final Dvd boxDvd : boxDbDvds) {
+        returnList.add(new CollectionDvd(boxDvd));
+      }
+    }
+
+    return returnList;
   }
 
   /**

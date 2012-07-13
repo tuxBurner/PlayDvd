@@ -109,11 +109,23 @@
     
   </div>  
     
-  </fieldset>  
+  </fieldset>
+  
+  @if(dvd.movieForm.trailerUrl != null) {
+   <fieldset class="well">
+     <h2>Trailer:</h2>
+     
+     <iframe width="560" height="315"  src="http://www.youtube.com/embed/@dvd.movieForm.trailerUrl" frameborder="0" allowfullscreen></iframe>
+     
+   </fieldset>
+   }
+    
   
   @subDvdDisplay(dvd.boxDvds, dvd, "box",dvd.dvdForm.box)
   
   @subDvdDisplay(dvd.collectionDvds, dvd, "collection",dvd.dvdForm.collection)
+  
+  @subDvdDisplay(dvd.seriesDvd, dvd, "movie series",dvd.dvdForm.collection)
 
 </div>
 </div>

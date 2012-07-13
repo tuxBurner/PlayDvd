@@ -19,7 +19,7 @@ create table dvd_attribute (
   id                        bigint auto_increment not null,
   attribute_type            varchar(10) not null,
   value                     varchar(255),
-  constraint ck_dvd_attribute_attribute_type check (attribute_type in ('BOX','COLLECTION')),
+  constraint ck_dvd_attribute_attribute_type check (attribute_type in ('BOX','COLLECTION','RATING')),
   constraint pk_dvd_attribute primary key (id))
 ;
 
@@ -32,6 +32,7 @@ create table movie (
   description               longtext,
   year                      integer not null,
   runtime                   integer,
+  trailer_url               varchar(255),
   constraint pk_movie primary key (id))
 ;
 

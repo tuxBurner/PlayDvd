@@ -133,7 +133,7 @@ public class TheTvDbGrabber implements IInfoGrabber {
       backdrops.add(new GrabberImage(String.valueOf(banner.getId()), getThumbUrl(banner)));
     }
 
-    return new GrabberDisplayMovie(id, buildMovieName(series, season), series.getOverview(), posterList, backdrops, TheTvDbGrabber.TYPE);
+    return new GrabberDisplayMovie(id, buildMovieName(series, season), series.getOverview(), posterList, backdrops, new ArrayList<String>(), TheTvDbGrabber.TYPE);
   }
 
   private String getThumbUrl(final Banner banner) {

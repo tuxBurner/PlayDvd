@@ -19,6 +19,11 @@ public class GrabberInfoForm {
   public String grabberBackDropId;
 
   /**
+   * Id from youtube
+   */
+  public String grabberTrailerUrl;
+
+  /**
    * Id of the selected poster
    */
   public String grabberPosterId;

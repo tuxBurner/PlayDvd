@@ -90,6 +90,7 @@ $(function() {
 	 */
 	$('#movieFormCloseBtn').click(function() {
 		$('#newMovieFormWrapper').html('').hide();
+		$('#dvdFormWrapper').show();
 	});
 	
 	/**
@@ -104,7 +105,9 @@ $(function() {
 		
 		pAjax(jsRoutes.controllers.MovieController.addOrEditMovie(mode),formParams,
 				function(data) {
+			
 			      $('#newMovieFormWrapper').html('').hide();
+			      $('#dvdFormWrapper').show();
 			      // write the new movie to the select box and preselect it
 			      
 			      $('#movieId option[value="'+data.id+'"]').remove();

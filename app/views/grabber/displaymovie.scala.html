@@ -61,6 +61,27 @@
     </fieldset>
   }
   
+    @if(displayMovie.trailerUrls != null || displayMovie.trailerUrls.size() > 0) {
+    <fieldset>
+      <legend>Trailers</legend>
+      <ul class="thumbnails">
+        @for((trailerUrl,index) <- displayMovie.trailerUrls.zipWithIndex) {
+          <li class="span4" style="height: 190px;">
+            <div class="thumbnail" style="height: 190px;">
+            
+            <iframe width="289" height="163"  src="http://www.youtube.com/embed/@trailerUrl" frameborder="0" allowfullscreen></iframe>
+              <div class="caption">
+                <input @if(index == 0){checked="checked"} type="radio" name="grabberTrailerUrl" value="@trailerUrl"/>
+              </div>
+            </div>
+          </li>
+        }
+      </ul>
+    
+   
+    </fieldset>
+  }
+  
   
   
   }

@@ -7,6 +7,9 @@ import play.data.validation.Constraints.Required;
 import models.Dvd;
 import models.DvdAttribute;
 import models.EDvdAttributeType;
+import models.EMovieAttributeType;
+import models.Movie;
+import models.MovieAttribute;
 
 /**
  * Form which handles all the inputs for adding, editing a dvd
@@ -36,7 +39,7 @@ public class DvdForm {
   public String collection;
 
   public String ownerName;
-  
+
   public Integer hullNr;
 
   /**

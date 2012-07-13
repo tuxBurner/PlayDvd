@@ -18,6 +18,7 @@ import com.moviejukebox.themoviedb.model.Genre;
 import com.moviejukebox.themoviedb.model.MovieDb;
 import com.moviejukebox.themoviedb.model.Person;
 import com.moviejukebox.themoviedb.model.TmdbConfiguration;
+import com.moviejukebox.themoviedb.model.Trailer;
 
 import forms.GrabberInfoForm;
 import forms.MovieForm;
@@ -100,7 +101,17 @@ public class TmdbGrabber implements IInfoGrabber {
         }
       }
 
-      final GrabberDisplayMovie displayMovie = new GrabberDisplayMovie(id, movieInfo.getTitle(), movieInfo.getOverview(), posters, backdrops, TmdbGrabber.TYPE);
+      final List<String> trailerUrls = new ArrayList<String>();
+      final List<Trailer> movieTrailers = theMovieDb.getMovieTrailers(idAsInt, TmdbGrabber.LANGUAGE);
+      movieTrailers.addAll(theMovieDb.getMovieTrailers(idAsInt, null));
+
+      for (final Trailer trailer : movieTrailers) {
+        if ("youtube".equals(trailer.getWebsite()) == true) {
+          trailerUrls.add(trailer.getSource());
+        }
+      }
+
+      final GrabberDisplayMovie displayMovie = new GrabberDisplayMovie(id, movieInfo.getTitle(), movieInfo.getOverview(), posters, backdrops, trailerUrls, TmdbGrabber.TYPE);
 
       return displayMovie;
 
@@ -162,6 +173,10 @@ public class TmdbGrabber implements IInfoGrabber {
       final String tmdbPoster = grabberInfoForm.grabberPosterId;
       if (StringUtils.isEmpty(tmdbPoster) == false) {
         movieForm.posterUrl = buildImageUrl(configuration.getPosterSizes().get(configuration.getPosterSizes().size() - 1), tmdbPoster);
+      }
+
+      if (StringUtils.isEmpty(grabberInfoForm.grabberTrailerUrl) == false) {
+        movieForm.trailerUrl = grabberInfoForm.grabberTrailerUrl;
       }
 
       return movieForm;

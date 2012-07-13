@@ -8,8 +8,7 @@ object ApplicationBuild extends Build {
     val appVersion      = "1.0-SNAPSHOT"
 
     val appDependencies = Seq(
-      "mysql" % "mysql-connector-java" % "5.1.18",
-      "com.github.savvasdalkitsis" % "jtmdb" % "1.0.0",
+      "mysql" % "mysql-connector-java" % "5.1.18",      
       "net.coobird" % "thumbnailator" % "0.4.1",
       "commons-io" % "commons-io" % "2.0.1",
       "commons-collections" % "commons-collections" % "3.2.1",
@@ -17,7 +16,8 @@ object ApplicationBuild extends Build {
       "com.jquery" % "jquery" % "1.7.1",
       "com.google.code.gson" % "gson" % "2.2.1",
       "com.github.ralfebert" % "jgravatar" % "1.0-SNAPSHOT",
-      "com.moviejukebox" % "thetvdbapi" % "1.4-SNAPSHOT"
+      "com.moviejukebox" % "thetvdbapi" % "1.4-SNAPSHOT",
+      "com.moviejukebox" % "themoviedbapi" % "3.2-SNAPSHOT"
     )
 
     val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA).settings(
