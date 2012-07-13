@@ -1,3 +1,5 @@
+import helpers.ImageHelper;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -12,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
 
 import play.Application;
 import play.GlobalSettings;
+import play.Logger;
 
 import com.typesafe.config.ConfigFactory;
 
@@ -19,6 +22,12 @@ public class Global extends GlobalSettings {
 
   @Override
   public void onStart(final Application app) {
+
+    if (ImageHelper.IMAGE_ROOT.exists() == false) {
+      Logger.info("The folder: " + ImageHelper.IMAGE_ROOT.getAbsolutePath() + " does not exists, creating it.");
+      ImageHelper.IMAGE_ROOT.mkdirs();
+    }
+
     final boolean boolean1 = ConfigFactory.load().getBoolean("dvddb.fillDvds");
     if (boolean1 == true) {
       InitialData.insert(app);
@@ -48,7 +57,7 @@ public class Global extends GlobalSettings {
     public static void insert(final Application app) {
 
       final User user = new User();
-      
+
       user.password = User.cryptPassword("hallo123");
       user.email = "sebasth@gmx.de";
       user.userName = "tuxBurner";
@@ -64,9 +73,9 @@ public class Global extends GlobalSettings {
             for (int i = 1; i < readLines.size(); i++) {
               final String string = readLines.get(i);
               final String[] split = string.split(",");
-              final Dvd dvd = new Dvd();              
+              final Dvd dvd = new Dvd();
               dvd.movie = new Movie();
-              dvd.movie.hasToBeReviewed=true;
+              dvd.movie.hasToBeReviewed = true;
               dvd.createdDate = new Date().getTime();
               dvd.owner = user;
               dvd.movie.title = split[1].trim();
@@ -87,7 +96,7 @@ public class Global extends GlobalSettings {
               } else {
                 dvd.movie.year = 2012;
               }
-              
+
               dvd.movie.save();
 
               dvd.save();

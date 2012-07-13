@@ -26,7 +26,7 @@
           <li class="span3" style="height: 260px;">
             <div class="thumbnail" style="height: 260px;">
               @if(res.posterUrl != null) {
-                <img src="@res.posterUrl" />
+                <img src="@routes.Dashboard.streamExternalImage()?url=@res.posterUrl&imgSize=SMALL" />
               }
         
               <div class="caption">

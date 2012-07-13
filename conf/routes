@@ -29,6 +29,7 @@ POST    /dvds                             controllers.ListDvds.applySearchForm()
 
 GET     /genremenu                         controllers.Dashboard.menuGenres()
 GET     /image/:dvdId/:imgType/:imgSize    controllers.Dashboard.streamImage(dvdId: Long, imgType: String, imgSize: String)
+GET     /extimage                          controllers.Dashboard.streamExternalImage()
 GET     /gravatar/:userName                controllers.Dashboard.gravatar(size: java.lang.Integer, userName: String)
 
 

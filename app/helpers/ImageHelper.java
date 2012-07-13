@@ -16,7 +16,7 @@ import org.apache.commons.lang.StringUtils;
 
 public class ImageHelper {
 
-  private static File IMAGE_ROOT = new File("images");
+  public static File IMAGE_ROOT = new File("images");
 
   /**
    * Loads the image from the given url and saves it to the filesystem
