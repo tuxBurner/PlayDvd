@@ -1,6 +1,9 @@
 package forms;
 
+import java.util.List;
 import java.util.Set;
+
+import com.typesafe.config.ConfigFactory;
 
 import play.data.validation.Constraints.Required;
 
@@ -40,6 +43,8 @@ public class DvdForm {
 
   public String ownerName;
 
+  public String ageRating;
+
   public Integer hullNr;
 
   /**
@@ -67,9 +72,17 @@ public class DvdForm {
       if (EDvdAttributeType.COLLECTION.equals(dvdAttibute.attributeType)) {
         dvdForm.collection = dvdAttibute.value;
       }
+
+      if (EDvdAttributeType.RATING.equals(dvdAttibute.attributeType)) {
+        dvdForm.ageRating = dvdAttibute.value;
+      }
     }
 
     return dvdForm;
   }
 
+  public static List<String> getAgeRatings() {
+    final List<String> ratings = ConfigFactory.load().getStringList("dvddb.ageratings");
+    return ratings;
+  }
 }

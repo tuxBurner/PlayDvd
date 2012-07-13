@@ -29,12 +29,18 @@
      @form(routes.DvdController.addDvd(mode),'enctype -> "multipart/form-data", 'class -> "well") {
 
      <fieldset>
-       <legend>@if(mode == DvdController.DVD_FORM_EDIT_MODE) {Edit Dvd} else {Add a Dvd}</legend>
+       <legend>@if(mode == DvdController.DVD_FORM_EDIT_MODE) {Edit Dvd } else {Add a Dvd}</legend>
              
      
        @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
          <input type="hidden" name="dvdId" id="dvdId" value="@dvdForm.get().dvdId"/>
        }
+       
+       
+       @for(rating <- forms.DvdForm.getAgeRatings) {
+         <input type="radio" name="ageRating" value="@rating" @if(rating == dvdForm.get().ageRating){ checked="checked" } /><span><img alt="@rating" src="@routes.Assets.at("images/agerating/"+rating+".gif")" />@rating </span> 
+       }
+       
          
        @inputText(dvdForm("hullNr"),'_label -> "Hull Nr.", 'class -> "span4")
        @select(field = dvdForm("box"), options(DvdAttribute.getAllByTypeAsValue(EDvdAttributeType.BOX)),'_label->"Box",'class-> "span5 chosen_select")

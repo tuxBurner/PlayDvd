@@ -158,6 +158,7 @@ public class Dvd extends Model {
 
     Dvd.addSingleAttribute(dvdForm.box, EDvdAttributeType.BOX, dvd);
     Dvd.addSingleAttribute(dvdForm.collection, EDvdAttributeType.COLLECTION, dvd);
+    Dvd.addSingleAttribute(dvdForm.ageRating, EDvdAttributeType.RATING, dvd);
 
     dvd.update();
 
@@ -174,7 +175,7 @@ public class Dvd extends Model {
   // TODO: do we need this when we have the new EBEAN nand check also movie
   // and
   // attributes
-  private static void addSingleAttribute(final String attrToAdd, final EDvdAttributeType attributeType, final Dvd dvd) {
+  public static void addSingleAttribute(final String attrToAdd, final EDvdAttributeType attributeType, final Dvd dvd) {
     if (StringUtils.isEmpty(attrToAdd) == true) {
       return;
     }

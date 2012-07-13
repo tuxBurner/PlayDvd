@@ -1,3 +1,4 @@
+import forms.DvdForm;
 import helpers.ImageHelper;
 
 import java.io.File;
@@ -6,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import models.Dvd;
+import models.EDvdAttributeType;
 import models.Movie;
 import models.User;
 
@@ -33,23 +35,6 @@ public class Global extends GlobalSettings {
       InitialData.insert(app);
     }
 
-    // final Yaml yaml = new Yaml();
-    // final Map<String, Object> map = new HashMap<String, Object>();
-    //
-    // final List<User> users = User.find.all();
-    // map.put(User.class.getCanonicalName(), users);
-    //
-    // final List<Dvd> dvds = Dvd.find.all();
-    // map.put(Dvd.class.getCanonicalName(), dvds);
-    //
-    // final List<Movie> movies = Movie.find.all();
-    // map.put(Movie.class.getCanonicalName(), movies);
-    //
-    // final List<MovieAttibute> movieAttributes = MovieAttibute.finder.all();
-    // map.put(MovieAttibute.class.getCanonicalName(), movieAttributes);
-    //
-    // final String dump = yaml.dump(map);
-    // System.out.println(dump);
   }
 
   static class InitialData {
@@ -58,7 +43,7 @@ public class Global extends GlobalSettings {
 
       final User user = new User();
 
-      user.password = User.cryptPassword("hallo123");
+      user.password = "hallo123";
       user.email = "sebasth@gmx.de";
       user.userName = "tuxBurner";
       User.create(user);
@@ -66,10 +51,13 @@ public class Global extends GlobalSettings {
       if (user != null) {
 
         // load the csv
-        final File file = new File("/home/tuxburner/Downloads/export.csv");
+        final File file = new File("export.csv");
         if (file.exists() == true) {
           try {
-            final List<String> readLines = FileUtils.readLines(file, "utf-8");
+
+            final List<String> ageRatings = DvdForm.getAgeRatings();
+
+            final List<String> readLines = FileUtils.readLines(file, "iso-8859-1");
             for (int i = 1; i < readLines.size(); i++) {
               final String string = readLines.get(i);
               final String[] split = string.split(",");
@@ -86,15 +74,18 @@ public class Global extends GlobalSettings {
                 dvd.hullNr = Integer.valueOf(trimToNull);
               }
 
-              if (split.length == 3) {
-                final String trimToNull2 = StringUtils.trimToNull(split[2]);
-                if (StringUtils.isEmpty(trimToNull2) == false && StringUtils.isNumeric(trimToNull2)) {
-                  dvd.movie.year = Integer.valueOf(trimToNull2);
-                } else {
-                  dvd.movie.year = 2012;
-                }
+              final String trimToNull2 = StringUtils.trimToNull(split[2]);
+              if (StringUtils.isEmpty(trimToNull2) == false && StringUtils.isNumeric(trimToNull2)) {
+                dvd.movie.year = Integer.valueOf(trimToNull2);
               } else {
                 dvd.movie.year = 2012;
+              }
+
+              if (split.length == 4) {
+                final String string2 = StringUtils.trimToEmpty(split[3]);
+                if (ageRatings.contains(string2)) {
+                  Dvd.addSingleAttribute(string2, EDvdAttributeType.RATING, dvd);
+                }
               }
 
               dvd.movie.save();
