@@ -242,6 +242,10 @@ public class Dvd extends Model {
       }
     }
 
+    if (listFrom.moviesToReview == true) {
+      where.eq("movie.hasToBeReviewed", true);
+    }
+
     return Dvd.getByDefaultPaging(where, listFrom.currentPage);
   }
 

@@ -23,6 +23,7 @@ GET     /dvds/by/actor/:actorName         controllers.ListDvds.listByActor(actor
 GET     /dvds/by/director/:directorName   controllers.ListDvds.listByDirector(directorName: String)
 GET     /dvds/by/user/:userName           controllers.ListDvds.listByUser(userName: String,pageNr: java.lang.Integer ?= 0)
 GET     /dvds/lend                        controllers.ListDvds.listLendDvd()
+GET     /movies/toReview                  controllers.ListDvds.listReviewMovies()
 GET     /dvds/search                      controllers.ListDvds.searchDvd()
 POST    /dvds                             controllers.ListDvds.applySearchForm() 
 

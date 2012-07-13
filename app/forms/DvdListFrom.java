@@ -49,6 +49,11 @@ public class DvdListFrom {
   public boolean lendDvd = false;
 
   /**
+   * If set to true only dvds linked with movies to review are displayed
+   */
+  public boolean moviesToReview = false;
+
+  /**
    * Gets the current search form from the cache if the cache is empty a new one
    * is created
    * 

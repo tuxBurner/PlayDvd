@@ -101,6 +101,7 @@ public class Movie extends Model {
     movie.year = movieForm.year;
     movie.runtime = movieForm.runtime;
     movie.trailerUrl = movieForm.trailerUrl;
+    movie.hasToBeReviewed = false;
 
     if (movie.id == null) {
       movie.hasPoster = false;
