@@ -162,6 +162,7 @@ public class TheTvDbGrabber implements IInfoGrabber {
 
     movieForm.title = buildMovieName(series, season);
     movieForm.plot = series.getOverview();
+    movieForm.series = series.getSeriesName();
 
     movieForm.runtime = Integer.valueOf(series.getRuntime());
 

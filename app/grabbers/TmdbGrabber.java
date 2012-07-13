@@ -1,99 +1,112 @@
 package grabbers;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.json.JSONException;
 
-import com.github.savvasdalkitsis.jtmdb.CastInfo;
-import com.github.savvasdalkitsis.jtmdb.GeneralSettings;
-import com.github.savvasdalkitsis.jtmdb.Genre;
-import com.github.savvasdalkitsis.jtmdb.Movie;
-import com.github.savvasdalkitsis.jtmdb.MovieBackdrop;
-import com.github.savvasdalkitsis.jtmdb.MovieImages;
-import com.github.savvasdalkitsis.jtmdb.MoviePoster;
+import play.Logger;
 
-import forms.MovieForm;
+import com.moviejukebox.themoviedb.MovieDbException;
+import com.moviejukebox.themoviedb.TheMovieDb;
+import com.moviejukebox.themoviedb.model.Artwork;
+import com.moviejukebox.themoviedb.model.ArtworkType;
+import com.moviejukebox.themoviedb.model.Collection;
+import com.moviejukebox.themoviedb.model.Genre;
+import com.moviejukebox.themoviedb.model.MovieDb;
+import com.moviejukebox.themoviedb.model.Person;
+import com.moviejukebox.themoviedb.model.TmdbConfiguration;
+
 import forms.GrabberInfoForm;
+import forms.MovieForm;
 
 public class TmdbGrabber implements IInfoGrabber {
 
   private static final String API_KEY = "a67216a4ad62ec0f81e3fffbfe18507f";
+
   private final static EGrabberType TYPE = EGrabberType.TMDB;
 
+  private static final String LANGUAGE = Locale.GERMAN.getLanguage();
+
+  private TheMovieDb theMovieDb;
+
+  private TmdbConfiguration configuration;
+
   public TmdbGrabber() {
-    GeneralSettings.setApiKey(TmdbGrabber.API_KEY);
-    GeneralSettings.setAPILocale(Locale.GERMANY);
-  }
-
-  @Override
-  public List<GrabberSearchMovie> searchForMovie(final String searchTerm) throws GrabberException {
     try {
-
-      final List<GrabberSearchMovie> returnVal = new ArrayList<GrabberSearchMovie>();
-
-      final List<Movie> results = Movie.search(searchTerm);
-
-      if (CollectionUtils.isEmpty(results) == false) {
-        for (final Movie movie : results) {
-
-          final MovieImages images = movie.getImages();
-
-          String posterUrl = null;
-          if (images != null && CollectionUtils.isEmpty(images.posters) == false) {
-            posterUrl = images.posters.iterator().next().getSmallestImage().toString();
-          }
-
-          returnVal.add(new GrabberSearchMovie(String.valueOf(movie.getID()), movie.getName(), posterUrl, TmdbGrabber.TYPE));
-        }
-      }
-
-      return returnVal;
-    } catch (final IOException e) {
-      throw new GrabberException(e);
-    } catch (final JSONException e) {
-      throw new GrabberException(e);
+      theMovieDb = new TheMovieDb(TmdbGrabber.API_KEY);
+      configuration = theMovieDb.getConfiguration();
+    } catch (final MovieDbException e) {
+      Logger.error("An error happend while initializing: " + TheMovieDb.class.getName(), e);
     }
   }
 
   @Override
-  public GrabberDisplayMovie getDisplayMovie(final String id) throws GrabberException {
+  public List<GrabberSearchMovie> searchForMovie(final String searchTerm) throws GrabberException {
+
     try {
-      final Movie info = Movie.getInfo(Integer.valueOf(id));
+      final List<GrabberSearchMovie> returnVal = new ArrayList<GrabberSearchMovie>();
+      final List<MovieDb> results = theMovieDb.searchMovie(searchTerm, TmdbGrabber.LANGUAGE, true);
 
-      final MovieImages images = info.getImages();
-      final List<GrabberImage> posters = new ArrayList<GrabberImage>();
-      final List<GrabberImage> backdrops = new ArrayList<GrabberImage>();
-      if (images != null) {
-
-        if (CollectionUtils.isEmpty(images.posters) == false) {
-          for (final MoviePoster poster : images.posters) {
-            posters.add(new GrabberImage(poster.getID(), poster.getSmallestImage().toString()));
-          }
+      if (CollectionUtils.isEmpty(results) == false) {
+        for (final MovieDb movieDb : results) {
+          final String posterImageUrl = buildImageUrl(configuration.getPosterSizes().get(0), movieDb.getPosterPath());
+          returnVal.add(new GrabberSearchMovie(String.valueOf(movieDb.getId()), movieDb.getTitle(), posterImageUrl, TmdbGrabber.TYPE));
         }
-
-        if (CollectionUtils.isEmpty(images.backdrops) == false) {
-          for (final MovieBackdrop backdrop : images.backdrops) {
-            backdrops.add(new GrabberImage(backdrop.getID(), backdrop.getSmallestImage().toString()));
-          }
-        }
-
       }
 
-      final GrabberDisplayMovie displayMovie = new GrabberDisplayMovie(id, info.getName(), info.getOverview(), posters, backdrops, TmdbGrabber.TYPE);
+      return returnVal;
+    } catch (final MovieDbException e) {
+      Logger.error("An error happend while searching for movies.", e);
+      throw new GrabberException(e);
+    }
+
+  }
+
+  /**
+   * Builds an url to the image
+   * 
+   * @param size
+   * @param imgPath
+   * @return
+   */
+  private String buildImageUrl(final String size, final String imgPath) {
+    return configuration.getBaseUrl() + size + imgPath;
+  }
+
+  @Override
+  public GrabberDisplayMovie getDisplayMovie(final String id) throws GrabberException {
+
+    try {
+      final Integer idAsInt = Integer.valueOf(id);
+      final MovieDb movieInfo = theMovieDb.getMovieInfo(idAsInt, TmdbGrabber.LANGUAGE);
+
+      final List<Artwork> movieImages = theMovieDb.getMovieImages(idAsInt, null);
+
+      final List<GrabberImage> posters = new ArrayList<GrabberImage>();
+      final List<GrabberImage> backdrops = new ArrayList<GrabberImage>();
+
+      if (CollectionUtils.isEmpty(movieImages) == false) {
+        for (final Artwork artwork : movieImages) {
+          if (ArtworkType.POSTER.equals(artwork.getArtworkType()) == true) {
+            posters.add(new GrabberImage(artwork.getFilePath(), buildImageUrl(configuration.getPosterSizes().get(0), artwork.getFilePath())));
+          }
+
+          if (ArtworkType.BACKDROP.equals(artwork.getArtworkType()) == true) {
+            backdrops.add(new GrabberImage(artwork.getFilePath(), buildImageUrl(configuration.getBackdropSizes().get(0), artwork.getFilePath())));
+          }
+        }
+      }
+
+      final GrabberDisplayMovie displayMovie = new GrabberDisplayMovie(id, movieInfo.getTitle(), movieInfo.getOverview(), posters, backdrops, TmdbGrabber.TYPE);
 
       return displayMovie;
 
-    } catch (final IOException e) {
+    } catch (final NumberFormatException e) {
       throw new GrabberException(e);
-    } catch (final JSONException e) {
+    } catch (final MovieDbException e) {
       throw new GrabberException(e);
     }
   }
@@ -102,67 +115,60 @@ public class TmdbGrabber implements IInfoGrabber {
   public MovieForm filleInfoToMovieForm(final GrabberInfoForm grabberInfoForm) throws GrabberException {
 
     try {
-      final Movie movieInfo = Movie.getInfo(Integer.valueOf(grabberInfoForm.grabberMovieId));
+
+      final Integer id = Integer.valueOf(grabberInfoForm.grabberMovieId);
+      final MovieDb movieInfo = theMovieDb.getMovieInfo(id, TmdbGrabber.LANGUAGE);
 
       final MovieForm movieForm = new MovieForm();
-      movieForm.title = movieInfo.getName();
+      movieForm.title = movieInfo.getTitle();
       movieForm.plot = movieInfo.getOverview();
       movieForm.runtime = movieInfo.getRuntime();
 
-      final Date releasedDate = movieInfo.getReleasedDate();
-      final Calendar releaseCal = Calendar.getInstance();
-      releaseCal.setTime(releasedDate);
-      movieForm.year = releaseCal.get(Calendar.YEAR);
+      final String releaseDate = movieInfo.getReleaseDate();
 
-      final Set<Genre> genres = movieInfo.getGenres();
+      final String[] split = releaseDate.split("-");
+      if (split.length == 3) {
+        movieForm.year = Integer.valueOf(split[0]);
+      }
+
+      final List<Genre> genres = movieInfo.getGenres();
       for (final Genre genre : genres) {
         movieForm.genres.add(genre.getName());
       }
 
-      final Set<CastInfo> cast = movieInfo.getCast();
-      for (final CastInfo castInfo : cast) {
+      final List<Person> movieCasts = theMovieDb.getMovieCasts(id);
+      for (final Person castInfo : movieCasts) {
         if ("Director".equals(castInfo.getJob())) {
           movieForm.director = castInfo.getName();
           continue;
         }
 
-        if ("Actor".equals(castInfo.getJob())) {
+        if ("actor".equals(castInfo.getJob())) {
           movieForm.actors.add(castInfo.getName());
-
           continue;
         }
       }
 
+      final Collection belongsToCollection = movieInfo.getBelongsToCollection();
+      if (belongsToCollection != null) {
+        movieForm.series = belongsToCollection.getName();
+      }
+
       final String tmdbBackDrop = grabberInfoForm.grabberBackDropId;
       if (StringUtils.isEmpty(tmdbBackDrop) == false) {
-        final Set<MovieBackdrop> backdrops = movieInfo.getImages().backdrops;
-        for (final MovieBackdrop movieBackdrop : backdrops) {
-          if (movieBackdrop.getID().equals(tmdbBackDrop) == true) {
-            movieForm.backDropUrl = movieBackdrop.getLargestImage().toString();
-            break;
-          }
-        }
+        movieForm.backDropUrl = buildImageUrl(configuration.getBackdropSizes().get(configuration.getBackdropSizes().size() - 1), tmdbBackDrop);
       }
 
       final String tmdbPoster = grabberInfoForm.grabberPosterId;
       if (StringUtils.isEmpty(tmdbPoster) == false) {
-        final Set<MoviePoster> posters = movieInfo.getImages().posters;
-        for (final MoviePoster poster : posters) {
-          if (poster.getID().equals(tmdbPoster) == true) {
-            movieForm.posterUrl = poster.getLargestImage().toString();
-            break;
-          }
-        }
+        movieForm.posterUrl = buildImageUrl(configuration.getPosterSizes().get(configuration.getPosterSizes().size() - 1), tmdbPoster);
       }
 
       return movieForm;
 
-    } catch (final IOException e) {
-      throw new GrabberException(e);
-    } catch (final JSONException e) {
+    } catch (final MovieDbException e) {
       throw new GrabberException(e);
     }
 
   }
-
 }

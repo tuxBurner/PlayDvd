@@ -127,6 +127,8 @@ public class Movie extends Model {
     final Set<MovieAttribute> actors = MovieAttribute.gatherAndAddAttributes(new HashSet<String>(movieForm.actors), EMovieAttributeType.ACTOR);
     movie.attributes.addAll(actors);
 
+    Movie.addSingleAttribute(movieForm.series, EMovieAttributeType.MOVIE_SERIES, movie);
+
     Movie.addSingleAttribute(movieForm.director, EMovieAttributeType.DIRECTOR, movie);
 
     movie.update();

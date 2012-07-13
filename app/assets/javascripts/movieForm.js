@@ -1,4 +1,12 @@
 $(function() {
+	
+	$('.chosen_select').chosen({
+		   create_option: true,
+		   // persistent_create_option decides if you can add any term, even if part of the term is also found, or only unique, not overlapping terms
+		   persistent_create_option: false,
+		   allow_single_deselect: true
+	});
+	
 	// check the url stuff and change the image if it is set
 	createPrevsrciewFromUrl('poster');
 	createPrevsrciewFromUrl('backDrop');

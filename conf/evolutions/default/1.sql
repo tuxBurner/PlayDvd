@@ -37,9 +37,9 @@ create table movie (
 
 create table movie_attribute (
   pk                        bigint auto_increment not null,
-  attribute_type            varchar(8) not null,
+  attribute_type            varchar(12) not null,
   value                     varchar(255),
-  constraint ck_movie_attribute_attribute_type check (attribute_type in ('ACTOR','GENRE','DIRECTOR')),
+  constraint ck_movie_attribute_attribute_type check (attribute_type in ('ACTOR','GENRE','DIRECTOR','MOVIE_SERIES')),
   constraint pk_movie_attribute primary key (pk))
 ;
 

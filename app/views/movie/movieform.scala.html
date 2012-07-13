@@ -1,4 +1,4 @@
-@(movieForm: Form[forms.MovieForm])(mode: String)
+@(movieForm: Form[forms.MovieForm], seriesList: List[String])(mode: String)
 
 @import helper._
 @import helper.twitterBootstrap._
@@ -40,12 +40,14 @@
          
          @inputText(movieForm("runtime"),'_label -> "Runtime in Min:")
          
+         @select(field = movieForm("series"), options(seriesList),'_label->"Series",'class-> "span5 chosen_select")
+         
+         
          <hr />
          <label for="genres">Genres</label>   
          <input type="hidden" name="genres" id="genres" value="@movieForm.get().getDvdFormAttributesAsString(movieForm.get().genres)"/>
          <ul id="genresTags" class="tags"></ul>
         
-       
          <hr  />
          @inputText(movieForm("director"),'_label -> "Director")
          
