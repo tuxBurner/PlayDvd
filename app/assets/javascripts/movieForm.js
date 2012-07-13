@@ -87,7 +87,7 @@ $(function() {
 	/**
 	 * user clicks on the submit edit or add button for the movie
 	 */
-	$('#movieFormSubmitBtn').click(function() {
+	$('.movieFormSubmitBtn').click(function() {
 		
 		showWaitDiaLog();
 		

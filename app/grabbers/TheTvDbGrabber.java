@@ -163,14 +163,13 @@ public class TheTvDbGrabber implements IInfoGrabber {
     movieForm.title = buildMovieName(series, season);
     movieForm.plot = series.getOverview();
 
-    // TODO: go over all episodes ?
-    movieForm.runtime = 0;
+    movieForm.runtime = Integer.valueOf(series.getRuntime());
 
     final String firstAired = series.getFirstAired();
     if (StringUtils.isEmpty(firstAired) == false) {
       final String[] split2 = firstAired.split("-");
       if (split2.length == 3) {
-        movieForm.year = Integer.valueOf(split[0]);
+        movieForm.year = Integer.valueOf(split2[0]);
       }
     }
 
