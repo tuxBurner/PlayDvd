@@ -30,7 +30,7 @@ public class InfoGrabberController extends Controller {
    * @param searchTerm
    * @return
    */
-  public static Result searchGrabber(final String searchTerm, final EGrabberType grabberType) {
+  public static Result searchGrabber(final String searchTerm, final String grabberType) {
 
     final Long movieToEditId = InfoGrabberController.getMovieToEditIdFromReq();
 
@@ -38,7 +38,7 @@ public class InfoGrabberController extends Controller {
       List<GrabberSearchMovie> searchResults = new ArrayList<GrabberSearchMovie>();
 
       if (StringUtils.isEmpty(searchTerm) == false) {
-        final IInfoGrabber grabber = InfoGrabberController.getGrabber(grabberType);
+        final IInfoGrabber grabber = InfoGrabberController.getGrabber(EGrabberType.valueOf(grabberType));
         if (grabber != null) {
           searchResults = grabber.searchForMovie(searchTerm);
         }

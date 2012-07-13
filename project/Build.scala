@@ -24,5 +24,5 @@ object ApplicationBuild extends Build {
       resolvers += ("Local Maven Repository" at "file://"+Path.userHome.absolutePath+"/.m2/repository"),
       resolvers += ("webjars" at "http://webjars.github.com/m2")
     )
-
+    
 }

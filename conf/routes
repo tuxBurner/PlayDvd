@@ -53,8 +53,8 @@ POST   /movie/:mode                controllers.MovieController.addOrEditMovie(mo
 
 
 # Grabbers 
-GET    /grabber/search                 controllers.InfoGrabberController.searchGrabber(searchTerm = "", grabberType =  grabbers.EGrabberType.TMDB)
-GET    /grabber/:grabberType/search/:searchTerm     controllers.InfoGrabberController.searchGrabber(searchTerm: String, grabberType:  grabbers.EGrabberType)
+GET    /grabber/search                 controllers.InfoGrabberController.searchGrabber(searchTerm = "", grabberType =  "TMDB")
+GET    /grabber/:grabberType/search/:searchTerm     controllers.InfoGrabberController.searchGrabber(searchTerm: String, grabberType:  String)
 GET    /grabber/info/:movieId                       controllers.InfoGrabberController.getMovieById(movieId: java.lang.Integer)
 
 # Javascript routing
