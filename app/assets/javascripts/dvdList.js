@@ -7,7 +7,8 @@ $(function() {
 		width: '1024',
 		height: '710',
 		autoOpen: false,
-		modal: true
+		modal: true,
+		close: function() { $('#dvdInfoDialog .dialogContent').html(''); }
 	});
 	
 	// open the info dialog when the user clicks on the info button

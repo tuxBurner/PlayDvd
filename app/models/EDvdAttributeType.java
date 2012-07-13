@@ -4,5 +4,6 @@ public enum EDvdAttributeType {
 
   BOX,
   COLLECTION,
-  RATING
+  RATING,
+  COPY_TYPE
 }

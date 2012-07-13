@@ -69,6 +69,7 @@ public class Global extends GlobalSettings {
               dvd.movie.title = split[1].trim();
               dvd.movie.hasPoster = false;
               dvd.movie.hasBackdrop = false;
+              Dvd.addSingleAttribute("DVD", EDvdAttributeType.COPY_TYPE, dvd);
               final String trimToNull = StringUtils.trimToNull(split[0]);
               if (StringUtils.isEmpty(trimToNull) == false && StringUtils.isNumeric(trimToNull)) {
                 dvd.hullNr = Integer.valueOf(trimToNull);

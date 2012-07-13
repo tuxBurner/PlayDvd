@@ -68,11 +68,18 @@
       <span>@dvd.movieForm.series</span>
     </div>
     
+    @if(dvd.dvdForm.copyType != null) {
+      <div class="row-fluid">
+        <label class="span4">Type:</label>
+        <span><img alt="@dvd.dvdForm.copyType" src="@routes.Assets.at("images/copy_type/"+dvd.dvdForm.copyType+".png")" /> @dvd.dvdForm.copyType</span>
+      </div>
+    }
+    
     @if(dvd.dvdForm.ageRating != null) {
-    <div class="row-fluid">
-      <label class="span4">Age Rating:</label>
-      <span><img alt="@dvd.dvdForm.ageRating" src="@routes.Assets.at("images/agerating/"+dvd.dvdForm.ageRating+".gif")" /> @dvd.dvdForm.ageRating</span>
-    </div>
+      <div class="row-fluid">
+        <label class="span4">Age Rating:</label>
+        <span><img alt="@dvd.dvdForm.ageRating" src="@routes.Assets.at("images/agerating/"+dvd.dvdForm.ageRating+".gif")" /> @dvd.dvdForm.ageRating</span>
+      </div>
     }
     
     <div class="row-fluid">
@@ -123,7 +130,7 @@
     
   </fieldset>
   
-  @if(dvd.movieForm.trailerUrl != null) {
+  @if(dvd.movieForm.trailerUrl != null && dvd.movieForm.trailerUrl != "") {
    <fieldset class="well">
      <h2>Trailer:</h2>
      

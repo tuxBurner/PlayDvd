@@ -45,6 +45,8 @@ public class DvdForm {
 
   public String ageRating;
 
+  public String copyType;
+
   public Integer hullNr;
 
   /**
@@ -76,6 +78,10 @@ public class DvdForm {
       if (EDvdAttributeType.RATING.equals(dvdAttibute.attributeType)) {
         dvdForm.ageRating = dvdAttibute.value;
       }
+
+      if (EDvdAttributeType.COPY_TYPE.equals(dvdAttibute.attributeType)) {
+        dvdForm.copyType = dvdAttibute.value;
+      }
     }
 
     return dvdForm;
@@ -83,6 +89,11 @@ public class DvdForm {
 
   public static List<String> getAgeRatings() {
     final List<String> ratings = ConfigFactory.load().getStringList("dvddb.ageratings");
+    return ratings;
+  }
+
+  public static List<String> getCopyTypes() {
+    final List<String> ratings = ConfigFactory.load().getStringList("dvddb.copytypes");
     return ratings;
   }
 }

@@ -13,6 +13,10 @@
        
        @select(field = dvdListForm("userName"), options(User.getUserNames()),'_label->"Owner",'class-> "span2 chosen_select")
        
+       @select(field = dvdListForm("ageRating"), options(forms.DvdListFrom.getAgeRatings),'_label->"Rating",'class-> "span2 chosen_select")
+       
+       
+       
        
        
        <button type="submit"><i class="icon-search"></i></button>

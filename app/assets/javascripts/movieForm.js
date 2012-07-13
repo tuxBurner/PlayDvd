@@ -43,7 +43,8 @@ $(function() {
 		height: '710',
 		top: 60,
 		autoOpen: false,
-		modal: true
+		modal: true,
+		close:  function() {$('#grabberDialog .dialogContent').html('')}
 	});
 	
 	/**

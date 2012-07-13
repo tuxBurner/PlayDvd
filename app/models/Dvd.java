@@ -159,6 +159,7 @@ public class Dvd extends Model {
     Dvd.addSingleAttribute(dvdForm.box, EDvdAttributeType.BOX, dvd);
     Dvd.addSingleAttribute(dvdForm.collection, EDvdAttributeType.COLLECTION, dvd);
     Dvd.addSingleAttribute(dvdForm.ageRating, EDvdAttributeType.RATING, dvd);
+    Dvd.addSingleAttribute(dvdForm.copyType, EDvdAttributeType.COPY_TYPE, dvd);
 
     dvd.update();
 
@@ -233,6 +234,10 @@ public class Dvd extends Model {
 
     if (StringUtils.isEmpty(listFrom.director) == false) {
       where.eq("movie.attributes.value", listFrom.director).eq("movie.attributes.attributeType", EMovieAttributeType.DIRECTOR);
+    }
+
+    if (StringUtils.isEmpty(listFrom.ageRating) == false) {
+      where.eq("attributes.value", listFrom.ageRating).eq("attributes.attributeType", EDvdAttributeType.RATING);
     }
 
     if (StringUtils.isEmpty(listFrom.userName) == false) {
