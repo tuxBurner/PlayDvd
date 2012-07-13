@@ -1,7 +1,11 @@
 package controllers;
 
+import grabbers.EGrabberType;
 import grabbers.GrabberException;
-import grabbers.TmdbInfoGrabber;
+import grabbers.GrabberSearchMovie;
+import grabbers.IInfoGrabber;
+import grabbers.TheTvDbGrabber;
+import grabbers.TmdbGrabber;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,22 +30,33 @@ public class InfoGrabberController extends Controller {
    * @param searchTerm
    * @return
    */
-  public static Result searchTmdb(final String searchTerm) {
+  public static Result searchGrabber(final String searchTerm, final EGrabberType grabberType) {
 
-    final Long tmdbDvdId = InfoGrabberController.getMovieToEditIdFromReq();
+    final Long movieToEditId = InfoGrabberController.getMovieToEditIdFromReq();
 
     try {
-      List<Movie> searchForMovie = new ArrayList<Movie>();
+      List<GrabberSearchMovie> searchResults = new ArrayList<GrabberSearchMovie>();
 
       if (StringUtils.isEmpty(searchTerm) == false) {
-        searchForMovie = TmdbInfoGrabber.searchForMovie(searchTerm);
+        final IInfoGrabber grabber = InfoGrabberController.getGrabber(grabberType);
+        if (grabber != null) {
+          searchResults = grabber.searchForMovie(searchTerm);
+        }
       }
 
-      return Results.ok(search.render(searchTerm, searchForMovie, tmdbDvdId));
+      return Results.ok(search.render(searchTerm, searchResults, movieToEditId));
 
     } catch (final GrabberException e) {
       return Results.badRequest("Internal Error happend");
     }
+  }
+
+  public static IInfoGrabber getGrabber(final EGrabberType grabberType) {
+    if (EGrabberType.THETVDB.equals(grabberType)) {
+      return new TheTvDbGrabber();
+    }
+
+    return null;
   }
 
   /**
@@ -52,15 +67,15 @@ public class InfoGrabberController extends Controller {
    */
   private static Long getMovieToEditIdFromReq() {
 
-    Long tmdbDvdId = null;
+    final Long movieToEditId = null;
 
     if (Controller.request().queryString().containsKey(InfoGrabberController.DVD_ID_FIELD_NAME)) {
       final String[] strings = Controller.request().queryString().get(InfoGrabberController.DVD_ID_FIELD_NAME);
       if (strings != null && strings.length == 1 && StringUtils.isEmpty(strings[0]) == false) {
-        tmdbDvdId = Long.valueOf(strings[0]);
+        Long.valueOf(strings[0]);
       }
     }
-    return tmdbDvdId;
+    return movieToEditId;
   }
 
   /**
@@ -75,7 +90,7 @@ public class InfoGrabberController extends Controller {
 
       final Long movieToEditId = InfoGrabberController.getMovieToEditIdFromReq();
 
-      final Movie movieInfo = TmdbInfoGrabber.getMovieInfo(movieId);
+      final Movie movieInfo = TmdbGrabber.getMovieInfo(movieId);
 
       final String mode = (movieToEditId == null) ? DvdController.DVD_FORM_ADD_MODE : DvdController.DVD_FORM_EDIT_MODE;
 

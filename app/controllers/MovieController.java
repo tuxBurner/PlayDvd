@@ -1,7 +1,7 @@
 package controllers;
 
 import grabbers.GrabberException;
-import grabbers.TmdbInfoGrabber;
+import grabbers.TmdbGrabber;
 import helpers.RequestToCollectionHelper;
 
 import java.util.Map;
@@ -99,7 +99,7 @@ public class MovieController extends Controller {
     try {
 
       final Form<GrabberInfoForm> tmdbInfoForm = Controller.form(GrabberInfoForm.class).bindFromRequest();
-      final MovieForm movieForm = TmdbInfoGrabber.fillDvdFormWithMovieInfo(tmdbInfoForm.get());
+      final MovieForm movieForm = TmdbGrabber.fillDvdFormWithMovieInfo(tmdbInfoForm.get());
 
       if (tmdbInfoForm.get().movieDbId != null) {
         movieForm.movieId = tmdbInfoForm.get().movieDbId;

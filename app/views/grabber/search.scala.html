@@ -1,4 +1,4 @@
-@(searchTerm : String,results : List[com.github.savvasdalkitsis.jtmdb.Movie],dbMovieId: Long)
+@(searchTerm : String,results : List[grabbers.GrabberSearchMovie],dbMovieId: Long)
 <form method="GET" >
   		<label>Search Tmdb</label>
   		<input type="text" name="searchTerm" id="tmdb_search_input" value="@searchTerm"/>
@@ -19,13 +19,13 @@
 
           <li class="span3" style="height: 260px;">
             <div class="thumbnail" style="height: 260px;">
-              @if(res.getImages() != null && res.getImages().posters != null && res.getImages().posters.iterator().hasNext()) {
-                <img src="@res.getImages().posters.iterator().next().getSmallestImage()" />
+              @if(res.posterUrl != null) {
+                <img src="@res.posterUrl" />
               }
         
               <div class="caption">
-                <h5>@res.getName()</h5>
-                <p><a class="btn btn-primary pickTmdbEntry" data-tmdb-id="@res.getID()"><i class="icon-ok-sign icon-white"></i> Pick</a></p>
+                <h5>@res.movieTitle</h5>
+                <p><a class="btn btn-primary pickTmdbEntry" data-grabber-id="@res.systemId"><i class="icon-ok-sign icon-white"></i> Pick</a></p>
               </div>
             </div>
           </li>

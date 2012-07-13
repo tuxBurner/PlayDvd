@@ -21,11 +21,11 @@ import com.github.savvasdalkitsis.jtmdb.MoviePoster;
 import forms.MovieForm;
 import forms.GrabberInfoForm;
 
-public class TmdbInfoGrabber {
+public class TmdbGrabber {
 
   public static List<Movie> searchForMovie(final String movieName) throws GrabberException {
 
-    TmdbInfoGrabber.prepareSettings();
+    TmdbGrabber.prepareSettings();
     try {
       final List<Movie> search = Movie.search(movieName);
       return search;
@@ -44,7 +44,7 @@ public class TmdbInfoGrabber {
    * @throws GrabberException
    */
   public static Movie getMovieInfo(final Integer tmdbId) throws GrabberException {
-    TmdbInfoGrabber.prepareSettings();
+    TmdbGrabber.prepareSettings();
     try {
       return Movie.getInfo(tmdbId);
     } catch (final IOException e) {
@@ -57,7 +57,7 @@ public class TmdbInfoGrabber {
 
   public static MovieForm fillDvdFormWithMovieInfo(final GrabberInfoForm tmdbInfoForm) throws GrabberException {
 
-    final Movie movieInfo = TmdbInfoGrabber.getMovieInfo(Integer.valueOf(tmdbInfoForm.grabberMovieId));
+    final Movie movieInfo = TmdbGrabber.getMovieInfo(Integer.valueOf(tmdbInfoForm.grabberMovieId));
 
     final MovieForm movieForm = new MovieForm();
     movieForm.title = movieInfo.getName();

@@ -25,7 +25,7 @@
       <legend>Posters</legend>
        
        <ul class="thumbnails">
-        @for((poster,index) <- grabbers.TmdbInfoGrabber.posterSetToList(movieinfo.getImages().posters).zipWithIndex) {
+        @for((poster,index) <- grabbers.TmdbGrabber.posterSetToList(movieinfo.getImages().posters).zipWithIndex) {
           <li class="span3" style="height: 160px;">
             <div class="thumbnail" style="height: 160px;">
               <img src="@poster.getSmallestImage()"/>
@@ -44,7 +44,7 @@
     <fieldset>
       <legend>Backdrops</legend>
       <ul class="thumbnails">
-        @for((backdrop,index) <- grabbers.TmdbInfoGrabber.backdropSetToList(movieinfo.getImages().backdrops).zipWithIndex) {
+        @for((backdrop,index) <- grabbers.TmdbGrabber.backdropSetToList(movieinfo.getImages().backdrops).zipWithIndex) {
           <li class="span4" style="height: 190px;">
             <div class="thumbnail" style="height: 190px;">
               <img src="@backdrop.getSmallestImage()" />

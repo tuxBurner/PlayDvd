@@ -147,7 +147,7 @@ public class Application extends Controller {
     Controller.response().setContentType("text/javascript");
     return Results.ok(Routes.javascriptRouter(
         "jsRoutes",
-        controllers.routes.javascript.InfoGrabberController.searchTmdb(),
+        controllers.routes.javascript.InfoGrabberController.searchGrabber(),
         controllers.routes.javascript.InfoGrabberController.getMovieById(),
         controllers.routes.javascript.Dashboard.displayDvd(),
         controllers.routes.javascript.Dashboard.menuGenres(),
