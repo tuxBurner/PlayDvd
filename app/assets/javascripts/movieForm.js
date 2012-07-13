@@ -24,13 +24,13 @@ $(function() {
 		'singleFieldNode' : $('#actors')
 	});
 	
-	// enable the button for tmdb 
+	// enable the button for  
 	var title = $('#title').val();
 	if("" != title) {
-		$('#tmdbButton').attr('disabled',null).removeClass('disabled');
+		$('#grabberButton').attr('disabled',null).removeClass('disabled');
 	}
 	
-	$('#tmdbDialog').dialog({ 
+	$('#grabberDialog').dialog({ 
 		width: '1000',
 		height: '710',
 		top: 60,
@@ -39,37 +39,35 @@ $(function() {
 	});
 	
 	/**
-	 * clicking on the tmdb button opens an popup where the user can search for the movie online
+	 * clicking on the grabber button opens an popup where the user can search for the movie online
 	 */
-	$('#tmdbButton').click(function() {
-		searchTmdb($('#title').val(),$('#movieId').val());
+	$('#grabberButton').click(function() {
+		searchGrabber($('#title').val(),"TMDB",$('#movieId').val());
 	});
 	
 	/**
 	 * button in the popup will be always clickable
 	 */
-	$('#tmdb_search_button').live('click',function() {
-		searchTmdb($('#tmdb_search_input').val(),$('#tmdbMovieId').val());
+	$('#grabber_search_button').live('click',function() {
+		searchGrabber($('#grabber_search_input').val(),$('#grabberType').val(),$('#movieToEditId').val());
 		return false;
 	});
 	
 	/**
-	 * The user searches in the tmdb poup
+	 * The user searches in the grabber poup
 	 */
-	$('.pickTmdbEntry').live('click',function() {
+	$('.pickGrabberEntry').live('click',function() {
 		showWaitDiaLog();
 		
-		var params = { "tmdbMovieId" : $('#tmdbMovieId').val()};
+		var params = { "movieToEditId" : $('#movieToEditId').val()};
 		
-		console.error(params);
-		
-		pAjax(jsRoutes.controllers.Tmdb.getMovieById($(this).data('tmdbId')),params,
+		pAjax(jsRoutes.controllers.InfoGrabberController.getMovieById($(this).data('grabberId'),$(this).data('grabberType')),params,
 		  function(data){
-		    $('#tmdbDialog .dialogContent').html(data);
-		    $('#tmdbDialog').dialog( "option", "buttons", [{
+		    $('#grabberDialog .dialogContent').html(data);
+		    $('#grabberDialog').dialog( "option", "buttons", [{
 		      text: 'Ok',
               click: function() {        	 
-            	 fillFormWithInfoFromTmdb();
+            	 fillFormWithInfoFromGrabber();
               }
 		    }]);
 			closeWaitDiaLog();
@@ -121,17 +119,18 @@ $(function() {
 });
 
 /**
- * This is called when the user picked movie from tmdb and wants to fill the movie form with the infos  
+ * This is called when the user picked movie from grabber and wants to fill the movie form with the infos  
  */
-function fillFormWithInfoFromTmdb() {
+function fillFormWithInfoFromGrabber() {
 	
 	showWaitDiaLog();
 	
-	var formParams = $('#tmdbMovieForm').formParams();
-	var movieFormMode = $('#tmdbMovieForm').attr('mode');
+	var formParams = $('#grabberMovieForm').formParams();
+	var movieFormMode = $('#grabberMovieForm').attr('mode');
+	var grabberType = $('#grabberMovieForm').attr('grabberType');
 	$('#newMovieFormWrapper').html('').hide();
 	
-	pAjax(jsRoutes.controllers.MovieController.addMovieByTmdbId(movieFormMode),formParams,
+	pAjax(jsRoutes.controllers.MovieController.addMovieByGrabberId(movieFormMode,grabberType),formParams,
 			function(data) {
 		      $('#newMovieFormWrapper').html(data).show();
 		      closeWaitDiaLog();
@@ -141,7 +140,7 @@ function fillFormWithInfoFromTmdb() {
 				console.error(err);
 			});
 	
-	$('#tmdbDialog').dialog("close"); 
+	$('#grabberDialog').dialog("close"); 
 	
 }
 
@@ -166,19 +165,19 @@ function createPreview(prevName, src) {
 }
 
 /**
- * This searches the tmdb and returns the result via ajax and writes it to the dialog
+ * This searches the grabber and returns the result via ajax and writes it to the dialog
  * @param title
  */
-function searchTmdb(title,movieToEditId) {
+function searchGrabber(title,grabberType,movieToEditId) {
 	
 	showWaitDiaLog();
 	
-	var params = { "tmdbMovieId" : movieToEditId};
+	var params = { "movieToEditId" : movieToEditId};
 	
-	pAjax(jsRoutes.controllers.Tmdb.searchTmdb(title),params,
+	pAjax(jsRoutes.controllers.InfoGrabberController.searchGrabber(title,grabberType),params,
 	  function(data){
-		$('#tmdbDialog .dialogContent').html(data);
-		$('#tmdbDialog').dialog( "option", "buttons",[]).dialog('open');
+		$('#grabberDialog .dialogContent').html(data);
+		$('#grabberDialog').dialog( "option", "buttons",[]).dialog('open');
 		closeWaitDiaLog();
 	  },
 	  function(err) {

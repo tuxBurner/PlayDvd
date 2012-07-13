@@ -1,36 +1,37 @@
-@(movieinfo : com.github.savvasdalkitsis.jtmdb.Movie,movieToEditId: Long,mode: String)
+@(displayMovie : grabbers.GrabberDisplayMovie,grabberType: String,movieToEditId: Long,mode: String)
 
 @import helper._
 
 <div class="col_12">
-  <h1>@movieinfo.getName()</h1>
+  <h1>@displayMovie.movieTitle</h1>
 
 
 
-  @form(routes.MovieController.addMovieByTmdbId(mode),'class -> "vertical",'id -> "tmdbMovieForm", 'mode -> mode) {
+  @form(routes.MovieController.addMovieByGrabberId(mode,grabberType),'class -> "vertical",'id -> "grabberMovieForm", 'mode -> mode, 'grabberType -> grabberType) {
      
   
-    <input type="hidden" name="movieId" id="movieId"  value="@movieinfo.getID()"/>
-    <input type="hidden" name="movieDbId" id="movieDbId" value="@movieToEditId" />
+    <input type="hidden" name="grabberMovieId" id="grabberMovieId"  value="@displayMovie.systemId"/>
+    <input type="hidden" name="movieToEditId" id="movieToEditId" value="@movieToEditId" />
+    <input type="hidden" name="grabberType" id="grabberType" value="@grabberType" />
   
     <fieldset>
       <legend>Description</legend>
       <p>
-        @movieinfo.getOverview()
+        @displayMovie.plot
       </p>
     </fieldset>
   
-    @if(movieinfo.getImages() != null && movieinfo.getImages().posters != null) {
+    @if(displayMovie.posterUrls != null || displayMovie.posterUrls.size() > 0) {
     <fieldset class="span12">
       <legend>Posters</legend>
        
        <ul class="thumbnails">
-        @for((poster,index) <- grabbers.TmdbGrabber.posterSetToList(movieinfo.getImages().posters).zipWithIndex) {
+        @for((poster,index) <- displayMovie.posterUrls.zipWithIndex) {
           <li class="span3" style="height: 160px;">
             <div class="thumbnail" style="height: 160px;">
-              <img src="@poster.getSmallestImage()"/>
+              <img src="@poster.url"/>
               <div class="caption">
-                <input @if(index == 0){checked="checked"} type="radio" name="tmdbPoster" value="@poster.getID()"/>
+                <input @if(index == 0){checked="checked"} type="radio" name="grabberPosterId" value="@poster.id"/>
               </div>
             </div>
           </li>
@@ -40,16 +41,16 @@
     </fieldset>
   }
   
-  @if(movieinfo.getImages() != null && movieinfo.getImages().backdrops != null) {
+  @if(displayMovie.backDropUrls != null || displayMovie.backDropUrls.size() > 0) {
     <fieldset>
       <legend>Backdrops</legend>
       <ul class="thumbnails">
-        @for((backdrop,index) <- grabbers.TmdbGrabber.backdropSetToList(movieinfo.getImages().backdrops).zipWithIndex) {
+        @for((backdrop,index) <- displayMovie.backDropUrls.zipWithIndex) {
           <li class="span4" style="height: 190px;">
             <div class="thumbnail" style="height: 190px;">
-              <img src="@backdrop.getSmallestImage()" />
+              <img src="@backdrop.url" />
               <div class="caption">
-                <input @if(index == 0){checked="checked"} type="radio" name="tmdbBackDrop" value="@backdrop.getID()"/>
+                <input @if(index == 0){checked="checked"} type="radio" name="grabberBackDropId" value="@backdrop.id"/>
               </div>
             </div>
           </li>

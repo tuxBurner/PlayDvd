@@ -27,6 +27,6 @@ public class GrabberInfoForm {
    * If not <code>null</code> than we are in the edit mode we will set this to
    * the form
    */
-  public Long movieDbId;
+  public Long movieToEditId;
 
 }

@@ -1,6 +1,8 @@
 package controllers;
 
+import grabbers.EGrabberType;
 import grabbers.GrabberException;
+import grabbers.IInfoGrabber;
 import grabbers.TmdbGrabber;
 import helpers.RequestToCollectionHelper;
 
@@ -94,15 +96,18 @@ public class MovieController extends Controller {
    *          mode if we add or edit the movie
    * @return
    */
-  public static Result addMovieByTmdbId(final String mode) {
+  public static Result addMovieByGrabberId(final String mode, final String grabberType) {
 
     try {
 
-      final Form<GrabberInfoForm> tmdbInfoForm = Controller.form(GrabberInfoForm.class).bindFromRequest();
-      final MovieForm movieForm = TmdbGrabber.fillDvdFormWithMovieInfo(tmdbInfoForm.get());
+      final Form<GrabberInfoForm> grabberInfoForm = Controller.form(GrabberInfoForm.class).bindFromRequest();
 
-      if (tmdbInfoForm.get().movieDbId != null) {
-        movieForm.movieId = tmdbInfoForm.get().movieDbId;
+      final IInfoGrabber grabber = InfoGrabberController.getGrabber(EGrabberType.valueOf(grabberType));
+
+      final MovieForm movieForm = grabber.filleInfoToMovieForm(grabberInfoForm.get());
+
+      if (grabberInfoForm.get().movieToEditId != null) {
+        movieForm.movieId = grabberInfoForm.get().movieToEditId;
       }
 
       final Form<MovieForm> form = Controller.form(MovieForm.class);

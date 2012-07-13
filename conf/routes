@@ -46,16 +46,16 @@ POST   /dvd/:mode                controllers.DvdController.addDvd(mode: String)
 GET    /dvd/edit/:dvdId          controllers.DvdController.showEditDvd(dvdId: Long)
 
 # MOVIE ROUTES
-POST   /movie/addMovieByTmdb/:mode controllers.MovieController.addMovieByTmdbId(mode: String)
+POST   /movie/addMovieByTmdb/:mode controllers.MovieController.addMovieByGrabberId(mode: String, grabberType: String)
 GET    /movie/add                  controllers.MovieController.showAddMovieForm()
 GET    /movie/edit/:movieId        controllers.MovieController.showEditMovieForm(movieId: Long)
 POST   /movie/:mode                controllers.MovieController.addOrEditMovie(mode: String) 
 
 
 # Grabbers 
-GET    /grabber/search                 controllers.InfoGrabberController.searchGrabber(searchTerm = "", grabberType =  "TMDB")
-GET    /grabber/:grabberType/search/:searchTerm     controllers.InfoGrabberController.searchGrabber(searchTerm: String, grabberType:  String)
-GET    /grabber/info/:movieId                       controllers.InfoGrabberController.getMovieById(movieId: java.lang.Integer)
+GET    /grabber/search                          controllers.InfoGrabberController.searchGrabber(searchTerm = "", grabberType =  "TMDB")
+GET    /grabber/:grabberType/search/:searchTerm controllers.InfoGrabberController.searchGrabber(searchTerm: String, grabberType:  String)
+GET    /grabber/:grabberType/:grabberId         controllers.InfoGrabberController.getMovieById(grabberId: String, grabberType:  String)
 
 # Javascript routing
 GET     /assets/javascripts/routes 	 controllers.Application.jsRoutes()
