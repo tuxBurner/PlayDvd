@@ -8,7 +8,13 @@ $(function() {
 		height: '710',
 		autoOpen: false,
 		modal: true,
-		close: function() { $('#dvdInfoDialog .dialogContent').html(''); }
+		open: function() {
+		  $("html").css("overflow", "hidden");
+		},
+		close: function() { 
+		  $('#dvdInfoDialog .dialogContent').html('');
+		  $("html").css("overflow", "auto"); 
+	    }
 	});
 	
 	// open the info dialog when the user clicks on the info button
@@ -21,6 +27,7 @@ $(function() {
 				  function(err) {
 				    console.error(err);
 				});	
+	  return false;
 		
 	});
 	/**
