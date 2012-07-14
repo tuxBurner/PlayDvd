@@ -137,9 +137,11 @@ public class TmdbGrabber implements IInfoGrabber {
 
       final String releaseDate = movieInfo.getReleaseDate();
 
-      final String[] split = releaseDate.split("-");
-      if (split.length == 3) {
-        movieForm.year = Integer.valueOf(split[0]);
+      if (StringUtils.isEmpty(releaseDate) == false) {
+        final String[] split = releaseDate.split("-");
+        if (split.length == 3) {
+          movieForm.year = Integer.valueOf(split[0]);
+        }
       }
 
       final List<Genre> genres = movieInfo.getGenres();
