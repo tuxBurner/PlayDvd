@@ -1,12 +1,18 @@
 package forms;
 
+import java.util.List;
 import java.util.Set;
+
+import com.typesafe.config.ConfigFactory;
 
 import play.data.validation.Constraints.Required;
 
 import models.Dvd;
 import models.DvdAttribute;
 import models.EDvdAttributeType;
+import models.EMovieAttributeType;
+import models.Movie;
+import models.MovieAttribute;
 
 /**
  * Form which handles all the inputs for adding, editing a dvd
@@ -36,7 +42,11 @@ public class DvdForm {
   public String collection;
 
   public String ownerName;
-  
+
+  public String ageRating;
+
+  public String copyType;
+
   public Integer hullNr;
 
   /**
@@ -64,9 +74,26 @@ public class DvdForm {
       if (EDvdAttributeType.COLLECTION.equals(dvdAttibute.attributeType)) {
         dvdForm.collection = dvdAttibute.value;
       }
+
+      if (EDvdAttributeType.RATING.equals(dvdAttibute.attributeType)) {
+        dvdForm.ageRating = dvdAttibute.value;
+      }
+
+      if (EDvdAttributeType.COPY_TYPE.equals(dvdAttibute.attributeType)) {
+        dvdForm.copyType = dvdAttibute.value;
+      }
     }
 
     return dvdForm;
   }
 
+  public static List<String> getAgeRatings() {
+    final List<String> ratings = ConfigFactory.load().getStringList("dvddb.ageratings");
+    return ratings;
+  }
+
+  public static List<String> getCopyTypes() {
+    final List<String> ratings = ConfigFactory.load().getStringList("dvddb.copytypes");
+    return ratings;
+  }
 }

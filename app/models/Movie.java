@@ -64,6 +64,8 @@ public class Movie extends Model {
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "movie", orphanRemoval = true)
   public Set<Dvd> dvds;
 
+  public String trailerUrl;
+
   /**
    * The finder for the database for searching in the database
    */
@@ -98,6 +100,8 @@ public class Movie extends Model {
     movie.description = movieForm.plot;
     movie.year = movieForm.year;
     movie.runtime = movieForm.runtime;
+    movie.trailerUrl = movieForm.trailerUrl;
+    movie.hasToBeReviewed = false;
 
     if (movie.id == null) {
       movie.hasPoster = false;
@@ -126,6 +130,8 @@ public class Movie extends Model {
 
     final Set<MovieAttribute> actors = MovieAttribute.gatherAndAddAttributes(new HashSet<String>(movieForm.actors), EMovieAttributeType.ACTOR);
     movie.attributes.addAll(actors);
+
+    Movie.addSingleAttribute(movieForm.series, EMovieAttributeType.MOVIE_SERIES, movie);
 
     Movie.addSingleAttribute(movieForm.director, EMovieAttributeType.DIRECTOR, movie);
 

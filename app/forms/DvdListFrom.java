@@ -1,5 +1,8 @@
 package forms;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import controllers.Secured;
 import play.cache.Cache;
 import play.mvc.Controller;
@@ -49,6 +52,13 @@ public class DvdListFrom {
   public boolean lendDvd = false;
 
   /**
+   * If set to true only dvds linked with movies to review are displayed
+   */
+  public boolean moviesToReview = false;
+
+  public String ageRating = null;
+
+  /**
    * Gets the current search form from the cache if the cache is empty a new one
    * is created
    * 
@@ -78,6 +88,15 @@ public class DvdListFrom {
    */
   public static void setCurrentSearchForm(final DvdListFrom dvdListFrom) {
     Cache.set(Controller.ctx().session().get(Secured.AUTH_SESSION) + ".dvdlistform", dvdListFrom);
+  }
+
+  public static List<String> getAgeRatings() {
+    final List<String> ageRatings = new ArrayList<String>();
+    ageRatings.add("");
+    ageRatings.addAll(DvdForm.getAgeRatings());
+
+    return ageRatings;
+
   }
 
 }

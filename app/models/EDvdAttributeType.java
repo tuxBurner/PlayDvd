@@ -2,5 +2,8 @@ package models;
 
 public enum EDvdAttributeType {
 
-	BOX, COLLECTION
+  BOX,
+  COLLECTION,
+  RATING,
+  COPY_TYPE
 }

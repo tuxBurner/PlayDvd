@@ -4,8 +4,16 @@ import helpers.EImageSize;
 import helpers.EImageType;
 import helpers.ImageHelper;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import jgravatar.Gravatar;
 import jgravatar.GravatarDefaultImage;
@@ -14,6 +22,7 @@ import models.Dvd;
 import models.EMovieAttributeType;
 import models.MovieAttribute;
 import models.User;
+import net.coobird.thumbnailator.Thumbnails;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -27,6 +36,7 @@ import views.html.genremenu;
 import views.html.dashboard.displaydvd;
 import views.html.dashboard.lendform;
 import views.html.dashboard.unlendform;
+import forms.ExternalImageForm;
 import forms.InfoDvd;
 import forms.LendForm;
 import forms.UnLendForm;
@@ -137,6 +147,35 @@ public class Dashboard extends Controller {
       return Results.ok(file);
     }
     return Results.ok();
+  }
+
+  /**
+   * This opens an external image and resizes it when needed
+   * 
+   * @return
+   */
+  public static Result streamExternalImage() {
+    final Form<ExternalImageForm> form = Controller.form(ExternalImageForm.class).bindFromRequest();
+
+    if (form.hasErrors()) {
+      return Results.badRequest("Failure");
+    }
+
+    final EImageSize imageSize = EImageSize.valueOf(form.get().imgSize);
+
+    try {
+      final BufferedImage asBufferedImage = Thumbnails.of(new URL(form.get().url)).size(imageSize.getWidth(), imageSize.getHeight()).asBufferedImage();
+
+      final ByteArrayOutputStream os = new ByteArrayOutputStream();
+      ImageIO.write(asBufferedImage, "png", os);
+      final InputStream is = new ByteArrayInputStream(os.toByteArray());
+
+      return Results.ok(is);
+    } catch (final IOException e) {
+      Logger.error("Failure whiler creating external image:", e);
+      return Results.badRequest("Failure");
+    }
+
   }
 
   /**

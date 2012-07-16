@@ -19,6 +19,11 @@ public class GrabberInfoForm {
   public String grabberBackDropId;
 
   /**
+   * Id from youtube
+   */
+  public String grabberTrailerUrl;
+
+  /**
    * Id of the selected poster
    */
   public String grabberPosterId;
@@ -27,6 +32,6 @@ public class GrabberInfoForm {
    * If not <code>null</code> than we are in the edit mode we will set this to
    * the form
    */
-  public Long movieDbId;
+  public Long movieToEditId;
 
 }

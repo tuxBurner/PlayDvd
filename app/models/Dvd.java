@@ -31,66 +31,64 @@ import forms.DvdListFrom;
 @Entity
 public class Dvd extends Model {
 
-	/**
+  /**
 	 * 
 	 */
-	private static final long serialVersionUID = -8607299241692950618L;
+  private static final long serialVersionUID = -8607299241692950618L;
 
-	@Id
-	public Long id;
+  @Id
+  public Long id;
 
-	@ManyToOne
-	public User owner;
+  @ManyToOne
+  public User owner;
 
-	@OneToOne
-	public User borrower;
+  @OneToOne
+  public User borrower;
 
-	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "dvds")
-	public Set<DvdAttribute> attributes;
+  @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "dvds")
+  public Set<DvdAttribute> attributes;
 
-	public Long borrowDate;
+  public Long borrowDate;
 
-	private final static int DEFAULT_DVDS_PER_PAGE = ConfigFactory.load()
-			.getInt("dvddb.dvds.perpage");
+  private final static int DEFAULT_DVDS_PER_PAGE = ConfigFactory.load().getInt("dvddb.dvds.perpage");
 
-	/**
-	 * If this is set the user entered a free name which does not exists in the
-	 * database
-	 */
-	public String borrowerName;
+  /**
+   * If this is set the user entered a free name which does not exists in the
+   * database
+   */
+  public String borrowerName;
 
-	/**
-	 * The number off the hull off the dvd
-	 */
-	public Integer hullNr;
+  /**
+   * The number off the hull off the dvd
+   */
+  public Integer hullNr;
 
-	/**
-	 * The movie which is on the dvd
-	 */
-	@ManyToOne(fetch = FetchType.LAZY)
-	@Column(nullable = false)
-	public Movie movie;
+  /**
+   * The movie which is on the dvd
+   */
+  @ManyToOne(fetch = FetchType.LAZY)
+  @Column(nullable = false)
+  public Movie movie;
 
-	/**
-	 * The finder for the database for searching in the database
-	 */
-	public static Finder<Long, Dvd> find = new Finder<Long, Dvd>(Long.class,
-			Dvd.class);
+  /**
+   * The finder for the database for searching in the database
+   */
+  public static Finder<Long, Dvd> find = new Finder<Long, Dvd>(Long.class, Dvd.class);
 
-	@Required
-	@Column(nullable = false)
-	public Long createdDate;
+  @Required
+  @Column(nullable = false)
+  public Long createdDate;
 
-	/**
-	 * Persists the {@link Dvd} to the database
-	 * 
-	 * @param dvd
-	 * @return
-	 */
-	public static Dvd create(final Dvd dvd) {
-		dvd.save();
-		return dvd;
-	}
+  /**
+   * Persists the {@link Dvd} to the database
+   * 
+   * @param dvd
+   * @return
+   */
+  public static Dvd create(final Dvd dvd) {
+    dvd.save();
+    return dvd;
+  }
 
 /**
 	 * Creates a dvd from a {@link DvdForm)
@@ -99,271 +97,268 @@ public class Dvd extends Model {
 	 * @return 
 	 * @throws Exception 
 	 */
-	public static Dvd createFromForm(final String userName,
-			final DvdForm dvdForm) throws Exception {
+  public static Dvd createFromForm(final String userName, final DvdForm dvdForm) throws Exception {
 
-		final User owner = User.getUserByName(userName);
-		if (owner == null) {
-			throw new Exception("User does not exist in the Database");
-		}
+    final User owner = User.getUserByName(userName);
+    if (owner == null) {
+      throw new Exception("User does not exist in the Database");
+    }
 
-		final Dvd dvd = new Dvd();
-		dvd.owner = owner;
+    final Dvd dvd = new Dvd();
+    dvd.owner = owner;
 
-		return Dvd.createOrUpdateFromForm(dvdForm, dvd);
-	}
+    return Dvd.createOrUpdateFromForm(dvdForm, dvd);
+  }
 
-	/**
-	 * Edits a dvd from the informations from the form
-	 * 
-	 * @param userName
-	 * @param dvdForm
-	 * @throws Exception
-	 */
-	public static Dvd editFromForm(final String userName, final DvdForm dvdForm)
-			throws Exception {
-		final Dvd dvdForUser = Dvd.getDvdForUser(dvdForm.dvdId, userName);
-		if (dvdForUser == null) {
-			throw new Exception("The dvd could not been edited !");
-		}
+  /**
+   * Edits a dvd from the informations from the form
+   * 
+   * @param userName
+   * @param dvdForm
+   * @throws Exception
+   */
+  public static Dvd editFromForm(final String userName, final DvdForm dvdForm) throws Exception {
+    final Dvd dvdForUser = Dvd.getDvdForUser(dvdForm.dvdId, userName);
+    if (dvdForUser == null) {
+      throw new Exception("The dvd could not been edited !");
+    }
 
-		return Dvd.createOrUpdateFromForm(dvdForm, dvdForUser);
-	}
+    return Dvd.createOrUpdateFromForm(dvdForm, dvdForUser);
+  }
 
-	/**
-	 * Creates or updates the given dvd
-	 * 
-	 * @param userName
-	 * @param dvdForm
-	 * @param dvd
-	 * @return
-	 * @throws Exception
-	 */
-	private static Dvd createOrUpdateFromForm(final DvdForm dvdForm,
-			final Dvd dvd) throws Exception {
+  /**
+   * Creates or updates the given dvd
+   * 
+   * @param userName
+   * @param dvdForm
+   * @param dvd
+   * @return
+   * @throws Exception
+   */
+  private static Dvd createOrUpdateFromForm(final DvdForm dvdForm, final Dvd dvd) throws Exception {
 
-		final Movie movie = Movie.find.byId(dvdForm.movieId);
+    final Movie movie = Movie.find.byId(dvdForm.movieId);
 
-		if (movie == null) {
-			final String message = "No movie by the id: " + dvdForm.movieId
-					+ " found.";
-			Logger.error(message);
-			throw new Exception(message);
-		}
+    if (movie == null) {
+      final String message = "No movie by the id: " + dvdForm.movieId + " found.";
+      Logger.error(message);
+      throw new Exception(message);
+    }
 
-		dvd.movie = movie;
-		dvd.hullNr = dvdForm.hullNr;
+    dvd.movie = movie;
+    dvd.hullNr = dvdForm.hullNr;
 
-		if (dvd.id == null) {
-			dvd.createdDate = new Date().getTime();
-			Dvd.create(dvd);
-		} else {
-			Ebean.deleteManyToManyAssociations(dvd, "attributes");
-			dvd.update();
-		}
+    if (dvd.id == null) {
+      dvd.createdDate = new Date().getTime();
+      Dvd.create(dvd);
+    } else {
+      Ebean.deleteManyToManyAssociations(dvd, "attributes");
+      dvd.update();
+    }
 
-		Dvd.addSingleAttribute(dvdForm.box, EDvdAttributeType.BOX, dvd);
-		Dvd.addSingleAttribute(dvdForm.collection,
-				EDvdAttributeType.COLLECTION, dvd);
+    Dvd.addSingleAttribute(dvdForm.box, EDvdAttributeType.BOX, dvd);
+    Dvd.addSingleAttribute(dvdForm.collection, EDvdAttributeType.COLLECTION, dvd);
+    Dvd.addSingleAttribute(dvdForm.ageRating, EDvdAttributeType.RATING, dvd);
+    Dvd.addSingleAttribute(dvdForm.copyType, EDvdAttributeType.COPY_TYPE, dvd);
 
-		dvd.update();
+    dvd.update();
 
-		return dvd;
-	}
+    return dvd;
+  }
 
-	/**
-	 * Adds a single Attribute to the dvd
-	 * 
-	 * @param attrToAdd
-	 * @param attributeType
-	 * @param dvd
-	 */
-	// TODO: do we need this when we have the new EBEAN nand check also movie
-	// and
-	// attributes
-	private static void addSingleAttribute(final String attrToAdd,
-			final EDvdAttributeType attributeType, final Dvd dvd) {
-		if (StringUtils.isEmpty(attrToAdd) == true) {
-			return;
-		}
-		final Set<String> attribute = new HashSet<String>();
-		attribute.add(attrToAdd);
-		final Set<DvdAttribute> dbAttrs = DvdAttribute.gatherAndAddAttributes(
-				attribute, attributeType);
-		dvd.attributes.addAll(dbAttrs);
-	}
+  /**
+   * Adds a single Attribute to the dvd
+   * 
+   * @param attrToAdd
+   * @param attributeType
+   * @param dvd
+   */
+  // TODO: do we need this when we have the new EBEAN nand check also movie
+  // and
+  // attributes
+  public static void addSingleAttribute(final String attrToAdd, final EDvdAttributeType attributeType, final Dvd dvd) {
+    if (StringUtils.isEmpty(attrToAdd) == true) {
+      return;
+    }
+    final Set<String> attribute = new HashSet<String>();
+    attribute.add(attrToAdd);
+    final Set<DvdAttribute> dbAttrs = DvdAttribute.gatherAndAddAttributes(attribute, attributeType);
+    dvd.attributes.addAll(dbAttrs);
+  }
 
-	/**
-	 * Gets all dvds which have the same owner and the same attribute excluding
-	 * the given {@link Dvd}
-	 * 
-	 * @param box
-	 * @param dvd
-	 * @return
-	 */
-	public static List<Dvd> getDvdByBoxOrCollection(
-			final EDvdAttributeType attrType, final String attrValue,
-			final Dvd dvd) {
+  /**
+   * Gets all dvds which have the same owner and the same attribute excluding
+   * the given {@link Dvd}
+   * 
+   * @param box
+   * @param dvd
+   * @return
+   */
+  public static List<Dvd> getDvdByBoxOrCollection(final EDvdAttributeType attrType, final String attrValue, final Dvd dvd) {
 
-		final List<Dvd> findList = Dvd.find.where()
-				.eq("attributes.attributeType", attrType)
-				.eq("attributes.value", attrValue).eq("owner.id", dvd.owner.id)
-				.ne("id", dvd.id).orderBy("movie.year asc").findList();
+    final List<Dvd> findList = Dvd.find.where().eq("attributes.attributeType", attrType).eq("attributes.value", attrValue).eq("owner.id", dvd.owner.id).ne("id", dvd.id).orderBy("movie.year asc").findList();
 
-		return findList;
-	}
+    return findList;
+  }
 
-	/**
-	 * Gets all dvds for the given username ordered by the date
-	 * 
-	 * @param username
-	 * @return
-	 */
-	public static Page<Dvd> getUserDvds(final String username,
-			final Integer pageNr) {
-		return Dvd.getByDefaultPaging(
-				Dvd.find.where().eq("owner.userName", username), pageNr);
-	}
+  /**
+   * Gets all dvds for the given username ordered by the date
+   * 
+   * @param username
+   * @return
+   */
+  public static Page<Dvd> getUserDvds(final String username, final Integer pageNr) {
+    return Dvd.getByDefaultPaging(Dvd.find.where().eq("owner.userName", username), pageNr);
+  }
 
-	/**
-	 * Gets all dvds which fit into the Filter int the {@link DvdListFrom}
-	 * 
-	 * @param listFrom
-	 * @return
-	 */
-	public static Page<Dvd> getDvdsByForm(final DvdListFrom listFrom) {
-		final ExpressionList<Dvd> where = Dvd.find.where();
+  /**
+   * Gets all dvds which fit into the Filter int the {@link DvdListFrom}
+   * 
+   * @param listFrom
+   * @return
+   */
+  public static Page<Dvd> getDvdsByForm(final DvdListFrom listFrom) {
+    final ExpressionList<Dvd> where = Dvd.find.where();
 
-		if (StringUtils.isEmpty(listFrom.searchFor) == false) {
-			where.like("movie.title", "%" + listFrom.searchFor + "%");
-		}
+    if (StringUtils.isEmpty(listFrom.searchFor) == false) {
+      where.like("movie.title", "%" + listFrom.searchFor + "%");
+    }
 
-		if (StringUtils.isEmpty(listFrom.genre) == false) {
-			where.eq("movie.attributes.value", listFrom.genre)
-					.eq("movie.attributes.attributeType",
-							EMovieAttributeType.GENRE);
-		}
+    if (StringUtils.isEmpty(listFrom.genre) == false) {
+      where.eq("movie.attributes.value", listFrom.genre).eq("movie.attributes.attributeType", EMovieAttributeType.GENRE);
+    }
 
-		if (StringUtils.isEmpty(listFrom.actor) == false) {
-			where.eq("movie.attributes.value", listFrom.actor)
-					.eq("movie.attributes.attributeType",
-							EMovieAttributeType.ACTOR);
-		}
+    if (StringUtils.isEmpty(listFrom.actor) == false) {
+      where.eq("movie.attributes.value", listFrom.actor).eq("movie.attributes.attributeType", EMovieAttributeType.ACTOR);
+    }
 
-		if (StringUtils.isEmpty(listFrom.director) == false) {
-			where.eq("movie.attributes.value", listFrom.director).eq(
-					"movie.attributes.attributeType",
-					EMovieAttributeType.DIRECTOR);
-		}
+    if (StringUtils.isEmpty(listFrom.director) == false) {
+      where.eq("movie.attributes.value", listFrom.director).eq("movie.attributes.attributeType", EMovieAttributeType.DIRECTOR);
+    }
 
-		if (StringUtils.isEmpty(listFrom.userName) == false) {
-			where.eq("owner.userName", listFrom.userName);
+    if (StringUtils.isEmpty(listFrom.ageRating) == false) {
+      where.eq("attributes.value", listFrom.ageRating).eq("attributes.attributeType", EDvdAttributeType.RATING);
+    }
 
-			if (listFrom.lendDvd == true) {
-				where.isNotNull("borrowDate");
-			}
-		}
+    if (StringUtils.isEmpty(listFrom.userName) == false) {
+      where.eq("owner.userName", listFrom.userName);
 
-		return Dvd.getByDefaultPaging(where, listFrom.currentPage);
-	}
+      if (listFrom.lendDvd == true) {
+        where.isNotNull("borrowDate");
+      }
+    }
 
-	/**
-	 * Gets a dvd by a username and the id this should be used for deleting and
-	 * editing where only the owner can do this
-	 * 
-	 * @param id
-	 * @param username
-	 * @return
-	 */
-	public static Dvd getDvdForUser(final Long id, final String username) {
-		final Dvd userDvd = Dvd.find.fetch("movie").where()
-				.eq("owner.userName", username).eq("id", id).findUnique();
-		return userDvd;
+    if (listFrom.moviesToReview == true) {
+      where.eq("movie.hasToBeReviewed", true);
+    }
 
-	}
+    return Dvd.getByDefaultPaging(where, listFrom.currentPage);
+  }
 
-	/**
-	 * Get dvds for the given page number
-	 * 
-	 * @param pageNr
-	 * @return
-	 */
-	public static Page<Dvd> getDvds(final Integer pageNr) {
-		return Dvd.getByDefaultPaging(Dvd.find.where(), pageNr);
-	}
+  /**
+   * Gets a dvd by a username and the id this should be used for deleting and
+   * editing where only the owner can do this
+   * 
+   * @param id
+   * @param username
+   * @return
+   */
+  public static Dvd getDvdForUser(final Long id, final String username) {
+    final Dvd userDvd = Dvd.find.fetch("movie").where().eq("owner.userName", username).eq("id", id).findUnique();
+    return userDvd;
 
-	/**
-	 * This does all the default paging etc stuff
-	 * 
-	 * @param expressionList
-	 * @return
-	 */
-	private static Page<Dvd> getByDefaultPaging(
-			final ExpressionList<Dvd> expressionList, Integer pageNr) {
+  }
 
-		if (pageNr == null) {
-			pageNr = 0;
-		}
+  /**
+   * Get dvds for the given page number
+   * 
+   * @param pageNr
+   * @return
+   */
+  public static Page<Dvd> getDvds(final Integer pageNr) {
+    return Dvd.getByDefaultPaging(Dvd.find.where(), pageNr);
+  }
 
-		final Page<Dvd> page = expressionList.orderBy("createdDate desc")
-				.fetch("owner", "userName").fetch("borrower", "userName")
-				.fetch("movie").findPagingList(Dvd.DEFAULT_DVDS_PER_PAGE)
-				.getPage(pageNr);
-		return page;
-	}
+  /**
+   * This does all the default paging etc stuff
+   * 
+   * @param expressionList
+   * @return
+   */
+  private static Page<Dvd> getByDefaultPaging(final ExpressionList<Dvd> expressionList, Integer pageNr) {
 
-	/**
-	 * Lends the {@link Dvd} to a user or to a freename
-	 * 
-	 * @param dvdId
-	 * @param ownerName
-	 * @param userName
-	 * @param freeName
-	 */
-	public static void lendDvdToUser(final Long dvdId, final String ownerName,
-			final String userName, final String freeName,
-			final Boolean alsoOthersInHull) {
-		final Dvd dvdToLend = Dvd.getDvdForUser(dvdId, ownerName);
+    if (pageNr == null) {
+      pageNr = 0;
+    }
 
-		if (dvdToLend != null) {
+    final Page<Dvd> page = expressionList.orderBy("createdDate desc").fetch("owner", "userName").fetch("borrower", "userName").fetch("movie").findPagingList(Dvd.DEFAULT_DVDS_PER_PAGE).getPage(pageNr);
+    return page;
+  }
 
-			final Set<Dvd> dvdsToLend = new HashSet<Dvd>();
-			dvdsToLend.add(dvdToLend);
+  /**
+   * Lends the {@link Dvd} to a user or to a freename
+   * 
+   * @param dvdId
+   * @param ownerName
+   * @param userName
+   * @param freeName
+   */
+  public static void lendDvdToUser(final Long dvdId, final String ownerName, final String userName, final String freeName, final Boolean alsoOthersInHull) {
+    final Dvd dvdToLend = Dvd.getDvdForUser(dvdId, ownerName);
 
-			// user also wants to lend dvds in the same hull
-			if (alsoOthersInHull == true && dvdToLend.hullNr != null) {
-				Set<Dvd> findSet = find.where().eq("hullNr", dvdToLend.hullNr)
-						.ne("id", dvdToLend.id).isNull("borrowDate").findSet();
-				dvdsToLend.addAll(findSet);
-			}
+    if (dvdToLend != null) {
 
-			for (Dvd dvd : dvdsToLend) {
-				
-				boolean updated = false;
+      final Set<Dvd> dvdsToLend = new HashSet<Dvd>();
+      dvdsToLend.add(dvdToLend);
 
-				if (StringUtils.isEmpty(userName) == false) {
-					final User userByName = User.getUserByName(userName);
-					if (userByName != null) {
-						dvd.borrower = userByName;
-						updated = true;
-					}
-				}
+      // user also wants to lend dvds in the same hull
+      if (alsoOthersInHull == true && dvdToLend.hullNr != null) {
+        final Set<Dvd> findSet = Dvd.find.where().eq("hullNr", dvdToLend.hullNr).ne("id", dvdToLend.id).isNull("borrowDate").findSet();
+        dvdsToLend.addAll(findSet);
+      }
 
-				if (StringUtils.isEmpty(freeName) == false && updated == false) {
-					dvd.borrowerName = freeName;
-					updated = true;
-				}
+      for (final Dvd dvd : dvdsToLend) {
 
-				if (updated == true) {
-					dvd.borrowDate = new Date().getTime();
-					dvd.update();
-				}
-			}
-			return;
-		}
+        boolean updated = false;
 
-		Logger.error("Could not find dvd: " + dvdId + " for owner: "
-				+ ownerName);
-	}
+        if (StringUtils.isEmpty(userName) == false) {
+          final User userByName = User.getUserByName(userName);
+          if (userByName != null) {
+            dvd.borrower = userByName;
+            updated = true;
+          }
+        }
+
+        if (StringUtils.isEmpty(freeName) == false && updated == false) {
+          dvd.borrowerName = freeName;
+          updated = true;
+        }
+
+        if (updated == true) {
+          dvd.borrowDate = new Date().getTime();
+          dvd.update();
+        }
+      }
+      return;
+    }
+
+    Logger.error("Could not find dvd: " + dvdId + " for owner: " + ownerName);
+  }
+
+  /**
+   * Gets all dvds which the owner of th dvd has of the same movie series
+   * 
+   * @param attrValue
+   * @param dvd
+   * @return
+   */
+  public static List<Dvd> getbyMovieSeries(final String attrValue, final Dvd dvd) {
+
+    final List<Dvd> findList = Dvd.find.where().eq("movie.attributes.attributeType", EMovieAttributeType.MOVIE_SERIES).eq("movie.attributes.value", attrValue).eq("owner.id", dvd.owner.id).ne(
+        "id",
+        dvd.id).findList();
+
+    return findList;
+  }
 
 }

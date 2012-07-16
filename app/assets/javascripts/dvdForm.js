@@ -27,6 +27,7 @@ $(function() {
 			
 			pAjax(jsRoutes.controllers.MovieController.showEditMovieForm(selectedMovieId),null,
 					function(data) {
+				      $('#dvdFormWrapper').hide();
 				      $('#newMovieFormWrapper').html(data).show(); 
 			        },
 					function(err) {
@@ -45,6 +46,7 @@ $(function() {
 		
 		pAjax(jsRoutes.controllers.MovieController.showAddMovieForm(),null,
 				function(data) {
+			      $('#dvdFormWrapper').hide();
 			      $('#newMovieFormWrapper').html(data).show(); 
 		        },
 				function(err) {

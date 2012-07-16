@@ -23,12 +23,14 @@ GET     /dvds/by/actor/:actorName         controllers.ListDvds.listByActor(actor
 GET     /dvds/by/director/:directorName   controllers.ListDvds.listByDirector(directorName: String)
 GET     /dvds/by/user/:userName           controllers.ListDvds.listByUser(userName: String,pageNr: java.lang.Integer ?= 0)
 GET     /dvds/lend                        controllers.ListDvds.listLendDvd()
+GET     /movies/toReview                  controllers.ListDvds.listReviewMovies()
 GET     /dvds/search                      controllers.ListDvds.searchDvd()
 POST    /dvds                             controllers.ListDvds.applySearchForm() 
 
 
 GET     /genremenu                         controllers.Dashboard.menuGenres()
 GET     /image/:dvdId/:imgType/:imgSize    controllers.Dashboard.streamImage(dvdId: Long, imgType: String, imgSize: String)
+GET     /extimage                          controllers.Dashboard.streamExternalImage()
 GET     /gravatar/:userName                controllers.Dashboard.gravatar(size: java.lang.Integer, userName: String)
 
 
@@ -46,16 +48,16 @@ POST   /dvd/:mode                controllers.DvdController.addDvd(mode: String)
 GET    /dvd/edit/:dvdId          controllers.DvdController.showEditDvd(dvdId: Long)
 
 # MOVIE ROUTES
-POST   /movie/addMovieByTmdb/:mode controllers.MovieController.addMovieByTmdbId(mode: String)
+POST   /movie/addMovieByTmdb/:mode controllers.MovieController.addMovieByGrabberId(mode: String, grabberType: String)
 GET    /movie/add                  controllers.MovieController.showAddMovieForm()
 GET    /movie/edit/:movieId        controllers.MovieController.showEditMovieForm(movieId: Long)
 POST   /movie/:mode                controllers.MovieController.addOrEditMovie(mode: String) 
 
 
 # Grabbers 
-GET    /grabber/search                 controllers.InfoGrabberController.searchGrabber(searchTerm = "", grabberType =  grabbers.EGrabberType.TMDB)
-GET    /grabber/:grabberType/search/:searchTerm     controllers.InfoGrabberController.searchGrabber(searchTerm: String, grabberType:  grabbers.EGrabberType)
-GET    /grabber/info/:movieId                       controllers.InfoGrabberController.getMovieById(movieId: java.lang.Integer)
+GET    /grabber/search                          controllers.InfoGrabberController.searchGrabber(searchTerm = "", grabberType =  "TMDB")
+GET    /grabber/:grabberType/search/:searchTerm controllers.InfoGrabberController.searchGrabber(searchTerm: String, grabberType:  String)
+GET    /grabber/:grabberType/:grabberId         controllers.InfoGrabberController.getMovieById(grabberId: String, grabberType:  String)
 
 # Javascript routing
 GET     /assets/javascripts/routes 	 controllers.Application.jsRoutes()

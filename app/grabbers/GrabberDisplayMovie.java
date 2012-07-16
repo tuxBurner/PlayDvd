@@ -18,13 +18,15 @@ public class GrabberDisplayMovie {
   public final List<GrabberImage> backDropUrls;
   public final EGrabberType grabber;
   public final String plot;
+  public final List<String> trailerUrls;
 
-  public GrabberDisplayMovie(final String systemId, final String movieTitle, final String plot, final List<GrabberImage> posterUrls, final List<GrabberImage> backDropUrls, final EGrabberType grabber) {
+  public GrabberDisplayMovie(final String systemId, final String movieTitle, final String plot, final List<GrabberImage> posterUrls, final List<GrabberImage> backDropUrls, final List<String> trailerUrls, final EGrabberType grabber) {
     this.systemId = systemId;
     this.movieTitle = movieTitle;
     this.plot = plot;
     this.posterUrls = posterUrls;
     this.backDropUrls = backDropUrls;
+    this.trailerUrls = trailerUrls;
     this.grabber = grabber;
 
   }

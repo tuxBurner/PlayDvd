@@ -2,6 +2,9 @@ package models;
 
 public enum EMovieAttributeType {
 
-  ACTOR, GENRE, DIRECTOR
+  ACTOR,
+  GENRE,
+  DIRECTOR,
+  MOVIE_SERIES
 
 }

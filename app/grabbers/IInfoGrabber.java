@@ -44,6 +44,6 @@ public interface IInfoGrabber {
    * @return
    * @throws GrabberException
    */
-  public MovieForm filleInfoToMovieForm(final GrabberInfoForm grabberInfoForm, String posterId, String backdropId) throws GrabberException;
+  public MovieForm filleInfoToMovieForm(final GrabberInfoForm grabberInfoForm) throws GrabberException;
 
 }

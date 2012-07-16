@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import models.Dvd;
 import models.EMovieAttributeType;
 import models.Movie;
 import models.MovieAttribute;
@@ -43,6 +42,8 @@ public class MovieForm {
 
   public String director;
 
+  public String trailerUrl;
+
   /**
    * This describes in which series the movie is for example Alien, Terminator,
    * Indiana Jones are Series of movies
@@ -54,8 +55,8 @@ public class MovieForm {
   public Boolean hasPoster;
 
   /**
-   * Transforms a {@link Dvd} to a {@link DvdForm} for editing the dvd in the
-   * frontend
+   * Transforms a {@link Movie} to a {@link MovieForm} for editing the dvd in
+   * the frontend
    * 
    * @param dvd
    * @return
@@ -68,22 +69,27 @@ public class MovieForm {
     movieForm.year = movie.year;
     movieForm.runtime = movie.runtime;
     movieForm.plot = movie.description;
+    movieForm.trailerUrl = movie.trailerUrl;
 
     movieForm.hasBackdrop = movie.hasBackdrop;
     movieForm.hasPoster = movie.hasPoster;
 
     final Set<MovieAttribute> attributes = movie.attributes;
-    for (final MovieAttribute dvdAttibute : attributes) {
-      if (EMovieAttributeType.GENRE.equals(dvdAttibute.attributeType)) {
-        movieForm.genres.add(dvdAttibute.value);
+    for (final MovieAttribute movieAttibute : attributes) {
+      if (EMovieAttributeType.GENRE.equals(movieAttibute.attributeType)) {
+        movieForm.genres.add(movieAttibute.value);
       }
 
-      if (EMovieAttributeType.ACTOR.equals(dvdAttibute.attributeType)) {
-        movieForm.actors.add(dvdAttibute.value);
+      if (EMovieAttributeType.ACTOR.equals(movieAttibute.attributeType)) {
+        movieForm.actors.add(movieAttibute.value);
       }
 
-      if (EMovieAttributeType.DIRECTOR.equals(dvdAttibute.attributeType)) {
-        movieForm.director = dvdAttibute.value;
+      if (EMovieAttributeType.DIRECTOR.equals(movieAttibute.attributeType)) {
+        movieForm.director = movieAttibute.value;
+      }
+
+      if (EMovieAttributeType.MOVIE_SERIES.equals(movieAttibute.attributeType)) {
+        movieForm.series = movieAttibute.value;
       }
     }
 

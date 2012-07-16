@@ -1,6 +1,3 @@
-# --- Created by Ebean DDL
-# To stop Ebean DDL generation, remove this comment and start using Evolutions
-
 # --- !Ups
 
 create table dvd (
@@ -19,7 +16,7 @@ create table dvd_attribute (
   id                        bigint auto_increment not null,
   attribute_type            varchar(10) not null,
   value                     varchar(255),
-  constraint ck_dvd_attribute_attribute_type check (attribute_type in ('BOX','COLLECTION')),
+  constraint ck_dvd_attribute_attribute_type check (attribute_type in ('BOX','COLLECTION','RATING','COPY_TYPE')),
   constraint pk_dvd_attribute primary key (id))
 ;
 
@@ -32,14 +29,15 @@ create table movie (
   description               longtext,
   year                      integer not null,
   runtime                   integer,
+  trailer_url               varchar(255),
   constraint pk_movie primary key (id))
 ;
 
 create table movie_attribute (
   pk                        bigint auto_increment not null,
-  attribute_type            varchar(8) not null,
+  attribute_type            varchar(12) not null,
   value                     varchar(255),
-  constraint ck_movie_attribute_attribute_type check (attribute_type in ('ACTOR','GENRE','DIRECTOR')),
+  constraint ck_movie_attribute_attribute_type check (attribute_type in ('ACTOR','GENRE','DIRECTOR','MOVIE_SERIES')),
   constraint pk_movie_attribute primary key (pk))
 ;
 

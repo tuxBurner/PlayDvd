@@ -1,23 +1,26 @@
 package helpers;
 
 public enum EImageSize {
-    ORIGINAL(0,0),
-	SMALL(150,150);
-	
-	private final int width;
-	public int getWidth() {
-		return width;
-	}
+  ORIGINAL(0, 0),
+  SMALL(150, 150),
+  GRABBER_POSTER_SMALL(125, 125),
+  GRABBER_BACKDROP_SMALL(290, 163);
 
-	public int getHeight() {
-		return height;
-	}
+  private final int width;
 
-	private final int height;
+  public int getWidth() {
+    return width;
+  }
 
-	private  EImageSize(final int width, final int height) {
-		this.width = width;
-		this.height = height; 
-		
-	}
+  public int getHeight() {
+    return height;
+  }
+
+  private final int height;
+
+  private EImageSize(final int width, final int height) {
+    this.width = width;
+    this.height = height;
+
+  }
 }

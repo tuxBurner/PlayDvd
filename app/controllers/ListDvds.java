@@ -125,6 +125,14 @@ public class ListDvds extends Controller {
     return ListDvds.returnList(dvdListFrom);
   }
 
+  public static Result listReviewMovies() {
+    final DvdListFrom dvdListFrom = new DvdListFrom();
+    dvdListFrom.moviesToReview = true;
+
+    return ListDvds.returnList(dvdListFrom);
+
+  }
+
   public static Result searchDvd() {
     final String[] strings = Controller.request().queryString().get("searchFor");
     if (strings == null || strings.length != 1) {
