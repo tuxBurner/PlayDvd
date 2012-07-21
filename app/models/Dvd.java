@@ -203,18 +203,6 @@ public class Dvd extends Model {
     return findList;
   }
 
-  // /**
-  // * Gets all dvds for the given username ordered by the date
-  // *
-  // * @param username
-  // * @return
-  // */
-  // public static Page<Dvd> getUserDvds(final String username, final Integer
-  // pageNr) {
-  // return Dvd.getByDefaultPaging(Dvd.find.where().eq("owner.userName",
-  // username), pageNr, EDvdListOrderBy.MOVIE_TITLE, EDvdListOrderHow.UP);
-  // }
-
   /**
    * Gets all dvds which fit into the Filter int the {@link DvdListFrom}
    * 
@@ -272,16 +260,6 @@ public class Dvd extends Model {
     return userDvd;
 
   }
-
-  // /**
-  // * Get dvds for the given page number
-  // *
-  // * @param pageNr
-  // * @return
-  // */
-  // public static Page<Dvd> getDvds(final Integer pageNr) {
-  // return Dvd.getByDefaultPaging(Dvd.find.where(), pageNr);
-  // }
 
   /**
    * This does all the default paging etc stuff
