@@ -27,6 +27,8 @@ import com.typesafe.config.ConfigFactory;
 
 import forms.DvdForm;
 import forms.DvdListFrom;
+import forms.EDvdListOrderBy;
+import forms.EDvdListOrderHow;
 
 @Entity
 public class Dvd extends Model {
@@ -201,15 +203,17 @@ public class Dvd extends Model {
     return findList;
   }
 
-  /**
-   * Gets all dvds for the given username ordered by the date
-   * 
-   * @param username
-   * @return
-   */
-  public static Page<Dvd> getUserDvds(final String username, final Integer pageNr) {
-    return Dvd.getByDefaultPaging(Dvd.find.where().eq("owner.userName", username), pageNr);
-  }
+  // /**
+  // * Gets all dvds for the given username ordered by the date
+  // *
+  // * @param username
+  // * @return
+  // */
+  // public static Page<Dvd> getUserDvds(final String username, final Integer
+  // pageNr) {
+  // return Dvd.getByDefaultPaging(Dvd.find.where().eq("owner.userName",
+  // username), pageNr, EDvdListOrderBy.MOVIE_TITLE, EDvdListOrderHow.UP);
+  // }
 
   /**
    * Gets all dvds which fit into the Filter int the {@link DvdListFrom}
@@ -252,7 +256,7 @@ public class Dvd extends Model {
       where.eq("movie.hasToBeReviewed", true);
     }
 
-    return Dvd.getByDefaultPaging(where, listFrom.currentPage);
+    return Dvd.getByDefaultPaging(where, listFrom.currentPage, listFrom.orderBy, listFrom.orderHow);
   }
 
   /**
@@ -269,29 +273,32 @@ public class Dvd extends Model {
 
   }
 
-  /**
-   * Get dvds for the given page number
-   * 
-   * @param pageNr
-   * @return
-   */
-  public static Page<Dvd> getDvds(final Integer pageNr) {
-    return Dvd.getByDefaultPaging(Dvd.find.where(), pageNr);
-  }
+  // /**
+  // * Get dvds for the given page number
+  // *
+  // * @param pageNr
+  // * @return
+  // */
+  // public static Page<Dvd> getDvds(final Integer pageNr) {
+  // return Dvd.getByDefaultPaging(Dvd.find.where(), pageNr);
+  // }
 
   /**
    * This does all the default paging etc stuff
    * 
    * @param expressionList
+   * @param orderHow
+   * @param orderBy
    * @return
    */
-  private static Page<Dvd> getByDefaultPaging(final ExpressionList<Dvd> expressionList, Integer pageNr) {
+  private static Page<Dvd> getByDefaultPaging(final ExpressionList<Dvd> expressionList, Integer pageNr, final EDvdListOrderBy orderBy, final EDvdListOrderHow orderHow) {
 
     if (pageNr == null) {
       pageNr = 0;
     }
 
-    final Page<Dvd> page = expressionList.orderBy("createdDate desc").fetch("owner", "userName").fetch("borrower", "userName").fetch("movie").findPagingList(Dvd.DEFAULT_DVDS_PER_PAGE).getPage(pageNr);
+    final Page<Dvd> page = expressionList.orderBy(orderBy.dbField + " " + orderHow.dbOrder).fetch("owner", "userName").fetch("borrower", "userName").fetch("movie").findPagingList(
+        Dvd.DEFAULT_DVDS_PER_PAGE).getPage(pageNr);
     return page;
   }
 

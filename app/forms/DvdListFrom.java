@@ -56,7 +56,20 @@ public class DvdListFrom {
    */
   public boolean moviesToReview = false;
 
+  /**
+   * Age Rating of the movie
+   */
   public String ageRating = null;
+
+  /**
+   * What field in the database to use to order the list
+   */
+  public EDvdListOrderBy orderBy = EDvdListOrderBy.MOVIE_TITLE;
+
+  /**
+   * How to order the result list
+   */
+  public EDvdListOrderHow orderHow = EDvdListOrderHow.UP;
 
   /**
    * Gets the current search form from the cache if the cache is empty a new one
