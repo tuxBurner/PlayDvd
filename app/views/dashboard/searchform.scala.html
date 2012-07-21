@@ -15,9 +15,9 @@
        
        @select(field = dvdListForm("ageRating"), options(forms.DvdListFrom.getAgeRatings),'_label->"Rating",'class-> "span2 chosen_select")
        
+       @select(field = dvdListForm("orderBy"), options(forms.EDvdListOrderBy.values().toList.map(_.toString)),'_label->"Order",'class-> "span2")
        
-       
-       
+       @select(field = dvdListForm("orderHow"), options(forms.EDvdListOrderHow.values().toList.map(_.toString)),'_label->"",'class-> "span2")
        
        <button type="submit"><i class="icon-search"></i></button>
      
