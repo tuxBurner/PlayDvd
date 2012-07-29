@@ -14,9 +14,11 @@ import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.io.filefilter.PrefixFileFilter;
 import org.apache.commons.lang.StringUtils;
 
+import com.typesafe.config.ConfigFactory;
+
 public class ImageHelper {
 
-  public static File IMAGE_ROOT = new File("images");
+  public static File IMAGE_ROOT = new File(ConfigFactory.load().getString("dvddb.imagespath"));
 
   /**
    * Loads the image from the given url and saves it to the filesystem
