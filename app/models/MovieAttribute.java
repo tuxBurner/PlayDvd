@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 
 import play.db.ebean.Model;
 
@@ -129,6 +130,10 @@ public class MovieAttribute extends Model {
     final Set<MovieAttribute> attributes = new HashSet<MovieAttribute>();
 
     for (final String formAttr : attributeValues) {
+
+      if (StringUtils.isEmpty(formAttr) == true) {
+        continue;
+      }
 
       MovieAttribute dvdAttibuteToAdd = null;
 

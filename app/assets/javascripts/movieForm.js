@@ -1,11 +1,11 @@
 $(function() {
 	
-	$('.chosen_select').chosen({
-		   create_option: true,
-		   // persistent_create_option decides if you can add any term, even if part of the term is also found, or only unique, not overlapping terms
-		   persistent_create_option: false,
-		   allow_single_deselect: true
-	});
+//	$('.chosen_select').select2({
+//		   create_option: true,
+//		   // persistent_create_option decides if you can add any term, even if part of the term is also found, or only unique, not overlapping terms
+//		   persistent_create_option: false,
+//		   allow_single_deselect: true
+//	});
 	
 	// check the url stuff and change the image if it is set
 	createPrevsrciewFromUrl('poster');
@@ -18,19 +18,10 @@ $(function() {
 	  }
 	});
 	
-	$("#genresTags").tagit({
-		'allowSpaces' : true,
-		'singleField' : true,
-		'availableTags' : avaibleGenres,
-		'singleFieldNode' : $('#genres')
-	});
 	
-	$("#actorsTags").tagit({
-		'allowSpaces' : true,
-		'singleField' : true,
-		'availableTags' : avaibleActors,
-		'singleFieldNode' : $('#actors')
-	});
+	
+	 $("#genres").select2({tags: avaibleGenres});	
+	 $("#actors").select2({ tags : avaibleActors });
 	
 	// enable the button for  
 	var title = $('#title').val();
@@ -89,7 +80,7 @@ $(function() {
 	/**
 	 * Close the movie form if the user clicks on the button
 	 */
-	$('#movieFormCloseBtn').click(function() {
+	$('.movieFormCloseBtn').click(function() {
 		$('#newMovieFormWrapper').html('').hide();
 		$('#dvdFormWrapper').show();
 	});
@@ -106,7 +97,6 @@ $(function() {
 		
 		pAjax(jsRoutes.controllers.MovieController.addOrEditMovie(mode),formParams,
 				function(data) {
-			
 			      $('#newMovieFormWrapper').html('').hide();
 			      $('#dvdFormWrapper').show();
 			      // write the new movie to the select box and preselect it
@@ -121,7 +111,7 @@ $(function() {
 		        },
 				function(err) {
 		        	closeWaitDiaLog();
-		        	$('#newMovieFormWrapper').html(err).show();
+		        	$('#newMovieFormWrapper').html(err.responseText).show();
 				}
 		);
 				

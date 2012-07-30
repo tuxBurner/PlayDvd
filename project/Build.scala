@@ -17,6 +17,7 @@ object ApplicationBuild extends Build {
       "com.jquery" % "jquery" % "1.7.2-1",
       "com.google.code.gson" % "gson" % "2.2.1",
       "org.webjars" % "jquerypp" % "1.0b2-1",
+      "org.webjars" % "select2" % "2.1-1",
       
       "com.github.ralfebert" % "jgravatar" % "1.0-SNAPSHOT",
       "com.moviejukebox" % "thetvdbapi" % "1.4-SNAPSHOT",

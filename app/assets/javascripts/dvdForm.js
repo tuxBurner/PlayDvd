@@ -1,19 +1,52 @@
 $(function() {
+	
+	$('#box').select2({		   
+	    allowClear: true,
+	    createSearchChoice: function(term, data) { 
+        	  if ($(data).filter(function() { console.info(this); return this.localeCompare(term)===0; }).length===0) {
+        		  return term;
+        	  }
+          },
+	    formatSelection: function(item) { return item; },
+        formatResult:  function(item) { return item; },
+        id: function(object) {
+        	return object;
+        },
+        initSelection : function (element) {
+          return $(element).val();
+        },
+        data: avaibleBoxes
+      });
+	
+	  $('#collection').select2({		   
+	    allowClear: true,
+	    createSearchChoice: function(term, data) { 
+        	  if ($(data).filter(function() { console.info(this); return this.localeCompare(term)===0; }).length===0) {
+        		  return term;
+        	  }
+          },
+	    formatSelection: function(item) { return item; },
+        formatResult:  function(item) { return item; },
+        id: function(object) {
+        	return object;
+        },
+        initSelection : function (element) {
+          return $(element).val();
+        },
+        data: avaibleCollections
+      });
+	
 
 	// we need an empty option here
 	$('#movieId').prepend('<option></option>');
 	$('#movieId').val(selectedMovieId);
 	
-	 $('.def_chosen_select').chosen({
-       allow_single_deselect: true
+	 $('.def_chosen_select').select2({
+		 placeholder: "Select a movie",
+		 allowClear: true
      });
 	
-	 $('.chosen_select').chosen({
-	   create_option: true,
-	   // persistent_create_option decides if you can add any term, even if part of the term is also found, or only unique, not overlapping terms
-	   persistent_create_option: false,
-	   allow_single_deselect: true
-	 });
+	
 	 
 	 $('#editMovieInfos').click(function() {
 		 

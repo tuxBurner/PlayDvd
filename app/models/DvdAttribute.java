@@ -18,6 +18,8 @@ import org.apache.commons.collections.CollectionUtils;
 
 import play.db.ebean.Model;
 
+import com.google.gson.Gson;
+
 /**
  * This is the {@link Entity} holding certain attributes
  * 
@@ -88,6 +90,26 @@ public class DvdAttribute extends Model {
     }
 
     return returnVal;
+  }
+
+  /**
+   * Returns all {@link MovieAttribute} as json string
+   * 
+   * @param type
+   * @return
+   */
+  public static String getAllByTypeAsJson(final EDvdAttributeType type) {
+
+    final List<DvdAttribute> allByType = DvdAttribute.getAllByType(type);
+    final List<String> returnVal = new ArrayList<String>();
+    if (CollectionUtils.isEmpty(allByType) == false) {
+      for (final DvdAttribute attr : allByType) {
+        returnVal.add(attr.value);
+      }
+    }
+
+    final Gson gson = new Gson();
+    return gson.toJson(returnVal);
   }
 
   /**

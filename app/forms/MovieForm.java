@@ -143,14 +143,15 @@ public class MovieForm {
    * @param values
    * @return
    */
-  public final String getDvdFormAttributesAsString(final List<String> values) {
-    String returnVal = "";
+  public final static String getDvdFormAttributesAsString(final String values) {
+    final String returnVal = "";
 
-    String sep = "";
-    for (final String value : values) {
-      returnVal += sep + value;
-      sep = ",";
-    }
+    // final List fromJson = gson.fromJson(values, List.class);
+    final String sep = "";
+    // for (final String value : values) {
+    // returnVal += sep + value;
+    // sep = ",";
+    // }
 
     return returnVal;
   }

@@ -16,7 +16,7 @@
     <legend>@if(mode == DvdController.DVD_FORM_EDIT_MODE) {Edit Move} else {Add a Movie}</legend>
      
          @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
-           <input type="hidden" name="movieId" id="movieId" value="@movieForm.get().movieId"/>
+           <input type="hidden" name="movieId" id="movieId" value="@movieForm("movieId").value()"/>
          }
          
          <div class="form-actions">
@@ -25,7 +25,7 @@
            } else {
              <button type="button" class="btn  btn-primary movieFormSubmitBtn"><i class="icon-plus"></i>Add Movie</button>
            }
-           <button type="button"   id="movieFormCloseBtn" class="btn" ><i class="icon-chevron-up"></i>Close</button>
+           <button type="button" class="btn movieFormCloseBtn" ><i class="icon-chevron-up"></i>Close</button>
          </div>
          
          
@@ -45,15 +45,14 @@
          
          <hr />
          <label for="genres">Genres</label>   
-         <input type="hidden" name="genres" id="genres" value="@movieForm.get().getDvdFormAttributesAsString(movieForm.get().genres)"/>
-         <ul id="genresTags" class="tags"></ul>
+         <input type="hidden" name="genres" id="genres" value="@forms.MovieForm.getDvdFormAttributesAsString(movieForm("genres").value())"/>
+         
         
          <hr  />
          @inputText(movieForm("director"),'_label -> "Director")
          
          <label for="actors">Actors</label>
-         <input type="hidden" name="actors" id="actors" value="@movieForm.get().getDvdFormAttributesAsString(movieForm.get().actors)"/>
-         <ul id="actorsTags" class="tags"></ul>
+         <input type="hidden" name="actors" id="actors" value="@forms.MovieForm.getDvdFormAttributesAsString(movieForm("actors").value())"/>
          
          <hr />
          
@@ -61,12 +60,12 @@
          
          <label for="poster">Poster</label>
          @inputText(movieForm("posterUrl"),'_label -> "Poster url",'placeholder -> "Url to a poster image")
-         <img id="poster_preview" class="caption" title="Currently selected poster" src="@if(mode == DvdController.DVD_FORM_ADD_MODE) {http://placehold.it/92x138/4D99E0/ffffff.png&text=No%20Poster} else { @routes.Dashboard.streamImage(movieForm.get().movieId,"POSTER","SMALL") }" width="92" height="138" />  
+         <img id="poster_preview" class="caption" title="Currently selected poster" src="@if(mode == DvdController.DVD_FORM_ADD_MODE) {http://placehold.it/92x138/4D99E0/ffffff.png&text=No%20Poster} else { @routes.Dashboard.streamImage(Long.valueOf(movieForm("movieId").value()),"POSTER","SMALL") }" width="92" height="138" />  
          
           
          <label for="backDrop">Backdrop</label>
          @inputText(movieForm("backDropUrl"),'_label -> "Back Drop url",'placeholder -> "Url to a back drop image")
-         <img  class="caption" id="backDrop_preview" title="Currently selected backdrop" src="@if(mode == DvdController.DVD_FORM_ADD_MODE) {http://placehold.it/291x136/4D99E0/ffffff.png&text=No%20Backdrop} else { @routes.Dashboard.streamImage(movieForm.get().movieId,"BACKDROP","SMALL") }" width="291" height="163" />
+         <img  class="caption" id="backDrop_preview" title="Currently selected backdrop" src="@if(mode == DvdController.DVD_FORM_ADD_MODE) {http://placehold.it/291x136/4D99E0/ffffff.png&text=No%20Backdrop} else { @routes.Dashboard.streamImage(Long.valueOf(movieForm("movieId").value()),"BACKDROP","SMALL") }" width="291" height="163" />
          
          <div class="form-actions">
            @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
@@ -74,7 +73,7 @@
            } else {
              <button type="button" class="btn  btn-primary movieFormSubmitBtn"><i class="icon-plus"></i>Add Movie</button>
            }
-           <button type="button"   id="movieFormCloseBtn" class="btn" ><i class="icon-chevron-up"></i>Close</button>
+           <button type="button" class="btn movieFormCloseBtn" ><i class="icon-chevron-up"></i>Close</button>
          </div>
          
        

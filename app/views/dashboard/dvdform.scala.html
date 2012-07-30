@@ -4,7 +4,6 @@
 @import helper.twitterBootstrap._
 
 @scripts = {
-  <script src="@routes.Assets.at("tagit/js/tag-it.js")" type="text/javascript"></script>
   
   <script type="text/javascript">
   <!--
@@ -12,14 +11,22 @@
     
   //-->
   </script>
+  
    
-  <script src="@routes.Assets.at("chosen/chosen.jquery.min.js")" type="text/javascript"></script>
+  <script src="@routes.Assets.at("select2-2.1/select2.min.js")" type="text/javascript"></script>
   <script src="@routes.Assets.at("javascripts/dvdForm.js")" type="text/javascript"></script>
+  
+  <script type="text/javascript">
+   <!--
+     var avaibleBoxes = @Html(DvdAttribute.getAllByTypeAsJson(EDvdAttributeType.BOX));
+     var avaibleCollections = @Html(DvdAttribute.getAllByTypeAsJson(EDvdAttributeType.COLLECTION));
+   //-->
+          
+  </script>
 }
 
 @styles = {
-  <link rel="stylesheet" href="@routes.Assets.at("tagit/css/jquery.tagit.css")" />
-  <link rel="stylesheet" href="@routes.Assets.at("chosen/chosen.css")" />
+  <link rel="stylesheet" href="@routes.Assets.at("select2-2.1/select2.css")" />
 }
 
 @mainmenu("Dvd Database - Add a dvd",scripts,styles) {
@@ -49,8 +56,12 @@
        
          
        @inputText(dvdForm("hullNr"),'_label -> "Hull Nr.", 'class -> "span4")
-       @select(field = dvdForm("box"), options(DvdAttribute.getAllByTypeAsValue(EDvdAttributeType.BOX)),'_label->"Box",'class-> "span5 chosen_select")
-       @select(field = dvdForm("collection"), options(DvdAttribute.getAllByTypeAsValue(EDvdAttributeType.COLLECTION)),'_label->"Collection",'class-> "span5 chosen_select")
+       
+       
+       <input type="hidden" name="box" id="box" value="@dvdForm("box").value()" class="select2_deselect_new span5" data-placeholder="Select a dvd box"/>
+       
+       <input type="hidden" name="collection" id="collection" value="@dvdForm("collection").value()" class="select2_deselect_new span5" data-placeholder="Select a collection"/>
+       
        <hr />
        
        <div class="form-actions">
