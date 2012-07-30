@@ -7,7 +7,8 @@
   
   <script type="text/javascript">
   <!--
-    var selectedMovieId =  '@dvdForm.get().movieId';	
+  //TODO: can this be removed ?
+    var selectedMovieId =  '@dvdForm("movieId").value()';	
     
   //-->
   </script>
@@ -40,18 +41,18 @@
              
      
        @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
-         <input type="hidden" name="dvdId" id="dvdId" value="@dvdForm.get().dvdId"/>
+         <input type="hidden" name="dvdId" id="dvdId" value="@dvdForm("dvdId").value()"/>
        }
        
        <label for="copyType">Type:</label>
        @for((copyType,index) <- forms.DvdForm.getCopyTypes.zipWithIndex) {
-         <input type="radio" name="copyType" value="@copyType" @if(mode == DvdController.DVD_FORM_EDIT_MODE && copyType == dvdForm.get().copyType || mode == DvdController.DVD_FORM_ADD_MODE && index == 0){ checked="checked" } /><span><img alt="@copyType" src="@routes.Assets.at("images/copy_type/"+copyType+".png")" />@copyType </span> 
+         <input type="radio" name="copyType" value="@copyType" @if(mode == DvdController.DVD_FORM_EDIT_MODE && copyType == dvdForm("copyType").value() || mode == DvdController.DVD_FORM_ADD_MODE && index == 0){ checked="checked" } /><span><img alt="@copyType" src="@routes.Assets.at("images/copy_type/"+copyType+".png")" />@copyType </span> 
        }
        
        
        <label for="copyType">Rating:</label>
        @for((rating,index) <- forms.DvdForm.getAgeRatings.zipWithIndex) {
-         <input type="radio" name="ageRating" value="@rating" @if(mode == DvdController.DVD_FORM_EDIT_MODE && rating == dvdForm.get().ageRating || mode == DvdController.DVD_FORM_ADD_MODE && index == 0){ checked="checked" } /><span><img alt="@rating" src="@routes.Assets.at("images/agerating/"+rating+".gif")" />@rating </span> 
+         <input type="radio" name="ageRating" value="@rating" @if(mode == DvdController.DVD_FORM_EDIT_MODE && rating == dvdForm("ageRating").value() || mode == DvdController.DVD_FORM_ADD_MODE && index == 0){ checked="checked" } /><span><img alt="@rating" src="@routes.Assets.at("images/agerating/"+rating+".gif")" />@rating </span> 
        }
        
          
