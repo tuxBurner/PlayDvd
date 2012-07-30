@@ -4,7 +4,8 @@ public enum EImageSize {
   ORIGINAL(0, 0),
   SMALL(150, 150),
   GRABBER_POSTER_SMALL(125, 125),
-  GRABBER_BACKDROP_SMALL(290, 163);
+  GRABBER_BACKDROP_SMALL(290, 163),
+  SELECT2(60, 80);
 
   private final int width;
 

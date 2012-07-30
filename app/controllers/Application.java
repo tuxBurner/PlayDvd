@@ -153,10 +153,11 @@ public class Application extends Controller {
         controllers.routes.javascript.Dashboard.menuGenres(),
         controllers.routes.javascript.Dashboard.lendDialogContent(),
         controllers.routes.javascript.Dashboard.lendDvd(),
+        controllers.routes.javascript.Dashboard.streamImage(),
         controllers.routes.javascript.MovieController.showAddMovieForm(),
         controllers.routes.javascript.MovieController.showEditMovieForm(),
         controllers.routes.javascript.MovieController.addMovieByGrabberId(),
-        controllers.routes.javascript.MovieController.addOrEditMovie()));
-
+        controllers.routes.javascript.MovieController.addOrEditMovie(),
+        controllers.routes.javascript.MovieController.searchMoviesForDvdSelect()));
   }
 }

@@ -74,8 +74,12 @@
          <a class="btn" href="@routes.ListDvds.listdvds(null)"><i class="icon-arrow-left"></i>Back</a>
        </div>
              
-             
-      @select(dvdForm("movieId"), models.Movie.listByDistinctTitle().map{ t=> t.id.toString -> (t.title)},'_label->"Existing movie", 'class-> "span6 def_chosen_select")        
+      @*********************       
+      @select(dvdForm("movieId"), models.Movie.listByDistinctTitle().map{ t=> t.id.toString -> (t.title)},'_label->"Existing movie", 'class-> "span6 def_chosen_select")
+      *************************************@
+      @inputText(dvdForm("movieId"),'_label -> "Existing movie", '_showConstraints -> true, 'class-> "span6")
+      
+              
       <button class="btn btn-inverse" id="newMovieInfos" type="button"><i class="icon-film"></i> New Movie</button>
       
       @if(mode == DvdController.DVD_FORM_EDIT_MODE) {

@@ -5,6 +5,7 @@ import grabbers.GrabberException;
 import grabbers.IInfoGrabber;
 import helpers.RequestToCollectionHelper;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,9 @@ import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
 import views.html.movie.movieform;
+
+import com.google.gson.Gson;
+
 import forms.GrabberInfoForm;
 import forms.MovieForm;
 
@@ -123,6 +127,29 @@ public class MovieController extends Controller {
   }
 
   /**
+   * Searches for movies
+   * 
+   * @param term
+   * @return
+   */
+  public static Result searchMoviesForDvdSelect(final String term) {
+
+    final List<MovieSelect2Value> result = new ArrayList<MovieSelect2Value>();
+
+    if (StringUtils.isEmpty(term) == false) {
+      final List<Movie> searchLike = Movie.searchLike(term, 20);
+      for (final Movie movie : searchLike) {
+        result.add(new MovieSelect2Value(movie));
+      }
+    }
+
+    final Gson gson = new Gson();
+
+    return Results.ok(gson.toJson(result));
+
+  }
+
+  /**
    * Get all series of a movie
    * 
    * @param form
@@ -139,7 +166,6 @@ public class MovieController extends Controller {
     }
 
     return allByTypeAsValue;
-
   }
 
 }

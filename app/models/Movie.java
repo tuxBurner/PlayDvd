@@ -22,8 +22,10 @@ import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
+import play.db.ebean.Transactional;
 
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.Query;
 
 import forms.DvdForm;
 import forms.MovieForm;
@@ -158,12 +160,22 @@ public class Movie extends Model {
   }
 
   /**
-   * List all movies orderd by the title only fetching id and title
+   * Searches all {@link Movie}s by the term and returns a list of the result
    * 
+   * @param term
+   * @param numberOfResults
    * @return
    */
-  public static List<Movie> listByDistinctTitle() {
-    return Movie.find.select("id,title").order("title asc").findList();
+  @Transactional
+  public static List<Movie> searchLike(final String term, final int numberOfResults) {
+
+    final Query<Movie> order = Movie.find.where().ilike("title", "%" + term + "%").select("id ,title, hasPoster").order("title asc");
+    if (numberOfResults <= 0) {
+      return order.findList();
+    } else {
+      return order.findPagingList(numberOfResults).getAsList();
+    }
+
   }
 
 }
