@@ -130,7 +130,7 @@ public class MovieController extends Controller {
    */
   private static List<String> getMovieSeries(final Form<MovieForm> movieForm) {
 
-    final String series = movieForm.field("series").value();
+    final String series = (movieForm == null) ? null : movieForm.field("series").value();
 
     final List<String> allByTypeAsValue = MovieAttribute.getAllByTypeAsValue(EMovieAttributeType.MOVIE_SERIES);
     if (StringUtils.isEmpty(series) == false && allByTypeAsValue.contains(series) == false) {
