@@ -74,6 +74,9 @@ public class TmdbGrabber implements IInfoGrabber {
    * @return
    */
   private String buildImageUrl(final String size, final String imgPath) {
+    if (StringUtils.isEmpty(imgPath) == true) {
+      return null;
+    }
     return configuration.getBaseUrl() + size + imgPath;
   }
 
