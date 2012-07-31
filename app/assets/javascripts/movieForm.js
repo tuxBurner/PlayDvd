@@ -27,7 +27,13 @@ $(function() {
 		top: 60,
 		autoOpen: false,
 		modal: true,
-		close:  function() {$('#grabberDialog .dialogContent').html('')}
+		close:  function() {
+		  $('#grabberDialog .dialogContent').html('');
+		  $("html").css("overflow", "auto");
+		},
+	    open: function() {
+		  $("html").css("overflow", "hidden");
+		}
 	});
 	
 	/**
