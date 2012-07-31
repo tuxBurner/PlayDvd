@@ -1,12 +1,6 @@
 $(function() {
 	
-//	$('.chosen_select').select2({
-//		   create_option: true,
-//		   // persistent_create_option decides if you can add any term, even if part of the term is also found, or only unique, not overlapping terms
-//		   persistent_create_option: false,
-//		   allow_single_deselect: true
-//	});
-	
+
 	// check the url stuff and change the image if it is set
 	createPrevsrciewFromUrl('poster');
 	createPrevsrciewFromUrl('backDrop');
@@ -17,8 +11,6 @@ $(function() {
 	    createPrevsrciewFromUrl('poster');
 	  }
 	});
-	
-	
 	
 	 $("#genres").select2({tags: avaibleGenres});	
 	 $("#actors").select2({ tags : avaibleActors });
@@ -99,13 +91,10 @@ $(function() {
 				function(data) {
 			      $('#newMovieFormWrapper').html('').hide();
 			      $('#dvdFormWrapper').show();
-			      // write the new movie to the select box and preselect it
 			      
-			      $('#movieId option[value="'+data.id+'"]').remove();
+			      // set the movie
+			      $("#movieId").select2("val", data);
 			      
-			      $('#movieId').append('<option value="'+data.id+'">'+data.title+'</option>');
-			  	  $('#movieId').val(data.id);
-			  	  $("#movieId").trigger("liszt:updated");
 			  	  
 			      closeWaitDiaLog();
 		        },

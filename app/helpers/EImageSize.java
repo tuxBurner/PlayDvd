@@ -5,7 +5,8 @@ public enum EImageSize {
   SMALL(150, 150),
   GRABBER_POSTER_SMALL(125, 125),
   GRABBER_BACKDROP_SMALL(290, 163),
-  SELECT2(60, 80);
+  SELECT2(60, 80),
+  TINY(25, 25);
 
   private final int width;
 

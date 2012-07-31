@@ -3,7 +3,12 @@ package forms;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
+
+import com.google.gson.Gson;
 import com.typesafe.config.ConfigFactory;
+
+import controllers.MovieSelect2Value;
 
 import play.data.validation.Constraints.Required;
 
@@ -95,5 +100,24 @@ public class DvdForm {
   public static List<String> getCopyTypes() {
     final List<String> ratings = ConfigFactory.load().getStringList("dvddb.copytypes");
     return ratings;
+  }
+
+  /**
+   * This returns the selected {@link Movie} for the {@link Dvd} as a json
+   * representation
+   * 
+   * @param movieId
+   * @return
+   */
+  public static String getSelectedMovieAsJson(final String movieId) {
+
+    final Gson gson = new Gson();
+    if (StringUtils.isEmpty(movieId) == true) {
+      return gson.toJson(null);
+    }
+
+    final Movie byId = Movie.find.select("id, hasPoster,title").where().eq("id", movieId).findUnique();
+
+    return gson.toJson(new MovieSelect2Value(byId));
   }
 }

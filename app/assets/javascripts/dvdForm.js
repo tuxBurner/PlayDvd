@@ -42,8 +42,9 @@ $(function() {
 	   */
 	  $("#movieId").select2({
           placeholder: {title: "Search for a movie", id: ""},
+          allowClear: true,
           minimumInputLength: 3,
-          ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
+          ajax: { 
               url: jsRoutes.controllers.MovieController.searchMoviesForDvdSelect().url.substring(0,jsRoutes.controllers.MovieController.searchMoviesForDvdSelect().url.indexOf('?')),
               dataType: 'json',
               data: function (term, page) {
@@ -51,20 +52,20 @@ $(function() {
                       term: term
                   };
               },
-              results: function (data, page) { // parse the results into the format expected by Select2.
-                  // since we are using custom formatting functions we do not need to alter remote JSON data
-            	  console.error(data);
+              results: function (data, page) { 
                   return {results: data};
               }
           },
-          formatResult: movieFormatResult, // omitted for brevity, see the source of this page
-          formatSelection: movieFormatSelection  // omitted for brevity, see the source of this page
+          initSelection : function (element) {
+            return selectedMovie;
+          },
+          formatResult: movieFormatResult, 
+          formatSelection: movieFormatSelection
       });
 	
 	
 	 
 	 $('#editMovieInfos').click(function() {
-		 
 		 var selectedMovieId = $('#movieId').val();
 		 if(selectedMovieId == null || selectedMovieId == "") {
 			 alert("No Movie selected to edit !");
@@ -119,5 +120,10 @@ function movieFormatResult(movie) {
 }
 
 function movieFormatSelection(movie) {
-    return movie.title;
+	if(movie.hasPoster == true) {
+	  return "<img class='flag' src='"+jsRoutes.controllers.Dashboard.streamImage(movie.id,'POSTER','TINY').url+"'/>" + movie.title;
+	} else {
+		return movie.title;
+	}
+    
 }

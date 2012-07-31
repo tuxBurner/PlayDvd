@@ -87,6 +87,7 @@ public class MovieController extends Controller {
         final ObjectNode result = Json.newObject();
         result.put("id", editOrAddFromForm.id);
         result.put("title", editOrAddFromForm.title);
+        result.put("hasPoster", editOrAddFromForm.hasPoster);
         return Results.ok(result);
       } catch (final Exception e) {
         e.printStackTrace();
