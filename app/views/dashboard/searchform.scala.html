@@ -20,26 +20,28 @@
 
      @form(routes.ListDvds.applySearchForm(), 'class -> "well form-inline") {
      
+       <label for="genre"><i class="icon-search"></i></label>
+       <input type="text" class="input-medium search-query" name="searchFor" value="@dvdListForm("searchFor").value()" />
        
-       <label for="genre">Genre</label>
+       <label for="genre"><i class="icon-tag"></i></label>
        <input type="hidden" name="genre" id="searchGenre" value="@dvdListForm("genre").value()" class="input-medium" data-placeholder="Genre"/>
        
-       <label for="owner">Owner</label>
+       <label for="owner"><i class="icon-user"></i></label>
        <input type="hidden" name="userName" id="searchOwner" value="@dvdListForm("userName").value()"  class="input-medium" data-placeholder="Owner"/>
        
        <input type="hidden" name="ageRating" id="searchAgeRating" value="@dvdListForm("ageRating").value()" class="input-mini"  data-placeholder="Agerating"/>
 
-       <label for="order">Order</label>
+       <label for="order"><i class="icon-list"></i></label>
        <input type="hidden" name="orderBy" id="searchOrderBy" value="@dvdListForm("orderBy").value()"  class="input-medium" data-placeholder="Owner"/>
        
        <label class="radio">
          <input type="radio" name="orderHow" id="optionsRadios1" value="@forms.EDvdListOrderHow.UP" @if(dvdListForm("orderHow").value().equals("UP")) { checked="" }>
-         <i class=" icon-circle-arrow-up"></i>
+         <i class="icon-circle-arrow-up"></i>
        </label>
        
        <label class="radio">
          <input type="radio" name="orderHow" id="optionsRadios1" value="@forms.EDvdListOrderHow.DOWN" @if(dvdListForm("orderHow").value().equals("DOWN")) { checked="" }>
-         <i class=" icon-circle-arrow-down"></i>
+         <i class="icon-circle-arrow-down"></i>
        </label>
        
        
@@ -47,7 +49,7 @@
        
        
        
-       <button type="submit"><i class="icon-search"></i></button>
+       <button type="submit" class="btn btn-primary"><i class="icon-search"></i></button>
      
      }
 </div>
