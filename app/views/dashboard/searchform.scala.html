@@ -5,13 +5,28 @@
 @import helper.twitterBootstrap._
 
 
+<script type="text/javascript">
+
+<!--
+  var avaibleGenres = @Html(MovieAttribute.getAvaibleAttributesAsJson(EMovieAttributeType.GENRE));
+//-->
+</script>
+
+
 <div class="row">
 
      @form(routes.ListDvds.applySearchForm(), 'class -> "well form-inline") {
      
-       @select(field = dvdListForm("genre"), options(MovieAttribute.getAllByTypeAsValue(EMovieAttributeType.GENRE)),'_label->"Genre",'class-> "span2 chosen_select")
        
-       @select(field = dvdListForm("userName"), options(User.getUserNames()),'_label->"Owner",'class-> "span2 chosen_select")
+       <label for="genre">Genre</label>
+       <input type="hidden" name="genre" id="searchGenre" value="@dvdListForm("genre").value()" class="span2" data-placeholder="Genre"/>
+       
+       
+       
+       
+       @* 
+       @select(field = dvdListForm("userName"), options(User.getUserNamesAsJson()),'_label->"Owner",'class-> "span2 chosen_select")
+       *@
        
        @select(field = dvdListForm("ageRating"), options(forms.DvdListFrom.getAgeRatings),'_label->"Rating",'class-> "span2 chosen_select")
        

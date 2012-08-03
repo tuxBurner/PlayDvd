@@ -44,3 +44,29 @@ function showWaitDiaLog() {
 function closeWaitDiaLog() {
 	$( "#pleaseWaitDialog").dialog('close');
 }
+
+
+/**
+ * Creates a select2 select 
+ * @param jqSelector
+ * @param dataObj
+ */
+function createSelect2Deselect(jqSelector,dataObj) {
+	$(jqSelector).select2({
+		allowClear: true,
+	    createSearchChoice: function(term, data) { 
+        	  if ($(data).filter(function() { console.info(this); return this.localeCompare(term)===0; }).length===0) {
+        		  return term;
+        	  }
+          },
+	    formatSelection: function(item) { return item; },
+        formatResult:  function(item) { return item; },
+        id: function(object) {
+        	return object;
+        },
+        initSelection : function (element) {
+          return $(element).val();
+        },
+        data: dataObj
+	});
+}

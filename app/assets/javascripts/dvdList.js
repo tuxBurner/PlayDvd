@@ -45,11 +45,9 @@ $(function() {
 	  modal: true,
 	  buttons: {
 			"Lend": function() {
-				
 				var userVal = $('#lendToUser').val();
 				var freeVal = $('#freeName').val();
-				var lendOtherInHull = ($('#alsoOthersInHull').attr('checked') == 'checked') ? "true" : "false" ; 
-				
+				var lendOtherInHull = ($('#alsoOthersInHull').attr('checked') == 'checked') ? "true" : "false" ;
 				
 				if((userVal == null || userVal == "") && (freeVal == null || freeVal == "")) {
 					return;
@@ -90,6 +88,15 @@ $(function() {
 	});
 	/**
 	 * EO LEND DIALOG
+	 */
+	
+	/**
+	 * SEARCH FORM
+	 */
+	createSelect2Deselect('#searchGenre',avaibleGenres);
+	
+	/**
+	 * EO SEARCH FORM
 	 */
 	
 });

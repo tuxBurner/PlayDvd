@@ -4,10 +4,6 @@
 @import helper.twitterBootstrap._
 
 @scripts = {
-  
-   
-  <script src="@routes.Assets.at("select2-2.1/select2.min.js")" type="text/javascript"></script>
-  
   <script type="text/javascript">
    <!--
      var avaibleBoxes = @Html(DvdAttribute.getAllByTypeAsJson(EDvdAttributeType.BOX));
@@ -20,11 +16,7 @@
   <script src="@routes.Assets.at("javascripts/dvdForm.js")" type="text/javascript"></script>
 }
 
-@styles = {
-  <link rel="stylesheet" href="@routes.Assets.at("select2-2.1/select2.css")" />
-}
-
-@mainmenu("Dvd Database - Add a dvd",scripts,styles) {
+@mainmenu("Dvd Database - Add a dvd",scripts,Html("")) {
 
   <div class="row" id="dvdFormWrapper">
 

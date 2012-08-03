@@ -16,6 +16,7 @@ import play.data.format.Formats;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 
+import com.google.gson.Gson;
 import com.typesafe.config.ConfigFactory;
 
 @Entity
@@ -103,17 +104,17 @@ public class User extends Model {
     return User.find.where().eq("userName", username).findUnique();
   }
 
-  public static List<String> getUserNames() {
+  public static String getUserNamesAsJson() {
     final List<User> users = User.find.select("userName").orderBy("userName asc").findList();
 
     final List<String> result = new ArrayList<String>();
-    result.add("");
 
     for (final User user : users) {
       result.add(user.userName);
     }
 
-    return result;
+    final Gson gson = new Gson();
+    return gson.toJson(result);
   }
 
 }
