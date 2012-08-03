@@ -54,7 +54,7 @@
           @if(dvd.movie.hasPoster != null && dvd.movie.hasPoster == true) {
             <img src="@routes.Dashboard.streamImage(dvd.movie.id,"POSTER","SMALL")"/>
           } else {
-            <img src="http://placehold.it/92x138/4D99E0/ffffff.png&text=No%20Poster"/>
+            <img src="@routes.Assets.at("images/NoPoster.png")"/>
           }
           </a>
         
