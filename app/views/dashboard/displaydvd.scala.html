@@ -82,10 +82,14 @@
       </div>
     }
     
-    <div class="row-fluid">
-      <label class="span4">Hull Nr.:</label>
-      <span>@dvd.dvdForm.hullNr</span>
-    </div>
+    @if(dvd.dvdForm.hullNr != null) {
+      <div class="row-fluid">
+        <label class="span4">Hull Nr.:</label>
+        <span>      
+          <a href="@routes.ListDvds.searchDvd?searchFor=@models.Dvd.HULL_NR_SEARCH @dvd.dvdForm.hullNr">@dvd.dvdForm.hullNr</a>
+        </span>
+      </div>
+    }
     
     <div class="row-fluid">
       <label class="span4">Runtime:</label>

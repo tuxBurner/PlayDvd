@@ -38,7 +38,7 @@ public class Dvd extends Model {
 	 */
   private static final long serialVersionUID = -8607299241692950618L;
 
-  private static final String HULL_NR_SEARCH = "hull:";
+  public static final String HULL_NR_SEARCH = "hull:";
 
   @Id
   public Long id;

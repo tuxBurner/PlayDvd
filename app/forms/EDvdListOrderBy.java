@@ -11,7 +11,8 @@ import com.google.gson.Gson;
 public enum EDvdListOrderBy {
 
   MOVIE_TITLE("movie.title"),
-  DATE("createdDate");
+  DATE("createdDate"),
+  BORROW_DATE("borrowDate");
 
   /**
    * The field in the db this enum orders the list
