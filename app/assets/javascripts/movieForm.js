@@ -14,6 +14,10 @@ $(function() {
 	
 	 $("#genres").select2({tags: avaibleGenres});	
 	 $("#actors").select2({ tags : avaibleActors });
+	 $("#series").select2({
+		 placeholder: "Select a movieseries",
+		 allowClear: true
+	 });
 	
 	// enable the button for  
 	var title = $('#title').val();
