@@ -38,6 +38,8 @@ public class Dvd extends Model {
 	 */
   private static final long serialVersionUID = -8607299241692950618L;
 
+  private static final String HULL_NR_SEARCH = "hull:";
+
   @Id
   public Long id;
 
@@ -213,7 +215,16 @@ public class Dvd extends Model {
     final ExpressionList<Dvd> where = Dvd.find.where();
 
     if (StringUtils.isEmpty(listFrom.searchFor) == false) {
-      where.like("movie.title", "%" + listFrom.searchFor + "%");
+
+      if (listFrom.searchFor.startsWith(Dvd.HULL_NR_SEARCH) == true) {
+        final String idToSearch = StringUtils.trimToNull(StringUtils.removeStart(listFrom.searchFor, Dvd.HULL_NR_SEARCH));
+        if (idToSearch != null && StringUtils.isNumeric(idToSearch) == true) {
+          where.eq("hullNr", idToSearch);
+        }
+
+      } else {
+        where.like("movie.title", "%" + listFrom.searchFor + "%");
+      }
     }
 
     if (StringUtils.isEmpty(listFrom.genre) == false) {
