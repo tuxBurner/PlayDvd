@@ -1,7 +1,7 @@
 $(function() {
 	
-	createSelect2Deselect('#box',avaibleBoxes);
-	createSelect2Deselect('#collection',avaibleCollections);
+	createSelect2DeselectCreate('#box',avaibleBoxes);
+	createSelect2DeselectCreate('#collection',avaibleCollections);
 	  
 	  
 	  /**

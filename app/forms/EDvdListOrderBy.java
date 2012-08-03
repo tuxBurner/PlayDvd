@@ -1,5 +1,7 @@
 package forms;
 
+import com.google.gson.Gson;
+
 /**
  * {@link Enum} for ordering stuff the list of dvds
  * 
@@ -18,6 +20,10 @@ public enum EDvdListOrderBy {
 
   private EDvdListOrderBy(final String dbField) {
     this.dbField = dbField;
+  }
+
+  public static String getAsJson() {
+    return new Gson().toJson(EDvdListOrderBy.values());
   }
 
 }

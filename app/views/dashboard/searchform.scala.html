@@ -9,6 +9,9 @@
 
 <!--
   var avaibleGenres = @Html(MovieAttribute.getAvaibleAttributesAsJson(EMovieAttributeType.GENRE));
+  var avaibleUsers = @Html(User.getUserNamesAsJson());
+  var avaibleAgeRatings = @Html(forms.DvdListFrom.getAgeRatingsAsJson()); 
+  var listOrderBy = @Html(forms.EDvdListOrderBy.getAsJson());
 //-->
 </script>
 
@@ -19,20 +22,30 @@
      
        
        <label for="genre">Genre</label>
-       <input type="hidden" name="genre" id="searchGenre" value="@dvdListForm("genre").value()" class="span2" data-placeholder="Genre"/>
+       <input type="hidden" name="genre" id="searchGenre" value="@dvdListForm("genre").value()" class="input-medium" data-placeholder="Genre"/>
+       
+       <label for="owner">Owner</label>
+       <input type="hidden" name="userName" id="searchOwner" value="@dvdListForm("userName").value()"  class="input-medium" data-placeholder="Owner"/>
+       
+       <input type="hidden" name="ageRating" id="searchAgeRating" value="@dvdListForm("ageRating").value()" class="input-mini"  data-placeholder="Agerating"/>
+
+       <label for="order">Order</label>
+       <input type="hidden" name="orderBy" id="searchOrderBy" value="@dvdListForm("orderBy").value()"  class="input-medium" data-placeholder="Owner"/>
+       
+       <label class="radio">
+         <input type="radio" name="orderHow" id="optionsRadios1" value="@forms.EDvdListOrderHow.UP" @if(dvdListForm("orderHow").value().equals("UP")) { checked="" }>
+         Up
+       </label>
+       
+       <label class="radio">
+         <input type="radio" name="orderHow" id="optionsRadios1" value="@forms.EDvdListOrderHow.DOWN" @if(dvdListForm("orderHow").value().equals("DOWN")) { checked="" }>
+         Down
+       </label>
        
        
+              
        
        
-       @* 
-       @select(field = dvdListForm("userName"), options(User.getUserNamesAsJson()),'_label->"Owner",'class-> "span2 chosen_select")
-       *@
-       
-       @select(field = dvdListForm("ageRating"), options(forms.DvdListFrom.getAgeRatings),'_label->"Rating",'class-> "span2 chosen_select")
-       
-       @select(field = dvdListForm("orderBy"), options(forms.EDvdListOrderBy.values().toList.map(_.toString)),'_label->"Order",'class-> "span2")
-       
-       @select(field = dvdListForm("orderHow"), options(forms.EDvdListOrderHow.values().toList.map(_.toString)),'_label->"",'class-> "span2")
        
        <button type="submit"><i class="icon-search"></i></button>
      

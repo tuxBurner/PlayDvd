@@ -94,7 +94,14 @@ $(function() {
 	 * SEARCH FORM
 	 */
 	createSelect2Deselect('#searchGenre',avaibleGenres);
-	
+	createSelect2Deselect('#searchOwner',avaibleUsers);
+	createSelect2Deselect('#searchAgeRating',avaibleAgeRatings,function(item) { 
+		if(item == null || item == "") {
+			return item;
+		}
+		return "<img class='flag' src='/assets/images/agerating/" + item + ".gif'/>";
+	});
+	createSelect2Deselect('#searchOrderBy',listOrderBy,null,false);
 	/**
 	 * EO SEARCH FORM
 	 */

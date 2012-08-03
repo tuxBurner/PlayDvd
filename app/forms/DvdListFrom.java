@@ -1,12 +1,12 @@
 package forms;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import controllers.Secured;
 import play.cache.Cache;
 import play.mvc.Controller;
 import play.mvc.Http.Context;
+
+import com.google.gson.Gson;
+
+import controllers.Secured;
 
 /**
  * This holds the filter for listing the dvd
@@ -103,12 +103,8 @@ public class DvdListFrom {
     Cache.set(Controller.ctx().session().get(Secured.AUTH_SESSION) + ".dvdlistform", dvdListFrom);
   }
 
-  public static List<String> getAgeRatings() {
-    final List<String> ageRatings = new ArrayList<String>();
-    ageRatings.add("");
-    ageRatings.addAll(DvdForm.getAgeRatings());
-
-    return ageRatings;
+  public static String getAgeRatingsAsJson() {
+    return new Gson().toJson(DvdForm.getAgeRatings());
 
   }
 

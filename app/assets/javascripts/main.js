@@ -47,11 +47,27 @@ function closeWaitDiaLog() {
 
 
 /**
- * Creates a select2 select 
+ * Creates a select2 select where the user can create new entrance
  * @param jqSelector
  * @param dataObj
  */
-function createSelect2Deselect(jqSelector,dataObj) {
+function createSelect2Deselect(jqSelector,dataObj,formatFunc,allowClear) {
+	$(jqSelector).select2({
+		allowClear: (allowClear == null || allowClear == true) ? true : false,
+	    formatSelection: (formatFunc == null) ? select2Format : formatFunc,
+        formatResult:  (formatFunc == null) ? select2Format : formatFunc,
+        id: select2GetId,
+        initSelection : select2InitSelection,
+        data: dataObj
+	});
+}
+
+/**
+ * Creates a select2 select where the user can create new entrance
+ * @param jqSelector
+ * @param dataObj
+ */
+function createSelect2DeselectCreate(jqSelector,dataObj) {
 	$(jqSelector).select2({
 		allowClear: true,
 	    createSearchChoice: function(term, data) { 
@@ -59,14 +75,23 @@ function createSelect2Deselect(jqSelector,dataObj) {
         		  return term;
         	  }
           },
-	    formatSelection: function(item) { return item; },
-        formatResult:  function(item) { return item; },
-        id: function(object) {
-        	return object;
-        },
-        initSelection : function (element) {
-          return $(element).val();
-        },
+	    formatSelection: select2Format,
+        formatResult:  select2Format,
+        id: select2GetId,
+        initSelection : select2InitSelection,
         data: dataObj
 	});
 }
+
+
+function select2Format(item) { 
+	return item; 
+}
+
+function select2GetId(object) {
+	return object;
+}
+
+function select2InitSelection(element) {
+	return $(element).val();
+} 

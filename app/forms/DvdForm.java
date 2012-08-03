@@ -3,21 +3,19 @@ package forms;
 import java.util.List;
 import java.util.Set;
 
+import models.Dvd;
+import models.DvdAttribute;
+import models.EDvdAttributeType;
+import models.Movie;
+
 import org.apache.commons.lang.StringUtils;
+
+import play.data.validation.Constraints.Required;
 
 import com.google.gson.Gson;
 import com.typesafe.config.ConfigFactory;
 
 import controllers.MovieSelect2Value;
-
-import play.data.validation.Constraints.Required;
-
-import models.Dvd;
-import models.DvdAttribute;
-import models.EDvdAttributeType;
-import models.EMovieAttributeType;
-import models.Movie;
-import models.MovieAttribute;
 
 /**
  * Form which handles all the inputs for adding, editing a dvd
