@@ -14,6 +14,8 @@ public abstract class AbstractJob implements Runnable {
 
   private final CronExpression cronExpression;
 
+  private boolean restartOnFail = true;
+
   public AbstractJob() throws Exception {
     final Annotation annotation = this.getClass().getAnnotation(AkkaJob.class);
     final AkkaJob akkaJob = (AkkaJob) annotation;
@@ -42,14 +44,28 @@ public abstract class AbstractJob implements Runnable {
   @Override
   public void run() {
     try {
+      // TODO: stopwatching how long the job is running
       runInternal();
     } catch (final Exception e) {
-      Logger.error("An error happend in the internal implementation of the job: " + this.getClass().getName(), e);
+      Logger.error("An error happend in the internal implementation of the job: " + this.getClass().getCanonicalName(), e);
+      if (restartOnFail == false) {
+        if (Logger.isDebugEnabled() == true) {
+          Logger.debug("Will not restart the job: " + this.getClass().getCanonicalName());
+        }
+        return;
+      }
     }
 
     scheduleJob();
   }
 
+  public void setRestartOnFail(final boolean restartOnFail) {
+    this.restartOnFail = restartOnFail;
+  }
+
+  /**
+   * Here you can implement the actual doing of the job
+   */
   public abstract void runInternal();
 
 }

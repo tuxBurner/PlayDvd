@@ -7,6 +7,7 @@ public class TestJob extends AbstractJob {
 
   public TestJob() throws Exception {
     super();
+    setRestartOnFail(false);
   }
 
   @Override

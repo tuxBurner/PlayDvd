@@ -21,6 +21,8 @@ public class JobPlugin extends Plugin {
 
   private final Application application;
 
+  public final Set<AbstractJob> jobs = new HashSet<AbstractJob>();
+
   public JobPlugin(final Application application) {
     this.application = application;
   }
@@ -46,7 +48,8 @@ public class JobPlugin extends Plugin {
         final Class<AbstractJob> abstractJobClass = (Class<AbstractJob>) forName;
 
         final Constructor<AbstractJob> constructor = abstractJobClass.getConstructor();
-        constructor.newInstance();
+        final AbstractJob newInstance = constructor.newInstance();
+        jobs.add(newInstance);
 
       } catch (final NoSuchMethodException e) {
         Logger.error("Could not find default constructor with no parameters in: " + clazz, e);
