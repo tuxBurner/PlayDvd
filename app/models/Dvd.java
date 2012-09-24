@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
 import play.Logger;
@@ -270,6 +271,52 @@ public class Dvd extends Model {
     final Dvd userDvd = Dvd.find.fetch("movie").where().eq("owner.userName", username).eq("id", id).findUnique();
     return userDvd;
 
+  }
+
+  /**
+   * Gets dvds which are in the same hull but not the dvd itself
+   * 
+   * @param dvd
+   * @return
+   */
+  public static List<Dvd> getDvdUnBorrowedSameHull(final Dvd dvd) {
+
+    // dont bother the database
+    if (dvd.hullNr == null) {
+      return null;
+    }
+
+    final List<Dvd> findList = Dvd.find.fetch("movie").where().eq("owner", dvd.owner).eq("hullNr", dvd.hullNr).ne("id", dvd.id).isNull("borrowDate").orderBy("movie.title").findList();
+
+    if (CollectionUtils.isEmpty(findList) == true) {
+      return null;
+    }
+
+    return findList;
+  }
+
+  public static List<Dvd> getDvdBorrowedSameHull(final Dvd dvd) {
+
+    // dont bother the database
+    if (dvd.hullNr == null) {
+      return null;
+    }
+
+    final ExpressionList<Dvd> notNull = Dvd.find.fetch("movie").where().eq("owner", dvd.owner).eq("hullNr", dvd.hullNr).ne("id", dvd.id).isNotNull("borrowDate");
+
+    if (StringUtils.isEmpty(dvd.borrowerName) == false) {
+      notNull.eq("borrowerName", dvd.borrowerName);
+    } else {
+      notNull.eq("borrowe", dvd.borrower);
+    }
+
+    final List<Dvd> findList = notNull.orderBy("movie.title").findList();
+
+    if (CollectionUtils.isEmpty(findList) == true) {
+      return null;
+    }
+
+    return findList;
   }
 
   /**

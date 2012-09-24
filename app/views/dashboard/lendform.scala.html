@@ -1,4 +1,4 @@
-@(lendForm: Form[forms.LendForm], dvd: Dvd)
+@(lendForm: Form[forms.LendForm], dvd: Dvd, inSameHull: List[Dvd])
 
 @import helper._
 @import helper.twitterBootstrap._
@@ -8,7 +8,7 @@
 <form class="form-horizontal">
 
 <fieldset>
-  <legend>Lend Dvd: <i>@dvd.movie.title</i></legend>
+  <legend>Lend Dvd: @if(dvd.movie.hasPoster) {<img src="@routes.Dashboard.streamImage(dvd.movie.id,"POSTER","TINY")"/>} <i>@dvd.movie.title</i></legend>
   
   <input type="hidden" id="lendDvdId" value="@dvd.id" />
   
@@ -19,7 +19,16 @@
   }
   @inputText(lendForm("freeName"),'_label -> "To free name", 'class -> "span5")
   
-  @checkbox(field = lendForm("alsoOthersInHull"), '_label -> "Others in Hull to")
+  @if(inSameHull != null) {
+    @checkbox(field = lendForm("alsoOthersInHull"), '_label -> "Others in Hull to")
+    
+    @for(otherDvd <- inSameHull) {
+      @if(otherDvd.movie.hasPoster) {
+        <img src="@routes.Dashboard.streamImage(otherDvd.movie.id,"POSTER","TINY")"/>
+      }
+      @otherDvd.movie.title
+    }
+  }
   
 </fieldset>
 </form>

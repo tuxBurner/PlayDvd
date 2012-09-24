@@ -86,6 +86,18 @@ $(function() {
 				});
 		
 	});
+	
+	$('.unlendDvdBtn').live('click',function(event){
+		pAjax(jsRoutes.controllers.Dashboard.unLendDialogContent($(this).data('dvdId')),null,
+				  function(data){
+				    $('#dvdLendDialog .dialogContent').html(data);
+				    $('#dvdLendDialog').dialog('open');
+				  },
+				  function(err) {
+				    
+				});
+		
+	});
 	/**
 	 * EO LEND DIALOG
 	 */

@@ -152,6 +152,7 @@ public class Application extends Controller {
         controllers.routes.javascript.Dashboard.displayDvd(),
         controllers.routes.javascript.Dashboard.menuGenres(),
         controllers.routes.javascript.Dashboard.lendDialogContent(),
+        controllers.routes.javascript.Dashboard.unLendDialogContent(),
         controllers.routes.javascript.Dashboard.lendDvd(),
         controllers.routes.javascript.Dashboard.streamImage(),
         controllers.routes.javascript.MovieController.showAddMovieForm(),

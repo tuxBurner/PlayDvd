@@ -75,8 +75,10 @@ public class Dashboard extends Controller {
       return Results.forbidden();
     }
 
+    final List<Dvd> dvdForUserInSameHull = Dvd.getDvdUnBorrowedSameHull(dvdForUser);
+
     final Form<LendForm> form = Controller.form(LendForm.class);
-    return Results.ok(lendform.render(form, dvdForUser));
+    return Results.ok(lendform.render(form, dvdForUser, dvdForUserInSameHull));
   }
 
   /**
@@ -99,7 +101,9 @@ public class Dashboard extends Controller {
       return Results.internalServerError(message);
     }
 
-    return Results.ok(unlendform.render(Controller.form(UnLendForm.class), dvdForUser));
+    final List<Dvd> dvdBorrowedSameHull = Dvd.getDvdBorrowedSameHull(dvdForUser);
+
+    return Results.ok(unlendform.render(Controller.form(UnLendForm.class), dvdForUser, dvdBorrowedSameHull));
 
   }
 
