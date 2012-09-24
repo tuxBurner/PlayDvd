@@ -12,12 +12,14 @@ $(function() {
 	  }
 	});
 	
-	 $("#genres").select2({tags: avaibleGenres});	
+	 $("#genres").select2({tags: avaibleGenres,  tokenSeparators: [","]});	
 	 $("#actors").select2({ tags : avaibleActors });
 	 $("#series").select2({
 		 placeholder: "Select a movieseries",
 		 allowClear: true
 	 });
+	 
+	 $('.select2-container-multi').addClass("span5")
 	
 	// enable the button for  
 	var title = $('#title').val();

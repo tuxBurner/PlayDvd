@@ -23,8 +23,8 @@ $(function() {
                   return {results: data};
               }
           },
-          initSelection : function (element) {
-            return selectedMovie;
+          initSelection : function (element,callback) {
+            return callback(selectedMovie);
           },
           formatResult: movieFormatResult, 
           formatSelection: movieFormatSelection

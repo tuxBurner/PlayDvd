@@ -99,7 +99,7 @@ $(function() {
 		if(item == null || item == "") {
 			return item;
 		}
-		return "<img class='flag' src='/assets/images/agerating/" + item + ".gif'/>";
+		return "<img class='flag' src='/assets/images/agerating/" + item.id + ".gif'/>";
 	});
 	createSelect2Deselect('#searchOrderBy',listOrderBy,null,false);
 	/**

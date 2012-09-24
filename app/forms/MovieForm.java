@@ -7,9 +7,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
+
 import models.EMovieAttributeType;
 import models.Movie;
 import models.MovieAttribute;
+import play.Logger;
 import play.data.validation.Constraints.Required;
 
 /**
@@ -100,59 +103,12 @@ public class MovieForm {
   }
 
   /**
-   * Gathers all attributes for the given type from the db and checks if the dvd
-   * 
-   * @param attributeType
-   * @return
-   */
-  public List<MovieFormAttribute> getDvdAttributes(final EMovieAttributeType attributeType, final Map<Integer, String> formVals) {
-
-    final List<MovieFormAttribute> result = new ArrayList<MovieFormAttribute>();
-
-    // merge wit the attributes from the database
-    final List<MovieAttribute> genres = MovieAttribute.getAllByType(attributeType);
-    final Set<String> newGenreMatchedWithDb = new HashSet<String>();
-    for (final MovieAttribute movieAttibute : genres) {
-
-      final String value = movieAttibute.value;
-      boolean selected = false;
-      for (final String formAttrs : formVals.values()) {
-        if (value.equals(formAttrs)) {
-          newGenreMatchedWithDb.add(formAttrs);
-          selected = true;
-          break;
-        }
-      }
-
-      result.add(new MovieFormAttribute(selected, value));
-    }
-
-    // add all attributes which where not in the database :)
-    for (final String genre : formVals.values()) {
-      if (newGenreMatchedWithDb.contains(genre) == false) {
-        result.add(new MovieFormAttribute(true, genre));
-      }
-    }
-
-    return result;
-  }
-
-  /**
    * This returns the values as a , seperated string
    * 
    * @param values
    * @return
    */
   public final static String getDvdFormAttributesAsString(final String values) {
-    final String returnVal = "";
-
-    // final List fromJson = gson.fromJson(values, List.class);
-    final String sep = "";
-    // for (final String value : values) {
-    // returnVal += sep + value;
-    // sep = ",";
-    // }
-
-    return returnVal;
+    return StringUtils.replaceChars(values, "[]", "");
   }
 }
