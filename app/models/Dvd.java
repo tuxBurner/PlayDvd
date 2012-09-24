@@ -304,11 +304,7 @@ public class Dvd extends Model {
 
     final ExpressionList<Dvd> notNull = Dvd.find.fetch("movie").where().eq("owner", dvd.owner).eq("hullNr", dvd.hullNr).ne("id", dvd.id).isNotNull("borrowDate");
 
-    if (StringUtils.isEmpty(dvd.borrowerName) == false) {
-      notNull.eq("borrowerName", dvd.borrowerName);
-    } else {
-      notNull.eq("borrowe", dvd.borrower);
-    }
+    Dvd.borrowerOrBorrowed(dvd, notNull);
 
     final List<Dvd> findList = notNull.orderBy("movie.title").findList();
 
@@ -317,6 +313,14 @@ public class Dvd extends Model {
     }
 
     return findList;
+  }
+
+  private static void borrowerOrBorrowed(final Dvd dvd, final ExpressionList<Dvd> notNull) {
+    if (StringUtils.isEmpty(dvd.borrowerName) == false) {
+      notNull.eq("borrowerName", dvd.borrowerName);
+    } else {
+      notNull.eq("borrower", dvd.borrower);
+    }
   }
 
   /**
@@ -356,7 +360,7 @@ public class Dvd extends Model {
 
       // user also wants to lend dvds in the same hull
       if (alsoOthersInHull == true && dvdToLend.hullNr != null) {
-        final Set<Dvd> findSet = Dvd.find.where().eq("hullNr", dvdToLend.hullNr).ne("id", dvdToLend.id).isNull("borrowDate").findSet();
+        final Set<Dvd> findSet = Dvd.find.where().eq("hullNr", dvdToLend.hullNr).ne("id", dvdToLend.id).isNull("borrowDate").eq("owner", dvdToLend.owner).findSet();
         dvdsToLend.addAll(findSet);
       }
 
@@ -381,6 +385,44 @@ public class Dvd extends Model {
           dvd.borrowDate = new Date().getTime();
           dvd.update();
         }
+      }
+      return;
+    }
+
+    Logger.error("Could not find dvd: " + dvdId + " for owner: " + ownerName);
+  }
+
+  /**
+   * Lends the {@link Dvd} to a user or to a freename
+   * 
+   * @param dvdId
+   * @param ownerName
+   * @param userName
+   * @param freeName
+   */
+  public static void unlendDvdToUser(final Long dvdId, final String ownerName, final Boolean alsoOthersInHull) {
+    final Dvd dvdToUnlend = Dvd.getDvdForUser(dvdId, ownerName);
+
+    if (dvdToUnlend != null) {
+
+      final Set<Dvd> dvdsToUnlend = new HashSet<Dvd>();
+      dvdsToUnlend.add(dvdToUnlend);
+
+      // user also wants to lend dvds in the same hull
+      if (alsoOthersInHull == true && dvdToUnlend.hullNr != null) {
+
+        final ExpressionList<Dvd> expression = Dvd.find.where().eq("hullNr", dvdToUnlend.hullNr).ne("id", dvdToUnlend.id).eq("owner", dvdToUnlend.owner).isNotNull("borrowDate");
+        Dvd.borrowerOrBorrowed(dvdToUnlend, expression);
+
+        dvdsToUnlend.addAll(expression.findSet());
+      }
+
+      for (final Dvd dvd : dvdsToUnlend) {
+
+        dvd.borrowDate = null;
+        dvd.borrower = null;
+        dvd.borrowerName = null;
+        dvd.update();
       }
       return;
     }

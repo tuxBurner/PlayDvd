@@ -37,7 +37,7 @@ $(function() {
 	/**
 	 * LEND DIALOG
 	 */
-	$( "#dvdLendDialog" ).dialog({
+	$("#dvdLendDialog" ).dialog({
 	  resizable: false,
 	  height:340,
 	  width:440,
@@ -87,11 +87,38 @@ $(function() {
 		
 	});
 	
+	$("#dvdUnLendDialog" ).dialog({
+		  resizable: false,
+		  height:340,
+		  width:440,
+		  autoOpen: false,
+		  modal: true,
+		  buttons: {
+				"Unlend": function() {
+					var lendOtherInHull = ($('#alsoOthersInHull').attr('checked') == 'checked') ? "true" : "false" ;
+					
+					pAjax(jsRoutes.controllers.Dashboard.unlendDvd(
+					  $("#unlendDvdId").val()),{"alsoOthersInHull" :  lendOtherInHull},
+				      function(data){
+					    alert('aww');
+					   },
+					   function(err) {
+					  }
+					 );
+					
+					$( this ).dialog( "close" );
+				},
+				Cancel: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		});
+	
 	$('.unlendDvdBtn').live('click',function(event){
 		pAjax(jsRoutes.controllers.Dashboard.unLendDialogContent($(this).data('dvdId')),null,
 				  function(data){
-				    $('#dvdLendDialog .dialogContent').html(data);
-				    $('#dvdLendDialog').dialog('open');
+				    $('#dvdUnLendDialog .dialogContent').html(data);
+				    $('#dvdUnLendDialog').dialog('open');
 				  },
 				  function(err) {
 				    

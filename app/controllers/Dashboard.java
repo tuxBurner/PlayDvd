@@ -135,6 +135,25 @@ public class Dashboard extends Controller {
   }
 
   /**
+   * This actually lends a dvd to a user this is called via ajax
+   * 
+   * @param dvdId
+   * @return
+   */
+  public static Result unlendDvd(final Long dvdId) {
+
+    final Form<UnLendForm> form = Controller.form(UnLendForm.class).bindFromRequest();
+
+    // check if the form is okay
+    final UnLendForm unlendForm = form.get();
+
+    final String ownerName = Controller.ctx().session().get(Secured.AUTH_SESSION);
+    Dvd.unlendDvdToUser(dvdId, ownerName, unlendForm.alsoOthersInHull);
+
+    return Results.TODO;
+  }
+
+  /**
    * This is called from the mainmenu.scala.html to have all the genres in the
    * menu
    * 
