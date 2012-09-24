@@ -13,11 +13,10 @@ object ApplicationBuild extends Build {
       "commons-io" % "commons-io" % "2.0.1",
       "commons-collections" % "commons-collections" % "3.2.1",      
       
-      "com.github.twitter" % "bootstrap" % "2.0.4",
+      "com.github.twitter" % "bootstrap" % "2.1.0",
       "com.jquery" % "jquery" % "1.7.2-1",
       "com.google.code.gson" % "gson" % "2.2.1",
       "org.webjars" % "jquerypp" % "1.0b2-1",
-      "org.webjars" % "select2" % "2.1-1",
       
       "com.github.ralfebert" % "jgravatar" % "1.0-SNAPSHOT",
       "com.moviejukebox" % "thetvdbapi" % "1.4-SNAPSHOT",
