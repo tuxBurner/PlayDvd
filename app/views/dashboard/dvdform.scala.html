@@ -43,13 +43,25 @@
        
          
        @inputText(dvdForm("hullNr"),'_label -> "Hull Nr.", 'class -> "span4")
+
        
-       @inputText(dvdForm("eanNr"),'_label -> "Ean Nr.", 'class -> "span4")
+       @inputText(dvdForm("eanNr"),'_label -> "Ean Nr.", 'class -> "span4")<a class="btn" href="http://zxing.appspot.com/scan?ret=http://foo.com/products/{CODE}/description&SCAN_FORMATS=UPC_A,EAN_13"><i class="icon-barcode"></i></a>
+        
        
-       
-       <input type="hidden" name="box" id="box" value="@dvdForm("box").value()" class="select2_deselect_new span5" data-placeholder="Select a dvd box"/>
-       
-       <input type="hidden" name="collection" id="collection" value="@dvdForm("collection").value()" class="select2_deselect_new span5" data-placeholder="Select a collection"/>
+       <div class="clearfix">
+         <label for="box">Box:</label>
+         <div class="input">
+           <input type="hidden" name="box" id="box" value="@dvdForm("box").value()" class="select2_deselect_new span5" data-placeholder="Select a dvd box"/>
+         </div>
+       </div>
+
+       <div class="clearfix">
+         <label for="collection">Collection:</label>
+         <div class="input">
+           <input type="hidden" name="collection" id="collection" value="@dvdForm("collection").value()" class="select2_deselect_new span5" data-placeholder="Select a collection"/>
+         </div>
+       </div>
+
        
        <hr />
        
