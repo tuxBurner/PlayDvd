@@ -52,6 +52,8 @@ public class DvdForm {
 
   public Integer hullNr;
 
+  public String eanNr;
+
   /**
    * Transforms a {@link Dvd} to a {@link DvdForm} for editing the dvd in the
    * frontend
@@ -67,6 +69,7 @@ public class DvdForm {
     dvdForm.dvdId = dvd.id;
     dvdForm.ownerName = dvd.owner.userName;
     dvdForm.hullNr = dvd.hullNr;
+    dvdForm.eanNr = dvd.eanNr;
 
     final Set<DvdAttribute> dvdAttrs = dvd.attributes;
     for (final DvdAttribute dvdAttibute : dvdAttrs) {

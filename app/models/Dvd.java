@@ -41,6 +41,8 @@ public class Dvd extends Model {
 
   public static final String HULL_NR_SEARCH = "hull:";
 
+  public static final String EAN_NR_SEARCH = "ean:";
+
   @Id
   public Long id;
 
@@ -157,6 +159,7 @@ public class Dvd extends Model {
 
     dvd.movie = movie;
     dvd.hullNr = dvdForm.hullNr;
+    dvd.eanNr = dvdForm.eanNr;
 
     if (dvd.id == null) {
       dvd.createdDate = new Date().getTime();
@@ -226,6 +229,12 @@ public class Dvd extends Model {
         final String idToSearch = StringUtils.trimToNull(StringUtils.removeStart(listFrom.searchFor, Dvd.HULL_NR_SEARCH));
         if (idToSearch != null && StringUtils.isNumeric(idToSearch) == true) {
           where.eq("hullNr", idToSearch);
+        }
+
+      } else if (listFrom.searchFor.startsWith(Dvd.EAN_NR_SEARCH) == true) {
+        final String idToSearch = StringUtils.trimToNull(StringUtils.removeStart(listFrom.searchFor, Dvd.EAN_NR_SEARCH));
+        if (idToSearch != null && StringUtils.isNumeric(idToSearch) == true) {
+          where.eq("eanNr", idToSearch);
         }
 
       } else {
