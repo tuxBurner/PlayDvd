@@ -399,9 +399,12 @@ public class Dvd extends Model {
    * @param ownerName
    * @param userName
    * @param freeName
+   * @return
    */
-  public static void unlendDvdToUser(final Long dvdId, final String ownerName, final Boolean alsoOthersInHull) {
+  public static Set<Long> unlendDvdToUser(final Long dvdId, final String ownerName, final Boolean alsoOthersInHull) {
     final Dvd dvdToUnlend = Dvd.getDvdForUser(dvdId, ownerName);
+
+    final Set<Long> unlendIds = new HashSet<Long>();
 
     if (dvdToUnlend != null) {
 
@@ -419,15 +422,21 @@ public class Dvd extends Model {
 
       for (final Dvd dvd : dvdsToUnlend) {
 
+        unlendIds.add(dvd.id);
+
+        Logger.debug("Unlending dvd: " + dvdId);
+
         dvd.borrowDate = null;
         dvd.borrower = null;
         dvd.borrowerName = null;
         dvd.update();
       }
-      return;
+
     }
 
     Logger.error("Could not find dvd: " + dvdId + " for owner: " + ownerName);
+
+    return unlendIds;
   }
 
   /**
