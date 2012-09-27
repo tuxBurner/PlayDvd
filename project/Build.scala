@@ -20,7 +20,7 @@ object ApplicationBuild extends Build {
       
       "com.github.ralfebert" % "jgravatar" % "1.0-SNAPSHOT",
       "com.moviejukebox" % "thetvdbapi" % "1.4-SNAPSHOT",
-      "com.moviejukebox" % "themoviedbapi" % "3.2-SNAPSHOT"
+      "com.moviejukebox" % "themoviedbapi" % "3.3-SNAPSHOT"
     )
 
     val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA).settings(
