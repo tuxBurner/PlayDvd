@@ -15,10 +15,10 @@
   @searchform(dvdListForm)
 
   @if(dvdPage.page.getTotalRowCount == 0) {
-    <h1>No Dvds found !</h1>
+    <h4>No Dvds found !</h4>
   } else {
   <div class="row">
-    <h1>Displaying @dvdPage.page.getDisplayXtoYofZ(" to "," of ") DVD's</h1>
+    <h4>Displaying @dvdPage.page.getDisplayXtoYofZ(" to "," of ") DVD's</h4>
     
     
     @if(dvdPage.page.getTotalPageCount > 1) {
@@ -44,50 +44,52 @@
       </div>
     }
     
-    <ul class="thumbnails">
-    @for(dvd <- dvdPage.list) {
-      <li class="span3 dvdListHeight">
-        <div class="thumbnail dvdDisplayContainer dvdListHeight well @if(dvd.borrower != null || dvd.borrowerName != null) {borrowed}  @if(dvd.borrower != null && dvd.borrower.userName == Controller.ctx().session().get(Secured.AUTH_SESSION)) { selfBorrowed }">
-        
-          <a class="displayInfoButton" href="#" data-dvd-id="@dvd.id">
-        
-          @if(dvd.movie.hasPoster != null && dvd.movie.hasPoster == true) {
-            <img src="@routes.Dashboard.streamImage(dvd.movie.id,"POSTER","SMALL")"/>
-          } else {
-            <img src="@routes.Assets.at("images/NoPoster.png")"/>
-          }
-          </a>
-        
-          <div class="caption">  
-          <h5>
-            @dvd.movie.title (@dvd.owner.userName) @if(dvd.hullNr != null) { (@dvd.hullNr) } 
-            @if(dvd.borrower != null || dvd.borrowerName != null){
-              -> @if(dvd.borrower != null){ @dvd.borrower.userName } else { @dvd.borrowerName }
-            }
-          </h5>
-          
-           
-          <div class="btn-group">
-            @if(dvd.owner.userName == username) {
-              @if(dvd.borrower == null && dvd.borrowerName == null) {
-                <a class="btn lendDvdBtn btn-mini" href="#" data-dvd-id="@dvd.id"><i class="icon-share"></i></a>
+    <ul class="coverlist">
+      @for(dvd <- dvdPage.list) {
+        <li class="span3">
+          <div class="coverwrapper">
+            <em data-dvd-id="@dvd.id" class="@DvdAttribute.getCopyTypeAttribute(dvd)">
+            
+              @if(dvd.borrower != null || dvd.borrowerName != null){
+                 <div class="coverborrowed"></div>
+              }
+            
+              <div class="well well-small dvdInfo">
+                <p> @dvd.movie.title  @if(dvd.hullNr != null) { (@dvd.hullNr) }</p>
+                <span>
+                   @dvd.owner.userName 
+                   @if(dvd.borrower != null || dvd.borrowerName != null){
+                     -> @if(dvd.borrower != null){ @dvd.borrower.userName } else { @dvd.borrowerName }
+                   }
+                 </span>
+              </div>  
+              <div class="rateWrapper"><img  src="@routes.Assets.at("images/agerating/"+DvdAttribute.getAgeRatingAttribute(dvd)+".gif")" /></div>
+            </em>	
+            <div class="btn-group dvdBtnGrp">
+              @if(dvd.owner.userName == username) {
+                @if(dvd.borrower == null && dvd.borrowerName == null) {
+                  <a class="btn btn-inverse lendDvdBtn btn-mini" href="#" data-dvd-id="@dvd.id"><i class="icon-share"></i></a>
+                } else {
+                  <a class="btn btn-inverse unlendDvdBtn btn-mini" href="#" data-dvd-id="@dvd.id"><i class="icon-download"></i></a>
+                }
+                <a class="btn btn-inverse btn-mini" href="@routes.DvdController.showEditDvd(dvd.id)"><i class="icon-edit"></i></a>
+                <a class="btn btn-inverse deleteDvdBtn btn-mini" href="#" data-dvd-id="@dvd.id"><i class="icon-trash"></i></a>
               } else {
-                <a class="btn unlendDvdBtn btn-mini" href="#" data-dvd-id="@dvd.id"><i class="icon-download"></i></a>
+                @if(dvd.borrower == null && dvd.borrowerName == null) {
+                  <a class="btn btn-inverse btn-mini" href=""><i class="icon-shopping-cart"></i></a>
+                }
               }
-              
-              <a class="btn btn-mini" href="@routes.DvdController.showEditDvd(dvd.id)"><i class="icon-edit"></i></a>
-              <a class="btn deleteDvdBtn btn-mini" href="#" data-dvd-id="@dvd.id"><i class="icon-trash"></i></a>
-            } else {
-              @if(dvd.borrower == null && dvd.borrowerName == null) {
-                <a class="btn btn-mini" href=""><i class="icon-shopping-cart"></i></a>
+            </div>
+            <a class="displayInfoButton" href="#" data-dvd-id="@dvd.id">
+              @if(dvd.movie.hasPoster != null && dvd.movie.hasPoster == true) {
+                <img src="@routes.Dashboard.streamImage(dvd.movie.id,"POSTER","SMALL")"/>
+              } else {
+                <img src="@routes.Assets.at("images/NoPoster.png")"/>
               }
-            }
+             </a>
           </div>
-        </div>
-          
-        </div>
-      </li>
-    }
+        </li>
+        }
     </ul>
     
   </div>

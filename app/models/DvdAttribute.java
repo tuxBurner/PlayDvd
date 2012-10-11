@@ -169,4 +169,21 @@ public class DvdAttribute extends Model {
     return attributes;
   }
 
+  public static String getAgeRatingAttribute(final Dvd dvd) {
+    return DvdAttribute.getSingleAttrFromDvd(dvd, EDvdAttributeType.RATING);
+  }
+
+  public static String getCopyTypeAttribute(final Dvd dvd) {
+    return DvdAttribute.getSingleAttrFromDvd(dvd, EDvdAttributeType.COPY_TYPE);
+  }
+
+  public static String getSingleAttrFromDvd(final Dvd dvd, final EDvdAttributeType attrType) {
+    for (final DvdAttribute attribute : dvd.attributes) {
+      if (attribute.attributeType.equals(attrType)) {
+        return attribute.value;
+      }
+    }
+    return null;
+  }
+
 }

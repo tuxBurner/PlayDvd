@@ -64,12 +64,12 @@ public class DvdListFrom {
   /**
    * What field in the database to use to order the list
    */
-  public EDvdListOrderBy orderBy = EDvdListOrderBy.MOVIE_TITLE;
+  public EDvdListOrderBy orderBy = EDvdListOrderBy.DATE;
 
   /**
    * How to order the result list
    */
-  public EDvdListOrderHow orderHow = EDvdListOrderHow.UP;
+  public EDvdListOrderHow orderHow = EDvdListOrderHow.DOWN;
 
   /**
    * Gets the current search form from the cache if the cache is empty a new one

@@ -80,3 +80,97 @@ ul.tags {
 .pagination .disabled span, .pagination .disabled a, .pagination .disabled a:hover {
 	background-color: #E1E1E1;
 }
+
+
+/**
+* dvd list 
+**/
+.coverlist {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.coverlist li {
+	margin: 10px;
+	padding: 0;
+	float: left;
+	position: relative;
+	width: 212px;
+	height: 278px;
+}
+
+
+.coverwrapper img {
+  height: 255px;
+  width: 180px;
+	border: none;
+	padding: 14px 12px 12px 13px;
+}
+.coverwrapper em {
+	width: 220px;
+	height: 278px;
+	display: block;
+	position: absolute;
+	top: 4px;
+	left: -17px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.coverwrapper em div.dvdInfo {
+  background: #1B1B1B;
+  color: #FFFFFF;
+  position:  absolute;
+  top: 11px;
+  left: 30px;
+  font-size: 10px;
+  opacity: 0.8;
+  width: 161px;
+ display: none;
+ border: none;
+}
+
+.coverwrapper div.dvdBtnGrp {
+  position: absolute;
+  bottom: 11px;
+  left: 75px;
+}
+
+.coverwrapper em div.rateWrapper, .coverwrapper em div.rateWrapper img  {
+  width: 21px;
+  height: 21px;
+}
+
+
+.coverwrapper em div.rateWrapper {
+  position: absolute;
+   bottom: 30px;
+   left: 30px;
+}
+
+.coverwrapper em div.coverborrowed {
+    position: absolute;
+    height: 257px;
+    width: 22px;
+    background-color: #FF0000;
+    border: none;
+    top: 9px;
+    left: 8px;
+    opacity: 0.3;
+}
+
+.coverwrapper em.DVD {
+  background: url(../images/covers/dvd.png) no-repeat;
+}
+
+.coverwrapper em.BLURAY {
+	background: url(../images/covers/bluray.png) no-repeat;
+}
+
+.coverwrapper em.BLURAY3D {
+	background: url(../images/covers/bluray3d.png) no-repeat;
+}
+
+.coverwrapper em.HDDVD {
+	background: url(../images/covers/hddvd.png) no-repeat;
+}

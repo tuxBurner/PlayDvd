@@ -1,5 +1,11 @@
 $(function() {
 	
+	$('.coverwrapper em').mouseenter(function() {
+	      $('.dvdInfo',this).fadeIn(150);
+	    }).mouseleave(function() {
+	      $('.dvdInfo',this).fadeOut(150);
+	    });
+	
 	/**
 	 * INFO DIALOG
 	 */
@@ -18,7 +24,7 @@ $(function() {
 	});
 	
 	// open the info dialog when the user clicks on the info button
-	$('.displayInfoButton').live('click',function(event){
+	$('.coverwrapper em').live('click',function(event){
 	  pAjax(jsRoutes.controllers.Dashboard.displayDvd($(this).data('dvdId')),null,
 				  function(data){
 				    $('#dvdInfoDialog .dialogContent').html(data);
