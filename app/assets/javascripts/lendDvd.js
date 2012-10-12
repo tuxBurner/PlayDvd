@@ -3,8 +3,14 @@
  */
 $(function() {
   
-  $('#userName').chosen({
+  /*$('#userName').chosen({
     allow_single_deselect: true
-  });
+  });*/
+	
+	 $("#lendToUser").select2({
+		 placeholder: "Select a user",
+		 allowClear: true
+	 });
+		 
   
 });

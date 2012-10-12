@@ -549,11 +549,6 @@
 
 } /* the overflow property removes extra width in IE */
 
-/* Remove the focus ring for default button in dialog buttonset. */
-.ui-dialog-buttonset .ui-button:focus {
-  outline:none;
-}
-
 .ui-button-primary {
   color: #ffffff;
   background-color: #0064cd;
@@ -724,12 +719,10 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
   text-indent: 9999px;
 }
 
-.ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus {
-  filter: alpha(opacity=90);
+.ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus { padding: 0;   filter: alpha(opacity=90);
   -khtml-opacity: 0.90;
   -moz-opacity: 0.90;
-  opacity: 0.90;
-}
+  opacity: 0.90;   }
 
 .ui-dialog .ui-dialog-content { position: relative; border: 0; padding: .5em 1em; background: none; overflow: auto; zoom: 1; }
 
@@ -860,13 +853,9 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
 
 
  }
-.ui-tabs .ui-tabs-nav li.ui-tabs-selected,
-.ui-tabs .ui-tabs-nav li.ui-tabs-active { margin-bottom: 0; padding-bottom: 0px; outline:none;}
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected { margin-bottom: 0; padding-bottom: 0px; outline:none;}
 
-.ui-tabs .ui-tabs-nav li.ui-tabs-selected a,
-.ui-tabs .ui-tabs-nav li.ui-state-disabled a,
-.ui-tabs .ui-tabs-nav li.ui-state-processing a,
-.ui-tabs .ui-tabs-nav li.ui-tabs-active a {
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a {
 
   background-color: #ffffff;
   border: 1px solid #ddd;
@@ -877,7 +866,7 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
 }
 
 
-.ui-tabs .ui-tabs-nav li.ui-tabs-selected:hover, .ui-tabs .ui-tabs-nav li.ui-tabs-active:hover {
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected:hover{
   background:#ffffff;
   outline:none;
 }
@@ -1286,12 +1275,6 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text
   border-bottom:0;
   border-left:0;
   border-right:0;
-}
-/* Fix for wijmo separator not being centered. */
-/* Hate having to add the li.wijmo-wijmenu-separator at the end, but because of order of CSS files being loaded, I needed to up the specificity level. */
-.wijmo-wijmenu-horizontal .wijmo-wijmenu-child li.wijmo-wijmenu-separator{
-  width:96%;
-  margin:1px 2%;
 }
 
 .wijmo-wijmenu .wijmo-wijmenu-item input {

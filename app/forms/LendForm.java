@@ -16,7 +16,7 @@ public class LendForm {
   public String userName;
 
   public String freeName;
-  
+
   public Boolean alsoOthersInHull = false;
 
   public static List<String> getOtherUsers() {
