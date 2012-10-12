@@ -23,7 +23,7 @@
     
     @if(dvdPage.page.getTotalPageCount > 1) {
     <div class="row">
-      <div class="pagination pull-right">
+      <div class="pagination pagination-small pull-right">
         <ul>
 
           <li  @if(dvdPage.page.hasPrev == false) { class="disabled" }><a @if(dvdPage.page.hasPrev == true) { href="@routes.ListDvds.listdvds(dvdPage.page.getPageIndex-1)" }>Prev</a></li>
