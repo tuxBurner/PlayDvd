@@ -42,10 +42,10 @@ public class InfoDvd {
       borrowedOn = new Date(dvd.borrowDate);
     }
 
-    boxDvds = getDvdsByBoxOrCollection(dvd, EDvdAttributeType.BOX, dvdForm.box);
-    collectionDvds = getDvdsByBoxOrCollection(dvd, EDvdAttributeType.COLLECTION, dvdForm.collection);
-    seriesDvd = getDvdsByMovieSeries(dvd, movieForm.series);
-
+    final List<Long> alreadyAdded = new ArrayList<Long>();
+    boxDvds = getDvdsByBoxOrCollection(dvd, EDvdAttributeType.BOX, dvdForm.box, alreadyAdded);
+    collectionDvds = getDvdsByBoxOrCollection(dvd, EDvdAttributeType.COLLECTION, dvdForm.collection, alreadyAdded);
+    seriesDvd = getDvdsByMovieSeries(dvd, movieForm.series, alreadyAdded);
   }
 
   /**
@@ -54,9 +54,10 @@ public class InfoDvd {
    * @param dvd
    * @param attributeType
    * @param attrvalue
+   * @param alreadyAdded
    * @return
    */
-  private List<CollectionDvd> getDvdsByMovieSeries(final Dvd dvd, final String attrvalue) {
+  private List<CollectionDvd> getDvdsByMovieSeries(final Dvd dvd, final String attrvalue, final List<Long> alreadyAdded) {
 
     if (StringUtils.isEmpty(attrvalue) == true) {
       return null;
@@ -67,7 +68,10 @@ public class InfoDvd {
     if (CollectionUtils.isEmpty(boxDbDvds) == false) {
       returnList = new ArrayList<CollectionDvd>();
       for (final Dvd boxDvd : boxDbDvds) {
-        returnList.add(new CollectionDvd(boxDvd));
+        if (alreadyAdded.contains(boxDvd.id) == false) {
+          returnList.add(new CollectionDvd(boxDvd));
+          alreadyAdded.add(boxDvd.id);
+        }
       }
     }
 
@@ -82,7 +86,7 @@ public class InfoDvd {
    * @param attrvalue
    * @return
    */
-  private List<CollectionDvd> getDvdsByBoxOrCollection(final Dvd dvd, final EDvdAttributeType attrType, final String attrvalue) {
+  private List<CollectionDvd> getDvdsByBoxOrCollection(final Dvd dvd, final EDvdAttributeType attrType, final String attrvalue, final List<Long> alreadyAdded) {
 
     if (StringUtils.isEmpty(attrvalue) == true) {
       return null;
@@ -93,7 +97,10 @@ public class InfoDvd {
     if (CollectionUtils.isEmpty(boxDbDvds) == false) {
       returnList = new ArrayList<CollectionDvd>();
       for (final Dvd boxDvd : boxDbDvds) {
-        returnList.add(new CollectionDvd(boxDvd));
+        if (alreadyAdded.contains(boxDvd.id) == false) {
+          alreadyAdded.add(boxDvd.id);
+          returnList.add(new CollectionDvd(boxDvd));
+        }
       }
     }
 

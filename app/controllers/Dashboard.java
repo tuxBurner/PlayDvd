@@ -59,7 +59,7 @@ public class Dashboard extends Controller {
 
     final InfoDvd infoDvd = new InfoDvd(dvd);
 
-    return Results.ok(displaydvd.render(infoDvd));
+    return Results.ok(displaydvd.render(infoDvd, Controller.request().username()));
   }
 
   /**

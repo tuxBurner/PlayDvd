@@ -12,7 +12,7 @@ body {
 
 /* dialoginfo stuff */
 #dvdInfoDialog fieldset {
-	opacity: 0.80;
+	opacity: 0.85;
 }
 
 /* no border arround genres and actors*/
@@ -25,25 +25,10 @@ ul.tags {
 	margin: 0 0 0 0;
 }
 
-.dvdListHeight {
-	height: 220px;
-}
-
 .dvdDisplayContainer {
 	opacity: 0.9;
 }
 
-.dvdDisplayContainer a.displayInfoButton img {
-	max-width: 100%;
-	margin-left: auto;
-	margin-right: auto;
-	display: block;
-}
-
-.dvdDisplayContainer .caption {
-	text-align: center; 
-	height: 25px;
-}
 
 .dvdDisplayContainer h5 {
   font-size: 10px;
@@ -52,10 +37,6 @@ ul.tags {
   margin: 2px 0px;
 }
 
-.dvdDisplayContainer .btn-group {
-  text-align: center; 
-  display:inline-block; 
-}
 
 #dvdInfoDialog {
 	background-size: 100% 100%;
@@ -65,13 +46,15 @@ ul.tags {
 	-moz-background-size: 100% 100%; /*not working in Firefox as yet */
 }
 
-.borrowed {
-	background-color: #DA4F49;
+#dvdInfoDialog fieldset.well {
+  background-image:  url(http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/low_contrast_linen.png);
+  color: #000000;
 }
 
-.selfBorrowed {
-	background-color: #F89406;
+#dvdInfoDialog fieldset.well a {
+  color: #000000;
 }
+
 
 .pagination a:hover, .pagination a {
 	background-color: #C3C3C3;
@@ -99,14 +82,18 @@ pagination ul > .disabled > span, .pagination ul > .disabled > a, .pagination ul
 	height: 278px;
 }
 
+.coverlist li.listNoMargin {
+  margin: 0px;
+}
 
-.coverwrapper img {
+
+.coverlist .coverwrapper img {
   height: 255px;
   width: 180px;
 	border: none;
 	padding: 14px 12px 12px 13px;
 }
-.coverwrapper em {
+.coverlist .coverwrapper em {
 	width: 220px;
 	height: 278px;
 	display: block;
@@ -117,7 +104,7 @@ pagination ul > .disabled > span, .pagination ul > .disabled > a, .pagination ul
 	cursor: pointer;
 }
 
-.coverwrapper em div.dvdInfo {
+.coverlist .coverwrapper em div.dvdInfo {
   background: #1B1B1B;
   color: #FFFFFF;
   position:  absolute;
@@ -130,25 +117,25 @@ pagination ul > .disabled > span, .pagination ul > .disabled > a, .pagination ul
  border: none;
 }
 
-.coverwrapper div.dvdBtnGrp {
+.coverlist .coverwrapper div.dvdBtnGrp {
   position: absolute;
   bottom: 11px;
   left: 75px;
 }
 
-.coverwrapper em div.rateWrapper, .coverwrapper em div.rateWrapper img  {
+.coverlist .coverwrapper em div.rateWrapper,.coverlist .coverwrapper em div.rateWrapper img  {
   width: 21px;
   height: 21px;
 }
 
 
-.coverwrapper em div.rateWrapper {
+.coverlist .coverwrapper em div.rateWrapper {
   position: absolute;
    bottom: 30px;
    left: 30px;
 }
 
-.coverwrapper em div.coverborrowed {
+.coverlist .coverwrapper em div.coverborrowed {
     position: absolute;
     height: 257px;
     width: 22px;
@@ -159,18 +146,27 @@ pagination ul > .disabled > span, .pagination ul > .disabled > a, .pagination ul
     opacity: 0.3;
 }
 
-.coverwrapper em.DVD {
+
+.coverlist .coverwrapper em div.borrowed {
+  background-color: #FF0000;
+}
+
+.coverlist .coverwrapper em div.selfBorrowed {
+  background-color: #F89406
+}
+
+.coverlist .coverwrapper em.DVD {
   background: url(../images/covers/dvd.png) no-repeat;
 }
 
-.coverwrapper em.BLURAY {
+.coverlist .coverwrapper em.BLURAY {
 	background: url(../images/covers/bluray.png) no-repeat;
 }
 
-.coverwrapper em.BLURAY3D {
+.coverlist .coverwrapper em.BLURAY3D {
 	background: url(../images/covers/bluray3d.png) no-repeat;
 }
 
-.coverwrapper em.HDDVD {
+.coverlist .coverwrapper em.HDDVD {
 	background: url(../images/covers/hddvd.png) no-repeat;
 }

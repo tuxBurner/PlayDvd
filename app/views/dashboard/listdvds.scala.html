@@ -25,19 +25,16 @@
     <div class="row">
       <div class="pagination pagination-small pull-right">
         <ul>
-
           <li  @if(dvdPage.page.hasPrev == false) { class="disabled" }><a @if(dvdPage.page.hasPrev == true) { href="@routes.ListDvds.listdvds(dvdPage.page.getPageIndex-1)" }>Prev</a></li>
-
-          @for(nav <- dvdPage.nav) {
-            <li @if((nav.idx) == dvdPage.page.getPageIndex){class="active"} @if(nav.idx == null) {class="disabled"}>
-            @if(nav.idx == null) {
-              <a href="#">@nav.displayVal</a>
-            } else {
-              <a  href="@routes.ListDvds.listdvds(nav.idx)">@nav.displayVal</a>
+            @for(nav <- dvdPage.nav) {
+              <li @if((nav.idx) == dvdPage.page.getPageIndex){class="active"} @if(nav.idx == null) {class="disabled"}>
+              @if(nav.idx == null) {
+                <a href="#">@nav.displayVal</a>
+              } else {
+                <a  href="@routes.ListDvds.listdvds(nav.idx)">@nav.displayVal</a>
+              }
+              </li>
             }
-            </li>
-          }
-          
           <li @if(dvdPage.page.hasNext == false) { class="disabled" }><a @if(dvdPage.page.hasNext == true) { href="@routes.ListDvds.listdvds(dvdPage.page.getPageIndex+1)"}>Next</a></li>
         </ul>
       </div>
@@ -51,10 +48,10 @@
             <em data-dvd-id="@dvd.id" class="@DvdAttribute.getCopyTypeAttribute(dvd)">
             
               @if(dvd.borrower != null || dvd.borrowerName != null){
-                 <div class="coverborrowed"></div>
+                 <div class="coverborrowed  @if(dvd.borrower != null  && dvd.borrower.userName == username) {selfBorrowed}"></div>
               }
             
-              <div class="well well-small dvdInfo">
+              <div class="well well-small dvdInfo @if(dvd.borrower != null || dvd.borrowerName != null){borrowed} @if(dvd.borrower != null  && dvd.borrower.userName == username) {selfBorrowed}">
                 <p> @dvd.movie.title  @if(dvd.hullNr != null) { (@dvd.hullNr) }</p>
                 <span>
                    @dvd.owner.userName 
@@ -80,7 +77,7 @@
                 }
               }
             </div>
-            <a class="displayInfoButton" href="#" data-dvd-id="@dvd.id">
+            <a>
               @if(dvd.movie.hasPoster != null && dvd.movie.hasPoster == true) {
                 <img src="@routes.Dashboard.streamImage(dvd.movie.id,"POSTER","SMALL")"/>
               } else {

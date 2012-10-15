@@ -1,8 +1,8 @@
 $(function() {
 	
-	$('.coverwrapper em').mouseenter(function() {
+	$('.coverwrapper em').live('mouseenter',function() {
 	      $('.dvdInfo',this).fadeIn(150);
-	    }).mouseleave(function() {
+	    }).live('mouseleave',function() {
 	      $('.dvdInfo',this).fadeOut(150);
 	    });
 	
