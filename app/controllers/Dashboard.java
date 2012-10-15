@@ -167,6 +167,7 @@ public class Dashboard extends Controller {
   public static Result streamImage(final Long dvdId, final String imgType, final String imgSize) {
     final File file = ImageHelper.getImageFile(dvdId, EImageType.valueOf(imgType), EImageSize.valueOf(imgSize));
     if (file != null) {
+      Controller.response().setContentType("image/png");
       return Results.ok(file);
     }
     return Results.ok();
@@ -193,6 +194,7 @@ public class Dashboard extends Controller {
       ImageIO.write(asBufferedImage, "png", os);
       final InputStream is = new ByteArrayInputStream(os.toByteArray());
 
+      Controller.response().setContentType("image/png");
       return Results.ok(is);
     } catch (final IOException e) {
       Logger.error("Failure whiler creating external image:", e);
@@ -220,6 +222,8 @@ public class Dashboard extends Controller {
     gravatar.setRating(GravatarRating.GENERAL_AUDIENCES);
     gravatar.setDefaultImage(GravatarDefaultImage.IDENTICON);
     final byte[] jpg = gravatar.download(userByName.email);
+
+    Controller.response().setContentType("image/png");
     return Results.ok(jpg);
 
   }

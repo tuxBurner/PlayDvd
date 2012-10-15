@@ -30,7 +30,6 @@ $(function() {
           formatSelection: movieFormatSelection
       });
 	
-	
 	 
 	 $('#editMovieInfos').click(function() {
 		 var selectedMovieId = $('#movieId').val();

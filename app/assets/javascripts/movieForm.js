@@ -105,9 +105,8 @@ $(function() {
 			      $('#dvdFormWrapper').show();
 			      
 			      // set the movie
-			      $("#movieId").select2("val", data);
+			      $("#movieId").select2("data", data);			  	  
 			      
-			  	  
 			      closeWaitDiaLog();
 		        },
 				function(err) {
