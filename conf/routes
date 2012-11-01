@@ -68,4 +68,5 @@ GET     /assets/javascripts/routes 	 controllers.Application.jsRoutes()
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 
+# webjars
 GET     /webjars/*file                    controllers.WebJarAssets.at(file)

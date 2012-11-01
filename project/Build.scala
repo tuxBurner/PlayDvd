@@ -17,6 +17,7 @@ object ApplicationBuild extends Build {
       "com.moviejukebox" % "thetvdbapi" % "1.4-SNAPSHOT",
       "com.moviejukebox" % "themoviedbapi" % "3.3-SNAPSHOT",      
       
+      "org.webjars" % "webjars-play" % "0.1",
       "org.webjars" % "bootstrap" % "2.1.1",
       "org.webjars" % "jquery" % "1.8.2",
       "org.webjars" % "jquerypp" % "1.0b2-1",
