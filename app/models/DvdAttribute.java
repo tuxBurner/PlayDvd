@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 
 import play.db.ebean.Model;
 
@@ -104,6 +105,11 @@ public class DvdAttribute extends Model {
     final List<String> returnVal = new ArrayList<String>();
     if (CollectionUtils.isEmpty(allByType) == false) {
       for (final DvdAttribute attr : allByType) {
+
+        if (StringUtils.isEmpty(attr.value)) {
+          continue;
+        }
+
         returnVal.add(attr.value);
       }
     }

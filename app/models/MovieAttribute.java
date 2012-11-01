@@ -166,6 +166,9 @@ public class MovieAttribute extends Model {
     final List<MovieAttribute> attributes = MovieAttribute.getAllByType(attributeType);
     final List<String> attrMap = new ArrayList<String>();
     for (final MovieAttribute dvdAttibute : attributes) {
+      if (StringUtils.isEmpty(dvdAttibute.value)) {
+        continue;
+      }
       attrMap.add(dvdAttibute.value);
     }
 
