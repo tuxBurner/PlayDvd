@@ -19,7 +19,8 @@
 <div class="row">
 
      @form(routes.ListDvds.applySearchForm(), 'class -> "well form-inline") {
-     
+
+      <div>     
        <label for="genre"><i class="icon-search"></i></label>
        <input type="text" class="input-medium search-query" name="searchFor" value="@dvdListForm("searchFor").value()" />
        
@@ -44,12 +45,8 @@
          <i class="icon-circle-arrow-down"></i>
        </label>
        
-       
-              
-       
-       
-       
        <button type="submit" class="btn btn-primary"><i class="icon-search"></i></button>
-     
+      </div>
+
      }
 </div>

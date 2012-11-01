@@ -1,9 +1,7 @@
 $(function() {
 	
 	createSelect2DeselectCreate('#box',avaibleBoxes);
-	createSelect2DeselectCreate('#collection',avaibleCollections);
-	  
-	  
+	createSelect2DeselectCreate('#collection',avaibleCollections);  
 	  /**
 	   * searching for a movie
 	   */
@@ -70,8 +68,6 @@ $(function() {
 				
 	});
 
-	
-	
 });
 
 

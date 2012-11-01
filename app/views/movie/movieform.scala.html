@@ -1,4 +1,4 @@
-@(movieForm: Form[forms.MovieForm], seriesList: List[String])(mode: String)
+@(movieForm: Form[forms.MovieForm])(mode: String)
 
 @import helper._
 @import helper.twitterBootstrap._
@@ -7,6 +7,7 @@
   <script type="text/javascript" charset="utf-8">
     var avaibleGenres = @Html(models.MovieAttribute.getAvaibleAttributesAsJson(EMovieAttributeType.GENRE));
     var avaibleActors = @Html(models.MovieAttribute.getAvaibleAttributesAsJson(EMovieAttributeType.ACTOR));
+    var avaibleSeries = @Html(models.MovieAttribute.getAvaibleAttributesAsJson(EMovieAttributeType.MOVIE_SERIES));
   </script>
   
   <script src="@routes.Assets.at("javascripts/movieForm.js")" type="text/javascript"></script>
@@ -40,19 +41,21 @@
          
          @inputText(movieForm("runtime"),'_label -> "Runtime in Min:")
          
-         @select(field = movieForm("series"), options(seriesList),'_label->"Series",'class-> "span5")
          
+          <label for="genres">Genres</label>   
+         <input type="hidden" name="genres" id="genres"  class="span5" value="@forms.MovieForm.getDvdFormAttributesAsString(movieForm("genres").value())"/>
+
          
          <hr />
-         <label for="genres">Genres</label>   
-         <input type="hidden" name="genres" id="genres" value="@forms.MovieForm.getDvdFormAttributesAsString(movieForm("genres").value())"/>
+         <label for="series">Series</label>   
+         <input type="hidden" name="series" id="series" class="span5" value="@movieForm("series").value()" data-placeholder="Please select a movie Series"/>
          
         
          <hr  />
          @inputText(movieForm("director"),'_label -> "Director")
          
          <label for="actors">Actors</label>
-         <input type="hidden" name="actors" id="actors" value="@forms.MovieForm.getDvdFormAttributesAsString(movieForm("actors").value())"/>
+          <input type="hidden" name="actors" id="actors"  class="span5" value="@forms.MovieForm.getDvdFormAttributesAsString(movieForm("actors").value())"/>
          
          <hr />
          

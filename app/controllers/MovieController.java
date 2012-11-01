@@ -6,13 +6,10 @@ import grabbers.IInfoGrabber;
 import helpers.RequestToCollectionHelper;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import models.EMovieAttributeType;
 import models.Movie;
-import models.MovieAttribute;
 
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.node.ObjectNode;
@@ -47,7 +44,7 @@ public class MovieController extends Controller {
    */
   public static Result showAddMovieForm() {
     final Form<MovieForm> form = Controller.form(MovieForm.class);
-    return Results.ok(movieform.render(form.fill(new MovieForm()), MovieController.getMovieSeries(null), DvdController.DVD_FORM_ADD_MODE));
+    return Results.ok(movieform.render(form.fill(new MovieForm()), DvdController.DVD_FORM_ADD_MODE));
   }
 
   /**
@@ -66,7 +63,7 @@ public class MovieController extends Controller {
     }
 
     final Form<MovieForm> form = Controller.form(MovieForm.class).fill(MovieForm.movieToForm(movie));
-    return Results.ok(movieform.render(form, MovieController.getMovieSeries(form), DvdController.DVD_FORM_EDIT_MODE));
+    return Results.ok(movieform.render(form, DvdController.DVD_FORM_EDIT_MODE));
   }
 
   /**
@@ -80,7 +77,7 @@ public class MovieController extends Controller {
     final Form<MovieForm> movieForm = new Form<MovieForm>(MovieForm.class).bind(map);
 
     if (movieForm.hasErrors()) {
-      return Results.badRequest(movieform.render(movieForm, MovieController.getMovieSeries(movieForm), mode));
+      return Results.badRequest(movieform.render(movieForm, mode));
     } else {
       try {
         final Movie editOrAddFromForm = Movie.editOrAddFromForm(movieForm.get());
@@ -91,7 +88,7 @@ public class MovieController extends Controller {
         return Results.ok(result);
       } catch (final Exception e) {
         e.printStackTrace();
-        return Results.badRequest(movieform.render(movieForm, MovieController.getMovieSeries(movieForm), mode));
+        return Results.badRequest(movieform.render(movieForm, mode));
       }
 
     }
@@ -121,7 +118,7 @@ public class MovieController extends Controller {
 
       final Form<MovieForm> form = Controller.form(MovieForm.class);
 
-      return Results.ok(movieform.render(form.fill(movieForm), MovieController.getMovieSeries(form), mode));
+      return Results.ok(movieform.render(form.fill(movieForm), mode));
     } catch (final GrabberException e) {
       return Results.badRequest("Internal Error happend");
     }
@@ -148,25 +145,6 @@ public class MovieController extends Controller {
 
     return Results.ok(gson.toJson(result));
 
-  }
-
-  /**
-   * Get all series of a movie
-   * 
-   * @param form
-   * @return
-   */
-  private static List<String> getMovieSeries(final Form<MovieForm> movieForm) {
-
-    final String series = (movieForm == null) ? null : movieForm.field("series").value();
-
-    final List<String> allByTypeAsValue = MovieAttribute.getAllByTypeAsValue(EMovieAttributeType.MOVIE_SERIES);
-    if (StringUtils.isEmpty(series) == false && allByTypeAsValue.contains(series) == false) {
-      allByTypeAsValue.add(series);
-      Collections.sort(allByTypeAsValue);
-    }
-
-    return allByTypeAsValue;
   }
 
 }
