@@ -153,16 +153,6 @@ public class Dashboard extends Controller {
     return Results.TODO;
   }
 
-  /**
-   * This is called from the mainmenu.scala.html to have all the genres in the
-   * menu
-   * 
-   * @return
-   */
-  public static Result menuGenres() {
-    final List<MovieAttribute> genres = MovieAttribute.getAllByType(EMovieAttributeType.GENRE);
-    return Results.ok(genremenu.render(genres));
-  }
 
   public static Result streamImage(final Long dvdId, final String imgType, final String imgSize) {
     final File file = ImageHelper.getImageFile(dvdId, EImageType.valueOf(imgType), EImageSize.valueOf(imgSize));

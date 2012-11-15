@@ -81,6 +81,10 @@ public class DvdListFrom {
 
     final Context ctx = Controller.ctx();
 
+    if(ctx == null) {
+      return null;
+    }
+
     final Object object = Cache.get(ctx.session().get(Secured.AUTH_SESSION) + ".dvdlistform");
     DvdListFrom returnVal = null;
     if (object == null || object instanceof DvdListFrom == false) {

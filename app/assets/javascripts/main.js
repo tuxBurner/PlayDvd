@@ -12,12 +12,7 @@ $(function() {
 		resizable : false,
 		autoOpen: false
 	});
-	
-	// load the genre menu
-	pAjax(jsRoutes.controllers.Dashboard.menuGenres(), null, function(data) {
-		$(data).replaceAll('#genreMenuReplace');
-	}, function(){});
-	
+		
 });
 
 /**
