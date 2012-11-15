@@ -19,8 +19,6 @@ import jgravatar.Gravatar;
 import jgravatar.GravatarDefaultImage;
 import jgravatar.GravatarRating;
 import models.Dvd;
-import models.EMovieAttributeType;
-import models.MovieAttribute;
 import models.User;
 import net.coobird.thumbnailator.Thumbnails;
 
@@ -32,7 +30,6 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
-import views.html.genremenu;
 import views.html.dashboard.displaydvd;
 import views.html.dashboard.lendform;
 import views.html.dashboard.unlendform;
@@ -152,7 +149,6 @@ public class Dashboard extends Controller {
 
     return Results.TODO;
   }
-
 
   public static Result streamImage(final Long dvdId, final String imgType, final String imgSize) {
     final File file = ImageHelper.getImageFile(dvdId, EImageType.valueOf(imgType), EImageSize.valueOf(imgSize));
