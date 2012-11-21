@@ -6,4 +6,5 @@ tmp
 .history
 dist
 images/*
-/.classpath
+.classpath
+.target
