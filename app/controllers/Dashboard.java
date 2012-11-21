@@ -24,6 +24,8 @@ import net.coobird.thumbnailator.Thumbnails;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.avaje.ebean.Ebean;
+
 import play.Logger;
 import play.data.Form;
 import play.mvc.Controller;
@@ -33,6 +35,7 @@ import play.mvc.Security;
 import views.html.dashboard.displaydvd;
 import views.html.dashboard.lendform;
 import views.html.dashboard.unlendform;
+import views.html.dashboard.deletedvd;
 import forms.ExternalImageForm;
 import forms.InfoDvd;
 import forms.LendForm;
@@ -128,7 +131,7 @@ public class Dashboard extends Controller {
     final String ownerName = Controller.ctx().session().get(Secured.AUTH_SESSION);
     Dvd.lendDvdToUser(dvdId, ownerName, userName, freeName, lendForm.alsoOthersInHull);
 
-    return Results.TODO;
+    return Results.ok();
   }
 
   /**
@@ -147,9 +150,53 @@ public class Dashboard extends Controller {
     final String ownerName = Controller.ctx().session().get(Secured.AUTH_SESSION);
     Dvd.unlendDvdToUser(dvdId, ownerName, unlendForm.alsoOthersInHull);
 
-    return Results.TODO;
+    return Results.ok();
   }
 
+  /**
+   * This renders the content for the delete dvd content dialog
+   * 
+   * @param dvdId
+   * @return
+   */
+  public static Result deleteDialogContent(final Long dvdId) {
+
+    final String userName = Secured.getUsername();
+    final Dvd dvdForUser = Dvd.getDvdForUser(dvdId, userName);
+    if (dvdForUser == null) {
+      return Results.forbidden();
+    }
+
+    return Results.ok(deletedvd.render(dvdForUser));
+  }
+
+  /**
+   * Actually deletes the dvd
+   * 
+   * @param dvdId
+   * @return
+   */
+  public static Result deleteDvd(final Long dvdId) {
+    final String userName = Secured.getUsername();
+    final Dvd dvdForUser = Dvd.getDvdForUser(dvdId, userName);
+    if (dvdForUser == null) {
+      return Results.forbidden();
+    }
+
+    Ebean.deleteManyToManyAssociations(dvdForUser, "attributes");
+    dvdForUser.delete();
+
+    return Results.ok();
+  }
+
+  /**
+   * Streams an image which is bundled with the given {@link Dvd}
+   * 
+   * @param dvdId
+   * @param imgType
+   * @param imgSize
+   * @return
+   */
   public static Result streamImage(final Long dvdId, final String imgType, final String imgSize) {
     final File file = ImageHelper.getImageFile(dvdId, EImageType.valueOf(imgType), EImageSize.valueOf(imgSize));
     if (file != null) {

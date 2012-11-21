@@ -136,6 +136,47 @@ $(function() {
 	 */
 	
 	/**
+	 * DELETE DIALOG
+	 */
+	$('#deleteDvdDialog').dialog({
+		  resizable: false,
+		  height:340,
+		  width:440,
+		  autoOpen: false,
+		  modal: true,
+		  buttons: {
+				"Delete": function() {
+					var deleteDvdId = $('#deleteDvdId').val();
+					pAjax(jsRoutes.controllers.Dashboard.deleteDvd(deleteDvdId),null,
+							  function(data){
+						       $('#deleteDvdDialog').dialog( "close" );	
+						       window.location.reload();
+					          }, function(err) {
+					        	$('#deleteDvdDialog').dialog( "close" );
+							});
+				},
+				Cancel: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		});
+	
+	$('.deleteDvdBtn').live('click',function(event){
+		pAjax(jsRoutes.controllers.Dashboard.deleteDialogContent($(this).data('dvdId')),null,
+				  function(data){
+				    $('#deleteDvdDialog .dialogContent').html(data);
+				    $('#deleteDvdDialog').dialog('open');
+				  },
+				  function(err) {
+				    
+				});
+	});
+	/**
+	 * EO DELETE DIALOG
+	 */
+	
+	
+	/**
 	 * SEARCH FORM
 	 */
 	createSelect2Deselect('#searchGenre',avaibleGenres);

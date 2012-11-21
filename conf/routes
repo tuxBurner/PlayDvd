@@ -48,6 +48,10 @@ GET    /dvd/add                  controllers.DvdController.showAddDvd()
 POST   /dvd/:mode                controllers.DvdController.addDvd(mode: String)
 GET    /dvd/edit/:dvdId          controllers.DvdController.showEditDvd(dvdId: Long)
 
+# DELETE DVD
+GET /dvd/delete/:dvdId  controllers.Dashboard.deleteDialogContent(dvdId:Long)
+POST /dvd/delete/:dvdId  controllers.Dashboard.deleteDvd(dvdId:Long)
+
 # MOVIE ROUTES
 POST   /movie/addMovieByTmdb/:mode controllers.MovieController.addMovieByGrabberId(mode: String, grabberType: String)
 GET    /movie/add                  controllers.MovieController.showAddMovieForm()
@@ -63,6 +67,7 @@ GET    /grabber/:grabberType/:grabberId         controllers.InfoGrabberControlle
 
 # Javascript routing
 GET     /assets/javascripts/routes 	 controllers.Application.jsRoutes()
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
