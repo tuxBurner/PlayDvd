@@ -246,15 +246,14 @@ public class Dashboard extends Controller {
     final String ownerName = (userName == null) ? Controller.ctx().session().get(Secured.AUTH_SESSION) : userName;
     final User userByName = User.getUserByName(ownerName);
 
-    if (userByName == null) {
-      return Results.ok();
-    }
+    final String gravatarEmail = (userByName == null) ? "" : userByName.email;
 
     final Gravatar gravatar = new Gravatar();
     gravatar.setSize(size);
     gravatar.setRating(GravatarRating.GENERAL_AUDIENCES);
-    gravatar.setDefaultImage(GravatarDefaultImage.IDENTICON);
-    final byte[] jpg = gravatar.download(userByName.email);
+    // TODO: make this configiable
+    gravatar.setDefaultImage(GravatarDefaultImage.GRAVATAR_ICON);
+    final byte[] jpg = gravatar.download(gravatarEmail);
 
     Controller.response().setContentType("image/png");
     return Results.ok(jpg);
