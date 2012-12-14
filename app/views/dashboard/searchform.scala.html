@@ -13,7 +13,6 @@
   var avaibleCopyTypes = @Html(forms.DvdSearchFrom.getCopyTypesJson());
   var listOrderBy = @Html(forms.EDvdListOrderBy.getAsJson());
   var displayAdvancedOrder = @forms.DvdSearchFrom.displayAdvancedForm();
-  
 //-->
 </script>
 
@@ -54,6 +53,9 @@
       <div id="advancedSearchForm">
         <label for="order"><i class="icon-facetime-video"></i></label>
        <input type="hidden" name="copyType" id="searchCopyType" value="@dvdSearchForm("copyType").value()"  class="input-medium" data-placeholder="Type"/>
+       
+       <label for="lendDvd"><i class="icon-share"></i> Lend</label>
+       <input type="checkbox" name="lendDvd" id="searchCopyLend"   value="true" @if(dvdSearchForm("lendDvd").value() == "true") { checked="checked" }/>
       </div>
 
      }

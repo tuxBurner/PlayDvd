@@ -83,7 +83,7 @@ public class DvdSearchFrom {
    */
   public static boolean displayAdvancedForm() {
     final DvdSearchFrom form = DvdSearchFrom.getCurrentSearchForm();
-    return (StringUtils.isEmpty(form.copyType) == false);
+    return (StringUtils.isEmpty(form.copyType) == false || form.lendDvd == true);
   }
 
   /**
