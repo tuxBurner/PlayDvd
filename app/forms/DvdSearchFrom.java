@@ -1,5 +1,7 @@
 package forms;
 
+import org.apache.commons.lang.StringUtils;
+
 import play.cache.Cache;
 import play.mvc.Controller;
 import play.mvc.Http.Context;
@@ -14,7 +16,7 @@ import controllers.Secured;
  * @author tuxburner
  * 
  */
-public class DvdListFrom {
+public class DvdSearchFrom {
 
   /**
    * If the user searched for a dvd
@@ -72,44 +74,60 @@ public class DvdListFrom {
   public EDvdListOrderHow orderHow = EDvdListOrderHow.DOWN;
 
   /**
+   * What copy type to display
+   */
+  public String copyType = null;
+
+  /**
+   * Checks if the searchForm should be displayed in the advanced mode
+   */
+  public static boolean displayAdvancedForm() {
+    final DvdSearchFrom form = DvdSearchFrom.getCurrentSearchForm();
+    return (StringUtils.isEmpty(form.copyType) == false);
+  }
+
+  /**
    * Gets the current search form from the cache if the cache is empty a new one
    * is created
    * 
    * @return
    */
-  public static DvdListFrom getCurrentSearchForm() {
+  public static DvdSearchFrom getCurrentSearchForm() {
 
     final Context ctx = Controller.ctx();
 
-    if(ctx == null) {
+    if (ctx == null) {
       return null;
     }
 
     final Object object = Cache.get(ctx.session().get(Secured.AUTH_SESSION) + ".dvdlistform");
-    DvdListFrom returnVal = null;
-    if (object == null || object instanceof DvdListFrom == false) {
-      returnVal = new DvdListFrom();
+    DvdSearchFrom returnVal = null;
+    if (object == null || object instanceof DvdSearchFrom == false) {
+      returnVal = new DvdSearchFrom();
       Cache.set(ctx.session().get(Secured.AUTH_SESSION) + ".dvdlistform", returnVal);
     } else {
-      returnVal = (DvdListFrom) object;
+      returnVal = (DvdSearchFrom) object;
     }
 
     return returnVal;
   }
 
   /**
-   * Write the {@link DvdListFrom} to the cache for the user
+   * Write the {@link DvdSearchFrom} to the cache for the user
    * 
    * @param ctx
    * @param dvdListFrom
    */
-  public static void setCurrentSearchForm(final DvdListFrom dvdListFrom) {
+  public static void setCurrentSearchForm(final DvdSearchFrom dvdListFrom) {
     Cache.set(Controller.ctx().session().get(Secured.AUTH_SESSION) + ".dvdlistform", dvdListFrom);
   }
 
   public static String getAgeRatingsAsJson() {
     return new Gson().toJson(DvdForm.getAgeRatings());
+  }
 
+  public static String getCopyTypesJson() {
+    return new Gson().toJson(DvdForm.getCopyTypes());
   }
 
 }

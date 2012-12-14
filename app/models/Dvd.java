@@ -27,7 +27,7 @@ import com.avaje.ebean.Page;
 import com.typesafe.config.ConfigFactory;
 
 import forms.DvdForm;
-import forms.DvdListFrom;
+import forms.DvdSearchFrom;
 import forms.EDvdListOrderBy;
 import forms.EDvdListOrderHow;
 
@@ -208,69 +208,71 @@ public class Dvd extends Model {
    * @return
    */
   public static List<Dvd> getDvdByBoxOrCollection(final EDvdAttributeType attrType, final String attrValue, final Dvd dvd) {
-
     final List<Dvd> findList = Dvd.find.where().eq("attributes.attributeType", attrType).eq("attributes.value", attrValue).eq("owner.id", dvd.owner.id).ne("id", dvd.id).orderBy("movie.year asc").findList();
-
     return findList;
   }
 
   /**
-   * Gets all dvds which fit into the Filter int the {@link DvdListFrom}
+   * Gets all dvds which fit into the Filter int the {@link DvdSearchFrom}
    * 
-   * @param listFrom
+   * @param searchFrom
    * @return
    */
-  public static Page<Dvd> getDvdsByForm(final DvdListFrom listFrom) {
+  public static Page<Dvd> getDvdsBySearchForm(final DvdSearchFrom searchFrom) {
     final ExpressionList<Dvd> where = Dvd.find.where();
 
-    if (StringUtils.isEmpty(listFrom.searchFor) == false) {
+    if (StringUtils.isEmpty(searchFrom.searchFor) == false) {
 
-      if (listFrom.searchFor.startsWith(Dvd.HULL_NR_SEARCH) == true) {
-        final String idToSearch = StringUtils.trimToNull(StringUtils.removeStart(listFrom.searchFor, Dvd.HULL_NR_SEARCH));
+      if (searchFrom.searchFor.startsWith(Dvd.HULL_NR_SEARCH) == true) {
+        final String idToSearch = StringUtils.trimToNull(StringUtils.removeStart(searchFrom.searchFor, Dvd.HULL_NR_SEARCH));
         if (idToSearch != null && StringUtils.isNumeric(idToSearch) == true) {
           where.eq("hullNr", idToSearch);
         }
 
-      } else if (listFrom.searchFor.startsWith(Dvd.EAN_NR_SEARCH) == true) {
-        final String idToSearch = StringUtils.trimToNull(StringUtils.removeStart(listFrom.searchFor, Dvd.EAN_NR_SEARCH));
+      } else if (searchFrom.searchFor.startsWith(Dvd.EAN_NR_SEARCH) == true) {
+        final String idToSearch = StringUtils.trimToNull(StringUtils.removeStart(searchFrom.searchFor, Dvd.EAN_NR_SEARCH));
         if (idToSearch != null && StringUtils.isNumeric(idToSearch) == true) {
           where.eq("eanNr", idToSearch);
         }
 
       } else {
-        where.like("movie.title", "%" + listFrom.searchFor + "%");
+        where.like("movie.title", "%" + searchFrom.searchFor + "%");
       }
     }
 
-    if (StringUtils.isEmpty(listFrom.genre) == false) {
-      where.eq("movie.attributes.value", listFrom.genre).eq("movie.attributes.attributeType", EMovieAttributeType.GENRE);
+    if (StringUtils.isEmpty(searchFrom.genre) == false) {
+      where.eq("movie.attributes.value", searchFrom.genre).eq("movie.attributes.attributeType", EMovieAttributeType.GENRE);
     }
 
-    if (StringUtils.isEmpty(listFrom.actor) == false) {
-      where.eq("movie.attributes.value", listFrom.actor).eq("movie.attributes.attributeType", EMovieAttributeType.ACTOR);
+    if (StringUtils.isEmpty(searchFrom.actor) == false) {
+      where.eq("movie.attributes.value", searchFrom.actor).eq("movie.attributes.attributeType", EMovieAttributeType.ACTOR);
     }
 
-    if (StringUtils.isEmpty(listFrom.director) == false) {
-      where.eq("movie.attributes.value", listFrom.director).eq("movie.attributes.attributeType", EMovieAttributeType.DIRECTOR);
+    if (StringUtils.isEmpty(searchFrom.director) == false) {
+      where.eq("movie.attributes.value", searchFrom.director).eq("movie.attributes.attributeType", EMovieAttributeType.DIRECTOR);
     }
 
-    if (StringUtils.isEmpty(listFrom.ageRating) == false) {
-      where.eq("attributes.value", listFrom.ageRating).eq("attributes.attributeType", EDvdAttributeType.RATING);
+    if (StringUtils.isEmpty(searchFrom.ageRating) == false) {
+      where.eq("attributes.value", searchFrom.ageRating).eq("attributes.attributeType", EDvdAttributeType.RATING);
     }
 
-    if (StringUtils.isEmpty(listFrom.userName) == false) {
-      where.eq("owner.userName", listFrom.userName);
+    if (StringUtils.isEmpty(searchFrom.copyType) == false) {
+      where.eq("attributes.value", searchFrom.copyType).eq("attributes.attributeType", EDvdAttributeType.COPY_TYPE);
+    }
 
-      if (listFrom.lendDvd == true) {
+    if (StringUtils.isEmpty(searchFrom.userName) == false) {
+      where.eq("owner.userName", searchFrom.userName);
+
+      if (searchFrom.lendDvd == true) {
         where.isNotNull("borrowDate");
       }
     }
 
-    if (listFrom.moviesToReview == true) {
+    if (searchFrom.moviesToReview == true) {
       where.eq("movie.hasToBeReviewed", true);
     }
 
-    return Dvd.getByDefaultPaging(where, listFrom.currentPage, listFrom.orderBy, listFrom.orderHow);
+    return Dvd.getByDefaultPaging(where, searchFrom.currentPage, searchFrom.orderBy, searchFrom.orderHow);
   }
 
   /**

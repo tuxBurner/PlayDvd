@@ -1,4 +1,4 @@
-@(dvdListForm: Form[forms.DvdListFrom])
+@(dvdSearchForm: Form[forms.DvdSearchFrom])
 
 
 @import helper._
@@ -6,46 +6,54 @@
 
 
 <script type="text/javascript">
-
 <!--
   var avaibleGenres = @Html(MovieAttribute.getAvaibleAttributesAsJson(EMovieAttributeType.GENRE));
   var avaibleUsers = @Html(User.getUserNamesAsJson());
-  var avaibleAgeRatings = @Html(forms.DvdListFrom.getAgeRatingsAsJson()); 
+  var avaibleAgeRatings = @Html(forms.DvdSearchFrom.getAgeRatingsAsJson());
+  var avaibleCopyTypes = @Html(forms.DvdSearchFrom.getCopyTypesJson());
   var listOrderBy = @Html(forms.EDvdListOrderBy.getAsJson());
+  var displayAdvancedOrder = @forms.DvdSearchFrom.displayAdvancedForm();
+  
 //-->
 </script>
 
 
 <div class="row">
 
-     @form(routes.ListDvds.applySearchForm(), 'class -> "well form-inline") {
+     @form(routes.ListDvds.applySearchForm(), 'class -> "form-inline well  searchFormWrapper") {
 
       <div>     
        <label for="genre"><i class="icon-search"></i></label>
-       <input type="text" class="input-medium search-query" name="searchFor" value="@dvdListForm("searchFor").value()" />
+       <input type="text" class="input-medium search-query" name="searchFor" value="@dvdSearchForm("searchFor").value()" />
        
        <label for="genre"><i class="icon-tag"></i></label>
-       <input type="hidden" name="genre" id="searchGenre" value="@dvdListForm("genre").value()" class="input-medium" data-placeholder="Genre"/>
+       <input type="hidden" name="genre" id="searchGenre" value="@dvdSearchForm("genre").value()" class="input-medium" data-placeholder="Genre"/>
        
        <label for="owner"><i class="icon-user"></i></label>
-       <input type="hidden" name="userName" id="searchOwner" value="@dvdListForm("userName").value()"  class="input-medium" data-placeholder="Owner"/>
+       <input type="hidden" name="userName" id="searchOwner" value="@dvdSearchForm("userName").value()"  class="input-medium" data-placeholder="Owner"/>
        
-       <input type="hidden" name="ageRating" id="searchAgeRating" value="@dvdListForm("ageRating").value()" class="input-mini"  data-placeholder="Agerating"/>
+       <input type="hidden" name="ageRating" id="searchAgeRating" value="@dvdSearchForm("ageRating").value()" class="input-mini"  data-placeholder="Agerating"/>
 
        <label for="order"><i class="icon-list"></i></label>
-       <input type="hidden" name="orderBy" id="searchOrderBy" value="@dvdListForm("orderBy").value()"  class="input-medium" data-placeholder="Owner"/>
+       <input type="hidden" name="orderBy" id="searchOrderBy" value="@dvdSearchForm("orderBy").value()"  class="input-medium" data-placeholder="Order by"/>
        
        <label class="radio">
-         <input type="radio" name="orderHow" id="optionsRadios1" value="@forms.EDvdListOrderHow.UP" @if(dvdListForm("orderHow").value().equals("UP")) { checked="" }>
+         <input type="radio" name="orderHow" id="optionsRadios1" value="@forms.EDvdListOrderHow.UP" @if(dvdSearchForm("orderHow").value().equals("UP")) { checked="" }>
          <i class="icon-circle-arrow-up"></i>
        </label>
-       
        <label class="radio">
-         <input type="radio" name="orderHow" id="optionsRadios1" value="@forms.EDvdListOrderHow.DOWN" @if(dvdListForm("orderHow").value().equals("DOWN")) { checked="" }>
+         <input type="radio" name="orderHow" id="optionsRadios1" value="@forms.EDvdListOrderHow.DOWN" @if(dvdSearchForm("orderHow").value().equals("DOWN")) { checked="" }>
          <i class="icon-circle-arrow-down"></i>
        </label>
        
        <button type="submit" class="btn btn-primary"><i class="icon-search"></i></button>
+      </div>
+      
+      <div id="searchFormDivider" onclick="$('#advancedSearchForm').toggle(250);"><i class="icon-plus-sign"> </i></div>
+      
+      <div id="advancedSearchForm">
+        <label for="order"><i class="icon-facetime-video"></i></label>
+       <input type="hidden" name="copyType" id="searchCopyType" value="@dvdSearchForm("copyType").value()"  class="input-medium" data-placeholder="Type"/>
       </div>
 
      }

@@ -4,7 +4,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.avaje.ebean.Page;
 
-import forms.DvdListFrom;
+import forms.DvdSearchFrom;
 
 import models.Dvd;
 import play.data.Form;
@@ -24,7 +24,7 @@ public class ListDvds extends Controller {
    */
   public static Result listdvds(final Integer page) {
 
-    final DvdListFrom currentSearchForm = DvdListFrom.getCurrentSearchForm();
+    final DvdSearchFrom currentSearchForm = DvdSearchFrom.getCurrentSearchForm();
 
     if (page != null) {
       currentSearchForm.currentPage = page;
@@ -39,7 +39,7 @@ public class ListDvds extends Controller {
    * @return
    */
   public static Result listAlldvds() {
-    final DvdListFrom listFrom = new DvdListFrom();
+    final DvdSearchFrom listFrom = new DvdSearchFrom();
     return ListDvds.returnList(listFrom);
   }
 
@@ -54,7 +54,7 @@ public class ListDvds extends Controller {
       return Results.internalServerError("No Username given");
     }
 
-    final DvdListFrom dvdListFrom = new DvdListFrom();
+    final DvdSearchFrom dvdListFrom = new DvdSearchFrom();
     dvdListFrom.userName = fromUserName;
 
     return ListDvds.returnList(dvdListFrom);
@@ -71,7 +71,7 @@ public class ListDvds extends Controller {
       return Results.internalServerError("No Genrename given");
     }
 
-    final DvdListFrom dvdListFrom = new DvdListFrom();
+    final DvdSearchFrom dvdListFrom = new DvdSearchFrom();
     dvdListFrom.genre = genreName;
 
     return ListDvds.returnList(dvdListFrom);
@@ -88,7 +88,7 @@ public class ListDvds extends Controller {
       return Results.internalServerError("No actorname given");
     }
 
-    final DvdListFrom dvdListFrom = new DvdListFrom();
+    final DvdSearchFrom dvdListFrom = new DvdSearchFrom();
     dvdListFrom.actor = actorName;
 
     return ListDvds.returnList(dvdListFrom);
@@ -105,7 +105,7 @@ public class ListDvds extends Controller {
       return Results.internalServerError("No directorname given");
     }
 
-    final DvdListFrom dvdListFrom = new DvdListFrom();
+    final DvdSearchFrom dvdListFrom = new DvdSearchFrom();
     dvdListFrom.director = directorName;
 
     return ListDvds.returnList(dvdListFrom);
@@ -118,7 +118,7 @@ public class ListDvds extends Controller {
    */
   public static Result listLendDvd() {
 
-    final DvdListFrom dvdListFrom = new DvdListFrom();
+    final DvdSearchFrom dvdListFrom = new DvdSearchFrom();
     dvdListFrom.lendDvd = true;
     dvdListFrom.userName = Secured.getUsername();
 
@@ -126,7 +126,7 @@ public class ListDvds extends Controller {
   }
 
   public static Result listReviewMovies() {
-    final DvdListFrom dvdListFrom = new DvdListFrom();
+    final DvdSearchFrom dvdListFrom = new DvdSearchFrom();
     dvdListFrom.moviesToReview = true;
 
     return ListDvds.returnList(dvdListFrom);
@@ -138,7 +138,7 @@ public class ListDvds extends Controller {
     if (strings == null || strings.length != 1) {
       return ListDvds.listAlldvds();
     } else {
-      final DvdListFrom listFrom = new DvdListFrom();
+      final DvdSearchFrom listFrom = new DvdSearchFrom();
       listFrom.searchFor = strings[0];
       return ListDvds.returnList(listFrom);
     }
@@ -153,7 +153,7 @@ public class ListDvds extends Controller {
    */
   public static Result applySearchForm() {
 
-    final Form<DvdListFrom> form = Controller.form(DvdListFrom.class).bindFromRequest();
+    final Form<DvdSearchFrom> form = Controller.form(DvdSearchFrom.class).bindFromRequest();
 
     return ListDvds.returnList(form.get());
   }
@@ -165,14 +165,14 @@ public class ListDvds extends Controller {
    * @param ctx
    * @return
    */
-  private static Result returnList(final DvdListFrom dvdListFrom) {
+  private static Result returnList(final DvdSearchFrom dvdListFrom) {
 
-    DvdListFrom.setCurrentSearchForm(dvdListFrom);
+    DvdSearchFrom.setCurrentSearchForm(dvdListFrom);
 
-    final Form<DvdListFrom> form = Controller.form(DvdListFrom.class);
+    final Form<DvdSearchFrom> form = Controller.form(DvdSearchFrom.class);
 
     final String username = Controller.request().username();
-    final Page<Dvd> dvdsByForm = Dvd.getDvdsByForm(dvdListFrom);
+    final Page<Dvd> dvdsByForm = Dvd.getDvdsBySearchForm(dvdListFrom);
     return Results.ok(listdvds.render(new DvdPage(dvdsByForm), form.fill(dvdListFrom), username));
   }
 }

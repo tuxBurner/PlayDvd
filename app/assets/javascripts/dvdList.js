@@ -179,6 +179,12 @@ $(function() {
 	/**
 	 * SEARCH FORM
 	 */
+	
+	// check if to display the advanced search from
+	if(displayAdvancedOrder === true) {
+		$('#advancedSearchForm').show();
+	}
+	
 	createSelect2Deselect('#searchGenre',avaibleGenres);
 	createSelect2Deselect('#searchOwner',avaibleUsers);
 	createSelect2Deselect('#searchAgeRating',avaibleAgeRatings,function(item) { 
@@ -188,6 +194,12 @@ $(function() {
 		return "<img class='flag' src='/assets/images/agerating/" + item.id + ".gif'/>";
 	});
 	createSelect2Deselect('#searchOrderBy',listOrderBy,null,false);
+	createSelect2Deselect('#searchCopyType',avaibleCopyTypes,function(item) { 
+		if(item == null || item == "") {
+			return item;
+		}
+		return "<img class='flag' src='/assets/images/copy_type/" + item.id + ".png'/>";
+	});
 	/**
 	 * EO SEARCH FORM
 	 */
