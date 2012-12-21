@@ -51,11 +51,13 @@
       <div id="searchFormDivider" onclick="$('#advancedSearchForm').toggle(250);"><i class="icon-plus-sign"> </i></div>
       
       <div id="advancedSearchForm">
-        <label for="order"><i class="icon-facetime-video"></i></label>
+        <label for="copyType"><i class="icon-facetime-video"></i></label>
        <input type="hidden" name="copyType" id="searchCopyType" value="@dvdSearchForm("copyType").value()"  class="input-medium" data-placeholder="Type"/>
        
-       <label for="lendDvd"><i class="icon-share"></i> Lend</label>
-       <input type="checkbox" name="lendDvd" id="searchCopyLend"   value="true" @if(dvdSearchForm("lendDvd").value() == "true") { checked="checked" }/>
+       <label for="lendDvd" class="checkbox">
+         <input type="checkbox" name="lendDvd" id="searchCopyLend"   value="true" @if(dvdSearchForm("lendDvd").value() == "true") { checked="checked" }/>
+         <i class="icon-share"></i> Lend
+       </label>
       </div>
 
      }
