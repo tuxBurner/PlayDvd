@@ -26,7 +26,6 @@ public class Application extends Controller {
     public String password;
 
     public String validate() {
-
       final User user = User.authenticate(username, password);
       if (user == null) {
         return "Invalid user or password";

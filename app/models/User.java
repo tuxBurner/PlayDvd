@@ -76,7 +76,7 @@ public class User extends Model {
   public static User authenticate(final String username, final String password) {
     try {
       final String cryptPassword = User.cryptPassword(password);
-      return User.find.where().eq("userName", username).eq("password", cryptPassword).findUnique();
+      return User.find.where().ieq("userName", username).eq("password", cryptPassword).findUnique();
     } catch (final Exception e) {
       Logger.error("Error while creating the password.", e);
     }
@@ -101,9 +101,14 @@ public class User extends Model {
    * @return
    */
   public static User getUserByName(final String username) {
-    return User.find.where().eq("userName", username).findUnique();
+    return User.find.where().ieq("userName", username).findUnique();
   }
 
+  /**
+   * This is needed for the search form
+   * 
+   * @return
+   */
   public static String getUserNamesAsJson() {
     final List<User> users = User.find.select("userName").orderBy("userName asc").findList();
 
