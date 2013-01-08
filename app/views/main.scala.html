@@ -42,9 +42,24 @@
     <div class="container">
       @content
     </div>
+ 
+    <!-- Modal -->
+   <div id="modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="modalLabel"></h3>
+    </div>
+    <div class="modal-body">
+      <p></p>
+    </div>
+    <div class="modal-footer">
+      
+    </div>
+  </div>
+    
       
     
-    <!-- WAIT DIALOG -->  
+  <!-- WAIT DIALOG -->  
     <div style="display: none;" title="Please Wait" id="pleaseWaitDialog"><p>Please Wait</p></div>        
     
     <script src="@routes.WebJarAssets.at("jquery/1.8.2/jquery.min.js")" type="text/javascript"></script>    

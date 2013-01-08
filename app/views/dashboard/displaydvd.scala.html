@@ -174,9 +174,9 @@ $(function() {
   $('#dvdInfoDialog').dialog({'title' : "@dvd.movieForm.title"});	
 	
   @if(dvd.movieForm.hasBackdrop != null && dvd.movieForm.hasBackdrop == true) {
-    $('#dvdInfoDialog').css('background-image',"url('@routes.Dashboard.streamImage(dvd.movieForm.movieId,"BACKDROP","ORIGINAL")')");
+    $('#modal.dvdInfoModal .modal-body').css('background-image',"url('@routes.Dashboard.streamImage(dvd.movieForm.movieId,"BACKDROP","ORIGINAL")')");
   } else {
-    $('#dvdInfoDialog').css('background-image','none');
+    $('#modal.dvdInfoModal .modal-body').css('background-image','none');
   }
 });
 </script>

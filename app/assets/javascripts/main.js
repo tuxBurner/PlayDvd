@@ -12,6 +12,21 @@ $(function() {
 		resizable : false,
 		autoOpen: false
 	});
+	
+	// do some clean up when the modal is hidden
+	$('#modal').on('hidden', function() {
+		
+		$('#modalLabel').html("");
+		$('#modal .modal-body').html("");
+		
+		// remove old buttons
+		$('#modal .modal-footer').empty();
+		
+		var oldCssClassToAdd = $('#modal').data('cssClassToAdd');
+		if(oldCssClassToAdd != null) {
+			$('#modal').removeClass(oldCssClassToAdd);
+		}
+	});
 		
 });
 
@@ -38,6 +53,31 @@ function showWaitDiaLog() {
  */
 function closeWaitDiaLog() {
 	$( "#pleaseWaitDialog").dialog('close');
+}
+
+
+function displayDialog(content, title,cssClassToAdd,closeButton, buttonsToAdd) {
+	
+	$('#modal').data('cssClassToAdd',cssClassToAdd);
+	if(cssClassToAdd != null) {
+		$('#modal').addClass(cssClassToAdd);
+	}
+	
+	if(closeButton == true) {
+	  $('#modal .modal-footer').append('<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>');
+	}
+	
+	if(buttonsToAdd != null) {
+		$(buttonsToAdd).each(function(i,button) {
+			
+		});
+	}
+	
+	$('#modalLabel').html(title);
+	$('#modal .modal-body').html(content);
+    $('#modal').modal('show');
+    
+    
 }
 
 
@@ -113,7 +153,6 @@ function createSelect2TagAjaxBox(jqSelector,controllerAction,queryParams) {
     }
   });
 }
-
 
 /**
  * Creates an object for the select2

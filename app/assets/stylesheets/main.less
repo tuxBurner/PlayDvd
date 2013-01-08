@@ -6,20 +6,25 @@ body {
 	
 }
 
-#newMovieFormWrapper {
-	display: none;
-}
-
 .select2-container  {
   margin-left: 0px;
+}
+
+/**
+* new movie form
+*/
+#newMovieFormWrapper {
+	display: none;
 }
 
 #newMovieFormWrapper  #trailerUrl_field {
   display: inline-block;
 }
 
-/* dialoginfo stuff */
-#dvdInfoDialog fieldset {
+/** 
+* info dialog for dvd
+*/
+#modal.dvdInfoModal fieldset {
 	opacity: 0.85;
 }
 
@@ -29,24 +34,17 @@ body {
 	background: none;
 }
 
-ul.tags {
-	margin: 0 0 0 0;
+
+#modal.dvdInfoModal {
+  width: 900px;
+  margin: -400px 0 0 -450px;
 }
 
-.dvdDisplayContainer {
-	opacity: 0.9;
+#modal.dvdInfoModal .modal-body {
+  max-height: 600px;
 }
 
-
-.dvdDisplayContainer h5 {
-  font-size: 10px;
-  line-height: 11px;
-  height: 30px;
-  margin: 2px 0px;
-}
-
-
-#dvdInfoDialog {
+#modal.dvdInfoModal .modal-body {
 	background-size: 100% 100%;
 	-o-background-size: 100% 100%; /*  Opera  */
 	-webkit-background-size: 100% 100%; /*  Safari  */
@@ -54,16 +52,19 @@ ul.tags {
 	-moz-background-size: 100% 100%; /*not working in Firefox as yet */
 }
 
-#dvdInfoDialog fieldset.well {
+#modal.dvdInfoModal fieldset.well {
   background-image:  url(http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/low_contrast_linen.png);
   color: #000000;
 }
 
-#dvdInfoDialog fieldset.well a {
+#modal.dvdInfoModal fieldset.well a {
   color: #000000;
 }
 
 
+/**
+* pagination
+*/
 .pagination a:hover, .pagination a {
 	background-color: #C3C3C3;
 }

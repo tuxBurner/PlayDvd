@@ -27,8 +27,7 @@ $(function() {
 	$('.coverwrapper em').live('click',function(event){
 	  pAjax(jsRoutes.controllers.Dashboard.displayDvd($(this).data('dvdId')),null,
 				  function(data){
-				    $('#dvdInfoDialog .dialogContent').html(data);
-					$('#dvdInfoDialog').dialog('open');
+		            displayDialog(data,'Test123','dvdInfoModal');
 				  },
 				  function(err) {
 				    console.error(err);
