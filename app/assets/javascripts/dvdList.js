@@ -9,31 +9,14 @@ $(function() {
 	/**
 	 * INFO DIALOG
 	 */
-	$('#dvdInfoDialog').dialog({ 
-		width: '1024',
-		height: '710',
-		autoOpen: false,
-		modal: true,
-		open: function() {
-		  $("html").css("overflow", "hidden");
-		},
-		close: function() { 
-		  $('#dvdInfoDialog .dialogContent').html('');
-		  $("html").css("overflow", "auto"); 
-	    }
-	});
-	
 	// open the info dialog when the user clicks on the info button
 	$('.coverwrapper em').live('click',function(event){
-	  pAjax(jsRoutes.controllers.Dashboard.displayDvd($(this).data('dvdId')),null,
-				  function(data){
-		            displayDialog(data,'Is set from the displaydvdSacla','dvdInfoModal');
-				  },
-				  function(err) {
-				    console.error(err);
-				});	
-	  return false;
-		
+		displayAjaxDialog({
+			route: jsRoutes.controllers.Dashboard.displayDvd($(this).data('dvdId')),
+        	title: 'Is set from the displaydvdSacla',
+        	cssClass:	'dvdInfoModal'
+		});
+	  return false;		
 	});
 	/**
 	 * EO INFO DIALOG

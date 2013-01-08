@@ -55,26 +55,39 @@ function closeWaitDiaLog() {
 	$( "#pleaseWaitDialog").dialog('close');
 }
 
+function displayAjaxDialog(options) {
+    pAjax(options.route,null,
+    function(data){
+      options["content"] = data;	
+	  displayDialog(options);
+  },
+  function(err) {
+   //TODO: do something
+  });
+}
 
-function displayDialog(content, title,cssClassToAdd,closeButton, buttonsToAdd) {
-	
-	$('#modal').data('cssClassToAdd',cssClassToAdd);
-	if(cssClassToAdd != null) {
-		$('#modal').addClass(cssClassToAdd);
+/**
+ * display a dialog
+ * @param options
+ */
+function displayDialog(options) {
+	$('#modal').data('cssClassToAdd',options.cssClass);
+	if(options.cssClass != null) {
+		$('#modal').addClass(options.cssClass);
 	}
 	
-	if(closeButton == true) {
+	if(options.closeButton == true) {
 	  $('#modal .modal-footer').append('<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>');
 	}
 	
-	if(buttonsToAdd != null) {
+	if(options.buttonsToAdd != null) {
 		$(buttonsToAdd).each(function(i,button) {
 			
 		});
 	}
 	
-	$('#modalLabel').html(title);
-	$('#modal .modal-body').html(content);
+	$('#modalLabel').html(options.title);
+	$('#modal .modal-body').html(options.content);
     $('#modal').modal('show');
     
     
