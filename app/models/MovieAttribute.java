@@ -1,10 +1,10 @@
 package models;
 
+import helpers.SelectAjaxContainer;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -199,14 +199,14 @@ public class MovieAttribute extends Model {
     }
 
     final List<MovieAttribute> attributes = MovieAttribute.finder.where().eq("attributeType", attributeType).istartsWith("value", searchTerm).order("value ASC").findList();
-    final List<AjaxRenderTag> retVal = new ArrayList<AjaxRenderTag>();
-    retVal.add(new AjaxRenderTag(searchTerm, searchTerm));
+    final List<SelectAjaxContainer> retVal = new ArrayList<SelectAjaxContainer>();
+    retVal.add(new SelectAjaxContainer(searchTerm, searchTerm));
 
     for (final MovieAttribute dvdAttibute : attributes) {
       if (StringUtils.isEmpty(dvdAttibute.value) == true || searchTerm.equals(dvdAttibute.value) == true) {
         continue;
       }
-      retVal.add(new AjaxRenderTag(dvdAttibute.value, dvdAttibute.value));
+      retVal.add(new SelectAjaxContainer(dvdAttibute.value, dvdAttibute.value));
     }
 
     final Gson gson = new GsonBuilder().create();

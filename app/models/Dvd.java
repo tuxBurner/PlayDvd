@@ -284,7 +284,7 @@ public class Dvd extends Model {
    * @return
    */
   public static Dvd getDvdForUser(final Long id, final String username) {
-    final Dvd userDvd = Dvd.find.fetch("movie").where().eq("owner.userName", username).eq("id", id).findUnique();
+    final Dvd userDvd = Dvd.find.fetch("movie").where().ieq("owner.userName", username).eq("id", id).findUnique();
     return userDvd;
 
   }

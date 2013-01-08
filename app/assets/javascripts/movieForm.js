@@ -12,39 +12,10 @@ $(function() {
 	  }
 	});
 	
-	//alert(jsRoutes.controllers.MovieController.searchForMovieAttribute("sadsada","sadasd").url);
-	
-	 $("#genres").select2({tags: avaibleGenres,  tokenSeparators: [","], matcher: function(term, text) { return text.toUpperCase().indexOf(term.toUpperCase())==0; }});	
-	 //$("#actors").select2({ tags : avaibleActors,  matcher: function(term, text) { return text.toUpperCase().indexOf(term.toUpperCase())==0; } });
-	 $("#actors").select2({
-		 multiple : true,
-		 initSelection : function (element, callback) {
-		   var data = [];
-		   $(element.val().split(",")).each(function () {
-		     data.push({id: this, text: this});
-		   });
-		   callback(data);
-		 },
-		 minimumInputLength: 3,
-		 ajax: {
-			    url:  jsRoutes.controllers.MovieController.searchForMovieAttribute().url.substring(0,jsRoutes.controllers.MovieController.searchForMovieAttribute().url.indexOf('?')),
-		        dataType: 'json',
-		        data: function (term, page) {
-		        	console.info(term);
-		            return {		            	
-		            	term: term,
-		            	attrType: "ACTOR"
-		            };
-		        },
-		        results: function (data, page) {
-		        	console.info("results ");
-		        	console.info(data);
-		            return {
-		                results: data
-		            };
-		        }
-		    }
-	 });
+	 //$("#genres").select2({tags: avaibleGenres,  tokenSeparators: [","], matcher: function(term, text) { return text.toUpperCase().indexOf(term.toUpperCase())==0; }});
+
+	createSelect2TagAjaxBox("#genres", jsRoutes.controllers.MovieController.searchForMovieAttribute(),{ attrType: "GENRE"});
+	 createSelect2TagAjaxBox("#actors", jsRoutes.controllers.MovieController.searchForMovieAttribute(),{ attrType: "ACTOR"});
 	 
 	 createSelect2DeselectCreate("#series",avaibleSeries);
 	 

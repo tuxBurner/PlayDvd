@@ -81,6 +81,39 @@ function createSelect2DeselectCreate(jqSelector,dataObj) {
 	});
 }
 
+/**
+ * Creates a tag box with select2 which queries the backend for tags via ajax
+ * @param jqSelector
+ * @param controllerAction
+ * @param queryParams
+ */
+function createSelect2TagAjaxBox(jqSelector,controllerAction,queryParams) {
+  $(jqSelector).select2({
+    multiple : true,
+	minimumInputLength: 3,
+	initSelection : function (element, callback) {
+	  var data = [];
+	  $(element.val().split(",")).each(function () {
+	    data.push({id: this, text: this});
+	  });
+      callback(data);
+    },
+	ajax: {
+	  url:  controllerAction.url.substring(0,controllerAction.url.indexOf('?')),
+	  dataType: 'json',
+	  data: function (term, page) {
+		queryParams["term"] = term;
+	    return queryParams;
+	},
+	results: function (data, page) {
+	  return {
+	    results: data
+	  };
+      }
+    }
+  });
+}
+
 
 /**
  * Creates an object for the select2
