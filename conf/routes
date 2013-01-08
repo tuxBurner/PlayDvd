@@ -57,7 +57,8 @@ POST   /movie/addMovieByTmdb/:mode controllers.MovieController.addMovieByGrabber
 GET    /movie/add                  controllers.MovieController.showAddMovieForm()
 GET    /movie/edit/:movieId        controllers.MovieController.showEditMovieForm(movieId: Long)
 POST   /movie/:mode                controllers.MovieController.addOrEditMovie(mode: String)
-GET    /movies/forselect     controllers.MovieController.searchMoviesForDvdSelect(term: String) 
+GET    /movies/forselect           controllers.MovieController.searchMoviesForDvdSelect(term: String)
+GET    /movies/searchattr          controllers.MovieController.searchForMovieAttribute(term: String, attrType:String)
 
 
 # Grabbers 

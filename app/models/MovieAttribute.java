@@ -1,8 +1,10 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -160,7 +162,10 @@ public class MovieAttribute extends Model {
    * 
    * @param attributeType
    * @return
+   * @deprecated is way to slow in the frontend when having 1000 of those we
+   *             will use ajax here
    */
+  @Deprecated
   public static String getAvaibleAttributesAsJson(final EMovieAttributeType attributeType) {
 
     final List<MovieAttribute> attributes = MovieAttribute.getAllByType(attributeType);
@@ -178,4 +183,35 @@ public class MovieAttribute extends Model {
     return json;
   }
 
+  /**
+   * Searches the avaible {@link MovieAttribute}s as string for the select2
+   * element
+   * 
+   * @param attributeType
+   * @return
+   * 
+   */
+  public static String searchAvaibleAttributesAsJson(final EMovieAttributeType attributeType, final String searchTerm) {
+
+    // no searchTerm ?
+    if (StringUtils.isEmpty(searchTerm) == true) {
+      return StringUtils.EMPTY;
+    }
+
+    final List<MovieAttribute> attributes = MovieAttribute.finder.where().eq("attributeType", attributeType).istartsWith("value", searchTerm).order("value ASC").findList();
+    final List<AjaxRenderTag> retVal = new ArrayList<AjaxRenderTag>();
+    retVal.add(new AjaxRenderTag(searchTerm, searchTerm));
+
+    for (final MovieAttribute dvdAttibute : attributes) {
+      if (StringUtils.isEmpty(dvdAttibute.value) == true || searchTerm.equals(dvdAttibute.value) == true) {
+        continue;
+      }
+      retVal.add(new AjaxRenderTag(dvdAttibute.value, dvdAttibute.value));
+    }
+
+    final Gson gson = new GsonBuilder().create();
+    final String json = gson.toJson(retVal);
+
+    return json;
+  }
 }

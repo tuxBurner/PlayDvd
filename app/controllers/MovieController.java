@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import models.EMovieAttributeType;
 import models.Movie;
+import models.MovieAttribute;
 
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.node.ObjectNode;
@@ -144,7 +146,26 @@ public class MovieController extends Controller {
     final Gson gson = new Gson();
 
     return Results.ok(gson.toJson(result));
+  }
 
+  /**
+   * Searches for {@link MovieAttribute} returns a json with
+   * {@link MovieAttribute#pk} and {@link MovieAttribute#value}
+   * 
+   * @param term
+   * @param attrType
+   * @return
+   */
+  public static Result searchForMovieAttribute(final String term, final String attrType) {
+    try {
+      final EMovieAttributeType eattrType = EMovieAttributeType.valueOf(attrType);
+      final String result = MovieAttribute.searchAvaibleAttributesAsJson(eattrType, term);
+      return Results.ok(result);
+    } catch (final Exception e) {
+      Logger.error("An error happend while getting: " + attrType + " " + EMovieAttributeType.class.getName() + " with search term: " + term, e);
+    }
+
+    return Results.badRequest();
   }
 
 }

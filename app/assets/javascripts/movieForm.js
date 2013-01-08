@@ -12,8 +12,39 @@ $(function() {
 	  }
 	});
 	
-	 $("#genres").select2({tags: avaibleGenres,  tokenSeparators: [","]});	
-	 $("#actors").select2({ tags : avaibleActors });
+	//alert(jsRoutes.controllers.MovieController.searchForMovieAttribute("sadsada","sadasd").url);
+	
+	 $("#genres").select2({tags: avaibleGenres,  tokenSeparators: [","], matcher: function(term, text) { return text.toUpperCase().indexOf(term.toUpperCase())==0; }});	
+	 //$("#actors").select2({ tags : avaibleActors,  matcher: function(term, text) { return text.toUpperCase().indexOf(term.toUpperCase())==0; } });
+	 $("#actors").select2({
+		 multiple : true,
+		 initSelection : function (element, callback) {
+		   var data = [];
+		   $(element.val().split(",")).each(function () {
+		     data.push({id: this, text: this});
+		   });
+		   callback(data);
+		 },
+		 minimumInputLength: 3,
+		 ajax: {
+			    url:  jsRoutes.controllers.MovieController.searchForMovieAttribute().url.substring(0,jsRoutes.controllers.MovieController.searchForMovieAttribute().url.indexOf('?')),
+		        dataType: 'json',
+		        data: function (term, page) {
+		        	console.info(term);
+		            return {		            	
+		            	term: term,
+		            	attrType: "ACTOR"
+		            };
+		        },
+		        results: function (data, page) {
+		        	console.info("results ");
+		        	console.info(data);
+		            return {
+		                results: data
+		            };
+		        }
+		    }
+	 });
 	 
 	 createSelect2DeselectCreate("#series",avaibleSeries);
 	 

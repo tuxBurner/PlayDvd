@@ -162,6 +162,7 @@ public class Application extends Controller {
         controllers.routes.javascript.MovieController.showEditMovieForm(),
         controllers.routes.javascript.MovieController.addMovieByGrabberId(),
         controllers.routes.javascript.MovieController.addOrEditMovie(),
-        controllers.routes.javascript.MovieController.searchMoviesForDvdSelect()));
+        controllers.routes.javascript.MovieController.searchMoviesForDvdSelect(),
+        controllers.routes.javascript.MovieController.searchForMovieAttribute()));
   }
 }
