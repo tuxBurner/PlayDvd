@@ -27,7 +27,7 @@ $(function() {
 	$('.coverwrapper em').live('click',function(event){
 	  pAjax(jsRoutes.controllers.Dashboard.displayDvd($(this).data('dvdId')),null,
 				  function(data){
-		            displayDialog(data,'Test123','dvdInfoModal');
+		            displayDialog(data,'Is set from the displaydvdSacla','dvdInfoModal');
 				  },
 				  function(err) {
 				    console.error(err);

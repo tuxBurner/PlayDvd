@@ -170,9 +170,7 @@
 
 <script type="text/javascript">
 $(function() {
-  
-  $('#dvdInfoDialog').dialog({'title' : "@dvd.movieForm.title"});	
-	
+  $('#modalLabel').html("@dvd.movieForm.title");
   @if(dvd.movieForm.hasBackdrop != null && dvd.movieForm.hasBackdrop == true) {
     $('#modal.dvdInfoModal .modal-body').css('background-image',"url('@routes.Dashboard.streamImage(dvd.movieForm.movieId,"BACKDROP","ORIGINAL")')");
   } else {
