@@ -116,10 +116,17 @@ public class DvdSearchFrom {
    * Write the {@link DvdSearchFrom} to the cache for the user
    * 
    * @param ctx
-   * @param dvdListFrom
+   * @param dvdSearchFrom
    */
-  public static void setCurrentSearchForm(final DvdSearchFrom dvdListFrom) {
-    Cache.set(Controller.ctx().session().get(Secured.AUTH_SESSION) + ".dvdlistform", dvdListFrom);
+  public static void setCurrentSearchForm(final DvdSearchFrom dvdSearchFrom) {
+
+    // make sure when set to lend and no username is given set it to the current
+    // user
+    if (dvdSearchFrom.lendDvd == true && StringUtils.isEmpty(dvdSearchFrom.userName) == true) {
+      dvdSearchFrom.userName = Controller.request().username();
+    }
+
+    Cache.set(Controller.ctx().session().get(Secured.AUTH_SESSION) + ".dvdlistform", dvdSearchFrom);
   }
 
   public static String getAgeRatingsAsJson() {

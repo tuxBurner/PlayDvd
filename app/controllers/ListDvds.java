@@ -161,18 +161,18 @@ public class ListDvds extends Controller {
   /**
    * Returns the dvds for the template
    * 
-   * @param dvdListFrom
+   * @param dvdSearchFrom
    * @param ctx
    * @return
    */
-  private static Result returnList(final DvdSearchFrom dvdListFrom) {
+  private static Result returnList(final DvdSearchFrom dvdSearchFrom) {
 
-    DvdSearchFrom.setCurrentSearchForm(dvdListFrom);
+    final String username = Controller.request().username();
+    DvdSearchFrom.setCurrentSearchForm(dvdSearchFrom);
 
     final Form<DvdSearchFrom> form = Controller.form(DvdSearchFrom.class);
 
-    final String username = Controller.request().username();
-    final Page<Dvd> dvdsByForm = Dvd.getDvdsBySearchForm(dvdListFrom);
-    return Results.ok(listdvds.render(new DvdPage(dvdsByForm), form.fill(dvdListFrom), username));
+    final Page<Dvd> dvdsByForm = Dvd.getDvdsBySearchForm(dvdSearchFrom);
+    return Results.ok(listdvds.render(new DvdPage(dvdsByForm), form.fill(dvdSearchFrom), username));
   }
 }
