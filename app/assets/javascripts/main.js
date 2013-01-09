@@ -62,7 +62,7 @@ function closeWaitDiaLog() {
  * @param options
  */
 function displayAjaxDialog(options) {
-    pAjax(options.route,null,
+    pAjax(options.route,options.ajaxParams,
     function(data){
       options["content"] = data;	
 	  displayDialog(options);
@@ -99,6 +99,10 @@ function displayDialog(options) {
 	$('#modalLabel').html(options.title);
 	$('#modal .modal-body').html(options.content);
     $('#modal').modal('show');
+    
+    if(options.onOpen != null) {
+    	options.onOpen();
+    }
 }
 
 /**

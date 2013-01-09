@@ -12,12 +12,12 @@ $(function() {
 	  }
 	});
 	
-	 //$("#genres").select2({tags: avaibleGenres,  tokenSeparators: [","], matcher: function(term, text) { return text.toUpperCase().indexOf(term.toUpperCase())==0; }});
+
 
 	createSelect2TagAjaxBox("#genres", jsRoutes.controllers.MovieController.searchForMovieAttribute(),{ attrType: "GENRE"});
-	 createSelect2TagAjaxBox("#actors", jsRoutes.controllers.MovieController.searchForMovieAttribute(),{ attrType: "ACTOR"});
+	createSelect2TagAjaxBox("#actors", jsRoutes.controllers.MovieController.searchForMovieAttribute(),{ attrType: "ACTOR"});
 	 
-	 createSelect2DeselectCreate("#series",avaibleSeries);
+	createSelect2DeselectCreate("#series",avaibleSeries);
 	 
 	
 	// enable the button for  
@@ -25,21 +25,6 @@ $(function() {
 	if("" != title) {
 		$('#grabberButton').attr('disabled',null).removeClass('disabled');
 	}
-	
-	$('#grabberDialog').dialog({ 
-		width: '1000',
-		height: '710',
-		top: 60,
-		autoOpen: false,
-		modal: true,
-		close:  function() {
-		  $('#grabberDialog .dialogContent').html('');
-		  $("html").css("overflow", "auto");
-		},
-	    open: function() {
-		  $("html").css("overflow", "hidden");
-		}
-	});
 	
 	/**
 	 * clicking on the grabber button opens an popup where the user can search for the movie online
@@ -60,23 +45,21 @@ $(function() {
 	 * The user searches in the grabber poup
 	 */
 	$('.pickGrabberEntry').live('click',function() {
-		showWaitDiaLog();
 		
-		var params = { "movieToEditId" : $('#movieToEditId').val()};
-		
-		pAjax(jsRoutes.controllers.InfoGrabberController.getMovieById($(this).data('grabberId'),$(this).data('grabberType')),params,
-		  function(data){
-		    $('#grabberDialog .dialogContent').html(data);
-		    $('#grabberDialog').dialog( "option", "buttons", [{
-		      text: 'Ok',
-              click: function() {        	 
-            	 fillFormWithInfoFromGrabber();
-              }
-		    }]);
-			closeWaitDiaLog();
-		  },
-		  function(err) {
-		    console.error(err);
+		showWaitDiaLog();	
+		displayAjaxDialog({
+		  route: jsRoutes.controllers.InfoGrabberController.getMovieById($(this).data('grabberId'),$(this).data('grabberType')),
+		  ajaxParams : { "movieToEditId" : $('#movieToEditId').val()},
+		  title: 'Movie info from Grabber',
+		  onOpen: closeWaitDiaLog,
+		  cssClass: "grabberModal",
+		  buttons : {
+			  "Ok" : {
+	    			icon: "icon-trash",
+	    			cssClass: "btn-danger",
+	    			callback: fillFormWithInfoFromGrabber
+	    		}
+		  }
 		});
 	});
 	
@@ -125,12 +108,10 @@ $(function() {
 function fillFormWithInfoFromGrabber() {
 	
 	showWaitDiaLog();
-	
 	var formParams = $('#grabberMovieForm').formParams();
 	var movieFormMode = $('#grabberMovieForm').attr('mode');
 	var grabberType = $('#grabberMovieForm').attr('grabberType');
 	$('#newMovieFormWrapper').html('').hide();
-	
 	pAjax(jsRoutes.controllers.MovieController.addMovieByGrabberId(movieFormMode,grabberType),formParams,
 			function(data) {
 		      $('#newMovieFormWrapper').html(data).show();
@@ -141,7 +122,7 @@ function fillFormWithInfoFromGrabber() {
 				console.error(err);
 			});
 	
-	$('#grabberDialog').dialog("close"); 
+	closeDialog();
 	
 }
 
@@ -169,21 +150,13 @@ function createPreview(prevName, src) {
  * This searches the grabber and returns the result via ajax and writes it to the dialog
  * @param title
  */
-function searchGrabber(title,grabberType,movieToEditId) {
-	
-	showWaitDiaLog();
-	
-	var params = { "movieToEditId" : movieToEditId};
-	
-	pAjax(jsRoutes.controllers.InfoGrabberController.searchGrabber(title,grabberType),params,
-	  function(data){
-		$('#grabberDialog .dialogContent').html(data);
-		$('#grabberDialog').dialog( "option", "buttons",[]).dialog('open');
-		closeWaitDiaLog();
-	  },
-	  function(err) {
-		console.error(err);
+function searchGrabber(title,grabberType,movieToEditId) {	
+	showWaitDiaLog();	
+	displayAjaxDialog({
+	  route: jsRoutes.controllers.InfoGrabberController.searchGrabber(title,grabberType),
+	  ajaxParams : { "movieToEditId" : movieToEditId},
+	  title: 'Movie info from Grabber',
+	  onOpen: closeWaitDiaLog,
+	  cssClass: "grabberModal"
 	});
-	
-
 }

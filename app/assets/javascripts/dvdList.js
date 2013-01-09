@@ -84,7 +84,6 @@ $(function() {
 	    		}
 	    	}
 		});
-		
 	});
 	/**
 	 * EO LEND DIALOG
