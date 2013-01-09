@@ -26,6 +26,8 @@ $(function() {
 		if(oldCssClassToAdd != null) {
 			$('#modal').removeClass(oldCssClassToAdd);
 		}
+		
+		$('#modal .modal-body').css('background-image','none');
 	});
 		
 });
@@ -55,6 +57,10 @@ function closeWaitDiaLog() {
 	$( "#pleaseWaitDialog").dialog('close');
 }
 
+/**
+ * calls an ajax route to display the remote content
+ * @param options
+ */
 function displayAjaxDialog(options) {
     pAjax(options.route,null,
     function(data){
@@ -76,21 +82,30 @@ function displayDialog(options) {
 		$('#modal').addClass(options.cssClass);
 	}
 	
-	if(options.closeButton == true) {
-	  $('#modal .modal-footer').append('<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>');
+	if(options.buttons!= null) {
+	  for(title in options.buttons) {
+	    var button = options.buttons[title];
+		var iconHtml = (button.icon != null) ? '<i class="'+button.icon+'"></i>' : '';
+		var cssClass = (button.cssClass != null) ? ' '+button.cssClass : '';
+		
+		$('<button class="btn'+cssClass+'">'+iconHtml+' '+title+'</button>').click(button.callback).appendTo('#modal .modal-footer');
+	  }
 	}
 	
-	if(options.buttonsToAdd != null) {
-		$(buttonsToAdd).each(function(i,button) {
-			
-		});
-	}
+	if(options.closeButton == true) {
+	   $('#modal .modal-footer').append('<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>');
+    }
 	
 	$('#modalLabel').html(options.title);
 	$('#modal .modal-body').html(options.content);
     $('#modal').modal('show');
-    
-    
+}
+
+/**
+ * closes the dialog
+ */
+function closeDialog() {
+	$('#modal').modal('hide')
 }
 
 

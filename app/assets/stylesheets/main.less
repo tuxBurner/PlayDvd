@@ -29,19 +29,9 @@ body {
 }
 
 /* no border arround genres and actors*/
-#dvdInfoDialog ul.chzn-choices {
-	border: none;
-	background: none;
-}
-
-
 #modal.dvdInfoModal {
   width: 900px;
   margin: -400px 0 0 -450px;
-}
-
-#modal.dvdInfoModal .modal-body {
-  max-height: 600px;
 }
 
 #modal.dvdInfoModal .modal-body {
@@ -50,6 +40,7 @@ body {
 	-webkit-background-size: 100% 100%; /*  Safari  */
 	-khtml-background-size: 100% 100%; /*  Konqueror  */
 	-moz-background-size: 100% 100%; /*not working in Firefox as yet */
+	max-height: 600px;
 }
 
 #modal.dvdInfoModal fieldset.well {
@@ -57,10 +48,12 @@ body {
   color: #000000;
 }
 
-#modal.dvdInfoModal fieldset.well a {
-  color: #000000;
+/**
+* popups
+*/
+#modal.smallModal {
+  width: 300px;
 }
-
 
 /**
 * pagination

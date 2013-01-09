@@ -173,8 +173,6 @@ $(function() {
   $('#modalLabel').html("@dvd.movieForm.title");
   @if(dvd.movieForm.hasBackdrop != null && dvd.movieForm.hasBackdrop == true) {
     $('#modal.dvdInfoModal .modal-body').css('background-image',"url('@routes.Dashboard.streamImage(dvd.movieForm.movieId,"BACKDROP","ORIGINAL")')");
-  } else {
-    $('#modal.dvdInfoModal .modal-body').css('background-image','none');
   }
 });
 </script>
