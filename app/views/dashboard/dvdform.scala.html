@@ -32,13 +32,13 @@
        
        <label for="copyType">Type:</label>
        @for((copyType,index) <- forms.DvdForm.getCopyTypes.zipWithIndex) {
-         <input type="radio" name="copyType" value="@copyType" @if(mode == DvdController.DVD_FORM_EDIT_MODE && copyType == dvdForm("copyType").value() || mode == DvdController.DVD_FORM_ADD_MODE && index == 0){ checked="checked" } /><span><img alt="@copyType" src="@routes.Assets.at("images/copy_type/"+copyType+".png")" /></span> 
+         <input type="radio" id="copyType" name="copyType" value="@copyType" @if(mode == DvdController.DVD_FORM_EDIT_MODE && copyType == dvdForm("copyType").value() || mode == DvdController.DVD_FORM_ADD_MODE && index == 0){ checked="checked" } /><span><img alt="@copyType" src="@routes.Assets.at("images/copy_type/"+copyType+".png")" /></span>
        }
        
        
-       <label for="copyType">Rating:</label>
+       <label for="ageRating">Rating:</label>
        @for((rating,index) <- forms.DvdForm.getAgeRatings.zipWithIndex) {
-         <input type="radio" name="ageRating" value="@rating" @if(mode == DvdController.DVD_FORM_EDIT_MODE && rating == dvdForm("ageRating").value() || mode == DvdController.DVD_FORM_ADD_MODE && index == 0){ checked="checked" } /><span><img alt="@rating" src="@routes.Assets.at("images/agerating/"+rating+".gif")" />@rating </span> 
+         <input type="radio" id="ageRating" name="ageRating" value="@rating" @if(mode == DvdController.DVD_FORM_EDIT_MODE && rating == dvdForm("ageRating").value() || mode == DvdController.DVD_FORM_ADD_MODE && index == 0){ checked="checked" } /><span><img alt="@rating" src="@routes.Assets.at("images/agerating/"+rating+".gif")" />@rating </span>
        }
        
          
@@ -90,6 +90,5 @@
   <!-- NEW MOVIE WRAPPER -->   
   <div class="row" id="newMovieFormWrapper">
   
-  </div>  
-  
+  </div>
 }
