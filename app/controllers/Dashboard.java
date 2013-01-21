@@ -46,7 +46,7 @@ public class Dashboard extends Controller {
 
   /**
    * Display the dvd and its informations
-   * 
+   *
    * @param dvdId
    * @return
    */
@@ -64,7 +64,7 @@ public class Dashboard extends Controller {
 
   /**
    * Displays the dialog content for lending a dvd to a another {@link User}
-   * 
+   *
    * @return
    */
   public static Result lendDialogContent(final Long dvdId) {
@@ -83,14 +83,14 @@ public class Dashboard extends Controller {
 
   /**
    * Displays the dialog content for unlending a dvd
-   * 
+   *
    * @param dvdId
    * @return
    */
   public static Result unLendDialogContent(final Long dvdId) {
     // check if the user may see the dvd
     final String userName = Secured.getUsername();
-    final Dvd dvdForUser = Dvd.getDvdForUser(dvdId, userName);
+    final Dvd dvdForUser = Dvd.getDvdForUser(dvdId, userName, true);
     if (dvdForUser == null) {
       return Results.forbidden();
     }
@@ -109,7 +109,7 @@ public class Dashboard extends Controller {
 
   /**
    * This actually lends a dvd to a user this is called via ajax
-   * 
+   *
    * @param dvdId
    * @return
    */
@@ -136,7 +136,7 @@ public class Dashboard extends Controller {
 
   /**
    * This actually lends a dvd to a user this is called via ajax
-   * 
+   *
    * @param dvdId
    * @return
    */
@@ -155,7 +155,7 @@ public class Dashboard extends Controller {
 
   /**
    * This renders the content for the delete dvd content dialog
-   * 
+   *
    * @param dvdId
    * @return
    */
@@ -172,7 +172,7 @@ public class Dashboard extends Controller {
 
   /**
    * Actually deletes the dvd
-   * 
+   *
    * @param dvdId
    * @return
    */
@@ -191,7 +191,7 @@ public class Dashboard extends Controller {
 
   /**
    * Streams an image which is bundled with the given {@link Dvd}
-   * 
+   *
    * @param dvdId
    * @param imgType
    * @param imgSize
@@ -208,7 +208,7 @@ public class Dashboard extends Controller {
 
   /**
    * This opens an external image and resizes it when needed
-   * 
+   *
    * @return
    */
   public static Result streamExternalImage() {
@@ -238,7 +238,7 @@ public class Dashboard extends Controller {
 
   /**
    * Gets the gravatar for the user
-   * 
+   *
    * @return
    */
   public static Result gravatar(final Integer size, final String userName) {
@@ -262,7 +262,7 @@ public class Dashboard extends Controller {
 
   /**
    * Displays the user profile mask
-   * 
+   *
    * @return
    */
   public static Result profile() {

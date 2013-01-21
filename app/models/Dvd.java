@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.avaje.ebean.Query;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -35,7 +36,7 @@ import forms.EDvdListOrderHow;
 public class Dvd extends Model {
 
   /**
-	 * 
+	 *
 	 */
   private static final long serialVersionUID = -8607299241692950618L;
 
@@ -93,7 +94,7 @@ public class Dvd extends Model {
 
   /**
    * Persists the {@link Dvd} to the database
-   * 
+   *
    * @param dvd
    * @return
    */
@@ -106,8 +107,8 @@ public class Dvd extends Model {
 	 * Creates a dvd from a {@link DvdForm)
 	 * @param userName
 	 * @param dvdForm
-	 * @return 
-	 * @throws Exception 
+	 * @return
+	 * @throws Exception
 	 */
   public static Dvd createFromForm(final String userName, final DvdForm dvdForm) throws Exception {
 
@@ -124,7 +125,7 @@ public class Dvd extends Model {
 
   /**
    * Edits a dvd from the informations from the form
-   * 
+   *
    * @param userName
    * @param dvdForm
    * @throws Exception
@@ -140,8 +141,7 @@ public class Dvd extends Model {
 
   /**
    * Creates or updates the given dvd
-   * 
-   * @param userName
+   *
    * @param dvdForm
    * @param dvd
    * @return
@@ -181,7 +181,7 @@ public class Dvd extends Model {
 
   /**
    * Adds a single Attribute to the dvd
-   * 
+   *
    * @param attrToAdd
    * @param attributeType
    * @param dvd
@@ -202,8 +202,7 @@ public class Dvd extends Model {
   /**
    * Gets all dvds which have the same owner and the same attribute excluding
    * the given {@link Dvd}
-   * 
-   * @param box
+   *
    * @param dvd
    * @return
    */
@@ -214,7 +213,7 @@ public class Dvd extends Model {
 
   /**
    * Gets all dvds which fit into the Filter int the {@link DvdSearchFrom}
-   * 
+   *
    * @param searchFrom
    * @return
    */
@@ -278,20 +277,37 @@ public class Dvd extends Model {
   /**
    * Gets a dvd by a username and the id this should be used for deleting and
    * editing where only the owner can do this
-   * 
+   *
    * @param id
    * @param username
    * @return
    */
   public static Dvd getDvdForUser(final Long id, final String username) {
-    final Dvd userDvd = Dvd.find.fetch("movie").where().ieq("owner.userName", username).eq("id", id).findUnique();
-    return userDvd;
+    return getDvdForUser(id,username,false);
+  }
 
+    /**
+     * Gets a dvd by a username and the id this should be used for deleting and
+     * editing where only the owner can do this
+     *
+     * @param id the id of the {@link Dvd}
+     * @param username the name of the {@link User} owning the dvd
+     * @param fetchBorrower if true the {@link Dvd#borrower} information will be fetched to
+     * @return
+     */
+  public static Dvd getDvdForUser(final Long id, final String username, final boolean fetchBorrower) {
+      Query<Dvd> dvdQuery = Dvd.find.fetch("movie");
+      if(fetchBorrower == true) {
+          dvdQuery.fetch("borrower");
+      }
+
+      final Dvd  userDvd = dvdQuery.where().ieq("owner.userName", username).eq("id", id).findUnique();
+      return userDvd;
   }
 
   /**
    * Gets dvds which are in the same hull but not the dvd itself
-   * 
+   *
    * @param dvd
    * @return
    */
@@ -341,7 +357,7 @@ public class Dvd extends Model {
 
   /**
    * This does all the default paging etc stuff
-   * 
+   *
    * @param expressionList
    * @param orderHow
    * @param orderBy
@@ -360,7 +376,7 @@ public class Dvd extends Model {
 
   /**
    * Lends the {@link Dvd} to a user or to a freename
-   * 
+   *
    * @param dvdId
    * @param ownerName
    * @param userName
@@ -410,7 +426,7 @@ public class Dvd extends Model {
 
   /**
    * Lends the {@link Dvd} to a user or to a freename
-   * 
+   *
    * @param dvdId
    * @param ownerName
    * @param userName
@@ -457,7 +473,7 @@ public class Dvd extends Model {
 
   /**
    * Gets all dvds which the owner of th dvd has of the same movie series
-   * 
+   *
    * @param attrValue
    * @param dvd
    * @return

@@ -6,7 +6,7 @@
 <form class="form-horizontal">
 
 <fieldset>
-  <legend>Unlend Dvd: <i>@dvd.movie.title</i> from User: <i>@if(dvd.borrower != null) { } else { @dvd.borrowerName }</i></legend>
+  <legend>Unlend Dvd: <i>@dvd.movie.title</i> from User: <i>@if(dvd.borrower != null) { @dvd.borrower.userName} else { @dvd.borrowerName }</i></legend>
   
   
   
