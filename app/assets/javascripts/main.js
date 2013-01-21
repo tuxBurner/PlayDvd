@@ -4,16 +4,6 @@
 
 $(function () {
 
-  //TODO: REMOVE and use a bootstrap dialog :)
-  // create the please wait dialog so we can display it when having long operations running
-  /*$("#pleaseWaitDialog").dialog({
-    closeOnEscape: false,
-    draggable: false,
-    modal: true,
-    resizable: false,
-    autoOpen: true
-  });*/
-
   // do some clean up when the modal is hidden
   $('#modal').on('hidden', function () {
 
