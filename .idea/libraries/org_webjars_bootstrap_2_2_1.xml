@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="org.webjars_bootstrap_2.2.1">
+    <CLASSES>
+      <root url="jar:///_data/_software/play-2.0.4/repository/cache/org.webjars/bootstrap/jars/bootstrap-2.2.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

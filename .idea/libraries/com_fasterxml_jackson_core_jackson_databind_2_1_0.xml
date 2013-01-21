@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="com.fasterxml.jackson.core_jackson-databind_2.1.0">
+    <CLASSES>
+      <root url="jar:///_data/_software/play-2.0.4/repository/cache/com.fasterxml.jackson.core/jackson-databind/jars/jackson-databind-2.1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
