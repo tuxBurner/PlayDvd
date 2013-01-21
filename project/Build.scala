@@ -18,11 +18,11 @@ object ApplicationBuild extends Build {
       "com.moviejukebox" % "themoviedbapi" % "3.3-SNAPSHOT",      
       
       "org.webjars" % "webjars-play" % "0.1",
-      "org.webjars" % "bootstrap" % "2.1.1",
+      "org.webjars" % "bootstrap" % "2.2.2",
       "org.webjars" % "jquery" % "1.8.2",
       "org.webjars" % "jquerypp" % "1.0b2-1",
       "org.webjars" % "select2" % "3.2",
-      "org.webjars" % "font-awesome" % "2.0.0"
+      "org.webjars" % "font-awesome" % "3.0.0"
       
       
     )
