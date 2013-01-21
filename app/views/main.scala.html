@@ -1,6 +1,6 @@
 @(title: String,menuContent: Html = Html(""),scripts: Html = Html(""),styles: Html = Html(""))(content: Html)
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
   <head>
     <title>@title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
@@ -11,7 +11,6 @@
 
     @styles
 
-    <link rel="stylesheet"  href="@routes.Assets.at("stylesheets/ui-bootstrap/jquery-ui-1.8.16.custom.css")">
     <link rel="stylesheet" href="@routes.WebJarAssets.at("select2/3.2/select2.css")" />
     <link rel="stylesheet"  href="@routes.Assets.at("stylesheets/main.css")">
   </head>
@@ -55,13 +54,21 @@
     
       
     
-  <!-- WAIT DIALOG -->  
-    <div style="display: none;" title="Please Wait" id="pleaseWaitDialog"><p>Please Wait</p></div>        
+  <!-- WAIT DIALOG -->
+
+    <div id="pleaseWaitDialog" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="pleaseWaitDialogLbl" aria-hidden="true">
+      <div class="modal-header">
+        <h3 id="pleaseWaitDialogLbl">Please Wait</h3>
+      </div>
+      <div class="modal-body">
+        <p><i class="icon-spinner icon-spin icon-3x"></i></p>
+      </div>
+    </div>
     
     <script src="@routes.WebJarAssets.at("jquery/1.8.2/jquery.min.js")" type="text/javascript"></script>    
     <script src="@routes.Assets.at("jquerypp/1.0b2/lib/jquery.form_params.js")" type="text/javascript"></script>
     <script src="@routes.WebJarAssets.at("bootstrap/2.2.2/js/bootstrap.min.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.at("jquery-ui-1.8.18.custom/js/jquery-ui-1.8.24.custom.min.js")" type="text/javascript"></script>
+
     
     <!-- select 2 is needed  -->
     <script src="@routes.WebJarAssets.at("select2/3.2/select2.min.js")" type="text/javascript"></script>

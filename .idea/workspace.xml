@@ -2,10 +2,43 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f8047800-a698-4e1c-a8d6-a21bc190c308" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/Dashboard.java" afterPath="$PROJECT_DIR$/app/controllers/Dashboard.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/Dvd.java" afterPath="$PROJECT_DIR$/app/models/Dvd.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/jquery-ui-1.8.18.custom/css/ui-lightness/images/ui-bg_diagonals-thick_18_b81900_40x40.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/jquery-ui-1.8.18.custom/css/ui-lightness/images/ui-bg_diagonals-thick_20_666666_40x40.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/jquery-ui-1.8.18.custom/css/ui-lightness/images/ui-bg_flat_10_000000_40x100.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/jquery-ui-1.8.18.custom/css/ui-lightness/images/ui-bg_glass_100_f6f6f6_1x400.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/jquery-ui-1.8.18.custom/css/ui-lightness/images/ui-bg_glass_100_fdf5ce_1x400.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/jquery-ui-1.8.18.custom/css/ui-lightness/images/ui-bg_glass_65_ffffff_1x400.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/jquery-ui-1.8.18.custom/css/ui-lightness/images/ui-bg_gloss-wave_35_f6a828_500x100.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/jquery-ui-1.8.18.custom/css/ui-lightness/images/ui-bg_highlight-soft_100_eeeeee_1x100.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/jquery-ui-1.8.18.custom/css/ui-lightness/images/ui-bg_highlight-soft_75_ffe45c_1x100.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/jquery-ui-1.8.18.custom/css/ui-lightness/images/ui-icons_222222_256x240.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/jquery-ui-1.8.18.custom/css/ui-lightness/images/ui-icons_228ef1_256x240.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/jquery-ui-1.8.18.custom/css/ui-lightness/images/ui-icons_ef8c08_256x240.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/jquery-ui-1.8.18.custom/css/ui-lightness/images/ui-icons_ffd27a_256x240.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/jquery-ui-1.8.18.custom/css/ui-lightness/images/ui-icons_ffffff_256x240.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/jquery-ui-1.8.18.custom/css/ui-lightness/jquery-ui-1.8.18.custom.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/jquery-ui-1.8.18.custom/js/jquery-ui-1.8.18.custom.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/jquery-ui-1.8.18.custom/js/jquery-ui-1.8.24.custom.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/stylesheets/ui-bootstrap/images/ui-bg_flat_0_aaaaaa_40x100.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/stylesheets/ui-bootstrap/images/ui-bg_glass_55_fbf9ee_1x400.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/stylesheets/ui-bootstrap/images/ui-bg_glass_65_ffffff_1x400.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/stylesheets/ui-bootstrap/images/ui-bg_glass_75_dadada_1x400.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/stylesheets/ui-bootstrap/images/ui-bg_glass_75_e6e6e6_1x400.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/stylesheets/ui-bootstrap/images/ui-bg_glass_75_ffffff_1x400.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/stylesheets/ui-bootstrap/images/ui-bg_highlight-soft_75_cccccc_1x100.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/stylesheets/ui-bootstrap/images/ui-bg_inset-soft_95_fef1ec_1x100.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/stylesheets/ui-bootstrap/images/ui-icons_222222_256x240.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/stylesheets/ui-bootstrap/images/ui-icons_2e83ff_256x240.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/stylesheets/ui-bootstrap/images/ui-icons_454545_256x240.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/stylesheets/ui-bootstrap/images/ui-icons_888888_256x240.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/stylesheets/ui-bootstrap/images/ui-icons_cd0a0a_256x240.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/stylesheets/ui-bootstrap/images/ui-icons_f6cf3b_256x240.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/stylesheets/ui-bootstrap/jquery-ui-1.8.16.custom.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/stylesheets/ui-bootstrap/jquery.ui.1.8.16.ie.css" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/dashboard/unlendform.scala.html" afterPath="$PROJECT_DIR$/app/views/dashboard/unlendform.scala.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/main.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/main.scala.html" afterPath="$PROJECT_DIR$/app/views/main.scala.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="dvdDataBase.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -47,10 +80,9 @@
     <file path="$APPLICATION_HOME_DIR$/plugins/JavaEE/lib/javaee-impl.jar!/standardSchemas/application_6.xsd" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358766200237" ignored="false" />
     <file path="$APPLICATION_HOME_DIR$/plugins/JavaEE/lib/javaee-impl.jar!/standardSchemas/web-app_2_4.xsd" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358766200237" ignored="false" />
     <file path="$APPLICATION_HOME_DIR$/plugins/JavaEE/lib/javaee-impl.jar!/standardSchemas/application_5.xsd" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358766200550" ignored="false" />
-    <file path="$PROJECT_DIR$/.idea/workspace.xml" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358769695548" ignored="false" />
     <file path="$PROJECT_DIR$/.idea/compiler.xml" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358769695548" ignored="false" />
     <file path="/_data/_software/play-2.0.4/repository/cache/com.github.ralfebert/jgravatar/jars/jgravatar-1.0-SNAPSHOT.jar!/META-INF/maven/com.github.ralfebert/jgravatar/pom.xml" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358769779492" ignored="false" />
-    <file path="/main.scala.html" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358774460268" ignored="false" />
+    <file path="/main.scala.html" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358777933924" ignored="false" />
     <file path="/unlendform.scala.html" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358775259230" ignored="false" />
     <file path="/Dvd.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358776164743" ignored="false" />
     <file path="/Dashboard.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358776185199" ignored="false" />
@@ -65,6 +97,9 @@
     <file path="/a.groovy" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358776374861" ignored="false" />
     <file path="/a.less" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358776381701" ignored="false" />
     <file path="/a.sql" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358776406535" ignored="false" />
+    <file path="/a.html" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358776904851" ignored="false" />
+    <file path="/a.scala" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358776917102" ignored="false" />
+    <file path="/main.js" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358778032373" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,60 +163,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Build.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/project/Build.scala">
+      <file leaf-file-name="main.scala.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/views/main.scala.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="44" selection-start="353" selection-end="353" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="unlendform.scala.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/dashboard/unlendform.scala.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="101" selection-start="258" selection-end="266" vertical-scroll-proportion="-4.375">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Dashboard.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/controllers/Dashboard.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="78" selection-start="0" selection-end="7729" vertical-scroll-proportion="0.17326732">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Secured.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/Secured.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="23" selection-start="393" selection-end="393" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Dvd.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/Dvd.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="304" column="6" selection-start="8997" selection-end="8997" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2025#2036#0" expanded="true" />
-                <element signature="e#4818#4826#0" expanded="true" />
-                <element signature="e#12923#12929#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="User.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/User.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="24" selection-start="724" selection-end="724" vertical-scroll-proportion="0.0">
+            <state line="12" column="0" selection-start="605" selection-end="605" vertical-scroll-proportion="0.28213167">
               <folding />
             </state>
           </provider>
@@ -208,10 +193,11 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/project/Build.scala" />
-        <option value="$PROJECT_DIR$/app/views/main.scala.html" />
-        <option value="$PROJECT_DIR$/app/views/dashboard/unlendform.scala.html" />
         <option value="$PROJECT_DIR$/app/models/Dvd.java" />
         <option value="$PROJECT_DIR$/app/controllers/Dashboard.java" />
+        <option value="$PROJECT_DIR$/app/views/dashboard/unlendform.scala.html" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/main.js" />
+        <option value="$PROJECT_DIR$/app/views/main.scala.html" />
       </list>
     </option>
   </component>
@@ -491,6 +477,56 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="images" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="PackagesPane">
@@ -500,24 +536,40 @@
   </component>
   <component name="PropertiesComponent">
     <property name="project.structure.last.edited" value="Global Libraries" />
-    <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="256" />
     <property name="project.structure.proportion" value="0.0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="258" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="MemberChooser.sorted" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="256" />
     <property name="recentsLimit" value="5" />
-    <property name="options.lastSelected" value="preferences.sourceCode.ActionScript" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="261" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="1056" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="1056" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="261" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="258" />
     <property name="GoToClass.includeJavaFiles" value="false" />
-    <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="restartRequiresConfirmation" value="true" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="dynamic.classpath" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
+    <property name="options.lastSelected" value="preferences.sourceCode.General" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="restartRequiresConfirmation" value="true" />
     <property name="options.searchVisible" value="true" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RunManager" selected="Play 2 App.Dvddatabse">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
@@ -644,6 +696,9 @@
     </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="StructureViewFactory">
+    <option name="ACTIVE_ACTIONS" value="SHOW_INHERITED,ALPHA_COMPARATOR" />
+  </component>
   <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false">
     <option name="USER" value="" />
     <option name="PASSWORD" value="" />
@@ -679,29 +734,49 @@
     <option name="localTasksCounter" value="3" />
     <servers />
   </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
     <frame x="1919" y="27" width="1922" height="1174" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294347" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.70077974" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.70077974" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29922026" sideWeight="0.49839914" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294347" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19797225" sideWeight="0.23586744" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3294347" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19797225" sideWeight="0.6705653" order="8" side_tool="true" content_ui="tabs" x="3329" y="174" width="371" height="1026" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19797225" sideWeight="0.6159844" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3840156" sideWeight="0.49786553" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14087513" sideWeight="0.6705653" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3840156" sideWeight="0.49786553" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -771,11 +846,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/conf/evolutions/default/1.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.9117647" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/conf/routes">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="92" selection-start="732" selection-end="732" vertical-scroll-proportion="-0.47280967" />
@@ -815,23 +885,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/main.scala.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="125" selection-start="767" selection-end="767" vertical-scroll-proportion="-0.6443299">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/project/Build.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="44" selection-start="353" selection-end="353" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/dashboard/unlendform.scala.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="101" selection-start="258" selection-end="266" vertical-scroll-proportion="-4.375">
           <folding />
         </state>
       </provider>
@@ -845,7 +901,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/Secured.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="23" selection-start="393" selection-end="393" vertical-scroll-proportion="0.0">
+        <state line="19" column="23" selection-start="393" selection-end="393" vertical-scroll-proportion="0.07099698">
           <folding />
         </state>
       </provider>
@@ -871,7 +927,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/Dashboard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="78" selection-start="0" selection-end="7729" vertical-scroll-proportion="0.17326732">
+        <state line="72" column="62" selection-start="1867" selection-end="1867" vertical-scroll-proportion="0.6117825">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/dashboard/unlendform.scala.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="23" selection-start="761" selection-end="761" vertical-scroll-proportion="-17.5">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="55" column="103" selection-start="1232" selection-end="1232" vertical-scroll-proportion="0.21903323">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/main.scala.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="0" selection-start="605" selection-end="605" vertical-scroll-proportion="0.28213167">
           <folding />
         </state>
       </provider>
