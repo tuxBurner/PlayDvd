@@ -10,7 +10,6 @@
      var avaibleCollections = @Html(DvdAttribute.getAllByTypeAsJson(EDvdAttributeType.COLLECTION));
      var selectedMovie = @Html(forms.DvdForm.getSelectedMovieAsJson(dvdForm("movieId").value()));
    //-->
-          
   </script>
   
   <script src="@routes.Assets.at("javascripts/dvdForm.js")" type="text/javascript"></script>
@@ -32,7 +31,7 @@
        
        <label for="copyType">Type:</label>
        @for((copyType,index) <- forms.DvdForm.getCopyTypes.zipWithIndex) {
-         <input type="radio" id="copyType" name="copyType" value="@copyType" @if(mode == DvdController.DVD_FORM_EDIT_MODE && copyType == dvdForm("copyType").value() || mode == DvdController.DVD_FORM_ADD_MODE && index == 0){ checked="checked" } /><span><img alt="@copyType" src="@routes.Assets.at("images/copy_type/"+copyType+".png")" /></span>
+         <input type="radio" id="copyType" name="copyType" value="@copyType" @if(mode == DvdController.DVD_FORM_EDIT_MODE && copyType == dvdForm("copyType").value() || mode == DvdController.DVD_FORM_ADD_MODE && (index == 0 || copyType.equals(User.getCurrentUser().defaultCopyType))){ checked="checked" } /><span><img alt="@copyType" src="@routes.Assets.at("images/copy_type/"+copyType+".png")" /></span>
        }
        
        
@@ -40,11 +39,8 @@
        @for((rating,index) <- forms.DvdForm.getAgeRatings.zipWithIndex) {
          <input type="radio" id="ageRating" name="ageRating" value="@rating" @if(mode == DvdController.DVD_FORM_EDIT_MODE && rating == dvdForm("ageRating").value() || mode == DvdController.DVD_FORM_ADD_MODE && index == 0){ checked="checked" } /><span><img alt="@rating" src="@routes.Assets.at("images/agerating/"+rating+".gif")" />@rating </span>
        }
-       
-         
-       @inputText(dvdForm("hullNr"),'_label -> "Hull Nr.", 'class -> "span4")
 
-        
+       @inputText(dvdForm("hullNr"),'_label -> "Hull Nr.", 'class -> "span4")
        
        <div class="clearfix">
          <label for="box">Box:</label>
@@ -87,7 +83,7 @@
      }
    </div>  
      
-  <!-- NEW MOVIE WRAPPER -->   
+  <!-- NEW MOVIE WRAPPER -->
   <div class="row" id="newMovieFormWrapper">
   
   </div>

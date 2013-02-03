@@ -40,6 +40,7 @@ import forms.ExternalImageForm;
 import forms.InfoDvd;
 import forms.LendForm;
 import forms.UnLendForm;
+import views.html.userprofile;
 
 @Security.Authenticated(Secured.class)
 public class Dashboard extends Controller {
@@ -266,7 +267,7 @@ public class Dashboard extends Controller {
    * @return
    */
   public static Result profile() {
-    return Results.TODO;
+    return Results.ok(userprofile.render(null));
   }
 
 }

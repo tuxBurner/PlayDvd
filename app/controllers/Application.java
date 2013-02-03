@@ -1,5 +1,7 @@
 package controllers;
 
+import forms.LoginForm;
+import forms.RegisterForm;
 import models.User;
 import play.Routes;
 import play.data.Form;
@@ -17,65 +19,6 @@ import views.html.register;
 
 public class Application extends Controller {
 
-  // TODO: move to own class
-  // -- Authentication
-  public static class Login {
-
-    public String username;
-
-    public String password;
-
-    public String validate() {
-      final User user = User.authenticate(username, password);
-      if (user == null) {
-        return "Invalid user or password";
-      }
-      return null;
-    }
-  }
-
-  // TODO: move to own class
-  public static class Register {
-
-    @Formats.NonEmpty
-    @Required(message = "Username is needed")
-    @MaxLength(value = 10)
-    @MinLength(value = 5)
-    public String username;
-
-    @Formats.NonEmpty
-    @Required(message = "Password is needed")
-    @MaxLength(value = 10)
-    @MinLength(value = 5)
-    public String password;
-
-    public String repassword;
-
-    @Required(message = "Email is required")
-    @Email(message = "The entered Email is not an email")
-    public String email;
-
-    public String validate() {
-
-      if (password.equals(repassword) == false) {
-        return "Passwords dont match";
-      }
-
-      // check if the username is unique
-      final boolean checkIfUserExsists = User.checkIfUserExsists(username);
-      if (checkIfUserExsists == true) {
-        return "User: " + username + " already exists";
-      }
-
-      final User user = new User();
-      user.email = email;
-      user.userName = username;
-      user.password = password;
-      User.create(user);
-
-      return null;
-    }
-  }
 
   @Security.Authenticated(Secured.class)
   public static Result index() {
@@ -86,7 +29,7 @@ public class Application extends Controller {
    * Login page.
    */
   public static Result login() {
-    return Results.ok(login.render(Controller.form(Login.class)));
+    return Results.ok(login.render(Controller.form(LoginForm.class)));
   }
 
   public static Result logout() {
@@ -101,7 +44,7 @@ public class Application extends Controller {
    * @return
    */
   public static Result register() {
-    return Results.ok(register.render(Controller.form(Register.class)));
+    return Results.ok(register.render(Controller.form(RegisterForm.class)));
   }
 
   /**
@@ -110,7 +53,7 @@ public class Application extends Controller {
    * @return
    */
   public static Result authenticate() {
-    final Form<Login> loginForm = Controller.form(Login.class).bindFromRequest();
+    final Form<LoginForm> loginForm = Controller.form(LoginForm.class).bindFromRequest();
     if (loginForm.hasErrors()) {
       return Results.badRequest(login.render(loginForm));
     } else {
@@ -125,7 +68,7 @@ public class Application extends Controller {
    * @return
    */
   public static Result registeruser() {
-    final Form<Register> registerForm = Controller.form(Register.class).bindFromRequest();
+    final Form<RegisterForm> registerForm = Controller.form(RegisterForm.class).bindFromRequest();
     if (registerForm.hasErrors()) {
       return Results.badRequest(register.render(registerForm));
     } else {

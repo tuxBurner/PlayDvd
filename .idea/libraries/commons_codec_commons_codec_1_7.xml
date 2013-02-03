@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="commons-codec_commons-codec_1.7">
     <CLASSES>
-      <root url="jar:///_data/_software/play-2.0.4/repository/cache/commons-codec/commons-codec/jars/commons-codec-1.7.jar!/" />
+      <root url="jar://$USER_HOME$/_software/_coding/play-2.0.4/repository/cache/commons-codec/commons-codec/jars/commons-codec-1.7.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

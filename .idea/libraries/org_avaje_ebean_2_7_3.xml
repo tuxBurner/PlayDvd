@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="org.avaje_ebean_2.7.3">
     <CLASSES>
-      <root url="jar:///_data/_software/play-2.0.4/repository/local/org.avaje/ebean/2.7.3/jars/ebean.jar!/" />
+      <root url="jar://$USER_HOME$/_software/_coding/play-2.0.4/repository/local/org.avaje/ebean/2.7.3/jars/ebean.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

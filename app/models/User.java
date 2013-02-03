@@ -1,23 +1,21 @@
 package models;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
+import com.google.gson.Gson;
+import com.typesafe.config.ConfigFactory;
 import org.apache.commons.codec.digest.DigestUtils;
-
 import play.Logger;
 import play.data.format.Formats;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
+import play.mvc.Controller;
 
-import com.google.gson.Gson;
-import com.typesafe.config.ConfigFactory;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User extends Model {
@@ -42,6 +40,12 @@ public class User extends Model {
   @Required
   @Formats.NonEmpty
   public String email;
+
+  /**
+   * If set this will be taken when the user adds a new copy to his collection as default Type.
+   * Like BluRay etc ...
+   */
+  public String defaultCopyType;
 
   public static Model.Finder<String, User> find = new Model.Finder<String, User>(String.class, User.class);
 
@@ -92,6 +96,14 @@ public class User extends Model {
    */
   public static boolean checkIfUserExsists(final String username) {
     return User.getUserByName(username) != null;
+  }
+
+  /**
+   * Gets the current loggedin user from the database
+   * @return
+   */
+  public static User getCurrentUser() {
+    return getUserByName(Controller.request().username());
   }
 
   /**

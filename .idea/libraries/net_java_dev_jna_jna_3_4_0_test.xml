@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="net.java.dev.jna_jna_3.4.0_test">
     <CLASSES>
-      <root url="jar:///_data/_software/play-2.0.4/repository/local/net.java.dev.jna/jna/3.4.0/jars/jna.jar!/" />
+      <root url="jar://$USER_HOME$/_software/_coding/play-2.0.4/repository/local/net.java.dev.jna/jna/3.4.0/jars/jna.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

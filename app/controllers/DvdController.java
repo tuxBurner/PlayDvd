@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Dvd;
+import models.User;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -28,6 +29,7 @@ public class DvdController extends Controller {
    * @return
    */
   public static Result showAddDvd() {
+
     final Form<DvdForm> form = Controller.form(forms.DvdForm.class);
     return Results.ok(dvdform.render(form.fill(new DvdForm()), DvdController.DVD_FORM_ADD_MODE));
   }

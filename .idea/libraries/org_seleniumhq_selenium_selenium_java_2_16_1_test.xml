@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="org.seleniumhq.selenium_selenium-java_2.16.1_test">
     <CLASSES>
-      <root url="jar:///_data/_software/play-2.0.4/repository/local/org.seleniumhq.selenium/selenium-java/2.16.1/jars/selenium-java.jar!/" />
+      <root url="jar://$USER_HOME$/_software/_coding/play-2.0.4/repository/local/org.seleniumhq.selenium/selenium-java/2.16.1/jars/selenium-java.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

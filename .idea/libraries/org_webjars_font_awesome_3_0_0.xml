@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="org.webjars_font-awesome_3.0.0">
     <CLASSES>
-      <root url="jar:///_data/_software/play-2.0.4/repository/cache/org.webjars/font-awesome/jars/font-awesome-3.0.0.jar!/" />
+      <root url="jar://$USER_HOME$/_software/_coding/play-2.0.4/repository/cache/org.webjars/font-awesome/jars/font-awesome-3.0.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
