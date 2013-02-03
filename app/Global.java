@@ -46,6 +46,7 @@ public class Global extends GlobalSettings {
       user.password = "hallo123";
       user.email = "sebasth@gmx.de";
       user.userName = "tuxBurner";
+      user.defaultCopyType = "BLURAY";
       User.create(user);
 
       if (user != null) {

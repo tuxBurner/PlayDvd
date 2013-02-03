@@ -1,4 +1,63 @@
-@(dvdForm: Form[forms.DvdForm])
+@(profileForm: Form[forms.UserProfileForm])
+
+
+@import helper._
+@import helper.twitterBootstrap._
+
+
 @mainmenu("Dvd Database - User Profile",Html(""),Html("")) {
-                                                Hier muss eine Form rein
+  <div class="row-fluid">
+
+
+    <div class="span2"></div>
+    <div class="span8">
+
+    @form(routes.UserProfileController.updateProfile,'class -> "well") {
+
+      <h4>Profile of user: @Secured.getUsername()</h4>
+      <hr />
+
+      @if(profileForm.hasGlobalErrors) {
+        <p class="alert alert-error">
+        @profileForm.globalError.message
+        </p>
+      }
+
+      @if(flash.contains("success")) {
+        <p class="alert alert-success">
+        @flash.get("success")
+        </p>
+      }
+
+      @inputText(profileForm("email"),'_label -> "E-Mail", 'placeholder -> "Enter valid E-Mail")
+      <img src="@routes.Dashboard.gravatar(16,Controller.ctx().session().get(Secured.AUTH_SESSION))" />
+      <hr />
+
+
+      @inputPassword(profileForm("password"),'_label -> "Password", '_showConstraints -> true, 'size -> 10, 'placeholder -> "Enter Password")
+      @inputPassword(profileForm("rePassword"),'_label -> "Retype password", '_showConstraints -> true, 'placeholder -> "Retype Password")
+      <hr  />
+
+      <label for="defaultCopyType">Default copytype:</label>
+      @for((copyType,index) <- forms.DvdForm.getCopyTypes.zipWithIndex) {
+        <input type="radio" id="defaultCopyType" name="defaultCopyType" value="@copyType" @if((copyType.equals(profileForm("defaultCopyType").value)) || index == 0 ){ checked="checked" } /><span><img alt="@copyType" src="@routes.Assets.at("images/copy_type/"+copyType+".png")" /></span>
+      }
+
+
+      <hr />
+
+
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-warning"><i class="icon-user"></i> Update</button>
+        <a class="btn" href="@routes.Application.index">Back</a>
+      </div>
+
+
+    }
+    </div>
+
+    <div class="span2"></div>
+
+  </div>
 }

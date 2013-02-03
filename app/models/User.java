@@ -2,6 +2,7 @@ package models;
 
 import com.google.gson.Gson;
 import com.typesafe.config.ConfigFactory;
+import controllers.Secured;
 import org.apache.commons.codec.digest.DigestUtils;
 import play.Logger;
 import play.data.format.Formats;
@@ -103,7 +104,7 @@ public class User extends Model {
    * @return
    */
   public static User getCurrentUser() {
-    return getUserByName(Controller.request().username());
+    return getUserByName(Secured.getUsername());
   }
 
   /**

@@ -5,12 +5,12 @@
 @menuContent = {
   <div class="btn-group pull-right">
     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-      <img src="@routes.Dashboard.gravatar(16,Controller.ctx().session().get(Secured.AUTH_SESSION))" />
+      <img src="@routes.Dashboard.gravatar(16,Secured.getUsername)" />
       @Controller.ctx().session().get(Secured.AUTH_SESSION)
       <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
-      <li><a href="@routes.Dashboard.profile()"><i class="icon-user"></i>Profile</a></li>
+      <li><a href="@routes.UserProfileController.showProfile()"><i class="icon-user"></i>Profile</a></li>
       <li class="divider"></li>
       <li><a href="@routes.Application.logout"><i class="icon-signout"></i>Sign Out</a></li>
     </ul>

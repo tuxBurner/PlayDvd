@@ -261,13 +261,5 @@ public class Dashboard extends Controller {
 
   }
 
-  /**
-   * Displays the user profile mask
-   *
-   * @return
-   */
-  public static Result profile() {
-    return Results.ok(userprofile.render(null));
-  }
 
 }

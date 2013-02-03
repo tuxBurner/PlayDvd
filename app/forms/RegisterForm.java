@@ -1,8 +1,11 @@
 package forms;
 
 import models.User;
+import org.apache.commons.lang3.StringUtils;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
+
+import java.util.List;
 
 /**
  * User: tuxburner
@@ -28,6 +31,8 @@ public class RegisterForm {
   @Constraints.Email(message = "The entered Email is not an email")
   public String email;
 
+  public String defaultCopyType;
+
   public String validate() {
 
     if (password.equals(repassword) == false) {
@@ -40,10 +45,22 @@ public class RegisterForm {
       return "User: " + username + " already exists";
     }
 
+    if (StringUtils.isEmpty(defaultCopyType) == true) {
+      return "No default copytype selected.";
+    }
+
+    final List<String> copyTypes = DvdForm.getCopyTypes();
+    if (copyTypes.contains(defaultCopyType) == false) {
+      return "The selected copytype: " + defaultCopyType + " does not exists.";
+    }
+
+
     final User user = new User();
     user.email = email;
     user.userName = username;
     user.password = password;
+    user.defaultCopyType = defaultCopyType;
+
     User.create(user);
 
     return null;
