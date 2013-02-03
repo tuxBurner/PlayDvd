@@ -8,7 +8,6 @@ import play.Logger;
 import play.data.format.Formats;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
-import play.mvc.Controller;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,6 +46,11 @@ public class User extends Model {
    * Like BluRay etc ...
    */
   public String defaultCopyType;
+
+  /**
+   * If this token is set the user asked for a password reset
+   */
+  public String passwordResetToken;
 
   public static Model.Finder<String, User> find = new Model.Finder<String, User>(String.class, User.class);
 

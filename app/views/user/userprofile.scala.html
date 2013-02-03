@@ -14,7 +14,7 @@
 
     @form(routes.UserProfileController.updateProfile,'class -> "well") {
 
-      <h4>Profile of user: @Secured.getUsername()</h4>
+      <h4>Profile of user: @Secured.getUsername() <img src="@routes.Dashboard.gravatar(16,Controller.ctx().session().get(Secured.AUTH_SESSION))" /></h4>
       <hr />
 
       @if(profileForm.hasGlobalErrors) {
@@ -30,7 +30,6 @@
       }
 
       @inputText(profileForm("email"),'_label -> "E-Mail", 'placeholder -> "Enter valid E-Mail")
-      <img src="@routes.Dashboard.gravatar(16,Controller.ctx().session().get(Secured.AUTH_SESSION))" />
       <hr />
 
 

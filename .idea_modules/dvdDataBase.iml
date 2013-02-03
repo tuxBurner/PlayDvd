@@ -11,9 +11,6 @@
       <sourceFolder url="file://$MODULE_DIR$/../test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../test/resources" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/../target/scala-2.9.1/cache" />
-      <excludeFolder url="file://$MODULE_DIR$/../target/scala-2.9.1/classes" />
-      <excludeFolder url="file://$MODULE_DIR$/../target/scala-2.9.1/classes_managed" />
-      <excludeFolder url="file://$MODULE_DIR$/../target/scala-2.9.1/resource_managed" />
       <excludeFolder url="file://$MODULE_DIR$/../target/streams" />
     </content>
     <orderEntry type="inheritedJdk" />
@@ -75,6 +72,14 @@
     <orderEntry type="library" name="com.fasterxml.jackson.core_jackson-annotations_2.1.0" level="project" />
     <orderEntry type="library" name="com.fasterxml.jackson.core_jackson-databind_2.1.0" level="project" />
     <orderEntry type="library" name="commons-codec_commons-codec_1.7" level="project" />
+    <orderEntry type="library" name="com.typesafe_play-plugins-mailer_2.9.1_2.0.4" level="project" />
+    <orderEntry type="library" name="org.apache.commons_commons-email_1.2" level="project" />
+    <orderEntry type="library" name="javax.mail_mail_1.4.1" level="project" />
+    <orderEntry type="library" name="javax.activation_activation_1.1" level="project" />
+    <orderEntry type="library" name="com.typesafe_play-plugins-util_2.9.1_2.0.4" level="project" />
+    <orderEntry type="library" name="org.ow2.spec.ee_ow2-atinject-1.0-spec_1.0.10" level="project" />
+    <orderEntry type="library" name="com.cedarsoft_guice-annotations_2.0.1" level="project" />
+    <orderEntry type="library" name="com.intellij_annotations_7.0.3" level="project" />
     <orderEntry type="library" name="org.webjars_webjars-play_0.1" level="project" />
     <orderEntry type="library" name="org.webjars_bootstrap_2.2.2" level="project" />
     <orderEntry type="library" name="org.webjars_jquery_1.8.2" level="project" />

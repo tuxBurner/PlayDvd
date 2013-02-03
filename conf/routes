@@ -14,6 +14,9 @@ GET     /logout                     controllers.Application.logout()
 GET     /profile                    controllers.UserProfileController.showProfile()
 POST    /profile                    controllers.UserProfileController.updateProfile()
 
+# lost password
+GET /lostpassword                   controllers.Application.showPasswordForget()
+
 # Register
 GET     /register                   controllers.Application.register()
 POST    /register                   controllers.Application.registeruser()

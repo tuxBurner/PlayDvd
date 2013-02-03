@@ -2,22 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f8047800-a698-4e1c-a8d6-a21bc190c308" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/controllers/UserProfileController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/conf/evolutions/default/4.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/helpers/MailerHeler.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/com_cedarsoft_guice_annotations_2_0_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/com_intellij_annotations_7_0_3.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/com_typesafe_play_plugins_mailer_2_9_1_2_0_4.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/com_typesafe_play_plugins_util_2_9_1_2_0_4.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/javax_activation_activation_1_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/javax_mail_mail_1_4_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/user/lostpassword.scala.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/org_apache_commons_commons_email_1_2.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/org_ow2_spec_ee_ow2_atinject_1_0_spec_1_0_10.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/userprofile.scala.html" afterPath="$PROJECT_DIR$/app/views/user/userprofile.scala.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/Application.java" afterPath="$PROJECT_DIR$/app/controllers/Application.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/Build.scala" afterPath="$PROJECT_DIR$/project/Build.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/Dashboard.java" afterPath="$PROJECT_DIR$/app/controllers/Dashboard.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Global.java" afterPath="$PROJECT_DIR$/app/Global.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/forms/RegisterForm.java" afterPath="$PROJECT_DIR$/app/forms/RegisterForm.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/User.java" afterPath="$PROJECT_DIR$/app/models/User.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/UserProfileController.java" afterPath="$PROJECT_DIR$/app/controllers/UserProfileController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/forms/UserProfileForm.java" afterPath="$PROJECT_DIR$/app/forms/UserProfileForm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/conf/application.conf" afterPath="$PROJECT_DIR$/conf/application.conf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea_modules/dvdDataBase.iml" afterPath="$PROJECT_DIR$/.idea_modules/dvdDataBase.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/login.scala.html" afterPath="$PROJECT_DIR$/app/views/login.scala.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/mainmenu.scala.html" afterPath="$PROJECT_DIR$/app/views/mainmenu.scala.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/register.scala.html" afterPath="$PROJECT_DIR$/app/views/register.scala.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/conf/play.plugins" afterPath="$PROJECT_DIR$/conf/play.plugins" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/conf/routes" afterPath="$PROJECT_DIR$/conf/routes" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/userprofile.scala.html" afterPath="$PROJECT_DIR$/app/views/userprofile.scala.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="dvdDataBase.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359898005143" ignored="false" />
+    <file path="/Dummy.txt" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359927626112" ignored="false" />
     <file path="$APPLICATION_HOME_DIR$/lib/idea.jar!/standardSchemas/xinclude.xsd" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358766199954" ignored="false" />
     <file path="$APPLICATION_HOME_DIR$/lib/idea.jar!/standardSchemas/catalog.xsd" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358766199954" ignored="false" />
     <file path="$APPLICATION_HOME_DIR$/lib/idea.jar!/standardSchemas/XMLSchema-instance.xsd" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358766199954" ignored="false" />
@@ -75,22 +87,35 @@
     <file path="/a.scala" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358776917102" ignored="false" />
     <file path="/main.js" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358778032373" ignored="false" />
     <file path="/main.less" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358780085513" ignored="false" />
-    <file path="/User.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359908031953" ignored="false" />
+    <file path="/User.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359930053197" ignored="false" />
     <file path="/3.sql" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359895817770" ignored="false" />
     <file path="/dvdform.scala.html" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359897133560" ignored="false" />
     <file path="/DvdController.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359896883959" ignored="false" />
-    <file path="/userprofile.scala.html" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359920189671" ignored="false" />
+    <file path="/userprofile.scala.html" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359926448909" ignored="false" />
     <file path="/a.dummy" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359897433950" ignored="false" />
-    <file path="/Application.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359900386407" ignored="false" />
+    <file path="/Application.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359929565193" ignored="false" />
     <file path="/register.scala.html" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359908241850" ignored="false" />
-    <file path="/login.scala.html" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359908533460" ignored="false" />
-    <file path="/UserProfileForm.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359920443227" ignored="false" />
+    <file path="/login.scala.html" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359929751980" ignored="false" />
+    <file path="/UserProfileForm.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359927976012" ignored="false" />
     <file path="/ProfileController.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359905942051" ignored="false" />
-    <file path="/UserProfileController.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359920167761" ignored="false" />
-    <file path="/routes" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359905356138" ignored="false" />
+    <file path="/UserProfileController.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359929331090" ignored="false" />
+    <file path="/routes" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359929492170" ignored="false" />
     <file path="/mainmenu.scala.html" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359920345167" ignored="false" />
     <file path="/RegisterForm.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359907671059" ignored="false" />
     <file path="/Global.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359908165728" ignored="false" />
+    <file path="/application.conf" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359929769933" ignored="false" />
+    <file path="/Mailer.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359929218489" ignored="false" />
+    <file path="/MailerHeler.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359928831815" ignored="false" />
+    <file path="/EMailContentType.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359928887915" ignored="false" />
+    <file path="/lostpassword.scala.html" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359929918783" ignored="false" />
+    <file path="/4.sql" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359930130811" ignored="false" />
+    <file path="$PROJECT_DIR$/target/scala-2.9.1/classes_managed/views/html/dashboard/lendform.class" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359930222225" ignored="false" />
+    <file path="$PROJECT_DIR$/target/scala-2.9.1/classes_managed/views/html/login.class" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359930222225" ignored="false" />
+    <file path="$PROJECT_DIR$/target/scala-2.9.1/classes_managed/controllers/ReverseApplication.class" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359930222225" ignored="false" />
+    <file path="$PROJECT_DIR$/target/scala-2.9.1/classes_managed/controllers/ReverseAssets.class" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359930222225" ignored="false" />
+    <file path="$PROJECT_DIR$/target/scala-2.9.1/classes_managed/views/html/dashboard/unlendform.class" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359930222226" ignored="false" />
+    <file path="$PROJECT_DIR$/target/scala-2.9.1/classes_managed/controllers/ReverseMovieController.class" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359930222226" ignored="false" />
+    <file path="$PROJECT_DIR$/target/scala-2.9.1/classes_managed/views/html/user/lostpassword.class" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359930222226" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,10 +179,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="UserProfileController.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/UserProfileController.java">
+      <file leaf-file-name="MailerHeler.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/helpers/MailerHeler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="60" selection-start="799" selection-end="799" vertical-scroll-proportion="0.0">
+            <state line="20" column="19" selection-start="464" selection-end="464" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -165,57 +190,77 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dvdform.scala.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/dashboard/dvdform.scala.html">
+      <file leaf-file-name="login.scala.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/login.scala.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="125" selection-start="1299" selection-end="1338" vertical-scroll-proportion="-11.291667">
+            <state line="36" column="30" selection-start="954" selection-end="954" vertical-scroll-proportion="-22.5">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserProfileForm.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/forms/UserProfileForm.java">
+      <file leaf-file-name="application.conf" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/conf/application.conf">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="66" column="31" selection-start="2003" selection-end="2003" vertical-scroll-proportion="0.7074468">
+            <state line="71" column="24" selection-start="1863" selection-end="1863" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="userprofile.scala.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/userprofile.scala.html">
+      <file leaf-file-name="lostpassword.scala.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/user/lostpassword.scala.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="60" selection-start="816" selection-end="816" vertical-scroll-proportion="-10.625">
+            <state line="25" column="53" selection-start="391" selection-end="391" vertical-scroll-proportion="-15.625">
               <folding>
-                <element signature="e#47#62#0" expanded="true" />
+                <element signature="e#51#66#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mainmenu.scala.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/mainmenu.scala.html">
+      <file leaf-file-name="User.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/User.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="59" selection-start="281" selection-end="281" vertical-scroll-proportion="1.25">
+            <state line="52" column="34" selection-start="1149" selection-end="1167" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Dvd.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/Dvd.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="35" column="13" selection-start="893" selection-end="893" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Secured.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/Secured.java">
+      <file leaf-file-name="3.sql" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/conf/evolutions/default/3.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="23" selection-start="393" selection-end="393" vertical-scroll-proportion="0.0">
+            <state line="5" column="31" selection-start="122" selection-end="122" vertical-scroll-proportion="-1.5">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Dashboard.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/Dashboard.java">
+      <file leaf-file-name="4.sql" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/conf/evolutions/default/4.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="246" column="30" selection-start="7022" selection-end="7038" vertical-scroll-proportion="0.0">
+            <state line="5" column="45" selection-start="139" selection-end="139" vertical-scroll-proportion="0.16556291">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="1.sql" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/conf/evolutions/default/1.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="77" column="46" selection-start="3085" selection-end="3131" vertical-scroll-proportion="-10.5">
               <folding />
             </state>
           </provider>
@@ -224,27 +269,9 @@
       <file leaf-file-name="register.scala.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/register.scala.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="13" selection-start="1114" selection-end="1214" vertical-scroll-proportion="-14.375">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="login.scala.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/login.scala.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="8" selection-start="459" selection-end="459" vertical-scroll-proportion="-8.125">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RegisterForm.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/forms/RegisterForm.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="54" column="23" selection-start="1473" selection-end="1473" vertical-scroll-proportion="0.0">
+            <state line="3" column="33" selection-start="38" selection-end="88" vertical-scroll-proportion="-1.7916666">
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#39#54#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -270,22 +297,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/views/dashboard/dvdform.scala.html" />
-        <option value="$PROJECT_DIR$/app/forms/LoginForm.java" />
-        <option value="$PROJECT_DIR$/.idea/workspace.xml" />
-        <option value="$PROJECT_DIR$/app/controllers/Application.java" />
-        <option value="$PROJECT_DIR$/app/controllers/ProfileController.java" />
-        <option value="$PROJECT_DIR$/conf/routes" />
-        <option value="$PROJECT_DIR$/app/controllers/Dashboard.java" />
-        <option value="$PROJECT_DIR$/app/models/User.java" />
-        <option value="$PROJECT_DIR$/app/Global.java" />
-        <option value="$PROJECT_DIR$/app/forms/RegisterForm.java" />
-        <option value="$PROJECT_DIR$/app/views/register.scala.html" />
-        <option value="$PROJECT_DIR$/app/views/login.scala.html" />
-        <option value="$PROJECT_DIR$/app/controllers/UserProfileController.java" />
         <option value="$PROJECT_DIR$/app/views/userprofile.scala.html" />
-        <option value="$PROJECT_DIR$/app/views/mainmenu.scala.html" />
+        <option value="$PROJECT_DIR$/project/Build.scala" />
+        <option value="$PROJECT_DIR$/conf/play.plugins" />
+        <option value="$PROJECT_DIR$/app/helpers/Mailer.java" />
         <option value="$PROJECT_DIR$/app/forms/UserProfileForm.java" />
+        <option value="$PROJECT_DIR$/app/helpers/EMailContentType.java" />
+        <option value="$PROJECT_DIR$/app/helpers/MailerHeler.java" />
+        <option value="$PROJECT_DIR$/app/controllers/UserProfileController.java" />
+        <option value="$PROJECT_DIR$/app/controllers/Dashboard.java" />
+        <option value="$PROJECT_DIR$/app/controllers/Application.java" />
+        <option value="$PROJECT_DIR$/conf/routes" />
+        <option value="$PROJECT_DIR$/app/views/login.scala.html" />
+        <option value="$PROJECT_DIR$/conf/application.conf" />
+        <option value="$PROJECT_DIR$/app/views/user/lostpassword.scala.html" />
+        <option value="$PROJECT_DIR$/app/models/User.java" />
+        <option value="$PROJECT_DIR$/conf/evolutions/default/4.sql" />
       </list>
     </option>
   </component>
@@ -541,239 +568,11 @@
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
-      <autoscrollToSource />
+      <autoscrollToSource ProjectPane="false" />
       <autoscrollFromSource ProjectPane="true" />
       <sortByType />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dvdDataBase" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dvdDataBase" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="play_play_2.9.1_2.0.4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="play_2.9.1.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dvdDataBase" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="play_play_2.9.1_2.0.4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="play_2.9.1.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="play" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dvdDataBase" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="play_play_2.9.1_2.0.4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="play_2.9.1.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="play" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="db" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dvdDataBase" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="play_play_2.9.1_2.0.4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="play_2.9.1.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="play" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="db" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ebean" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dvdDataBase" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PlayDvd" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dvdDataBase" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PlayDvd" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dvdDataBase" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PlayDvd" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dvdDataBase" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PlayDvd" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dashboard" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dvdDataBase" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PlayDvd" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dvdDataBase" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PlayDvd" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="forms" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dvdDataBase" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PlayDvd" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="Scope">
         <subPane subId="Default">
           <PATH>
@@ -859,6 +658,148 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PlayDvd" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PlayDvd" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="conf" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PlayDvd" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="conf" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="default" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PlayDvd" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PlayDvd" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PlayDvd" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="user" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PlayDvd" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PlayDvd" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -897,6 +838,15 @@
     <property name="restartRequiresConfirmation" value="true" />
     <property name="dynamic.classpath" value="false" />
     <property name="options.searchVisible" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/conf/evolutions/default" />
+      <recent name="$PROJECT_DIR$/app/views/user" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/views/user" />
+    </key>
   </component>
   <component name="RunManager" selected="Play 2 App.Dvddatabse">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
@@ -1100,7 +1050,11 @@
       <created>1359898007931</created>
       <updated>1359898007931</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Profile page is done :)">
+      <created>1359920493669</created>
+      <updated>1359920493669</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1125,12 +1079,11 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="27" width="1922" height="1174" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32846004" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.48440546" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294347" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.70077974" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1145,10 +1098,11 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23425826" sideWeight="0.59551656" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.40448344" sideWeight="0.49786553" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23425826" sideWeight="0.51559454" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40448344" sideWeight="0.49786553" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294347" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1191,7 +1145,7 @@
     <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Moved Login and Register Form to own classes.&#10;Added user default copy type , started profile page" />
+    <option name="LAST_COMMIT_MESSAGE" value="Profile page is done :)" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -1209,6 +1163,7 @@
     <MESSAGE value="Removed the bootstrap jquery ui stuff and moved all the stuff to bootstrap :)" />
     <MESSAGE value="Fix for new bootstrap version and modal window top position" />
     <MESSAGE value="Moved Login and Register Form to own classes.&#10;Added user default copy type , started profile page" />
+    <MESSAGE value="Profile page is done :)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1230,122 +1185,126 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$USER_HOME$/_software/_coding/play-2.0.4/repository/local/play/play_2.9.1/2.0.4/jars/play_2.9.1.jar!/play/api/data/Form.class">
+    <entry file="file://$PROJECT_DIR$/app/forms/UserProfileForm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="6" selection-start="1334" selection-end="1334" vertical-scroll-proportion="0.36363637">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/dashboard/searchform.scala.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="62" selection-start="2666" selection-end="2680" vertical-scroll-proportion="-29.375">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/forms/DvdForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="100" column="29" selection-start="2261" selection-end="2261" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/_software/_coding/play-2.0.4/repository/local/play/play_2.9.1/2.0.4/jars/play_2.9.1.jar!/play/db/ebean/Model.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="14" selection-start="868" selection-end="868" vertical-scroll-proportion="0.34879407">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="39" selection-start="1260" selection-end="1260" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Global.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="36" selection-start="1176" selection-end="1176" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/dashboard/dvdform.scala.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="125" selection-start="1299" selection-end="1338" vertical-scroll-proportion="-11.291667">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/login.scala.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="8" selection-start="459" selection-end="459" vertical-scroll-proportion="-8.125">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/Dashboard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="246" column="30" selection-start="7022" selection-end="7038" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/register.scala.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="13" selection-start="1114" selection-end="1214" vertical-scroll-proportion="-14.375">
+        <state line="21" column="18" selection-start="506" selection-end="506" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/UserProfileController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="60" selection-start="799" selection-end="799" vertical-scroll-proportion="0.0">
+        <state line="9" column="22" selection-start="214" selection-end="214" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/Dashboard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="13" selection-start="949" selection-end="949" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/userprofile.scala.html">
+    <entry file="file://$PROJECT_DIR$/app/controllers/Application.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="60" selection-start="816" selection-end="816" vertical-scroll-proportion="-10.625">
-          <folding>
-            <element signature="e#47#62#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/Secured.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="23" selection-start="393" selection-end="393" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/mainmenu.scala.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="59" selection-start="281" selection-end="281" vertical-scroll-proportion="1.25">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/forms/RegisterForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="23" selection-start="1473" selection-end="1473" vertical-scroll-proportion="0.0">
+        <state line="81" column="41" selection-start="2206" selection-end="2206" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/forms/UserProfileForm.java">
+    <entry file="file://$PROJECT_DIR$/conf/routes">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="31" selection-start="2003" selection-end="2003" vertical-scroll-proportion="0.7074468">
+        <state line="17" column="78" selection-start="677" selection-end="677" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/helpers/MailerHeler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="19" selection-start="464" selection-end="464" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/login.scala.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="30" selection-start="954" selection-end="954" vertical-scroll-proportion="-22.5">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/application.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="71" column="24" selection-start="1863" selection-end="1863" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/target/scala-2.9.1/src_managed/main/routes_reverseRouting.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1318" column="6" selection-start="32211" selection-end="32211" vertical-scroll-proportion="0.3250283">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/user/lostpassword.scala.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="53" selection-start="391" selection-end="391" vertical-scroll-proportion="-15.625">
+          <folding>
+            <element signature="e#51#66#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/evolutions/default/3.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="31" selection-start="122" selection-end="122" vertical-scroll-proportion="-1.5">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="34" selection-start="1149" selection-end="1167" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/Dvd.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="13" selection-start="893" selection-end="893" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/register.scala.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="33" selection-start="38" selection-end="88" vertical-scroll-proportion="-1.7916666">
+          <folding>
+            <element signature="e#39#54#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/evolutions/default/1.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="77" column="46" selection-start="3085" selection-end="3131" vertical-scroll-proportion="-10.5">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/evolutions/default/4.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="45" selection-start="139" selection-end="139" vertical-scroll-proportion="0.16556291">
           <folding />
         </state>
       </provider>

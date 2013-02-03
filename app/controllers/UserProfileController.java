@@ -2,13 +2,12 @@ package controllers;
 
 import forms.UserProfileForm;
 import models.User;
-import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
-import views.html.userprofile;
+import views.html.user.userprofile;
 
 /**
  * User: tuxburner

@@ -14,8 +14,11 @@ object ApplicationBuild extends Build {
       "commons-collections" % "commons-collections" % "3.2.1",
       "com.google.code.gson" % "gson" % "2.2.1",
       "com.github.ralfebert" % "jgravatar" % "1.0-SNAPSHOT",
+
       "com.moviejukebox" % "thetvdbapi" % "1.4-SNAPSHOT",
-      "com.moviejukebox" % "themoviedbapi" % "3.3-SNAPSHOT",      
+      "com.moviejukebox" % "themoviedbapi" % "3.3-SNAPSHOT",
+
+      "com.typesafe" %% "play-plugins-mailer" % "2.0.4",
       
       "org.webjars" % "webjars-play" % "0.1",
       "org.webjars" % "bootstrap" % "2.2.2",

@@ -2,20 +2,16 @@ package controllers;
 
 import forms.LoginForm;
 import forms.RegisterForm;
-import models.User;
+import helpers.MailerHeler;
 import play.Routes;
 import play.data.Form;
-import play.data.format.Formats;
-import play.data.validation.Constraints.Email;
-import play.data.validation.Constraints.MaxLength;
-import play.data.validation.Constraints.MinLength;
-import play.data.validation.Constraints.Required;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
 import views.html.login;
 import views.html.register;
+import views.html.user.lostpassword;
 
 public class Application extends Controller {
 
@@ -77,6 +73,18 @@ public class Application extends Controller {
       return Results.redirect(routes.ListDvds.listdvds(0));
     }
 
+  }
+
+  /**
+   * Displays the user a simple form where he can insert his mail address
+   * @return
+   */
+  public static Result showPasswordForget() {
+    if(MailerHeler.mailerActive() == false) {
+      return Controller.internalServerError("Cannot display this form.");
+    }
+
+    return ok(lostpassword.render(null));
   }
 
   /**

@@ -1,46 +1,36 @@
 package controllers;
 
+import com.avaje.ebean.Ebean;
+import forms.ExternalImageForm;
+import forms.InfoDvd;
+import forms.LendForm;
+import forms.UnLendForm;
 import helpers.EImageSize;
 import helpers.EImageType;
 import helpers.ImageHelper;
-
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.List;
-
-import javax.imageio.ImageIO;
-
 import jgravatar.Gravatar;
 import jgravatar.GravatarDefaultImage;
 import jgravatar.GravatarRating;
 import models.Dvd;
 import models.User;
 import net.coobird.thumbnailator.Thumbnails;
-
 import org.apache.commons.lang.StringUtils;
-
-import com.avaje.ebean.Ebean;
-
 import play.Logger;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
+import views.html.dashboard.deletedvd;
 import views.html.dashboard.displaydvd;
 import views.html.dashboard.lendform;
 import views.html.dashboard.unlendform;
-import views.html.dashboard.deletedvd;
-import forms.ExternalImageForm;
-import forms.InfoDvd;
-import forms.LendForm;
-import forms.UnLendForm;
-import views.html.userprofile;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.URL;
+import java.util.List;
 
 @Security.Authenticated(Secured.class)
 public class Dashboard extends Controller {

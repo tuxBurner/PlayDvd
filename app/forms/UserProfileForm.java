@@ -1,14 +1,12 @@
 package forms;
 
+import controllers.Secured;
 import models.User;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
-import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.data.validation.Constraints.MaxLength;
 import play.data.validation.Constraints.MinLength;
-import play.data.validation.Constraints.Required;
-import controllers.Secured;
 
 import java.util.List;
 
@@ -67,6 +65,7 @@ public class UserProfileForm {
     userToUpdate.email = email;
 
     userToUpdate.save();
+
 
     return null;
   }
