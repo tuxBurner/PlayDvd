@@ -2,34 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f8047800-a698-4e1c-a8d6-a21bc190c308" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/conf/evolutions/default/4.sql" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/helpers/MailerHeler.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/com_cedarsoft_guice_annotations_2_0_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/com_intellij_annotations_7_0_3.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/com_typesafe_play_plugins_mailer_2_9_1_2_0_4.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/com_typesafe_play_plugins_util_2_9_1_2_0_4.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/javax_activation_activation_1_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/javax_mail_mail_1_4_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/user/lostpassword.scala.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/org_apache_commons_commons_email_1_2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/org_ow2_spec_ee_ow2_atinject_1_0_spec_1_0_10.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/userprofile.scala.html" afterPath="$PROJECT_DIR$/app/views/user/userprofile.scala.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/Application.java" afterPath="$PROJECT_DIR$/app/controllers/Application.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/Build.scala" afterPath="$PROJECT_DIR$/project/Build.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/Dashboard.java" afterPath="$PROJECT_DIR$/app/controllers/Dashboard.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/User.java" afterPath="$PROJECT_DIR$/app/models/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/UserProfileController.java" afterPath="$PROJECT_DIR$/app/controllers/UserProfileController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/forms/UserProfileForm.java" afterPath="$PROJECT_DIR$/app/forms/UserProfileForm.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/conf/application.conf" afterPath="$PROJECT_DIR$/conf/application.conf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea_modules/dvdDataBase.iml" afterPath="$PROJECT_DIR$/.idea_modules/dvdDataBase.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/login.scala.html" afterPath="$PROJECT_DIR$/app/views/login.scala.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/conf/play.plugins" afterPath="$PROJECT_DIR$/conf/play.plugins" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/conf/routes" afterPath="$PROJECT_DIR$/conf/routes" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="dvdDataBase.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359927626112" ignored="false" />
+    <file path="/Dummy.txt" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359930250483" ignored="false" />
     <file path="$APPLICATION_HOME_DIR$/lib/idea.jar!/standardSchemas/xinclude.xsd" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358766199954" ignored="false" />
     <file path="$APPLICATION_HOME_DIR$/lib/idea.jar!/standardSchemas/catalog.xsd" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358766199954" ignored="false" />
     <file path="$APPLICATION_HOME_DIR$/lib/idea.jar!/standardSchemas/XMLSchema-instance.xsd" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358766199954" ignored="false" />
@@ -239,19 +216,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="3.sql" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="3.sql" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/conf/evolutions/default/3.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="31" selection-start="122" selection-end="122" vertical-scroll-proportion="-1.5">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="4.sql" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/conf/evolutions/default/4.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="45" selection-start="139" selection-end="139" vertical-scroll-proportion="0.16556291">
+            <state line="5" column="31" selection-start="122" selection-end="122" vertical-scroll-proportion="0.16556291">
               <folding />
             </state>
           </provider>
@@ -1054,7 +1022,11 @@
       <created>1359920493669</created>
       <updated>1359920493669</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Starting adding password lost page">
+      <created>1359930260022</created>
+      <updated>1359930260022</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1145,7 +1117,7 @@
     <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Profile page is done :)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Starting adding password lost page" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -1164,6 +1136,7 @@
     <MESSAGE value="Fix for new bootstrap version and modal window top position" />
     <MESSAGE value="Moved Login and Register Form to own classes.&#10;Added user default copy type , started profile page" />
     <MESSAGE value="Profile page is done :)" />
+    <MESSAGE value="Starting adding password lost page" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1263,13 +1236,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conf/evolutions/default/3.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="31" selection-start="122" selection-end="122" vertical-scroll-proportion="-1.5">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="52" column="34" selection-start="1149" selection-end="1167" vertical-scroll-proportion="0.0">
@@ -1305,6 +1271,13 @@
     <entry file="file://$PROJECT_DIR$/conf/evolutions/default/4.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state line="5" column="45" selection-start="139" selection-end="139" vertical-scroll-proportion="0.16556291">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/evolutions/default/3.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="31" selection-start="122" selection-end="122" vertical-scroll-proportion="0.16556291">
           <folding />
         </state>
       </provider>
