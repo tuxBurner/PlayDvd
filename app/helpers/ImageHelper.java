@@ -106,8 +106,9 @@ public class ImageHelper {
     try {
       Thumbnails.of(origImgFile).size(destSize.getWidth(), destSize.getHeight()).toFile(destImgFile);
     } catch (final IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      if(Logger.isErrorEnabled()) {
+        Logger.error("An error happend whileresizing the image: "+ origImgFile.getAbsolutePath() +" to: "+destImgFile.getAbsolutePath(),e);
+      }
     }
 
   }
