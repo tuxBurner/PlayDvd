@@ -1,6 +1,7 @@
 package controllers;
 
 import forms.LoginForm;
+import forms.LostPasswordForm;
 import forms.RegisterForm;
 import helpers.MailerHeler;
 import play.Routes;
@@ -84,7 +85,7 @@ public class Application extends Controller {
       return Controller.internalServerError("Cannot display this form.");
     }
 
-    return ok(lostpassword.render(null));
+    return ok(lostpassword.render(Controller.form(LostPasswordForm.class)));
   }
 
   /**

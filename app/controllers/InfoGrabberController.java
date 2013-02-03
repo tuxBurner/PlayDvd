@@ -16,9 +16,11 @@ import org.apache.commons.lang.StringUtils;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
+import play.mvc.Security;
 import views.html.grabber.displaymovie;
 import views.html.grabber.search;
 
+@Security.Authenticated(Secured.class)
 public class InfoGrabberController extends Controller {
 
   public final static String DVD_ID_FIELD_NAME = "movieToEditId";

@@ -2,11 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f8047800-a698-4e1c-a8d6-a21bc190c308" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/forms/LostPasswordForm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/Application.java" afterPath="$PROJECT_DIR$/app/controllers/Application.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/InfoGrabberController.java" afterPath="$PROJECT_DIR$/app/controllers/InfoGrabberController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/UserProfileController.java" afterPath="$PROJECT_DIR$/app/controllers/UserProfileController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/user/lostpassword.scala.html" afterPath="$PROJECT_DIR$/app/views/user/lostpassword.scala.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="dvdDataBase.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359930250483" ignored="false" />
+    <file path="/Dummy.txt" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359930274871" ignored="false" />
     <file path="$APPLICATION_HOME_DIR$/lib/idea.jar!/standardSchemas/xinclude.xsd" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358766199954" ignored="false" />
     <file path="$APPLICATION_HOME_DIR$/lib/idea.jar!/standardSchemas/catalog.xsd" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358766199954" ignored="false" />
     <file path="$APPLICATION_HOME_DIR$/lib/idea.jar!/standardSchemas/XMLSchema-instance.xsd" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358766199954" ignored="false" />
@@ -69,8 +74,8 @@
     <file path="/dvdform.scala.html" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359897133560" ignored="false" />
     <file path="/DvdController.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359896883959" ignored="false" />
     <file path="/userprofile.scala.html" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359926448909" ignored="false" />
-    <file path="/a.dummy" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359897433950" ignored="false" />
-    <file path="/Application.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359929565193" ignored="false" />
+    <file path="/a.dummy" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359930517853" ignored="false" />
+    <file path="/Application.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359930579333" ignored="false" />
     <file path="/register.scala.html" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359908241850" ignored="false" />
     <file path="/login.scala.html" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359929751980" ignored="false" />
     <file path="/UserProfileForm.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359927976012" ignored="false" />
@@ -84,15 +89,10 @@
     <file path="/Mailer.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359929218489" ignored="false" />
     <file path="/MailerHeler.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359928831815" ignored="false" />
     <file path="/EMailContentType.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359928887915" ignored="false" />
-    <file path="/lostpassword.scala.html" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359929918783" ignored="false" />
+    <file path="/lostpassword.scala.html" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359930443292" ignored="false" />
     <file path="/4.sql" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359930130811" ignored="false" />
-    <file path="$PROJECT_DIR$/target/scala-2.9.1/classes_managed/views/html/dashboard/lendform.class" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359930222225" ignored="false" />
-    <file path="$PROJECT_DIR$/target/scala-2.9.1/classes_managed/views/html/login.class" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359930222225" ignored="false" />
-    <file path="$PROJECT_DIR$/target/scala-2.9.1/classes_managed/controllers/ReverseApplication.class" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359930222225" ignored="false" />
-    <file path="$PROJECT_DIR$/target/scala-2.9.1/classes_managed/controllers/ReverseAssets.class" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359930222225" ignored="false" />
-    <file path="$PROJECT_DIR$/target/scala-2.9.1/classes_managed/views/html/dashboard/unlendform.class" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359930222226" ignored="false" />
-    <file path="$PROJECT_DIR$/target/scala-2.9.1/classes_managed/controllers/ReverseMovieController.class" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359930222226" ignored="false" />
-    <file path="$PROJECT_DIR$/target/scala-2.9.1/classes_managed/views/html/user/lostpassword.class" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359930222226" ignored="false" />
+    <file path="/LostPasswordForm.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359930468469" ignored="false" />
+    <file path="$PROJECT_DIR$/target/scala-2.9.1/src_managed/main/views/html/user/lostpassword.template.scala" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359930463694" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,97 +155,7 @@
     <favorites_list name="dvdDataBase" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="MailerHeler.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/helpers/MailerHeler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="19" selection-start="464" selection-end="464" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="login.scala.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/login.scala.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="30" selection-start="954" selection-end="954" vertical-scroll-proportion="-22.5">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="application.conf" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/conf/application.conf">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="71" column="24" selection-start="1863" selection-end="1863" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="lostpassword.scala.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/user/lostpassword.scala.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="53" selection-start="391" selection-end="391" vertical-scroll-proportion="-15.625">
-              <folding>
-                <element signature="e#51#66#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="User.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/User.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="52" column="34" selection-start="1149" selection-end="1167" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Dvd.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/Dvd.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="13" selection-start="893" selection-end="893" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="3.sql" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/conf/evolutions/default/3.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="31" selection-start="122" selection-end="122" vertical-scroll-proportion="0.16556291">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="1.sql" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/conf/evolutions/default/1.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="77" column="46" selection-start="3085" selection-end="3131" vertical-scroll-proportion="-10.5">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="register.scala.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/register.scala.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="33" selection-start="38" selection-end="88" vertical-scroll-proportion="-1.7916666">
-              <folding>
-                <element signature="e#39#54#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -265,22 +175,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/views/userprofile.scala.html" />
-        <option value="$PROJECT_DIR$/project/Build.scala" />
         <option value="$PROJECT_DIR$/conf/play.plugins" />
         <option value="$PROJECT_DIR$/app/helpers/Mailer.java" />
         <option value="$PROJECT_DIR$/app/forms/UserProfileForm.java" />
         <option value="$PROJECT_DIR$/app/helpers/EMailContentType.java" />
         <option value="$PROJECT_DIR$/app/helpers/MailerHeler.java" />
-        <option value="$PROJECT_DIR$/app/controllers/UserProfileController.java" />
         <option value="$PROJECT_DIR$/app/controllers/Dashboard.java" />
-        <option value="$PROJECT_DIR$/app/controllers/Application.java" />
         <option value="$PROJECT_DIR$/conf/routes" />
         <option value="$PROJECT_DIR$/app/views/login.scala.html" />
         <option value="$PROJECT_DIR$/conf/application.conf" />
-        <option value="$PROJECT_DIR$/app/views/user/lostpassword.scala.html" />
         <option value="$PROJECT_DIR$/app/models/User.java" />
         <option value="$PROJECT_DIR$/conf/evolutions/default/4.sql" />
+        <option value="$PROJECT_DIR$/app/views/user/lostpassword.scala.html" />
+        <option value="$PROJECT_DIR$/app/forms/LostPasswordForm.java" />
+        <option value="$PROJECT_DIR$/app/controllers/Application.java" />
+        <option value="$PROJECT_DIR$/app/controllers/UserProfileController.java" />
+        <option value="$PROJECT_DIR$/app/controllers/InfoGrabberController.java" />
       </list>
     </option>
   </component>
@@ -762,6 +672,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="forms" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PlayDvd" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -1026,7 +954,11 @@
       <created>1359930260022</created>
       <updated>1359930260022</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Starting adding password lost page">
+      <created>1359930285865</created>
+      <updated>1359930285865</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1158,126 +1090,122 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/forms/UserProfileForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="18" selection-start="506" selection-end="506" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/UserProfileController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="22" selection-start="214" selection-end="214" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/Dashboard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="13" selection-start="949" selection-end="949" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/Application.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="41" selection-start="2206" selection-end="2206" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/conf/routes">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="78" selection-start="677" selection-end="677" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/helpers/MailerHeler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="19" selection-start="464" selection-end="464" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/login.scala.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="30" selection-start="954" selection-end="954" vertical-scroll-proportion="-22.5">
+        <state line="23" column="12" selection-start="378" selection-end="501" vertical-scroll-proportion="-14.375">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conf/application.conf">
+    <entry file="file://$PROJECT_DIR$/app/forms/UserProfileForm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="24" selection-start="1863" selection-end="1863" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/target/scala-2.9.1/src_managed/main/routes_reverseRouting.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1318" column="6" selection-start="32211" selection-end="32211" vertical-scroll-proportion="0.3250283">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/user/lostpassword.scala.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="53" selection-start="391" selection-end="391" vertical-scroll-proportion="-15.625">
-          <folding>
-            <element signature="e#51#66#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="34" selection-start="1149" selection-end="1167" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/Dvd.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="13" selection-start="893" selection-end="893" vertical-scroll-proportion="0.0">
+        <state line="31" column="28" selection-start="616" selection-end="717" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/register.scala.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="33" selection-start="38" selection-end="88" vertical-scroll-proportion="-1.7916666">
+        <state line="41" column="93" selection-start="1114" selection-end="1200" vertical-scroll-proportion="-12.416667">
           <folding>
             <element signature="e#39#54#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conf/evolutions/default/1.sql">
+    <entry file="file://$PROJECT_DIR$/app/views/user/lostpassword.scala.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="46" selection-start="3085" selection-end="3131" vertical-scroll-proportion="-10.5">
+        <state line="22" column="33" selection-start="497" selection-end="497" vertical-scroll-proportion="-13.75">
+          <folding>
+            <element signature="e#52#67#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/forms/LostPasswordForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="17" selection-start="455" selection-end="455" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conf/evolutions/default/4.sql">
+    <entry file="file://$PROJECT_DIR$/app/controllers/Application.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="45" selection-start="139" selection-end="139" vertical-scroll-proportion="0.16556291">
+        <state line="34" column="36" selection-start="857" selection-end="857" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/Dashboard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="38" selection-start="897" selection-end="935" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/UserProfileController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="38" selection-start="353" selection-end="353" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conf/evolutions/default/3.sql">
+    <entry file="file://$PROJECT_DIR$/app/controllers/Secured.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="31" selection-start="122" selection-end="122" vertical-scroll-proportion="0.16556291">
+        <state line="15" column="13" selection-start="274" selection-end="274" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/MovieSelect2Value.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="13" selection-start="57" selection-end="57" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/DvdController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="13" selection-start="410" selection-end="410" vertical-scroll-proportion="0.2925532">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/DvdPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="13" selection-start="137" selection-end="137" vertical-scroll-proportion="0.10638298">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/DvdPageNav.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="13" selection-start="35" selection-end="35" vertical-scroll-proportion="0.051282052">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/InfoGrabberController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="38" selection-start="564" selection-end="564" vertical-scroll-proportion="0.102564104">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/ListDvds.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="13" selection-start="362" selection-end="362" vertical-scroll-proportion="0.12820514">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/MovieController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="13" selection-start="865" selection-end="865" vertical-scroll-proportion="0.2820513">
           <folding />
         </state>
       </provider>

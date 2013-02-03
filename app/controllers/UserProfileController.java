@@ -7,6 +7,7 @@ import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
+import play.mvc.Security;
 import views.html.user.userprofile;
 
 /**
@@ -14,6 +15,7 @@ import views.html.user.userprofile;
  * Date: 2/3/13
  * Time: 4:24 PM
  */
+@Security.Authenticated(Secured.class)
 public class UserProfileController extends Controller {
 
   /**
