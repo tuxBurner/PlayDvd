@@ -95,8 +95,9 @@ public class Global extends GlobalSettings {
               dvd.save();
             }
           } catch (final IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            if(Logger.isErrorEnabled()) {
+              Logger.error("An error happend while adding new Movies to the database",e);
+            }
           }
         }
 
