@@ -15,7 +15,7 @@ import play.data.validation.Constraints;
  * Date: 2/3/13
  * Time: 10:49 PM
  */
-public class MailerHeler {
+public class MailerHelper {
 
   /**
    * Sends an email

@@ -15,7 +15,10 @@ GET     /profile                    controllers.UserProfileController.showProfil
 POST    /profile                    controllers.UserProfileController.updateProfile()
 
 # lost password
-GET /lostpassword                   controllers.Application.showPasswordForget()
+GET  /lostpassword                   controllers.Application.showPasswordForget()
+POST /lostpassword                   controllers.Application.sendPasswordForget()
+GET  /lostpassword/:token            controllers.Application.showPasswordReset(token: java.lang.String)
+POST  /lostpassword/:token           controllers.Application.passwordReset(token: java.lang.String)
 
 # Register
 GET     /register                   controllers.Application.register()

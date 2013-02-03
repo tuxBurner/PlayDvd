@@ -9,19 +9,7 @@ import play.data.validation.Constraints;
  */
 public class LostPasswordForm {
 
-  @Constraints.Required(message = "Email is required")
-  @Constraints.Email(message = "The entered Email is not an email")
-  public String email;
-
-  /**
-   * Checks if the user entered a valid email which is stored in the database
-   *
-   * @return
-   */
-  public String validate() {
-
-
-    return  null;
-  }
+  @Constraints.Required(message = "Username is required")
+  public String username;
 
 }

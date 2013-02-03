@@ -122,6 +122,16 @@ public class User extends Model {
   }
 
   /**
+   * Gets a {@link User} by the given passwordResetToken
+   *
+   * @param passwordResetToken
+   * @return
+   */
+  public static User getUserByResetToken(final String passwordResetToken) {
+    return User.find.where().ieq("passwordResetToken", passwordResetToken).findUnique();
+  }
+
+  /**
    * This is needed for the search form
    * 
    * @return
