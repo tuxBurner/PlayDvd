@@ -15,6 +15,7 @@ import org.apache.commons.io.filefilter.PrefixFileFilter;
 import org.apache.commons.lang.StringUtils;
 
 import com.typesafe.config.ConfigFactory;
+import play.Logger;
 
 public class ImageHelper {
 
@@ -63,8 +64,9 @@ public class ImageHelper {
 
       return true;
     } catch (final Exception e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      if(Logger.isErrorEnabled()) {
+        Logger.error("An error happend while saving the image to the filesystem",e);
+      }
       return false;
     }
 
