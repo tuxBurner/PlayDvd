@@ -39,11 +39,9 @@ public interface IInfoGrabber {
    * used to edit or add the informations
    * 
    * @param grabberInfoForm
-   * @param posterId
-   * @param backdropId
    * @return
    * @throws GrabberException
    */
-  public MovieForm filleInfoToMovieForm(final GrabberInfoForm grabberInfoForm) throws GrabberException;
+  public MovieForm fillInfoToMovieForm(final GrabberInfoForm grabberInfoForm) throws GrabberException;
 
 }

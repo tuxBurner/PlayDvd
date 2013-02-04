@@ -13,6 +13,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class GrabberDisplayMovie {
 
   public final String systemId;
+  public final String imdbId;
   public final String movieTitle;
   public final List<GrabberImage> posterUrls;
   public final List<GrabberImage> backDropUrls;
@@ -20,7 +21,7 @@ public class GrabberDisplayMovie {
   public final String plot;
   public final List<String> trailerUrls;
 
-  public GrabberDisplayMovie(final String systemId, final String movieTitle, final String plot, final List<GrabberImage> posterUrls, final List<GrabberImage> backDropUrls, final List<String> trailerUrls, final EGrabberType grabber) {
+  public GrabberDisplayMovie(final String systemId, final String movieTitle, final String plot, final List<GrabberImage> posterUrls, final List<GrabberImage> backDropUrls, final List<String> trailerUrls, final EGrabberType grabber, final String imdbId) {
     this.systemId = systemId;
     this.movieTitle = movieTitle;
     this.plot = plot;
@@ -28,7 +29,7 @@ public class GrabberDisplayMovie {
     this.backDropUrls = backDropUrls;
     this.trailerUrls = trailerUrls;
     this.grabber = grabber;
-
+    this.imdbId = imdbId;
   }
 
   @Override

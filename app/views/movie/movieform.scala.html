@@ -30,6 +30,13 @@
          
          @inputText(movieForm("title"),'_label -> "Title", '_showConstraints -> true, 'placeholder -> "Enter Dvd title", 'class -> "span10")
          <button class="btn btn-info" id="grabberButton" type="button"><i class="icon-film"></i> Look up with Onlinegrabber</button>
+
+
+         @if(movieForm("grabberId").value != null && movieForm("grabberType").value != null && movieForm("grabberType").value != "NONE" ) {
+           <button class="btn btn-success" id="grabberRefetchButton" type="button"><i class="icon-film"></i> Refetch Data from Grabber</button>
+
+         }
+
          <hr />
          
          
@@ -38,6 +45,8 @@
          @inputText(movieForm("year"),'_label -> "Year", '_showConstraints -> true, 'class-> "span1")
          
          @inputText(movieForm("runtime"),'_label -> "Runtime in Min:")
+
+         @inputText(movieForm("imdbId"),'_label -> "IMDB-ID",'placeholder -> "ID on IMDB")
          
          
           <label for="genres">Genres</label>   
@@ -54,9 +63,10 @@
          
          <label for="actors">Actors</label>
          <input type="hidden" name="actors" id="actors"  class="span11" value="@forms.MovieForm.getDvdFormAttributesAsString(movieForm("actors").value())" data-placeholder="Please select actors"/>
-         
+
+
          <hr />
-         
+
          @inputText(movieForm("trailerUrl"),'_label -> "Trailer url",'placeholder -> "Url to trailer")
          
          @inputText(movieForm("posterUrl"),'_label -> "Poster url",'placeholder -> "Url to a poster image")

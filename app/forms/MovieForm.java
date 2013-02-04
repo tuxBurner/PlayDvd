@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import grabbers.EGrabberType;
 import models.EMovieAttributeType;
 import models.Movie;
 import models.MovieAttribute;
@@ -45,6 +46,12 @@ public class MovieForm {
 
   public String trailerUrl;
 
+  public String grabberId;
+
+  public EGrabberType grabberType;
+
+  public String imdbId;
+
   /**
    * This describes in which series the movie is for example Alien, Terminator,
    * Indiana Jones are Series of movies
@@ -59,7 +66,7 @@ public class MovieForm {
    * Transforms a {@link Movie} to a {@link MovieForm} for editing the dvd in
    * the frontend
    * 
-   * @param dvd
+   * @param movie
    * @return
    */
   public static MovieForm movieToForm(final Movie movie) {

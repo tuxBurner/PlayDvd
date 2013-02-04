@@ -1,4 +1,5 @@
 @(displayMovie : grabbers.GrabberDisplayMovie,grabberType: String,movieToEditId: Long,mode: String)
+@import org.apache.commons.lang.StringUtils
 
 @import helper._
 
@@ -8,23 +9,48 @@
 
 
   @form(routes.MovieController.addMovieByGrabberId(mode,grabberType),'class -> "vertical",'id -> "grabberMovieForm", 'mode -> mode, 'grabberType -> grabberType) {
-     
-  
+
+
     <input type="hidden" name="grabberMovieId" id="grabberMovieId"  value="@displayMovie.systemId"/>
     <input type="hidden" name="movieToEditId" id="movieToEditId" value="@movieToEditId" />
     <input type="hidden" name="grabberType" id="grabberType" value="@grabberType" />
-  
-    <fieldset>
-      <legend>Description</legend>
+
+
+    <ul id="myTab" class="nav nav-tabs">
+      <li class="active"><a href="#grabberDataOverview" data-toggle="tab">Overview</a></li>
+
+      @if(displayMovie.posterUrls != null || displayMovie.posterUrls.size() > 0) {
+        <li><a href="#grabberDataPosters" data-toggle="tab">Poster</a></li>
+      }
+
+      @if(displayMovie.backDropUrls != null || displayMovie.backDropUrls.size() > 0) {
+        <li><a href="#grabberDataBackdrops" data-toggle="tab">Backdrops</a></li>
+      }
+
+      @if(displayMovie.trailerUrls != null || displayMovie.trailerUrls.size() > 0) {
+        <li><a href="#grabberDataTrailers" data-toggle="tab">Trailers</a></li>
+      }
+    </ul>
+
+
+    <div id="myTabContent" class="tab-content">
+
+    <div class="tab-pane fade in active" id="grabberDataOverview">
+      <h3>Description</h3>
       <p>
         @displayMovie.plot
       </p>
-    </fieldset>
-  
+      @if(StringUtils.isEmpty(displayMovie.imdbId) == false) {
+        <p>
+          IMDBID: <a href="http://www.imdb.com/title/@displayMovie.imdbId" target="_blank">@displayMovie.imdbId</a>
+        </p>
+      }
+    </div>
+
     @if(displayMovie.posterUrls != null || displayMovie.posterUrls.size() > 0) {
-    <fieldset class="span12">
-      <legend>Posters</legend>
-       
+      <div class="tab-pane fade in" id="grabberDataPosters">
+      <h3>Posters</h3>
+
        <ul class="thumbnails">
         @for((poster,index) <- displayMovie.posterUrls.zipWithIndex) {
           <li class="span3" style="height: 160px;">
@@ -37,13 +63,13 @@
           </li>
         }
       </ul>
-   
-    </fieldset>
+
+    </div>
   }
-  
+
   @if(displayMovie.backDropUrls != null || displayMovie.backDropUrls.size() > 0) {
-    <fieldset>
-      <legend>Backdrops</legend>
+    <div class="tab-pane fade in" id="grabberDataBackdrops">
+      <h3>Backdrops</h3>
       <ul class="thumbnails">
         @for((backdrop,index) <- displayMovie.backDropUrls.zipWithIndex) {
           <li class="span4" style="height: 190px;">
@@ -56,19 +82,19 @@
           </li>
         }
       </ul>
-    
-   
-    </fieldset>
+
+
+    </div>
   }
-  
+
     @if(displayMovie.trailerUrls != null || displayMovie.trailerUrls.size() > 0) {
-    <fieldset>
-      <legend>Trailers</legend>
+      <div class="tab-pane fade in" id="grabberDataTrailers">
+      <h3>Trailers</h3>
       <ul class="thumbnails">
         @for((trailerUrl,index) <- displayMovie.trailerUrls.zipWithIndex) {
           <li class="span4" style="height: 190px;">
             <div class="thumbnail" style="height: 190px;">
-            
+
             <iframe width="289" height="163"  src="http://www.youtube.com/embed/@trailerUrl" frameborder="0" allowfullscreen></iframe>
               <div class="caption">
                 <input @if(index == 0){checked="checked"} type="radio" name="grabberTrailerUrl" value="@trailerUrl"/>
@@ -77,13 +103,17 @@
           </li>
         }
       </ul>
-    
-   
-    </fieldset>
+
+
+    </div>
   }
-  
-  
-  
+
+
+
+
+    </div>
+
+
   }
 </div>
 
@@ -96,7 +126,7 @@
 	if(isNaN(dvdToEdit) == false) {
 		$('#dvdEditId').val(dvdToEdit);
 	}
-	  
+
   });
 </script>
 

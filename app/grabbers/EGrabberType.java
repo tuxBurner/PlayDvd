@@ -2,5 +2,6 @@ package grabbers;
 
 public enum EGrabberType {
   TMDB,
-  THETVDB;
+  THETVDB,
+  NONE;
 }

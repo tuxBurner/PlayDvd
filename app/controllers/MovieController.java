@@ -112,7 +112,7 @@ public class MovieController extends Controller {
 
       final IInfoGrabber grabber = InfoGrabberController.getGrabber(EGrabberType.valueOf(grabberType));
 
-      final MovieForm movieForm = grabber.filleInfoToMovieForm(grabberInfoForm.get());
+      final MovieForm movieForm = grabber.fillInfoToMovieForm(grabberInfoForm.get());
 
       if (grabberInfoForm.get().movieToEditId != null) {
         movieForm.movieId = grabberInfoForm.get().movieToEditId;

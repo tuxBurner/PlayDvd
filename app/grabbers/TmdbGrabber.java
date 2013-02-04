@@ -114,7 +114,7 @@ public class TmdbGrabber implements IInfoGrabber {
         }
       }
 
-      final GrabberDisplayMovie displayMovie = new GrabberDisplayMovie(id, movieInfo.getTitle(), movieInfo.getOverview(), posters, backdrops, trailerUrls, TmdbGrabber.TYPE);
+      final GrabberDisplayMovie displayMovie = new GrabberDisplayMovie(id, movieInfo.getTitle(), movieInfo.getOverview(), posters, backdrops, trailerUrls, TmdbGrabber.TYPE,movieInfo.getImdbID());
 
       return displayMovie;
 
@@ -126,7 +126,7 @@ public class TmdbGrabber implements IInfoGrabber {
   }
 
   @Override
-  public MovieForm filleInfoToMovieForm(final GrabberInfoForm grabberInfoForm) throws GrabberException {
+  public MovieForm fillInfoToMovieForm(final GrabberInfoForm grabberInfoForm) throws GrabberException {
 
     try {
 
@@ -137,6 +137,9 @@ public class TmdbGrabber implements IInfoGrabber {
       movieForm.title = movieInfo.getTitle();
       movieForm.plot = movieInfo.getOverview();
       movieForm.runtime = movieInfo.getRuntime();
+      movieForm.imdbId = movieInfo.getImdbID();
+      movieForm.grabberType = TmdbGrabber.TYPE;
+      movieForm.grabberId = grabberInfoForm.grabberMovieId;
 
       final String releaseDate = movieInfo.getReleaseDate();
 

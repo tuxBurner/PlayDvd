@@ -149,6 +149,8 @@ function createPreview(prevName, src) {
 /**
  * This searches the grabber and returns the result via ajax and writes it to the dialog
  * @param title
+ * @param movieToEditId
+ * @param grabberType
  */
 function searchGrabber(title,grabberType,movieToEditId) {	
 	showWaitDiaLog();	

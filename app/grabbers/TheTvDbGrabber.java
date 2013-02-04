@@ -133,7 +133,8 @@ public class TheTvDbGrabber implements IInfoGrabber {
       backdrops.add(new GrabberImage(String.valueOf(banner.getId()), getThumbUrl(banner)));
     }
 
-    return new GrabberDisplayMovie(id, buildMovieName(series, season), series.getOverview(), posterList, backdrops, new ArrayList<String>(), TheTvDbGrabber.TYPE);
+
+    return new GrabberDisplayMovie(id, buildMovieName(series, season), series.getOverview(), posterList, backdrops, new ArrayList<String>(), TheTvDbGrabber.TYPE,series.getImdbId());
   }
 
   private String getThumbUrl(final Banner banner) {
@@ -141,7 +142,7 @@ public class TheTvDbGrabber implements IInfoGrabber {
   }
 
   @Override
-  public MovieForm filleInfoToMovieForm(final GrabberInfoForm grabberInfoForm) throws GrabberException {
+  public MovieForm fillInfoToMovieForm(final GrabberInfoForm grabberInfoForm) throws GrabberException {
 
     final String id = grabberInfoForm.grabberMovieId;
 
@@ -163,6 +164,9 @@ public class TheTvDbGrabber implements IInfoGrabber {
     movieForm.title = buildMovieName(series, season);
     movieForm.plot = series.getOverview();
     movieForm.series = series.getSeriesName();
+    movieForm.imdbId = series.getImdbId();
+    movieForm.grabberType = TheTvDbGrabber.TYPE;
+    movieForm.grabberId = grabberInfoForm.grabberMovieId;
 
     movieForm.runtime = Integer.valueOf(series.getRuntime());
 
