@@ -181,14 +181,27 @@ public class Movie extends Model {
    */
   @Transactional
   public static List<Movie> searchLike(final String term, final int numberOfResults) {
-
     final Query<Movie> order = Movie.find.where().ilike("title", "%" + term + "%").select("id ,title, hasPoster").order("title asc");
     if (numberOfResults <= 0) {
       return order.findList();
     } else {
       return order.findPagingList(numberOfResults).getAsList();
     }
+  }
 
+  /**
+   * Checks if a movie already exists with the grabberId and the grabberType
+   * @param grabberId
+   * @param grabberType
+   * @return
+   */
+  public static boolean checkIfMovieWasGrabbedBefore(final String grabberId, final EGrabberType grabberType) {
+    if(StringUtils.isEmpty(grabberId) == true || EGrabberType.NONE.equals(grabberType) == true) {
+      return false;
+    }
+
+    int rowCount = Movie.find.where().eq("grabberId", grabberId).eq("grabberType", grabberType).findRowCount();
+    return rowCount > 0;
   }
 
 }

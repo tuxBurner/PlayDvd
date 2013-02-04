@@ -1,20 +1,16 @@
 package controllers;
 
-import forms.user.LoginForm;
-import forms.user.RegisterForm;
 import play.Routes;
-import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
-import views.html.user.login;
-import views.html.user.register;
 
+@Security.Authenticated(Secured.class)
 public class Application extends Controller {
 
 
-  @Security.Authenticated(Secured.class)
+
   public static Result index() {
     return redirect(routes.ListDvdsController.listAlldvds());
   }
@@ -43,6 +39,7 @@ public class Application extends Controller {
         controllers.routes.javascript.MovieController.showAddMovieForm(),
         controllers.routes.javascript.MovieController.showEditMovieForm(),
         controllers.routes.javascript.MovieController.addMovieByGrabberId(),
+        controllers.routes.javascript.MovieController.checkIfMovieAlreadyExists(),
         controllers.routes.javascript.MovieController.addOrEditMovie(),
         controllers.routes.javascript.MovieController.searchMoviesForDvdSelect(),
         controllers.routes.javascript.MovieController.searchForMovieAttribute()));

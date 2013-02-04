@@ -2,22 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list id="f8047800-a698-4e1c-a8d6-a21bc190c308" name="Default" comment="" />
-    <list default="true" id="10293625-e479-41ac-a49e-3073ef39874f" name="" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/conf/evolutions/default/5.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/EMovieAttributeType.java" afterPath="$PROJECT_DIR$/app/models/EMovieAttributeType.java" />
+    <list default="true" id="10293625-e479-41ac-a49e-3073ef39874f" name="" comment="Added refetching data from grabber when informations are set.&#10;also added imdb id">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/Application.java" afterPath="$PROJECT_DIR$/app/controllers/Application.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/InfoGrabberController.java" afterPath="$PROJECT_DIR$/app/controllers/InfoGrabberController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/Movie.java" afterPath="$PROJECT_DIR$/app/models/Movie.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/MovieController.java" afterPath="$PROJECT_DIR$/app/controllers/MovieController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/forms/MovieForm.java" afterPath="$PROJECT_DIR$/app/forms/MovieForm.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea_modules/dvdDataBase-build.iml" afterPath="$PROJECT_DIR$/.idea_modules/dvdDataBase-build.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea_modules/dvdDataBase.iml" afterPath="$PROJECT_DIR$/.idea_modules/dvdDataBase.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/movieForm.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/movieForm.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/movie/movieform.scala.html" afterPath="$PROJECT_DIR$/app/views/movie/movieform.scala.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/conf/routes" afterPath="$PROJECT_DIR$/conf/routes" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="dvdDataBase.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1360015067940" ignored="false" />
+    <ignored path=".idea/libraries/" />
+    <file path="/Dummy.txt" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1360019541645" ignored="false" />
     <file path="$APPLICATION_HOME_DIR$/lib/idea.jar!/standardSchemas/xinclude.xsd" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358766199954" ignored="false" />
     <file path="$APPLICATION_HOME_DIR$/lib/idea.jar!/standardSchemas/catalog.xsd" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358766199954" ignored="false" />
     <file path="$APPLICATION_HOME_DIR$/lib/idea.jar!/standardSchemas/XMLSchema-instance.xsd" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358766199954" ignored="false" />
@@ -73,7 +70,7 @@
     <file path="/a.sql" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358776406535" ignored="false" />
     <file path="/a.html" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358776904851" ignored="false" />
     <file path="/a.scala" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358776917102" ignored="false" />
-    <file path="/main.js" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358778032373" ignored="false" />
+    <file path="/main.js" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1360018655744" ignored="false" />
     <file path="/main.less" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358780085513" ignored="false" />
     <file path="/User.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359933818115" ignored="false" />
     <file path="/3.sql" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359895817770" ignored="false" />
@@ -81,13 +78,13 @@
     <file path="/DvdController.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359896883959" ignored="false" />
     <file path="/userprofile.scala.html" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359936125593" ignored="false" />
     <file path="/a.dummy" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359938804240" ignored="false" />
-    <file path="/Application.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359938091212" ignored="false" />
+    <file path="/Application.java" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1360020332824" ignored="false" />
     <file path="/register.scala.html" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359939335231" ignored="false" />
     <file path="/login.scala.html" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359939577680" ignored="false" />
     <file path="/UserProfileForm.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359927976012" ignored="false" />
     <file path="/ProfileController.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359905942051" ignored="false" />
     <file path="/UserProfileController.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359929331090" ignored="false" />
-    <file path="/routes" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359939449710" ignored="false" />
+    <file path="/routes" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1360020226272" ignored="false" />
     <file path="/mainmenu.scala.html" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359939556774" ignored="false" />
     <file path="/RegisterForm.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359907671059" ignored="false" />
     <file path="/Global.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359936241378" ignored="false" />
@@ -108,8 +105,6 @@
     <file path="/ListDvdsController.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359937104277" ignored="false" />
     <file path="/listdvds.scala.html" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359937464055" ignored="false" />
     <file path="/search.scala.html" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359938522684" ignored="false" />
-    <file path="$PROJECT_DIR$/test/grabbers/TheTvDbGrabberTest.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359938582075" ignored="false" />
-    <file path="$PROJECT_DIR$/test/grabbers/TmdbGrabberTest.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359938582075" ignored="false" />
     <file path="/PasswordResetController.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359938934652" ignored="false" />
     <file path="/RegisterController.java" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1359939428979" ignored="false" />
     <file path="/displaymovie.scala.html" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1359995634029" ignored="false" />
@@ -119,10 +114,11 @@
     <file path="/MovieForm.java" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1360017383212" ignored="false" />
     <file path="/EGrabberType.java" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1359996108048" ignored="false" />
     <file path="/movieform.scala.html" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1360018102490" ignored="false" />
-    <file path="/MovieController.java" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1360016088356" ignored="false" />
-    <file path="/Movie.java" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1360016576209" ignored="false" />
-    <file path="/5.sql" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1360016913438" ignored="false" />
-    <file path="/movieForm.js" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1360018029164" ignored="false" />
+    <file path="/MovieController.java" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1360020964412" ignored="false" />
+    <file path="/Movie.java" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1360020922526" ignored="false" />
+    <file path="/5.sql" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1360019162527" ignored="false" />
+    <file path="/movieForm.js" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1360021678183" ignored="false" />
+    <file path="/InfoGrabberController.java" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1360019588891" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,7 +190,7 @@
       <file leaf-file-name="movieform.scala.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/movie/movieform.scala.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="66" selection-start="2064" selection-end="2064" vertical-scroll-proportion="-12.416667">
+            <state line="37" column="66" selection-start="2064" selection-end="2064" vertical-scroll-proportion="-22.5">
               <folding />
             </state>
           </provider>
@@ -203,7 +199,7 @@
       <file leaf-file-name="movieForm.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/movieForm.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="54" column="20" selection-start="1599" selection-end="1599" vertical-scroll-proportion="0.12688822">
+            <state line="85" column="47" selection-start="2709" selection-end="2709" vertical-scroll-proportion="0.36102718">
               <folding />
             </state>
           </provider>
@@ -212,16 +208,7 @@
       <file leaf-file-name="MovieController.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/MovieController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="66" column="87" selection-start="1680" selection-end="1680" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MovieForm.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/forms/MovieForm.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="86" column="44" selection-start="1965" selection-end="1965" vertical-scroll-proportion="0.0">
+            <state line="181" column="37" selection-start="5473" selection-end="5473" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -230,16 +217,43 @@
       <file leaf-file-name="Movie.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models/Movie.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="64" column="30" selection-start="1341" selection-end="1341" vertical-scroll-proportion="0.0">
+            <state line="195" column="11" selection-start="5604" selection-end="5604" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="4.sql" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/conf/evolutions/default/4.sql">
+      <file leaf-file-name="routes" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/conf/routes">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+            <state line="66" column="29" selection-start="3757" selection-end="3757" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Application.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/Application.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="41" column="81" selection-start="1616" selection-end="1616" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IInfoGrabber.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/grabbers/IInfoGrabber.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="24" column="38" selection-start="491" selection-end="491" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InfoGrabberController.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/InfoGrabberController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="37" column="61" selection-start="1194" selection-end="1194" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -248,34 +262,7 @@
       <file leaf-file-name="5.sql" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/conf/evolutions/default/5.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="38" selection-start="440" selection-end="440" vertical-scroll-proportion="-3.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EGrabberType.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/grabbers/EGrabberType.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="9" selection-start="56" selection-end="63" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MovieAttribute.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/MovieAttribute.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="49" column="30" selection-start="1101" selection-end="1131" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EMovieAttributeType.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/EMovieAttributeType.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="33" selection-start="50" selection-end="50" vertical-scroll-proportion="0.0">
+            <state line="5" column="6" selection-start="321" selection-end="321" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -308,21 +295,21 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/controllers/Secured.java" />
-        <option value="$PROJECT_DIR$/app/views/mainmenu.scala.html" />
-        <option value="$PROJECT_DIR$/app/grabbers/GrabberDisplayMovie.java" />
-        <option value="$PROJECT_DIR$/app/views/grabber/displaymovie.scala.html" />
         <option value="$PROJECT_DIR$/app/grabbers/IInfoGrabber.java" />
         <option value="$PROJECT_DIR$/app/grabbers/EGrabberType.java" />
         <option value="$PROJECT_DIR$/app/grabbers/TmdbGrabber.java" />
         <option value="$PROJECT_DIR$/app/grabbers/TheTvDbGrabber.java" />
-        <option value="$PROJECT_DIR$/app/controllers/MovieController.java" />
         <option value="$PROJECT_DIR$/app/models/EMovieAttributeType.java" />
         <option value="$PROJECT_DIR$/conf/evolutions/default/1.sql" />
-        <option value="$PROJECT_DIR$/conf/evolutions/default/5.sql" />
-        <option value="$PROJECT_DIR$/app/models/Movie.java" />
         <option value="$PROJECT_DIR$/app/forms/MovieForm.java" />
         <option value="$PROJECT_DIR$/app/views/movie/movieform.scala.html" />
+        <option value="$PROJECT_DIR$/conf/evolutions/default/5.sql" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/main.js" />
+        <option value="$PROJECT_DIR$/app/controllers/InfoGrabberController.java" />
+        <option value="$PROJECT_DIR$/conf/routes" />
+        <option value="$PROJECT_DIR$/app/controllers/Application.java" />
+        <option value="$PROJECT_DIR$/app/models/Movie.java" />
+        <option value="$PROJECT_DIR$/app/controllers/MovieController.java" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/movieForm.js" />
       </list>
     </option>
@@ -1200,7 +1187,19 @@
       <created>1359981538851</created>
       <updated>1359981542023</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Added refetching data from grabber when informations are set.&#10;also added imdb id">
+      <created>1360018294893</created>
+      <updated>1360018294893</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Added index on grabbertype and grabberid in the database so we can check if the movie was already grabbed in the database">
+      <created>1360019277976</created>
+      <updated>1360019277976</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Some logging added">
+      <created>1360019544650</created>
+      <updated>1360019544650</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <option name="clearContext" value="false" />
     <option name="createChangelist" value="false" />
     <servers>
@@ -1256,15 +1255,15 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294347" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879376" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11152615" sideWeight="0.6910331" order="8" side_tool="true" content_ui="tabs" x="3329" y="174" width="371" height="1026" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2497332" sideWeight="0.6910331" order="8" side_tool="true" content_ui="tabs" x="3329" y="174" width="371" height="1026" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32959402" sideWeight="0.33203506" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15368196" sideWeight="0.6910331" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2497332" sideWeight="0.21247563" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40448344" sideWeight="0.49786553" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2497332" sideWeight="0.45711502" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1306,7 +1305,7 @@
     <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="Some logging added" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -1330,6 +1329,9 @@
     <MESSAGE value="Password reset added" />
     <MESSAGE value="Logging" />
     <MESSAGE value="Refactor" />
+    <MESSAGE value="Added refetching data from grabber when informations are set.&#10;also added imdb id" />
+    <MESSAGE value="Added index on grabbertype and grabberid in the database so we can check if the movie was already grabbed in the database" />
+    <MESSAGE value="Some logging added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1351,62 +1353,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/grabbers/GrabberDisplayMovie.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="31" selection-start="1129" selection-end="1129" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/grabbers/TmdbGrabber.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="141" column="58" selection-start="5140" selection-end="5140" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/grabbers/TheTvDbGrabber.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="166" column="20" selection-start="5814" selection-end="5820" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/grabbers/IInfoGrabber.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="28" selection-start="1074" selection-end="1074" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/conf/evolutions/default/2.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/conf/evolutions/default/5.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="38" selection-start="440" selection-end="440" vertical-scroll-proportion="-3.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/conf/evolutions/default/1.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="98" selection-start="358" selection-end="358" vertical-scroll-proportion="0.31847134">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/conf/evolutions/default/4.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/MovieAttribute.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="49" column="30" selection-start="1101" selection-end="1131" vertical-scroll-proportion="0.0">
@@ -1428,20 +1374,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/Movie.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="30" selection-start="1341" selection-end="1341" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/MovieController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="87" selection-start="1680" selection-end="1680" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/forms/MovieForm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="86" column="44" selection-start="1965" selection-end="1965" vertical-scroll-proportion="0.0">
@@ -1449,16 +1381,86 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/conf/evolutions/default/4.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/evolutions/default/1.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="75" column="52" selection-start="2902" selection-end="2954" vertical-scroll-proportion="-5.4">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/evolutions/default/5.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="6" selection-start="321" selection-end="321" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/grabbers/IInfoGrabber.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="38" selection-start="491" selection-end="491" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/InfoGrabberController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="61" selection-start="1194" selection-end="1194" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/movie/movieform.scala.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="66" selection-start="2064" selection-end="2064" vertical-scroll-proportion="-12.416667">
+        <state line="37" column="66" selection-start="2064" selection-end="2064" vertical-scroll-proportion="-22.5">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/routes">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="66" column="29" selection-start="3757" selection-end="3757" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/Movie.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="195" column="11" selection-start="5604" selection-end="5604" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/MovieController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="181" column="37" selection-start="5473" selection-end="5473" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="49" selection-start="622" selection-end="622" vertical-scroll-proportion="0.59297216">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/Application.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="81" selection-start="1616" selection-end="1616" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/movieForm.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="20" selection-start="1599" selection-end="1599" vertical-scroll-proportion="0.12688822">
+        <state line="85" column="47" selection-start="2709" selection-end="2709" vertical-scroll-proportion="0.36102718">
           <folding />
         </state>
       </provider>

@@ -71,31 +71,65 @@ $(function() {
 	 */
 	$('.movieFormSubmitBtn').click(function() {
 		
-		showWaitDiaLog();
+
 		
 		var formParams = $('#movieForm').formParams();
-		var mode = $('#movieForm').attr('mode')
-		
-		pAjax(jsRoutes.controllers.MovieController.addOrEditMovie(mode),formParams,
-				function(data) {
-			      $('#newMovieFormWrapper').html('').hide();
-			      $('#dvdFormWrapper').show();
-			      
-			      // set the movie
-			      $("#movieId").select2("data", data);			  	  
-			      
-			      closeWaitDiaLog();
-		        },
-				function(err) {
-		        	closeWaitDiaLog();
-		        	$('#newMovieFormWrapper').html(err.responseText).show();
-				}
-		);
-				
-		
+		var mode = $('#movieForm').attr('mode');
+
+    // checks if the movie is already in the db
+    if(mode == "add" && formParams['grabberId'] != null && formParams['grabberType'] != null) {
+      pAjax(jsRoutes.controllers.MovieController.checkIfMovieAlreadyExists(formParams['grabberId'],formParams['grabberType']),null,
+        function(data) {
+          if(data == "true" || data == true) {
+            var addAnyway = confirm("Movie: "+formParams['title']+" already exists in the database. Want to add it anyway ?");
+            if(addAnyway == true) {
+              submitMovieForm(formParams,mode);
+            }
+          } else {
+            submitMovieForm(formParams,mode);
+          }
+
+        },
+        function(err) {
+          $('#newMovieFormWrapper').html(err.responseText).show();
+        }
+      );
+      return false;
+    } else {
+      submitMovieForm(formParams,mode);
+    }
+
+
 	});
-		
+
 });
+
+
+/**
+ * Submits the movie form
+ * @param formParams
+ * @param mode
+ */
+function submitMovieForm(formParams, mode) {
+  showWaitDiaLog();
+  pAjax(jsRoutes.controllers.MovieController.addOrEditMovie(mode),formParams,
+    function(data) {
+      $('#newMovieFormWrapper').html('').hide();
+      $('#dvdFormWrapper').show();
+
+      // set the movie
+      $("#movieId").select2("data", data);
+
+      closeWaitDiaLog();
+    },
+    function(err) {
+      closeWaitDiaLog();
+      $('#newMovieFormWrapper').html(err.responseText).show();
+    }
+  );
+
+
+};
 
 /**
  * This opens the grabber movie informations popup where description,poster, backdrop etc can be selected

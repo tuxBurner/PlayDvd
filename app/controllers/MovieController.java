@@ -92,7 +92,6 @@ public class MovieController extends Controller {
         e.printStackTrace();
         return Results.badRequest(movieform.render(movieForm, mode));
       }
-
     }
   }
 
@@ -167,6 +166,20 @@ public class MovieController extends Controller {
     }
 
     return Results.badRequest();
+  }
+
+  /**
+   * Checks if the movie already exists by the grabberId and the given grabberType
+   * @param grabberId
+   * @param grabberType
+   * @return
+   */
+  public static Result checkIfMovieAlreadyExists(final String grabberId, final String grabberType) {
+    final Gson gson = new Gson();
+
+    boolean movieExists = Movie.checkIfMovieWasGrabbedBefore(grabberId, EGrabberType.valueOf(grabberType));
+
+    return ok(gson.toJson(movieExists));
   }
 
 }
