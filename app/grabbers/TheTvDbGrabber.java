@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import forms.grabbers.GrabberInfoForm;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -17,7 +18,6 @@ import com.moviejukebox.thetvdb.model.Banners;
 import com.moviejukebox.thetvdb.model.Episode;
 import com.moviejukebox.thetvdb.model.Series;
 
-import forms.GrabberInfoForm;
 import forms.MovieForm;
 
 public class TheTvDbGrabber implements IInfoGrabber {

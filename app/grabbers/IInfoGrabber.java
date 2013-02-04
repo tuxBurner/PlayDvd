@@ -2,9 +2,9 @@ package grabbers;
 
 import java.util.List;
 
+import forms.grabbers.GrabberInfoForm;
 import models.Movie;
 import forms.MovieForm;
-import forms.GrabberInfoForm;
 
 /**
  * This is the Interface for grabbing {@link Movie} informations from certain
@@ -20,7 +20,7 @@ public interface IInfoGrabber {
    * 
    * @param searchTerm
    * @return
-   * @throws GrabberException
+   * @throws grabbers.GrabberException
    */
   public List<GrabberSearchMovie> searchForMovie(final String searchTerm) throws GrabberException;
 

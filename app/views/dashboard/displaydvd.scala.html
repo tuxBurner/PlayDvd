@@ -1,6 +1,9 @@
-@(dvd: forms.dvd.InfoDvd)(username: String)
+@(dvd: forms.dvd.objects.InfoDvd)(username: String)
+@import forms.dvd.objects.InfoDvd
+@import forms.dvd.objects.InfoDvd
+@import forms.dvd.objects.CollectionDvd
 
-@subDvdDisplay(subDvds : List[forms.dvd.CollectionDvd], dvd:forms.dvd.InfoDvd, title: String, subTitle: String, username:String) = {
+@subDvdDisplay(subDvds : List[forms.dvd.objects.CollectionDvd], dvd:InfoDvd, title: String, subTitle: String, username:String) = {
   @if(subDvds != null && subDvds.size() > 0) {
     <fieldset class="well">
       <h3>Dvds in the @title <i>@subTitle:</i></h3>

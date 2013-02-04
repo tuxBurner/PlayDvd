@@ -1,5 +1,7 @@
 package forms.dvd;
 
+import forms.dvd.objects.EDvdListOrderBy;
+import forms.dvd.objects.EDvdListOrderHow;
 import helpers.DvdInfoHelper;
 import org.apache.commons.lang.StringUtils;
 

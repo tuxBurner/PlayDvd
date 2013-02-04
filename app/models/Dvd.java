@@ -29,8 +29,8 @@ import com.avaje.ebean.Page;
 import com.typesafe.config.ConfigFactory;
 
 import forms.dvd.DvdSearchFrom;
-import forms.dvd.EDvdListOrderBy;
-import forms.dvd.EDvdListOrderHow;
+import forms.dvd.objects.EDvdListOrderBy;
+import forms.dvd.objects.EDvdListOrderHow;
 
 @Entity
 public class Dvd extends Model {

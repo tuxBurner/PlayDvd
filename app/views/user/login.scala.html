@@ -6,7 +6,7 @@
   <div class="row-fluid">
     <div class="span4"></div>
     <div class="span4">
-    @helper.form(routes.Application.authenticate, 'class -> "well") {
+    @helper.form(routes.RegisterLoginController.login(), 'class -> "well") {
 
 
       <h4>Login</h4>
@@ -35,8 +35,8 @@
       </div>
 
       <div class="form-actions">
-        <a class="btn btn-info" href="@routes.Application.register"><i class="icon-user"></i> Register</a>
-        <a class="btn btn-warning" href="@routes.Application.showPasswordForget"><i class="icon-bolt"></i> Password</a>
+        <a class="btn btn-info" href="@routes.RegisterLoginController.register"><i class="icon-user"></i> Register</a>
+        <a class="btn btn-warning" href="@routes.PasswordResetController.showPasswordForget"><i class="icon-bolt"></i> Password</a>
       </div>
 
 

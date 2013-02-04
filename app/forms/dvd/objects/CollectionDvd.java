@@ -1,4 +1,4 @@
-package forms.dvd;
+package forms.dvd.objects;
 
 import org.apache.commons.lang.StringUtils;
 

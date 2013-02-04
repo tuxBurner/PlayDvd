@@ -27,7 +27,7 @@ import views.html.movie.movieform;
 
 import com.google.gson.Gson;
 
-import forms.GrabberInfoForm;
+import forms.grabbers.GrabberInfoForm;
 import forms.MovieForm;
 
 /**

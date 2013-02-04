@@ -1,10 +1,12 @@
-package forms.dvd;
+package forms.dvd.objects;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import forms.MovieForm;
+import forms.dvd.DvdForm;
+import forms.dvd.objects.CollectionDvd;
 import models.Dvd;
 import models.EDvdAttributeType;
 

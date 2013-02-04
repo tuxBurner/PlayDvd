@@ -1,4 +1,4 @@
-package forms;
+package forms.grabbers;
 
 /**
  * Form which handles all the inputs for adding, editing a dvd

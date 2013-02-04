@@ -1,43 +1,43 @@
 @(searchTerm : String, grabberType: String ,results : List[grabbers.GrabberSearchMovie],dbMovieId: Long)
 <form method="GET" >
-  		<label>Search Tmdb</label>
-  		<input type="text" name="searchTerm" id="grabber_search_input" value="@searchTerm"/>
-  		
-  		<input type="hidden" name="movieToEditId" id="movieToEditId" value="@dbMovieId"/>
-  		
-  		
-  		<select name="grabberType" id="grabberType" >
-  		  <option value="@grabbers.EGrabberType.TMDB.name()">TMDB</option>
-  		  <option @if(grabbers.EGrabberType.THETVDB.name() == grabberType) { selected="selected" } value="@grabbers.EGrabberType.THETVDB.name()">TheTvDb</option>
+<label>Search Tmdb</label>
+<input type="text" name="searchTerm" id="grabber_search_input" value="@searchTerm"/>
+
+<input type="hidden" name="movieToEditId" id="movieToEditId" value="@dbMovieId"/>
+
+
+<select name="grabberType" id="grabberType" >
+<option value="@grabbers.EGrabberType.TMDB.name()">TMDB</option>
+<option @if(grabbers.EGrabberType.THETVDB.name() == grabberType) { selected="selected" } value="@grabbers.EGrabberType.THETVDB.name()">TheTvDb</option>
   		</select>
-  		
-  		<button href="#" id="grabber_search_button" class="btn"><i class="icon-search"></i>Search</button>
+
+<button href="#" id="grabber_search_button" class="btn"><i class="icon-search"></i>Search</button>
 </form>
 
 @if(results.isEmpty()) {
   <div class="alert alert-error">Nothing found</div>
 } else {
 
-    <section class="span12">
-      <ul class="thumbnails">
-        
-        @for(res <- results) {
+  <section class="span12">
+    <ul class="thumbnails">
 
-          <li class="span3" style="height: 260px;">
-            <div class="thumbnail" style="height: 260px;">
-              @if(res.posterUrl != null) {
-                <img src="@routes.Dashboard.streamExternalImage()?url=@res.posterUrl&imgSize=GRABBER_POSTER_SMALL" />
-              }
-        
-              <div class="caption">
-                <h5>@res.movieTitle</h5>
-                <p><a class="btn btn-primary pickGrabberEntry" data-grabber-id="@res.systemId" data-grabber-type="@grabberType"><i class="icon-ok-sign icon-white"></i> Pick</a></p>
-              </div>
-            </div>
-          </li>
-        }
-    
-      </ul>
-    </section>
-    
+    @for(res <- results) {
+
+      <li class="span3" style="height: 260px;">
+        <div class="thumbnail" style="height: 260px;">
+          @if(res.posterUrl != null) {
+            <img src="@routes.Dashboard.streamExternalImage()?url=@res.posterUrl&imgSize=GRABBER_POSTER_SMALL" />
+          }
+
+        <div class="caption">
+          <h5>@res.movieTitle</h5>
+          <p><a class="btn btn-primary pickGrabberEntry" data-grabber-id="@res.systemId" data-grabber-type="@grabberType"><i class="icon-ok-sign icon-white"></i> Pick</a></p>
+        </div>
+        </div>
+      </li>
+    }
+
+    </ul>
+  </section>
+
 }
