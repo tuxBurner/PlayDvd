@@ -1,5 +1,6 @@
-package forms;
+package forms.dvd;
 
+import helpers.DvdInfoHelper;
 import org.apache.commons.lang.StringUtils;
 
 import play.cache.Cache;
@@ -130,11 +131,11 @@ public class DvdSearchFrom {
   }
 
   public static String getAgeRatingsAsJson() {
-    return new Gson().toJson(DvdForm.getAgeRatings());
+    return new Gson().toJson(DvdInfoHelper.getAgeRatings());
   }
 
   public static String getCopyTypesJson() {
-    return new Gson().toJson(DvdForm.getCopyTypes());
+    return new Gson().toJson(DvdInfoHelper.getCopyTypes());
   }
 
 }

@@ -25,16 +25,16 @@ GET     /register                   controllers.Application.register()
 POST    /register                   controllers.Application.registeruser()
 
 # DVD Lists
-GET     /dvds                             controllers.ListDvds.listdvds(pageNr: java.lang.Integer ?= null)
-GET     /dvds/all                         controllers.ListDvds.listAlldvds()
-GET     /dvds/by/genre/:genreName         controllers.ListDvds.listByGenre(genreName: String,pageNr: java.lang.Integer ?= 0)
-GET     /dvds/by/actor/:actorName         controllers.ListDvds.listByActor(actorName: String)
-GET     /dvds/by/director/:directorName   controllers.ListDvds.listByDirector(directorName: String)
-GET     /dvds/by/user/:userName           controllers.ListDvds.listByUser(userName: String,pageNr: java.lang.Integer ?= 0)
-GET     /dvds/lend                        controllers.ListDvds.listLendDvd()
-GET     /movies/toReview                  controllers.ListDvds.listReviewMovies()
-GET     /dvds/search                      controllers.ListDvds.searchDvd()
-POST    /dvds                             controllers.ListDvds.applySearchForm() 
+GET     /dvds                             controllers.ListDvdsController.listdvds(pageNr: java.lang.Integer ?= null)
+GET     /dvds/all                         controllers.ListDvdsController.listAlldvds()
+GET     /dvds/by/genre/:genreName         controllers.ListDvdsController.listByGenre(genreName: String,pageNr: java.lang.Integer ?= 0)
+GET     /dvds/by/actor/:actorName         controllers.ListDvdsController.listByActor(actorName: String)
+GET     /dvds/by/director/:directorName   controllers.ListDvdsController.listByDirector(directorName: String)
+GET     /dvds/by/user/:userName           controllers.ListDvdsController.listByUser(userName: String,pageNr: java.lang.Integer ?= 0)
+GET     /dvds/lend                        controllers.ListDvdsController.listLendDvd()
+GET     /movies/toReview                  controllers.ListDvdsController.listReviewMovies()
+GET     /dvds/search                      controllers.ListDvdsController.searchDvd()
+POST    /dvds                             controllers.ListDvdsController.applySearchForm()
 
 
 # stuff

@@ -1,4 +1,5 @@
-import forms.DvdForm;
+import forms.dvd.DvdForm;
+import helpers.DvdInfoHelper;
 import helpers.ImageHelper;
 
 import java.io.File;
@@ -56,7 +57,7 @@ public class Global extends GlobalSettings {
         if (file.exists() == true) {
           try {
 
-            final List<String> ageRatings = DvdForm.getAgeRatings();
+            final List<String> ageRatings = DvdInfoHelper.getAgeRatings();
 
             final List<String> readLines = FileUtils.readLines(file, "iso-8859-1");
             for (int i = 1; i < readLines.size(); i++) {

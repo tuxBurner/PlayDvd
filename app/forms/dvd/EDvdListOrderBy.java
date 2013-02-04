@@ -1,4 +1,4 @@
-package forms;
+package forms.dvd;
 
 import com.google.gson.Gson;
 

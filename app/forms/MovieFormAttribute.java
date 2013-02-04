@@ -1,7 +1,7 @@
 package forms;
 
 /**
- * Attribute for the {@link DvdForm}
+ * Attribute for the {@link forms.dvd.DvdForm}
  * 
  * @author tuxburner
  */

@@ -1,9 +1,10 @@
-package forms;
+package forms.dvd;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import forms.MovieForm;
 import models.Dvd;
 import models.EDvdAttributeType;
 
@@ -52,7 +53,7 @@ public class InfoDvd {
    * Collects all Dvds which have the attribute and the same owner
    * 
    * @param dvd
-   * @param attributeType
+   * @param attrvalue
    * @param attrvalue
    * @param alreadyAdded
    * @return
@@ -82,7 +83,7 @@ public class InfoDvd {
    * Collects all Dvds which have the attribute and the same owner
    * 
    * @param dvd
-   * @param attributeType
+   * @param attrType
    * @param attrvalue
    * @return
    */

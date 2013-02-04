@@ -1,4 +1,4 @@
-package forms;
+package forms.dvd;
 
 import java.util.List;
 import java.util.Set;
@@ -93,15 +93,7 @@ public class DvdForm {
     return dvdForm;
   }
 
-  public static List<String> getAgeRatings() {
-    final List<String> ratings = ConfigFactory.load().getStringList("dvddb.ageratings");
-    return ratings;
-  }
 
-  public static List<String> getCopyTypes() {
-    final List<String> ratings = ConfigFactory.load().getStringList("dvddb.copytypes");
-    return ratings;
-  }
 
   /**
    * This returns the selected {@link Movie} for the {@link Dvd} as a json

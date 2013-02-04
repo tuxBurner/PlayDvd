@@ -1,6 +1,6 @@
 package controllers;
 
-import forms.UserProfileForm;
+import forms.user.UserProfileForm;
 import models.User;
 import play.Logger;
 import play.data.Form;

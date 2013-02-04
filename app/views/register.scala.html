@@ -1,4 +1,6 @@
 @(regForm: Form[forms.RegisterForm])
+@import helpers.DvdInfoHelper
+@import forms.dvd.DvdForm
 
 @import helper._
 @import helper.twitterBootstrap._
@@ -43,7 +45,7 @@
        <hr />
 
        <label for="defaultCopyType">Default copytype:</label>
-       @for((copyType,index) <- forms.DvdForm.getCopyTypes.zipWithIndex) {
+       @for((copyType,index) <- DvdInfoHelper.getCopyTypes.zipWithIndex) {
          <input type="radio" id="defaultCopyType" name="defaultCopyType" value="@copyType" @if(copyType == regForm("defaultCopyType").value() || index == 0 ){ checked="checked" } /><span><img alt="@copyType" src="@routes.Assets.at("images/copy_type/"+copyType+".png")" /></span>
        }
        <hr />

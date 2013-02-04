@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import com.avaje.ebean.Query;
+import forms.dvd.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -27,10 +28,9 @@ import com.avaje.ebean.ExpressionList;
 import com.avaje.ebean.Page;
 import com.typesafe.config.ConfigFactory;
 
-import forms.DvdForm;
-import forms.DvdSearchFrom;
-import forms.EDvdListOrderBy;
-import forms.EDvdListOrderHow;
+import forms.dvd.DvdSearchFrom;
+import forms.dvd.EDvdListOrderBy;
+import forms.dvd.EDvdListOrderHow;
 
 @Entity
 public class Dvd extends Model {
@@ -212,7 +212,7 @@ public class Dvd extends Model {
   }
 
   /**
-   * Gets all dvds which fit into the Filter int the {@link DvdSearchFrom}
+   * Gets all dvds which fit into the Filter int the {@link forms.dvd.DvdSearchFrom}
    *
    * @param searchFrom
    * @return

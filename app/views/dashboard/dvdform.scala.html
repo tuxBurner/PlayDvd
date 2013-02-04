@@ -1,4 +1,5 @@
-@(dvdForm: Form[forms.DvdForm])(mode: String)
+@(dvdForm: Form[forms.dvd.DvdForm])(mode: String)
+@import forms.dvd.DvdForm
 
 @import helper._
 @import helper.twitterBootstrap._
@@ -8,7 +9,7 @@
    <!--
      var avaibleBoxes = @Html(DvdAttribute.getAllByTypeAsJson(EDvdAttributeType.BOX));
      var avaibleCollections = @Html(DvdAttribute.getAllByTypeAsJson(EDvdAttributeType.COLLECTION));
-     var selectedMovie = @Html(forms.DvdForm.getSelectedMovieAsJson(dvdForm("movieId").value()));
+     var selectedMovie = @Html(forms.dvd.DvdForm.getSelectedMovieAsJson(dvdForm("movieId").value()));
    //-->
   </script>
   
@@ -30,13 +31,13 @@
        }
        
        <label for="copyType">Type:</label>
-       @for((copyType,index) <- forms.DvdForm.getCopyTypes.zipWithIndex) {
+       @for((copyType,index) <- helpers.DvdInfoHelper.getCopyTypes.zipWithIndex) {
          <input type="radio" id="copyType" name="copyType" value="@copyType" @if(mode == DvdController.DVD_FORM_EDIT_MODE && copyType == dvdForm("copyType").value() || mode == DvdController.DVD_FORM_ADD_MODE && (index == 0 || copyType.equals(User.getCurrentUser().defaultCopyType))){ checked="checked" } /><span><img alt="@copyType" src="@routes.Assets.at("images/copy_type/"+copyType+".png")" /></span>
        }
        
        
        <label for="ageRating">Rating:</label>
-       @for((rating,index) <- forms.DvdForm.getAgeRatings.zipWithIndex) {
+       @for((rating,index) <- helpers.DvdInfoHelper.getAgeRatings.zipWithIndex) {
          <input type="radio" id="ageRating" name="ageRating" value="@rating" @if(mode == DvdController.DVD_FORM_EDIT_MODE && rating == dvdForm("ageRating").value() || mode == DvdController.DVD_FORM_ADD_MODE && index == 0){ checked="checked" } /><span><img alt="@rating" src="@routes.Assets.at("images/agerating/"+rating+".gif")" />@rating </span>
        }
 
@@ -65,7 +66,7 @@
          } else {
            <button type="submit" class="btn  btn-primary"><i class="icon-plus"></i>Add Dvd</button>
          }
-         <a class="btn" href="@routes.ListDvds.listdvds(null)"><i class="icon-arrow-left"></i>Back</a>
+         <a class="btn" href="@routes.ListDvdsController.listdvds(null)"><i class="icon-arrow-left"></i>Back</a>
        </div>
              
       @inputText(dvdForm("movieId"),'_label -> "Existing movie", '_showConstraints -> true, 'class-> "span6")

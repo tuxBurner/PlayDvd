@@ -27,7 +27,6 @@ import play.db.ebean.Transactional;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Query;
 
-import forms.DvdForm;
 import forms.MovieForm;
 
 @Entity
@@ -74,7 +73,7 @@ public class Movie extends Model {
   public static Finder<Long, Movie> find = new Finder<Long, Movie>(Long.class, Movie.class);
 
   /**
-   * This creates a movie from the information of the given {@link DvdForm}
+   * This creates a movie from the information of the given {@link forms.dvd.DvdForm}
    * 
    * @param dvdForm
    * @param movie

@@ -1,6 +1,7 @@
-package forms;
+package forms.user;
 
 import controllers.Secured;
+import helpers.DvdInfoHelper;
 import models.User;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
@@ -53,7 +54,7 @@ public class UserProfileForm {
 
     if(StringUtils.isEmpty(defaultCopyType) == false) {
       Logger.debug(Secured.getUsername()+" sets defaultCopyType to: "+defaultCopyType);
-      List<String> copyTypes = DvdForm.getCopyTypes();
+      List<String> copyTypes = DvdInfoHelper.getCopyTypes();
       if(copyTypes.contains(defaultCopyType) == false) {
         Logger.error("User: "+Secured.getUsername()+" selected a copyType: "+defaultCopyType+" which is not configured.");
         return "The selected copytype: "+defaultCopyType+" does not exists.";

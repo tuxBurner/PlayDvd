@@ -26,7 +26,7 @@ public class Application extends Controller {
 
   @Security.Authenticated(Secured.class)
   public static Result index() {
-    return redirect(routes.ListDvds.listAlldvds());
+    return redirect(routes.ListDvdsController.listAlldvds());
   }
 
   /**
@@ -78,7 +78,7 @@ public class Application extends Controller {
     } else {
       Controller.flash("success", "Welcome to  the DVD-Database: " + registerForm.get().username);
       Controller.session(Secured.AUTH_SESSION, "" + registerForm.get().username);
-      return Results.redirect(routes.ListDvds.listdvds(0));
+      return Results.redirect(routes.Application.index());
     }
 
   }

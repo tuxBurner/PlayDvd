@@ -1,6 +1,6 @@
-@(dvd: forms.InfoDvd)(username: String) 
+@(dvd: forms.dvd.InfoDvd)(username: String)
 
-@subDvdDisplay(subDvds : List[forms.CollectionDvd], dvd:forms.InfoDvd, title: String, subTitle: String, username:String) = {
+@subDvdDisplay(subDvds : List[forms.dvd.CollectionDvd], dvd:forms.dvd.InfoDvd, title: String, subTitle: String, username:String) = {
   @if(subDvds != null && subDvds.size() > 0) {
     <fieldset class="well">
       <h3>Dvds in the @title <i>@subTitle:</i></h3>
@@ -47,7 +47,7 @@
 
   <fieldset class="well">
     <h2>Plot:</h2>
-    <p>@dvd.movieForm.plot</span>
+    <p>@dvd.movieForm.plot</p>
   </fieldset>
   
   <fieldset class="well">
@@ -60,7 +60,7 @@
     <div class="row-fluid">
       <label class="span4">Owner:</label>
       <span>
-        <a href="@routes.ListDvds.listByUser(dvd.dvdForm.ownerName,0)">
+        <a href="@routes.ListDvdsController.listByUser(dvd.dvdForm.ownerName,0)">
           <img src="@routes.Dashboard.gravatar(50,dvd.dvdForm.ownerName)" />
           @dvd.dvdForm.ownerName
         </a>
@@ -101,7 +101,7 @@
       <div class="row-fluid">
         <label class="span4">Hull Nr.:</label>
         <span>      
-          <a href="@routes.ListDvds.searchDvd?searchFor=@models.Dvd.HULL_NR_SEARCH @dvd.dvdForm.hullNr">@dvd.dvdForm.hullNr</a>
+          <a href="@routes.ListDvdsController.searchDvd?searchFor=@models.Dvd.HULL_NR_SEARCH @dvd.dvdForm.hullNr">@dvd.dvdForm.hullNr</a>
         </span>
       </div>
     }
@@ -118,7 +118,7 @@
     
     <div class="row-fluid">
       <label class="span4">Director:</label>
-      <span><a href="@routes.ListDvds.listByDirector(dvd.movieForm.director)">@dvd.movieForm.director</a></span>
+      <span><a href="@routes.ListDvdsController.listByDirector(dvd.movieForm.director)">@dvd.movieForm.director</a></span>
     </div>
     
     </div>
@@ -128,7 +128,7 @@
       <dl>
         <dt>Genres:</dt>
         @for(genre <- dvd.movieForm.genres) {
-          <dd><a href="@routes.ListDvds.listByGenre(genre,0)">@genre</a></dd>
+          <dd><a href="@routes.ListDvdsController.listByGenre(genre,0)">@genre</a></dd>
         }
       </dl>
     </div>
@@ -139,7 +139,7 @@
       <dt>Actors:</dt>
       <dl>
         @for(actor <- dvd.movieForm.actors) {
-          <dd><a href="@routes.ListDvds.listByActor(actor)">@actor<a></a></dd>
+          <dd><a href="@routes.ListDvdsController.listByActor(actor)">@actor<a></a></dd>
         }
       </dl>
     </div>

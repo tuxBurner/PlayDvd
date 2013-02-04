@@ -2,7 +2,7 @@ package controllers;
 
 import com.avaje.ebean.Ebean;
 import forms.ExternalImageForm;
-import forms.InfoDvd;
+import forms.dvd.InfoDvd;
 import forms.LendForm;
 import forms.UnLendForm;
 import helpers.EImageSize;

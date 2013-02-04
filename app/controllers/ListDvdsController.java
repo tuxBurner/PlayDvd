@@ -1,12 +1,9 @@
 package controllers;
 
-import org.apache.commons.lang.StringUtils;
-
 import com.avaje.ebean.Page;
-
-import forms.DvdSearchFrom;
-
+import forms.dvd.DvdSearchFrom;
 import models.Dvd;
+import org.apache.commons.lang.StringUtils;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -15,7 +12,7 @@ import play.mvc.Security;
 import views.html.dashboard.listdvds;
 
 @Security.Authenticated(Secured.class)
-public class ListDvds extends Controller {
+public class ListDvdsController extends Controller {
 
   /**
    * Lists all the dvds
@@ -30,7 +27,7 @@ public class ListDvds extends Controller {
       currentSearchForm.currentPage = page;
     }
 
-    return ListDvds.returnList(currentSearchForm);
+    return ListDvdsController.returnList(currentSearchForm);
   }
 
   /**
@@ -39,8 +36,8 @@ public class ListDvds extends Controller {
    * @return
    */
   public static Result listAlldvds() {
-    final DvdSearchFrom listFrom = new DvdSearchFrom();
-    return ListDvds.returnList(listFrom);
+    final DvdSearchFrom dvdSearchFrom = new DvdSearchFrom();
+    return ListDvdsController.returnList(dvdSearchFrom);
   }
 
   /**
@@ -57,7 +54,7 @@ public class ListDvds extends Controller {
     final DvdSearchFrom dvdListFrom = new DvdSearchFrom();
     dvdListFrom.userName = fromUserName;
 
-    return ListDvds.returnList(dvdListFrom);
+    return ListDvdsController.returnList(dvdListFrom);
   }
 
   /**
@@ -74,7 +71,7 @@ public class ListDvds extends Controller {
     final DvdSearchFrom dvdListFrom = new DvdSearchFrom();
     dvdListFrom.genre = genreName;
 
-    return ListDvds.returnList(dvdListFrom);
+    return ListDvdsController.returnList(dvdListFrom);
   }
 
   /**
@@ -91,7 +88,7 @@ public class ListDvds extends Controller {
     final DvdSearchFrom dvdListFrom = new DvdSearchFrom();
     dvdListFrom.actor = actorName;
 
-    return ListDvds.returnList(dvdListFrom);
+    return ListDvdsController.returnList(dvdListFrom);
   }
 
   /**
@@ -108,7 +105,7 @@ public class ListDvds extends Controller {
     final DvdSearchFrom dvdListFrom = new DvdSearchFrom();
     dvdListFrom.director = directorName;
 
-    return ListDvds.returnList(dvdListFrom);
+    return ListDvdsController.returnList(dvdListFrom);
   }
 
   /**
@@ -122,25 +119,25 @@ public class ListDvds extends Controller {
     dvdListFrom.lendDvd = true;
     dvdListFrom.userName = Secured.getUsername();
 
-    return ListDvds.returnList(dvdListFrom);
+    return ListDvdsController.returnList(dvdListFrom);
   }
 
   public static Result listReviewMovies() {
     final DvdSearchFrom dvdListFrom = new DvdSearchFrom();
     dvdListFrom.moviesToReview = true;
 
-    return ListDvds.returnList(dvdListFrom);
+    return ListDvdsController.returnList(dvdListFrom);
 
   }
 
   public static Result searchDvd() {
     final String[] strings = Controller.request().queryString().get("searchFor");
     if (strings == null || strings.length != 1) {
-      return ListDvds.listAlldvds();
+      return ListDvdsController.listAlldvds();
     } else {
       final DvdSearchFrom listFrom = new DvdSearchFrom();
       listFrom.searchFor = strings[0];
-      return ListDvds.returnList(listFrom);
+      return ListDvdsController.returnList(listFrom);
     }
 
   }
@@ -155,14 +152,13 @@ public class ListDvds extends Controller {
 
     final Form<DvdSearchFrom> form = Controller.form(DvdSearchFrom.class).bindFromRequest();
 
-    return ListDvds.returnList(form.get());
+    return ListDvdsController.returnList(form.get());
   }
 
   /**
    * Returns the dvds for the template
    * 
    * @param dvdSearchFrom
-   * @param ctx
    * @return
    */
   private static Result returnList(final DvdSearchFrom dvdSearchFrom) {

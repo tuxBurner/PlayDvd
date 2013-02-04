@@ -1,5 +1,6 @@
 package forms;
 
+import helpers.DvdInfoHelper;
 import models.User;
 import org.apache.commons.lang3.StringUtils;
 import play.data.format.Formats;
@@ -49,7 +50,7 @@ public class RegisterForm {
       return "No default copytype selected.";
     }
 
-    final List<String> copyTypes = DvdForm.getCopyTypes();
+    final List<String> copyTypes = DvdInfoHelper.getCopyTypes();
     if (copyTypes.contains(defaultCopyType) == false) {
       return "The selected copytype: " + defaultCopyType + " does not exists.";
     }

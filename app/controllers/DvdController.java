@@ -1,14 +1,13 @@
 package controllers;
 
+import forms.dvd.DvdForm;
 import models.Dvd;
-import models.User;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
 import views.html.dashboard.dvdform;
-import forms.DvdForm;
 
 /**
  * This {@link Controller} handles all the edit and add {@link Dvd} magic
@@ -30,7 +29,7 @@ public class DvdController extends Controller {
    */
   public static Result showAddDvd() {
 
-    final Form<DvdForm> form = Controller.form(forms.DvdForm.class);
+    final Form<DvdForm> form = Controller.form(DvdForm.class);
     return Results.ok(dvdform.render(form.fill(new DvdForm()), DvdController.DVD_FORM_ADD_MODE));
   }
 
@@ -47,7 +46,7 @@ public class DvdController extends Controller {
       return Results.badRequest("U ARE NOT ALLOWED TO EDIT :) ");
     }
 
-    final Form<DvdForm> form = Controller.form(forms.DvdForm.class);
+    final Form<DvdForm> form = Controller.form(DvdForm.class);
 
     return Results.ok(dvdform.render(form.fill(DvdForm.dvdToDvdForm(dvdToEdit)), DvdController.DVD_FORM_EDIT_MODE));
   }
@@ -83,7 +82,7 @@ public class DvdController extends Controller {
         return Results.badRequest(dvdform.render(dvdForm, mode));
       }
 
-      return Results.redirect(routes.ListDvds.listdvds(null));
+      return Results.redirect(routes.ListDvdsController.listdvds(null));
     }
   }
 
