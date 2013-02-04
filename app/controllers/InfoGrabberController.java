@@ -1,24 +1,17 @@
 package controllers;
 
-import grabbers.EGrabberType;
-import grabbers.GrabberDisplayMovie;
-import grabbers.GrabberException;
-import grabbers.GrabberSearchMovie;
-import grabbers.IInfoGrabber;
-import grabbers.TheTvDbGrabber;
-import grabbers.TmdbGrabber;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import grabbers.*;
 import org.apache.commons.lang.StringUtils;
-
+import play.Logger;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
 import views.html.grabber.displaymovie;
 import views.html.grabber.search;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Security.Authenticated(Secured.class)
 public class InfoGrabberController extends Controller {
@@ -27,7 +20,7 @@ public class InfoGrabberController extends Controller {
 
   /**
    * This is called when the user wants to search the movie database
-   * 
+   *
    * @param searchTerm
    * @return
    */
@@ -48,13 +41,16 @@ public class InfoGrabberController extends Controller {
       return Results.ok(search.render(searchTerm, grabberType, searchResults, movieToEditId));
 
     } catch (final GrabberException e) {
-      return Results.badRequest("Internal Error happend");
+      if (Logger.isErrorEnabled()) {
+        Logger.error("Internal Error happened", e);
+      }
+      return Results.badRequest("Internal Error happened");
     }
   }
 
   /**
    * Gets the grabber for the given type
-   * 
+   *
    * @param grabberType
    * @return
    */
@@ -73,8 +69,8 @@ public class InfoGrabberController extends Controller {
 
   /**
    * This gets the dvdToEdit from the Request
-   * 
-   * @param tmdbDvdId
+   *
+   * @param
    * @return
    */
   private static Long getMovieToEditIdFromReq() {
@@ -93,8 +89,9 @@ public class InfoGrabberController extends Controller {
 
   /**
    * Display the movie which was selected
-   * 
-   * @param movieId
+   *
+   * @param grabberId
+   * @param grabberType
    * @return
    */
   public static Result getMovieById(final String grabberId, final String grabberType) {
@@ -111,7 +108,10 @@ public class InfoGrabberController extends Controller {
       return Results.ok(displaymovie.render(displayMovie, grabberType, movieToEditId, mode));
 
     } catch (final GrabberException e) {
-      return Results.badRequest("Internal Error happend");
+      if (Logger.isErrorEnabled()) {
+        Logger.error("Internal Error happened", e);
+      }
+      return Results.badRequest("Internal Error happened");
     }
   }
 
