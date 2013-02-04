@@ -122,7 +122,8 @@ public class MovieController extends Controller {
 
       return Results.ok(movieform.render(form.fill(movieForm), mode));
     } catch (final GrabberException e) {
-      return Results.badRequest("Internal Error happend");
+      Logger.error("Internal Error happened",e);
+      return Results.badRequest("Internal Error happened");
     }
   }
 

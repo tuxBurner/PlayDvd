@@ -33,8 +33,9 @@
 
 
          @if(movieForm("grabberId").value != null && movieForm("grabberType").value != null && movieForm("grabberType").value != "NONE" ) {
-           <button class="btn btn-success" id="grabberRefetchButton" type="button"><i class="icon-film"></i> Refetch Data from Grabber</button>
-
+           <button class="btn btn-success" id="grabberRefetchButton" type="button"><i class="icon-refresh"></i> Refetch Data</button>
+           <input type="hidden" name="grabberId" id="grabberId" value="@movieForm("grabberId").value" />
+           <input type="hidden" name="grabberType" id="grabberType" value="@movieForm("grabberType").value" />
          }
 
          <hr />

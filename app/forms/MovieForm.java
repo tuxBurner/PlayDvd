@@ -48,7 +48,7 @@ public class MovieForm {
 
   public String grabberId;
 
-  public EGrabberType grabberType;
+  public EGrabberType grabberType = EGrabberType.NONE;
 
   public String imdbId;
 
@@ -81,6 +81,12 @@ public class MovieForm {
 
     movieForm.hasBackdrop = movie.hasBackdrop;
     movieForm.hasPoster = movie.hasPoster;
+    movieForm.imdbId = movie.imdbId;
+    if(EGrabberType.NONE.equals(movie.grabberType) == false && StringUtils.isEmpty(movie.grabberId) == false) {
+      movieForm.grabberType = movie.grabberType;
+      movieForm.grabberId = movie.grabberId;
+    }
+
 
     final Set<MovieAttribute> attributes = movie.attributes;
     for (final MovieAttribute movieAttibute : attributes) {

@@ -1,139 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list id="f8047800-a698-4e1c-a8d6-a21bc190c308" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/cglib_cglib_nodep_2_1_3_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/cglib_cglib_nodep_2_1_3_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/ch_qos_logback_logback_classic_1_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/ch_qos_logback_logback_classic_1_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/ch_qos_logback_logback_core_1_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/ch_qos_logback_logback_core_1_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_cedarsoft_guice_annotations_2_0_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_cedarsoft_guice_annotations_2_0_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_codahale_jerkson_2_9_1_0_5_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_codahale_jerkson_2_9_1_0_5_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_fasterxml_jackson_core_jackson_annotations_2_1_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_fasterxml_jackson_core_jackson_annotations_2_1_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_fasterxml_jackson_core_jackson_core_2_1_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_fasterxml_jackson_core_jackson_core_2_1_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_fasterxml_jackson_core_jackson_databind_2_1_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_fasterxml_jackson_core_jackson_databind_2_1_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_github_jsuereth_scala_arm_scala_arm_2_9_1_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_github_jsuereth_scala_arm_scala_arm_2_9_1_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_github_ralfebert_jgravatar_1_0_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_github_ralfebert_jgravatar_1_0_SNAPSHOT.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_github_scala_incubator_io_scala_io_core_2_9_1_0_4_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_github_scala_incubator_io_scala_io_core_2_9_1_0_4_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_github_scala_incubator_io_scala_io_file_2_9_1_0_4_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_github_scala_incubator_io_scala_io_file_2_9_1_0_4_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_code_findbugs_jsr305_1_3_9.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_code_findbugs_jsr305_1_3_9.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_code_gson_gson_2_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_code_gson_gson_2_2_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_google_guava_guava_10_0_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_google_guava_guava_10_0_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_h2database_h2_1_3_158.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_h2database_h2_1_3_158.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_intellij_annotations_7_0_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_intellij_annotations_7_0_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_jolbox_bonecp_0_7_1_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_jolbox_bonecp_0_7_1_RELEASE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_jquery_jquery_1_7_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_jquery_jquery_1_7_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_moviejukebox_themoviedbapi_3_3_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_moviejukebox_themoviedbapi_3_3_SNAPSHOT.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_moviejukebox_thetvdbapi_1_4_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_moviejukebox_thetvdbapi_1_4_SNAPSHOT.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_ning_async_http_client_1_7_6.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_ning_async_http_client_1_7_6.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_novocode_junit_interface_0_8_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_novocode_junit_interface_0_8_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_typesafe_akka_akka_actor_2_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_typesafe_akka_akka_actor_2_0_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_typesafe_akka_akka_slf4j_2_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_typesafe_akka_akka_slf4j_2_0_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_typesafe_play_plugins_mailer_2_9_1_2_0_4.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_typesafe_play_plugins_mailer_2_9_1_2_0_4.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_typesafe_play_plugins_util_2_9_1_2_0_4.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_typesafe_play_plugins_util_2_9_1_2_0_4.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/commons_codec_commons_codec_1_7.xml" afterPath="$PROJECT_DIR$/.idea/libraries/commons_codec_commons_codec_1_7.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/commons_collections_commons_collections_3_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/commons_collections_commons_collections_3_2_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/commons_io_commons_io_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/commons_io_commons_io_2_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/commons_lang_commons_lang_2_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/commons_lang_commons_lang_2_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/commons_lang_commons_lang_2_6_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/commons_lang_commons_lang_2_6_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/commons_logging_commons_logging_1_1_1_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/commons_logging_commons_logging_1_1_1_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea_modules/dvdDataBase-build.iml" afterPath="$PROJECT_DIR$/.idea_modules/dvdDataBase-build.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea_modules/dvdDataBase.iml" afterPath="$PROJECT_DIR$/.idea_modules/dvdDataBase.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/io_netty_netty_3_5_0_Final.xml" afterPath="$PROJECT_DIR$/.idea/libraries/io_netty_netty_3_5_0_Final.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/javax_activation_activation_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/javax_activation_activation_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/javax_mail_mail_1_4_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/javax_mail_mail_1_4_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/javax_servlet_javax_servlet_api_3_0_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/javax_servlet_javax_servlet_api_3_0_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/javax_transaction_jta_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/javax_transaction_jta_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/javax_validation_validation_api_1_0_0_GA.xml" afterPath="$PROJECT_DIR$/.idea/libraries/javax_validation_validation_api_1_0_0_GA.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/jaxen_jaxen_1_1_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/jaxen_jaxen_1_1_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/joda_time_joda_time_2_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/joda_time_joda_time_2_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/junit_junit_4_8_2_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/junit_junit_4_8_2_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/log4j_log4j_1_2_17.xml" afterPath="$PROJECT_DIR$/.idea/libraries/log4j_log4j_1_2_17.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/mysql_mysql_connector_java_5_1_18.xml" afterPath="$PROJECT_DIR$/.idea/libraries/mysql_mysql_connector_java_5_1_18.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/net_coobird_thumbnailator_0_4_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/net_coobird_thumbnailator_0_4_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/net_java_dev_jna_jna_3_4_0_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/net_java_dev_jna_jna_3_4_0_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/net_java_dev_jna_platform_3_4_0_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/net_java_dev_jna_platform_3_4_0_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/net_sf_ehcache_ehcache_core_2_5_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/net_sf_ehcache_ehcache_core_2_5_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/net_sourceforge_cssparser_cssparser_0_9_5_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/net_sourceforge_cssparser_cssparser_0_9_5_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/net_sourceforge_htmlunit_htmlunit_2_9_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/net_sourceforge_htmlunit_htmlunit_2_9_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/net_sourceforge_htmlunit_htmlunit_core_js_2_9_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/net_sourceforge_htmlunit_htmlunit_core_js_2_9_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/net_sourceforge_nekohtml_nekohtml_1_9_15_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/net_sourceforge_nekohtml_nekohtml_1_9_15_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/oauth_signpost_signpost_core_1_2_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/oauth_signpost_signpost_core_1_2_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_apache_commons_commons_email_1_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_apache_commons_commons_email_1_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_apache_commons_commons_exec_1_1_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_apache_commons_commons_exec_1_1_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_apache_commons_commons_lang3_3_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_apache_commons_commons_lang3_3_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_apache_httpcomponents_httpclient_4_1_2_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_apache_httpcomponents_httpclient_4_1_2_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_apache_httpcomponents_httpcore_4_1_3_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_apache_httpcomponents_httpcore_4_1_3_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_apache_httpcomponents_httpmime_4_1_2_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_apache_httpcomponents_httpmime_4_1_2_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_avaje_ebean_2_7_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_avaje_ebean_2_7_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_codehaus_jackson_jackson_core_asl_1_9_10.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_codehaus_jackson_jackson_core_asl_1_9_10.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_codehaus_jackson_jackson_mapper_asl_1_9_10.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_codehaus_jackson_jackson_mapper_asl_1_9_10.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_easytesting_fest_assert_1_4_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_easytesting_fest_assert_1_4_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_easytesting_fest_util_1_1_6_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_easytesting_fest_util_1_1_6_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_fluentlenium_fluentlenium_core_0_5_6_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_fluentlenium_fluentlenium_core_0_5_6_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_fluentlenium_fluentlenium_festassert_0_5_6_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_fluentlenium_fluentlenium_festassert_0_5_6_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_hibernate_hibernate_validator_4_2_0_Final.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_hibernate_hibernate_validator_4_2_0_Final.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_hibernate_javax_persistence_hibernate_jpa_2_0_api_1_0_1_Final.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_hibernate_javax_persistence_hibernate_jpa_2_0_api_1_0_1_Final.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_javassist_javassist_3_16_1_GA.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_javassist_javassist_3_16_1_GA.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_joda_joda_convert_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_joda_joda_convert_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_json_json_20080701_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_json_json_20080701_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_ow2_spec_ee_ow2_atinject_1_0_spec_1_0_10.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_ow2_spec_ee_ow2_atinject_1_0_spec_1_0_10.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_reflections_reflections_0_9_6.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_reflections_reflections_0_9_6.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_scala_lang_scala_library_2_9_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_scala_lang_scala_library_2_9_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_scala_tools_scala_stm_2_9_1_0_5.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_scala_tools_scala_stm_2_9_1_0_5.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_scala_tools_testing_test_interface_0_5_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_scala_tools_testing_test_interface_0_5_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_seleniumhq_selenium_selenium_android_driver_2_16_1_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_seleniumhq_selenium_selenium_android_driver_2_16_1_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_seleniumhq_selenium_selenium_api_2_16_1_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_seleniumhq_selenium_selenium_api_2_16_1_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_seleniumhq_selenium_selenium_chrome_driver_2_16_1_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_seleniumhq_selenium_selenium_chrome_driver_2_16_1_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_seleniumhq_selenium_selenium_firefox_driver_2_16_1_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_seleniumhq_selenium_selenium_firefox_driver_2_16_1_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_seleniumhq_selenium_selenium_htmlunit_driver_2_16_1_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_seleniumhq_selenium_selenium_htmlunit_driver_2_16_1_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_seleniumhq_selenium_selenium_ie_driver_2_16_1_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_seleniumhq_selenium_selenium_ie_driver_2_16_1_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_seleniumhq_selenium_selenium_iphone_driver_2_16_1_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_seleniumhq_selenium_selenium_iphone_driver_2_16_1_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_seleniumhq_selenium_selenium_java_2_16_1_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_seleniumhq_selenium_selenium_java_2_16_1_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_seleniumhq_selenium_selenium_remote_driver_2_16_1_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_seleniumhq_selenium_selenium_remote_driver_2_16_1_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_seleniumhq_selenium_selenium_support_2_16_1_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_seleniumhq_selenium_selenium_support_2_16_1_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_slf4j_jcl_over_slf4j_1_6_4.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_slf4j_jcl_over_slf4j_1_6_4.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_slf4j_jul_to_slf4j_1_6_4.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_slf4j_jul_to_slf4j_1_6_4.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_slf4j_slf4j_api_1_6_4.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_slf4j_slf4j_api_1_6_4.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_specs2_specs2_2_9_1_1_9_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_specs2_specs2_2_9_1_1_9_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_specs2_specs2_scalaz_core_2_9_1_6_0_1_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_specs2_specs2_scalaz_core_2_9_1_6_0_1_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_springframework_spring_beans_3_0_7_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_springframework_spring_beans_3_0_7_RELEASE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_springframework_spring_context_3_0_7_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_springframework_spring_context_3_0_7_RELEASE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_springframework_spring_core_3_0_7_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_springframework_spring_core_3_0_7_RELEASE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_w3c_css_sac_1_3_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_w3c_css_sac_1_3_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_webjars_bootstrap_2_2_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_webjars_bootstrap_2_2_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_webjars_font_awesome_3_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_webjars_font_awesome_3_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_webjars_jquery_1_8_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_webjars_jquery_1_8_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_webjars_jquerypp_1_0b2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_webjars_jquerypp_1_0b2_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_webjars_select2_3_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_webjars_select2_3_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_webjars_webjars_play_0_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_webjars_webjars_play_0_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_yaml_snakeyaml_1_9.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_yaml_snakeyaml_1_9.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/play_anorm_2_9_1_2_0_4.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_anorm_2_9_1_2_0_4.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/play_play_2_9_1_2_0_4.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_play_2_9_1_2_0_4.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/play_play_test_2_9_1_2_0_4_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_play_test_2_9_1_2_0_4_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/play_templates_2_9_1_2_0_4.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_templates_2_9_1_2_0_4.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/scala_2_9_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/scala_2_9_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/tyrex_tyrex_1_0_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/tyrex_tyrex_1_0_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/xalan_serializer_2_7_1_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/xalan_serializer_2_7_1_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/xalan_xalan_2_7_1_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/xalan_xalan_2_7_1_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/xerces_xercesImpl_2_9_1_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/xerces_xercesImpl_2_9_1_test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/xml_apis_xml_apis_1_3_04_test.xml" afterPath="$PROJECT_DIR$/.idea/libraries/xml_apis_xml_apis_1_3_04_test.xml" />
-    </list>
+    <list id="f8047800-a698-4e1c-a8d6-a21bc190c308" name="Default" comment="" />
     <list default="true" id="10293625-e479-41ac-a49e-3073ef39874f" name="" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/grabbers/EGrabberType.java" afterPath="$PROJECT_DIR$/app/grabbers/EGrabberType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/grabbers/GrabberDisplayMovie.java" afterPath="$PROJECT_DIR$/app/grabbers/GrabberDisplayMovie.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/grabbers/IInfoGrabber.java" afterPath="$PROJECT_DIR$/app/grabbers/IInfoGrabber.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/conf/evolutions/default/5.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/EMovieAttributeType.java" afterPath="$PROJECT_DIR$/app/models/EMovieAttributeType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/Movie.java" afterPath="$PROJECT_DIR$/app/models/Movie.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/MovieController.java" afterPath="$PROJECT_DIR$/app/controllers/MovieController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/forms/MovieForm.java" afterPath="$PROJECT_DIR$/app/forms/MovieForm.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/grabbers/TheTvDbGrabber.java" afterPath="$PROJECT_DIR$/app/grabbers/TheTvDbGrabber.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/grabbers/TmdbGrabber.java" afterPath="$PROJECT_DIR$/app/grabbers/TmdbGrabber.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/grabber/displaymovie.scala.html" afterPath="$PROJECT_DIR$/app/views/grabber/displaymovie.scala.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea_modules/dvdDataBase-build.iml" afterPath="$PROJECT_DIR$/.idea_modules/dvdDataBase-build.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea_modules/dvdDataBase.iml" afterPath="$PROJECT_DIR$/.idea_modules/dvdDataBase.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/movieForm.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/movieForm.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/movie/movieform.scala.html" afterPath="$PROJECT_DIR$/app/views/movie/movieform.scala.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="dvdDataBase.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1359994226003" ignored="false" />
+    <file path="/Dummy.txt" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1360015067940" ignored="false" />
     <file path="$APPLICATION_HOME_DIR$/lib/idea.jar!/standardSchemas/xinclude.xsd" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358766199954" ignored="false" />
     <file path="$APPLICATION_HOME_DIR$/lib/idea.jar!/standardSchemas/catalog.xsd" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358766199954" ignored="false" />
     <file path="$APPLICATION_HOME_DIR$/lib/idea.jar!/standardSchemas/XMLSchema-instance.xsd" changelist="f8047800-a698-4e1c-a8d6-a21bc190c308" time="1358766199954" ignored="false" />
@@ -232,9 +116,13 @@
     <file path="/GrabberDisplayMovie.java" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1359995423628" ignored="false" />
     <file path="/TheTvDbGrabber.java" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1359996363996" ignored="false" />
     <file path="/TmdbGrabber.java" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1359996346475" ignored="false" />
-    <file path="/MovieForm.java" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1359996094138" ignored="false" />
+    <file path="/MovieForm.java" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1360017383212" ignored="false" />
     <file path="/EGrabberType.java" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1359996108048" ignored="false" />
-    <file path="/movieform.scala.html" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1359996852416" ignored="false" />
+    <file path="/movieform.scala.html" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1360018102490" ignored="false" />
+    <file path="/MovieController.java" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1360016088356" ignored="false" />
+    <file path="/Movie.java" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1360016576209" ignored="false" />
+    <file path="/5.sql" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1360016913438" ignored="false" />
+    <file path="/movieForm.js" changelist="10293625-e479-41ac-a49e-3073ef39874f" time="1360018029164" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -303,39 +191,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="GrabberDisplayMovie.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/grabbers/GrabberDisplayMovie.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="31" selection-start="1129" selection-end="1129" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TheTvDbGrabber.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/grabbers/TheTvDbGrabber.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="166" column="20" selection-start="5814" selection-end="5820" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="movieform.scala.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="movieform.scala.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/movie/movieform.scala.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="11" selection-start="1903" selection-end="1903" vertical-scroll-proportion="0.5720339">
-              <folding>
-                <element signature="e#52#67#0" expanded="true" />
-              </folding>
+            <state line="37" column="66" selection-start="2064" selection-end="2064" vertical-scroll-proportion="-12.416667">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TmdbGrabber.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/grabbers/TmdbGrabber.java">
+      <file leaf-file-name="movieForm.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/movieForm.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="141" column="58" selection-start="5140" selection-end="5140" vertical-scroll-proportion="0.0">
+            <state line="54" column="20" selection-start="1599" selection-end="1599" vertical-scroll-proportion="0.12688822">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MovieController.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/MovieController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="66" column="87" selection-start="1680" selection-end="1680" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -344,7 +221,34 @@
       <file leaf-file-name="MovieForm.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/forms/MovieForm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="25" selection-start="842" selection-end="851" vertical-scroll-proportion="0.0">
+            <state line="86" column="44" selection-start="1965" selection-end="1965" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Movie.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/Movie.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="64" column="30" selection-start="1341" selection-end="1341" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="4.sql" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/conf/evolutions/default/4.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="5.sql" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/conf/evolutions/default/5.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="38" selection-start="440" selection-end="440" vertical-scroll-proportion="-3.0">
               <folding />
             </state>
           </provider>
@@ -353,51 +257,25 @@
       <file leaf-file-name="EGrabberType.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/grabbers/EGrabberType.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="79" selection-start="75" selection-end="75" vertical-scroll-proportion="0.0">
+            <state line="4" column="9" selection-start="56" selection-end="63" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="application.conf" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/conf/application.conf">
+      <file leaf-file-name="MovieAttribute.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/MovieAttribute.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="49" column="30" selection-start="1101" selection-end="1131" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IInfoGrabber.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/grabbers/IInfoGrabber.java">
+      <file leaf-file-name="EMovieAttributeType.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/EMovieAttributeType.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="28" selection-start="1074" selection-end="1074" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="displaymovie.scala.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/grabber/displaymovie.scala.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="38" column="26" selection-start="1452" selection-end="1472" vertical-scroll-proportion="-15.625">
-              <folding>
-                <element signature="e#101#143#0" expanded="true" />
-                <element signature="n#style#0;n#li#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#li#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#li#0;n#ul#0;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#li#0;n#ul#0;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#li#0;n#ul#0;n#div#3;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#li#0;n#ul#0;n#div#3;n#div#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="movieForm.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/movieForm.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="15" selection-start="14" selection-end="14" vertical-scroll-proportion="0.0">
+            <state line="2" column="33" selection-start="50" selection-end="50" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -430,22 +308,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/controllers/Application.java" />
-        <option value="$PROJECT_DIR$/conf/routes" />
-        <option value="$PROJECT_DIR$/app/controllers/RegisterLoginController.java" />
-        <option value="$PROJECT_DIR$/app/controllers/PasswordResetController.java" />
-        <option value="$PROJECT_DIR$/app/views/user/login.scala.html" />
         <option value="$PROJECT_DIR$/app/controllers/Secured.java" />
         <option value="$PROJECT_DIR$/app/views/mainmenu.scala.html" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/movieForm.js" />
         <option value="$PROJECT_DIR$/app/grabbers/GrabberDisplayMovie.java" />
         <option value="$PROJECT_DIR$/app/views/grabber/displaymovie.scala.html" />
         <option value="$PROJECT_DIR$/app/grabbers/IInfoGrabber.java" />
-        <option value="$PROJECT_DIR$/app/forms/MovieForm.java" />
         <option value="$PROJECT_DIR$/app/grabbers/EGrabberType.java" />
         <option value="$PROJECT_DIR$/app/grabbers/TmdbGrabber.java" />
         <option value="$PROJECT_DIR$/app/grabbers/TheTvDbGrabber.java" />
+        <option value="$PROJECT_DIR$/app/controllers/MovieController.java" />
+        <option value="$PROJECT_DIR$/app/models/EMovieAttributeType.java" />
+        <option value="$PROJECT_DIR$/conf/evolutions/default/1.sql" />
+        <option value="$PROJECT_DIR$/conf/evolutions/default/5.sql" />
+        <option value="$PROJECT_DIR$/app/models/Movie.java" />
+        <option value="$PROJECT_DIR$/app/forms/MovieForm.java" />
         <option value="$PROJECT_DIR$/app/views/movie/movieform.scala.html" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/movieForm.js" />
       </list>
     </option>
   </component>
@@ -453,10 +331,10 @@
     <treeState />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1920" />
+    <option name="x" value="-1" />
     <option name="y" value="27" />
-    <option name="width" value="1920" />
-    <option name="height" value="1173" />
+    <option name="width" value="1922" />
+    <option name="height" value="1174" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -694,7 +572,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectReloadState">
-    <option name="STATE" value="0" />
+    <option name="STATE" value="2" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
@@ -709,6 +587,40 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -723,7 +635,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemId" value="PlayDvd" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -733,7 +645,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemId" value="PlayDvd" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -747,7 +659,25 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="PlayDvd" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="conf" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="default" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
               <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PlayDvd" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -761,7 +691,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemId" value="PlayDvd" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -779,7 +709,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemId" value="PlayDvd" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -801,7 +731,25 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="PlayDvd" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
               <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PlayDvd" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -819,7 +767,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemId" value="PlayDvd" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -837,7 +785,25 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="PlayDvd" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
               <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PlayDvd" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -855,7 +821,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="dvdDataBase" />
+              <option name="myItemId" value="PlayDvd" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -924,40 +890,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dvdDataBase" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dvdDataBase" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dvdDataBase" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dvdDataBase" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dvdDataBase" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1003,14 +935,14 @@
       <recent name="forms" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/views/user" />
       <recent name="$PROJECT_DIR$/conf/evolutions/default" />
-    </key>
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="grabbers" />
+      <recent name="$PROJECT_DIR$/app/views/user" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/views/user" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="grabbers" />
     </key>
   </component>
   <component name="RunManager" selected="Play 2 App.Dvddatabse">
@@ -1161,7 +1093,7 @@
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="StructureViewFactory">
-    <option name="ACTIVE_ACTIONS" value="ALPHA_COMPARATOR" />
+    <option name="ACTIVE_ACTIONS" value="SHOW_INHERITED,ALPHA_COMPARATOR" />
   </component>
   <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false">
     <option name="USER" value="" />
@@ -1307,31 +1239,31 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1920" y="27" width="1920" height="1173" extended-state="6" />
+    <frame x="-1" y="27" width="1922" height="1174" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30963972" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30896688" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32959402" sideWeight="0.33203506" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32959402" sideWeight="0.4644596" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294347" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32959402" sideWeight="0.4644596" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29922026" sideWeight="0.49839914" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23397435" sideWeight="0.21908471" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32959402" sideWeight="0.33203506" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294347" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879376" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1696905" sideWeight="0.6708861" order="8" side_tool="true" content_ui="tabs" x="3329" y="174" width="371" height="1026" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11152615" sideWeight="0.6910331" order="8" side_tool="true" content_ui="tabs" x="3329" y="174" width="371" height="1026" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32959402" sideWeight="0.33203506" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23372465" sideWeight="0.6708861" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15368196" sideWeight="0.6910331" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40448344" sideWeight="0.49786553" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294347" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879376" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2497332" sideWeight="0.45711502" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1419,74 +1351,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/controllers/Secured.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="58" selection-start="1257" selection-end="1257" vertical-scroll-proportion="0.8023426">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/mainmenu.scala.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="49" selection-start="353" selection-end="353" vertical-scroll-proportion="0.20897833" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../../../_software/play-2.0.4/repository/cache/com.moviejukebox/themoviedbapi/jars/themoviedbapi-3.3-SNAPSHOT.jar!/com/moviejukebox/themoviedb/model/MovieDb.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="13" selection-start="2908" selection-end="2908" vertical-scroll-proportion="0.33333334" />
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../../../_software/play-2.0.4/repository/cache/com.moviejukebox/thetvdbapi/jars/thetvdbapi-1.4-SNAPSHOT.jar!/com/moviejukebox/thetvdb/model/Banners.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="96" selection-start="2129" selection-end="2129" vertical-scroll-proportion="0.612462" />
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../../../_software/play-2.0.4/repository/cache/com.moviejukebox/thetvdbapi/jars/thetvdbapi-1.4-SNAPSHOT.jar!/com/moviejukebox/thetvdb/model/Series.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="26" selection-start="3031" selection-end="3031" vertical-scroll-proportion="0.12765957" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/movieForm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="15" selection-start="14" selection-end="14" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/grabber/displaymovie.scala.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="26" selection-start="1452" selection-end="1472" vertical-scroll-proportion="-15.625">
-          <folding>
-            <element signature="e#101#143#0" expanded="true" />
-            <element signature="n#style#0;n#li#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#li#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#li#0;n#ul#0;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#li#0;n#ul#0;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#li#0;n#ul#0;n#div#3;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#li#0;n#ul#0;n#div#3;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/conf/application.conf">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/grabbers/EGrabberType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="79" selection-start="75" selection-end="75" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/grabbers/GrabberDisplayMovie.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="36" column="31" selection-start="1129" selection-end="1129" vertical-scroll-proportion="0.0">
@@ -1497,13 +1361,6 @@
     <entry file="file://$PROJECT_DIR$/app/grabbers/TmdbGrabber.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="141" column="58" selection-start="5140" selection-end="5140" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/forms/MovieForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="25" selection-start="842" selection-end="851" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1522,12 +1379,87 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/conf/evolutions/default/2.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/evolutions/default/5.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="38" selection-start="440" selection-end="440" vertical-scroll-proportion="-3.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/evolutions/default/1.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="98" selection-start="358" selection-end="358" vertical-scroll-proportion="0.31847134">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/evolutions/default/4.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/MovieAttribute.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="30" selection-start="1101" selection-end="1131" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/grabbers/EGrabberType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="9" selection-start="56" selection-end="63" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/EMovieAttributeType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="33" selection-start="50" selection-end="50" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/Movie.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="30" selection-start="1341" selection-end="1341" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/MovieController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="66" column="87" selection-start="1680" selection-end="1680" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/forms/MovieForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="86" column="44" selection-start="1965" selection-end="1965" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/movie/movieform.scala.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="11" selection-start="1903" selection-end="1903" vertical-scroll-proportion="0.5720339">
-          <folding>
-            <element signature="e#52#67#0" expanded="true" />
-          </folding>
+        <state line="37" column="66" selection-start="2064" selection-end="2064" vertical-scroll-proportion="-12.416667">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/movieForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="20" selection-start="1599" selection-end="1599" vertical-scroll-proportion="0.12688822">
+          <folding />
         </state>
       </provider>
     </entry>

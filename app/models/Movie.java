@@ -1,5 +1,6 @@
 package models;
 
+import grabbers.EGrabberType;
 import helpers.EImageSize;
 import helpers.EImageType;
 import helpers.ImageHelper;
@@ -8,14 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -67,6 +61,20 @@ public class Movie extends Model {
 
   public String trailerUrl;
 
+  @Column(nullable = false)
+  @Enumerated(EnumType.STRING)
+  public EGrabberType grabberType = EGrabberType.NONE;
+
+  /**
+   * Id to the imdb
+   */
+  public String imdbId;
+
+  /**
+   * If the EGrabberType is not null this is the id which is to use to find the movie via the grabber
+   */
+  public String grabberId;
+
   /**
    * The finder for the database for searching in the database
    */
@@ -75,8 +83,7 @@ public class Movie extends Model {
   /**
    * This creates a movie from the information of the given {@link forms.dvd.DvdForm}
    * 
-   * @param dvdForm
-   * @param movie
+   * @param movieForm
    * @return
    * @throws Exception
    */
@@ -103,6 +110,13 @@ public class Movie extends Model {
     movie.runtime = movieForm.runtime;
     movie.trailerUrl = movieForm.trailerUrl;
     movie.hasToBeReviewed = false;
+    movie.imdbId = movieForm.imdbId;
+    if(movieForm.grabberType != null && movieForm.grabberType != EGrabberType.NONE && StringUtils.isEmpty(movieForm.grabberId) == false) {
+      movie.grabberType = movieForm.grabberType;
+      movie.grabberId = movieForm.grabberId;
+    } else {
+      movie.grabberType = EGrabberType.NONE;
+    }
 
     if (movie.id == null) {
       movie.hasPoster = false;
@@ -146,7 +160,7 @@ public class Movie extends Model {
    * 
    * @param attrToAdd
    * @param attributeType
-   * @param dvd
+   * @param movie
    */
   private static void addSingleAttribute(final String attrToAdd, final EMovieAttributeType attributeType, final Movie movie) {
     if (StringUtils.isEmpty(attrToAdd) == true) {

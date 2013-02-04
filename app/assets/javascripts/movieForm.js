@@ -45,23 +45,18 @@ $(function() {
 	 * The user searches in the grabber poup
 	 */
 	$('.pickGrabberEntry').live('click',function() {
-		
-		showWaitDiaLog();	
-		displayAjaxDialog({
-		  route: jsRoutes.controllers.InfoGrabberController.getMovieById($(this).data('grabberId'),$(this).data('grabberType')),
-		  ajaxParams : { "movieToEditId" : $('#movieToEditId').val()},
-		  title: 'Movie info from Grabber',
-		  onOpen: closeWaitDiaLog,
-		  cssClass: "grabberModal",
-		  buttons : {
-			  "Ok" : {
-	    			icon: "icon-trash",
-	    			cssClass: "btn-danger",
-	    			callback: fillFormWithInfoFromGrabber
-	    		}
-		  }
-		});
+    openGrabberMoviePopup($(this).data('grabberId'),$(this).data('grabberType'),$('#movieToEditId').val());
 	});
+
+
+  /**
+   * The user wants to refresh the data via the grabber information he used before
+   */
+  $('#grabberRefetchButton').live('click',function() {
+    openGrabberMoviePopup($('#grabberId').val(),$('#grabberType').val(),$('#movieId').val());
+  });
+
+
 	
 	/**
 	 * Close the movie form if the user clicks on the button
@@ -101,6 +96,30 @@ $(function() {
 	});
 		
 });
+
+/**
+ * This opens the grabber movie informations popup where description,poster, backdrop etc can be selected
+ * @param grabberId
+ * @param grabberType
+ * @param movieToEditId
+ */
+function openGrabberMoviePopup(grabberId,grabberType,movieToEditId) {
+  showWaitDiaLog();
+  displayAjaxDialog({
+    route: jsRoutes.controllers.InfoGrabberController.getMovieById(grabberId,grabberType),
+    ajaxParams : { "movieToEditId" : movieToEditId},
+    title: 'Movie info from Grabber',
+    onOpen: closeWaitDiaLog,
+    cssClass: "grabberModal",
+    buttons : {
+      "Ok" : {
+        icon: "icon-trash",
+        cssClass: "btn-danger",
+        callback: fillFormWithInfoFromGrabber
+      }
+    }
+  });
+}
 
 /**
  * This is called when the user picked movie from grabber and wants to fill the movie form with the infos  
