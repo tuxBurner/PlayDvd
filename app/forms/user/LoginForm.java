@@ -1,4 +1,4 @@
-package forms;
+package forms.user;
 
 import models.User;
 import org.apache.commons.lang.StringUtils;

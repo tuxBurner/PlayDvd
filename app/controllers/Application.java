@@ -1,9 +1,9 @@
 package controllers;
 
-import forms.LoginForm;
-import forms.LostPasswordForm;
-import forms.PasswordResetForm;
-import forms.RegisterForm;
+import forms.user.LoginForm;
+import forms.user.LostPasswordForm;
+import forms.user.PasswordResetForm;
+import forms.user.RegisterForm;
 import helpers.MailerHelper;
 import models.User;
 import org.apache.commons.lang.StringUtils;

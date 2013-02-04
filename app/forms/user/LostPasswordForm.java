@@ -1,4 +1,4 @@
-package forms;
+package forms.user;
 
 import play.data.validation.Constraints;
 

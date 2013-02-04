@@ -1,4 +1,4 @@
-package forms;
+package forms.user;
 
 import helpers.DvdInfoHelper;
 import models.User;
