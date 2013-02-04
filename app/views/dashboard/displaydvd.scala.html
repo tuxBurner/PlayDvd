@@ -85,6 +85,13 @@
       <label class="span4">Movie Series:</label>
       <span>@dvd.movieForm.series</span>
     </div>
+
+    @if(dvd.movieForm.imdbId != null) {
+      <div class="row-fluid">
+        <label><img src="http://profile.ak.fbcdn.net/hprofile-ak-snc7/373026_15925638948_1021284996_q.jpg"></label>
+        <span><a href="http://www.imdb.com/title/@dvd.movieForm.imdbId" target="_blank">On Imdb</a>
+      </div>
+    }
     
     @if(dvd.dvdForm.copyType != null) {
       <div class="row-fluid">
