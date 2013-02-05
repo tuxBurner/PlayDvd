@@ -19,15 +19,15 @@
     <ul id="myTab" class="nav nav-tabs">
       <li class="active"><a href="#grabberDataOverview" data-toggle="tab">Overview</a></li>
 
-      @if(displayMovie.posterUrls != null || displayMovie.posterUrls.size() > 0) {
+      @if(displayMovie.posterUrls != null && displayMovie.posterUrls.size() > 0) {
         <li><a href="#grabberDataPosters" data-toggle="tab">Poster</a></li>
       }
 
-      @if(displayMovie.backDropUrls != null || displayMovie.backDropUrls.size() > 0) {
+      @if(displayMovie.backDropUrls != null && displayMovie.backDropUrls.size() > 0) {
         <li><a href="#grabberDataBackdrops" data-toggle="tab">Backdrops</a></li>
       }
 
-      @if(displayMovie.trailerUrls != null || displayMovie.trailerUrls.size() > 0) {
+      @if(displayMovie.trailerUrls != null && displayMovie.trailerUrls.size() > 0) {
         <li><a href="#grabberDataTrailers" data-toggle="tab">Trailers</a></li>
       }
     </ul>
