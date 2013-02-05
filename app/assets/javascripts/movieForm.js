@@ -81,10 +81,19 @@ $(function() {
       pAjax(jsRoutes.controllers.MovieController.checkIfMovieAlreadyExists(formParams['grabberId'],formParams['grabberType']),null,
         function(data) {
           if(data == "true" || data == true) {
-            var addAnyway = confirm("Movie: "+formParams['title']+" already exists in the database. Want to add it anyway ?");
-            if(addAnyway == true) {
-              submitMovieForm(formParams,mode);
-            }
+
+            // ask the user if he wants to add this movie although it aready exists
+            displayDialog({
+              title: 'Movie already exists in the Database',
+              closeButton: true,
+              content: "The movie: "+formParams['title']+" already exists in the Database, do you want to add it again ?",
+              buttons : {
+                "Ok" : {
+                  icon: "icon-plus",
+                  cssClass: "btn-danger",
+                  callback: submitMovieForm               }
+              }
+            });
           } else {
             submitMovieForm(formParams,mode);
           }
@@ -98,8 +107,6 @@ $(function() {
     } else {
       submitMovieForm(formParams,mode);
     }
-
-
 	});
 
 });
@@ -111,7 +118,14 @@ $(function() {
  * @param mode
  */
 function submitMovieForm(formParams, mode) {
+
   showWaitDiaLog();
+
+  if(formParams == null && mode == null) {
+    formParams = $('#movieForm').formParams();
+    mode = $('#movieForm').attr('mode');
+  }
+
   pAjax(jsRoutes.controllers.MovieController.addOrEditMovie(mode),formParams,
     function(data) {
       $('#newMovieFormWrapper').html('').hide();

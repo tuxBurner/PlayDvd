@@ -47,7 +47,7 @@
       }
     </div>
 
-    @if(displayMovie.posterUrls != null || displayMovie.posterUrls.size() > 0) {
+    @if(displayMovie.posterUrls != null && displayMovie.posterUrls.size() > 0) {
       <div class="tab-pane fade in" id="grabberDataPosters">
       <h3>Posters</h3>
 
@@ -67,7 +67,7 @@
     </div>
   }
 
-  @if(displayMovie.backDropUrls != null || displayMovie.backDropUrls.size() > 0) {
+  @if(displayMovie.backDropUrls != null && displayMovie.backDropUrls.size() > 0) {
     <div class="tab-pane fade in" id="grabberDataBackdrops">
       <h3>Backdrops</h3>
       <ul class="thumbnails">
@@ -87,7 +87,7 @@
     </div>
   }
 
-    @if(displayMovie.trailerUrls != null || displayMovie.trailerUrls.size() > 0) {
+    @if(displayMovie.trailerUrls != null && displayMovie.trailerUrls.size() > 0) {
       <div class="tab-pane fade in" id="grabberDataTrailers">
       <h3>Trailers</h3>
       <ul class="thumbnails">
