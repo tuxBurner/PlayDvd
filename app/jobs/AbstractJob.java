@@ -1,15 +1,14 @@
 package jobs;
 
-import java.lang.annotation.Annotation;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
-
 import play.Logger;
 import play.libs.Akka;
 import play.libs.Time.CronExpression;
-import scala.concurrent.ExecutionContext;
 import scala.concurrent.duration.Duration;
 import scala.concurrent.duration.FiniteDuration;
+
+import java.lang.annotation.Annotation;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public abstract class AbstractJob implements Runnable {
 
@@ -39,7 +38,7 @@ public abstract class AbstractJob implements Runnable {
   private void scheduleJob() {
     final long nextInterval = cronExpression.getNextInterval(new Date());
     final FiniteDuration duration = Duration.create(nextInterval, TimeUnit.MILLISECONDS);
-    Akka.system().scheduler().scheduleOnce(duration,this,null);  //scheduleOnce(duration, this);
+    Akka.system().scheduler().scheduleOnce(duration,this, Akka.system().dispatcher());
   }
 
   @Override
