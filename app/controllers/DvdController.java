@@ -29,7 +29,7 @@ public class DvdController extends Controller {
    */
   public static Result showAddDvd() {
 
-    final Form<DvdForm> form = Controller.form(DvdForm.class);
+    final Form<DvdForm> form = Form.form(DvdForm.class);
     return Results.ok(dvdform.render(form.fill(new DvdForm()), DvdController.DVD_FORM_ADD_MODE));
   }
 
@@ -46,7 +46,7 @@ public class DvdController extends Controller {
       return Results.badRequest("U ARE NOT ALLOWED TO EDIT :) ");
     }
 
-    final Form<DvdForm> form = Controller.form(DvdForm.class);
+    final Form<DvdForm> form = Form.form(DvdForm.class);
 
     return Results.ok(dvdform.render(form.fill(DvdForm.dvdToDvdForm(dvdToEdit)), DvdController.DVD_FORM_EDIT_MODE));
   }

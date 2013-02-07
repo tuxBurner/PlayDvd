@@ -150,7 +150,7 @@ public class ListDvdsController extends Controller {
    */
   public static Result applySearchForm() {
 
-    final Form<DvdSearchFrom> form = Controller.form(DvdSearchFrom.class).bindFromRequest();
+    final Form<DvdSearchFrom> form = Form.form(DvdSearchFrom.class).bindFromRequest();
 
     return ListDvdsController.returnList(form.get());
   }
@@ -166,7 +166,7 @@ public class ListDvdsController extends Controller {
     final String username = Controller.request().username();
     DvdSearchFrom.setCurrentSearchForm(dvdSearchFrom);
 
-    final Form<DvdSearchFrom> form = Controller.form(DvdSearchFrom.class);
+    final Form<DvdSearchFrom> form = Form.form(DvdSearchFrom.class);
 
     final Page<Dvd> dvdsByForm = Dvd.getDvdsBySearchForm(dvdSearchFrom);
     return Results.ok(listdvds.render(new DvdPage(dvdsByForm), form.fill(dvdSearchFrom), username));

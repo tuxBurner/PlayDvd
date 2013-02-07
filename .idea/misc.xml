@@ -1,160 +1,159 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DaemonCodeAnalyzer">
-    <disable_hints />
+    <disable_hints></disable_hints>
   </component>
   <component name="DebuggerManager">
     <breakpoint_any>
       <breakpoint>
-        <option value="true" name="NOTIFY_CAUGHT" />
-        <option value="true" name="NOTIFY_UNCAUGHT" />
-        <option value="false" name="ENABLED" />
-        <option value="false" name="LOG_ENABLED" />
-        <option value="false" name="LOG_EXPRESSION_ENABLED" />
-        <option value="SuspendAll" name="SUSPEND_POLICY" />
-        <option value="true" name="SUSPEND" />
-        <option value="false" name="COUNT_FILTER_ENABLED" />
-        <option value="0" name="COUNT_FILTER" />
-        <option value="true" name="CONDITION_ENABLED" />
-        <option value="false" name="CLASS_FILTERS_ENABLED" />
-        <option value="false" name="INSTANCE_FILTERS_ENABLED" />
-        <option value="" name="CONDITION" />
-        <option value="" name="LOG_MESSAGE" />
+        <option name="NOTIFY_CAUGHT" value="true"></option>
+        <option name="NOTIFY_UNCAUGHT" value="true"></option>
+        <option name="ENABLED" value="false"></option>
+        <option name="LOG_ENABLED" value="false"></option>
+        <option name="LOG_EXPRESSION_ENABLED" value="false"></option>
+        <option name="SUSPEND_POLICY" value="SuspendAll"></option>
+        <option name="SUSPEND" value="true"></option>
+        <option name="COUNT_FILTER_ENABLED" value="false"></option>
+        <option name="COUNT_FILTER" value="0"></option>
+        <option name="CONDITION_ENABLED" value="true"></option>
+        <option name="CLASS_FILTERS_ENABLED" value="false"></option>
+        <option name="INSTANCE_FILTERS_ENABLED" value="false"></option>
+        <option name="CONDITION" value=""></option>
+        <option name="LOG_MESSAGE" value=""></option>
       </breakpoint>
       <breakpoint>
-        <option value="true" name="NOTIFY_CAUGHT" />
-        <option value="true" name="NOTIFY_UNCAUGHT" />
-        <option value="false" name="ENABLED" />
-        <option value="false" name="LOG_ENABLED" />
-        <option value="false" name="LOG_EXPRESSION_ENABLED" />
-        <option value="SuspendAll" name="SUSPEND_POLICY" />
-        <option value="true" name="SUSPEND" />
-        <option value="false" name="COUNT_FILTER_ENABLED" />
-        <option value="0" name="COUNT_FILTER" />
-        <option value="true" name="CONDITION_ENABLED" />
-        <option value="false" name="CLASS_FILTERS_ENABLED" />
-        <option value="false" name="INSTANCE_FILTERS_ENABLED" />
-        <option value="" name="CONDITION" />
-        <option value="" name="LOG_MESSAGE" />
+        <option name="NOTIFY_CAUGHT" value="true"></option>
+        <option name="NOTIFY_UNCAUGHT" value="true"></option>
+        <option name="ENABLED" value="false"></option>
+        <option name="LOG_ENABLED" value="false"></option>
+        <option name="LOG_EXPRESSION_ENABLED" value="false"></option>
+        <option name="SUSPEND_POLICY" value="SuspendAll"></option>
+        <option name="SUSPEND" value="true"></option>
+        <option name="COUNT_FILTER_ENABLED" value="false"></option>
+        <option name="COUNT_FILTER" value="0"></option>
+        <option name="CONDITION_ENABLED" value="true"></option>
+        <option name="CLASS_FILTERS_ENABLED" value="false"></option>
+        <option name="INSTANCE_FILTERS_ENABLED" value="false"></option>
+        <option name="CONDITION" value=""></option>
+        <option name="LOG_MESSAGE" value=""></option>
       </breakpoint>
     </breakpoint_any>
-    <breakpoint_rules />
-    <ui_properties />
+    <breakpoint_rules></breakpoint_rules>
+    <ui_properties></ui_properties>
   </component>
   <component name="EntryPointsManager">
-    <entry_points version="2.0" />
+    <entry_points version="2.0"></entry_points>
   </component>
-  <component name="IdProvider" IDEtalkID="35A67E0DF1BEAD7185D3308DF4930F3F" />
-  <component settingsEditedManually="false" name="ProjectLevelVcsManager">
-    <OptionsSetting id="Add" value="true" />
-    <OptionsSetting id="Remove" value="true" />
-    <OptionsSetting id="Checkout" value="true" />
-    <OptionsSetting id="Update" value="true" />
-    <OptionsSetting id="Status" value="true" />
-    <OptionsSetting id="Edit" value="true" />
-    <ConfirmationsSetting id="Add" value="0" />
-    <ConfirmationsSetting id="Remove" value="0" />
+  <component name="IdProvider" IDEtalkID="35A67E0DF1BEAD7185D3308DF4930F3F"></component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add"></OptionsSetting>
+    <OptionsSetting value="true" id="Remove"></OptionsSetting>
+    <OptionsSetting value="true" id="Checkout"></OptionsSetting>
+    <OptionsSetting value="true" id="Update"></OptionsSetting>
+    <OptionsSetting value="true" id="Status"></OptionsSetting>
+    <OptionsSetting value="true" id="Edit"></OptionsSetting>
+    <ConfirmationsSetting value="0" id="Add"></ConfirmationsSetting>
+    <ConfirmationsSetting value="0" id="Remove"></ConfirmationsSetting>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/out" />
-  </component>
+  <component 
+  name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out"></output>
+</component>
   <component name="RunManager">
-    <configuration factoryName="Plugin" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" default="true">
-      <module name="" />
-      <option value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <method />
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name=""></module>
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m"></option>
+      <option name="PROGRAM_PARAMETERS"></option>
+      <method></method>
     </configuration>
-    <configuration factoryName="Remote" type="Remote" default="true">
-      <option value="true" name="USE_SOCKET_TRANSPORT" />
-      <option value="false" name="SERVER_MODE" />
-      <option value="javadebug" name="SHMEM_ADDRESS" />
-      <option value="localhost" name="HOST" />
-      <option value="5005" name="PORT" />
-      <method />
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true"></option>
+      <option name="SERVER_MODE" value="false"></option>
+      <option name="SHMEM_ADDRESS" value="javadebug"></option>
+      <option name="HOST" value="localhost"></option>
+      <option name="PORT" value="5005"></option>
+      <method></method>
     </configuration>
-    <configuration factoryName="TestNG" type="TestNG" default="true">
-      <extension runner="idea" sample_coverage="true" merge="false" enabled="false" name="coverage" />
-      <module name="" />
-      <option value="false" name="ALTERNATIVE_JRE_PATH_ENABLED" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SUITE_NAME" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="GROUP_NAME" />
-      <option value="CLASS" name="TEST_OBJECT" />
-      <option value="-ea" name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option value="$PROJECT_DIR$" name="WORKING_DIRECTORY" />
-      <option name="OUTPUT_DIRECTORY" />
-      <option name="ANNOTATION_TYPE" />
-      <option name="ENV_VARIABLES" />
-      <option value="true" name="PASS_PARENT_ENVS" />
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea"></extension>
+      <module name=""></module>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false"></option>
+      <option name="ALTERNATIVE_JRE_PATH"></option>
+      <option name="SUITE_NAME"></option>
+      <option name="PACKAGE_NAME"></option>
+      <option name="MAIN_CLASS_NAME"></option>
+      <option name="METHOD_NAME"></option>
+      <option name="GROUP_NAME"></option>
+      <option name="TEST_OBJECT" value="CLASS"></option>
+      <option name="VM_PARAMETERS" value="-ea"></option>
+      <option name="PARAMETERS"></option>
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$"></option>
+      <option name="OUTPUT_DIRECTORY"></option>
+      <option name="ANNOTATION_TYPE"></option>
+      <option name="ENV_VARIABLES"></option>
+      <option name="PASS_PARENT_ENVS" value="true"></option>
       <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
+        <value defaultName="moduleWithDependencies"></value>
       </option>
-      <option value="false" name="USE_DEFAULT_REPORTERS" />
-      <option name="PROPERTIES_FILE" />
-      <envs />
-      <properties />
-      <listeners />
-      <method />
+      <option name="USE_DEFAULT_REPORTERS" value="false"></option>
+      <option name="PROPERTIES_FILE"></option>
+      <envs></envs>
+      <properties></properties>
+      <listeners></listeners>
+      <method></method>
     </configuration>
-    <configuration factoryName="Applet" type="Applet" default="true">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option value="false" name="HTML_USED" />
-      <option value="400" name="WIDTH" />
-      <option value="300" name="HEIGHT" />
-      <option value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" name="POLICY_FILE" />
-      <option name="VM_PARAMETERS" />
-      <option value="false" name="ALTERNATIVE_JRE_PATH_ENABLED" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method />
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name=""></module>
+      <option name="MAIN_CLASS_NAME"></option>
+      <option name="HTML_FILE_NAME"></option>
+      <option name="HTML_USED" value="false"></option>
+      <option name="WIDTH" value="400"></option>
+      <option name="HEIGHT" value="300"></option>
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy"></option>
+      <option name="VM_PARAMETERS"></option>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false"></option>
+      <option name="ALTERNATIVE_JRE_PATH"></option>
+      <method></method>
     </configuration>
-    <configuration factoryName="Application" type="Application" default="true">
-      <extension runner="idea" sample_coverage="true" merge="false" enabled="false" name="coverage" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option value="$PROJECT_DIR$" name="WORKING_DIRECTORY" />
-      <option value="false" name="ALTERNATIVE_JRE_PATH_ENABLED" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option value="false" name="ENABLE_SWING_INSPECTOR" />
-      <option name="ENV_VARIABLES" />
-      <option value="true" name="PASS_PARENT_ENVS" />
-      <module name="" />
-      <envs />
-      <method />
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea"></extension>
+      <option name="MAIN_CLASS_NAME"></option>
+      <option name="VM_PARAMETERS"></option>
+      <option name="PROGRAM_PARAMETERS"></option>
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$"></option>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false"></option>
+      <option name="ALTERNATIVE_JRE_PATH"></option>
+      <option name="ENABLE_SWING_INSPECTOR" value="false"></option>
+      <option name="ENV_VARIABLES"></option>
+      <option name="PASS_PARENT_ENVS" value="true"></option>
+      <module name=""></module>
+      <envs></envs>
+      <method></method>
     </configuration>
-    <configuration factoryName="JUnit" type="JUnit" default="true">
-      <extension runner="idea" sample_coverage="true" merge="false" enabled="false" name="coverage" />
-      <module name="" />
-      <option value="false" name="ALTERNATIVE_JRE_PATH_ENABLED" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option value="class" name="TEST_OBJECT" />
-      <option value="-ea" name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option value="$PROJECT_DIR$" name="WORKING_DIRECTORY" />
-      <option name="ENV_VARIABLES" />
-      <option value="true" name="PASS_PARENT_ENVS" />
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea"></extension>
+      <module name=""></module>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false"></option>
+      <option name="ALTERNATIVE_JRE_PATH"></option>
+      <option name="PACKAGE_NAME"></option>
+      <option name="MAIN_CLASS_NAME"></option>
+      <option name="METHOD_NAME"></option>
+      <option name="TEST_OBJECT" value="class"></option>
+      <option name="VM_PARAMETERS" value="-ea"></option>
+      <option name="PARAMETERS"></option>
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$"></option>
+      <option name="ENV_VARIABLES"></option>
+      <option name="PASS_PARENT_ENVS" value="true"></option>
       <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
+        <value defaultName="moduleWithDependencies"></value>
       </option>
-      <envs />
-      <patterns />
-      <method />
+      <envs></envs>
+      <patterns></patterns>
+      <method></method>
     </configuration>
-    <list size="0" />
-    <configuration selected="false" default="true" type="WebApp" name="&lt;template&gt;">
+    <list size="0"></list>
+    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
       <Port>5050</Port>
     </configuration>
   </component>
 </project>
-

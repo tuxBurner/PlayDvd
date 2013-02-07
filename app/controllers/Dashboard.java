@@ -68,7 +68,7 @@ public class Dashboard extends Controller {
 
     final List<Dvd> dvdForUserInSameHull = Dvd.getDvdUnBorrowedSameHull(dvdForUser);
 
-    final Form<LendForm> form = Controller.form(LendForm.class);
+    final Form<LendForm> form = Form.form(LendForm.class);
     return Results.ok(lendform.render(form, dvdForUser, dvdForUserInSameHull));
   }
 
@@ -94,7 +94,7 @@ public class Dashboard extends Controller {
 
     final List<Dvd> dvdBorrowedSameHull = Dvd.getDvdBorrowedSameHull(dvdForUser);
 
-    return Results.ok(unlendform.render(Controller.form(UnLendForm.class), dvdForUser, dvdBorrowedSameHull));
+    return Results.ok(unlendform.render(Form.form(UnLendForm.class), dvdForUser, dvdBorrowedSameHull));
 
   }
 
@@ -106,7 +106,7 @@ public class Dashboard extends Controller {
    */
   public static Result lendDvd(final Long dvdId) {
 
-    final Form<LendForm> form = Controller.form(LendForm.class).bindFromRequest();
+    final Form<LendForm> form = Form.form(LendForm.class).bindFromRequest();
 
     // check if the form is okay
     final LendForm lendForm = form.get();
@@ -133,7 +133,7 @@ public class Dashboard extends Controller {
    */
   public static Result unlendDvd(final Long dvdId) {
 
-    final Form<UnLendForm> form = Controller.form(UnLendForm.class).bindFromRequest();
+    final Form<UnLendForm> form = Form.form(UnLendForm.class).bindFromRequest();
 
     // check if the form is okay
     final UnLendForm unlendForm = form.get();
@@ -203,7 +203,7 @@ public class Dashboard extends Controller {
    * @return
    */
   public static Result streamExternalImage() {
-    final Form<ExternalImageForm> form = Controller.form(ExternalImageForm.class).bindFromRequest();
+    final Form<ExternalImageForm> form = Form.form(ExternalImageForm.class).bindFromRequest();
 
     if (form.hasErrors()) {
       return Results.badRequest("Failure");

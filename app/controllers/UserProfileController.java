@@ -37,12 +37,12 @@ public class UserProfileController extends Controller {
     userProfileForm.defaultCopyType = currentUser.defaultCopyType;
     userProfileForm.email = currentUser.email;
 
-    return ok(userprofile.render(Controller.form(UserProfileForm.class).fill(userProfileForm)));
+    return ok(userprofile.render(Form.form(UserProfileForm.class).fill(userProfileForm)));
   }
 
   public static Result updateProfile() {
 
-    final Form<UserProfileForm> form = Controller.form(UserProfileForm.class).bindFromRequest();
+    final Form<UserProfileForm> form = Form.form(UserProfileForm.class).bindFromRequest();
     if(form.hasErrors()) {
       return Results.badRequest(userprofile.render(form));
     }

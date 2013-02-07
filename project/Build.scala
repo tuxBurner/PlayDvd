@@ -1,6 +1,6 @@
 import sbt._
 import Keys._
-import PlayProject._
+import play.Project._
 
 object ApplicationBuild extends Build {
 
@@ -8,6 +8,9 @@ object ApplicationBuild extends Build {
     val appVersion      = "1.0-SNAPSHOT"
 
     val appDependencies = Seq(
+
+      javaCore, javaJdbc, javaEbean,
+
       "mysql" % "mysql-connector-java" % "5.1.18",      
       "net.coobird" % "thumbnailator" % "0.4.1",
       "commons-io" % "commons-io" % "2.0.1",
@@ -18,7 +21,7 @@ object ApplicationBuild extends Build {
       "com.moviejukebox" % "thetvdbapi" % "1.4-SNAPSHOT",
       "com.moviejukebox" % "themoviedbapi" % "3.3-SNAPSHOT",
 
-      "com.typesafe" %% "play-plugins-mailer" % "2.0.4",
+      "com.typesafe" %% "play-plugins-mailer" % "2.1.0",
       
       "org.webjars" % "webjars-play" % "0.1",
       "org.webjars" % "bootstrap" % "2.2.2",
@@ -30,7 +33,8 @@ object ApplicationBuild extends Build {
       
     )
 
-    val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA).settings(
+
+    val main = play.Project(appName, appVersion, appDependencies).settings(
       resolvers += ("Local Maven Repository" at "file://"+Path.userHome.absolutePath+"/.m2/repository"),
       resolvers += ("webjars" at "http://webjars.github.com/m2")
     )

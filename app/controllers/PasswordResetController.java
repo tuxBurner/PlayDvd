@@ -32,7 +32,7 @@ public class PasswordResetController extends Controller {
       return Controller.internalServerError("Cannot display this form.");
     }
 
-    return ok(lostpassword.render(Controller.form(LostPasswordForm.class)));
+    return ok(lostpassword.render(Form.form(LostPasswordForm.class)));
   }
 
   /**
@@ -42,7 +42,7 @@ public class PasswordResetController extends Controller {
    */
   public static Result sendPasswordForget() {
 
-    Form<LostPasswordForm> form = Controller.form(LostPasswordForm.class).bindFromRequest();
+    Form<LostPasswordForm> form = Form.form(LostPasswordForm.class).bindFromRequest();
     flash("success", "Please check your email.");
     if (form.hasErrors() == false && form.hasGlobalErrors() == false) {
 
@@ -90,7 +90,7 @@ public class PasswordResetController extends Controller {
       return redirect(routes.Application.index());
     }
 
-    return ok(passwordreset.render(Controller.form(PasswordResetForm.class), token));
+    return ok(passwordreset.render(Form.form(PasswordResetForm.class), token));
   }
 
   /**
@@ -105,7 +105,7 @@ public class PasswordResetController extends Controller {
       return redirect(routes.Application.index());
     }
 
-    Form<PasswordResetForm> passwordResetForm = Controller.form(PasswordResetForm.class).bindFromRequest();
+    Form<PasswordResetForm> passwordResetForm = Form.form(PasswordResetForm.class).bindFromRequest();
     if (passwordResetForm.hasErrors()) {
       return Results.badRequest(passwordreset.render(passwordResetForm, token));
     }
