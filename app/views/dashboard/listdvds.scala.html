@@ -55,7 +55,7 @@
                 <a class="btn btn-inverse deleteDvdBtn btn-mini" href="#" data-dvd-id="@dvd.id"><i class="icon-trash"></i></a>
               } else {
                 @if(dvd.borrower == null && dvd.borrowerName == null) {
-                  <a class="btn btn-inverse btn-mini" href=""><i class="icon-shopping-cart"></i></a>
+                  <a class="btn btn-inverse btn-mini addToCartBtn" href="#" data-dvd-id="@dvd.id" ><i class="icon-shopping-cart"></i></a>
                 }
               }
             </div>
