@@ -327,6 +327,8 @@ public class Dvd extends Model {
     return findList;
   }
 
+
+
   public static List<Dvd> getDvdBorrowedSameHull(final Dvd dvd) {
 
     // dont bother the database
@@ -429,9 +431,8 @@ public class Dvd extends Model {
    *
    * @param dvdId
    * @param ownerName
-   * @param userName
-   * @param freeName
-   * @return
+   * @param alsoOthersInHull
+                               * @return
    */
   public static Set<Long> unlendDvdToUser(final Long dvdId, final String ownerName, final Boolean alsoOthersInHull) {
     final Dvd dvdToUnlend = Dvd.getDvdForUser(dvdId, ownerName);
@@ -456,7 +457,9 @@ public class Dvd extends Model {
 
         unlendIds.add(dvd.id);
 
-        Logger.debug("Unlending dvd: " + dvdId);
+        if(Logger.isDebugEnabled()) {
+          Logger.debug("Unlending dvd: " + dvdId);
+        }
 
         dvd.borrowDate = null;
         dvd.borrower = null;
@@ -469,6 +472,19 @@ public class Dvd extends Model {
     Logger.error("Could not find dvd: " + dvdId + " for owner: " + ownerName);
 
     return unlendIds;
+  }
+
+  /**
+   * Gets a {@link Dvd} for a user which is not the owner and where the {@link Dvd#borrowDate} is null
+   * @param dvdId
+   * @return
+   */
+  public static Dvd getDvdToBorrow(final Long dvdId, final String userName) {
+     if(StringUtils.isEmpty(userName) == true || dvdId == null) {
+       return null;
+     }
+
+    return Dvd.find.where().idEq(dvdId).ne("owner.userName",userName).isNull("borrowDate").findUnique();
   }
 
   /**

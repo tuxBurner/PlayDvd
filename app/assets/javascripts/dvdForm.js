@@ -71,6 +71,23 @@ $(function() {
 });
 
 
+/**
+ * Opens the barcode scanner popup
+ */
+var openBarcodePopUp = function() {
+  showWaitDiaLog();
+  displayAjaxDialog({
+    route: jsRoutes.controllers.BarcodeController.displayBarcodeScaner(),
+    ajaxParams : null,
+    title: '<i class="icon-barcode"></i> Barcodescanner',
+    onOpen: closeWaitDiaLog,
+    cssClass: "barcodeModal"
+  });
+
+  return false;
+}
+
+
 function movieFormatResult(movie) {
     var markup = "<table class='movie-result'><tr>";
     if (movie.hasPoster == true) {

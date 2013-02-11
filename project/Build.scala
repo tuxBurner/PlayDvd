@@ -21,6 +21,8 @@ object ApplicationBuild extends Build {
       "com.moviejukebox" % "thetvdbapi" % "1.4-SNAPSHOT",
       "com.moviejukebox" % "themoviedbapi" % "3.3-SNAPSHOT",
 
+      "com.google.zxing" % "core" % "2.1",
+
       "com.typesafe" %% "play-plugins-mailer" % "2.1.0",
       
       "org.webjars" % "webjars-play" % "0.1",
@@ -29,8 +31,6 @@ object ApplicationBuild extends Build {
       "org.webjars" % "jquerypp" % "1.0b2-1",
       "org.webjars" % "select2" % "3.2",
       "org.webjars" % "font-awesome" % "3.0.0"
-      
-      
     )
 
 

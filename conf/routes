@@ -52,6 +52,10 @@ POST    /lendDvd/:dvdId              controllers.Dashboard.lendDvd(dvdId: Long)
 GET     /unLendDvd/:dvdId            controllers.Dashboard.unLendDialogContent(dvdId: Long)
 POST     /unLendDvd/:dvdId           controllers.Dashboard.unlendDvd(dvdId: Long)
 
+# Barcode Scanning
+GET    /barcodescanner               controllers.BarcodeController.displayBarcodeScaner()
+GET    /barcodescannerws               controllers.BarcodeController.scanBarcode()
+
 # ADD edit DVD
 GET    /dvd/add                  controllers.DvdController.showAddDvd()
 POST   /dvd/:mode                controllers.DvdController.addDvd(mode: String)
