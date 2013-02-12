@@ -4,6 +4,8 @@ import com.sun.org.apache.xpath.internal.XPathAPI;
 import com.typesafe.config.ConfigFactory;
 import org.apache.commons.lang3.StringUtils;
 
+import org.w3c.dom.NodeList;
+import org.w3c.dom.traversal.NodeIterator;
 import play.Logger;
 
 
@@ -86,6 +88,11 @@ public class AmazonMovieLookuper {
       rating = rating.replaceAll("Freigegeben ab ","").replaceAll(" Jahren","");
       String binding = XPathAPI.selectSingleNode(doc, "//Binding").getTextContent();
 
+      NodeList nodeList = XPathAPI.selectNodeList(doc, "//Languages/Language[AudioFormat]");
+      for(int i = 0; i < nodeList.getLength(); i++) {
+        Node langItem = nodeList.item(i);
+        Logger.debug(langItem.getTextContent());
+      }
 
 
       Logger.debug(title+" "+asin+" "+rating+" "+binding);
