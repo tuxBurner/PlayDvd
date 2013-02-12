@@ -1,7 +1,9 @@
 package controllers;
 
 import forms.dvd.DvdForm;
+import grabbers.amazon.AmazonMovieLookuper;
 import models.Dvd;
+import org.apache.commons.lang3.StringUtils;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -84,6 +86,15 @@ public class DvdController extends Controller {
 
       return Results.redirect(routes.ListDvdsController.listdvds(null));
     }
+  }
+
+  public static Result searchEanNr(final String eanNr) {
+
+    if(StringUtils.isEmpty(eanNr) == false) {
+      AmazonMovieLookuper.lookUpByEanNR(eanNr);
+    }
+
+    return ok();
   }
 
 }

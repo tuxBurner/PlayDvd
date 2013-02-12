@@ -1,11 +1,24 @@
 package grabbers.amazon;
 
+import com.sun.org.apache.xpath.internal.XPathAPI;
 import com.typesafe.config.ConfigFactory;
 import org.apache.commons.lang3.StringUtils;
+
 import play.Logger;
+
 
 import java.util.HashMap;
 import java.util.Map;
+
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 /**
  * User: tuxburner
@@ -46,7 +59,7 @@ public class AmazonMovieLookuper {
       params.put("Service", "AWSECommerceService");
       params.put("Version", "2011-08-02");
       params.put("Operation", "ItemLookup");
-      params.put("ItemId", "5050582277647");
+      params.put("ItemId", eanNr);
       params.put("ResponseGroup", "ItemAttributes");
       params.put("AssociateTag", "aztag-20");
 
@@ -55,14 +68,44 @@ public class AmazonMovieLookuper {
       params.put("SearchIndex","DVD");
 
 
+
+
       String requestUrl = helper.sign(params);
       if(Logger.isDebugEnabled() == true) {
         Logger.debug("Signed AWS request: "+requestUrl);
       }
 
+
+      DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+      DocumentBuilder db = dbf.newDocumentBuilder();
+      Document doc = db.parse(requestUrl);
+
+      String title = XPathAPI.selectSingleNode(doc, "//Title").getTextContent();
+      String asin = XPathAPI.selectSingleNode(doc, "//ASIN").getTextContent();
+      String rating = XPathAPI.selectSingleNode(doc, "//AudienceRating").getTextContent();
+      rating = rating.replaceAll("Freigegeben ab ","").replaceAll(" Jahren","");
+      String binding = XPathAPI.selectSingleNode(doc, "//Binding").getTextContent();
+
+
+
+      Logger.debug(title+" "+asin+" "+rating+" "+binding);
+
+
+
+
+      /*Document document = WS.url(requestUrl).get().map(new F.Function<WS.Response, Document>() {
+        @Override
+        public Document apply(WS.Response response) throws Throwable {
+          return response.asXml();
+        }
+      }).get();*/
+
+
+
+
     } catch (Exception e) {
       if(Logger.isErrorEnabled() == true) {
-        Logger.error("An error happend while looking in the aws.");
+        Logger.error("An error happend while looking in the aws.",e);
       }
       return;
     }

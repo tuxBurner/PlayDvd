@@ -60,6 +60,7 @@ GET    /barcodescannerws               controllers.BarcodeController.scanBarcode
 GET    /dvd/add                  controllers.DvdController.showAddDvd()
 POST   /dvd/:mode                controllers.DvdController.addDvd(mode: String)
 GET    /dvd/edit/:dvdId          controllers.DvdController.showEditDvd(dvdId: Long)
+GET    /dvd/eanNr/:eanNr          controllers.DvdController.searchEanNr(eanNr: String)
 
 # DELETE DVD
 GET /dvd/delete/:dvdId  controllers.Dashboard.deleteDialogContent(dvdId:Long)

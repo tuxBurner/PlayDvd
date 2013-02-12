@@ -87,6 +87,18 @@ var openBarcodePopUp = function() {
   return false;
 }
 
+/**
+ * Opens the ean lookup dialog
+ */
+var openEANLookUp = function() {
+  var eanNr = $.trim($('#eanNr').val());
+  if(eanNr != null && eanNr != "") {
+
+  }
+
+  return false;
+};
+
 
 function movieFormatResult(movie) {
     var markup = "<table class='movie-result'><tr>";

@@ -9,8 +9,7 @@
 
 $(function () {
 
-  //TODO: use the correct url :)
-  var ws = new WebSocket("ws://localhost:9000/barcodescannerws");
+  var ws = new WebSocket(wsBarcodeUrl);
 
   // initialize the webcam
   ws.onopen = function () {
@@ -23,11 +22,10 @@ $(function () {
       onCapture: function () {
         webcam.save();
       },onTick: function(remain) {
-
         if (0 == remain) {
-          jQuery("#status").text("Checking code.");
+          jQuery("#barcodeStatus").text("Checking code.");
         } else {
-          jQuery("#status").text(remain + " seconds remaining...");
+          jQuery("#barcodeStatus").text(remain + " seconds remaining...");
         }
       }
     });
@@ -35,6 +33,7 @@ $(function () {
 
   ws.onmessage = function(e) {
     if(e.data == "error") {
+      jQuery("#barcodeStatus").text("Error trying again.");
       webcam.capture(1);
     } else {
      $('#eanNr').val(e.data);
@@ -75,8 +74,6 @@ $(function () {
       }
     };
   }
-
-
 
 });
 

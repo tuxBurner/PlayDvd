@@ -2,10 +2,9 @@ package controllers;
 
 import com.avaje.ebean.Ebean;
 import forms.ExternalImageForm;
-import forms.dvd.objects.InfoDvd;
 import forms.LendForm;
 import forms.UnLendForm;
-import grabbers.amazon.AmazonMovieLookuper;
+import forms.dvd.objects.InfoDvd;
 import helpers.EImageSize;
 import helpers.EImageType;
 import helpers.ImageHelper;
@@ -44,8 +43,6 @@ public class Dashboard extends Controller {
    */
   public static Result displayDvd(final Long dvdId) {
     final Dvd dvd = Dvd.find.byId(dvdId);
-
-    AmazonMovieLookuper.lookUpByEanNR("");
 
     if (dvd == null) {
       return Results.badRequest("Dvd with the given Id was not found");

@@ -33,7 +33,8 @@
        }
 
        @inputText(dvdForm("eanNr"),'_label -> "EAN Nr.", 'class -> "span4")
-       <button type="button" class="btn" onclick="openBarcodePopUp();"><i class="icon-barcode"></i></button>
+       <button type="button" class="btn" onclick="openBarcodePopUp();"><i class="icon-barcode"></i> Scan</button>
+       <button type="button" class="btn" onclick="openEANLookUp();"><i class="icon-search"></i> Lookup</button>
        
        <label for="copyType">Type:</label>
        @for((copyType,index) <- helpers.DvdInfoHelper.getCopyTypes.zipWithIndex) {
