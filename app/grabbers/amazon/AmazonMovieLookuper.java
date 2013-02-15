@@ -85,7 +85,6 @@ public class AmazonMovieLookuper {
       String title = XPathAPI.selectSingleNode(doc, "//Title").getTextContent();
       String asin = XPathAPI.selectSingleNode(doc, "//ASIN").getTextContent();
       String rating = XPathAPI.selectSingleNode(doc, "//AudienceRating").getTextContent();
-      rating = rating.replaceAll("Freigegeben ab ","").replaceAll(" Jahren","");
       String binding = XPathAPI.selectSingleNode(doc, "//Binding").getTextContent();
 
       NodeList nodeList = XPathAPI.selectNodeList(doc, "//Languages/Language[AudioFormat]");
@@ -99,7 +98,7 @@ public class AmazonMovieLookuper {
 
 
 
-
+      // TODO: do this in the play way to fetch the data from the signed url
       /*Document document = WS.url(requestUrl).get().map(new F.Function<WS.Response, Document>() {
         @Override
         public Document apply(WS.Response response) throws Throwable {
