@@ -112,6 +112,21 @@ public class AmazonMovieLookuper {
 
       String title = XPathAPI.selectSingleNode(doc, "//Title").getTextContent();
 
+      String copyType = XPathAPI.selectSingleNode(doc, "//Binding").getTextContent().trim();
+      if(copyTypeMatches.containsKey(copyType) == false) {
+        if(Logger.isErrorEnabled() == true) {
+          Logger.error("No copytype matching configured for amazon copytype: "+copyType);
+        }
+        return null;
+      }
+      copyType  = copyTypeMatches.get(copyType);
+      if(copyType.equals("BLURAY") == true && StringUtils.contains(title,"[Blu-ray 3D]") == true) {
+        copyType = "BLURAY3D";
+      }
+
+
+
+
       title = StringUtils.substringBefore(title,"(");
 
       if(CollectionUtils.isEmpty(removeFromTitleList) == false) {
@@ -132,14 +147,7 @@ public class AmazonMovieLookuper {
       }
       rating  = ageRatingMatches.get(rating);
 
-      String copyType = XPathAPI.selectSingleNode(doc, "//Binding").getTextContent().trim();
-      if(copyTypeMatches.containsKey(copyType) == false) {
-        if(Logger.isErrorEnabled() == true) {
-          Logger.error("No copytype matching configured for amazon copytype: "+copyType);
-        }
-        return null;
-      }
-      copyType  = copyTypeMatches.get(copyType);
+
 
       /*NodeList nodeList = XPathAPI.selectNodeList(doc, "//Languages/Language[AudioFormat]");
       for(int i = 0; i < nodeList.getLength(); i++) {
