@@ -53,7 +53,7 @@
       <div class="input-append">
         <label for="eanMovieGrabberTitle">Search with Onlinegrabber: </label>
         <input type="text" name="eanMovieGrabberTitle" id="eanMovieGrabberTitle" value="@amazonResult.title" placeholder="Enter title" class="span6" />
-        <button type="button" class="btn btn-info"><i class="icon-search"></i></button>
+        <button type="button" class="btn btn-info" onclick="eanStartOnlineGrabber('@eanNr',$('#eanMovieGrabberTitle').val());"><i class="icon-search"></i></button>
       </div>
 
       <hr />
