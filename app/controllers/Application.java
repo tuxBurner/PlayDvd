@@ -6,6 +6,8 @@ import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
 
+import static controllers.routes.javascript.*;
+
 @Security.Authenticated(Secured.class)
 public class Application extends Controller {
 
@@ -26,23 +28,25 @@ public class Application extends Controller {
     Controller.response().setContentType("text/javascript");
     return Results.ok(Routes.javascriptRouter(
         "jsRoutes",
-        controllers.routes.javascript.InfoGrabberController.searchGrabber(),
-        controllers.routes.javascript.InfoGrabberController.getMovieById(),
-        controllers.routes.javascript.Dashboard.displayDvd(),
-        controllers.routes.javascript.Dashboard.lendDialogContent(),
-        controllers.routes.javascript.Dashboard.unLendDialogContent(),
-        controllers.routes.javascript.Dashboard.lendDvd(),
-        controllers.routes.javascript.Dashboard.unlendDvd(),
-        controllers.routes.javascript.Dashboard.deleteDialogContent(),
-        controllers.routes.javascript.Dashboard.deleteDvd(),
-        controllers.routes.javascript.Dashboard.streamImage(),
-        controllers.routes.javascript.MovieController.showAddMovieForm(),
-        controllers.routes.javascript.MovieController.showEditMovieForm(),
-        controllers.routes.javascript.MovieController.addMovieByGrabberId(),
-        controllers.routes.javascript.MovieController.checkIfMovieAlreadyExists(),
-        controllers.routes.javascript.MovieController.addOrEditMovie(),
-        controllers.routes.javascript.MovieController.searchMoviesForDvdSelect(),
-        controllers.routes.javascript.MovieController.searchForMovieAttribute(),
-        controllers.routes.javascript.BarcodeController.displayBarcodeScaner()));
+        InfoGrabberController.searchGrabber(),
+        InfoGrabberController.getMovieById(),
+        Dashboard.displayDvd(),
+        Dashboard.lendDialogContent(),
+        Dashboard.unLendDialogContent(),
+        Dashboard.lendDvd(),
+        Dashboard.unlendDvd(),
+        Dashboard.deleteDialogContent(),
+        Dashboard.deleteDvd(),
+        Dashboard.streamImage(),
+        MovieController.showAddMovieForm(),
+        MovieController.showEditMovieForm(),
+        MovieController.addMovieByGrabberId(),
+        MovieController.checkIfMovieAlreadyExists(),
+        MovieController.addOrEditMovie(),
+        MovieController.searchMoviesForDvdSelect(),
+        MovieController.searchForMovieAttribute(),
+        BarcodeController.displayBarcodeScaner(),
+        DvdController.searchEanNr(),
+        DvdController.showAddDvdByEanAndMovie()));
   }
 }

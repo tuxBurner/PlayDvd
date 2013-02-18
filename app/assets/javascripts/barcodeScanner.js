@@ -7,9 +7,12 @@
  * TODO: http://www.smartjava.org/content/face-detection-using-html5-javascript-webrtc-websockets-jetty-and-javacvopencv use not flash :)
  */
 
+var searchAfterScan = false;
+
 $(function () {
 
   var ws = new WebSocket(wsBarcodeUrl);
+
 
   // initialize the webcam
   ws.onopen = function () {
@@ -36,8 +39,13 @@ $(function () {
       jQuery("#barcodeStatus").text("Error trying again.");
       webcam.capture(1);
     } else {
-     $('#eanNr').val(e.data);
-     closeDialog();
+      $('#eanNr').val(e.data);
+      if(searchAfterScan == true) {
+       openEANLookUp();
+      } else {
+        closeDialog();
+      }
+
     }
   }
 
@@ -79,8 +87,10 @@ $(function () {
 
 /**
  * Triggers the barcode event
+ * @param search if true the scanned code will be taken for searching @ amazon
  */
-var barcodeStartCaputring = function () {
+var barcodeStartCaputring = function (search) {
+  searchAfterScan = search;
   webcam.capture(1);
 }
 

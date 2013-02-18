@@ -2,14 +2,20 @@ package controllers;
 
 import forms.dvd.DvdForm;
 import grabbers.amazon.AmazonMovieLookuper;
+import grabbers.amazon.AmazonResult;
 import models.Dvd;
+import models.Movie;
 import org.apache.commons.lang3.StringUtils;
+import play.Logger;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
-import views.html.dashboard.dvdform;
+import views.html.dvd.dvdEanNrPopUp;
+import views.html.dvd.dvdform;
+
+import java.util.List;
 
 /**
  * This {@link Controller} handles all the edit and add {@link Dvd} magic
@@ -88,13 +94,61 @@ public class DvdController extends Controller {
     }
   }
 
+  /**
+   * Searches a movie via amazon with the given eanNr
+   * @param eanNr the ean nr to lookup
+   * @param dvdId if not null this means we edit a dvd
+   * @return
+   */
   public static Result searchEanNr(final String eanNr) {
 
-    if(StringUtils.isEmpty(eanNr) == false) {
-      AmazonMovieLookuper.lookUpByEanNR(eanNr);
+    AmazonResult result = null;
+
+    List<Movie> movies = null;
+    if (StringUtils.isEmpty(eanNr) == false) {
+      result = AmazonMovieLookuper.lookUpByEanNR(eanNr);
+
+      if (result != null && StringUtils.isEmpty(result.title) == false) {
+        movies = Movie.searchLike(result.title, 0);
+      }
     }
 
-    return ok();
+
+    return ok(dvdEanNrPopUp.render(result, eanNr, movies));
+  }
+
+  /**
+   * Shows the add Dvd form
+   *
+   * @return
+   */
+  public static Result showAddDvdByEanAndMovie(final String eanNr, final Long movieId) {
+
+    if(StringUtils.isEmpty(eanNr) == true || movieId == null) {
+      return badRequest();
+    }
+
+    AmazonResult amazonResult = AmazonMovieLookuper.lookUpByEanNR(eanNr);
+    if(amazonResult == null) {
+      if(Logger.isDebugEnabled() == true) {
+        Logger.error("Error adding dvd with eanNr: " + eanNr);
+      }
+      return badRequest();
+    }
+
+    Movie movie = Movie.find.byId(movieId);
+    if(movie == null) {
+      if(Logger.isDebugEnabled() == true) {
+        Logger.error("Error adding dvd with movie: " + movieId);
+      }
+      return badRequest();
+    }
+
+    final Form<DvdForm> form = Form.form(DvdForm.class);
+    final DvdForm dvdForm = DvdForm.eanAndMovieToDvdForm(amazonResult,movieId,eanNr);
+
+
+    return Results.ok(dvdform.render(form.fill(dvdForm), DvdController.DVD_FORM_ADD_MODE));
   }
 
 }

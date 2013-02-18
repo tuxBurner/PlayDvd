@@ -2,6 +2,8 @@ package grabbers.amazon;
 
 import com.sun.org.apache.xpath.internal.XPathAPI;
 import com.typesafe.config.ConfigFactory;
+import com.typesafe.config.ConfigObject;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import org.w3c.dom.NodeList;
@@ -10,7 +12,9 @@ import play.Logger;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 import javax.xml.parsers.DocumentBuilder;
@@ -29,27 +33,51 @@ import org.w3c.dom.Node;
  */
 public class AmazonMovieLookuper {
 
-  public static void lookUpByEanNR(final String eanNr) {
+  private static List<String> removeFromTitleList  = ConfigFactory.load().getStringList("dvdb.amazon.grabber.removeFromTitle");
+
+  private static Map<String,String> copyTypeMatches = new HashMap<String, String>();
+
+  private static Map<String,String> ageRatingMatches  = new HashMap<String, String>();
+
+  static {
+    for (Map.Entry<String, Object> stringObjectEntry : ConfigFactory.load().getObject("dvdb.amazon.grabber.matchCopyType").unwrapped().entrySet()) {
+     copyTypeMatches.put(stringObjectEntry.getKey(), (String) stringObjectEntry.getValue());
+    }
+
+    for (Map.Entry<String, Object> stringObjectEntry : ConfigFactory.load().getObject("dvdb.amazon.grabber.matchAgeRating").unwrapped().entrySet()) {
+      ageRatingMatches.put(stringObjectEntry.getKey(), (String) stringObjectEntry.getValue());
+    }
+
+
+
+  }
+
+  /**
+   * Looksup a movie via amaton ws
+   * @param eanNr
+   * @return
+   */
+  public static AmazonResult lookUpByEanNR(final String eanNr) {
     String awsEndPoint = ConfigFactory.load().getString("dvddb.amazon.endpoint");
     if(StringUtils.isEmpty(awsEndPoint) == true) {
       if(Logger.isErrorEnabled() == true) {
         Logger.error("No AWS endpoint set in the configuration.");
       }
-      return;
+      return null;
     }
     String awsKeyId = ConfigFactory.load().getString("dvddb.amazon.aws.keyid");
     if(StringUtils.isEmpty(awsKeyId) == true) {
       if(Logger.isErrorEnabled() == true) {
         Logger.error("No AWS keyID set in the configuration.");
       }
-      return;
+      return null;
     }
     String awsSecretKey = ConfigFactory.load().getString("dvddb.amazon.aws.secretkey");
     if(StringUtils.isEmpty(awsSecretKey) == true) {
       if(Logger.isErrorEnabled() == true) {
         Logger.error("No AWS keySecretKey set in the configuration.");
       }
-      return;
+      return null;
     }
 
 
@@ -83,18 +111,46 @@ public class AmazonMovieLookuper {
       Document doc = db.parse(requestUrl);
 
       String title = XPathAPI.selectSingleNode(doc, "//Title").getTextContent();
-      String asin = XPathAPI.selectSingleNode(doc, "//ASIN").getTextContent();
-      String rating = XPathAPI.selectSingleNode(doc, "//AudienceRating").getTextContent();
-      String binding = XPathAPI.selectSingleNode(doc, "//Binding").getTextContent();
 
-      NodeList nodeList = XPathAPI.selectNodeList(doc, "//Languages/Language[AudioFormat]");
+      title = StringUtils.substringBefore(title,"(");
+
+      if(CollectionUtils.isEmpty(removeFromTitleList) == false) {
+        for(String removeFromTitle : removeFromTitleList) {
+          title = StringUtils.remove(title,removeFromTitle);
+        }
+      }
+      title = StringUtils.trim(title);
+
+
+      String asin = XPathAPI.selectSingleNode(doc, "//ASIN").getTextContent().trim();
+      String rating = XPathAPI.selectSingleNode(doc, "//AudienceRating").getTextContent().trim();
+      if(ageRatingMatches.containsKey(rating) == false) {
+        if(Logger.isErrorEnabled() == true) {
+         Logger.error("No agerating matching configured for amazon rating: "+rating);
+        }
+        return null;
+      }
+      rating  = ageRatingMatches.get(rating);
+
+      String copyType = XPathAPI.selectSingleNode(doc, "//Binding").getTextContent().trim();
+      if(copyTypeMatches.containsKey(copyType) == false) {
+        if(Logger.isErrorEnabled() == true) {
+          Logger.error("No copytype matching configured for amazon copytype: "+copyType);
+        }
+        return null;
+      }
+      copyType  = copyTypeMatches.get(copyType);
+
+      /*NodeList nodeList = XPathAPI.selectNodeList(doc, "//Languages/Language[AudioFormat]");
       for(int i = 0; i < nodeList.getLength(); i++) {
         Node langItem = nodeList.item(i);
         Logger.debug(langItem.getTextContent());
-      }
+      } */
 
 
-      Logger.debug(title+" "+asin+" "+rating+" "+binding);
+      final AmazonResult result = new AmazonResult(title,rating,copyType,asin);
+
+      return result;
 
 
 
@@ -113,7 +169,7 @@ public class AmazonMovieLookuper {
       if(Logger.isErrorEnabled() == true) {
         Logger.error("An error happend while looking in the aws.",e);
       }
-      return;
+      return null;
     }
 
 

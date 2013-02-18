@@ -7,9 +7,9 @@
 
 
 <select name="grabberType" id="grabberType" >
-<option value="@grabbers.EGrabberType.TMDB.name()">TMDB</option>
-<option @if(grabbers.EGrabberType.THETVDB.name() == grabberType) { selected="selected" } value="@grabbers.EGrabberType.THETVDB.name()">TheTvDb</option>
-  		</select>
+  <option value="@grabbers.EGrabberType.TMDB.name()">TMDB</option>
+  <option @if(grabbers.EGrabberType.THETVDB.name() == grabberType) { selected="selected" } value="@grabbers.EGrabberType.THETVDB.name()">TheTvDb</option>
+</select>
 
 <button href="#" id="grabber_search_button" class="btn"><i class="icon-search"></i>Search</button>
 </form>

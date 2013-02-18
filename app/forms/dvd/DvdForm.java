@@ -1,21 +1,16 @@
 package forms.dvd;
 
-import java.util.List;
-import java.util.Set;
-
+import com.google.gson.Gson;
+import controllers.MovieSelect2Value;
+import grabbers.amazon.AmazonResult;
 import models.Dvd;
 import models.DvdAttribute;
 import models.EDvdAttributeType;
 import models.Movie;
-
 import org.apache.commons.lang.StringUtils;
-
 import play.data.validation.Constraints.Required;
 
-import com.google.gson.Gson;
-import com.typesafe.config.ConfigFactory;
-
-import controllers.MovieSelect2Value;
+import java.util.Set;
 
 /**
  * Form which handles all the inputs for adding, editing a dvd
@@ -53,6 +48,21 @@ public class DvdForm {
   public Integer hullNr;
 
   public String eanNr;
+
+  /**
+   * Transforms an {@link AmazonResult} and movieId to a dvdForm
+   * @param amazonResult
+   * @param movieId
+   */
+  public static DvdForm eanAndMovieToDvdForm(final AmazonResult amazonResult, final Long movieId, final String eanNr) {
+    final DvdForm dvdForm = new DvdForm();
+    dvdForm.ageRating = amazonResult.rating;
+    dvdForm.copyType = amazonResult.copyType;
+    dvdForm.eanNr = eanNr;
+    dvdForm.movieId = movieId;
+
+    return  dvdForm;
+  }
 
   /**
    * Transforms a {@link Dvd} to a {@link DvdForm} for editing the dvd in the
