@@ -47,6 +47,7 @@ public class Application extends Controller {
         MovieController.searchForMovieAttribute(),
         BarcodeController.displayBarcodeScaner(),
         DvdController.searchEanNr(),
-        DvdController.showAddDvdByEanAndMovie()));
+        DvdController.showAddDvdByEanAndMovie(),
+        DvdController.addMovieByGrabber()));
   }
 }

@@ -1,21 +1,17 @@
 package controllers;
 
+import com.google.gson.Gson;
+import forms.MovieForm;
+import forms.grabbers.GrabberInfoForm;
 import grabbers.EGrabberType;
 import grabbers.GrabberException;
 import grabbers.IInfoGrabber;
 import helpers.RequestToCollectionHelper;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import models.EMovieAttributeType;
 import models.Movie;
 import models.MovieAttribute;
-
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.node.ObjectNode;
-
 import play.Logger;
 import play.data.Form;
 import play.libs.Json;
@@ -25,23 +21,21 @@ import play.mvc.Results;
 import play.mvc.Security;
 import views.html.movie.movieform;
 
-import com.google.gson.Gson;
-
-import forms.grabbers.GrabberInfoForm;
-import forms.MovieForm;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This {@link Controller} handles all the edit and add {@link Movie} magic
- * 
+ *
  * @author tuxburner
- * 
  */
 @Security.Authenticated(Secured.class)
 public class MovieController extends Controller {
 
   /**
    * Displays the {@link MovieForm} to the user in the add mode
-   * 
+   *
    * @return
    */
   public static Result showAddMovieForm() {
@@ -51,7 +45,7 @@ public class MovieController extends Controller {
 
   /**
    * Shows the edit {@link Movie} form
-   * 
+   *
    * @return
    */
   public static Result showEditMovieForm(final Long movieId) {
@@ -70,7 +64,7 @@ public class MovieController extends Controller {
 
   /**
    * This is called when the user submits the add Dvd Form
-   * 
+   *
    * @return
    */
   public static Result addOrEditMovie(final String mode) {
@@ -98,9 +92,8 @@ public class MovieController extends Controller {
   /**
    * When the user selected a movie from the tmdb popup we fill out the form and
    * display it
-   * 
-   * @param mode
-   *          mode if we add or edit the movie
+   *
+   * @param mode mode if we add or edit the movie
    * @return
    */
   public static Result addMovieByGrabberId(final String mode, final String grabberType) {
@@ -121,17 +114,20 @@ public class MovieController extends Controller {
 
       return Results.ok(movieform.render(form.fill(movieForm), mode));
     } catch (final GrabberException e) {
-      Logger.error("Internal Error happened",e);
+      if (Logger.isErrorEnabled()) {
+        Logger.error("Internal Error happened", e);
+      }
       return Results.badRequest("Internal Error happened");
     }
   }
 
   /**
    * Searches for movies
-   * 
+   *
    * @param term
    * @return
    */
+
   public static Result searchMoviesForDvdSelect(final String term) {
 
     final List<MovieSelect2Value> result = new ArrayList<MovieSelect2Value>();
@@ -151,7 +147,7 @@ public class MovieController extends Controller {
   /**
    * Searches for {@link MovieAttribute} returns a json with
    * {@link MovieAttribute#pk} and {@link MovieAttribute#value}
-   * 
+   *
    * @param term
    * @param attrType
    * @return
@@ -170,6 +166,7 @@ public class MovieController extends Controller {
 
   /**
    * Checks if the movie already exists by the grabberId and the given grabberType
+   *
    * @param grabberId
    * @param grabberType
    * @return

@@ -1,6 +1,11 @@
 package controllers;
 
+import forms.MovieForm;
 import forms.dvd.DvdForm;
+import forms.grabbers.GrabberInfoForm;
+import grabbers.EGrabberType;
+import grabbers.GrabberException;
+import grabbers.IInfoGrabber;
 import grabbers.amazon.AmazonMovieLookuper;
 import grabbers.amazon.AmazonResult;
 import models.Dvd;
@@ -118,7 +123,37 @@ public class DvdController extends Controller {
   }
 
   /**
+   * Adds a {@link Movie}
+   * @param grabberType
+   * @return
+   */
+  public static Result addMovieByGrabber(final String grabberType) {
+    try {
+    final Form<GrabberInfoForm> grabberInfoForm = Form.form(GrabberInfoForm.class).bindFromRequest();
+
+    final IInfoGrabber grabber = InfoGrabberController.getGrabber(EGrabberType.valueOf(grabberType));
+
+    final MovieForm movieForm = grabber.fillInfoToMovieForm(grabberInfoForm.get());
+      final Movie movie = Movie.editOrAddFromForm(movieForm);
+
+      if(movie == null) {
+        return Results.badRequest("An error happend while creating the new movie");
+      }
+
+      return ok(String.valueOf(movie.id));
+
+    }catch (final Exception e) {
+      if (Logger.isErrorEnabled()) {
+        Logger.error("Internal Error happened", e);
+      }
+      return Results.badRequest("Internal Error happened");
+    }
+  }
+
+  /**
    * Shows the add Dvd form
+   * @param eanNr
+   * @param movieId
    *
    * @return
    */

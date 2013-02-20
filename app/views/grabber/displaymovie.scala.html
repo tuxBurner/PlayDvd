@@ -1,4 +1,4 @@
-@(displayMovie : grabbers.GrabberDisplayMovie,grabberType: String,movieToEditId: Long,mode: String)
+@(displayMovie : grabbers.GrabberDisplayMovie,grabberType: String,movieToEditId: Long,mode: String, eanNr: String)
 @import org.apache.commons.lang.StringUtils
 
 @import helper._
@@ -13,6 +13,7 @@
 
     <input type="hidden" name="grabberMovieId" id="grabberMovieId"  value="@displayMovie.systemId"/>
     <input type="hidden" name="movieToEditId" id="movieToEditId" value="@movieToEditId" />
+    <input type="hidden" name="grabberEanNr" id="grabberEanNr" value="@eanNr" />
     <input type="hidden" name="grabberType" id="grabberType" value="@grabberType" />
 
 
@@ -109,24 +110,8 @@
   }
 
 
-
-
     </div>
 
 
   }
 </div>
-
-<script>
-  /**
-  * If the popup is opened by edit mode we want to keep the dvdId
-  */
-  $(function() {
-	var dvdToEdit = $('#dvdId').val();
-	if(isNaN(dvdToEdit) == false) {
-		$('#dvdEditId').val(dvdToEdit);
-	}
-
-  });
-</script>
-

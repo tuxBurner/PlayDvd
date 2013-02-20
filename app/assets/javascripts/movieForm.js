@@ -1,5 +1,4 @@
-$(function() {
-	
+var initializeMovieForm = function() {
 
 	// check the url stuff and change the image if it is set
 	createPrevsrciewFromUrl('poster');
@@ -11,12 +10,11 @@ $(function() {
 	    createPrevsrciewFromUrl('poster');
 	  }
 	});
-	
-
 
 	createSelect2TagAjaxBox("#genres", jsRoutes.controllers.MovieController.searchForMovieAttribute(),{ attrType: "GENRE"});
 	createSelect2TagAjaxBox("#actors", jsRoutes.controllers.MovieController.searchForMovieAttribute(),{ attrType: "ACTOR"});
-	 
+
+  //TODO: AJAX ME !!!
 	createSelect2DeselectCreate("#series",avaibleSeries);
 	 
 	
@@ -30,30 +28,14 @@ $(function() {
 	 * clicking on the grabber button opens an popup where the user can search for the movie online
 	 */
 	$('#grabberButton').click(function() {
-		searchGrabber($('#title').val(),"TMDB",$('#movieId').val());
+		searchGrabber($('#title').val(),"TMDB",$('#movieId').val(),null);
 	});
 	
-	/**
-	 * button in the popup will be always clickable
-	 */
-	$('#grabber_search_button').live('click',function() {
-		searchGrabber($('#grabber_search_input').val(),$('#grabberType').val(),$('#movieToEditId').val());
-		return false;
-	});
-	
-	/**
-	 * The user searches in the grabber poup
-	 */
-	$('.pickGrabberEntry').live('click',function() {
-    openGrabberMoviePopup($(this).data('grabberId'),$(this).data('grabberType'),$('#movieToEditId').val());
-	});
-
-
   /**
    * The user wants to refresh the data via the grabber information he used before
    */
   $('#grabberRefetchButton').live('click',function() {
-    openGrabberMoviePopup($('#grabberId').val(),$('#grabberType').val(),$('#movieId').val());
+    openGrabberMoviePopup($('#grabberId').val(),$('#grabberType').val(),$('#movieId').val(),null);
   });
 
 
@@ -71,8 +53,6 @@ $(function() {
 	 */
 	$('.movieFormSubmitBtn').click(function() {
 		
-
-		
 		var formParams = $('#movieForm').formParams();
 		var mode = $('#movieForm').attr('mode');
 
@@ -81,7 +61,6 @@ $(function() {
       pAjax(jsRoutes.controllers.MovieController.checkIfMovieAlreadyExists(formParams['grabberId'],formParams['grabberType']),null,
         function(data) {
           if(data == "true" || data == true) {
-
             // ask the user if he wants to add this movie although it aready exists
             displayDialog({
               title: 'Movie already exists in the Database',
@@ -109,7 +88,7 @@ $(function() {
     }
 	});
 
-});
+};
 
 
 /**
@@ -145,53 +124,6 @@ function submitMovieForm(formParams, mode) {
 
 };
 
-/**
- * This opens the grabber movie informations popup where description,poster, backdrop etc can be selected
- * @param grabberId
- * @param grabberType
- * @param movieToEditId
- */
-function openGrabberMoviePopup(grabberId,grabberType,movieToEditId) {
-  showWaitDiaLog();
-  displayAjaxDialog({
-    route: jsRoutes.controllers.InfoGrabberController.getMovieById(grabberId,grabberType),
-    ajaxParams : { "movieToEditId" : movieToEditId},
-    title: 'Movie info from Grabber',
-    onOpen: closeWaitDiaLog,
-    cssClass: "grabberModal",
-    buttons : {
-      "Ok" : {
-        icon: "icon-trash",
-        cssClass: "btn-danger",
-        callback: fillFormWithInfoFromGrabber
-      }
-    }
-  });
-}
-
-/**
- * This is called when the user picked movie from grabber and wants to fill the movie form with the infos  
- */
-function fillFormWithInfoFromGrabber() {
-	
-	showWaitDiaLog();
-	var formParams = $('#grabberMovieForm').formParams();
-	var movieFormMode = $('#grabberMovieForm').attr('mode');
-	var grabberType = $('#grabberMovieForm').attr('grabberType');
-	$('#newMovieFormWrapper').html('').hide();
-	pAjax(jsRoutes.controllers.MovieController.addMovieByGrabberId(movieFormMode,grabberType),formParams,
-			function(data) {
-		      $('#newMovieFormWrapper').html(data).show();
-		      closeWaitDiaLog();
-	        },
-			function(err) {
-	        	closeWaitDiaLog();
-				console.error(err);
-			});
-	
-	closeDialog();
-	
-}
 
 /**
  * Creates a preview from the selected url
@@ -211,21 +143,4 @@ function createPrevsrciewFromUrl(prevName) {
  */
 function createPreview(prevName, src) {
 	$('#'+prevName+'_preview').attr('src',src);
-}
-
-/**
- * This searches the grabber and returns the result via ajax and writes it to the dialog
- * @param title
- * @param movieToEditId
- * @param grabberType
- */
-function searchGrabber(title,grabberType,movieToEditId) {	
-	showWaitDiaLog();	
-	displayAjaxDialog({
-	  route: jsRoutes.controllers.InfoGrabberController.searchGrabber(title,grabberType),
-	  ajaxParams : { "movieToEditId" : movieToEditId},
-	  title: 'Movie info from Grabber',
-	  onOpen: closeWaitDiaLog,
-	  cssClass: "grabberModal"
-	});
 }

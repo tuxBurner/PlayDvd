@@ -77,7 +77,10 @@ function displayDialog(options) {
     $('#modal').addClass(options.cssClass);
   }
 
+  $('#modal .modal-footer').empty();
+
   if (options.buttons != null) {
+
     for (var title in options.buttons) {
       var button = options.buttons[title];
       var iconHtml = (button.icon != null) ? '<i class="' + button.icon + '"></i>' : '';

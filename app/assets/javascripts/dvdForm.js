@@ -20,7 +20,8 @@ $(function() {
 			pAjax(jsRoutes.controllers.MovieController.showEditMovieForm(selectedMovieId),null,
 					function(data) {
 				      $('#dvdFormWrapper').hide();
-				      $('#newMovieFormWrapper').html(data).show(); 
+				      $('#newMovieFormWrapper').html(data).show();
+              initializeMovieForm();
 			        },
 					function(err) {
 					  console.error(err);
@@ -39,7 +40,8 @@ $(function() {
 		pAjax(jsRoutes.controllers.MovieController.showAddMovieForm(),null,
 				function(data) {
 			      $('#dvdFormWrapper').hide();
-			      $('#newMovieFormWrapper').html(data).show(); 
+			      $('#newMovieFormWrapper').html(data).show();
+            initializeMovieForm();
 		        },
 				function(err) {
 				  console.error(err);
@@ -115,7 +117,19 @@ var openSearchEanPopUp = function(eanNr) {
 }
 
 /**
- * Redirects the user to the
+ * Opens the grabber modal with the given ean nr and the title to search for
+ *
+ * @param eanNr
+ * @param titleToSearch
+ */
+var eanStartOnlineGrabber = function(eanNr,titleToSearch) {
+  searchGrabber(titleToSearch,"TMDB",null,eanNr)
+}
+
+
+
+/**
+ * Redirects the user to the dvdform and sets the movie to the given id, also fills copytype etc to the dvd form
  * @param eanNr
  * @param movieId
  */
@@ -123,7 +137,6 @@ var eanPickExistingMovie = function(eanNr, movieId) {
   if(eanNr == null || movieId == null) {
     return;
   }
-
 
   window.location = jsRoutes.controllers.DvdController.showAddDvdByEanAndMovie(eanNr,movieId).absoluteURL();
 }

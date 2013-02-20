@@ -1,9 +1,11 @@
 package controllers;
 
+import forms.MovieForm;
+import forms.grabbers.GrabberInfoForm;
 import grabbers.*;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
+import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
@@ -17,7 +19,9 @@ import java.util.List;
 @Security.Authenticated(Secured.class)
 public class InfoGrabberController extends Controller {
 
-  public final static String DVD_ID_FIELD_NAME = "movieToEditId";
+  public final static String MOVIE_TO_EDIT_ID = "movieToEditId";
+
+  public final static String EAN_NR = "eanNr";
 
   /**
    * This is called when the user wants to search the movie database
@@ -28,6 +32,7 @@ public class InfoGrabberController extends Controller {
   public static Result searchGrabber(final String searchTerm, final String grabberType) {
 
     final Long movieToEditId = InfoGrabberController.getMovieToEditIdFromReq();
+    final String eanNr = Controller.request().getQueryString(EAN_NR);
 
     try {
       List<GrabberSearchMovie> searchResults = new ArrayList<GrabberSearchMovie>();
@@ -39,7 +44,7 @@ public class InfoGrabberController extends Controller {
         }
       }
 
-      return Results.ok(search.render(searchTerm, grabberType, searchResults, movieToEditId));
+      return Results.ok(search.render(searchTerm, grabberType, searchResults, movieToEditId,eanNr));
 
     } catch (final GrabberException e) {
       if (Logger.isErrorEnabled()) {
@@ -77,13 +82,12 @@ public class InfoGrabberController extends Controller {
   private static Long getMovieToEditIdFromReq() {
 
     Long movieToEditId = null;
+    final String movieToEditIdString = Controller.request().getQueryString(InfoGrabberController.MOVIE_TO_EDIT_ID);
 
-    if (Controller.request().queryString().containsKey(InfoGrabberController.DVD_ID_FIELD_NAME)) {
-      final String[] strings = Controller.request().queryString().get(InfoGrabberController.DVD_ID_FIELD_NAME);
-      if (strings != null && strings.length == 1 && StringUtils.isEmpty(strings[0]) == false) {
-        movieToEditId = Long.valueOf(strings[0]);
+    if (StringUtils.isEmpty(movieToEditIdString) == false && StringUtils.isNumeric(movieToEditIdString)) {
+        movieToEditId = Long.valueOf(movieToEditIdString);
       }
-    }
+
 
     return movieToEditId;
   }
@@ -100,13 +104,14 @@ public class InfoGrabberController extends Controller {
     try {
 
       final Long movieToEditId = InfoGrabberController.getMovieToEditIdFromReq();
+      final String eanNr = Controller.request().getQueryString(EAN_NR);
 
       final IInfoGrabber grabber = InfoGrabberController.getGrabber(EGrabberType.valueOf(grabberType));
       final GrabberDisplayMovie displayMovie = grabber.getDisplayMovie(grabberId);
 
       final String mode = (movieToEditId == null) ? DvdController.DVD_FORM_ADD_MODE : DvdController.DVD_FORM_EDIT_MODE;
 
-      return Results.ok(displaymovie.render(displayMovie, grabberType, movieToEditId, mode));
+      return Results.ok(displaymovie.render(displayMovie, grabberType, movieToEditId, mode,eanNr));
 
     } catch (final GrabberException e) {
       if (Logger.isErrorEnabled()) {
@@ -115,5 +120,6 @@ public class InfoGrabberController extends Controller {
       return Results.badRequest("Internal Error happened");
     }
   }
+
 
 }

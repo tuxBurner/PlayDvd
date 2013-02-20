@@ -4,12 +4,6 @@
 @import helper.twitterBootstrap._
 
 
-  <script type="text/javascript" charset="utf-8">
-    var avaibleSeries = @Html(models.MovieAttribute.getAvaibleAttributesAsJson(EMovieAttributeType.MOVIE_SERIES));
-  </script>
-  
-  <script src="@routes.Assets.at("javascripts/movieForm.js")" type="text/javascript"></script>
-  
      @form(routes.MovieController.addOrEditMovie(mode),'enctype -> "multipart/form-data",'class -> "well",'id -> "movieForm", 'mode -> mode) {
      <fieldset>
     <legend>@if(mode == DvdController.DVD_FORM_EDIT_MODE) {Edit Move} else {Add a Movie}</legend>

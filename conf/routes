@@ -54,7 +54,8 @@ POST     /unLendDvd/:dvdId           controllers.Dashboard.unlendDvd(dvdId: Long
 
 # Barcode Scanning
 GET    /barcodescanner               controllers.BarcodeController.displayBarcodeScaner()
-GET    /barcodescannerws               controllers.BarcodeController.scanBarcode()
+GET    /barcodescannerws             controllers.BarcodeController.scanBarcode()
+
 
 # ADD edit DVD
 GET    /dvd/add                        controllers.DvdController.showAddDvd()
@@ -62,6 +63,7 @@ POST   /dvd/:mode                      controllers.DvdController.addDvd(mode: St
 GET    /dvd/edit/:dvdId                controllers.DvdController.showEditDvd(dvdId: Long)
 GET    /dvd/eanNr/:eanNr               controllers.DvdController.searchEanNr(eanNr: String)
 GET    /dvd/add/byean/:eanNr/:movieId  controllers.DvdController.showAddDvdByEanAndMovie(eanNr: String, movieId: Long)
+POST   /dvd/addMovieByGrabber/         controllers.DvdController.addMovieByGrabber(grabberType : String)
 
 
 # DELETE DVD
@@ -69,7 +71,7 @@ GET /dvd/delete/:dvdId  controllers.Dashboard.deleteDialogContent(dvdId:Long)
 POST /dvd/delete/:dvdId  controllers.Dashboard.deleteDvd(dvdId:Long)
 
 # MOVIE ROUTES
-POST   /movie/addMovieByTmdb/:mode          controllers.MovieController.addMovieByGrabberId(mode: String, grabberType: String)
+POST   /movie/addMovieByGrabber/:mode       controllers.MovieController.addMovieByGrabberId(mode: String, grabberType: String)
 GET    /movie/add                           controllers.MovieController.showAddMovieForm()
 GET    /movie/edit/:movieId                 controllers.MovieController.showEditMovieForm(movieId: Long)
 GET    /movie/check/:grabberId/:grabberType controllers.MovieController.checkIfMovieAlreadyExists(grabberId: String, grabberType: String)

@@ -1,9 +1,10 @@
-@(searchTerm : String, grabberType: String ,results : List[grabbers.GrabberSearchMovie],dbMovieId: Long)
+@(searchTerm : String, grabberType: String ,results : List[grabbers.GrabberSearchMovie],dbMovieId: Long, eanNr: String)
 <form method="GET" >
 <label>Search Tmdb</label>
 <input type="text" name="searchTerm" id="grabber_search_input" value="@searchTerm"/>
 
 <input type="hidden" name="movieToEditId" id="movieToEditId" value="@dbMovieId"/>
+<input type="hidden" name="grabberEanNr" id="grabberEanNr" value="@eanNr"/>
 
 
 <select name="grabberType" id="grabberType" >
