@@ -1,27 +1,17 @@
 package grabbers;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
+import com.omertron.themoviedbapi.MovieDbException;
+import com.omertron.themoviedbapi.TheMovieDbApi;
+import com.omertron.themoviedbapi.model.*;
+import forms.MovieForm;
 import forms.grabbers.GrabberInfoForm;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-
 import play.Logger;
 
-import com.moviejukebox.themoviedb.MovieDbException;
-import com.moviejukebox.themoviedb.TheMovieDb;
-import com.moviejukebox.themoviedb.model.Artwork;
-import com.moviejukebox.themoviedb.model.ArtworkType;
-import com.moviejukebox.themoviedb.model.Collection;
-import com.moviejukebox.themoviedb.model.Genre;
-import com.moviejukebox.themoviedb.model.MovieDb;
-import com.moviejukebox.themoviedb.model.Person;
-import com.moviejukebox.themoviedb.model.TmdbConfiguration;
-import com.moviejukebox.themoviedb.model.Trailer;
-
-import forms.MovieForm;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class TmdbGrabber implements IInfoGrabber {
 
@@ -31,16 +21,16 @@ public class TmdbGrabber implements IInfoGrabber {
 
   private static final String LANGUAGE = Locale.GERMAN.getLanguage();
 
-  private TheMovieDb theMovieDb;
+  private TheMovieDbApi theMovieDb;
 
   private TmdbConfiguration configuration;
 
   public TmdbGrabber() {
     try {
-      theMovieDb = new TheMovieDb(TmdbGrabber.API_KEY);
+      theMovieDb = new TheMovieDbApi(TmdbGrabber.API_KEY);
       configuration = theMovieDb.getConfiguration();
     } catch (final MovieDbException e) {
-      Logger.error("An error happend while initializing: " + TheMovieDb.class.getName(), e);
+      Logger.error("An error happend while initializing: " + TheMovieDbApi.class.getName(), e);
     }
   }
 
@@ -49,7 +39,7 @@ public class TmdbGrabber implements IInfoGrabber {
 
     try {
       final List<GrabberSearchMovie> returnVal = new ArrayList<GrabberSearchMovie>();
-      final List<MovieDb> results = theMovieDb.searchMovie(searchTerm, TmdbGrabber.LANGUAGE, true);
+      final List<MovieDb> results = theMovieDb.searchMovie(searchTerm,0, TmdbGrabber.LANGUAGE, true,0);
 
       if (CollectionUtils.isEmpty(results) == false) {
         for (final MovieDb movieDb : results) {

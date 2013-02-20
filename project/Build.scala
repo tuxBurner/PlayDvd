@@ -18,8 +18,8 @@ object ApplicationBuild extends Build {
       "com.google.code.gson" % "gson" % "2.2.1",
       "com.github.ralfebert" % "jgravatar" % "1.0-SNAPSHOT",
 
-      "com.moviejukebox" % "thetvdbapi" % "1.4-SNAPSHOT",
-      "com.moviejukebox" % "themoviedbapi" % "3.3-SNAPSHOT",
+      "com.omertron" % "thetvdbapi" % "1.6-SNAPSHOT",
+      "com.omertron" % "themoviedbapi" % "3.4-SNAPSHOT",
 
       "com.google.zxing" % "core" % "2.1",
 

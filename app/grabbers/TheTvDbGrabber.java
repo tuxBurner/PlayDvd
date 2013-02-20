@@ -1,24 +1,17 @@
 package grabbers;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
-
+import com.omertron.thetvdbapi.TheTVDBApi;
+import com.omertron.thetvdbapi.model.Banner;
+import com.omertron.thetvdbapi.model.Banners;
+import com.omertron.thetvdbapi.model.Episode;
+import com.omertron.thetvdbapi.model.Series;
+import forms.MovieForm;
 import forms.grabbers.GrabberInfoForm;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-
 import play.Logger;
 
-import com.moviejukebox.thetvdb.TheTVDB;
-import com.moviejukebox.thetvdb.model.Banner;
-import com.moviejukebox.thetvdb.model.Banners;
-import com.moviejukebox.thetvdb.model.Episode;
-import com.moviejukebox.thetvdb.model.Series;
-
-import forms.MovieForm;
+import java.util.*;
 
 public class TheTvDbGrabber implements IInfoGrabber {
 
@@ -26,12 +19,12 @@ public class TheTvDbGrabber implements IInfoGrabber {
 
   private static final String LANGUAGE = Locale.GERMAN.getLanguage();
 
-  private final TheTVDB theTVDB;
+  private final TheTVDBApi theTVDB;
 
   private final static EGrabberType TYPE = EGrabberType.THETVDB;
 
   public TheTvDbGrabber() {
-    theTVDB = new TheTVDB(TheTvDbGrabber.API_KEY);
+    theTVDB = new TheTVDBApi(TheTvDbGrabber.API_KEY);
   }
 
   @Override
