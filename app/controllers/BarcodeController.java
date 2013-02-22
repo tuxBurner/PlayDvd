@@ -16,9 +16,11 @@ import play.mvc.Security;
 import play.mvc.WebSocket;
 import views.html.barcode.barcodescanner;
 
+import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -84,12 +86,7 @@ public class BarcodeController extends Controller {
                 Logger.error("An error happend while reading the image.", e);
                 out.write("error");
               }
-
-
             }
-
-
-
           }
         });
 
