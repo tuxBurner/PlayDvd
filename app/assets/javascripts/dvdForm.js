@@ -128,6 +128,9 @@ var eanPickExistingMovie = function(eanNr, movieId) {
  * @param selector
  */
 var createMovieDropDown = function(selector) {
+
+  var cssClassToAdd = $(selector).attr("class");
+
   $(selector).select2({
     placeholder: {title: "Search for a movie", id: ""},
     allowClear: true,
@@ -149,7 +152,7 @@ var createMovieDropDown = function(selector) {
     },
     formatResult: movieFormatResult,
     formatSelection: movieFormatSelection,
-    containerCssClass: "span6", // apply css that makes the dropdown taller
+    containerCssClass: cssClassToAdd,
     escapeMarkup: function (m) { return m; } // we do not want to escape markup since we are displaying html in results
   });
 }
