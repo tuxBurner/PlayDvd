@@ -53,11 +53,33 @@ public class AmazonMovieLookuper {
   }
 
   /**
-   * Looksup a movie via amaton ws
+   * Looksup a movie via amazon ws and the asinnr
+   * @param asinNr
+   * @return
+   */
+  public static AmazonResult lookupByAsin(final String asinNr) {
+    return searchByID(asinNr,null);
+  }
+
+
+  /**
+   * Looksup a movie via amazon ws and the ean nr
    * @param eanNr
    * @return
    */
   public static AmazonResult lookUpByEanNR(final String eanNr) {
+    final Map<String,String> params = new HashMap<String, String>();
+    params.put("IdType", "EAN");
+    return searchByID(eanNr,params);
+  }
+
+  /**
+   * Searches the amazon ws for a movie by the given id.
+   * @param id
+   * @param params
+   * @return
+   */
+  private static AmazonResult searchByID(final String id,Map<String,String> params) {
     String awsEndPoint = ConfigFactory.load().getString("dvddb.amazon.endpoint");
     if(StringUtils.isEmpty(awsEndPoint) == true) {
       if(Logger.isErrorEnabled() == true) {
@@ -84,17 +106,16 @@ public class AmazonMovieLookuper {
     try {
       SignedRequestsHelper helper = SignedRequestsHelper.getInstance(awsEndPoint, awsKeyId, awsSecretKey);
 
+      if(params == null) {
+        params = new HashMap<String, String>();
+      }
 
-      Map<String, String> params = new HashMap<String, String>();
       params.put("Service", "AWSECommerceService");
       params.put("Version", "2011-08-02");
       params.put("Operation", "ItemLookup");
-      params.put("ItemId", eanNr);
+      params.put("ItemId", id);
       params.put("ResponseGroup", "ItemAttributes");
       params.put("AssociateTag", "aztag-20");
-
-      // EAN SPECIFIC
-      params.put("IdType", "EAN");
       params.put("SearchIndex","DVD");
 
 

@@ -36,12 +36,15 @@
        }
 
        <div class="input-append">
-
+         <label>EAN Nr.:</label>
          <input type="text" name="eanNr" id="eanNr" class="span4" value="@dvdForm("eanNr").value"/>
          <button type="button" class="btn" onclick="openBarcodePopUp();"><i class="icon-barcode"></i></button>
          <button type="button" class="btn" onclick="openEANLookUp();"><i class="icon-search"></i></button>
        </div>
-       
+
+       <label>ASIN Nr.:</label>
+       <input type="text" name="asinNr" id="asinNr" class="span2" value="@dvdForm("asinNr").value"/>
+
        <label for="copyType">Type:</label>
        @for((copyType,index) <- helpers.DvdInfoHelper.getCopyTypes.zipWithIndex) {
          <input type="radio" id="copyType" name="copyType" value="@copyType" @if(mode == DvdController.DVD_FORM_EDIT_MODE && copyType == dvdForm("copyType").value() || mode == DvdController.DVD_FORM_ADD_MODE && dvdForm("copyType").value() == null &&  (index == 0 || copyType.equals(User.getCurrentUser().defaultCopyType))|| mode == DvdController.DVD_FORM_ADD_MODE && dvdForm("copyType").value() != null && copyType == dvdForm("copyType").value()){ checked="checked" } /><span><img alt="@copyType" src="@routes.Assets.at("images/copy_type/"+copyType+".png")" /></span>

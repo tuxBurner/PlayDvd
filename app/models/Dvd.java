@@ -77,6 +77,11 @@ public class Dvd extends Model {
   public String eanNr;
 
   /**
+   * The Amazon asin nr of the copy
+   */
+  public String asinNr;
+
+  /**
    * The movie which is on the dvd
    */
   @ManyToOne(fetch = FetchType.LAZY)
@@ -160,6 +165,7 @@ public class Dvd extends Model {
     dvd.movie = movie;
     dvd.hullNr = dvdForm.hullNr;
     dvd.eanNr = dvdForm.eanNr;
+    dvd.asinNr = dvdForm.asinNr;
 
     if (dvd.id == null) {
       dvd.createdDate = new Date().getTime();

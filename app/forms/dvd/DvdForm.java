@@ -49,6 +49,8 @@ public class DvdForm {
 
   public String eanNr;
 
+  public String asinNr;
+
   /**
    * Transforms an {@link AmazonResult} and movieId to a dvdForm
    * @param amazonResult
@@ -59,6 +61,7 @@ public class DvdForm {
     dvdForm.ageRating = amazonResult.rating;
     dvdForm.copyType = amazonResult.copyType;
     dvdForm.eanNr = eanNr;
+    dvdForm.asinNr = amazonResult.asin;
     dvdForm.movieId = movieId;
 
     return  dvdForm;
@@ -80,6 +83,7 @@ public class DvdForm {
     dvdForm.ownerName = dvd.owner.userName;
     dvdForm.hullNr = dvd.hullNr;
     dvdForm.eanNr = dvd.eanNr;
+    dvdForm.asinNr =  dvd.asinNr;
 
     final Set<DvdAttribute> dvdAttrs = dvd.attributes;
     for (final DvdAttribute dvdAttibute : dvdAttrs) {
