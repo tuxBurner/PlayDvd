@@ -1,8 +1,8 @@
 $(function() {
 	
-	$('.coverwrapper em').live('mouseenter',function() {
+	$(document).on('mouseenter','.coverwrapper em',function() {
 	      $('.dvdInfo',this).fadeIn(150);
-	    }).live('mouseleave',function() {
+	    }).on('mouseleave',function() {
 	      $('.dvdInfo',this).fadeOut(150);
 	    });
 	
@@ -10,7 +10,7 @@ $(function() {
 	 * INFO DIALOG
 	 */
 	// open the info dialog when the user clicks on the info button
-	$('.coverwrapper em').live('click',function(event){
+	$(document).on('click','.coverwrapper em',function(event){
 		displayAjaxDialog({
 			route: jsRoutes.controllers.Dashboard.displayDvd($(this).data('dvdId')),
         	title: 'Is set from the displaydvdSacla',
@@ -25,7 +25,7 @@ $(function() {
 	/**
 	 * LEND DIALOG
 	 */
-	$('.lendDvdBtn').live('click',function(event){
+	$(document).on('click','.lendDvdBtn',function(event){
 		displayAjaxDialog({
 			route: jsRoutes.controllers.Dashboard.lendDialogContent($(this).data('dvdId')),
 	    	title: 'Delete DVD',
@@ -60,7 +60,7 @@ $(function() {
 		});
 	});
 	
-	$('.unlendDvdBtn').live('click',function(event){	
+	$(document).on('click','.unlendDvdBtn',function(event){
 		displayAjaxDialog({
 			route: jsRoutes.controllers.Dashboard.unLendDialogContent($(this).data('dvdId')),
 	    	title: 'Return DVD',
@@ -92,7 +92,7 @@ $(function() {
 	/**
 	 * DELETE DIALOG
 	 */		
-	$('.deleteDvdBtn').live('click',function(event){
+	$(document).on('click','.deleteDvdBtn',function(event){
 		displayAjaxDialog({
 			route: jsRoutes.controllers.Dashboard.deleteDialogContent($(this).data('dvdId')),
 	    	title: 'Delete DVD',

@@ -23,25 +23,25 @@
 
       <div>     
        <label for="searchFor"><i class="icon-search"></i></label>
-       <input type="text" class="input-medium search-query" name="searchFor" id="searchFor" value="@dvdSearchForm("searchFor").value()" />
+       <input type="text" class="input-medium search-query" name="searchFor" id="searchFor" value="@dvdSearchForm("searchFor").value" />
        
        <label for="searchGenre"><i class="icon-tag"></i></label>
-       <input type="hidden" name="genre" id="searchGenre" value="@dvdSearchForm("genre").value()" class="input-medium" data-placeholder="Genre"/>
+       <input type="hidden" name="genre" id="searchGenre" value="@dvdSearchForm("genre").value" class="input-medium" data-placeholder="Genre"/>
        
        <label for="searchOwner"><i class="icon-user"></i></label>
-       <input type="hidden" name="userName" id="searchOwner" value="@dvdSearchForm("userName").value()"  class="input-medium" data-placeholder="Owner"/>
+       <input type="hidden" name="userName" id="searchOwner" value="@dvdSearchForm("userName").value"  class="input-medium" data-placeholder="Owner"/>
        
-       <input type="hidden" name="ageRating" id="searchAgeRating" value="@dvdSearchForm("ageRating").value()" class="input-mini"  data-placeholder="Agerating"/>
+       <input type="hidden" name="ageRating" id="searchAgeRating" value="@dvdSearchForm("ageRating").value" class="input-mini"  data-placeholder="Agerating"/>
 
        <label for="searchOrderBy"><i class="icon-list"></i></label>
-       <input type="hidden" name="orderBy" id="searchOrderBy" value="@dvdSearchForm("orderBy").value()"  class="input-medium" data-placeholder="Order by"/>
+       <input type="hidden" name="orderBy" id="searchOrderBy" value="@dvdSearchForm("orderBy").value"  class="input-medium" data-placeholder="Order by"/>
        
        <label class="radio">
-         <input type="radio" name="orderHow" id="optionsRadios1" value="@forms.dvd.objects.EDvdListOrderHow.UP" @if(dvdSearchForm("orderHow").value().equals("UP")) { checked="" }>
+         <input type="radio" name="orderHow" id="optionsRadios1" value="@forms.dvd.objects.EDvdListOrderHow.UP" @if(dvdSearchForm("orderHow").value.equals("UP")) { checked="" }>
          <i class="icon-circle-arrow-up"></i>
        </label>
        <label class="radio">
-         <input type="radio" name="orderHow" id="optionsRadios2" value="@forms.dvd.objects.EDvdListOrderHow.DOWN" @if(dvdSearchForm("orderHow").value().equals("DOWN")) { checked="" }>
+         <input type="radio" name="orderHow" id="optionsRadios2" value="@forms.dvd.objects.EDvdListOrderHow.DOWN" @if(dvdSearchForm("orderHow").value.equals("DOWN")) { checked="" }>
          <i class="icon-circle-arrow-down"></i>
        </label>
        

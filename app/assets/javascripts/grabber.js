@@ -2,7 +2,7 @@ $(function() {
   /**
    * button in the popup will be always clickable
    */
-  $('#grabber_search_button').live('click',function() {
+  $(document).on('click','#grabber_search_button',function() {
     searchGrabber($('#grabber_search_input').val(),$('#grabberType').val(),$('#movieToEditId').val(),$('#grabberEanNr').val());
     return false;
   });
@@ -10,7 +10,7 @@ $(function() {
   /**
    * The user searches in the grabber poup
    */
-  $('.pickGrabberEntry').live('click',function() {
+  $(document).on('click','.pickGrabberEntry',function() {
     openGrabberMoviePopup($(this).data('grabberId'),$(this).data('grabberType'),$('#movieToEditId').val(),$('#grabberEanNr').val());
   });
 });

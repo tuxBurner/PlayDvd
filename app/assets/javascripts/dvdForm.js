@@ -1,7 +1,7 @@
 $(function() {
 	
-	createSelect2DeselectCreate('#box',avaibleBoxes);
-	createSelect2DeselectCreate('#collection',avaibleCollections);  
+	createSelect2DeselectCreate('#box',avaibleBoxes,"span6");
+	createSelect2DeselectCreate('#collection',avaibleCollections,"span6");
 	  /**
 	   * searching for a movie
 	   */
@@ -68,24 +68,6 @@ var openBarcodePopUp = function() {
   return false;
 }
 
-
-function movieFormatResult(movie) {
-    var markup = "<table class='movie-result'><tr>";
-    if (movie.hasPoster == true) {
-      markup += "<td class='movie-image'><img src='" + jsRoutes.controllers.Dashboard.streamImage(movie.id,'POSTER','SELECT2').url + "'/></td>";
-    }
-    markup += "<td class='movie-info'><div class='movie-title'>" + movie.title + "</div>";
-    markup += "</td></tr></table>"
-    return markup;
-}
-
-function movieFormatSelection(movie) {
-	if(movie.hasPoster == true) {
-	  return "<img class='flag' src='"+jsRoutes.controllers.Dashboard.streamImage(movie.id,'POSTER','TINY').url+"'/>" + movie.title;
-	} else {
-		return movie.title;
-	}
-}
 
 /**
  * Opens the ean lookup dialog
@@ -166,7 +148,38 @@ var createMovieDropDown = function(selector) {
       return callback(selectedMovie);
     },
     formatResult: movieFormatResult,
-    formatSelection: movieFormatSelection
+    formatSelection: movieFormatSelection,
+    containerCssClass: "span6", // apply css that makes the dropdown taller
+    escapeMarkup: function (m) { return m; } // we do not want to escape markup since we are displaying html in results
   });
 }
+
+/**
+* Formats the result if the backend returns an array of movies in the dropdown
+* @param movie
+* @returns {string}
+*/
+var movieFormatResult =  function(movie) {
+    var markup = "<table class='movie-result'><tr>";
+    if (movie.hasPoster == true) {
+      markup += "<td class='movie-image'><img src='" + jsRoutes.controllers.Dashboard.streamImage(movie.id,'POSTER','SELECT2').url + "'/></td>";
+    }
+    markup += "<td class='movie-info'><div class='movie-title'>" + movie.title + "</div>";
+    markup += "</td></tr></table>"
+    return markup;
+  }
+
+/**
+* Formats the selection of movies when they are selected in the movie dropdown
+* @param movie
+* @returns {*}
+*/
+var movieFormatSelection =    function (movie) {
+    if(movie.hasPoster == true) {
+      return "<img class='flag' src='"+jsRoutes.controllers.Dashboard.streamImage(movie.id,'POSTER','TINY').url+"'/>" + movie.title;
+    } else {
+      return movie.title;
+    }
+  }
+
 

@@ -19,6 +19,8 @@ $(function () {
     }
 
     $('#modal .modal-body').css('background-image', 'none');
+
+    $("html").css("overflow", "auto"); //for enable
   });
 
 });
@@ -72,6 +74,10 @@ function displayAjaxDialog(options) {
  * @param options
  */
 function displayDialog(options) {
+
+  //prevent scrolling off the back window
+  $("html").css("overflow", "hidden"); // for disable
+
   $('#modal').data('cssClassToAdd', options.cssClass);
   if (options.cssClass != null) {
     $('#modal').addClass(options.cssClass);
@@ -107,6 +113,7 @@ function displayDialog(options) {
  * closes the dialog
  */
 function closeDialog() {
+  $("html").css("overflow", "auto"); //for enable
   $('#modal').modal('hide')
 }
 
@@ -118,14 +125,18 @@ function closeDialog() {
  * @param allowClear
  * @param formatFunc
  */
-function createSelect2Deselect(jqSelector, dataObj, formatFunc, allowClear) {
+var createSelect2Deselect = function(jqSelector, dataObj, formatFunc, allowClear) {
+
+  var cssClassToAdd = $(jqSelector).attr("class");
+
   $(jqSelector).select2({
     allowClear: (allowClear == null || allowClear == true) ? true : false,
+    escapeMarkup: function (m) { return m; }, // we do not want to escape markup since we are displaying html in results
     formatSelection: (formatFunc == null) ? select2Format : formatFunc,
     formatResult: (formatFunc == null) ? select2Format : formatFunc,
     data: prepareSelect2Data(dataObj),
-    initSelection: select2InitSelection
-
+    initSelection: select2InitSelection,
+    containerCssClass: cssClassToAdd
   });
 }
 
@@ -133,8 +144,12 @@ function createSelect2Deselect(jqSelector, dataObj, formatFunc, allowClear) {
  * Creates a select2 select where the user can create new entrance
  * @param jqSelector
  * @param dataObj
+ * @param cssClassToAdd
  */
-function createSelect2DeselectCreate(jqSelector, dataObj) {
+var createSelect2DeselectCreate = function(jqSelector, dataObj) {
+
+  var cssClassToAdd = $(jqSelector).attr("class");
+
   $(jqSelector).select2({
     allowClear: true,
     createSearchChoice: function (term, data) {
@@ -149,6 +164,7 @@ function createSelect2DeselectCreate(jqSelector, dataObj) {
     formatResult: select2Format,
     initSelection: select2InitSelection,
     data: prepareSelect2Data(dataObj),
+    containerCssClass: cssClassToAdd,
     matcher: function (term, text) {
       return text.toUpperCase().indexOf(term.toUpperCase()) == 0;
     }
@@ -162,8 +178,12 @@ function createSelect2DeselectCreate(jqSelector, dataObj) {
  * @param queryParams
  */
 function createSelect2TagAjaxBox(jqSelector, controllerAction, queryParams) {
+
+  var cssClassToAdd = $(jqSelector).attr("class");
+
   $(jqSelector).select2({
     multiple: true,
+    containerCssClass: cssClassToAdd,
     minimumInputLength: 3,
     initSelection: function (element, callback) {
       var data = [];
@@ -204,10 +224,6 @@ function prepareSelect2Data(dataObj) {
 
 function select2Format(item) {
   return item.text;
-}
-
-function select2GetId(object) {
-  return object;
 }
 
 function select2InitSelection(element, callback) {

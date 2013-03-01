@@ -11,11 +11,11 @@ var initializeMovieForm = function() {
 	  }
 	});
 
-	createSelect2TagAjaxBox("#genres", jsRoutes.controllers.MovieController.searchForMovieAttribute(),{ attrType: "GENRE"});
-	createSelect2TagAjaxBox("#actors", jsRoutes.controllers.MovieController.searchForMovieAttribute(),{ attrType: "ACTOR"});
+	createSelect2TagAjaxBox("#genres", jsRoutes.controllers.MovieController.searchForMovieAttribute(),{ attrType: "GENRE"},"span6");
+	createSelect2TagAjaxBox("#actors", jsRoutes.controllers.MovieController.searchForMovieAttribute(),{ attrType: "ACTOR"},"span6");
 
   //TODO: AJAX ME !!!
-	createSelect2DeselectCreate("#series",avaibleSeries);
+	createSelect2DeselectCreate("#series",avaibleSeries,"span6");
 	 
 	
 	// enable the button for  
@@ -34,7 +34,7 @@ var initializeMovieForm = function() {
   /**
    * The user wants to refresh the data via the grabber information he used before
    */
-  $('#grabberRefetchButton').live('click',function() {
+  $(document).on('click','#grabberRefetchButton',function() {
     openGrabberMoviePopup($('#grabberId').val(),$('#grabberType').val(),$('#movieId').val(),null);
   });
 
@@ -120,8 +120,6 @@ function submitMovieForm(formParams, mode) {
       $('#newMovieFormWrapper').html(err.responseText).show();
     }
   );
-
-
 };
 
 

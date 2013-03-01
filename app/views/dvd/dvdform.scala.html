@@ -11,7 +11,7 @@
      var avaibleCollections = @Html(DvdAttribute.getAllByTypeAsJson(EDvdAttributeType.COLLECTION));
      var selectedMovie = @Html(forms.dvd.DvdForm.getSelectedMovieAsJson(dvdForm("movieId").value()));
 
-      var avaibleSeries = @Html(models.MovieAttribute.getAvaibleAttributesAsJson(EMovieAttributeType.MOVIE_SERIES));
+     var avaibleSeries = @Html(models.MovieAttribute.getAvaibleAttributesAsJson(EMovieAttributeType.MOVIE_SERIES));
    //-->
   </script>
 
@@ -32,11 +32,12 @@
              
      
        @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
-         <input type="hidden" name="dvdId" id="dvdId" value="@dvdForm("dvdId").value()"/>
+         <input type="hidden" name="dvdId" id="dvdId" value="@dvdForm("dvdId").value"/>
        }
 
        <div class="input-append">
-         <input type="text" name="eanNr" id="eanNr" class="span4" value="@dvdForm.get.eanNr"/>
+
+         <input type="text" name="eanNr" id="eanNr" class="span4" value="@dvdForm("eanNr").value"/>
          <button type="button" class="btn" onclick="openBarcodePopUp();"><i class="icon-barcode"></i></button>
          <button type="button" class="btn" onclick="openEANLookUp();"><i class="icon-search"></i></button>
        </div>
@@ -57,14 +58,14 @@
        <div class="clearfix">
          <label for="box">Box:</label>
          <div class="input">
-           <input type="hidden" name="box" id="box" value="@dvdForm("box").value()" class="span5" data-placeholder="Select a dvd box"/>
+           <input type="hidden" name="box" id="box" value="@dvdForm("box").value" class="span5" data-placeholder="Select a dvd box"/>
          </div>
        </div>
 
        <div class="clearfix">
          <label for="collection">Collection:</label>
          <div class="input">
-           <input type="hidden" name="collection" id="collection" value="@dvdForm("collection").value()" class="span5" data-placeholder="Select a collection"/>
+           <input type="hidden" name="collection" id="collection" value="@dvdForm("collection").value" class="span5" data-placeholder="Select a collection"/>
          </div>
        </div>
 
