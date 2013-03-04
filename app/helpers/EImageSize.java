@@ -6,7 +6,8 @@ public enum EImageSize {
   GRABBER_POSTER_SMALL(125, 125),
   GRABBER_BACKDROP_SMALL(290, 163),
   SELECT2(60, 80),
-  TINY(25, 25);
+  TINY(25, 25),
+  BACKCKDROP_POPUP_SIZE(1024,768);
 
   private final int width;
 
