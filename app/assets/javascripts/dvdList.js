@@ -2,7 +2,7 @@ $(function() {
 	
 	$(document).on('mouseenter','.coverwrapper em',function() {
 	      $('.dvdInfo',this).fadeIn(150);
-	    }).on('mouseleave',function() {
+	    }).on('mouseleave','.coverwrapper em',function() {
 	      $('.dvdInfo',this).fadeOut(150);
 	    });
 	
