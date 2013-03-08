@@ -33,8 +33,8 @@ $(function() {
 	    	closeButton: true,
 	    	buttons: {
 	    		"Lend" : {
-	    			icon: "icon-trash",
-	    			cssClass: "btn-danger",
+	    			icon: "icon-share",
+	    			cssClass: "btn-warning",
 	    			callback: function() {
 	    				var userVal = $('#lendToUser').val();
 	    				var freeVal = $('#freeName').val();
@@ -49,7 +49,8 @@ $(function() {
 	    				  $("#lendDvdId").val()),
 	    				  {"userName" : userVal, "freeName" : freeVal, "alsoOthersInHull" :  lendOtherInHull},
 	    			      function(data){
-	    				    alert('aww');
+                    //TODO: make me load a route
+	    				      window.location.reload();
 	    				   },
 	    				   function(err) {
 	    				  });
@@ -68,14 +69,15 @@ $(function() {
 	    	closeButton: true,
 	    	buttons: {
 	    		"Unlend" : {
-	    			icon: "icon-trash",
-	    			cssClass: "btn-danger",
+	    			icon: "icon-download",
+	    			cssClass: "btn-warning",
 	    			callback: function() {
 	    				var lendOtherInHull = ($('#alsoOthersInHull').attr('checked') == 'checked') ? "true" : "false" ;
 						pAjax(jsRoutes.controllers.Dashboard.unlendDvd(
 						  $("#unlendDvdId").val()),{"alsoOthersInHull" :  lendOtherInHull},
 					      function(data){
-						    alert('aww');
+                  //TODO: make me load a route
+                  window.location.reload();
 						   },
 						   function(err) {
 						  });
