@@ -14,7 +14,8 @@ $(function() {
 		displayAjaxDialog({
 			route: jsRoutes.controllers.Dashboard.displayDvd($(this).data('dvdId')),
         	title: 'Is set from the displaydvdSacla',
-        	cssClass:	'dvdInfoModal'
+        	cssClass:	'dvdInfoModal',
+          onClose: function() { $('#modal .modal-body').css('background-image', 'none'); }
 		});
 	  return false;		
 	});

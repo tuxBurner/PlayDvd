@@ -20,7 +20,7 @@
   } else {
   <div class="row">
     <h4>Displaying @dvdPage.page.getDisplayXtoYofZ(" to "," of ") DVD's</h4>
-    
+
     @dvdlistnav(dvdPage)
  
     <ul class="coverlist">
@@ -41,8 +41,8 @@
                      -> @if(dvd.borrower != null){ @dvd.borrower.userName } else { @dvd.borrowerName }
                    }
                  </span>
-              </div>  
-              <div class="rateWrapper"><img  src="@routes.Assets.at("images/agerating/"+DvdAttribute.getAgeRatingAttribute(dvd)+".gif")" /></div>
+              </div>
+              <div class="rateWrapper"><img  class="img-rounded" src="@routes.Assets.at("images/agerating/"+DvdAttribute.getAgeRatingAttribute(dvd)+".gif")" /></div>
             </em>	
             <div class="btn-group dvdBtnGrp">
               @if(dvd.owner.userName == username) {

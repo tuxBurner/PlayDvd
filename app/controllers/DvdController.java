@@ -102,7 +102,6 @@ public class DvdController extends Controller {
   /**
    * Searches a movie via amazon with the given eanNr
    * @param eanNr the ean nr to lookup
-   * @param dvdId if not null this means we edit a dvd
    * @return
    */
   public static Result searchEanNr(final String eanNr) {
@@ -178,6 +177,7 @@ public class DvdController extends Controller {
       }
       return badRequest();
     }
+
 
     final Form<DvdForm> form = Form.form(DvdForm.class);
     final DvdForm dvdForm = DvdForm.eanAndMovieToDvdForm(amazonResult,movieId,eanNr);
