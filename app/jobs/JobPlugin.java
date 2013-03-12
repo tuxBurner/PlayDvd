@@ -50,7 +50,13 @@ public class JobPlugin extends Plugin {
         final Class<AbstractJob> abstractJobClass = (Class<AbstractJob>) clazz;
 
         final Constructor<AbstractJob> constructor = abstractJobClass.getConstructor();
+        if(constructor == null) {
+          continue;
+        }
         final AbstractJob newInstance = constructor.newInstance();
+        if(newInstance == null) {
+          continue;
+        }
         jobs.add(newInstance);
 
       } catch (final NoSuchMethodException e) {
