@@ -62,6 +62,7 @@ var openBarcodePopUp = function() {
     ajaxParams : null,
     title: '<i class="icon-barcode"></i> Barcodescanner',
     onOpen: closeWaitDiaLog,
+    onClose: function() { stopVideoCapture(); },
     cssClass: "barcodeModal"
   });
 

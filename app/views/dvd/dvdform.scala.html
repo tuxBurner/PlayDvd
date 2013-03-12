@@ -37,7 +37,7 @@
 
        <div class="input-append">
          <label>EAN Nr.:</label>
-         <input type="text" name="eanNr" id="eanNr" class="span4" value="@dvdForm("eanNr").value"/>
+         <input type="text" name="eanNr" id="eanNr" class="span2" value="@dvdForm("eanNr").value"/>
          <button type="button" class="btn" onclick="openBarcodePopUp();"><i class="icon-barcode"></i></button>
          <button type="button" class="btn" onclick="openEANLookUp();"><i class="icon-search"></i></button>
        </div>
@@ -45,15 +45,17 @@
        <label>ASIN Nr.:</label>
        <input type="text" name="asinNr" id="asinNr" class="span2" value="@dvdForm("asinNr").value"/>
 
+
        <label for="copyType">Type:</label>
        @for((copyType,index) <- helpers.DvdInfoHelper.getCopyTypes.zipWithIndex) {
-         <input type="radio" id="copyType" name="copyType" value="@copyType" @if(mode == DvdController.DVD_FORM_EDIT_MODE && copyType == dvdForm("copyType").value() || mode == DvdController.DVD_FORM_ADD_MODE && dvdForm("copyType").value() == null &&  (index == 0 || copyType.equals(User.getCurrentUser().defaultCopyType))|| mode == DvdController.DVD_FORM_ADD_MODE && dvdForm("copyType").value() != null && copyType == dvdForm("copyType").value()){ checked="checked" } /><span><img alt="@copyType" src="@routes.Assets.at("images/copy_type/"+copyType+".png")" /></span>
+         <input type="radio" id="copyType" name="copyType" value="@copyType" @if(mode == DvdController.DVD_FORM_EDIT_MODE && copyType == dvdForm("copyType").value() || mode == DvdController.DVD_FORM_ADD_MODE && dvdForm("copyType").value() == null &&  (index == 0 || copyType.equals(User.getCurrentUser().defaultCopyType))|| mode == DvdController.DVD_FORM_ADD_MODE && dvdForm("copyType").value() != null && copyType == dvdForm("copyType").value()){ checked="checked" } /><span><img class="img-rounded" alt="@copyType" src="@routes.Assets.at("images/copy_type/"+copyType+".png")" /></span>
        }
+
        
        
        <label for="ageRating">Rating:</label>
        @for((rating,index) <- helpers.DvdInfoHelper.getAgeRatings.zipWithIndex) {
-         <input type="radio" id="ageRating" name="ageRating" value="@rating" @if(mode == DvdController.DVD_FORM_EDIT_MODE && rating == dvdForm("ageRating").value() || mode == DvdController.DVD_FORM_ADD_MODE && (rating == dvdForm("ageRating").value() || index == 0)){ checked="checked" } /><span><img alt="@rating" src="@routes.Assets.at("images/agerating/"+rating+".gif")" /></span>
+         <input type="radio" id="ageRating" name="ageRating" value="@rating" @if(mode == DvdController.DVD_FORM_EDIT_MODE && rating == dvdForm("ageRating").value() || mode == DvdController.DVD_FORM_ADD_MODE && (rating == dvdForm("ageRating").value() || index == 0)){ checked="checked" } /><span><img class="img-rounded" alt="@rating" src="@routes.Assets.at("images/agerating/"+rating+".gif")" /></span>
        }
 
        @inputText(dvdForm("hullNr"),'_label -> "Hull Nr.", 'class -> "span4")

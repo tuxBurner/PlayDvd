@@ -56,10 +56,12 @@
         @for((poster,index) <- displayMovie.posterUrls.zipWithIndex) {
           <li class="span3" style="height: 160px;">
             <div class="thumbnail" style="height: 160px;">
-              <img src="@routes.Dashboard.streamExternalImage()?url=@poster.url&imgSize=GRABBER_POSTER_SMALL"/>
-              <div class="caption">
-                <input @if(index == 0){checked="checked"} type="radio" name="grabberPosterId" value="@poster.id"/>
-              </div>
+              <label>
+                <img class="img-rounded" src="@routes.Dashboard.streamExternalImage()?url=@poster.url&imgSize=GRABBER_POSTER_SMALL"/>
+                <div class="caption">
+                  <input @if(index == 0){checked="checked"} type="radio" name="grabberPosterId" value="@poster.id"/>
+                </div>
+              </label>
             </div>
           </li>
         }
@@ -75,10 +77,12 @@
         @for((backdrop,index) <- displayMovie.backDropUrls.zipWithIndex) {
           <li class="span4" style="height: 190px;">
             <div class="thumbnail" style="height: 190px;">
-              <img src="@routes.Dashboard.streamExternalImage()?url=@backdrop.url&imgSize=GRABBER_BACKDROP_SMALL" />
-              <div class="caption">
-                <input @if(index == 0){checked="checked"} type="radio" name="grabberBackDropId" value="@backdrop.id"/>
-              </div>
+              <label>
+                <img class="img-rounded" src="@routes.Dashboard.streamExternalImage()?url=@backdrop.url&imgSize=GRABBER_BACKDROP_SMALL" />
+                <div class="caption">
+                  <input @if(index == 0){checked="checked"} type="radio" name="grabberBackDropId" value="@backdrop.id"/>
+                </div>
+              </label>
             </div>
           </li>
         }

@@ -5,7 +5,7 @@
 $(function () {
 
   // do some clean up when the modal is hidden
-  $('#modal').on('hidden', function () {
+  $('#modal').on('hide', function () {
 
     $('#modalLabel').html("");
     $('#modal .modal-body').html("");
@@ -18,9 +18,11 @@ $(function () {
       $('#modal').removeClass(oldCssClassToAdd);
     }
 
-    $('#modal .modal-body').css('background-image', 'none');
+    //$('#modal .modal-body').css('background-image', 'none');
 
-    $("html").css("overflow", "auto"); //for enable
+    checkDialogCloseFunction();
+
+    $("html").css("overflow", "auto");
   });
 
 });
@@ -76,7 +78,7 @@ function displayAjaxDialog(options) {
 function displayDialog(options) {
 
   //prevent scrolling off the back window
-  $("html").css("overflow", "hidden"); // for disable
+  $("html").css("overflow", "hidden");
 
   $('#modal').data('cssClassToAdd', options.cssClass);
   if (options.cssClass != null) {
@@ -107,16 +109,33 @@ function displayDialog(options) {
   if (options.onOpen != null) {
     options.onOpen();
   }
+
+  if(options.onClose != null) {
+    $('#modal').data("onCloseFunction", options.onClose);
+  }
 }
 
 /**
  * closes the dialog
  */
 function closeDialog() {
-  $("html").css("overflow", "auto"); //for enable
+  $("html").css("overflow", "auto"); // enable scrollbars on html
   $('#modal').modal('hide')
 }
 
+
+
+/**
+ * Checks if the dialog has a close function set and if so calls it
+ *
+ */
+var checkDialogCloseFunction = function() {
+  var onCloseFunction = $('#modal').data("onCloseFunction");
+  if(onCloseFunction != null) {
+    onCloseFunction();
+  }
+  $('#modal').data("onCloseFunction",null);
+};
 
 /**
  * Creates a select2 select where the user can create new entrance
@@ -138,13 +157,12 @@ var createSelect2Deselect = function(jqSelector, dataObj, formatFunc, allowClear
     initSelection: select2InitSelection,
     containerCssClass: cssClassToAdd
   });
-}
+};
 
 /**
  * Creates a select2 select where the user can create new entrance
  * @param jqSelector
  * @param dataObj
- * @param cssClassToAdd
  */
 var createSelect2DeselectCreate = function(jqSelector, dataObj) {
 

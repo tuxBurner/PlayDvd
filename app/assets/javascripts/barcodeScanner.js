@@ -41,8 +41,8 @@ ws.onopen = function () {
   if (nativeWebcam == true) {
     startNativeWebcam();
   } else {
-    // use flaesh
-    startWecamFallback();
+    // use flash
+    startWebcamFallback();
   }
 }
 
@@ -64,12 +64,12 @@ var startNativeWebcam = function () {
     nativeMediaStream=stream;
     sizeNativeCanvas();
   }, function () {
-    startWecamFallback();
+    startWebcamFallback();
   });
 }
 
 /**
- * Sizes the canvas to the video so it doesn get crippeld
+ * Sizes the canvas to the video so it doesn't get crippled
  */
 function sizeNativeCanvas(){
   setTimeout(function(){
@@ -90,7 +90,7 @@ var sendNativeBC = function() {
 /**
  * Starts the fallback with flash
  */
-var startWecamFallback = function () {
+var startWebcamFallback = function () {
   $('#cameraWrapper').append('<div id="camera"></div>');
   $("#camera").webcam({
     width: 320,
@@ -163,10 +163,6 @@ ws.onmessage = function (e) {
     }
   } else {
     $('#eanNr').val(e.data);
-    if(nativeWebcam == true) {
-      nativeVideo.pause();
-      nativeMediaStream.stop();
-    }
     if (searchAfterScan == true) {
       openEANLookUp();
     } else {
@@ -176,6 +172,16 @@ ws.onmessage = function (e) {
   }
 }
 
+
+/**
+ * Stops the webcam access from the browser
+ */
+var stopVideoCapture= function () {
+  if(nativeWebcam == true) {
+    nativeVideo.pause();
+    nativeMediaStream.stop();
+  }
+};
 
 /**
  * Triggers the barcode event
