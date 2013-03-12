@@ -1,30 +1,19 @@
 package grabbers.amazon;
 
-import com.sun.org.apache.xpath.internal.XPathAPI;
+
 import com.typesafe.config.ConfigFactory;
-import com.typesafe.config.ConfigObject;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-
-import org.w3c.dom.NodeList;
-import org.w3c.dom.traversal.NodeIterator;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import play.Logger;
-
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import play.libs.XPath;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathFactory;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * User: tuxburner
@@ -131,9 +120,10 @@ public class AmazonMovieLookuper {
       DocumentBuilder db = dbf.newDocumentBuilder();
       Document doc = db.parse(requestUrl);
 
-      String title = XPathAPI.selectSingleNode(doc, "//Title").getTextContent();
 
-      String copyType = XPathAPI.selectSingleNode(doc, "//Binding").getTextContent().trim();
+      String title = getNodeContent(doc,"//Title");
+
+      String copyType = getNodeContent(doc,"//Binding");
       if(copyTypeMatches.containsKey(copyType) == false) {
         if(Logger.isErrorEnabled() == true) {
           Logger.error("No copytype matching configured for amazon copytype: "+copyType);
@@ -157,9 +147,8 @@ public class AmazonMovieLookuper {
       }
       title = StringUtils.trim(title);
 
-
-      String asin = XPathAPI.selectSingleNode(doc, "//ASIN").getTextContent().trim();
-      String rating = XPathAPI.selectSingleNode(doc, "//AudienceRating").getTextContent().trim();
+      String asin =  getNodeContent(doc,"//ASIN");
+      String rating = getNodeContent(doc, "//AudienceRating");
       if(ageRatingMatches.containsKey(rating) == false) {
         if(Logger.isErrorEnabled() == true) {
          Logger.error("No agerating matching configured for amazon rating: "+rating);
@@ -200,8 +189,24 @@ public class AmazonMovieLookuper {
       }
       return null;
     }
+  }
 
+  /**
+   * Gets the string content of a node via xpath
+   * @param doc
+   * @param xpath
+   * @return
+   */
+  private static String getNodeContent(final Document doc, final String xpath) {
+    Node node = XPath.selectNode(xpath, doc);
+    if(node == null) {
+      if(Logger.isDebugEnabled() == true) {
+        Logger.debug("Could not find node by xpath: " + xpath+ " in document: "+doc.toString());
+      }
+      return StringUtils.EMPTY;
+    }
 
+    return StringUtils.trimToEmpty(node.getTextContent());
 
   }
 
