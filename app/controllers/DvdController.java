@@ -4,10 +4,10 @@ import forms.MovieForm;
 import forms.dvd.DvdForm;
 import forms.grabbers.GrabberInfoForm;
 import grabbers.EGrabberType;
-import grabbers.GrabberException;
 import grabbers.IInfoGrabber;
 import grabbers.amazon.AmazonMovieLookuper;
 import grabbers.amazon.AmazonResult;
+import jsannotation.JSRoute;
 import models.Dvd;
 import models.Movie;
 import org.apache.commons.lang3.StringUtils;
@@ -104,6 +104,7 @@ public class DvdController extends Controller {
    * @param eanNr the ean nr to lookup
    * @return
    */
+  @JSRoute
   public static Result searchEanNr(final String eanNr) {
 
     AmazonResult result = null;
@@ -126,6 +127,7 @@ public class DvdController extends Controller {
    * @param grabberType
    * @return
    */
+  @JSRoute
   public static Result addMovieByGrabber(final String grabberType) {
     try {
     final Form<GrabberInfoForm> grabberInfoForm = Form.form(GrabberInfoForm.class).bindFromRequest();
@@ -156,6 +158,7 @@ public class DvdController extends Controller {
    *
    * @return
    */
+  @JSRoute
   public static Result showAddDvdByEanAndMovie(final String eanNr, final Long movieId) {
 
     if(StringUtils.isEmpty(eanNr) == true || movieId == null) {

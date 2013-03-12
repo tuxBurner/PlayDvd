@@ -11,6 +11,7 @@ import helpers.ImageHelper;
 import jgravatar.Gravatar;
 import jgravatar.GravatarDefaultImage;
 import jgravatar.GravatarRating;
+import jsannotation.JSRoute;
 import models.Dvd;
 import models.User;
 import net.coobird.thumbnailator.Thumbnails;
@@ -41,6 +42,7 @@ public class Dashboard extends Controller {
    * @param dvdId
    * @return
    */
+  @JSRoute
   public static Result displayDvd(final Long dvdId) {
     final Dvd dvd = Dvd.find.byId(dvdId);
 
@@ -58,6 +60,7 @@ public class Dashboard extends Controller {
    *
    * @return
    */
+  @JSRoute
   public static Result lendDialogContent(final Long dvdId) {
     // check if the user may see the dvd
     final String userName = Secured.getUsername();
@@ -78,6 +81,7 @@ public class Dashboard extends Controller {
    * @param dvdId
    * @return
    */
+  @JSRoute
   public static Result unLendDialogContent(final Long dvdId) {
     // check if the user may see the dvd
     final String userName = Secured.getUsername();
@@ -104,6 +108,7 @@ public class Dashboard extends Controller {
    * @param dvdId
    * @return
    */
+  @JSRoute
   public static Result lendDvd(final Long dvdId) {
 
     final Form<LendForm> form = Form.form(LendForm.class).bindFromRequest();
@@ -131,6 +136,7 @@ public class Dashboard extends Controller {
    * @param dvdId
    * @return
    */
+  @JSRoute
   public static Result unlendDvd(final Long dvdId) {
 
     final Form<UnLendForm> form = Form.form(UnLendForm.class).bindFromRequest();
@@ -150,6 +156,7 @@ public class Dashboard extends Controller {
    * @param dvdId
    * @return
    */
+  @JSRoute
   public static Result deleteDialogContent(final Long dvdId) {
 
     final String userName = Secured.getUsername();
@@ -167,6 +174,7 @@ public class Dashboard extends Controller {
    * @param dvdId
    * @return
    */
+  @JSRoute
   public static Result deleteDvd(final Long dvdId) {
     final String userName = Secured.getUsername();
     final Dvd dvdForUser = Dvd.getDvdForUser(dvdId, userName);
@@ -188,6 +196,7 @@ public class Dashboard extends Controller {
    * @param imgSize
    * @return
    */
+  @JSRoute
   public static Result streamImage(final Long dvdId, final String imgType, final String imgSize) {
     final File file = ImageHelper.getImageFile(dvdId, EImageType.valueOf(imgType), EImageSize.valueOf(imgSize));
     if (file != null) {

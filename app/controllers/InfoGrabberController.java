@@ -1,11 +1,9 @@
 package controllers;
 
-import forms.MovieForm;
-import forms.grabbers.GrabberInfoForm;
 import grabbers.*;
+import jsannotation.JSRoute;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
-import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
@@ -29,6 +27,7 @@ public class InfoGrabberController extends Controller {
    * @param searchTerm
    * @return
    */
+  @JSRoute
   public static Result searchGrabber(final String searchTerm, final String grabberType) {
 
     final Long movieToEditId = InfoGrabberController.getMovieToEditIdFromReq();
@@ -99,6 +98,7 @@ public class InfoGrabberController extends Controller {
    * @param grabberType
    * @return
    */
+  @JSRoute
   public static Result getMovieById(final String grabberId, final String grabberType) {
 
     try {

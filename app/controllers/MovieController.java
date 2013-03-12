@@ -7,6 +7,7 @@ import grabbers.EGrabberType;
 import grabbers.GrabberException;
 import grabbers.IInfoGrabber;
 import helpers.RequestToCollectionHelper;
+import jsannotation.JSRoute;
 import models.EMovieAttributeType;
 import models.Movie;
 import models.MovieAttribute;
@@ -38,6 +39,7 @@ public class MovieController extends Controller {
    *
    * @return
    */
+  @JSRoute
   public static Result showAddMovieForm() {
     final Form<MovieForm> form = Form.form(MovieForm.class);
     return Results.ok(movieform.render(form.fill(new MovieForm()), DvdController.DVD_FORM_ADD_MODE));
@@ -48,6 +50,7 @@ public class MovieController extends Controller {
    *
    * @return
    */
+  @JSRoute
   public static Result showEditMovieForm(final Long movieId) {
 
     final Movie movie = Movie.find.byId(movieId);
@@ -67,6 +70,7 @@ public class MovieController extends Controller {
    *
    * @return
    */
+  @JSRoute
   public static Result addOrEditMovie(final String mode) {
 
     final Map<String, String> map = RequestToCollectionHelper.requestToFormMap(Controller.request(), "actors", "genres");
@@ -96,6 +100,7 @@ public class MovieController extends Controller {
    * @param mode mode if we add or edit the movie
    * @return
    */
+  @JSRoute
   public static Result addMovieByGrabberId(final String mode, final String grabberType) {
 
     try {
@@ -127,7 +132,7 @@ public class MovieController extends Controller {
    * @param term
    * @return
    */
-
+  @JSRoute
   public static Result searchMoviesForDvdSelect(final String term) {
 
     final List<MovieSelect2Value> result = new ArrayList<MovieSelect2Value>();
@@ -152,6 +157,7 @@ public class MovieController extends Controller {
    * @param attrType
    * @return
    */
+  @JSRoute
   public static Result searchForMovieAttribute(final String term, final String attrType) {
     try {
       final EMovieAttributeType eattrType = EMovieAttributeType.valueOf(attrType);
@@ -171,6 +177,7 @@ public class MovieController extends Controller {
    * @param grabberType
    * @return
    */
+  @JSRoute
   public static Result checkIfMovieAlreadyExists(final String grabberId, final String grabberType) {
     final Gson gson = new Gson();
 

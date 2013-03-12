@@ -1,2 +1,3 @@
+1000:jsannotation.JSRoutesPlugin
 1500:com.typesafe.plugin.CommonsMailerPlugin
 5000:jobs.JobPlugin

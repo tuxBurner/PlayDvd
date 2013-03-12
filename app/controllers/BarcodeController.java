@@ -7,6 +7,7 @@ import com.google.zxing.NotFoundException;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.oned.EAN13Reader;
 import helpers.BufferedImageLuminanceSource;
+import jsannotation.JSRoute;
 import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 import play.libs.F;
@@ -37,8 +38,8 @@ public class BarcodeController extends Controller {
    * This initializes the barcodeScanner view
    * @return
    */
+  @JSRoute
   public static Result displayBarcodeScaner() {
-
     return ok(barcodescanner.render());
   }
 
