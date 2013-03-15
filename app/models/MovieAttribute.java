@@ -77,24 +77,7 @@ public class MovieAttribute extends Model {
     return findList;
   }
 
-  /**
-   * Gets all the {@link MovieAttribute} as a {@link List} of {@link String}
-   * 
-   * @param type
-   * @return
-   */
-  public static List<String> getAllByTypeAsValue(final EMovieAttributeType type) {
-    final List<MovieAttribute> allByType = MovieAttribute.getAllByType(type);
-    final List<String> returnVal = new ArrayList<String>();
-    returnVal.add("");
-    if (CollectionUtils.isEmpty(allByType) == false) {
-      for (final MovieAttribute attr : allByType) {
-        returnVal.add(attr.value);
-      }
-    }
 
-    return returnVal;
-  }
 
   /**
    * Creates a {@link MovieAttribute} by the given {@link EMovieAttributeType}
@@ -137,21 +120,21 @@ public class MovieAttribute extends Model {
         continue;
       }
 
-      MovieAttribute dvdAttibuteToAdd = null;
+      MovieAttribute movieAttributeToAdd = null;
 
-      for (final MovieAttribute dvdAttibute : dbAttributes) {
-        if (dvdAttibute.value.equals(formAttr) == true) {
-          dvdAttibuteToAdd = dvdAttibute;
+      for (final MovieAttribute dbAttribute : dbAttributes) {
+        if (dbAttribute.value.equals(formAttr) == true) {
+          movieAttributeToAdd = dbAttribute;
           break;
         }
       }
 
       // attr does not exists in the db ? we will create it
-      if (dvdAttibuteToAdd == null) {
-        dvdAttibuteToAdd = MovieAttribute.createAttribute(type, formAttr);
+      if (movieAttributeToAdd == null) {
+        movieAttributeToAdd = MovieAttribute.createAttribute(type, formAttr);
       }
 
-      attributes.add(dvdAttibuteToAdd);
+      attributes.add(movieAttributeToAdd);
     }
 
     return attributes;
