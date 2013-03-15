@@ -6,10 +6,7 @@ import org.apache.commons.collections.ListUtils;
 import org.apache.commons.collections.MapUtils;
 import play.Logger;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Holds the {@link CacheShoppingCartItem} items and provides some methods on it
@@ -104,6 +101,29 @@ public class CacheShoppingCart {
     return returnList;
   }
 
+  /**
+   * This creates a {@link Map} where the key is the name of the user owning the copy
+   * @return
+   */
+  public Map<String,List<CacheShoppingCartItem>> getItemsSortedByUser() {
+    final Map<String,List<CacheShoppingCartItem>> returnVal = new HashMap<String, List<CacheShoppingCartItem>>();
+
+    for(final CacheShoppingCartItem item :  items) {
+      final String ownerName = item.copyItem.owner.userName;
+      if(returnVal.containsKey(ownerName) == false) {
+        returnVal.put(ownerName,new ArrayList<CacheShoppingCartItem>());
+      }
+
+      returnVal.get(ownerName).add(item);
+    }
+
+    return returnVal;
+  }
+
+  /**
+   * Returns the amount of {@link CacheShoppingCartItem} in the cart
+   * @return
+   */
   public int getSize() {
     return items.size();
   }

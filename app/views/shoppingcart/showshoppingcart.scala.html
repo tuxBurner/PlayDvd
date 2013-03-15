@@ -5,5 +5,20 @@
 }
 
 @mainmenu("Dvd Database - Shoppingcart",scripts,Html("")) {
+  <div class="row well">
 
+    <fieldset>
+      <legend><i class="icon-shopping-cart"></i> Shoppingcart</legend>
+
+      @if(shoppingCart.getSize == 0) {
+        <div class="alert alert-error">
+          <strong>No Items in the shoppingcart.</strong>
+        </div>
+      } else {
+
+      }
+
+    </fieldset>
+  </div>
 }
+
