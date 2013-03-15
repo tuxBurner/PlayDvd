@@ -26,11 +26,11 @@ import java.util.Set;
  */
 public class JSRoutesPlugin extends Plugin {
 
-  private final Application application;
+
   public static Set<Router.JavascriptReverseRoute> jsRoutes = new HashSet<Router.JavascriptReverseRoute>();
 
   public JSRoutesPlugin(final Application application) {
-    this.application = application;
+
   }
 
 
@@ -48,7 +48,7 @@ public class JSRoutesPlugin extends Plugin {
 
     if (methods != null && methods.size() > 0) {
       if (Logger.isDebugEnabled() == true) {
-        Logger.debug("Found: " + methods.size() + " methods annotatd with " + JSRoute.class.getCanonicalName());
+        Logger.debug("Found: " + methods.size() + " methods annotated with " + JSRoute.class.getCanonicalName());
       }
 
       final Class<routes.javascript> staticJsClass = routes.javascript.class;
