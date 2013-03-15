@@ -11,8 +11,8 @@ var initializeMovieForm = function() {
 	  }
 	});
 
-	createSelect2TagAjaxBox("#genres", jsRoutes.controllers.MovieController.searchForMovieAttribute(),{ attrType: "GENRE"},"span6");
-	createSelect2TagAjaxBox("#actors", jsRoutes.controllers.MovieController.searchForMovieAttribute(),{ attrType: "ACTOR"},"span6");
+	createSelect2TagAjaxBox("#genres", jsRoutes.controllers.MovieController.searchForMovieAttribute(),{ attrType: "GENRE"});
+	createSelect2TagAjaxBox("#actors", jsRoutes.controllers.MovieController.searchForMovieAttribute(),{ attrType: "ACTOR"});
 
   //TODO: AJAX ME !!!
 	createSelect2DeselectCreate("#series",avaibleSeries,"span6");
@@ -84,6 +84,7 @@ var initializeMovieForm = function() {
       );
       return false;
     } else {
+      console.error(formParams);
       submitMovieForm(formParams,mode);
     }
 	});

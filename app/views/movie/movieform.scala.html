@@ -9,7 +9,7 @@
     <legend>@if(mode == DvdController.DVD_FORM_EDIT_MODE) {Edit Move} else {Add a Movie}</legend>
      
          @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
-           <input type="hidden" name="movieId" id="movieId" value="@movieForm("movieId").value()"/>
+           <input type="hidden" name="movieId" id="movieId" value="@movieForm("movieId").value"/>
          }
          
          <div class="form-actions">
@@ -45,7 +45,7 @@
          
          
          <label for="genres">Genres</label>
-         <input type="hidden" name="genres" id="genres"  class="span11" value="@forms.MovieForm.getDvdFormAttributesAsString(movieForm("genres").value())"/>
+         <input type="hidden" name="genres" id="genres"  class="span11" value="@forms.MovieForm.getDvdFormAttributesAsString(movieForm("genres").value)" />
 
          
          <hr />

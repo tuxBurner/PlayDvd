@@ -64,14 +64,17 @@
         <p><i class="icon-spinner icon-spin icon-3x"></i></p>
       </div>
     </div>
-    
+
     <script src="@routes.WebJarAssets.at("jquery/1.9.1/jquery.min.js")" type="text/javascript"></script>
     <script src="@routes.Assets.at("jquerypp/1.0b2/lib/jquery.form_params.js")" type="text/javascript"></script>
     <script src="@routes.WebJarAssets.at("bootstrap/2.3.0/js/bootstrap.min.js")" type="text/javascript"></script>
 
     
     <!-- select 2 is needed  -->
-    <script src="@routes.WebJarAssets.at("select2/3.3.1/select2.min.js")" type="text/javascript"></script>
+    <!-- TOOKED OUT IS BROKEN -->
+    <!--script src="@routes.WebJarAssets.at("select2/3.3.1/select2.min.js")" type="text/javascript"></script-->
+
+    <script src="@routes.Assets.at("javascripts/select2.min.js")" type="text/javascript"></script>
         
     <!-- we need all the routes for js -->
     <script type="text/javascript" src="@routes.Application.jsRoutes"></script>

@@ -18,8 +18,6 @@ $(function () {
       $('#modal').removeClass(oldCssClassToAdd);
     }
 
-    //$('#modal .modal-body').css('background-image', 'none');
-
     checkDialogCloseFunction();
 
     $("html").css("overflow", "auto");
@@ -174,7 +172,6 @@ var createSelect2DeselectCreate = function(jqSelector, dataObj) {
       if ($(data).filter(function () {
         return this.localeCompare(term) === 0;
       }).length === 0) {
-        console.error(term);
         return {"id": term, "text": term};
       }
     },
@@ -196,17 +193,15 @@ var createSelect2DeselectCreate = function(jqSelector, dataObj) {
  * @param queryParams
  */
 function createSelect2TagAjaxBox(jqSelector, controllerAction, queryParams) {
-
   var cssClassToAdd = $(jqSelector).attr("class");
-
   $(jqSelector).select2({
     multiple: true,
     containerCssClass: cssClassToAdd,
     minimumInputLength: 3,
     initSelection: function (element, callback) {
       var data = [];
-      $(element.val().split(",")).each(function () {
-        data.push({id: this, text: this});
+      $(element.val().split(",")).each(function (i,obj) {
+        data.push({id: obj, text: obj});
       });
       callback(data);
     },
