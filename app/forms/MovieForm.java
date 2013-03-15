@@ -1,9 +1,6 @@
 package forms;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import grabbers.EGrabberType;
 import models.EMovieAttributeType;
@@ -87,15 +84,17 @@ public class MovieForm {
       movieForm.grabberId = movie.grabberId;
     }
 
+    final Set<String> genreSet = new HashSet<String>();
+    final Set<String> actorSet = new HashSet<String>();
 
     final Set<MovieAttribute> attributes = movie.attributes;
     for (final MovieAttribute movieAttibute : attributes) {
       if (EMovieAttributeType.GENRE.equals(movieAttibute.attributeType)) {
-        movieForm.genres.add(movieAttibute.value);
+        genreSet.add(movieAttibute.value.trim());
       }
 
       if (EMovieAttributeType.ACTOR.equals(movieAttibute.attributeType)) {
-        movieForm.actors.add(movieAttibute.value);
+        actorSet .add(movieAttibute.value);
       }
 
       if (EMovieAttributeType.DIRECTOR.equals(movieAttibute.attributeType)) {
@@ -107,7 +106,11 @@ public class MovieForm {
       }
     }
 
+
+    movieForm.actors.addAll(actorSet);
     Collections.sort(movieForm.actors);
+
+    movieForm.genres.addAll(genreSet);
     Collections.sort(movieForm.genres);
 
     return movieForm;
@@ -120,6 +123,6 @@ public class MovieForm {
    * @return
    */
   public final static String getDvdFormAttributesAsString(final String values) {
-    return StringUtils.replaceChars(values, "[]", "");
+    return StringUtils.replace(StringUtils.replaceChars(values, "[]", ""),", ",",");
   }
 }

@@ -114,10 +114,9 @@ public class MovieController extends Controller {
       if (grabberInfoForm.get().movieToEditId != null) {
         movieForm.movieId = grabberInfoForm.get().movieToEditId;
       }
+      final Form<MovieForm> form = Form.form(MovieForm.class).fill(movieForm);
 
-      final Form<MovieForm> form = Form.form(MovieForm.class);
-
-      return Results.ok(movieform.render(form.fill(movieForm), mode));
+      return Results.ok(movieform.render(form, mode));
     } catch (final GrabberException e) {
       if (Logger.isErrorEnabled()) {
         Logger.error("Internal Error happened", e);
