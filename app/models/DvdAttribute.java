@@ -74,24 +74,8 @@ public class DvdAttribute extends Model {
     return findList;
   }
 
-  /**
-   * Gets all the {@link MovieAttribute} as a {@link List} of {@link String}
-   * 
-   * @param type
-   * @return
-   */
-  public static List<String> getAllByTypeAsValue(final EDvdAttributeType type) {
-    final List<DvdAttribute> allByType = DvdAttribute.getAllByType(type);
-    final List<String> returnVal = new ArrayList<String>();
-    returnVal.add("");
-    if (CollectionUtils.isEmpty(allByType) == false) {
-      for (final DvdAttribute attr : allByType) {
-        returnVal.add(attr.value);
-      }
-    }
 
-    return returnVal;
-  }
+
 
   /**
    * Returns all {@link MovieAttribute} as json string

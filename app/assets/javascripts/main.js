@@ -35,6 +35,7 @@ function pAjax(controller, fnData, sucessFn, errorFn) {
       sucessFn(data)
     },
     error: function (data) {
+      // TODO: on error and no errorFn alert here something
       errorFn(data)
     }
   });

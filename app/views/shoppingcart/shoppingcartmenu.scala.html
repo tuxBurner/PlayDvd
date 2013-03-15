@@ -1,0 +1,32 @@
+@(shoppingCart : objects.shoppingcart.CacheShoppingCart)
+
+@if(shoppingCart != null && shoppingCart.getSize > 0) {
+<li class="dropdown" id="shoppingCartMenu">
+  <a class="dropdown-toggle" data-toggle="dropdown" href="#shoppingCartMenu"><i class="icon-shopping-cart"></i> (@shoppingCart.getSize) <b class="caret"></b></a>
+
+    <ul class="dropdown-menu">
+      <li><a href="@routes.ShoppingCartController.showShoppingCart()"> <i class="icon-shopping-cart icon-2x"></i> Show cart</a></li>
+      <li class="divider"></li>
+      @for(item <- shoppingCart.getLastFiveItems) {
+        <li>
+          <div class="media">
+            <a class="pull-left" href="#">
+              @if(item.copyItem.movie.hasPoster) {
+                <img class="img-rounded" src="@routes.Dashboard.streamImage(item.copyItem.movie.id,"POSTER","SELECT2")"/>
+              }
+            </a>
+            <div class="media-body">
+              <h5 class="media-heading">@item.copyItem.movie.title</h5>
+              <span>Owner: @item.copyItem.owner.userName</span>
+            </div>
+          </div>
+        </li>
+      }
+    </ul>
+
+</li>
+} else {
+  <li  id="shoppingCartMenu">
+    <a href="#shoppingCartMenu"><i class="icon-shopping-cart"></i> (0)</a>
+  </li>
+}

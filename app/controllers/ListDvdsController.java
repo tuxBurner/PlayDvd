@@ -169,6 +169,6 @@ public class ListDvdsController extends Controller {
     final Form<DvdSearchFrom> form = Form.form(DvdSearchFrom.class);
 
     final Page<Dvd> dvdsByForm = Dvd.getDvdsBySearchForm(dvdSearchFrom);
-    return Results.ok(listdvds.render(new DvdPage(dvdsByForm), form.fill(dvdSearchFrom), username));
+    return Results.ok(listdvds.render(new DvdPage(dvdsByForm), form.fill(dvdSearchFrom), username,ShoppingCartController.getShoppingCartFromCache()));
   }
 }

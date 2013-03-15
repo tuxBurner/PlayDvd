@@ -79,6 +79,11 @@ POST   /movie/:mode                         controllers.MovieController.addOrEdi
 GET    /movies/forselect                    controllers.MovieController.searchMoviesForDvdSelect(term: String)
 GET    /movies/searchattr                   controllers.MovieController.searchForMovieAttribute(term: String, attrType:String)
 
+# Shopping cart
+GET    /shoppingcart                        controllers.ShoppingCartController.showShoppingCart()
+GET    /shoppingcart/add/:copyId            controllers.ShoppingCartController.addCopyToCart(copyId: Long)
+GET    /shoppingcart/remove/:copyId         controllers.ShoppingCartController.remCopyFromCart(copyId: Long)
+GET    /shoppingcart/menue                  controllers.ShoppingCartController.getShoppingCartMenu()
 
 
 # Grabbers 

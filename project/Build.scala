@@ -26,11 +26,11 @@ object ApplicationBuild extends Build {
       "com.typesafe" %% "play-plugins-mailer" % "2.1.0",
       
       "org.webjars" % "webjars-play" % "0.1",
-      "org.webjars" % "bootstrap" % "2.3.0",
+      "org.webjars" % "bootstrap" % "2.3.1",
       "org.webjars" % "jquery" % "1.9.1",
       "org.webjars" % "jquerypp" % "1.0b2-1",
       "org.webjars" % "select2" % "3.3.1",
-      "org.webjars" % "font-awesome" % "3.0.0"
+      "org.webjars" % "font-awesome" % "3.0.2"
     )
 
 

@@ -78,7 +78,7 @@ public class DvdController extends Controller {
 
       try {
 
-        final String userName = Controller.ctx().session().get(Secured.AUTH_SESSION);
+        final String userName = Secured.getUsername();
 
         if (DvdController.DVD_FORM_ADD_MODE.equals(mode) == true) {
           final Dvd createFromForm = Dvd.createFromForm(userName, dvdForm.get());

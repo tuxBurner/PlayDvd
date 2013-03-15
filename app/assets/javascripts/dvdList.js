@@ -74,16 +74,15 @@ $(function() {
 	    			cssClass: "btn-warning",
 	    			callback: function() {
 	    				var lendOtherInHull = ($('#alsoOthersInHull').attr('checked') == 'checked') ? "true" : "false" ;
-						pAjax(jsRoutes.controllers.Dashboard.unlendDvd(
-						  $("#unlendDvdId").val()),{"alsoOthersInHull" :  lendOtherInHull},
+						  pAjax(jsRoutes.controllers.Dashboard.unlendDvd($("#unlendDvdId").val()),
+                {"alsoOthersInHull" :  lendOtherInHull},
 					      function(data){
                   //TODO: make me load a route
                   window.location.reload();
-						   },
-						   function(err) {
-						  });
-	    				closeDialog();
-					}
+						    },
+						    function(err) {});
+	    				  closeDialog();
+					  }
 	    		}
 	    	}
 		});
@@ -122,12 +121,59 @@ $(function() {
 	/**
 	 * EO DELETE DIALOG
 	 */
+
+  /**
+   * SHOPPING CART
+   */
+  $(document).on('click','.addToCartBtn',function(event){
+    var button = this;
+    var dvdId = $(this).data('dvdId');
+    var delButton = $('a.remFromCartBtn[data-dvd-id= "'+dvdId+'"]');
+    pAjax(jsRoutes.controllers.ShoppingCartController.addCopyToCart(dvdId),null,
+      function(data) {
+        if(data == "true" || data == true) {
+          pAjax(jsRoutes.controllers.ShoppingCartController.getShoppingCartMenu(),null,
+            function(data) {
+              $("#shoppingCartMenu").replaceWith(data);
+              $('#shoppingCartMenu').addClass('animated flash');
+              $(button).hide();
+              $(delButton).show();
+            }
+          );
+        }
+      }
+    );
+    return false;
+  });
+
+  $(document).on('click','.remFromCartBtn',function(event){
+    var button = this;
+    var dvdId = $(this).data('dvdId');
+    var addButton = $('a.addToCartBtn[data-dvd-id= "'+dvdId+'"]');
+    pAjax(jsRoutes.controllers.ShoppingCartController.remCopyFromCart(dvdId),null,
+      function(data) {
+        if(data == "true" || data == true) {
+          pAjax(jsRoutes.controllers.ShoppingCartController.getShoppingCartMenu(),null,
+            function(data) {
+              $("#shoppingCartMenu").replaceWith(data);
+              $('#shoppingCartMenu').addClass('animated flash');
+              $(button).hide();
+              $(addButton).show();
+            }
+          );
+        }
+      }
+    );
+    return false;
+  });
+  /**
+   * EO SHOPPING CART
+   */
 	
 	
 	/**
 	 * SEARCH FORM
 	 */
-	
 	// check if to display the advanced search from
 	if(displayAdvancedOrder === true) {
 		$('#advancedSearchForm').show();
