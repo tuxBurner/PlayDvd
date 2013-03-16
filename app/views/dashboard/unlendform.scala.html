@@ -1,12 +1,14 @@
 @(lendForm: Form[forms.UnLendForm], dvd: Dvd, inSameHull: List[Dvd])
+@import _root_.helpers.EImageSize
 
 @import helper._
 @import helper.twitterBootstrap._
+@import helpers.EImageSize
 
 <form class="form-horizontal">
 
 <fieldset>
-  <legend>Unlend Dvd: <i>@dvd.movie.title</i> from User: <i>@if(dvd.borrower != null) { @dvd.borrower.userName} else { @dvd.borrowerName }</i></legend>
+  <legend>Unlend Dvd: @general.displayposter(dvd.movie.id,dvd.movie.hasPoster,EImageSize.TINY) <i>@dvd.movie.title</i> from User: <i>@if(dvd.borrower != null) { @dvd.borrower.userName} else { @dvd.borrowerName }</i></legend>
   
   
   
@@ -16,9 +18,7 @@
     @checkbox(field = lendForm("alsoOthersInHull"), '_label -> "Others in Hull to")
     
     @for(otherDvd <- inSameHull) {
-      @if(otherDvd.movie.hasPoster) {
-        <img src="@routes.Dashboard.streamImage(otherDvd.movie.id,"POSTER","TINY")"/>
-      }
+      @general.displayposter(otherDvd.movie.id,otherDvd.movie.hasPoster,EImageSize.TINY)
       @otherDvd.movie.title
     }
   }

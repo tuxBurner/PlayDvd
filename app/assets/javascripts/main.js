@@ -32,7 +32,7 @@ function pAjax(controller, fnData, sucessFn, errorFn) {
   controller.ajax({
     data: fnData,
     success: function (data) {
-      sucessFn(data)
+      sucessFn(data);
     },
     error: function (data) {
       // TODO: on error and no errorFn alert here something
@@ -112,6 +112,8 @@ function displayDialog(options) {
   if(options.onClose != null) {
     $('#modal').data("onCloseFunction", options.onClose);
   }
+
+  Holder.run();
 }
 
 /**

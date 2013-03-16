@@ -21,28 +21,7 @@
             <dt>Owner: @username</dt>
             @for(item <- items) {
               <dd>
-                <div class="media">
-                  <a class="pull-left" href="#">
-                  @if(item.copyItem.movie.hasPoster) {
-                    <img class="img-rounded" src="@routes.Dashboard.streamImage(item.copyItem.movie.id,"POSTER","SELECT2")"/>
-                  }
-                  </a>
-                  <div class="media-body">
-                    <h5 class="media-heading">@item.copyItem.movie.title</h5>
-                    <span>Owner: @item.copyItem.owner.userName</span>
-
-
-              @if(DvdAttribute.getCopyTypeAttribute(item.copyItem) != null) {
-                <span><img class="img-rounded" alt="@DvdAttribute.getCopyTypeAttribute(item.copyItem)" src="@routes.Assets.at("images/copy_type/"+DvdAttribute.getCopyTypeAttribute(item.copyItem)+".png")" /></span>
-              }
-
-              @if(DvdAttribute.getAgeRatingAttribute(item.copyItem) != null) {
-                <span><img  class="img-rounded" alt="@DvdAttribute.getAgeRatingAttribute(item.copyItem)" src="@routes.Assets.at("images/agerating/"+DvdAttribute.getAgeRatingAttribute(item.copyItem)+".gif")" /></span>
-              }
-
-
-              </div>
-              </div>
+               @displayitem(item)
               </dd>
             }
           }

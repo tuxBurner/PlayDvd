@@ -1,9 +1,10 @@
 @( dvd: Dvd)
+@import _root_.helpers.EImageSize
 
 
 <form class="form-horizontal">
   <fieldset>
-    <legend>Delete Dvd: @if(dvd.movie.hasPoster) {<img src="@routes.Dashboard.streamImage(dvd.movie.id,"POSTER","TINY")"/>} <i>@dvd.movie.title</i></legend>  
+    <legend>Delete Dvd: @general.displayposter(dvd.movie.id,dvd.movie.hasPoster,EImageSize.TINY) <i>@dvd.movie.title</i></legend>
     <input type="hidden" id="deleteDvdId" value="@dvd.id" />  
   </fieldset>
 </form>

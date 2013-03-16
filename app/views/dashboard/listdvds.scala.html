@@ -60,11 +60,7 @@
               }
             </div>
             <a>
-              @if(dvd.movie.hasPoster != null && dvd.movie.hasPoster == true) {
-                <img src="@routes.Dashboard.streamImage(dvd.movie.id,"POSTER","SMALL")"/>
-              } else {
-                <img data-src="holder.js/@EImageSize.SMALL.getWHString()/#4D99E0:#fff/text:No Poster" />
-            }
+              @general.displayposter(dvd.movie.id,dvd.movie.hasPoster,EImageSize.SMALL);
              </a>
           </div>
         </li>

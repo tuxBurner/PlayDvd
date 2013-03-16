@@ -9,17 +9,7 @@
       <li class="divider"></li>
       @for(item <- shoppingCart.getLastFiveItems) {
         <li>
-          <div class="media">
-            <a class="pull-left" href="#">
-              @if(item.copyItem.movie.hasPoster) {
-                <img class="img-rounded" src="@routes.Dashboard.streamImage(item.copyItem.movie.id,"POSTER","SELECT2")"/>
-              }
-            </a>
-            <div class="media-body">
-              <h5 class="media-heading">@item.copyItem.movie.title</h5>
-              <span>Owner: @item.copyItem.owner.userName</span>
-            </div>
-          </div>
+          @displayitem(item)
         </li>
       }
     </ul>

@@ -1,0 +1,39 @@
+@(subDvds : List[forms.dvd.objects.CollectionDvd], dvd: forms.dvd.objects.InfoDvd, title: String, subTitle: String, username:String)
+
+@import helpers.EImageSize
+
+@if(subDvds != null && subDvds.size() > 0) {
+  <fieldset class="well">
+    <h3>Dvds in the @title <i>@subTitle:</i></h3>
+
+    <div class="row-fluid">
+      <ul class="coverlist">
+        @for(subDvd <- subDvds) {
+          <li class="span3">
+          <div class="coverwrapper">
+          <em data-dvd-id="@subDvd.id" class="@subDvd.copyTypeAttribute">
+
+            @if(subDvd.borrowerName != null){
+              <div class="coverborrowed  @if(subDvd.borrowerName == username) {selfBorrowed}"></div>
+            }
+
+          <div class="well well-small dvdInfo @if(subDvd.borrowerName != null ){borrowed @if(subDvd.borrowerName == username) {selfBorrowed}}">
+          <p> @subDvd.title @if(subDvd.hullNr != null) { (@subDvd.hullNr) }</p>
+          <span>
+            @if(subDvd.borrowerName != null){
+              @subDvd.borrowerName
+            }
+          </span>
+          </div>
+          <div class="rateWrapper"><img  src="@routes.Assets.at("images/agerating/"+subDvd.ageRating+".gif")" /></div>
+          </em>
+          <a>
+            @general.displayposter(subDvd.movieId,subDvd.hasPoster,EImageSize.SMALL);
+          </a>
+          </div>
+          </li>
+        }
+      </ul>
+    </div>
+  </fieldset>
+}
