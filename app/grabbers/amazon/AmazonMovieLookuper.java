@@ -28,6 +28,7 @@ public class AmazonMovieLookuper {
 
   private static Map<String,String> ageRatingMatches  = new HashMap<String, String>();
 
+
   static {
     for (Map.Entry<String, Object> stringObjectEntry : ConfigFactory.load().getObject("dvdb.amazon.grabber.matchCopyType").unwrapped().entrySet()) {
      copyTypeMatches.put(stringObjectEntry.getKey(), (String) stringObjectEntry.getValue());
@@ -36,29 +37,63 @@ public class AmazonMovieLookuper {
     for (Map.Entry<String, Object> stringObjectEntry : ConfigFactory.load().getObject("dvdb.amazon.grabber.matchAgeRating").unwrapped().entrySet()) {
       ageRatingMatches.put(stringObjectEntry.getKey(), (String) stringObjectEntry.getValue());
     }
-
-
-
   }
 
   /**
-   * Looksup a movie via amazon ws and the asinnr
+   * Checks the code what type it is and calls the correct method
+   * @param code
+   * @return
+   */
+  public static AmazonResult lookUp(String code) {
+    if(StringUtils.isEmpty(code) == true) {
+      return null;
+    }
+
+    if(StringUtils.isNumeric(code) == true && code.length() == 13) {
+      return lookUpByEanNR(code);
+    } else {
+      return lookupByAsin(code);
+    }
+  }
+
+
+  /**
+   * Searches the AmazonWs
+   * @param type
+   * @param codeNr
+   * @return
+   */
+  public static AmazonResult lookUp(final EAmazonCodeType type, final String codeNr) {
+    if(EAmazonCodeType.EAN.equals(type)) {
+      return lookUpByEanNR(codeNr);
+    }
+
+    if(EAmazonCodeType.ASIN.equals(type)) {
+      return lookupByAsin(codeNr);
+    }
+
+    return null;
+  }
+
+  /**
+   * Lookup a movie via amazon ws and the asinnr
    * @param asinNr
    * @return
    */
-  public static AmazonResult lookupByAsin(final String asinNr) {
+  private static AmazonResult lookupByAsin(final String asinNr) {
     return searchByID(asinNr,null);
   }
 
 
   /**
-   * Looksup a movie via amazon ws and the ean nr
+   * Lookup a movie via amazon ws and the ean nr
    * @param eanNr
    * @return
    */
-  public static AmazonResult lookUpByEanNR(final String eanNr) {
+  private static AmazonResult lookUpByEanNR(final String eanNr) {
     final Map<String,String> params = new HashMap<String, String>();
     params.put("IdType", "EAN");
+    params.put("SearchIndex","DVD");
     return searchByID(eanNr,params);
   }
 
@@ -105,9 +140,6 @@ public class AmazonMovieLookuper {
       params.put("ItemId", id);
       params.put("ResponseGroup", "ItemAttributes");
       params.put("AssociateTag", "aztag-20");
-      params.put("SearchIndex","DVD");
-
-
 
 
       String requestUrl = helper.sign(params);
@@ -148,6 +180,7 @@ public class AmazonMovieLookuper {
       title = StringUtils.trim(title);
 
       String asin =  getNodeContent(doc,"//ASIN");
+      String ean = getNodeContent(doc,"//EAN");
       String rating = getNodeContent(doc, "//AudienceRating");
       if(ageRatingMatches.containsKey(rating) == false) {
         if(Logger.isErrorEnabled() == true) {
@@ -166,7 +199,7 @@ public class AmazonMovieLookuper {
       } */
 
 
-      final AmazonResult result = new AmazonResult(title,rating,copyType,asin);
+      final AmazonResult result = new AmazonResult(title,rating,copyType,asin,ean);
 
       return result;
 
@@ -209,5 +242,6 @@ public class AmazonMovieLookuper {
     return StringUtils.trimToEmpty(node.getTextContent());
 
   }
+
 
 }

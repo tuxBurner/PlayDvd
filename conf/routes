@@ -58,12 +58,12 @@ GET    /barcodescannerws             controllers.BarcodeController.scanBarcode()
 
 
 # ADD edit DVD
-GET    /dvd/add                        controllers.DvdController.showAddDvd()
-POST   /dvd/:mode                      controllers.DvdController.addDvd(mode: String)
-GET    /dvd/edit/:dvdId                controllers.DvdController.showEditDvd(dvdId: Long)
-GET    /dvd/eanNr/:eanNr               controllers.DvdController.searchEanNr(eanNr: String)
-GET    /dvd/add/byean/:eanNr/:movieId  controllers.DvdController.showAddDvdByEanAndMovie(eanNr: String, movieId: Long)
-POST   /dvd/addMovieByGrabber/         controllers.DvdController.addMovieByGrabber(grabberType : String)
+GET    /dvd/add                          controllers.DvdController.showAddDvd()
+POST   /dvd/:mode                        controllers.DvdController.addDvd(mode: String)
+GET    /dvd/edit/:dvdId                  controllers.DvdController.showEditDvd(dvdId: Long)
+GET    /dvd/amazon/:code                 controllers.DvdController.searchAmazonByCode(code: String)
+GET    /dvd/add/amazon/:code/:movieId    controllers.DvdController.showAddDvdByAmazonAndMovie(code: String, movieId: Long)
+POST   /dvd/addMovieByGrabber/           controllers.DvdController.addMovieByGrabber(grabberType : String)
 
 
 # DELETE DVD

@@ -19,7 +19,7 @@ public class InfoGrabberController extends Controller {
 
   public final static String MOVIE_TO_EDIT_ID = "movieToEditId";
 
-  public final static String EAN_NR = "eanNr";
+  public final static String AMAZONE_CODE = "amazoneCode";
 
   /**
    * This is called when the user wants to search the movie database
@@ -31,7 +31,7 @@ public class InfoGrabberController extends Controller {
   public static Result searchGrabber(final String searchTerm, final String grabberType) {
 
     final Long movieToEditId = InfoGrabberController.getMovieToEditIdFromReq();
-    final String eanNr = Controller.request().getQueryString(EAN_NR);
+    final String eanNr = Controller.request().getQueryString(AMAZONE_CODE);
 
     try {
       List<GrabberSearchMovie> searchResults = new ArrayList<GrabberSearchMovie>();
@@ -104,7 +104,7 @@ public class InfoGrabberController extends Controller {
     try {
 
       final Long movieToEditId = InfoGrabberController.getMovieToEditIdFromReq();
-      final String eanNr = Controller.request().getQueryString(EAN_NR);
+      final String eanNr = Controller.request().getQueryString(AMAZONE_CODE);
 
       final IInfoGrabber grabber = InfoGrabberController.getGrabber(EGrabberType.valueOf(grabberType));
       final GrabberDisplayMovie displayMovie = grabber.getDisplayMovie(grabberId);

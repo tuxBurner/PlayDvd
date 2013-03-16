@@ -71,27 +71,26 @@ var openBarcodePopUp = function() {
 
 
 /**
- * Opens the ean lookup dialog
+ * Opens the amazon lookup dialog
  */
-var openEANLookUp = function() {
-  var eanNr = $.trim($('#eanNr').val());
-  openSearchEanPopUp(eanNr);
+var openAmazonLookUp = function(code) {
+  openSearchAmazonPopUp($.trim(code));
 };
 
 /**
-* Opens the ean search popup
-* @param eanNr
+* Opens the amazon search popup
+* @param code
 */
-var openSearchEanPopUp = function(eanNr) {
+var openSearchAmazonPopUp = function(code) {
 
-  if(eanNr != null && eanNr != "") {
+  if(code != null && code != "") {
 
     showWaitDiaLog();
     displayAjaxDialog({
-      route: jsRoutes.controllers.DvdController.searchEanNr(eanNr),
+      route: jsRoutes.controllers.DvdController.searchAmazonByCode(code),
       ajaxParams : null,
       title: '<i class="icon-search"></i> Lookup movie on amazon',
-      onOpen: function() { createMovieDropDown('#eanPickMovie'); closeWaitDiaLog(); },
+      onOpen: function() { createMovieDropDown('#amazonPickMovie'); closeWaitDiaLog(); },
       cssClass: "grabberModal"
     });
   }
@@ -100,27 +99,27 @@ var openSearchEanPopUp = function(eanNr) {
 }
 
 /**
- * Opens the grabber modal with the given ean nr and the title to search for
+ * Opens the grabber modal with the given code and the title to search for
  *
- * @param eanNr
+ * @param code
  * @param titleToSearch
  */
-var eanStartOnlineGrabber = function(eanNr,titleToSearch) {
-  searchGrabber(titleToSearch,"TMDB",null,eanNr)
+var amazonStartOnlineGrabber = function(code,titleToSearch) {
+  searchGrabber(titleToSearch,"TMDB",null,code)
 }
 
 
 
 /**
  * Redirects the user to the dvdform and sets the movie to the given id, also fills copytype etc to the dvd form
- * @param eanNr
+ * @param code
  * @param movieId
  */
-var eanPickExistingMovie = function(eanNr, movieId) {
-  if(eanNr == null || movieId == null) {
+var amazonPickExistingMovie = function(code, movieId) {
+  if(code == null || movieId == null) {
     return;
   }
-  window.location = jsRoutes.controllers.DvdController.showAddDvdByEanAndMovie(eanNr,movieId).absoluteURL();
+  window.location = jsRoutes.controllers.DvdController.showAddDvdByAmazonAndMovie(code,movieId).absoluteURL();
 }
 
 /**

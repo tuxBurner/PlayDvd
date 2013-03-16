@@ -3,7 +3,7 @@ $(function() {
    * button in the popup will be always clickable
    */
   $(document).on('click','#grabber_search_button',function() {
-    searchGrabber($('#grabber_search_input').val(),$('#grabberType').val(),$('#movieToEditId').val(),$('#grabberEanNr').val());
+    searchGrabber($('#grabber_search_input').val(),$('#grabberType').val(),$('#movieToEditId').val(),$('#grabberAmazoneCode').val());
     return false;
   });
 
@@ -11,7 +11,7 @@ $(function() {
    * The user searches in the grabber poup
    */
   $(document).on('click','.pickGrabberEntry',function() {
-    openGrabberMoviePopup($(this).data('grabberId'),$(this).data('grabberType'),$('#movieToEditId').val(),$('#grabberEanNr').val());
+    openGrabberMoviePopup($(this).data('grabberId'),$(this).data('grabberType'),$('#movieToEditId').val(),$('#grabberAmazoneCode').val());
   });
 });
 
@@ -20,13 +20,13 @@ $(function() {
  * @param title
  * @param movieToEditId
  * @param grabberType
- * @param eanNr
+ * @param grabberAmazoneCode
  */
-var searchGrabber = function(title,grabberType,movieToEditId,eanNr) {
+var searchGrabber = function(title,grabberType,movieToEditId,grabberAmazoneCode) {
   showWaitDiaLog();
   displayAjaxDialog({
     route: jsRoutes.controllers.InfoGrabberController.searchGrabber(title,grabberType),
-    ajaxParams : { "movieToEditId" : movieToEditId, "eanNr" : eanNr},
+    ajaxParams : { "movieToEditId" : movieToEditId, "amazoneCode" : grabberAmazoneCode},
     title: 'Movie info from Grabber',
     onOpen: closeWaitDiaLog,
     cssClass: "grabberModal"
@@ -40,13 +40,13 @@ var searchGrabber = function(title,grabberType,movieToEditId,eanNr) {
  * @param grabberId
  * @param grabberType
  * @param movieToEditId
- * @param eanNr
+ * @param amazoneCode
  */
-var openGrabberMoviePopup = function(grabberId,grabberType,movieToEditId,eanNr) {
+var openGrabberMoviePopup = function(grabberId,grabberType,movieToEditId,amazoneCode) {
   showWaitDiaLog();
   displayAjaxDialog({
     route: jsRoutes.controllers.InfoGrabberController.getMovieById(grabberId,grabberType),
-    ajaxParams : { "movieToEditId" : movieToEditId, "eanNr": eanNr},
+    ajaxParams : { "movieToEditId" : movieToEditId, "amazoneCode": amazoneCode},
     title: 'Movie info from Grabber',
     onOpen: closeWaitDiaLog,
     cssClass: "grabberModal",
@@ -55,8 +55,8 @@ var openGrabberMoviePopup = function(grabberId,grabberType,movieToEditId,eanNr) 
         icon: "icon-ok-sign icon-white",
         cssClass: "btn-danger",
         callback: function() {
-          if(eanNr != null && eanNr != "") {
-            addToDbAndFillDvdFormCheck(grabberId,grabberType,eanNr);
+          if(amazoneCode != null && amazoneCode != "") {
+            addToDbAndFillDvdFormCheck(grabberId,grabberType,amazoneCode);
           } else {
             fillMovieFormWithInfoFromGrabber();
           }
@@ -72,9 +72,9 @@ var openGrabberMoviePopup = function(grabberId,grabberType,movieToEditId,eanNr) 
  *
  * @param grabberId
  * @param grabberType
- * @param eanNr
+ * @param amazoneCode
  */
-var addToDbAndFillDvdFormCheck = function(grabberId,grabberType,eanNr) {
+var addToDbAndFillDvdFormCheck = function(grabberId,grabberType,amazoneCode) {
 
   pAjax(jsRoutes.controllers.MovieController.checkIfMovieAlreadyExists(grabberId,grabberType),null,
     function(data) {
@@ -88,12 +88,12 @@ var addToDbAndFillDvdFormCheck = function(grabberId,grabberType,eanNr) {
             "Add" : {
               icon: "icon-plus",
               cssClass: "btn-danger",
-              callback: function() { addToDbAndFillDvdForm(grabberType,eanNr) }
+              callback: function() { addToDbAndFillDvdForm(grabberType,amazoneCode) }
             }
           }
         });
       } else {
-        addToDbAndFillDvdForm(grabberType,eanNr);
+        addToDbAndFillDvdForm(grabberType,amazoneCode);
       }
 
     },
@@ -107,16 +107,14 @@ var addToDbAndFillDvdFormCheck = function(grabberId,grabberType,eanNr) {
 /**
  * This adds the movie to the database and returns to the dvd form and fills it with the data
  * @param grabberType
- * @param eanNr
+ * @param amazoneCode
  */
-var addToDbAndFillDvdForm = function(grabberType,eanNr) {
+var addToDbAndFillDvdForm = function(grabberType,amazoneCode) {
   showWaitDiaLog();
   var formParams = $('#grabberMovieForm').formParams();
-  console.error("WTF");
-  console.error(formParams);
   pAjax(jsRoutes.controllers.DvdController.addMovieByGrabber(grabberType),formParams,
     function(data) {
-      window.location = jsRoutes.controllers.DvdController.showAddDvdByEanAndMovie(eanNr,data).absoluteURL();
+      window.location = jsRoutes.controllers.DvdController.showAddDvdByAmazonAndMovie(amazoneCode,data).absoluteURL();
       closeWaitDiaLog();
     },
     function(err) {

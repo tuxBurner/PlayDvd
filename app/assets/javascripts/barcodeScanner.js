@@ -162,9 +162,8 @@ ws.onmessage = function (e) {
       webcam.capture(1);
     }
   } else {
-    $('#eanNr').val(e.data);
     if (searchAfterScan == true) {
-      openEANLookUp();
+      openAmazonLookUp(e.data);
     } else {
       closeDialog();
     }

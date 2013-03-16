@@ -17,7 +17,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
-import views.html.dvd.dvdEanNrPopUp;
+import views.html.dvd.dvdAmazonPopUp;
 import views.html.dvd.dvdform;
 
 import java.util.List;
@@ -100,26 +100,26 @@ public class DvdController extends Controller {
   }
 
   /**
-   * Searches a movie via amazon with the given eanNr
-   * @param eanNr the ean nr to lookup
+   * Searches a movie via amazon with the given code
+   * @param code the code to lookup
    * @return
    */
   @JSRoute
-  public static Result searchEanNr(final String eanNr) {
+  public static Result searchAmazonByCode(final String code) {
 
     AmazonResult result = null;
 
     List<Movie> movies = null;
-    if (StringUtils.isEmpty(eanNr) == false) {
-      result = AmazonMovieLookuper.lookUpByEanNR(eanNr);
+    if (StringUtils.isEmpty(code) == false) {
+
+      result = AmazonMovieLookuper.lookUp(code);
 
       if (result != null && StringUtils.isEmpty(result.title) == false) {
         movies = Movie.searchLike(result.title, 0);
       }
     }
 
-
-    return ok(dvdEanNrPopUp.render(result, eanNr, movies));
+    return ok(dvdAmazonPopUp.render(result, code, movies));
   }
 
   /**
@@ -153,22 +153,22 @@ public class DvdController extends Controller {
 
   /**
    * Shows the add Dvd form
-   * @param eanNr
+   * @param code
    * @param movieId
    *
    * @return
    */
   @JSRoute
-  public static Result showAddDvdByEanAndMovie(final String eanNr, final Long movieId) {
+  public static Result showAddDvdByAmazonAndMovie(final String code, final Long movieId) {
 
-    if(StringUtils.isEmpty(eanNr) == true || movieId == null) {
+    if(StringUtils.isEmpty(code) == true || movieId == null) {
       return badRequest();
     }
 
-    AmazonResult amazonResult = AmazonMovieLookuper.lookUpByEanNR(eanNr);
+    AmazonResult amazonResult = AmazonMovieLookuper.lookUp(code);
     if(amazonResult == null) {
       if(Logger.isDebugEnabled() == true) {
-        Logger.error("Error adding dvd with eanNr: " + eanNr);
+        Logger.error("Error adding dvd with amazonecode: " + code);
       }
       return badRequest();
     }
@@ -181,10 +181,8 @@ public class DvdController extends Controller {
       return badRequest();
     }
 
-
     final Form<DvdForm> form = Form.form(DvdForm.class);
-    final DvdForm dvdForm = DvdForm.eanAndMovieToDvdForm(amazonResult,movieId,eanNr);
-
+    final DvdForm dvdForm = DvdForm.amazonAndMovieToDvdForm(amazonResult, movieId, code);
 
     return Results.ok(dvdform.render(form.fill(dvdForm), DvdController.DVD_FORM_ADD_MODE));
   }

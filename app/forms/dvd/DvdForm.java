@@ -56,12 +56,13 @@ public class DvdForm {
    * @param amazonResult
    * @param movieId
    */
-  public static DvdForm eanAndMovieToDvdForm(final AmazonResult amazonResult, final Long movieId, final String eanNr) {
+  public static DvdForm amazonAndMovieToDvdForm(final AmazonResult amazonResult, final Long movieId, final String eanNr) {
     final DvdForm dvdForm = new DvdForm();
     dvdForm.ageRating = amazonResult.rating;
     dvdForm.copyType = amazonResult.copyType;
     dvdForm.eanNr = eanNr;
     dvdForm.asinNr = amazonResult.asin;
+    dvdForm.eanNr = amazonResult.ean;
     dvdForm.movieId = movieId;
 
     return  dvdForm;
