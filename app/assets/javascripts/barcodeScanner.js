@@ -4,7 +4,6 @@
  * Date: 2/11/13
  * Time: 8:16 PM
  * This is used for capturing the barcode from a webcam
- * TODO: http://www.smartjava.org/content/face-detection-using-html5-javascript-webrtc-websockets-jetty-and-javacvopencv use not flash :)
  */
 
 var searchAfterScan = false;
