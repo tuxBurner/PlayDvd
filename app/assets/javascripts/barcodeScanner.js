@@ -165,6 +165,7 @@ ws.onmessage = function (e) {
     if (searchAfterScan == true) {
       openAmazonLookUp(e.data);
     } else {
+      $('#eanNr').val(e.data);
       closeDialog();
     }
 
