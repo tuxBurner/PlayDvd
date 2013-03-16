@@ -120,7 +120,6 @@ var eanPickExistingMovie = function(eanNr, movieId) {
   if(eanNr == null || movieId == null) {
     return;
   }
-
   window.location = jsRoutes.controllers.DvdController.showAddDvdByEanAndMovie(eanNr,movieId).absoluteURL();
 }
 
@@ -164,11 +163,15 @@ var createMovieDropDown = function(selector) {
 * @returns {string}
 */
 var movieFormatResult =  function(movie) {
-    var markup = "<table class='movie-result'><tr>";
+    var markup = "<table class='movie-result'><tr><td class='movie-image'>";
+
     if (movie.hasPoster == true) {
-      markup += "<td class='movie-image'><img src='" + jsRoutes.controllers.Dashboard.streamImage(movie.id,'POSTER','SELECT2').url + "'/></td>";
+      markup += "<img src='" + jsRoutes.controllers.Dashboard.streamImage(movie.id,'POSTER','SELECT2').url + "'/>";
+    } else {
+      markup += '<img data-src="holder.js/60x80/#4D99E0:#fff/text:No Poster"/>';
     }
-    markup += "<td class='movie-info'><div class='movie-title'>" + movie.title + "</div>";
+
+    markup += "</td><td class='movie-info'><div class='movie-title'>" + movie.title + "</div>";
     markup += "</td></tr></table>"
     return markup;
   }
@@ -182,7 +185,7 @@ var movieFormatSelection =    function (movie) {
     if(movie.hasPoster == true) {
       return "<img class='flag' src='"+jsRoutes.controllers.Dashboard.streamImage(movie.id,'POSTER','TINY').url+"'/>" + movie.title;
     } else {
-      return movie.title;
+      return '<img class="flag" data-src="holder.js/25x25/#4D99E0:#fff/text:No Poster"/>'+movie.title;
     }
   }
 

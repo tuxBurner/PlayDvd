@@ -1,4 +1,5 @@
 @(dvdPage: DvdPage)(dvdListForm: Form[forms.dvd.DvdSearchFrom])(username: String)(shoppingCart: objects.shoppingcart.CacheShoppingCart)
+@import helpers.EImageSize
 
 @scripts = {
    <script src="@routes.Assets.at("javascripts/dvdList.js")" type="text/javascript"></script>
@@ -62,8 +63,8 @@
               @if(dvd.movie.hasPoster != null && dvd.movie.hasPoster == true) {
                 <img src="@routes.Dashboard.streamImage(dvd.movie.id,"POSTER","SMALL")"/>
               } else {
-                <img src="@routes.Assets.at("images/NoPoster.png")"/>
-              }
+                <img data-src="holder.js/@EImageSize.SMALL.getWHString()/#4D99E0:#fff/text:No Poster" />
+            }
              </a>
           </div>
         </li>

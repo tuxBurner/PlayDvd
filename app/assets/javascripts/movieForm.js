@@ -1,6 +1,8 @@
 var initializeMovieForm = function() {
 
-	// check the url stuff and change the image if it is set
+  Holder.run();
+
+  // check the url stuff and change the image if it is set
 	createPrevsrciewFromUrl('poster');
 	createPrevsrciewFromUrl('backDrop');
 

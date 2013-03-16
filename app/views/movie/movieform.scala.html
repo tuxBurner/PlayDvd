@@ -1,5 +1,6 @@
 @(movieForm: Form[forms.MovieForm])(mode: String)
 
+@import helpers.EImageSize
 @import helper._
 @import helper.twitterBootstrap._
 
@@ -65,11 +66,10 @@
          @inputText(movieForm("trailerUrl"),'_label -> "Trailer url",'placeholder -> "Url to trailer")
          
          @inputText(movieForm("posterUrl"),'_label -> "Poster url",'placeholder -> "Url to a poster image")
-         <img class="img-rounded" id="poster_preview" class="caption" title="Currently selected poster" src="@if(mode == DvdController.DVD_FORM_ADD_MODE) {http://placehold.it/92x138/4D99E0/ffffff.png&text=No%20Poster} else { @routes.Dashboard.streamImage(Long.valueOf(movieForm("movieId").value()),"POSTER","SMALL") }" width="92" height="138" />
-         
-          
+         <img class="img-rounded" id="poster_preview" class="caption" title="Currently selected poster" @if(mode == DvdController.DVD_FORM_ADD_MODE) { data-src="holder.js/@EImageSize.GRABBER_POSTER_SMALL.getWHString()/#4D99E0:#fff/text:No Poster"} else { src="@routes.Dashboard.streamImage(Long.valueOf(movieForm("movieId").value()),"POSTER","SMALL")" } width="92" height="138" />
+
          @inputText(movieForm("backDropUrl"),'_label -> "Back Drop url",'placeholder -> "Url to a back drop image")
-         <img class="img-rounded" class="caption" id="backDrop_preview" title="Currently selected backdrop" src="@if(mode == DvdController.DVD_FORM_ADD_MODE) {http://placehold.it/291x136/4D99E0/ffffff.png&text=No%20Backdrop} else { @routes.Dashboard.streamImage(Long.valueOf(movieForm("movieId").value()),"BACKDROP","SMALL") }" width="291" height="163" />
+         <img class="img-rounded" class="caption" id="backDrop_preview" title="Currently selected backdrop" @if(mode == DvdController.DVD_FORM_ADD_MODE) { data-src="holder.js/@EImageSize.GRABBER_BACKDROP_SMALL.getWHString()/#4D99E0:#fff/text:No Backdrop" } else { src="@routes.Dashboard.streamImage(Long.valueOf(movieForm("movieId").value()),"BACKDROP","SMALL")"} width="291" height="163" />
          
          <div class="form-actions">
            @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
