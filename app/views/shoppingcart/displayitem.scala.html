@@ -2,9 +2,7 @@
 @import _root_.helpers.EImageSize
 <div class="media shoppingcartitem">
   <a class="pull-left" href="#">
-  @if(item.copyItem.movie.hasPoster) {
-    @general.displayposter(item.copyItem.movie.id,item.copyItem.movie.hasPoster,EImageSize.SELECT2);
-  }
+    @general.displayposter(item.copyItem.movie.id,item.copyItem.movie.hasPoster,EImageSize.SELECT2)
   </a>
   <div class="media-body">
   <h5 class="media-heading">@item.copyItem.movie.title</h5>

@@ -137,6 +137,7 @@ $(function() {
               $("#shoppingCartMenu").replaceWith(data);
               $('#shoppingCartMenu').addClass('animated flash');
               $(button).hide();
+              Holder.run();
               $(delButton).show();
             }
           );

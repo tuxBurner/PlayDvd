@@ -84,6 +84,7 @@ GET    /shoppingcart                        controllers.ShoppingCartController.s
 GET    /shoppingcart/add/:copyId            controllers.ShoppingCartController.addCopyToCart(copyId: Long)
 GET    /shoppingcart/remove/:copyId         controllers.ShoppingCartController.remCopyFromCart(copyId: Long)
 GET    /shoppingcart/menue                  controllers.ShoppingCartController.getShoppingCartMenu()
+POST   /shoppincart/checkout                controllers.ShoppingCartController.checkoutShoppingCart()
 
 
 # Grabbers 

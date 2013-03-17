@@ -1,6 +1,7 @@
 package controllers;
 
 import jsannotation.JSRoute;
+import models.CopyReservation;
 import models.Dvd;
 import objects.shoppingcart.CacheShoppingCart;
 import objects.shoppingcart.CacheShoppingCartItem;
@@ -88,6 +89,20 @@ public class ShoppingCartController extends Controller {
   }
 
   /**
+   * Persists the shopping cart and displays the reservations
+   * @return
+   */
+  public static Result checkoutShoppingCart() {
+    final CacheShoppingCart shoppingCart = getShoppingCartFromCache();
+    if(shoppingCart != null) {
+      CopyReservation.createFromShoppingCart(shoppingCart);
+      removeShoppingCartFromCache();
+    }
+
+    return ok(views.html.shoppingcart.showshoppingcart.render(getShoppingCartFromCache()));
+  }
+
+  /**
    * Gets the {@link CacheShoppingCart} from the cache and renders the content for the mainmenu
    * @return
    */
@@ -123,7 +138,14 @@ public class ShoppingCartController extends Controller {
     final String uuid = createCacheUUID();
 
     Cache.set(uuid+CACHE_SHOPPING_CART_IDENT, cart, 60 * 15);
+  }
 
+  /**
+   * Removes the shoppingcart from the cache
+   */
+  private static void removeShoppingCartFromCache() {
+    final String uuid = createCacheUUID();
+    Cache.remove(uuid+CACHE_SHOPPING_CART_IDENT);
   }
 
   /**

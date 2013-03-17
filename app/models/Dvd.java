@@ -490,7 +490,7 @@ public class Dvd extends Model {
        return null;
      }
 
-    return Dvd.find.where().idEq(dvdId).ne("owner.userName",userName).isNull("borrowDate").findUnique();
+    return Dvd.find.where().idEq(dvdId).ne("owner.userName",userName).findUnique();
   }
 
   /**

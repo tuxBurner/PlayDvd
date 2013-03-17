@@ -16,6 +16,8 @@ import java.util.*;
  */
 public class CacheShoppingCart {
 
+
+
   private final List<CacheShoppingCartItem> items = new ArrayList<CacheShoppingCartItem>();
 
   private final Set<Long> knownCopyIds = new HashSet<Long>();
@@ -67,9 +69,10 @@ public class CacheShoppingCart {
     items.remove(removeItem);
     knownCopyIds.remove(copyId);
 
-
     return Boolean.TRUE;
   }
+
+
 
   /**
    * Checks if the {@link Dvd} is already in the shopping cart
@@ -126,6 +129,10 @@ public class CacheShoppingCart {
    */
   public int getSize() {
     return items.size();
+  }
+
+  public List<CacheShoppingCartItem> getItems() {
+    return items;
   }
 
 }
