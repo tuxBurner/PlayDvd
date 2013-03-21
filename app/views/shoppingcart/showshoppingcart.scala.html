@@ -3,11 +3,7 @@
 @import helper._
 @import helper.twitterBootstrap._
 
-@scripts = {
-
-}
-
-@mainmenu("Dvd Database - Shoppingcart",scripts,Html("")) {
+@mainmenu("Dvd Database - Shoppingcart") {
 
 
   <div class="row">
@@ -27,7 +23,7 @@
             <dt>Owner: @username</dt>
             @for(item <- items) {
               <dd>
-               @displayitem(item)
+               @general.displayitem(item.copyItem)
               </dd>
             }
           }

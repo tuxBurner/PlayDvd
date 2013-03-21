@@ -9,7 +9,7 @@
       <li class="divider"></li>
       @for(item <- shoppingCart.getLastFiveItems) {
         <li>
-          @displayitem(item)
+          @general.displayitem(item.copyItem)
         </li>
       }
     </ul>

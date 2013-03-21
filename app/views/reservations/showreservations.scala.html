@@ -1,0 +1,70 @@
+@(reservations: Map[String,List[CopyReservation]])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@mainmenu("Dvd Database - Reservations") {
+
+
+  <div class="row well">
+
+
+    <fieldset>
+      <legend><i class="icon-list"></i> Reservations</legend>
+
+      <ul id="resTab" class="nav nav-tabs">
+        <li class="active"><a href="#reserved" data-toggle="tab">Reserved copies by other users</a></li>
+        <li><a href="#own" data-toggle="tab">Reserved by user</a></li>
+      </ul>
+      <div id="resTabContent" class="tab-content">
+        <div class="tab-pane fade in active" id="reserved">
+
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th colspan="2"></th>
+                <th>Item</th>
+                <th>Reserved @@</th>
+              </tr>
+            </thead>
+            <tbody>
+
+
+          @for((borrower,reservations) <- reservations) {
+
+            <tr class="success">
+              <td><input type="checkbox"/></td>
+              <td></td>
+              <td colspan="3">Borrower: @borrower</td>
+            </tr>
+
+            @for(reservation <- reservations) {
+              <tr>
+                <td></td>
+                <td>
+                  @if(reservation.copy.borrowDate == null) {
+                    <input type="checkbox"/>
+                  }
+                </td>
+                <td>@general.displayitem(reservation.copy,true)</td>
+                <td>@{new Date(reservation.date)}</td>
+              </tr>
+            }
+
+          }
+        </tbody>
+      </table>
+
+
+        </div>
+        <div class="tab-pane fade" id="own">
+          <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+        </div>
+      </div>
+
+
+    </fieldset>
+
+  </div>
+}
+

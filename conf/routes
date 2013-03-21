@@ -86,6 +86,9 @@ GET    /shoppingcart/remove/:copyId         controllers.ShoppingCartController.r
 GET    /shoppingcart/menue                  controllers.ShoppingCartController.getShoppingCartMenu()
 POST   /shoppincart/checkout                controllers.ShoppingCartController.checkoutShoppingCart()
 
+# Reservations
+GET   /reservations controllers.ReservationsController.showReservations()
+
 
 # Grabbers 
 GET    /grabber/search                          controllers.InfoGrabberController.searchGrabber(searchTerm = "", grabberType =  "TMDB")

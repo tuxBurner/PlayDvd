@@ -1,0 +1,3 @@
+@(reservations: Integer, reserved: Integer)
+<a class="btn @if(reservations != 0 || reserved != 0) { btn-danger })" href="@routes.ReservationsController.showReservations"><i class="icon-list"></i> (@reservations / @reserved)</a>
+

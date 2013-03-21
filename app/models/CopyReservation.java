@@ -10,7 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import java.util.Date;
+import java.util.*;
 
 /**
  * This holds the infromation when a user persists his {@link objects.shoppingcart.CacheShoppingCart}
@@ -45,6 +45,7 @@ public class CopyReservation extends Model {
   @Column(nullable = false)
   public Long date;
 
+  private static Finder<Long,CopyReservation> finder = new Finder<Long, CopyReservation>(Long.class,CopyReservation.class);
 
   /**
    * Creates the reservation items
@@ -73,6 +74,52 @@ public class CopyReservation extends Model {
       }
     }
   }
+
+  /**
+   * Gets the {@link CopyReservation}s where the owner is the current user
+   * @return
+   */
+  public static Map<String, List<CopyReservation>> getReservations() {
+    final User currentUser = User.getCurrentUser();
+    final List<CopyReservation> list = finder.where().eq("copy.owner", currentUser).order("borrower").findList();
+    final Map<String,List<CopyReservation>> result = new TreeMap<String, List<CopyReservation>>();
+
+    if(CollectionUtils.isEmpty(list) == false) {
+      for(final CopyReservation reservation : list) {
+
+        final String borrowerName = reservation.borrower.userName;
+
+        if(result.containsKey(borrowerName) == false) {
+          result.put(borrowerName,new ArrayList<CopyReservation>());
+        }
+
+        result.get(borrowerName).add(reservation);
+      }
+    }
+
+    return result;
+  }
+
+  /**
+   * Gets the amount of {@link CopyReservation} where the current {@link User} is the owner
+   * @return
+   */
+  public static int getReservationsCount() {
+    final User currentUser = User.getCurrentUser();
+    return finder.where().eq("copy.owner", currentUser).findRowCount();
+  }
+
+  /**
+   * Gets the amount of {@link CopyReservation} wher the current {@link User} is the one reserved the {@link Dvd}
+   * @return
+   */
+  public static int getReservedCount() {
+    final User currentUser = User.getCurrentUser();
+    return finder.where().eq("borrower", currentUser).findRowCount();
+  }
+
+
+
 
 
 }

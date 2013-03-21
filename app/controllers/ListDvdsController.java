@@ -1,7 +1,9 @@
 package controllers;
 
+import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Page;
 import forms.dvd.DvdSearchFrom;
+import models.CopyReservation;
 import models.Dvd;
 import org.apache.commons.lang.StringUtils;
 import play.data.Form;
@@ -10,6 +12,8 @@ import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
 import views.html.dashboard.listdvds;
+
+import java.util.List;
 
 @Security.Authenticated(Secured.class)
 public class ListDvdsController extends Controller {
@@ -162,6 +166,7 @@ public class ListDvdsController extends Controller {
    * @return
    */
   private static Result returnList(final DvdSearchFrom dvdSearchFrom) {
+
 
     final String username = Controller.request().username();
     DvdSearchFrom.setCurrentSearchForm(dvdSearchFrom);

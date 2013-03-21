@@ -4,8 +4,11 @@
 
 @menuContent = {
   <div class="btn-group pull-right">
+
+    @reservations.menureservationbtn(CopyReservation.getReservationsCount,CopyReservation.getReservedCount)
+
     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-      <img src="@routes.Dashboard.gravatar(16,Secured.getUsername)" />
+      <img src="@routes.Dashboard.gravatar(16,Secured.getUsername)" width="16" height="16" />
       @Secured.getUsername
       <span class="caret"></span>
     </a>
