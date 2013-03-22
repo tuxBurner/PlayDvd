@@ -32,6 +32,13 @@ $(function() {
 	    	title: 'Delete DVD',
 	    	cssClass:	'smallModal',
 	    	closeButton: true,
+        onOpen: function() {
+          $("#lendToUser").select2({
+            width: "element",
+            placeholder: "Select a user",
+            allowClear: true
+          });
+        },
 	    	buttons: {
 	    		"Lend" : {
 	    			icon: "icon-share",

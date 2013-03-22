@@ -20,20 +20,9 @@
   
   @if(inSameHull != null) {
     @checkbox(field = lendForm("alsoOthersInHull"), '_label -> "Others in Hull to")
-    
-    <ul>
-   
-    @for(otherDvd <- inSameHull) {
-      <li>
-        @general.displayposter(otherDvd.movie.id,otherDvd.movie.hasPoster,EImageSize.TINY)
-        @otherDvd.movie.title
-      </li>
-    }
 
-    </ul>
+    @general.displaysubcopylist(inSameHull)
   }
-  
 </fieldset>
 </form>
 
-<script src="@routes.Assets.at("javascripts/lendDvd.js")" type="text/javascript"></script>

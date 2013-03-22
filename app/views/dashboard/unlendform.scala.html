@@ -3,28 +3,18 @@
 
 @import helper._
 @import helper.twitterBootstrap._
-@import helpers.EImageSize
 
 <form class="form-horizontal">
 
 <fieldset>
   <legend>Unlend Dvd: @general.displayposter(dvd.movie.id,dvd.movie.hasPoster,EImageSize.TINY) <i>@dvd.movie.title</i> from User: <i>@if(dvd.borrower != null) { @dvd.borrower.userName} else { @dvd.borrowerName }</i></legend>
-  
-  
-  
+
   <input type="hidden" id="unlendDvdId" value="@dvd.id" />
   
    @if(inSameHull != null) {
     @checkbox(field = lendForm("alsoOthersInHull"), '_label -> "Others in Hull to")
-    
-    @for(otherDvd <- inSameHull) {
-      @general.displayposter(otherDvd.movie.id,otherDvd.movie.hasPoster,EImageSize.TINY)
-      @otherDvd.movie.title
-    }
+
+    @general.displaysubcopylist(inSameHull)
   }
-  
-  
 </fieldset>
 </form>
-
-<script src="@routes.Assets.at("javascripts/unlendDvd.js")" type="text/javascript"></script>
