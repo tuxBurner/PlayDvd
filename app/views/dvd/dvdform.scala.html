@@ -23,85 +23,86 @@
 
 @mainmenu("Dvd Database - Add a dvd",scripts,Html("")) {
 
+  @form(routes.DvdController.addDvd(mode),'enctype -> "multipart/form-data") {
   <div class="row" id="dvdFormWrapper">
 
-     @form(routes.DvdController.addDvd(mode),'enctype -> "multipart/form-data", 'class -> "well") {
 
-     <fieldset>
-       <legend>@if(mode == DvdController.DVD_FORM_EDIT_MODE) {Edit Dvd } else {Add a Dvd}</legend>
-             
-     
-       @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
-         <input type="hidden" name="dvdId" id="dvdId" value="@dvdForm("dvdId").value"/>
-       }
 
-       <div class="input-append">
-         <label>EAN Nr.:</label>
-         <input type="text" name="eanNr" id="eanNr" class="span2" value="@dvdForm("eanNr").value"/>
-         <button type="button" class="btn" onclick="openBarcodePopUp();"><i class="icon-barcode"></i></button>
-         <button type="button" class="btn" onclick="openAmazonLookUp($('#eanNr').val());"><i class="icon-search"></i></button>
+       <div class="span5 well">
+         <fieldset>
+           <legend>@if(mode == DvdController.DVD_FORM_EDIT_MODE) {Edit dvd } else {Add dvd} informations</legend>
+
+           @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
+             <input type="hidden" name="dvdId" id="dvdId" value="@dvdForm("dvdId").value"/>
+           }
+
+           <div class="input-append">
+             <label>EAN Nr.:</label>
+             <input type="text" name="eanNr" id="eanNr" class="span2" value="@dvdForm("eanNr").value"/>
+             <button type="button" class="btn" onclick="openBarcodePopUp();"><i class="icon-barcode"></i></button>
+             <button type="button" class="btn" onclick="openAmazonLookUp($('#eanNr').val());"><i class="icon-search"></i></button>
+           </div>
+           <br />
+           <div class="input-append">
+             <label>ASIN Nr.:</label>
+             <input type="text" name="asinNr" id="asinNr" class="span2" value="@dvdForm("asinNr").value"/>
+             <button type="button" class="btn" onclick="openAmazonLookUp($('#asinNr').val());"><i class="icon-search"></i></button>
+           </div>
+
+
+           <label for="copyType">Type:</label>
+           @for((copyType,index) <- helpers.DvdInfoHelper.getCopyTypes.zipWithIndex) {
+             <input type="radio" id="copyType" name="copyType" value="@copyType" @if(mode == DvdController.DVD_FORM_EDIT_MODE && copyType == dvdForm("copyType").value() || mode == DvdController.DVD_FORM_ADD_MODE && dvdForm("copyType").value() == null &&  (index == 0 || copyType.equals(User.getCurrentUser().defaultCopyType))|| mode == DvdController.DVD_FORM_ADD_MODE && dvdForm("copyType").value() != null && copyType == dvdForm("copyType").value()){ checked="checked" } /><span><img class="img-rounded" alt="@copyType" src="@routes.Assets.at("images/copy_type/"+copyType+".png")" /></span>
+           }
+
+
+
+           <label for="ageRating">Rating:</label>
+           @for((rating,index) <- helpers.DvdInfoHelper.getAgeRatings.zipWithIndex) {
+             <input type="radio" id="ageRating" name="ageRating" value="@rating" @if(mode == DvdController.DVD_FORM_EDIT_MODE && rating == dvdForm("ageRating").value() || mode == DvdController.DVD_FORM_ADD_MODE && (rating == dvdForm("ageRating").value() || index == 0)){ checked="checked" } /><span><img class="img-rounded" alt="@rating" src="@routes.Assets.at("images/agerating/"+rating+".gif")" /></span>
+           }
+
+           @inputText(dvdForm("hullNr"),'_label -> "Hull Nr.", 'class -> "span4")
+
+           <div class="clearfix">
+             <label for="box">Box:</label>
+             <div class="input">
+               <input type="hidden" name="box" id="box" value="@dvdForm("box").value" class="span5" data-placeholder="Select a dvd box"/>
+             </div>
+           </div>
+
+           <div class="clearfix">
+             <label for="collection">Collection:</label>
+             <div class="input">
+               <input type="hidden" name="collection" id="collection" value="@dvdForm("collection").value" class="span5" data-placeholder="Select a collection"/>
+             </div>
+           </div>
+
+           <div class="form-actions">
+             @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
+               <button type="submit" class="btn btn-primary"><i class="icon-edit"></i>Edit Dvd</button>
+             } else {
+               <button type="submit" class="btn  btn-primary"><i class="icon-plus"></i>Add Dvd</button>
+             }
+             <a class="btn" href="@routes.ListDvdsController.listdvds(null)"><i class="icon-arrow-left"></i>Back</a>
+           </div>
+         </fieldset>
+
        </div>
-       <br />
-       <div class="input-append">
-         <label>ASIN Nr.:</label>
-         <input type="text" name="asinNr" id="asinNr" class="span2" value="@dvdForm("asinNr").value"/>
-         <button type="button" class="btn" onclick="openAmazonLookUp($('#asinNr').val());"><i class="icon-search"></i></button>
+       <div  class="span6 well">
+         <fieldset>
+           <legend>Pick movie</legend>
+           @inputText(dvdForm("movieId"),'_label -> "Existing movie" , '_showConstraints -> true, 'class-> "span6")
+           <button class="btn btn-inverse" id="newMovieInfos" type="button"><i class="icon-film"></i> New Movie</button>
+           @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
+             <button class="btn btn-info" id="editMovieInfos" type="button"><i class="icon-edit"></i> Edit Movie</button>
+           }
+         </fieldset>
+
        </div>
 
-
-       <label for="copyType">Type:</label>
-       @for((copyType,index) <- helpers.DvdInfoHelper.getCopyTypes.zipWithIndex) {
-         <input type="radio" id="copyType" name="copyType" value="@copyType" @if(mode == DvdController.DVD_FORM_EDIT_MODE && copyType == dvdForm("copyType").value() || mode == DvdController.DVD_FORM_ADD_MODE && dvdForm("copyType").value() == null &&  (index == 0 || copyType.equals(User.getCurrentUser().defaultCopyType))|| mode == DvdController.DVD_FORM_ADD_MODE && dvdForm("copyType").value() != null && copyType == dvdForm("copyType").value()){ checked="checked" } /><span><img class="img-rounded" alt="@copyType" src="@routes.Assets.at("images/copy_type/"+copyType+".png")" /></span>
-       }
-
-       
-       
-       <label for="ageRating">Rating:</label>
-       @for((rating,index) <- helpers.DvdInfoHelper.getAgeRatings.zipWithIndex) {
-         <input type="radio" id="ageRating" name="ageRating" value="@rating" @if(mode == DvdController.DVD_FORM_EDIT_MODE && rating == dvdForm("ageRating").value() || mode == DvdController.DVD_FORM_ADD_MODE && (rating == dvdForm("ageRating").value() || index == 0)){ checked="checked" } /><span><img class="img-rounded" alt="@rating" src="@routes.Assets.at("images/agerating/"+rating+".gif")" /></span>
-       }
-
-       @inputText(dvdForm("hullNr"),'_label -> "Hull Nr.", 'class -> "span4")
-
-       <div class="clearfix">
-         <label for="box">Box:</label>
-         <div class="input">
-           <input type="hidden" name="box" id="box" value="@dvdForm("box").value" class="span5" data-placeholder="Select a dvd box"/>
-         </div>
-       </div>
-
-       <div class="clearfix">
-         <label for="collection">Collection:</label>
-         <div class="input">
-           <input type="hidden" name="collection" id="collection" value="@dvdForm("collection").value" class="span5" data-placeholder="Select a collection"/>
-         </div>
-       </div>
-
-       
-       <hr />
-       
-       <div class="form-actions">
-         @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
-           <button type="submit" class="btn btn-primary"><i class="icon-edit"></i>Edit Dvd</button>
-         } else {
-           <button type="submit" class="btn  btn-primary"><i class="icon-plus"></i>Add Dvd</button>
-         }
-         <a class="btn" href="@routes.ListDvdsController.listdvds(null)"><i class="icon-arrow-left"></i>Back</a>
-       </div>
-             
-      @inputText(dvdForm("movieId"),'_label -> "Existing movie" , '_showConstraints -> true, 'class-> "span6")
-      
-              
-      <button class="btn btn-inverse" id="newMovieInfos" type="button"><i class="icon-film"></i> New Movie</button>
-      
-      @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
-        <button class="btn btn-info" id="editMovieInfos" type="button"><i class="icon-edit"></i> Edit Movie</button>      
-      }
-         
-         
-     </fieldset>         
-     }
    </div>
+  }
 
      
   <!-- NEW MOVIE WRAPPER -->
