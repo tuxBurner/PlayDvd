@@ -56,13 +56,15 @@
            }
 
 
-
            <label for="ageRating">Rating:</label>
            @for((rating,index) <- helpers.DvdInfoHelper.getAgeRatings.zipWithIndex) {
              <input type="radio" id="ageRating" name="ageRating" value="@rating" @if(mode == DvdController.DVD_FORM_EDIT_MODE && rating == dvdForm("ageRating").value() || mode == DvdController.DVD_FORM_ADD_MODE && (rating == dvdForm("ageRating").value() || index == 0)){ checked="checked" } /><span><img class="img-rounded" alt="@rating" src="@routes.Assets.at("images/agerating/"+rating+".gif")" /></span>
            }
 
-           @inputText(dvdForm("hullNr"),'_label -> "Hull Nr.", 'class -> "span4")
+           <label for="series">Audio:</label>
+           <input type="hidden" name="audioTypes" id="audioTypes" class="span5" value="@forms.MovieForm.getDvdFormAttributesAsString(dvdForm("audioTypes").value)" data-placeholder="Please select AudioTypes"/>
+
+           @inputText(dvdForm("hullNr"),'_label -> "Hull Nr.", 'class -> "span2")
 
            <div class="clearfix">
              <label for="box">Box:</label>

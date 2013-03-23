@@ -64,6 +64,7 @@ GET    /dvd/edit/:dvdId                  controllers.DvdController.showEditDvd(d
 GET    /dvd/amazon/:code                 controllers.DvdController.searchAmazonByCode(code: String)
 GET    /dvd/add/amazon/:code/:movieId    controllers.DvdController.showAddDvdByAmazonAndMovie(code: String, movieId: Long)
 POST   /dvd/addMovieByGrabber/           controllers.DvdController.addMovieByGrabber(grabberType : String)
+GET    /dvd/searchattr                   controllers.DvdController.searchForCopyAttribute(term: String, attrType:String)
 
 
 # DELETE DVD

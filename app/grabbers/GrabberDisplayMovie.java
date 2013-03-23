@@ -17,7 +17,7 @@ public class GrabberDisplayMovie {
   public final String movieTitle;
   public final List<GrabberImage> posterUrls;
   public final List<GrabberImage> backDropUrls;
-  public final EGrabberType grabber;
+  public EGrabberType grabber;
   public final String plot;
   public final List<String> trailerUrls;
 

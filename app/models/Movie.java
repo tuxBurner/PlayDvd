@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.ExpressionList;
 import grabbers.EGrabberType;
 import helpers.EImageSize;
 import helpers.EImageType;
@@ -188,6 +189,36 @@ public class Movie extends Model {
       return order.findPagingList(numberOfResults).getAsList();
     }
   }
+
+  /**
+   * Searches for {@link Movie}s which have the same title, or the where the {@link Dvd} has the same ean nr
+   * @param term
+   * @param eanNr
+   * @return
+   */
+  public static List<Movie> searchLikeAndAmazoneCode(final String term, final String eanNr) {
+    final List<Movie> movies = searchLike(term, 0);
+
+    final List<Dvd> dvds = Dvd.find.where().eq("eanNr", eanNr).findList();
+    for (Dvd dvd : dvds) {
+      final Long movieId = dvd.movie.id;
+      boolean foundMovie = false;
+      for(Movie movie : movies) {
+        if(movie.id.equals(movieId) == true) {
+          foundMovie = true;
+          break;
+        }
+      }
+      if(foundMovie == false) {
+        movies.add(dvd.movie);
+      }
+    }
+
+    return movies;
+
+  }
+
+
 
   /**
    * Checks if a movie already exists with the grabberId and the grabberType

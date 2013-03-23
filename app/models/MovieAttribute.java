@@ -185,11 +185,11 @@ public class MovieAttribute extends Model {
     final List<SelectAjaxContainer> retVal = new ArrayList<SelectAjaxContainer>();
     retVal.add(new SelectAjaxContainer(searchTerm, searchTerm));
 
-    for (final MovieAttribute dvdAttibute : attributes) {
-      if (StringUtils.isEmpty(dvdAttibute.value) == true || searchTerm.equals(dvdAttibute.value) == true) {
+    for (final MovieAttribute movieAttribute : attributes) {
+      if (StringUtils.isEmpty(movieAttribute.value) == true || searchTerm.equals(movieAttribute.value) == true) {
         continue;
       }
-      retVal.add(new SelectAjaxContainer(dvdAttibute.value, dvdAttibute.value));
+      retVal.add(new SelectAjaxContainer(movieAttribute.value, movieAttribute.value));
     }
 
     final Gson gson = new GsonBuilder().create();

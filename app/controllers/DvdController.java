@@ -7,8 +7,11 @@ import grabbers.EGrabberType;
 import grabbers.IInfoGrabber;
 import grabbers.amazon.AmazonMovieLookuper;
 import grabbers.amazon.AmazonResult;
+import helpers.RequestToCollectionHelper;
 import jsannotation.JSRoute;
 import models.Dvd;
+import models.DvdAttribute;
+import models.EDvdAttributeType;
 import models.Movie;
 import org.apache.commons.lang3.StringUtils;
 import play.Logger;
@@ -21,6 +24,7 @@ import views.html.dvd.dvdAmazonPopUp;
 import views.html.dvd.dvdform;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * This {@link Controller} handles all the edit and add {@link Dvd} magic
@@ -71,7 +75,8 @@ public class DvdController extends Controller {
    */
   public static Result addDvd(final String mode) {
 
-    final Form<DvdForm> dvdForm = new Form<DvdForm>(DvdForm.class).bindFromRequest();
+    final Map<String, String> map = RequestToCollectionHelper.requestToFormMap(Controller.request(), "audioTypes");
+    final Form<DvdForm> dvdForm = new Form<DvdForm>(DvdForm.class).bind(map);
     if (dvdForm.hasErrors()) {
       return Results.badRequest(dvdform.render(dvdForm, mode));
     } else {
@@ -115,7 +120,7 @@ public class DvdController extends Controller {
       result = AmazonMovieLookuper.lookUp(code);
 
       if (result != null && StringUtils.isEmpty(result.title) == false) {
-        movies = Movie.searchLike(result.title, 0);
+        movies = Movie.searchLikeAndAmazoneCode(result.title, result.ean);
       }
     }
 
@@ -185,6 +190,27 @@ public class DvdController extends Controller {
     final DvdForm dvdForm = DvdForm.amazonAndMovieToDvdForm(amazonResult, movieId, code);
 
     return Results.ok(dvdform.render(form.fill(dvdForm), DvdController.DVD_FORM_ADD_MODE));
+  }
+
+  /**
+   * Searches for {@link DvdAttribute} returns a json with
+   * {@link DvdAttribute#pk} and {@link DvdAttribute#value}
+   *
+   * @param term
+   * @param attrType
+   * @return
+   */
+  @JSRoute
+  public static Result searchForCopyAttribute(final String term, final String attrType) {
+    try {
+      final EDvdAttributeType eattrType = EDvdAttributeType.valueOf(attrType);
+      final String result = DvdAttribute.searchAvaibleAttributesAsJson(eattrType, term);
+      return Results.ok(result);
+    } catch (final Exception e) {
+      Logger.error("An error happend while getting: " + attrType + " " + EDvdAttributeType.class.getName() + " with search term: " + term, e);
+    }
+
+    return Results.badRequest();
   }
 
 }

@@ -10,13 +10,15 @@ import models.Movie;
 import org.apache.commons.lang.StringUtils;
 import play.data.validation.Constraints.Required;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 /**
  * Form which handles all the inputs for adding, editing a dvd
- * 
+ *
  * @author tuxburner
- * 
  */
 public class DvdForm {
 
@@ -51,8 +53,11 @@ public class DvdForm {
 
   public String asinNr;
 
+  public List<String> audioTypes = new ArrayList<String>();
+
   /**
    * Transforms an {@link AmazonResult} and movieId to a dvdForm
+   *
    * @param amazonResult
    * @param movieId
    */
@@ -61,17 +66,20 @@ public class DvdForm {
     dvdForm.ageRating = amazonResult.rating;
     dvdForm.copyType = amazonResult.copyType;
     dvdForm.eanNr = eanNr;
+    dvdForm.audioTypes = amazonResult.audioTypes;
     dvdForm.asinNr = amazonResult.asin;
     dvdForm.eanNr = amazonResult.ean;
     dvdForm.movieId = movieId;
 
-    return  dvdForm;
+    Collections.sort(dvdForm.audioTypes);
+
+    return dvdForm;
   }
 
   /**
    * Transforms a {@link Dvd} to a {@link DvdForm} for editing the dvd in the
    * frontend
-   * 
+   *
    * @param dvd
    * @return
    */
@@ -84,36 +92,42 @@ public class DvdForm {
     dvdForm.ownerName = dvd.owner.userName;
     dvdForm.hullNr = dvd.hullNr;
     dvdForm.eanNr = dvd.eanNr;
-    dvdForm.asinNr =  dvd.asinNr;
+    dvdForm.asinNr = dvd.asinNr;
+
 
     final Set<DvdAttribute> dvdAttrs = dvd.attributes;
-    for (final DvdAttribute dvdAttibute : dvdAttrs) {
-      if (EDvdAttributeType.BOX.equals(dvdAttibute.attributeType)) {
-        dvdForm.box = dvdAttibute.value;
+    for (final DvdAttribute dvdAttribute : dvdAttrs) {
+
+      switch (dvdAttribute.attributeType) {
+        case BOX:
+          dvdForm.box = dvdAttribute.value;
+          break;
+        case COLLECTION:
+          dvdForm.collection = dvdAttribute.value;
+          break;
+        case RATING:
+          dvdForm.ageRating = dvdAttribute.value;
+          break;
+        case COPY_TYPE:
+          dvdForm.copyType = dvdAttribute.value;
+          break;
+        case AUDIO_TYPE:
+          dvdForm.audioTypes.add(dvdAttribute.value);
+          break;
       }
 
-      if (EDvdAttributeType.COLLECTION.equals(dvdAttibute.attributeType)) {
-        dvdForm.collection = dvdAttibute.value;
-      }
+      Collections.sort(dvdForm.audioTypes);
 
-      if (EDvdAttributeType.RATING.equals(dvdAttibute.attributeType)) {
-        dvdForm.ageRating = dvdAttibute.value;
-      }
-
-      if (EDvdAttributeType.COPY_TYPE.equals(dvdAttibute.attributeType)) {
-        dvdForm.copyType = dvdAttibute.value;
-      }
     }
 
     return dvdForm;
   }
 
 
-
   /**
    * This returns the selected {@link Movie} for the {@link Dvd} as a json
    * representation
-   * 
+   *
    * @param movieId
    * @return
    */

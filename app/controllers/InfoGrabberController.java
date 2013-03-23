@@ -69,6 +69,10 @@ public class InfoGrabberController extends Controller {
       return new TheTvDbGrabber();
     }
 
+    if (EGrabberType.MOVIECOMBINED.equals(grabberType)) {
+      return new MovieCombined();
+    }
+
     return null;
   }
 

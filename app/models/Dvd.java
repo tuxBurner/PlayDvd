@@ -179,6 +179,8 @@ public class Dvd extends Model {
     Dvd.addSingleAttribute(dvdForm.collection, EDvdAttributeType.COLLECTION, dvd);
     Dvd.addSingleAttribute(dvdForm.ageRating, EDvdAttributeType.RATING, dvd);
     Dvd.addSingleAttribute(dvdForm.copyType, EDvdAttributeType.COPY_TYPE, dvd);
+    final Set<DvdAttribute> audioTypes = DvdAttribute.gatherAndAddAttributes(new HashSet<String>(dvdForm.audioTypes), EDvdAttributeType.AUDIO_TYPE);
+    dvd.attributes.addAll(audioTypes);
 
     dvd.update();
 

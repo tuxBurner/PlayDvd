@@ -53,10 +53,10 @@ public class RequestToCollectionHelper {
 							if(value[0].indexOf(',') != -1) {
 								String[] split = value[0].split(",");
 								for (int i = 0; i < split.length; i++) {
-									newData.put(key + "[" + i + "]", split[i]);
+									newData.put(key + "[" + i + "]", split[i].trim());
 								}
 							} else {
-							  newData.put(key + "[0]", value[0]);
+							  newData.put(key + "[0]", value[0].trim());
 							}
 						}
 					}

@@ -14,6 +14,8 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.google.gson.GsonBuilder;
+import helpers.SelectAjaxContainer;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -82,7 +84,9 @@ public class DvdAttribute extends Model {
    * 
    * @param type
    * @return
+   * @deprecated
    */
+  @Deprecated
   public static String getAllByTypeAsJson(final EDvdAttributeType type) {
 
     final List<DvdAttribute> allByType = DvdAttribute.getAllByType(type);
@@ -111,13 +115,13 @@ public class DvdAttribute extends Model {
    * @return
    */
   public static DvdAttribute createAttribute(final EDvdAttributeType type, final String value) {
-    final DvdAttribute dvdAttibute = new DvdAttribute();
-    dvdAttibute.attributeType = type;
-    dvdAttibute.value = value;
+    final DvdAttribute dvdAttribute = new DvdAttribute();
+    dvdAttribute.attributeType = type;
+    dvdAttribute.value = value;
 
-    dvdAttibute.save();
+    dvdAttribute.save();
 
-    return dvdAttibute;
+    return dvdAttribute;
   }
 
   /**
@@ -174,6 +178,38 @@ public class DvdAttribute extends Model {
       }
     }
     return null;
+  }
+
+  /**
+   * Searches the available {@link DvdAttribute}s as string for the select2
+   * element
+   *
+   * @param attributeType
+   * @return
+   *
+   */
+  public static String searchAvaibleAttributesAsJson(final EDvdAttributeType attributeType, final String searchTerm) {
+
+    // no searchTerm ?
+    if (StringUtils.isEmpty(searchTerm) == true) {
+      return StringUtils.EMPTY;
+    }
+
+    final List<DvdAttribute> attributes = DvdAttribute.finder.where().eq("attributeType", attributeType).istartsWith("value", searchTerm).order("value ASC").findList();
+    final List<SelectAjaxContainer> retVal = new ArrayList<SelectAjaxContainer>();
+    retVal.add(new SelectAjaxContainer(searchTerm, searchTerm));
+
+    for (final DvdAttribute dvdAttribute : attributes) {
+      if (StringUtils.isEmpty(dvdAttribute.value) == true || searchTerm.equals(dvdAttribute.value) == true) {
+        continue;
+      }
+      retVal.add(new SelectAjaxContainer(dvdAttribute.value, dvdAttribute.value));
+    }
+
+    final Gson gson = new GsonBuilder().create();
+    final String json = gson.toJson(retVal);
+
+    return json;
   }
 
 }

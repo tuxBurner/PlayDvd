@@ -5,5 +5,6 @@ public enum EDvdAttributeType {
   BOX,
   COLLECTION,
   RATING,
-  COPY_TYPE
+  COPY_TYPE,
+  AUDIO_TYPE
 }

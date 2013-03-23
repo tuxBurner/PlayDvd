@@ -1,7 +1,10 @@
 $(function() {
-	
+
+  // TODO: AJAX ME
 	createSelect2DeselectCreate('#box',avaibleBoxes,"span6");
 	createSelect2DeselectCreate('#collection',avaibleCollections,"span6");
+
+  createSelect2TagAjaxBox("#audioTypes", jsRoutes.controllers.DvdController.searchForCopyAttribute(),{ attrType: "AUDIO_TYPE"});
 	  /**
 	   * searching for a movie
 	   */

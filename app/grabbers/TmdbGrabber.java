@@ -75,7 +75,7 @@ public class TmdbGrabber implements IInfoGrabber {
 
     try {
       final Integer idAsInt = Integer.valueOf(id);
-      final MovieDb movieInfo = theMovieDb.getMovieInfo(idAsInt, TmdbGrabber.LANGUAGE);
+      MovieDb movieInfo = getMovieDB(idAsInt);
 
       final List<Artwork> movieImages = theMovieDb.getMovieImages(idAsInt, null);
 
@@ -121,7 +121,7 @@ public class TmdbGrabber implements IInfoGrabber {
     try {
 
       final Integer id = Integer.valueOf(grabberInfoForm.grabberMovieId);
-      final MovieDb movieInfo = theMovieDb.getMovieInfo(id, TmdbGrabber.LANGUAGE);
+      MovieDb movieInfo = getMovieDB(id);
 
       final MovieForm movieForm = new MovieForm();
       movieForm.title = movieInfo.getTitle();
@@ -182,6 +182,17 @@ public class TmdbGrabber implements IInfoGrabber {
     } catch (final MovieDbException e) {
       throw new GrabberException(e);
     }
+  }
 
+  /**
+   * Gets the MovieDB Information from the TMDB WS
+   *
+   * @param id
+   * @return
+   * @throws MovieDbException
+   */
+  protected MovieDb getMovieDB(int id) throws MovieDbException {
+    final MovieDb movieInfo = theMovieDb.getMovieInfo(id, TmdbGrabber.LANGUAGE);
+    return movieInfo;
   }
 }

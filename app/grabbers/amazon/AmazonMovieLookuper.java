@@ -6,14 +6,13 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import play.Logger;
 import play.libs.XPath;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * User: tuxburner
@@ -191,19 +190,52 @@ public class AmazonMovieLookuper {
       rating  = ageRatingMatches.get(rating);
 
 
+      final Set<String> audioTypes = new HashSet<String>();
 
-      /*NodeList nodeList = XPathAPI.selectNodeList(doc, "//Languages/Language[AudioFormat]");
-      for(int i = 0; i < nodeList.getLength(); i++) {
-        Node langItem = nodeList.item(i);
-        Logger.debug(langItem.getTextContent());
-      } */
+      final NodeList audioTypeNodes = XPath.selectNodes("//Languages/Language[AudioFormat and Type = 'Original']", doc);
+      for(int i = 0; i < audioTypeNodes.getLength(); i++) {
+        Node langItem = audioTypeNodes.item(i);
+        final Node nameNode = XPath.selectNode("./Name", langItem);
+        final Node formatNode = XPath.selectNode("./AudioFormat", langItem);
+        String audioType = StringUtils.EMPTY;
+        if(nameNode != null && StringUtils.isEmpty(nameNode.getTextContent()) == false) {
+          audioType=nameNode.getTextContent();
+        }
+
+        if(formatNode != null && StringUtils.isEmpty(formatNode.getTextContent()) == false) {
+          if(StringUtils.isEmpty(audioType) == false) {
+            audioType+=" - ";
+          }
+          audioType+=formatNode.getTextContent();
+        }
+
+        audioTypes.add(audioType);
+      }
+
+      final NodeList otherLanguageNodes = XPath.selectNodes("//Languages/Language[Type = 'Published']/Name", doc);
+      for(int i = 0; i < otherLanguageNodes.getLength(); i++) {
+        String language = otherLanguageNodes.item(i).getTextContent();
+
+        // check if the language is already known :)
+        boolean alreadyKnown = false;
+
+        for(final String audioType :  audioTypes) {
+          if(StringUtils.startsWithIgnoreCase(audioType,language) == true) {
+            alreadyKnown = true;
+            break;
+          }
+        }
+
+        if(alreadyKnown == false) {
+          audioTypes.add(language);
+        }
+      }
 
 
-      final AmazonResult result = new AmazonResult(title,rating,copyType,asin,ean);
+
+      final AmazonResult result = new AmazonResult(title,rating,copyType,asin,ean,audioTypes);
 
       return result;
-
-
 
       // TODO: do this in the play way to fetch the data from the signed url
       /*Document document = WS.url(requestUrl).get().map(new F.Function<WS.Response, Document>() {
