@@ -62,15 +62,27 @@
 
 
          <hr />
-
          @inputText(movieForm("trailerUrl"),'_label -> "Trailer url",'placeholder -> "Url to trailer")
-         
-         @inputText(movieForm("posterUrl"),'_label -> "Poster url",'placeholder -> "Url to a poster image")
-         <img class="img-rounded" id="poster_preview" class="caption" title="Currently selected poster" @if(mode == DvdController.DVD_FORM_ADD_MODE) { data-src="holder.js/@EImageSize.GRABBER_POSTER_SMALL.getWHString()/#4D99E0:#fff/text:No Poster"} else { src="@routes.Dashboard.streamImage(Long.valueOf(movieForm("movieId").value()),"POSTER","SMALL")" } width="92" height="138" />
 
-         @inputText(movieForm("backDropUrl"),'_label -> "Back Drop url",'placeholder -> "Url to a back drop image")
-         <img class="img-rounded" class="caption" id="backDrop_preview" title="Currently selected backdrop" @if(mode == DvdController.DVD_FORM_ADD_MODE) { data-src="holder.js/@EImageSize.GRABBER_BACKDROP_SMALL.getWHString()/#4D99E0:#fff/text:No Backdrop" } else { src="@routes.Dashboard.streamImage(Long.valueOf(movieForm("movieId").value()),"BACKDROP","SMALL")"} width="291" height="163" />
-         
+         <div class="media">
+           <span class="pull-left span4">
+             <img class="img-polaroid img-rounded" id="poster_preview" class="caption" title="Currently selected poster" @if(mode == DvdController.DVD_FORM_ADD_MODE) { data-src="holder.js/@EImageSize.GRABBER_POSTER_SMALL.getWHString()/#4D99E0:#fff/text:No Poster"} else { src="@routes.Dashboard.streamImage(Long.valueOf(movieForm("movieId").value()),"POSTER","SMALL")" } width="@EImageSize.SMALL.getWidth()" height="@EImageSize.SMALL.getHeight()" />
+           </span>
+           <div class="media-body">
+             @inputText(movieForm("posterUrl"),'_label -> "Poster url",'placeholder -> "Url to a poster image")
+           </div>
+         </div>
+
+         <div class="media">
+           <span class="pull-left span4">
+             <img class="img-polaroid img-rounded" class="caption" id="backDrop_preview" title="Currently selected backdrop" @if(mode == DvdController.DVD_FORM_ADD_MODE) { data-src="holder.js/@EImageSize.GRABBER_BACKDROP_SMALL.getWHString()/#4D99E0:#fff/text:No Backdrop" } else { src="@routes.Dashboard.streamImage(Long.valueOf(movieForm("movieId").value()),"BACKDROP","SMALL")"} width="@EImageSize.SMALL.getWidth()" height="@EImageSize.SMALL.getHeight()" />
+           </span>
+           <div class="media-body">
+             @inputText(movieForm("backDropUrl"),'_label -> "Back Drop url",'placeholder -> "Url to a back drop image")
+           </div>
+         </div>
+
+
          <div class="form-actions">
            @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
              <button type="button" class="btn btn-primary movieFormSubmitBtn"><i class="icon-edit"></i>Edit Movie</button>
