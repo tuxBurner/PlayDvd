@@ -7,6 +7,7 @@ import forms.UnLendForm;
 import forms.dvd.objects.InfoDvd;
 import helpers.EImageSize;
 import helpers.EImageType;
+import helpers.ETagHelper;
 import helpers.ImageHelper;
 import jgravatar.Gravatar;
 import jgravatar.GravatarDefaultImage;
@@ -200,7 +201,15 @@ public class Dashboard extends Controller {
   public static Result streamImage(final Long dvdId, final String imgType, final String imgSize) {
     final File file = ImageHelper.getImageFile(dvdId, EImageType.valueOf(imgType), EImageSize.valueOf(imgSize));
     if (file != null) {
-      Controller.response().setContentType("image/png");
+
+      final String etag = ETagHelper.getEtag(file);
+      final String nonMatch = request().getHeader(IF_NONE_MATCH);
+      if(etag.equals(nonMatch) == true) {
+        return status(304);
+      }
+
+      response().setHeader(ETAG,etag);
+      response().setContentType("image/png");
       return Results.ok(file);
     }
     return Results.ok();
