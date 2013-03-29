@@ -24,9 +24,10 @@ public class ImageHelper {
   /**
    * Loads the image from the given url and saves it to the filesystem
    * 
-   * @param dvd
+   * @param dvdId
    * @param urlStr
-   * @param type
+   * @param imageType
+   * @param imageSize
    * @return
    */
   public static boolean createFileFromUrl(final Long dvdId, final String urlStr, final EImageType imageType, final EImageSize imageSize) {
