@@ -1,18 +1,18 @@
 @(searchTerm : String, grabberType: String ,results : List[grabbers.GrabberSearchMovie],dbMovieId: Long, amazoneCode: String)
-<form method="GET" >
-<label>Search Tmdb</label>
-<input type="text" name="searchTerm" id="grabber_search_input" value="@searchTerm"/>
+<form method="GET" class="form-search">
+  <input type="hidden" name="movieToEditId" id="movieToEditId" value="@dbMovieId"/>
+  <input type="hidden" name="grabberAmazoneCode" id="grabberAmazoneCode" value="@amazoneCode"/>
 
-<input type="hidden" name="movieToEditId" id="movieToEditId" value="@dbMovieId"/>
-<input type="hidden" name="grabberAmazoneCode" id="grabberAmazoneCode" value="@amazoneCode"/>
+  <label>Search:</label>
+  <div class="input-append">
+    <input type="text" name="searchTerm" id="grabber_search_input" value="@searchTerm"/>
+    <select name="grabberType" id="grabberType" >
+      <option value="@grabbers.EGrabberType.TMDB.name()">TMDB</option>
+      <option @if(grabbers.EGrabberType.THETVDB.name() == grabberType) { selected="selected" } value="@grabbers.EGrabberType.THETVDB.name()">TheTvDb</option>
+    </select>
+    <button href="#" id="grabber_search_button" class="btn"><i class="icon-search"></i>Search</button>
+  </div>
 
-
-<select name="grabberType" id="grabberType" >
-  <option value="@grabbers.EGrabberType.TMDB.name()">TMDB</option>
-  <option @if(grabbers.EGrabberType.THETVDB.name() == grabberType) { selected="selected" } value="@grabbers.EGrabberType.THETVDB.name()">TheTvDb</option>
-</select>
-
-<button href="#" id="grabber_search_button" class="btn"><i class="icon-search"></i>Search</button>
 </form>
 
 @if(results.isEmpty()) {
