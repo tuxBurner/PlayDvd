@@ -3,7 +3,7 @@ $(function() {
    * button in the popup will be always clickable
    */
   $(document).on('click','#grabber_search_button',function() {
-    searchGrabber($('#grabber_search_input').val(),$('#grabberType').val(),$('#movieToEditId').val(),$('#grabberAmazoneCode').val());
+    searchGrabber($('#grabber_search_input').val(),$('#grabberType').val(),$('#movieToEditId').val(),$('#grabberAmazonCode').val(),$('#grabberCopyId').val());
     return false;
   });
 
@@ -11,7 +11,7 @@ $(function() {
    * The user searches in the grabber poup
    */
   $(document).on('click','.pickGrabberEntry',function() {
-    openGrabberMoviePopup($(this).data('grabberId'),$(this).data('grabberType'),$('#movieToEditId').val(),$('#grabberAmazoneCode').val());
+    openGrabberMoviePopup($(this).data('grabberId'),$(this).data('grabberType'),$('#movieToEditId').val(),$('#grabberAmazonCode').val(),$('#grabberCopyId').val());
   });
 });
 
@@ -20,13 +20,18 @@ $(function() {
  * @param title
  * @param movieToEditId
  * @param grabberType
- * @param grabberAmazoneCode
+ * @param grabberAmazonCode
+ * @param copyId
  */
-var searchGrabber = function(title,grabberType,movieToEditId,grabberAmazoneCode) {
+var searchGrabber = function(title,grabberType,movieToEditId,grabberAmazonCode,copyId) {
   showWaitDiaLog();
   displayAjaxDialog({
     route: jsRoutes.controllers.InfoGrabberController.searchGrabber(title,grabberType),
-    ajaxParams : { "movieToEditId" : movieToEditId, "amazoneCode" : grabberAmazoneCode},
+    ajaxParams : {
+      "movieToEditId" : movieToEditId,
+      "amazonCode" : grabberAmazonCode,
+      "copyId"     : copyId
+    },
     title: 'Movie info from Grabber',
     onOpen: closeWaitDiaLog,
     cssClass: "grabberModal"
@@ -40,13 +45,18 @@ var searchGrabber = function(title,grabberType,movieToEditId,grabberAmazoneCode)
  * @param grabberId
  * @param grabberType
  * @param movieToEditId
- * @param amazoneCode
+ * @param amazonCode
+ * @param copyId
  */
-var openGrabberMoviePopup = function(grabberId,grabberType,movieToEditId,amazoneCode) {
+var openGrabberMoviePopup = function(grabberId,grabberType,movieToEditId,amazonCode,copyId) {
   showWaitDiaLog();
   displayAjaxDialog({
     route: jsRoutes.controllers.InfoGrabberController.getMovieById(grabberId,grabberType),
-    ajaxParams : { "movieToEditId" : movieToEditId, "amazoneCode": amazoneCode},
+    ajaxParams : {
+      "movieToEditId" : movieToEditId,
+      "amazonCode": amazonCode,
+      "copyId" : copyId
+    },
     title: 'Movie info from Grabber',
     onOpen: closeWaitDiaLog,
     cssClass: "grabberModal",
@@ -55,8 +65,8 @@ var openGrabberMoviePopup = function(grabberId,grabberType,movieToEditId,amazone
         icon: "icon-ok-sign icon-white",
         cssClass: "btn-danger",
         callback: function() {
-          if(amazoneCode != null && amazoneCode != "") {
-            addToDbAndFillDvdFormCheck(grabberId,grabberType,amazoneCode);
+          if(amazonCode != null && amazonCode != "") {
+            addToDbAndFillDvdFormCheck(grabberId,grabberType,amazonCode,copyId);
           } else {
             fillMovieFormWithInfoFromGrabber();
           }
@@ -72,9 +82,13 @@ var openGrabberMoviePopup = function(grabberId,grabberType,movieToEditId,amazone
  *
  * @param grabberId
  * @param grabberType
- * @param amazoneCode
+ * @param amazonCode
+ * @param copyId
  */
-var addToDbAndFillDvdFormCheck = function(grabberId,grabberType,amazoneCode) {
+var addToDbAndFillDvdFormCheck = function(grabberId,grabberType,amazonCode,copyId) {
+
+  // because the existing movie popup is removing the form we store them here already
+  var formParams = $('#grabberMovieForm').formParams();
 
   pAjax(jsRoutes.controllers.MovieController.checkIfMovieAlreadyExists(grabberId,grabberType),null,
     function(data) {
@@ -88,12 +102,12 @@ var addToDbAndFillDvdFormCheck = function(grabberId,grabberType,amazoneCode) {
             "Add" : {
               icon: "icon-plus",
               cssClass: "btn-danger",
-              callback: function() { addToDbAndFillDvdForm(grabberType,amazoneCode) }
+              callback: function() { addToDbAndFillDvdForm(grabberType,amazonCode,copyId,formParams) }
             }
           }
         });
       } else {
-        addToDbAndFillDvdForm(grabberType,amazoneCode);
+        addToDbAndFillDvdForm(grabberType,amazonCode,copyId,formParams);
       }
 
     },
@@ -107,14 +121,18 @@ var addToDbAndFillDvdFormCheck = function(grabberId,grabberType,amazoneCode) {
 /**
  * This adds the movie to the database and returns to the dvd form and fills it with the data
  * @param grabberType
- * @param amazoneCode
+ * @param amazonCode
+ * @param copyId
+ * @param formParams
  */
-var addToDbAndFillDvdForm = function(grabberType,amazoneCode) {
+var addToDbAndFillDvdForm = function(grabberType,amazonCode,copyId,formParams) {
   showWaitDiaLog();
-  var formParams = $('#grabberMovieForm').formParams();
+  if($.trim(copyId) == "") {
+    copyId = null;
+  }
   pAjax(jsRoutes.controllers.DvdController.addMovieByGrabber(grabberType),formParams,
     function(data) {
-      window.location = jsRoutes.controllers.DvdController.showAddDvdByAmazonAndMovie(amazoneCode,data).absoluteURL();
+      window.location = jsRoutes.controllers.DvdController.showDvdByAmazonAndMovie(amazonCode,data,copyId).absoluteURL();
       closeWaitDiaLog();
     },
     function(err) {

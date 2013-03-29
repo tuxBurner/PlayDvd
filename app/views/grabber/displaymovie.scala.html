@@ -1,4 +1,4 @@
-@(displayMovie : grabbers.GrabberDisplayMovie,grabberType: String,movieToEditId: Long,mode: String, amazoneCode: String)
+@(displayMovie : grabbers.GrabberDisplayMovie,grabberType: String,movieToEditId: Long,mode: String, amazonCode: String, copyId: Long)
 @import org.apache.commons.lang.StringUtils
 
 @import helper._
@@ -13,7 +13,8 @@
 
     <input type="hidden" name="grabberMovieId" id="grabberMovieId"  value="@displayMovie.systemId"/>
     <input type="hidden" name="movieToEditId" id="movieToEditId" value="@movieToEditId" />
-    <input type="hidden" name="grabberAmazoneCode" id="grabberAmazoneCode" value="@amazoneCode" />
+    <input type="hidden" name="grabberAmazonCode" id="grabberAmazonCode" value="@amazonCode" />
+    <input type="hidden" name="grabberCopyId" id="grabberCopyId" value="@copyId" />
     <input type="hidden" name="grabberType" id="grabberType" value="@grabberType" />
 
 

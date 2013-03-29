@@ -9,7 +9,6 @@ $(function() {
 	   * searching for a movie
 	   */
     createMovieDropDown('#movieId');
-
 	 
 	 $('#editMovieInfos').click(function() {
 		 var selectedMovieId = $('#movieId').val();
@@ -77,20 +76,18 @@ var openBarcodePopUp = function() {
  * Opens the amazon lookup dialog
  */
 var openAmazonLookUp = function(code) {
-  openSearchAmazonPopUp($.trim(code));
+  openSearchAmazonPopUp($.trim(code),$('#dvdId').val());
 };
 
 /**
 * Opens the amazon search popup
 * @param code
 */
-var openSearchAmazonPopUp = function(code) {
-
+var openSearchAmazonPopUp = function(code,copyId) {
   if(code != null && code != "") {
-
     showWaitDiaLog();
     displayAjaxDialog({
-      route: jsRoutes.controllers.DvdController.searchAmazonByCode(code),
+      route: jsRoutes.controllers.DvdController.searchAmazonByCode(code,copyId),
       ajaxParams : null,
       title: '<i class="icon-search"></i> Lookup movie on amazon',
       onOpen: function() { createMovieDropDown('#amazonPickMovie'); closeWaitDiaLog(); },
@@ -106,9 +103,10 @@ var openSearchAmazonPopUp = function(code) {
  *
  * @param code
  * @param titleToSearch
+ * @param copyId
  */
-var amazonStartOnlineGrabber = function(code,titleToSearch) {
-  searchGrabber(titleToSearch,"TMDB",null,code)
+var amazonStartOnlineGrabber = function(code,titleToSearch,copyId) {
+  searchGrabber(titleToSearch,"TMDB",null,code,new String(copyId));
 }
 
 

@@ -85,11 +85,13 @@
     @if(CollectionUtils.isEmpty(dvd.dvdForm.audioTypes ) == false) {
       <div class="row-fluid">
         <label class="span4">Audio:</label>
+        <span>
           <ul class="unstyled">
             @for(audioType <- dvd.dvdForm.audioTypes) {
               <li>@audioType</li>
             }
           </ul>
+        </span>
       </div>
     }
     

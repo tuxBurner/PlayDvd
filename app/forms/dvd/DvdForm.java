@@ -60,12 +60,13 @@ public class DvdForm {
    *
    * @param amazonResult
    * @param movieId
+   * @param copy if not null the form will be filled with the informations from the copy
    */
-  public static DvdForm amazonAndMovieToDvdForm(final AmazonResult amazonResult, final Long movieId, final String eanNr) {
-    final DvdForm dvdForm = new DvdForm();
+  public static DvdForm amazonAndMovieToDvdForm(final AmazonResult amazonResult, final Long movieId, final Dvd copy) {
+
+    final DvdForm dvdForm = (copy == null) ? new DvdForm() : dvdToDvdForm(copy);
     dvdForm.ageRating = amazonResult.rating;
     dvdForm.copyType = amazonResult.copyType;
-    dvdForm.eanNr = eanNr;
     dvdForm.audioTypes = amazonResult.audioTypes;
     dvdForm.asinNr = amazonResult.asin;
     dvdForm.eanNr = amazonResult.ean;

@@ -39,6 +39,8 @@ public class DvdController extends Controller {
 
   public static final String DVD_FORM_EDIT_MODE = "edit";
 
+  public static final Long NO_COPY_SELECTED_ID = new Long(-1);
+
   /**
    * Shows the add Dvd form
    * 
@@ -107,24 +109,21 @@ public class DvdController extends Controller {
   /**
    * Searches a movie via amazon with the given code
    * @param code the code to lookup
+   * @param copyId if set we search for an existing copy
    * @return
    */
   @JSRoute
-  public static Result searchAmazonByCode(final String code) {
-
+  public static Result searchAmazonByCode(final String code, final Long copyId) {
     AmazonResult result = null;
-
     List<Movie> movies = null;
     if (StringUtils.isEmpty(code) == false) {
-
       result = AmazonMovieLookuper.lookUp(code);
-
       if (result != null && StringUtils.isEmpty(result.title) == false) {
         movies = Movie.searchLikeAndAmazoneCode(result.title, result.ean);
       }
     }
 
-    return ok(dvdAmazonPopUp.render(result, code, movies));
+    return ok(dvdAmazonPopUp.render(result, code,copyId,movies));
   }
 
   /**
@@ -157,14 +156,15 @@ public class DvdController extends Controller {
   }
 
   /**
-   * Shows the add Dvd form
+   * Shows the add edit Dvd form with the results from the {@link AmazonMovieLookuper}
    * @param code
    * @param movieId
+   * @param copyId
    *
    * @return
    */
   @JSRoute
-  public static Result showAddDvdByAmazonAndMovie(final String code, final Long movieId) {
+  public static Result showDvdByAmazonAndMovie(final String code, final Long movieId, final Long copyId) {
 
     if(StringUtils.isEmpty(code) == true || movieId == null) {
       return badRequest();
@@ -186,10 +186,17 @@ public class DvdController extends Controller {
       return badRequest();
     }
 
-    final Form<DvdForm> form = Form.form(DvdForm.class);
-    final DvdForm dvdForm = DvdForm.amazonAndMovieToDvdForm(amazonResult, movieId, code);
+    String mode = DVD_FORM_ADD_MODE;
+    Dvd copy = null;
+    if(copyId.equals(NO_COPY_SELECTED_ID) == false) {
+      mode = DVD_FORM_EDIT_MODE;
+      copy = Dvd.getDvdForUser(copyId,Secured.getUsername());
+    }
 
-    return Results.ok(dvdform.render(form.fill(dvdForm), DvdController.DVD_FORM_ADD_MODE));
+    final Form<DvdForm> form = Form.form(DvdForm.class);
+    final DvdForm dvdForm = DvdForm.amazonAndMovieToDvdForm(amazonResult, movieId, copy);
+
+    return Results.ok(dvdform.render(form.fill(dvdForm), mode));
   }
 
   /**
