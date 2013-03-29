@@ -20,6 +20,7 @@ object ApplicationBuild extends Build {
 
       "com.omertron" % "thetvdbapi" % "1.5",
       "com.omertron" % "themoviedbapi" % "3.3",
+      "com.omertron" % "traileraddictapi" % "1.4",
 
       "com.google.zxing" % "core" % "2.1",
 

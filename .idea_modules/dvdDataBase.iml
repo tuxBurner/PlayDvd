@@ -95,6 +95,7 @@
     <orderEntry type="library" name="SBT: com.fasterxml.jackson.core:jackson-core:2.1.2" level="project" />
     <orderEntry type="library" name="SBT: com.fasterxml.jackson.core:jackson-annotations:2.1.2" level="project" />
     <orderEntry type="library" name="SBT: com.fasterxml.jackson.core:jackson-databind:2.1.2" level="project" />
+    <orderEntry type="library" name="SBT: com.omertron:traileraddictapi:1.4" level="project" />
     <orderEntry type="library" name="SBT: com.google.zxing:core:2.1" level="project" />
     <orderEntry type="library" name="SBT: com.typesafe:play-plugins-mailer_2.10:2.1.0" level="project" />
     <orderEntry type="library" name="SBT: org.apache.commons:commons-email:1.2" level="project" />
@@ -105,12 +106,12 @@
     <orderEntry type="library" name="SBT: com.cedarsoft:guice-annotations:2.0.1" level="project" />
     <orderEntry type="library" name="SBT: com.intellij:annotations:7.0.3" level="project" />
     <orderEntry type="library" name="SBT: org.webjars:webjars-play:0.1" level="project" />
-    <orderEntry type="library" name="SBT: org.webjars:bootstrap:2.3.0" level="project" />
+    <orderEntry type="library" name="SBT: org.webjars:bootstrap:2.3.1" level="project" />
     <orderEntry type="library" name="SBT: org.webjars:jquery:1.9.1" level="project" />
     <orderEntry type="library" name="SBT: org.webjars:jquerypp:1.0b2-1" level="project" />
     <orderEntry type="library" name="SBT: com.jquery:jquery:1.7.2" level="project" />
     <orderEntry type="library" name="SBT: org.webjars:select2:3.3.1" level="project" />
-    <orderEntry type="library" name="SBT: org.webjars:font-awesome:3.0.0" level="project" />
+    <orderEntry type="library" name="SBT: org.webjars:font-awesome:3.0.2" level="project" />
     <orderEntry type="library" scope="TEST" name="SBT: play:play-test_2.10:2.1.0" level="project" />
     <orderEntry type="library" scope="TEST" name="SBT: junit:junit-dep:4.10" level="project" />
     <orderEntry type="library" scope="TEST" name="SBT: org.hamcrest:hamcrest-core:1.1" level="project" />
