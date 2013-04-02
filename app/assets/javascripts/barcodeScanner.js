@@ -177,8 +177,12 @@ ws.onmessage = function (e) {
  */
 var stopVideoCapture= function () {
   if(nativeWebcam == true) {
-    nativeVideo.pause();
-    nativeMediaStream.stop();
+    if(nativeVideo != null) {
+      nativeVideo.pause();
+    }
+    if(nativeMediaStream != null) {
+      nativeMediaStream.stop();
+    }
   }
 };
 

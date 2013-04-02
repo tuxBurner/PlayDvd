@@ -1,36 +1,22 @@
 package models;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-
+import com.avaje.ebean.Ebean;
+import com.avaje.ebean.ExpressionList;
+import com.avaje.ebean.Page;
 import com.avaje.ebean.Query;
-import forms.dvd.*;
+import com.typesafe.config.ConfigFactory;
+import forms.dvd.DvdForm;
+import forms.dvd.DvdSearchFrom;
+import forms.dvd.objects.EDvdListOrderBy;
+import forms.dvd.objects.EDvdListOrderHow;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-
 import play.Logger;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 
-import com.avaje.ebean.Ebean;
-import com.avaje.ebean.ExpressionList;
-import com.avaje.ebean.Page;
-import com.typesafe.config.ConfigFactory;
-
-import forms.dvd.DvdSearchFrom;
-import forms.dvd.objects.EDvdListOrderBy;
-import forms.dvd.objects.EDvdListOrderHow;
+import javax.persistence.*;
+import java.util.*;
 
 @Entity
 public class Dvd extends Model {
@@ -336,7 +322,11 @@ public class Dvd extends Model {
   }
 
 
-
+  /**
+   * Gets all {@link Dvd} which are in the same hull and are borrowed to the same borrower
+   * @param dvd
+   * @return
+   */
   public static List<Dvd> getDvdBorrowedSameHull(final Dvd dvd) {
 
     // dont bother the database
@@ -357,12 +347,38 @@ public class Dvd extends Model {
     return findList;
   }
 
+  /**
+   * Attaches borrower as user or as simple string to the query where
+   * @param dvd
+   * @param notNull
+   */
   private static void borrowerOrBorrowed(final Dvd dvd, final ExpressionList<Dvd> notNull) {
     if (StringUtils.isEmpty(dvd.borrowerName) == false) {
       notNull.eq("borrowerName", dvd.borrowerName);
     } else {
       notNull.eq("borrower", dvd.borrower);
     }
+  }
+
+  /**
+   * Gets all {@link Dvd}s the current {@link User} lent to somebody
+   * @return
+   */
+  public static Map<String,List<Dvd>> getLentDvds() {
+    final User currentUser = User.getCurrentUser();
+
+    final Map<String,List<Dvd>> result = new TreeMap<String, List<Dvd>>();
+    final List<Dvd> list = find.where().eq("owner", currentUser).isNotNull("borrowDate").order("borrowDate ASC").findList();
+    if(CollectionUtils.isEmpty(list) == false) {
+      for(final Dvd dvd : list) {
+        final String borrower = (dvd.borrower != null) ? dvd.borrower.userName : dvd.borrowerName;
+        if(result.containsKey(borrower) == false) {
+          result.put(borrower,new ArrayList<Dvd>());
+        }
+        result.get(borrower).add(dvd);
+      }
+    }
+    return result;
   }
 
   /**

@@ -76,28 +76,39 @@ public class CopyReservation extends Model {
   }
 
   /**
-   * Gets the {@link CopyReservation}s where the owner is the current user
+   * Gets the {@link CopyReservation}s where the owner for the {@link Dvd} is the current user
    * @return
    */
-  public static Map<String, List<CopyReservation>> getReservations() {
+  public static Map<User, List<CopyReservation>> getReservations() {
     final User currentUser = User.getCurrentUser();
     final List<CopyReservation> list = finder.where().eq("copy.owner", currentUser).order("borrower").findList();
-    final Map<String,List<CopyReservation>> result = new TreeMap<String, List<CopyReservation>>();
+    final Map<User,List<CopyReservation>> result = new HashMap<User, List<CopyReservation>>();
 
     if(CollectionUtils.isEmpty(list) == false) {
       for(final CopyReservation reservation : list) {
 
-        final String borrowerName = reservation.borrower.userName;
+        final User borrower = reservation.borrower;
 
-        if(result.containsKey(borrowerName) == false) {
-          result.put(borrowerName,new ArrayList<CopyReservation>());
+        if(result.containsKey(borrower) == false) {
+          result.put(borrower,new ArrayList<CopyReservation>());
         }
 
-        result.get(borrowerName).add(reservation);
+        result.get(borrower).add(reservation);
       }
     }
 
     return result;
+  }
+
+  /**
+   * Gets the {@link CopyReservation}s where the owner for the {@link CopyReservation} is the current user
+   * @return
+   */
+  public static List<CopyReservation> getOwnReservations() {
+    final User currentUser = User.getCurrentUser();
+    final List<CopyReservation> list = finder.where().eq("borrower", currentUser).order("date DESC").findList();
+
+    return list;
   }
 
   /**
@@ -118,8 +129,33 @@ public class CopyReservation extends Model {
     return finder.where().eq("borrower", currentUser).findRowCount();
   }
 
+  /**
+   * Deletes a {@link CopyReservation} where the {@link CopyReservation#borrower} is the current {@link User}
+   * @param reservationId
+   */
+  public static void deleteOwnReservation(Long reservationId) {
+    final User currentUser = User.getCurrentUser();
+    final CopyReservation reservation = finder.where().eq("borrower", currentUser).eq("id", reservationId).findUnique();
+    if(reservation == null) {
+      if(Logger.isErrorEnabled() == true) {
+        Logger.error("Could not find "+CopyReservation.class.getName()+": "+reservationId+" where the owner is: "+currentUser.userName);
+      }
+      return;
+    }
 
+    reservation.delete();
+  }
 
+  public static void deleteReservation(Long reservationId) {
+    final User currentUser = User.getCurrentUser();
+    final CopyReservation reservation = finder.where().eq("copy.owner", currentUser).eq("id", reservationId).findUnique();
+    if(reservation == null) {
+      if(Logger.isErrorEnabled() == true) {
+        Logger.error("Could not find "+CopyReservation.class.getName()+": "+reservationId+" where the copy.owner is: "+currentUser.userName);
+      }
+      return;
+    }
 
-
+    reservation.delete();
+  }
 }
