@@ -17,10 +17,12 @@ public class LendForm {
 
   public String freeName;
 
+  public String reservation;
+
   public Boolean alsoOthersInHull = false;
 
   public static List<String> getOtherUsers() {
-    final List<User> findList = User.find.select("userName").where().ne("userName", Controller.ctx().session().get(Secured.AUTH_SESSION)).orderBy("userName asc").findList();
+    final List<User> findList = User.find.select("userName").where().ne("userName",Secured.getUsername()).orderBy("userName asc").findList();
 
     List<String> list = null;
     if (CollectionUtils.isEmpty(findList) == false) {

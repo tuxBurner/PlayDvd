@@ -13,6 +13,7 @@ import jgravatar.Gravatar;
 import jgravatar.GravatarDefaultImage;
 import jgravatar.GravatarRating;
 import jsannotation.JSRoute;
+import models.CopyReservation;
 import models.Dvd;
 import models.User;
 import net.coobird.thumbnailator.Thumbnails;
@@ -33,6 +34,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.util.List;
+import java.util.Map;
 
 @Security.Authenticated(Secured.class)
 public class Dashboard extends Controller {
@@ -71,9 +73,10 @@ public class Dashboard extends Controller {
     }
 
     final List<Dvd> dvdForUserInSameHull = Dvd.getDvdUnBorrowedSameHull(dvdForUser);
+    final Map<String, String> reservationsForCopy = CopyReservation.getReservationsForCopy(dvdId);
 
     final Form<LendForm> form = Form.form(LendForm.class);
-    return Results.ok(lendform.render(form, dvdForUser, dvdForUserInSameHull));
+    return Results.ok(lendform.render(form, dvdForUser, dvdForUserInSameHull,reservationsForCopy));
   }
 
   /**
@@ -116,13 +119,21 @@ public class Dashboard extends Controller {
 
     // check if the form is okay
     final LendForm lendForm = form.get();
-    final String userName = StringUtils.trimToNull(lendForm.userName);
+    String userName = StringUtils.trimToNull(lendForm.userName);
     final String freeName = StringUtils.trimToNull(lendForm.freeName);
+    final String reservation = StringUtils.trimToNull(lendForm.reservation);
 
-    if ((StringUtils.isEmpty(userName) == true && StringUtils.isEmpty(freeName) == true)) {
-      Logger.error("Could not lend dvd because no user or freename is given: " + "username: " + userName + " freename: " + freeName);
+    if (StringUtils.isEmpty(userName) == true && StringUtils.isEmpty(freeName) == true && StringUtils.isEmpty(reservation) == true) {
+      Logger.error("Could not lend dvd because no user, reservation or freename is given ");
 
       return Results.internalServerError();
+    }
+
+    if(StringUtils.isEmpty(reservation) == false && StringUtils.isNumeric(reservation) == true) {
+      final String reservationBorrowerName = CopyReservation.getReservationBorrowerName(Long.valueOf(reservation));
+      if(StringUtils.isEmpty(reservationBorrowerName) == false) {
+        userName = reservationBorrowerName;
+      }
     }
 
     final String ownerName = Controller.ctx().session().get(Secured.AUTH_SESSION);

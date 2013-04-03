@@ -422,12 +422,16 @@ public class Dvd extends Model {
         dvdsToLend.addAll(findSet);
       }
 
+      User userByName = null;
+      if (StringUtils.isEmpty(userName) == false) {
+        userByName = User.getUserByName(userName);
+      }
+
       for (final Dvd dvd : dvdsToLend) {
 
         boolean updated = false;
 
-        if (StringUtils.isEmpty(userName) == false) {
-          final User userByName = User.getUserByName(userName);
+        if (userByName != null) {
           if (userByName != null) {
             dvd.borrower = userByName;
             updated = true;

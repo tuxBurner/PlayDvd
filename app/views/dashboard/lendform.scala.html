@@ -1,4 +1,6 @@
-@(lendForm: Form[forms.LendForm], dvd: Dvd, inSameHull: List[Dvd])
+@(lendForm: Form[forms.LendForm], dvd: Dvd, inSameHull: List[Dvd], reservations: Map[String,String])
+@import org.apache.commons.collections.MapUtils
+@import org.apache.commons.collections.CollectionUtils
 
 @import helper._
 @import helper.twitterBootstrap._
@@ -10,12 +12,17 @@
   <legend>Lend Dvd: @general.displayposter(dvd.movie.id,dvd.movie.hasPoster,EImageSize.TINY) <i>@dvd.movie.title</i></legend>
   
   <input type="hidden" id="lendDvdId" value="@dvd.id" />
-  
+
+  @if(MapUtils.isEmpty(reservations) == false) {
+    @select(lendForm("reservation"), options(reservations),'_label->"From reservation",'class-> "span5", 'id -> "lendToReservation")
+  }
+
   @defining(forms.LendForm.getOtherUsers()) { otherUsers =>
     @if(otherUsers != null) {
       @select(lendForm("userName"), options(otherUsers),'_label->"To user",'class-> "span5", 'id -> "lendToUser")
     }
   }
+
   @inputText(lendForm("freeName"),'_label -> "To free name", 'class -> "span5")
   
   @if(inSameHull != null) {

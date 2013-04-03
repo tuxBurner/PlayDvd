@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.ExpressionList;
 import objects.shoppingcart.CacheShoppingCart;
 import objects.shoppingcart.CacheShoppingCartItem;
 import org.apache.commons.collections.CollectionUtils;
@@ -146,6 +147,10 @@ public class CopyReservation extends Model {
     reservation.delete();
   }
 
+  /**
+   * Deletes a {@link CopyReservation} where the {@link CopyReservation#copy} owner is the current {@link User}
+   * @param reservationId
+   */
   public static void deleteReservation(Long reservationId) {
     final User currentUser = User.getCurrentUser();
     final CopyReservation reservation = finder.where().eq("copy.owner", currentUser).eq("id", reservationId).findUnique();
@@ -157,5 +162,31 @@ public class CopyReservation extends Model {
     }
 
     reservation.delete();
+  }
+
+  /**
+   * Gets all {@link CopyReservation} where the {@link CopyReservation#copy} is the given copyId
+   * @param copyId
+   * @return
+   */
+  public static Map<String,String> getReservationsForCopy(final Long copyId) {
+    final List<CopyReservation> list = finder.fetch("borrower", "userName").where().eq("copy.id", copyId).findList();
+    final Map<String,String> result = new HashMap<String, String>();
+    if(CollectionUtils.isEmpty(list) == false) {
+      result.put("","");
+      for(final CopyReservation reservation : list) {
+        result.put(String.valueOf(reservation.id),reservation.borrower.userName);
+      }
+    }
+    return result;
+  }
+
+  public static String getReservationBorrowerName(final Long reservationId) {
+    final CopyReservation copyReservation = finder.fetch("borrower", "userName").where().eq("id", reservationId).findUnique();
+    if(copyReservation == null) {
+      return null;
+    }
+
+    return copyReservation.borrower.userName;
   }
 }

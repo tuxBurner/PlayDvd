@@ -29,7 +29,7 @@ $(function() {
 	$(document).on('click','.lendDvdBtn',function(event){
 		displayAjaxDialog({
 			route: jsRoutes.controllers.Dashboard.lendDialogContent($(this).data('dvdId')),
-	    	title: 'Delete DVD',
+	    	title: 'Lend Copy',
 	    	cssClass:	'smallModal',
 	    	closeButton: true,
         onOpen: function() {
@@ -38,24 +38,35 @@ $(function() {
             placeholder: "Select a user",
             allowClear: true
           });
+
+          $("#lendToReservation").select2({
+            width: "element",
+            placeholder: "Select a reservation",
+            allowClear: true
+          });
         },
 	    	buttons: {
 	    		"Lend" : {
 	    			icon: "icon-share",
 	    			cssClass: "btn-warning",
 	    			callback: function() {
+              var reservationVal = $('#lendToReservation').val();
 	    				var userVal = $('#lendToUser').val();
 	    				var freeVal = $('#freeName').val();
 	    				var lendOtherInHull = ($('#alsoOthersInHull').attr('checked') == 'checked') ? "true" : "false" ;
-	    				if((userVal == null || userVal == "") && (freeVal == null || freeVal == "")) {
+
+              // any set ?
+              if((userVal == null || userVal == "") && (freeVal == null || freeVal == "") && (reservationVal == null || reservationVal == "")) {
 	    					return;
 	    				}
-	    				if(userVal != null && userVal != "" && freeVal != null && freeVal != "") {
+
+              // all off them set ?
+	    				if(userVal != null && userVal != "" && freeVal != null && freeVal != ""  && reservationVal != null && reservationVal != "") {
 	    					return;
 	    				}
 	    				pAjax(jsRoutes.controllers.Dashboard.lendDvd(
 	    				  $("#lendDvdId").val()),
-	    				  {"userName" : userVal, "freeName" : freeVal, "alsoOthersInHull" :  lendOtherInHull},
+	    				  {"userName" : userVal, "freeName" : freeVal, "alsoOthersInHull" :  lendOtherInHull, "reservation" : reservationVal},
 	    			      function(data){
                     //TODO: make me load a route
 	    				      window.location.reload();
