@@ -21,19 +21,4 @@ public class LendForm {
 
   public Boolean alsoOthersInHull = false;
 
-  public static List<String> getOtherUsers() {
-    final List<User> findList = User.find.select("userName").where().ne("userName",Secured.getUsername()).orderBy("userName asc").findList();
-
-    List<String> list = null;
-    if (CollectionUtils.isEmpty(findList) == false) {
-      list = new ArrayList<String>();
-      list.add("");
-      for (final User user : findList) {
-        list.add(user.userName);
-      }
-    }
-
-    return list;
-  }
-
 }

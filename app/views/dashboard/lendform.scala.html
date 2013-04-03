@@ -1,4 +1,4 @@
-@(lendForm: Form[forms.LendForm], dvd: Dvd, inSameHull: List[Dvd], reservations: Map[String,String])
+@(lendForm: Form[forms.LendForm], dvd: Dvd, inSameHull: List[Dvd], reservations: Map[String,String], otherUsers: List[String])
 @import org.apache.commons.collections.MapUtils
 @import org.apache.commons.collections.CollectionUtils
 
@@ -17,11 +17,11 @@
     @select(lendForm("reservation"), options(reservations),'_label->"From reservation",'class-> "span5", 'id -> "lendToReservation")
   }
 
-  @defining(forms.LendForm.getOtherUsers()) { otherUsers =>
-    @if(otherUsers != null) {
-      @select(lendForm("userName"), options(otherUsers),'_label->"To user",'class-> "span5", 'id -> "lendToUser")
-    }
+
+  @if(otherUsers != null) {
+    @select(lendForm("userName"), options(otherUsers),'_label->"To user",'class-> "span5", 'id -> "lendToUser")
   }
+
 
   @inputText(lendForm("freeName"),'_label -> "To free name", 'class -> "span5")
   

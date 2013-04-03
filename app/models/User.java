@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.typesafe.config.ConfigFactory;
 import controllers.Secured;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.collections.CollectionUtils;
 import play.Logger;
 import play.data.format.Formats;
 import play.data.validation.Constraints.Required;
@@ -21,8 +22,8 @@ import java.util.List;
 public class User extends Model {
 
   /**
-	 * 
-	 */
+   *
+   */
   private static final long serialVersionUID = 3236069629608718953L;
 
   @Id
@@ -56,7 +57,7 @@ public class User extends Model {
 
   /**
    * Saves the user to the database
-   * 
+   *
    * @param user
    */
   public static void create(final User user) {
@@ -71,7 +72,7 @@ public class User extends Model {
 
   /**
    * No plain password please in the dataBase :)
-   * 
+   *
    * @param password
    * @return
    * @throws NoSuchAlgorithmException
@@ -95,7 +96,7 @@ public class User extends Model {
 
   /**
    * Checks if a {@link User} wit the given username exists
-   * 
+   *
    * @param username
    * @return
    */
@@ -105,6 +106,7 @@ public class User extends Model {
 
   /**
    * Gets the current loggedin user from the database
+   *
    * @return
    */
   public static User getCurrentUser() {
@@ -113,7 +115,7 @@ public class User extends Model {
 
   /**
    * Gets a {@link User} by the given username
-   * 
+   *
    * @param username
    * @return
    */
@@ -133,7 +135,7 @@ public class User extends Model {
 
   /**
    * This is needed for the search form
-   * 
+   *
    * @return
    */
   public static String getUserNamesAsJson() {
@@ -147,6 +149,25 @@ public class User extends Model {
 
     final Gson gson = new Gson();
     return gson.toJson(result);
+  }
+
+  /**
+   * Gets all other usernames
+   *
+   * @return
+   */
+  public static List<String> getOtherUserNames() {
+    final List<User> findList = User.find.select("userName").where().ne("userName", Secured.getUsername()).orderBy("userName asc").findList();
+
+    List<String> list = null;
+    if (CollectionUtils.isEmpty(findList) == false) {
+      list = new ArrayList<String>();
+      list.add("");
+      for (final User user : findList) {
+        list.add(user.userName);
+      }
+    }
+    return list;
   }
 
 }

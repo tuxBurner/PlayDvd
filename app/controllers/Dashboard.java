@@ -76,7 +76,7 @@ public class Dashboard extends Controller {
     final Map<String, String> reservationsForCopy = CopyReservation.getReservationsForCopy(dvdId);
 
     final Form<LendForm> form = Form.form(LendForm.class);
-    return Results.ok(lendform.render(form, dvdForUser, dvdForUserInSameHull,reservationsForCopy));
+    return Results.ok(lendform.render(form, dvdForUser, dvdForUserInSameHull,reservationsForCopy, User.getOtherUserNames()));
   }
 
   /**
