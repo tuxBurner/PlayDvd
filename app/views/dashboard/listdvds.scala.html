@@ -23,6 +23,8 @@
     <h4>Displaying @dvdPage.page.getDisplayXtoYofZ(" to "," of ") DVD's</h4>
 
     @dvdlistnav(dvdPage)
+
+    <div class="row">
  
     <ul class="coverlist">
       @for(dvd <- dvdPage.list) {
@@ -69,6 +71,7 @@
         </li>
         }
     </ul>
+    </div>
 
     @dvdlistnav(dvdPage)
     
