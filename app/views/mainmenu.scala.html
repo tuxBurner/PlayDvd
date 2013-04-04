@@ -3,10 +3,11 @@
 @import helper._
 
 @menuContent = {
-  <div class="btn-group pull-right">
+  <div class="pull-right">
 
     @reservations.menureservationbtn(CopyReservation.getReservationsCount,CopyReservation.getReservedCount)
 
+    <div class="btn-group">
     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
       <img src="@routes.Dashboard.gravatar(16,Secured.getUsername)" width="16" height="16" />
       @Secured.getUsername
@@ -17,6 +18,7 @@
       <li class="divider"></li>
       <li><a href="@routes.RegisterLoginController.logout"><i class="icon-signout"></i>Sign Out</a></li>
     </ul>
+    </div>
   </div>
           
   <div class="nav-collapse">

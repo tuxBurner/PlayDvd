@@ -88,9 +88,12 @@ GET    /shoppingcart/menue                  controllers.ShoppingCartController.g
 POST   /shoppincart/checkout                controllers.ShoppingCartController.checkoutShoppingCart()
 
 # Reservations
-GET   /reservations                             controllers.ReservationsController.showReservations()
-GET   /reservations/delete/own/:reservationId   controllers.ReservationsController.deleteOwnReservation(reservationId: Long)
-GET   /reservations/delete/copy/:reservationId  controllers.ReservationsController.deleteOwnReservation(reservationId: Long)
+GET   /reservations                         controllers.ReservationsController.showReservations()
+GET   /reservations/delete/:reservationIds  controllers.ReservationsController.deleteReservations(reservationIds: String)
+GET   /reservations/borrow/:reservationIds  controllers.ReservationsController.borrowReservations(reservationIds: String)
+GET   /reserved                             controllers.ReservationsController.showReserved()
+GET   /reserved/delete/:reservationId       controllers.ReservationsController.deleteReserved(reservationId: Long)
+
 
 
 # Grabbers 

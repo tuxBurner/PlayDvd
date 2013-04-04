@@ -134,7 +134,7 @@ public class CopyReservation extends Model {
    * Deletes a {@link CopyReservation} where the {@link CopyReservation#borrower} is the current {@link User}
    * @param reservationId
    */
-  public static void deleteOwnReservation(Long reservationId) {
+  public static void deleteReserved(Long reservationId) {
     final User currentUser = User.getCurrentUser();
     final CopyReservation reservation = finder.where().eq("borrower", currentUser).eq("id", reservationId).findUnique();
     if(reservation == null) {
@@ -150,9 +150,9 @@ public class CopyReservation extends Model {
   /**
    * Deletes a {@link CopyReservation} where the {@link CopyReservation#copy} owner is the current {@link User}
    * @param reservationId
+   * @param currentUser
    */
-  public static void deleteReservation(Long reservationId) {
-    final User currentUser = User.getCurrentUser();
+  public static void deleteReservation(Long reservationId, final User currentUser) {
     final CopyReservation reservation = finder.where().eq("copy.owner", currentUser).eq("id", reservationId).findUnique();
     if(reservation == null) {
       if(Logger.isErrorEnabled() == true) {
@@ -188,5 +188,26 @@ public class CopyReservation extends Model {
     }
 
     return copyReservation.borrower.userName;
+  }
+
+  /**
+   * Borrows the copy to the borrower and removes the reservation
+   * @param reservationId
+   * @param currentUser
+   */
+  public static void borrowReservation(Long reservationId, User currentUser) {
+    final CopyReservation copyReservation = finder.where().eq("id", reservationId).eq("copy.owner", currentUser).findUnique();
+    if(copyReservation == null) {
+      return;
+    }
+
+    final Long borrowDate = copyReservation.copy.borrowDate;
+    if(borrowDate != null) {
+      return;
+    }
+
+    Dvd.lendDvdToUser(copyReservation.copy.id,currentUser.userName,copyReservation.borrower.userName,null,false);
+
+    copyReservation.delete();
   }
 }

@@ -1,4 +1,5 @@
-@(reservations: Map[User,List[CopyReservation]], ownReservations: List[CopyReservation], lentCopies: Map[String,List[Dvd]])
+@(reservations: Map[User,List[CopyReservation]])
+@import _root_.helpers.EImageSize
 
 @import helper._
 @import helper.twitterBootstrap._
@@ -7,21 +8,13 @@
   <script src="@routes.Assets.at("javascripts/reservations.js")" type="text/javascript"></script>
 }
 
-@mainmenu("Dvd Database - Reservations",scripts) {
+@mainmenu("Reservations",scripts) {
 
 
   <div class="row well">
 
     <fieldset>
       <legend><i class="icon-list"></i> Reservations</legend>
-
-      <ul id="resTab" class="nav nav-tabs">
-        <li class="active"><a href="#reserved" data-toggle="tab">Reserved copies by other users</a></li>
-        <li><a href="#own" data-toggle="tab">Reserved by user</a></li>
-        <li><a href="#lent" data-toggle="tab">Lent copies</a></li>
-      </ul>
-      <div id="resTabContent" class="tab-content">
-        <div class="tab-pane fade in active" id="reserved">
 
           <div id="reservationsTab" class="tabbable tabs-left">
             <ul class="nav nav-tabs">
@@ -48,7 +41,7 @@
                         <tr>
                           <td>
                             @if(reservation.copy.borrowDate == null) {
-                              <input type="checkbox" class="reservationsCopyCheckBox" data-borrower="@borrower.id" data-copyid="@reservation.copy.id" />
+                              <input type="checkbox" class="reservationsCopyCheckBox" data-borrower="@borrower.id" data-resid="@reservation.id" />
                             }
                           </td>
                           <td>@general.displayitem(reservation.copy,true)</td>
@@ -60,9 +53,9 @@
                       <tr>
                         <th colspan="3">
                           <div  class="pull-right">
-                          <button type="button" class="btn btn-warning disabled reservationsBorrowBtn" data-borrower="@borrower.id"><i class="icon-share"></i> Borrow</button>
-                          <button type="button" class="btn btn-danger disabled reservationsDeleteBtn" data-borrower="@borrower.id"><i class="icon-trash"></i> Delete</button>
-                            </div>
+                            <button type="button" class="btn btn-warning disabled" onclick="borrowReservations(@borrower.id);"><i class="icon-share"></i> Borrow</button>
+                            <button type="button" class="btn btn-danger disabled" onclick="deleteReservations(@borrower.id);"><i class="icon-trash"></i> Delete</button>
+                          </div>
                         </th>
                       </tr>
                     </tfoot>
@@ -71,54 +64,6 @@
               }
             </div>
           </div>
-        </div>
-
-        <div class="tab-pane fade" id="own">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>Copy</th>
-                <th>Reserved @@</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              @for(reservation <- ownReservations) {
-                <tr id="ownReservation@reservation.id">
-                  <td>@general.displayitem(reservation.copy,true)</td>
-                  <td>@{new Date(reservation.date)}</td>
-                  <td><button type="button" class="btn btn-danger" onclick="removeOwnReservation(@reservation.id);"><i class="icon-trash"></i></button></td>
-                </tr>
-              }
-            </tbody>
-          </table>
-        </div>
-
-        <div class="tab-pane fade" id="lent">
-          @for((borrower,copies) <- lentCopies) {
-            <div class="tab-pane">
-
-            <table class="table table-hover">
-            <thead>
-            <tr>
-            <th>Item</th>
-            <th>Lent @@</th>
-            </tr>
-            </thead>
-            <tbody>
-              @for(copy <- copies) {
-                <tr>
-                <td>@general.displayitem(copy,false)</td>
-                <td>@{new Date(copy.borrowDate)}</td>
-                </tr>
-              }
-            </tbody>
-            </table>
-            </div>
-          }
-        </div>
-      </div>
-
 
     </fieldset>
 

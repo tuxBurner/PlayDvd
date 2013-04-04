@@ -1,3 +1,14 @@
 @(reservations: Integer, reserved: Integer)
-<a class="btn @if(reservations != 0 || reserved != 0) { btn-danger })" href="@routes.ReservationsController.showReservations"><i class="icon-list"></i> (@reservations / @reserved)</a>
+<div class="btn-group">
+<a class="btn dropdown-toggle @if(reservations != 0 || reserved != 0) { btn-danger }" data-toggle="dropdown" href="#">
+  <i class="icon-list"></i> (@reservations / @reserved)
+  <span class="caret"></span>
+</a>
+<ul class="dropdown-menu">
+  <li><a href="@routes.ReservationsController.showReservations">Reservations (@reservations)</a></li>
+  <li><a href="@routes.ReservationsController.showReserved">Reserved (@reserved)</a></li>
+  <li><a href="@routes.ReservationsController.showReservations">Lent to other</a></li>
+  <li><a href="@routes.ReservationsController.showReservations">Borrowed</a></li>
+</ul>
+</div>
 

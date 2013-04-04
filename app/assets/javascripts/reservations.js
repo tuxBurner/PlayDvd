@@ -50,31 +50,89 @@ var reservationsUpdateButtons = function(borrowerId) {
 }
 
 /**
- * Removes a reservation a user made himself
- * @param reservationId
+ * Asks the user if he wants to delete the reservations
+ * @param borrowerId
  */
-var removeOwnReservation = function(reservationId) {
+var deleteReservations = function(borrowerId) {
+  var ids = getIdsAsCommaString(borrowerId);
+  if(ids == null || ids == "") {
+    return;
+  }
+
   displayDialog({
-    title: "Remove reservation ?",
+    title: '<i class="icon-trash"></i> Remove reservations',
     closeButton: true,
-    content: "Remove reservation ? <br />"+$('#ownReservation'+reservationId+" .media").html(),
+    content: 'Remove selected reservations ?',
     buttons : {
-      "Ok" : {
-        icon: "icon-trash",
-        cssClass: "btn-danger",
+      "Delete" : {
+        icon: 'icon-trash',
+        cssClass: 'btn-danger',
         callback: function()  {
-          pAjax(jsRoutes.controllers.ReservationsController.deleteOwnReservation(reservationId),null,
-            function(data) {
-              $('#ownReservation'+reservationId).remove();
-              closeDialog();
-            },
-            function(err) {
-              console.error(err);
-              closeDialog();
-            });
+          window.location.href = jsRoutes.controllers.ReservationsController.deleteReservations(ids).absoluteURL();
         }
       }
     }
+  });
+}
 
+/**
+ * Asks the user if he wants to lend the reservations
+ * @param borrowerId
+ */
+var borrowReservations = function(borrowerId) {
+  var ids = getIdsAsCommaString(borrowerId);
+
+  if(ids == null || ids == "") {
+    return;
+  }
+
+  displayDialog({
+    title: '<i class="icon-share"></i> Borrow reservations',
+    closeButton: true,
+    content: 'Borrow selected reservations ?',
+    buttons : {
+      "Borrow" : {
+        icon: 'icon-share',
+        cssClass: 'btn-warning',
+        callback: function()  {
+          window.location.href = jsRoutes.controllers.ReservationsController.borrowReservations(ids).absoluteURL();
+        }
+      }
+    }
+  });
+}
+
+/**
+ * Gets the ids of teh reservations as comma seperated string
+ * @param borrowerId
+ * @returns {string}
+ */
+var getIdsAsCommaString = function(borrowerId) {
+  var ids = [];
+  $('#resTab'+borrowerId+' tbody input:checkbox:checked').each(function(i,obj) {
+    ids.push($(obj).data('resid'));
+  });
+
+  return ids.join(',');
+}
+
+/**
+ * Removes a reservation a user made himself
+ * @param reservationId
+ */
+var removeReserved = function(reservationId) {
+  displayDialog({
+    title: 'Remove reservation ?',
+    closeButton: true,
+    content: 'Remove reservation ? <br />'+$('#ownReservation'+reservationId+' .media').html(),
+    buttons : {
+      "Ok" : {
+        icon: 'icon-trash',
+        cssClass: 'btn-danger',
+        callback: function()  {
+          window.location.href = jsRoutes.controllers.ReservationsController.deleteReserved(reservationId).absoluteURL();
+        }
+      }
+    }
   });
 }

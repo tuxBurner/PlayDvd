@@ -2,7 +2,8 @@ package controllers;
 
 import jsannotation.JSRoute;
 import models.CopyReservation;
-import models.Dvd;
+import models.User;
+import org.apache.commons.lang.StringUtils;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
@@ -20,7 +21,17 @@ public class ReservationsController extends Controller {
    * @return
    */
   public static Result showReservations() {
-    return ok(views.html.reservations.showreservations.render(CopyReservation.getReservations(),CopyReservation.getOwnReservations(), Dvd.getLentDvds()));
+    //,CopyReservation.getOwnReservations(), Dvd.getLentDvds()
+    return ok(views.html.reservations.showreservations.render(CopyReservation.getReservations()));
+  }
+
+
+  /**
+   * Shows an overview off all {@CopyReservation}s the current {@link models.User} has
+   * @return
+   */
+  public static Result showReserved() {
+    return ok(views.html.reservations.showreserved.render(CopyReservation.getOwnReservations()));
   }
 
   /**
@@ -29,20 +40,50 @@ public class ReservationsController extends Controller {
    * @return
    */
   @JSRoute
-  public static  Result deleteOwnReservation(final Long reservationId) {
-   CopyReservation.deleteOwnReservation(reservationId);
-    return ok();
+  public static  Result deleteReserved(final Long reservationId) {
+   CopyReservation.deleteReserved(reservationId);
+    return redirect(routes.ReservationsController.showReserved());
   }
 
   /**
-   * Method for deleting a {@link CopyReservation} where the owner of the {@link models.Dvd} current {@link models.User}
-   * @param reservationId
+   * Method for deleting  {@link CopyReservation}s where the owner of the {@link models.Dvd} current {@link models.User}
+   * @param reservationIds
    * @return
    */
   @JSRoute
-  public static  Result deleteReservation(final Long reservationId) {
-    CopyReservation.deleteReservation(reservationId);
-    return ok();
+  public static  Result deleteReservations(final String reservationIds) {
+    if(StringUtils.isEmpty(reservationIds) == false) {
+      final String[] ids = StringUtils.split(reservationIds,',');
+      final User currentUser = User.getCurrentUser();
+      for(final String id : ids) {
+        if(StringUtils.isNumeric(id) == true) {
+          CopyReservation.deleteReservation(Long.valueOf(id),currentUser);
+        }
+      }
+    }
+
+    return redirect(routes.ReservationsController.showReservations());
+  }
+
+
+  /**
+   * Method for borrowing {@link models.Dvd}s from the {@link CopyReservation} from the given ids
+   * @param reservationIds
+   * @return
+   */
+  @JSRoute
+  public static Result borrowReservations(final String reservationIds) {
+    if(StringUtils.isEmpty(reservationIds) == false) {
+      final String[] ids = StringUtils.split(reservationIds,',');
+      final User currentUser = User.getCurrentUser();
+      for(final String id : ids) {
+        if(StringUtils.isNumeric(id) == true) {
+          CopyReservation.borrowReservation(Long.valueOf(id),currentUser);
+        }
+      }
+    }
+
+    return redirect(routes.ReservationsController.showReservations());
   }
 
 }
