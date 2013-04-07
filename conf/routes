@@ -93,6 +93,8 @@ GET   /reservations/delete/:reservationIds  controllers.ReservationsController.d
 GET   /reservations/borrow/:reservationIds  controllers.ReservationsController.borrowReservations(reservationIds: String)
 GET   /reserved                             controllers.ReservationsController.showReserved()
 GET   /reserved/delete/:reservationId       controllers.ReservationsController.deleteReserved(reservationId: Long)
+GET   /lentcopies                           controllers.ReservationsController.showLentCopies()
+GET   /borrowedcopies                       controllers.ReservationsController.showBorrowedCopies()
 
 
 

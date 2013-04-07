@@ -1,4 +1,4 @@
-@(reservations: Integer, reserved: Integer)
+@(reservations: Integer, reserved: Integer, lentCopies: Integer, borrowedCopies: Integer)
 <div class="btn-group">
 <a class="btn dropdown-toggle @if(reservations != 0 || reserved != 0) { btn-danger }" data-toggle="dropdown" href="#">
   <i class="icon-list"></i> (@reservations / @reserved)
@@ -7,8 +7,8 @@
 <ul class="dropdown-menu">
   <li><a href="@routes.ReservationsController.showReservations">Reservations (@reservations)</a></li>
   <li><a href="@routes.ReservationsController.showReserved">Reserved (@reserved)</a></li>
-  <li><a href="@routes.ReservationsController.showReservations">Lent to other</a></li>
-  <li><a href="@routes.ReservationsController.showReservations">Borrowed</a></li>
+  <li><a href="@routes.ReservationsController.showLentCopies">Lent to other (@lentCopies)</a></li>
+  <li><a href="@routes.ReservationsController.showBorrowedCopies">Borrowed (@borrowedCopies)</a></li>
 </ul>
 </div>
 

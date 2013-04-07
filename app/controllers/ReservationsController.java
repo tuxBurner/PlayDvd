@@ -2,11 +2,13 @@ package controllers;
 
 import jsannotation.JSRoute;
 import models.CopyReservation;
+import models.Dvd;
 import models.User;
 import org.apache.commons.lang.StringUtils;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
+import views.html.reservations.showborrowed;
 
 /**
  * User: tuxburner
@@ -21,7 +23,6 @@ public class ReservationsController extends Controller {
    * @return
    */
   public static Result showReservations() {
-    //,CopyReservation.getOwnReservations(), Dvd.getLentDvds()
     return ok(views.html.reservations.showreservations.render(CopyReservation.getReservations()));
   }
 
@@ -32,6 +33,22 @@ public class ReservationsController extends Controller {
    */
   public static Result showReserved() {
     return ok(views.html.reservations.showreserved.render(CopyReservation.getOwnReservations()));
+  }
+
+  /**
+   * Displays all {@Dvd}s which the current {@link User} lent to somebody else
+   * @return
+   */
+  public static Result showLentCopies() {
+    return ok(views.html.reservations.lentcopies.render(Dvd.getLentDvds()));
+  }
+
+  /**
+   * Displays all {@Dvd}s which the which the current {@link User} borrowed from other {@link User}s
+   * @return
+   */
+  public static Result showBorrowedCopies() {
+    return ok(showborrowed.render(Dvd.getBorrowedDvds()));
   }
 
   /**

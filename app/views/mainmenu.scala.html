@@ -5,7 +5,7 @@
 @menuContent = {
   <div class="pull-right">
 
-    @reservations.menureservationbtn(CopyReservation.getReservationsCount,CopyReservation.getReservedCount)
+    @reservations.menureservationbtn(CopyReservation.getReservationsCount,CopyReservation.getReservedCount,Dvd.getLentDvdsCount,Dvd.getBorrowedDvdsCount)
 
     <div class="btn-group">
     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">

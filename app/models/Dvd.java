@@ -382,6 +382,33 @@ public class Dvd extends Model {
   }
 
   /**
+   * Counts how many {@link Dvd}s the current {@link User} lent to somebody
+   * @return
+   */
+  public static int getLentDvdsCount()  {
+    final User currentUser = User.getCurrentUser();
+    return find.where().eq("owner", currentUser).isNotNull("borrowDate").order("borrowDate ASC").findRowCount();
+  }
+
+  /**
+   * Gets  all {@link Dvd}s the current {@link User} borrowed from an other {@link User}
+   * @return
+   */
+  public static  List<Dvd> getBorrowedDvds() {
+    final User currentUser = User.getCurrentUser();
+    return find.where().isNotNull("borrower").eq("borrower", currentUser).order("borrowDate ASC").findList();
+  }
+
+  /**
+   * Counts how many {@link Dvd}s the current {@link User} borrowed from an other {@link User}
+   * @return
+   */
+  public static int getBorrowedDvdsCount() {
+    final User currentUser = User.getCurrentUser();
+    return find.where().isNotNull("borrower").eq("borrower", currentUser).order("borrowDate ASC").findRowCount();
+  }
+
+  /**
    * This does all the default paging etc stuff
    *
    * @param expressionList
