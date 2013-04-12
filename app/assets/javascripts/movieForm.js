@@ -86,7 +86,6 @@ var initializeMovieForm = function() {
       );
       return false;
     } else {
-      console.error(formParams);
       submitMovieForm(formParams,mode);
     }
 	});
