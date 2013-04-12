@@ -109,7 +109,7 @@ var lentCopiesUpdateButtons = function(borrowerId) {
  * @param borrowerId
  */
 var deleteReservations = function(borrowerId) {
-  var ids = getIdsAsCommaString(borrowerId);
+  var ids = getIdsAsCommaString(borrowerId,'resTab');
   if(ids == null || ids == "") {
     return;
   }
@@ -135,7 +135,7 @@ var deleteReservations = function(borrowerId) {
  * @param borrowerId
  */
 var borrowReservations = function(borrowerId) {
-  var ids = getIdsAsCommaString(borrowerId);
+  var ids = getIdsAsCommaString(borrowerId,'resTab');
 
   if(ids == null || ids == "") {
     return;
@@ -158,13 +158,40 @@ var borrowReservations = function(borrowerId) {
 }
 
 /**
+ * Asks the user if he wants to unlent the copies
+ * @param borrowerId
+ */
+var unlentCopies = function(borrowerId) {
+  var ids = getIdsAsCommaString(borrowerId,'lentTab');
+
+  if(ids == null || ids == "") {
+    return;
+  }
+
+  displayDialog({
+    title: '<i class="icon-download"></i> Unlent copies',
+    closeButton: true,
+    content: 'Unlent selected copies ?',
+    buttons : {
+      "Unlent" : {
+        icon: 'icon-download',
+        cssClass: 'btn-warning',
+        callback: function()  {
+          window.location.href = jsRoutes.controllers.ReservationsController.unlentCopies(ids).absoluteURL();
+        }
+      }
+    }
+  });
+}
+
+/**
  * Gets the ids of teh reservations as comma seperated string
  * @param borrowerId
  * @returns {string}
  */
-var getIdsAsCommaString = function(borrowerId) {
+var getIdsAsCommaString = function(borrowerId,idPrefix) {
   var ids = [];
-  $('#resTab'+borrowerId+' tbody input:checkbox:checked').each(function(i,obj) {
+  $('#'+idPrefix+borrowerId+' tbody input:checkbox:checked').each(function(i,obj) {
     ids.push($(obj).data('resid'));
   });
 

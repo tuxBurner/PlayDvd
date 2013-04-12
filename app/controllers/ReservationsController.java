@@ -70,7 +70,7 @@ public class ReservationsController extends Controller {
   @JSRoute
   public static  Result deleteReservations(final String reservationIds) {
     if(StringUtils.isEmpty(reservationIds) == false) {
-      final String[] ids = StringUtils.split(reservationIds,',');
+      final String[] ids = extractIds(reservationIds);
       final User currentUser = User.getCurrentUser();
       for(final String id : ids) {
         if(StringUtils.isNumeric(id) == true) {
@@ -91,7 +91,7 @@ public class ReservationsController extends Controller {
   @JSRoute
   public static Result borrowReservations(final String reservationIds) {
     if(StringUtils.isEmpty(reservationIds) == false) {
-      final String[] ids = StringUtils.split(reservationIds,',');
+      final String[] ids = extractIds(reservationIds);
       final User currentUser = User.getCurrentUser();
       for(final String id : ids) {
         if(StringUtils.isNumeric(id) == true) {
@@ -101,6 +101,38 @@ public class ReservationsController extends Controller {
     }
 
     return redirect(routes.ReservationsController.showReservations());
+  }
+
+  /**
+   * Method for unlenting {@link models.Dvd}s
+   * @param reservationIds
+   * @return
+   */
+  @JSRoute
+  public static Result unlentCopies(final String copyIds) {
+    if(StringUtils.isEmpty(copyIds) == false) {
+      final String[] ids = extractIds(copyIds);
+      final User currentUser = User.getCurrentUser();
+      for(final String id : ids) {
+        if(StringUtils.isNumeric(id) == true) {
+          Dvd.unlendDvdToUser(Long.valueOf(id),Secured.getUsername(),false);
+        }
+      }
+    }
+
+    return redirect(routes.ReservationsController.showLentCopies());
+  }
+
+  /**
+   * Extracts some ids from the given {@link String}
+   * @param idsToExtract
+   * @return
+   */
+  private static String[] extractIds(final String idsToExtract) {
+    String[] ids = StringUtils.split(idsToExtract,',');
+
+    return  ids;
+
   }
 
 }

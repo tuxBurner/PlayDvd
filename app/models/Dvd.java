@@ -482,12 +482,12 @@ public class Dvd extends Model {
   }
 
   /**
-   * Lends the {@link Dvd} to a user or to a freename
+   * Unlents the {@link Dvd} from a {@link User} or from a freename
    *
    * @param dvdId
    * @param ownerName
    * @param alsoOthersInHull
-                               * @return
+   * @return
    */
   public static Set<Long> unlendDvdToUser(final Long dvdId, final String ownerName, final Boolean alsoOthersInHull) {
     final Dvd dvdToUnlend = Dvd.getDvdForUser(dvdId, ownerName);

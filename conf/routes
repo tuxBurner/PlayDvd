@@ -94,6 +94,7 @@ GET   /reservations/borrow/:reservationIds  controllers.ReservationsController.b
 GET   /reserved                             controllers.ReservationsController.showReserved()
 GET   /reserved/delete/:reservationId       controllers.ReservationsController.deleteReserved(reservationId: Long)
 GET   /lentcopies                           controllers.ReservationsController.showLentCopies()
+GET   /lentcopies/unlent/:copyIds           controllers.ReservationsController.unlentCopies(copyIds: String)
 GET   /borrowedcopies                       controllers.ReservationsController.showBorrowedCopies()
 
 
