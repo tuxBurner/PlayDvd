@@ -104,15 +104,17 @@
       <label class="span4">Year:</label>
       <span>@dvd.movieForm.year</span>
     </div>
-    
-    <div class="row-fluid">
-      <label class="span4">Director:</label>
-      <span><a href="@routes.ListDvdsController.listByDirector(dvd.movieForm.director)">@dvd.movieForm.director</a></span>
-    </div>
+
+    @if(StringUtils.isEmpty(dvd.movieForm.director) == false) {
+      <div class="row-fluid">
+        <label class="span4">Director:</label>
+        <span><a href="@routes.ListDvdsController.listByDirector(dvd.movieForm.director)">@dvd.movieForm.director</a></span>
+      </div>
+    }
     
     </div>
     <div class="span4">
-    
+
     <div class="span12">
       <dl>
         <dt>Genres:</dt>
