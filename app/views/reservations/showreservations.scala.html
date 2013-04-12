@@ -1,4 +1,5 @@
 @(reservations: Map[User,List[CopyReservation]])
+@import org.apache.commons.collections.MapUtils
 @import _root_.helpers.EImageSize
 
 @import helper._
@@ -14,6 +15,12 @@
 
     <fieldset>
       <legend><i class="icon-list"></i> Reservations</legend>
+
+          @if(MapUtils.isEmpty(reservations)) {
+            <div class="alert">
+              You don't have any reserved copies.
+            </div>
+          } else  {
 
           <div id="reservationsTab" class="tabbable tabs-left">
             <ul class="nav nav-tabs">
@@ -67,4 +74,5 @@
     </fieldset>
 
   </div>
+  }
 }

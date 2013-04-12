@@ -31,6 +31,45 @@ $(function() {
 
     reservationsUpdateButtons(borrowerId);
   });
+
+  /**
+   * LENT COPIES
+   */
+
+  /**
+   * Changing the all checkbox value
+   */
+  $('input.lentCopiesCheckAll').change(function() {
+    var isChecked = $(this).is(":checked");
+    var borrowerId = $(this).data('borrower');
+    // get all sub and check or uncheck them
+    $('#lentTab'+borrowerId+' tbody input:checkbox').prop('checked', isChecked);
+
+    lentCopiesUpdateButtons(borrowerId);
+  });
+
+  /**
+   * changing a copy checkbox
+   */
+  $('input.lentCopyCheckBox').change(function() {
+    var borrowerId = $(this).data('borrower');
+    var checkedLenght = $('#lentTab'+borrowerId+' tbody input:checkbox:checked').length;
+    var totalLenght = $('#lentTab'+borrowerId+' tbody input:checkbox').length;
+
+    if(totalLenght == checkedLenght) {
+      $('#lentTab'+borrowerId+' thead input.reservationsCheckAll').prop('checked', true);
+    } else {
+      $('#lentTab'+borrowerId+' thead input.reservationsCheckAll').prop('checked', false);
+    }
+
+    lentCopiesUpdateButtons(borrowerId);
+  });
+
+  // remove all checked checkboxes
+  $('#reservationsTab a[data-toggle="tab"]').on('show', function () {
+     $('#reservationsTab input:checkbox:checked').prop('checked', false);
+    $('#reservationsTab tfoot button').addClass('disabled');
+  });
 });
 
 /**
@@ -47,6 +86,22 @@ var reservationsUpdateButtons = function(borrowerId) {
   }
 
   $('#resTab'+borrowerId+' tfoot button').addClass('disabled');
+}
+
+/**
+ * Checks if any checkboxes are checked in the reservations borrower copy tab and enables or disables the buttons
+ * @param borrowerId
+ */
+var lentCopiesUpdateButtons = function(borrowerId) {
+
+  var checkedLenght = $('#lentTab'+borrowerId+' tbody input:checkbox:checked').length;
+
+  if(checkedLenght > 0) {
+    $('#lentTab'+borrowerId+' tfoot button').removeClass('disabled');
+    return;
+  }
+
+  $('#lentTab'+borrowerId+' tfoot button').addClass('disabled');
 }
 
 /**
