@@ -123,7 +123,7 @@ var deleteReservations = function(borrowerId) {
         icon: 'icon-trash',
         cssClass: 'btn-danger',
         callback: function()  {
-          window.location.href = jsRoutes.controllers.ReservationsController.deleteReservations(ids).absoluteURL();
+          window.location.href = jsRoutes.controllers.ReservationsController.deleteReservations(ids).absoluteURL(appIsInHttps);
         }
       }
     }
@@ -150,7 +150,7 @@ var borrowReservations = function(borrowerId) {
         icon: 'icon-share',
         cssClass: 'btn-warning',
         callback: function()  {
-          window.location.href = jsRoutes.controllers.ReservationsController.borrowReservations(ids).absoluteURL();
+          window.location.href = jsRoutes.controllers.ReservationsController.borrowReservations(ids).absoluteURL(appIsInHttps);
         }
       }
     }
@@ -177,7 +177,7 @@ var unlentCopies = function(borrowerId) {
         icon: 'icon-download',
         cssClass: 'btn-warning',
         callback: function()  {
-          window.location.href = jsRoutes.controllers.ReservationsController.unlentCopies(ids).absoluteURL();
+          window.location.href = jsRoutes.controllers.ReservationsController.unlentCopies(ids).absoluteURL(appIsInHttps);
         }
       }
     }
@@ -212,7 +212,7 @@ var removeReserved = function(reservationId) {
         icon: 'icon-trash',
         cssClass: 'btn-danger',
         callback: function()  {
-          window.location.href = jsRoutes.controllers.ReservationsController.deleteReserved(reservationId).absoluteURL();
+          window.location.href = jsRoutes.controllers.ReservationsController.deleteReserved(reservationId).absoluteURL(appIsInHttps);
         }
       }
     }

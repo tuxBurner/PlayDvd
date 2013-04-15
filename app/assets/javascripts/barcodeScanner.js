@@ -28,7 +28,7 @@ var ws = null;
 
 $(function () {
   // open the websocket
-  ws = new WebSocket(wsBarcodeUrl);
+  ws = new WebSocket(jsRoutes.controllers.BarcodeController.scanBarcode().webSocketURL(appIsInHttps));
 });
 
 /**

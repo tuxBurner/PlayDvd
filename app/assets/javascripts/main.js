@@ -1,6 +1,8 @@
 /**
  * Here we have some helpers we can use in play apps :)
  */
+var appIsInHttps = (window.location.protocol == 'https:');
+
 
 $(function () {
 

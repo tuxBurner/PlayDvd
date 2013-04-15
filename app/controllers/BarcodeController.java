@@ -43,6 +43,7 @@ public class BarcodeController extends Controller {
     return ok(barcodescanner.render());
   }
 
+  @JSRoute
   public static WebSocket<String> scanBarcode() {
     return new WebSocket<String>() {
 

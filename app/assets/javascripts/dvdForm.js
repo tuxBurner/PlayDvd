@@ -120,7 +120,7 @@ var amazonPickExistingMovie = function(code, movieId) {
   if(code == null || movieId == null) {
     return;
   }
-  window.location = jsRoutes.controllers.DvdController.showAddDvdByAmazonAndMovie(code,movieId).absoluteURL();
+  window.location = jsRoutes.controllers.DvdController.showAddDvdByAmazonAndMovie(code,movieId).absoluteURL(appIsInHttps);
 }
 
 /**

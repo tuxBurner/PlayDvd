@@ -130,9 +130,10 @@ var addToDbAndFillDvdForm = function(grabberType,amazonCode,copyId,formParams) {
   if($.trim(copyId) == "") {
     copyId = null;
   }
+
   pAjax(jsRoutes.controllers.DvdController.addMovieByGrabber(grabberType),formParams,
     function(data) {
-      window.location = jsRoutes.controllers.DvdController.showDvdByAmazonAndMovie(amazonCode,data,copyId).absoluteURL();
+      window.location = jsRoutes.controllers.DvdController.showDvdByAmazonAndMovie(amazonCode,data,copyId).absoluteURL(appIsInHttps);
       closeWaitDiaLog();
     },
     function(err) {
