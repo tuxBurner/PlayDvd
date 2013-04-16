@@ -25,17 +25,17 @@
       </div>
     </div>
 
-  <ul id="myTab" class="nav nav-tabs">
-    @if(CollectionUtils.isEmpty(movies) == false) {
-      <li class="active"><a href="#codeAlreadyExistingMovieTab" data-toggle="tab">Already known</a></li>
-    }
-    <li @if(CollectionUtils.isEmpty(movies) == true) { class="active" }><a href="#codeNewMovieTab" data-toggle="tab">General options</a></li>
-  </ul>
 
-  <div id="myTabContent" class="tab-content">
+      <div class="input-append">
+        <label for="codeMovieGrabberTitle">Search with Onlinegrabber: </label>
+        <input type="text" name="amazonMovieGrabberTitle" id="amazonMovieGrabberTitle" value="@amazonResult.title" placeholder="Enter title" class="span6" />
+        <button type="button" class="btn btn-info" onclick="amazonStartOnlineGrabber('@code',$('#amazonMovieGrabberTitle').val(),@copyId);"><i class="icon-search"></i></button>
+      </div>
 
-    @if(CollectionUtils.isEmpty(movies) == false) {
-      <div class="tab-pane fade in active" id="codeAlreadyExistingMovieTab">
+
+      @if(CollectionUtils.isEmpty(movies) == false) {
+        <hr />
+        <label>Movies matching in Database</label>
         <ul class="unstyled">
           @for(movie <- movies) {
             <li>
@@ -43,30 +43,20 @@
                 <img src="@routes.Dashboard.streamImage(movie.id,EImageType.POSTER.name(),EImageSize.TINY.name())"/>
               }
               @movie.title
-              <a href="@routes.DvdController.showDvdByAmazonAndMovie(code,movie.id,copyId)"  class="btn btn-primary"><i class="icon-reply"></i></a>
+            <a href="@routes.DvdController.showDvdByAmazonAndMovie(code,movie.id,copyId)"  class="btn btn-primary"><i class="icon-reply"></i></a>
             </li>
           }
         </ul>
-      </div>
-    }
-
-    <div class="tab-pane fade in@if(CollectionUtils.isEmpty(movies) == true) { active}" id="codeNewMovieTab">
-      <div class="input-append">
-        <label for="codeMovieGrabberTitle">Search with Onlinegrabber: </label>
-        <input type="text" name="amazonMovieGrabberTitle" id="amazonMovieGrabberTitle" value="@amazonResult.title" placeholder="Enter title" class="span6" />
-        <button type="button" class="btn btn-info" onclick="amazonStartOnlineGrabber('@code',$('#amazonMovieGrabberTitle').val(),@copyId);"><i class="icon-search"></i></button>
-      </div>
+      }
 
       <hr />
 
       <label for="amazonPickMovie">Or pick existing movie: </label>
       <input type="text" name="amazonPickMovie" id="amazonPickMovie"  class="span6" />
-      <br />
-      <br />
       <button type="button" class="btn btn-primary" onclick="amazonPickExistingMovie('@code',$('#amazonPickMovie').val());"><i class="icon-reply"></i></button>
-    </div>
 
-  </div>
+
+
 
 }
 </form>
