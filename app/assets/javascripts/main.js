@@ -173,13 +173,7 @@ var createSelect2DeselectCreate = function(jqSelector, dataObj) {
 
   $(jqSelector).select2({
     allowClear: true,
-    createSearchChoice: function (term, data) {
-      if ($(data).filter(function () {
-        return this.localeCompare(term) === 0;
-      }).length === 0) {
-        return {"id": term, "text": term};
-      }
-    },
+    createSearchChoice:function(term, data) { if ($(data).filter(function() { return this.text.localeCompare(term)===0; }).length===0) {return {id:term, text:term};} },
     formatSelection: select2Format,
     formatResult: select2Format,
     initSelection: select2InitSelection,
