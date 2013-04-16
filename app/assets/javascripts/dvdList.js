@@ -53,7 +53,7 @@ $(function() {
               var reservationVal = $('#lendToReservation').val();
 	    				var userVal = $('#lendToUser').val();
 	    				var freeVal = $('#freeName').val();
-	    				var lendOtherInHull = ($('#alsoOthersInHull').attr('checked') == 'checked') ? "true" : "false" ;
+              var lendOtherInHull = $('#alsoOthersInHull').prop('checked');
 
               // any set ?
               if((userVal == null || userVal == "") && (freeVal == null || freeVal == "") && (reservationVal == null || reservationVal == "")) {
@@ -91,7 +91,7 @@ $(function() {
 	    			icon: "icon-download",
 	    			cssClass: "btn-warning",
 	    			callback: function() {
-	    				var lendOtherInHull = ($('#alsoOthersInHull').attr('checked') == 'checked') ? "true" : "false" ;
+	    				var lendOtherInHull = $('#alsoOthersInHull').prop('checked');
 						  pAjax(jsRoutes.controllers.Dashboard.unlendDvd($("#unlendDvdId").val()),
                 {"alsoOthersInHull" :  lendOtherInHull},
 					      function(data){
