@@ -44,6 +44,13 @@
       <span>@dvd.movieForm.series</span>
     </div>
 
+    @if(StringUtils.isEmpty(dvd.dvdForm.additionalInfo) == false) {
+      <div class="row-fluid">
+        <label class="span4">Additional copy info:</label>
+        <span>@dvd.dvdForm.additionalInfo</span>
+      </div>
+    }
+
     @if(StringUtils.isEmpty(dvd.dvdForm.asinNr) == false || StringUtils.isEmpty(dvd.movieForm.imdbId) == false) {
       <div class="row-fluid">
         <label class="span4">Informations:</label>
@@ -161,7 +168,7 @@
 
 <script type="text/javascript">
 $(function() {
-  $('#modalLabel').html("@dvd.movieForm.title");
+  $('#modalLabel').html("@dvd.title");
   @if(dvd.movieForm.hasBackdrop != null && dvd.movieForm.hasBackdrop == true) {
     $('#modal.dvdInfoModal .modal-body').css('background-image',"url('@routes.Dashboard.streamImage(dvd.movieForm.movieId,"BACKDROP","BACKCKDROP_POPUP_SIZE")')");
   }

@@ -37,7 +37,7 @@
               }
             
               <div class="well well-small dvdInfo @if(dvd.borrower != null || dvd.borrowerName != null){borrowed} @if(dvd.borrower != null  && dvd.borrower.userName == username) {selfBorrowed}">
-                <p> @dvd.movie.title  @if(dvd.hullNr != null) { (@dvd.hullNr) }</p>
+                <p> @general.displayCopyTitle(dvd) @if(dvd.hullNr != null) { (@dvd.hullNr) }</p>
                 <span>
                    @dvd.owner.userName 
                    @if(dvd.borrower != null || dvd.borrowerName != null){

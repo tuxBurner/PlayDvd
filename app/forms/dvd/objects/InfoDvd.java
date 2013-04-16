@@ -25,6 +25,8 @@ public class InfoDvd {
 
   public String borrowedBy;
 
+  public String title;
+
   public Date borrowedOn;
 
   public MovieForm movieForm;
@@ -43,6 +45,11 @@ public class InfoDvd {
 
     if (dvd.borrowDate != null) {
       borrowedOn = new Date(dvd.borrowDate);
+    }
+
+    title = dvd.movie.title;
+    if(StringUtils.isEmpty(dvd.additionalInfo) == false) {
+      title += " ["+dvd.additionalInfo+"]";
     }
 
     final List<Long> alreadyAdded = new ArrayList<Long>();

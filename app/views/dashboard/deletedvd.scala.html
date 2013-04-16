@@ -4,7 +4,7 @@
 
 <form class="form-horizontal">
   <fieldset>
-    <legend>Delete Dvd: @general.displayposter(dvd.movie.id,dvd.movie.hasPoster,EImageSize.TINY) <i>@dvd.movie.title</i></legend>
+    <legend>Delete Dvd: @general.displayposter(dvd.movie.id,dvd.movie.hasPoster,EImageSize.TINY) <i>@general.displayCopyTitle(dvd)</i></legend>
     <input type="hidden" id="deleteDvdId" value="@dvd.id" />  
   </fieldset>
 </form>

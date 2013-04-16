@@ -1,0 +1,7 @@
+@(copy: Dvd)
+@import org.apache.commons.lang.StringUtils
+
+@copy.movie.title
+@if(StringUtils.isEmpty(copy.additionalInfo) == false) {
+[@copy.additionalInfo]
+}

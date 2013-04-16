@@ -8,6 +8,7 @@ import models.DvdAttribute;
 import models.EDvdAttributeType;
 import models.Movie;
 import org.apache.commons.lang.StringUtils;
+import play.data.validation.Constraints;
 import play.data.validation.Constraints.Required;
 
 import java.util.ArrayList;
@@ -53,6 +54,12 @@ public class DvdForm {
 
   public String asinNr;
 
+  /**
+   * Additional info off the copy like directors cut
+   */
+  @Constraints.MaxLength(value = 255)
+  public String additionalInfo;
+
   public List<String> audioTypes = new ArrayList<String>();
 
   /**
@@ -94,6 +101,7 @@ public class DvdForm {
     dvdForm.hullNr = dvd.hullNr;
     dvdForm.eanNr = dvd.eanNr;
     dvdForm.asinNr = dvd.asinNr;
+    dvdForm.additionalInfo = dvd.additionalInfo;
 
 
     final Set<DvdAttribute> dvdAttrs = dvd.attributes;

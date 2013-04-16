@@ -6,7 +6,7 @@
   @for(otherDvd <- inSameHull) {
     <li>
       @general.displayposter(otherDvd.movie.id,otherDvd.movie.hasPoster,EImageSize.TINY)
-      @otherDvd.movie.title
+      @general.displayCopyTitle(otherDvd)
     </li>
   }
 </ul>

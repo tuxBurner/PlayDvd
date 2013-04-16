@@ -23,7 +23,7 @@
 
 @mainmenu("Add a copy",scripts,Html("")) {
 
-  @form(routes.DvdController.addDvd(mode),'enctype -> "multipart/form-data") {
+  @form(routes.DvdController.addDvd(mode)) {
   <div class="row" id="dvdFormWrapper">
 
        <div class="span5 well">
@@ -46,6 +46,8 @@
              <input type="text" name="asinNr" id="asinNr" class="span2" value="@dvdForm("asinNr").value"/>
              <button type="button" class="btn" onclick="openAmazonLookUp($('#asinNr').val());"><i class="icon-search"></i></button>
            </div>
+
+           @inputText(dvdForm("additionalInfo"),'_label -> "Additional info", 'class -> "span4")
 
 
            <label for="copyType">Type:</label>

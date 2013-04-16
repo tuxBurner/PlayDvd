@@ -68,6 +68,11 @@ public class Dvd extends Model {
   public String asinNr;
 
   /**
+   * Additional info off the copy like directors cut
+   */
+  public String additionalInfo;
+
+  /**
    * The movie which is on the dvd
    */
   @ManyToOne(fetch = FetchType.LAZY)
@@ -152,6 +157,7 @@ public class Dvd extends Model {
     dvd.hullNr = dvdForm.hullNr;
     dvd.eanNr = dvdForm.eanNr;
     dvd.asinNr = dvdForm.asinNr;
+    dvd.additionalInfo = dvdForm.additionalInfo;
 
     if (dvd.id == null) {
       dvd.createdDate = new Date().getTime();
