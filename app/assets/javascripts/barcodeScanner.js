@@ -162,6 +162,7 @@ ws.onmessage = function (e) {
     }
   } else {
     if (searchAfterScan == true) {
+      stopVideoCapture();
       openAmazonLookUp(e.data);
     } else {
       $('#eanNr').val(e.data);
