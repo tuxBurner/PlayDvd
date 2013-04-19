@@ -102,7 +102,7 @@ public class DvdSearchFrom {
     if (ctx == null) {
       return null;
     }
-
+    //TODO: make a simple cache controll mechanism we also have one at the shopping cart
     final Object object = Cache.get(ctx.session().get(Secured.AUTH_SESSION) + ".dvdlistform");
     DvdSearchFrom returnVal = null;
     if (object == null || object instanceof DvdSearchFrom == false) {

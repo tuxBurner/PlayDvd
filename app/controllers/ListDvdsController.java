@@ -1,11 +1,10 @@
 package controllers;
 
-import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Page;
 import forms.dvd.DvdSearchFrom;
-import models.CopyReservation;
 import models.Dvd;
 import org.apache.commons.lang.StringUtils;
+import play.Logger;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -13,14 +12,15 @@ import play.mvc.Results;
 import play.mvc.Security;
 import views.html.dashboard.listdvds;
 
-import java.util.List;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 @Security.Authenticated(Secured.class)
 public class ListDvdsController extends Controller {
 
   /**
    * Lists all the dvds
-   * 
+   *
    * @return
    */
   public static Result listdvds(final Integer page) {
@@ -36,7 +36,7 @@ public class ListDvdsController extends Controller {
 
   /**
    * list all dvds we have
-   * 
+   *
    * @return
    */
   public static Result listAlldvds() {
@@ -46,7 +46,7 @@ public class ListDvdsController extends Controller {
 
   /**
    * Lists the dvds by the user
-   * 
+   *
    * @param fromUserName
    * @return
    */
@@ -63,7 +63,7 @@ public class ListDvdsController extends Controller {
 
   /**
    * List the dvds by the genre
-   * 
+   *
    * @param genreName
    * @return
    */
@@ -80,7 +80,7 @@ public class ListDvdsController extends Controller {
 
   /**
    * List the dvds by the actor
-   * 
+   *
    * @param actorName
    * @return
    */
@@ -90,14 +90,15 @@ public class ListDvdsController extends Controller {
     }
 
     final DvdSearchFrom dvdListFrom = new DvdSearchFrom();
-    dvdListFrom.actor = actorName;
+
+    dvdListFrom.actor = urlDecodeString(actorName);
 
     return ListDvdsController.returnList(dvdListFrom);
   }
 
   /**
    * Lists all {@link Dvd}s by the given director
-   * 
+   *
    * @param directorName
    * @return
    */
@@ -105,16 +106,14 @@ public class ListDvdsController extends Controller {
     if (StringUtils.isEmpty(directorName)) {
       return Results.internalServerError("No directorname given");
     }
-
     final DvdSearchFrom dvdListFrom = new DvdSearchFrom();
-    dvdListFrom.director = directorName;
-
+    dvdListFrom.director = urlDecodeString(directorName);
     return ListDvdsController.returnList(dvdListFrom);
   }
 
   /**
    * Lists all the dvd the user lend to somebody
-   * 
+   *
    * @return
    */
   public static Result listLendDvd() {
@@ -149,7 +148,7 @@ public class ListDvdsController extends Controller {
   /**
    * This is called when the user applys the search form above the list of
    * movies
-   * 
+   *
    * @return
    */
   public static Result applySearchForm() {
@@ -161,7 +160,7 @@ public class ListDvdsController extends Controller {
 
   /**
    * Returns the dvds for the template
-   * 
+   *
    * @param dvdSearchFrom
    * @return
    */
@@ -174,6 +173,24 @@ public class ListDvdsController extends Controller {
     final Form<DvdSearchFrom> form = Form.form(DvdSearchFrom.class);
 
     final Page<Dvd> dvdsByForm = Dvd.getDvdsBySearchForm(dvdSearchFrom);
-    return Results.ok(listdvds.render(new DvdPage(dvdsByForm), form.fill(dvdSearchFrom), username,ShoppingCartController.getShoppingCartFromCache()));
+    return Results.ok(listdvds.render(new DvdPage(dvdsByForm), form.fill(dvdSearchFrom), username, ShoppingCartController.getShoppingCartFromCache()));
+  }
+
+  /**
+   * Decodes a string from an url
+   *
+   * @param string
+   * @return
+   */
+  private static String urlDecodeString(final String string) {
+    try {
+      return URLDecoder.decode(string, "UTF-8");
+    } catch (UnsupportedEncodingException e) {
+      if (Logger.isErrorEnabled() == true) {
+        Logger.error(e.getMessage(), e);
+      }
+
+      return string;
+    }
   }
 }

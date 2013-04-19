@@ -430,6 +430,8 @@ public class Dvd extends Model {
 
     final Page<Dvd> page = expressionList.orderBy(orderBy.dbField + " " + orderHow.dbOrder).fetch("owner", "userName").fetch("borrower", "userName").fetch("movie").findPagingList(
         Dvd.DEFAULT_DVDS_PER_PAGE).getPage(pageNr);
+
+    Logger.debug(expressionList.query().getGeneratedSql());
     return page;
   }
 
