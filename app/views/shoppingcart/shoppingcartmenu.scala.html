@@ -8,7 +8,7 @@
       <li><a href="@routes.ShoppingCartController.showShoppingCart()"> <i class="icon-shopping-cart icon-2x"></i> Show cart</a></li>
       <li class="divider"></li>
       @for(item <- shoppingCart.getLastFiveItems) {
-        <li>
+        <li class="shoppingCartMenu">
           @general.displayitem(item.copyItem)
         </li>
       }

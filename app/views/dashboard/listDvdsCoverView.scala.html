@@ -1,0 +1,47 @@
+@(dvdPage: DvdPage,username: String,shoppingCart: objects.shoppingcart.CacheShoppingCart)
+@import helpers.EImageSize
+<ul class="coverlist">
+@for(dvd <- dvdPage.list) {
+<li class="span3">
+<div class="coverwrapper">
+<em data-dvd-id="@dvd.id" class="@DvdAttribute.getCopyTypeAttribute(dvd)">
+
+  @if(dvd.borrower != null || dvd.borrowerName != null){
+    <div class="coverborrowed  @if(dvd.borrower != null  && dvd.borrower.userName == username) {selfBorrowed}"></div>
+  }
+
+<div class="well well-small dvdInfo @if(dvd.borrower != null || dvd.borrowerName != null){borrowed} @if(dvd.borrower != null  && dvd.borrower.userName == username) {selfBorrowed}">
+<p> @general.displayCopyTitle(dvd) @if(dvd.hullNr != null) { (@dvd.hullNr) }</p>
+<span>
+  @dvd.owner.userName
+  @if(dvd.borrower != null || dvd.borrowerName != null){
+      -> @if(dvd.borrower != null){ @dvd.borrower.userName } else { @dvd.borrowerName }
+  }
+</span>
+</div>
+<div class="rateWrapper"><img  class="img-rounded" src="@routes.Assets.at("images/agerating/"+DvdAttribute.getAgeRatingAttribute(dvd)+".gif")" /></div>
+</em>
+<div class="btn-group dvdBtnGrp">
+  @if(dvd.owner.userName == username) {
+    @if(dvd.borrower == null && dvd.borrowerName == null) {
+      <a class="btn btn-inverse lendDvdBtn btn-mini" href="#" data-dvd-id="@dvd.id"><i class="icon-share"></i></a>
+    } else {
+      <a class="btn btn-inverse unlendDvdBtn btn-mini" href="#" data-dvd-id="@dvd.id"><i class="icon-download"></i></a>
+    }
+    <a class="btn btn-inverse btn-mini" href="@routes.DvdController.showEditDvd(dvd.id)"><i class="icon-edit"></i></a>
+    <a class="btn btn-inverse deleteDvdBtn btn-mini" href="#" data-dvd-id="@dvd.id"><i class="icon-trash"></i></a>
+  } else {
+    @if(dvd.borrower != null  && dvd.borrower.userName == username) {
+    } else {
+      <a @if(shoppingCart.isInShoppingCart(dvd.id) == true) {style="display: none;"} class="btn btn-inverse btn-mini addToCartBtn" href="#" data-dvd-id="@dvd.id" ><i class="icon-shopping-cart"> <i class="icon-plus-sign"></i></i></a>
+      <a @if(shoppingCart.isInShoppingCart(dvd.id) == false) {style="display: none;"} class="btn btn-mini btn-danger remFromCartBtn" href="#" data-dvd-id="@dvd.id" ><i class="icon-shopping-cart"></i> <i class="icon-remove-sign"></i></a>
+    }
+  }
+</div>
+<a>
+  @general.displayposter(dvd.movie.id,dvd.movie.hasPoster,EImageSize.SMALL)
+</a>
+</div>
+</li>
+}
+</ul>

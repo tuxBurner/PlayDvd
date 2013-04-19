@@ -1,6 +1,6 @@
 @(item: Dvd, displayBorrower: Boolean = false)
 @import _root_.helpers.EImageSize
-<div class="media shoppingcartitem @if(item.borrowDate != null) {alert alert-error}">
+<div class="media @if(item.borrowDate != null) {alert alert-error}">
   <span class="pull-left">
     @general.displayposter(item.movie.id,item.movie.hasPoster,EImageSize.SELECT2)
   </span>
