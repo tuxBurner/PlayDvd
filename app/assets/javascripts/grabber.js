@@ -58,7 +58,7 @@ var openGrabberMoviePopup = function(grabberId,grabberType,movieToEditId,amazonC
       "copyId" : copyId
     },
     title: 'Movie info from Grabber',
-    onOpen: closeWaitDiaLog,
+    onOpen: grabberMoviePosterBackdrop(),
     cssClass: "grabberModal",
     buttons : {
       "Ok" : {
@@ -74,6 +74,22 @@ var openGrabberMoviePopup = function(grabberId,grabberType,movieToEditId,amazonC
       }
     }
   });
+}
+
+/**
+ * This is called when the popup opens where the movie infos for a selected
+ * movie is displayed to add listeners to the poster backdrop selection
+ */
+var grabberMoviePosterBackdrop = function() {
+  closeWaitDiaLog();
+  $(document).on('change','input[name="grabberPosterId"]', function() {
+    $('#grabberSelectedPoster').attr('src', $('#grabberPoster'+$(this).data('index')).attr('src'));
+  });
+
+  $(document).on('change','input[name="grabberBackDropId"]', function() {
+    $('#grabberSelectedBackdrop').attr('src', $('#grabberBackdrop'+$(this).data('index')).attr('src'));
+  });
+
 }
 
 /**

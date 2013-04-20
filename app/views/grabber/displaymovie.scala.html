@@ -1,4 +1,5 @@
 @(displayMovie : grabbers.GrabberDisplayMovie,grabberType: String,movieToEditId: Long,mode: String, amazonCode: String, copyId: Long)
+@import org.apache.commons.collections.CollectionUtils
 @import org.apache.commons.lang.StringUtils
 
 @import helper._
@@ -21,15 +22,15 @@
     <ul id="myTab" class="nav nav-tabs">
       <li class="active"><a href="#grabberDataOverview" data-toggle="tab">Overview</a></li>
 
-      @if(displayMovie.posterUrls != null && displayMovie.posterUrls.size() > 0) {
+      @if(CollectionUtils.isEmpty(displayMovie.posterUrls) == false) {
         <li><a href="#grabberDataPosters" data-toggle="tab">Poster</a></li>
       }
 
-      @if(displayMovie.backDropUrls != null && displayMovie.backDropUrls.size() > 0) {
+      @if(CollectionUtils.isEmpty(displayMovie.backDropUrls) == false) {
         <li><a href="#grabberDataBackdrops" data-toggle="tab">Backdrops</a></li>
       }
 
-      @if(displayMovie.trailerUrls != null && displayMovie.trailerUrls.size() > 0) {
+      @if(CollectionUtils.isEmpty(displayMovie.trailerUrls)  == false) {
         <li><a href="#grabberDataTrailers" data-toggle="tab">Trailers</a></li>
       }
     </ul>
@@ -47,6 +48,21 @@
           IMDBID: <a href="http://www.imdb.com/title/@displayMovie.imdbId" target="_blank">@displayMovie.imdbId</a>
         </p>
       }
+
+      <div class="row">
+        @if(CollectionUtils.isEmpty(displayMovie.posterUrls) == false) {
+          <div class="span5">
+            <h5>Selected Poster</h5>
+            <img id="grabberSelectedPoster" class="img-rounded" src="@routes.Dashboard.streamExternalImage()?url=@displayMovie.posterUrls.get(0).url&imgSize=GRABBER_POSTER_SMALL"/>
+          </div>
+        }
+        @if(CollectionUtils.isEmpty(displayMovie.backDropUrls) == false) {
+          <div class="span5">
+            <h5>Selected Bacdrop</h5>
+            <img id="grabberSelectedBackdrop" class="img-rounded" src="@routes.Dashboard.streamExternalImage()?url=@displayMovie.backDropUrls.get(0).url&imgSize=GRABBER_BACKDROP_SMALL" />
+          </div>
+        }
+      </div>
     </div>
 
     @if(displayMovie.posterUrls != null && displayMovie.posterUrls.size() > 0) {
@@ -58,9 +74,9 @@
           <li class="span3" style="height: 160px;">
             <div class="thumbnail" style="height: 160px;">
               <label>
-                <img class="img-rounded" src="@routes.Dashboard.streamExternalImage()?url=@poster.url&imgSize=GRABBER_POSTER_SMALL"/>
+                <img id="grabberPoster@index" class="img-rounded" src="@routes.Dashboard.streamExternalImage()?url=@poster.url&imgSize=GRABBER_POSTER_SMALL"/>
                 <div class="caption">
-                  <input @if(index == 0){checked="checked"} type="radio" name="grabberPosterId" value="@poster.id"/>
+                  <input @if(index == 0){checked="checked"} type="radio" name="grabberPosterId" data-index="@index" value="@poster.id"/>
                 </div>
               </label>
             </div>
@@ -79,9 +95,9 @@
           <li class="span4" style="height: 190px;">
             <div class="thumbnail" style="height: 190px;">
               <label>
-                <img class="img-rounded" src="@routes.Dashboard.streamExternalImage()?url=@backdrop.url&imgSize=GRABBER_BACKDROP_SMALL" />
+                <img id="grabberBackdrop@index" class="img-rounded" src="@routes.Dashboard.streamExternalImage()?url=@backdrop.url&imgSize=GRABBER_BACKDROP_SMALL" />
                 <div class="caption">
-                  <input @if(index == 0){checked="checked"} type="radio" name="grabberBackDropId" value="@backdrop.id"/>
+                  <input @if(index == 0){checked="checked"} type="radio" data-index="@index" name="grabberBackDropId" value="@backdrop.id"/>
                 </div>
               </label>
             </div>
