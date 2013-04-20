@@ -1,225 +1,225 @@
 body {
-	padding-top: 60px;
-	padding-bottom: 40px;
-	background-image: url('../images/wood.jpg');
-	background-size: cover;
+  padding-top: 60px;
+  padding-bottom: 40px;
+  background-image: url('../images/wood.jpg');
+  background-size: cover;
 }
 
-
-.select2-container  {
+.select2-container {
   margin-left: 0px;
 }
 
-/**
-* new movie form
-*/
+  /**
+  * new movie form
+  */
 #newMovieFormWrapper {
-	display: none;
-}
+  display: none;
 
-#newMovieFormWrapper  #trailerUrl_field {
-  display: inline-block;
-}
-
-/** 
-* info dialog for dvd
-*/
-#modal.dvdInfoModal fieldset {
-	opacity: 0.85;
-}
-
-/* no border arround genres and actors*/
-#modal.dvdInfoModal {
-  width: 900px;
-  margin-left: -450px;
-}
-
-#modal.dvdInfoModal .modal-body {
-	background-size: 100% 100%;
-	-o-background-size: 100% 100%; /*  Opera  */
-	-webkit-background-size: 100% 100%; /*  Safari  */
-	-khtml-background-size: 100% 100%; /*  Konqueror  */
-	-moz-background-size: 100% 100%; /*not working in Firefox as yet */
-	max-height: 600px;
-}
-
-#modal.dvdInfoModal fieldset.well {
-  background-image:  url(http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/low_contrast_linen.png);
-  color: #000000;
-}
-
-/**
-* popups
-*/
-#modal.smallModal {
-  width: 600px;
-}
-
-#modal.grabberModal {
-  width: 1000px;
-  margin-left: -500px;
-}
-
-
-#modal.grabberModal  .modal-body {
-  max-height: 710px;
-}
-
-#modal.grabberModal .modal-body .tab-content {
-  max-height: 560px;
-}
-
-/**
-* Grabber
-*/
-#modal.grabberModal .caption h5, #modal.grabberModal .caption p, #modal.grabberModal .thumbnail label,#modal.grabberModal .thumbnail caption {
-  text-align: center;
+  #trailerUrl_field {
+    display: inline-block;
+  }
 }
 
 
 /**
-* pagination
+* Modals
 */
+#modal {
+
+  /**
+  * Dvdinfo modal
+  */
+  &.dvdInfoModal {
+    width: 900px;
+    margin-left: -450px;
+    .modal-body {
+      background-size: 100% 100%;
+      -o-background-size: 100% 100%; /*  Opera  */
+      -webkit-background-size: 100% 100%; /*  Safari  */
+      -khtml-background-size: 100% 100%; /*  Konqueror  */
+      -moz-background-size: 100% 100%; /*not working in Firefox as yet */
+      max-height: 600px;
+    }
+    fieldset {
+      opacity: 0.85;
+      background-image: url(http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/low_contrast_linen.png);
+      color: #000000;
+    }
+  }
+
+  /**
+  * Popups
+  */
+  &.smallModal {
+    width: 600px;
+  }
+
+  /**
+  * modal for grabbing data
+  */
+  &.grabberModal {
+    width: 1000px;
+    margin-left: -500px;
+    .modal-body {
+      max-height: 710px;
+      .tab-content {
+        max-height: 560px;
+      }
+    }
+    .caption h5, .caption p, .thumbnail label,.thumbnail caption {
+      text-align: center;
+    }
+
+  }
+
+}
+
+  /**
+  * pagination
+  */
 .pagination a:hover, .pagination a {
-	background-color: #C3C3C3;
+  background-color: #C3C3C3;
 }
 
-pagination ul > .disabled > span, .pagination ul > .disabled > a, .pagination ul > .disabled > a:hover {
-	background-color: #E1E1E1;
+.pagination ul > .disabled > span, .pagination ul > .disabled > a, .pagination ul > .disabled > a:hover {
+  background-color: #E1E1E1;
 }
 
-
-/**
-* dvd list 
-**/
+  /**
+  * dvd list
+  **/
 .coverlist {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-.coverlist li {
-	margin: 10px;
-	padding: 0;
-	float: left;
-	position: relative;
-	width: 212px;
-	height: 278px;
-}
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    margin: 10px;
+    padding: 0;
+    float: left;
+    position: relative;
+    width: 212px;
+    height: 278px;
+  }
+
+  .coverwrapper {
+    img {
+      height: 255px;
+      width: 180px;
+      border: none;
+      padding: 14px 12px 12px 13px;
+    }
+    em {
+      width: 220px;
+      height: 278px;
+      display: block;
+      position: absolute;
+      top: 4px;
+      left: -17px;
+      text-align: center;
+      cursor: pointer;
+
+      div.dvdInfo {
+        background: #1B1B1B;
+        color: #FFFFFF;
+        position: absolute;
+        top: 11px;
+        left: 30px;
+        font-size: 10px;
+        opacity: 0.8;
+        width: 161px;
+        display: none;
+        border: none;
+      }
+
+      div.rateWrapper,div.rateWrapper img {
+        width: 21px;
+        height: 21px;
+      }
+
+      div.rateWrapper {
+        position: absolute;
+        bottom: 30px;
+        left: 30px;
+      }
+
+      div.coverborrowed {
+        position: absolute;
+        height: 257px;
+        width: 22px;
+        background-color: #FF0000;
+        border: none;
+        top: 9px;
+        left: 8px;
+        opacity: 0.3;
+      }
+
+      div.borrowed {
+        background-color: #FF0000;
+      }
+
+      div.selfBorrowed {
+        background-color: #F89406
+      }
+
+      &.DVD {
+        background: url(../images/covers/dvd.png) no-repeat;
+      }
+
+      &.BLURAY {
+        background: url(../images/covers/bluray.png) no-repeat;
+      }
+
+      &.BLURAY3D {
+        background: url(../images/covers/bluray3d.png) no-repeat;
+      }
+
+      &.HDDVD {
+        background: url(../images/covers/hddvd.png) no-repeat;
+      }
+    }
+
+    div.dvdBtnGrp {
+      position: absolute;
+      bottom: 11px;
+      left: 75px;
+    }
+  }
 
 
-.coverlist .coverwrapper img {
-  height: 255px;
-  width: 180px;
-	border: none;
-	padding: 14px 12px 12px 13px;
-}
-.coverlist .coverwrapper em {
-	width: 220px;
-	height: 278px;
-	display: block;
-	position: absolute;
-	top: 4px;
-	left: -17px;
-	text-align: center;
-	cursor: pointer;
 }
 
-.coverlist .coverwrapper em div.dvdInfo {
-  background: #1B1B1B;
-  color: #FFFFFF;
-  position:  absolute;
-  top: 11px;
-  left: 30px;
-  font-size: 10px;
-  opacity: 0.8;
-  width: 161px;
- display: none;
- border: none;
-}
-
-.coverlist .coverwrapper div.dvdBtnGrp {
-  position: absolute;
-  bottom: 11px;
-  left: 75px;
-}
-
-.coverlist .coverwrapper em div.rateWrapper,.coverlist .coverwrapper em div.rateWrapper img  {
-  width: 21px;
-  height: 21px;
-}
-
-
-.coverlist .coverwrapper em div.rateWrapper {
-  position: absolute;
-   bottom: 30px;
-   left: 30px;
-}
-
-.coverlist .coverwrapper em div.coverborrowed {
-    position: absolute;
-    height: 257px;
-    width: 22px;
-    background-color: #FF0000;
-    border: none;
-    top: 9px;
-    left: 8px;
-    opacity: 0.3;
-}
-
-
-.coverlist .coverwrapper em div.borrowed {
-  background-color: #FF0000;
-}
-
-.coverlist .coverwrapper em div.selfBorrowed {
-  background-color: #F89406
-}
-
-.coverlist .coverwrapper em.DVD {
-  background: url(../images/covers/dvd.png) no-repeat;
-}
-
-.coverlist .coverwrapper em.BLURAY {
-	background: url(../images/covers/bluray.png) no-repeat;
-}
-
-.coverlist .coverwrapper em.BLURAY3D {
-	background: url(../images/covers/bluray3d.png) no-repeat;
-}
-
-.coverlist .coverwrapper em.HDDVD {
-	background: url(../images/covers/hddvd.png) no-repeat;
-}
 
 .itemList .well {
   padding: 4px;
   height: 150px;
 }
 
-
-/**
-* Search form
-*/
+  /**
+  * Search form
+  */
 form.searchFormWrapper {
   padding-bottom: 0px;
+
+  #searchFormDivider {
+    height: 19px;
+    cursor: pointer;
+  }
+
+  #advancedSearchForm {
+    display: none;
+    padding-bottom: 19px;
+  }
 }
 
-#searchFormDivider {
-  height: 19px;
-  cursor: pointer;
-}
 
-#advancedSearchForm {
-  display: none; padding-bottom: 19px;
-}
-
-/**
-* Shoppingcart
-*/
+  /**
+  * Shoppingcart
+  */
 #shoppingCartMenu li {
   width: 350px;
-}
 
-#shoppingCartMenu li.shoppingCartMenu div {
-  padding: 3px 20px;
+  &.shoppingCartMenu div {
+    padding: 3px 20px;
+  }
 }
