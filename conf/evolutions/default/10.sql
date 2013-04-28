@@ -6,7 +6,6 @@ create table bookmark (
 constraint pk_bookmark primary key (id))
 ;
 
---alter table mark_to_view add constraint fk_mark_to_view_1 foreign key (copy_id) references dvd (id) on delete restrict on update restrict;
 create index ix_bookmark_1 on bookmark (copy_id);
 
 # --- !Downs
