@@ -91,7 +91,7 @@ public class Bookmark extends Model {
    */
   public static List<Bookmark> getBookmarksForUser() {
     String username = Secured.getUsername();
-    return Bookmark.finder.where().eq("copy.owner.userName", username).findList();
+    return Bookmark.finder.where().eq("copy.owner.userName", username).orderBy("date DESC").findList();
   }
 
   /**
@@ -107,16 +107,20 @@ public class Bookmark extends Model {
    * Removes the {@link Bookmark} from the list
    * @param id
    */
-  public static void removeBookmark(final Long id) {
+  public static String removeBookmark(final Long id) {
     String username = Secured.getUsername();
-    Bookmark bookmarkCheck = Bookmark.finder.where().eq("copy.owner.userName", username).eq("id", id).findUnique();
-    if(bookmarkCheck == null) {
+    Bookmark bookmarkToDelete = Bookmark.finder.where().eq("copy.owner.userName", username).eq("id", id).findUnique();
+    if(bookmarkToDelete == null) {
       if(Logger.isErrorEnabled() == true) {
         Logger.error("Could not find "+ Bookmark.class.getName()+" with id: "+id+" for user: "+username);
       }
-      return;
+      return "";
     }
 
-    bookmarkCheck.delete();
+    String title = bookmarkToDelete.copy.movie.title;
+
+    bookmarkToDelete.delete();
+
+    return title;
   }
 }

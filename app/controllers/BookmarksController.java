@@ -52,9 +52,9 @@ public class BookmarksController extends Controller {
    */
   public static Result removeBookmark(final Long bookmarkId) {
 
-    Bookmark.removeBookmark(bookmarkId);
+    String title = Bookmark.removeBookmark(bookmarkId);
 
-    Controller.flash("success","Bookmark was removed");
+    Controller.flash("success","Bookmark for copy: "+title+" was removed");
 
     return redirect(routes.BookmarksController.listBookmarks());
   }
