@@ -1,0 +1,18 @@
+@(dvd: Dvd, username: String,shoppingCart: objects.shoppingcart.CacheShoppingCart)
+<div class="btn-group dvdBtnGrp">
+@if(dvd.owner.userName == username) {
+@if(dvd.borrower == null && dvd.borrowerName == null) {
+  <a class="btn btn-inverse lendDvdBtn btn-mini" href="#" data-dvd-id="@dvd.id"><i class="icon-share"></i></a>
+} else {
+  <a class="btn btn-inverse unlendDvdBtn btn-mini" href="#" data-dvd-id="@dvd.id"><i class="icon-download"></i></a>
+}
+<a class="btn btn-inverse btn-mini" href="@routes.DvdController.showEditDvd(dvd.id)"><i class="icon-edit"></i></a>
+<a class="btn btn-inverse deleteDvdBtn btn-mini" href="#" data-dvd-id="@dvd.id"><i class="icon-trash"></i></a>
+} else {
+@if(dvd.borrower != null  && dvd.borrower.userName == username) {
+} else {
+  <a @if(shoppingCart.isInShoppingCart(dvd.id) == true) {style="display: none;"} class="btn btn-inverse btn-mini addToCartBtn" href="#" data-dvd-id="@dvd.id" ><i class="icon-shopping-cart"> <i class="icon-plus-sign"></i></i></a>
+  <a @if(shoppingCart.isInShoppingCart(dvd.id) == false) {style="display: none;"} class="btn btn-mini btn-danger remFromCartBtn" href="#" data-dvd-id="@dvd.id" ><i class="icon-shopping-cart"></i> <i class="icon-remove-sign"></i></a>
+}
+}
+</div>

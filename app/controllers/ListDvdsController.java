@@ -2,6 +2,7 @@ package controllers;
 
 import com.avaje.ebean.Page;
 import forms.dvd.DvdSearchFrom;
+import jsannotation.JSRoute;
 import models.Dvd;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
@@ -23,6 +24,7 @@ public class ListDvdsController extends Controller {
    *
    * @return
    */
+  @JSRoute
   public static Result listdvds(final Integer page) {
 
     final DvdSearchFrom currentSearchForm = DvdSearchFrom.getCurrentSearchForm();

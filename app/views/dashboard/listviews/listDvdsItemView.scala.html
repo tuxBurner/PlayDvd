@@ -1,0 +1,17 @@
+@(dvdPage: DvdPage,username: String,shoppingCart: objects.shoppingcart.CacheShoppingCart)
+@import helpers.EImageSize
+<ul class="itemList thumbnails">
+  @for(dvd <- dvdPage.list) {
+    <li class="span2 coverwrapper_small_li">
+    <div class="coverwrapper_small">
+    <em data-dvd-id="@dvd.id" class="@DvdAttribute.getCopyTypeAttribute(dvd)">
+      <div class="rateWrapper"><img  class="img-rounded" src="@routes.Assets.at("images/agerating/"+DvdAttribute.getAgeRatingAttribute(dvd)+".gif")" /></div>
+    </em>
+    <a>
+      @general.displayposter(dvd.movie.id,dvd.movie.hasPoster,EImageSize.GRABBER_POSTER_SMALL)
+    </a>
+      @dashboard.listviews.copyButtons(dvd,username,shoppingCart)
+    </div>
+    </li>
+  }
+</ul>

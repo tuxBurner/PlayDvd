@@ -7,14 +7,13 @@
 
 @mainmenu("Dvd Database - DVDs",scripts) {
 
+  @dashboard.searchform(dvdListForm)
 
   @if(flash.contains("success")) {
     <div class="alert alert-success">
       @flash.get("success")
     </div>
   }
-  
-  @dashboard.searchform(dvdListForm)
 
   @if(dvdPage.page.getTotalRowCount == 0) {
     <h4>No Dvds found !</h4>
@@ -26,8 +25,8 @@
 
     <div class="row">
 
-      @* dashboard.listDvdsItemView(dvdPage,username,shoppingCart) *@
-      @dashboard.listDvdsCoverView(dvdPage,username,shoppingCart)
+      @*dashboard.listviews.listDvdsItemView(dvdPage,username,shoppingCart)*@
+      @dashboard.listviews.listDvdsCoverView(dvdPage,username,shoppingCart)
 
     </div>
 

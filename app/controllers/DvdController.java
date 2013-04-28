@@ -28,9 +28,8 @@ import java.util.Map;
 
 /**
  * This {@link Controller} handles all the edit and add {@link Dvd} magic
- * 
+ *
  * @author tuxburner
- * 
  */
 @Security.Authenticated(Secured.class)
 public class DvdController extends Controller {
@@ -43,7 +42,7 @@ public class DvdController extends Controller {
 
   /**
    * Shows the add Dvd form
-   * 
+   *
    * @return
    */
   public static Result showAddDvd() {
@@ -54,7 +53,7 @@ public class DvdController extends Controller {
 
   /**
    * Shows the edit dvd form
-   * 
+   *
    * @return
    */
   public static Result showEditDvd(final Long dvdId) {
@@ -72,7 +71,7 @@ public class DvdController extends Controller {
 
   /**
    * This is called when the user submits the add Dvd Form
-   * 
+   *
    * @return
    */
   public static Result addDvd(final String mode) {
@@ -108,7 +107,8 @@ public class DvdController extends Controller {
 
   /**
    * Searches a movie via amazon with the given code
-   * @param code the code to lookup
+   *
+   * @param code   the code to lookup
    * @param copyId if set we search for an existing copy
    * @return
    */
@@ -123,31 +123,32 @@ public class DvdController extends Controller {
       }
     }
 
-    return ok(dvdAmazonPopUp.render(result, code,copyId,movies));
+    return ok(dvdAmazonPopUp.render(result, code, copyId, movies));
   }
 
   /**
    * Adds a {@link Movie}
+   *
    * @param grabberType
    * @return
    */
   @JSRoute
   public static Result addMovieByGrabber(final String grabberType) {
     try {
-    final Form<GrabberInfoForm> grabberInfoForm = Form.form(GrabberInfoForm.class).bindFromRequest();
+      final Form<GrabberInfoForm> grabberInfoForm = Form.form(GrabberInfoForm.class).bindFromRequest();
 
-    final IInfoGrabber grabber = InfoGrabberController.getGrabber(EGrabberType.valueOf(grabberType));
+      final IInfoGrabber grabber = InfoGrabberController.getGrabber(EGrabberType.valueOf(grabberType));
 
-    final MovieForm movieForm = grabber.fillInfoToMovieForm(grabberInfoForm.get());
+      final MovieForm movieForm = grabber.fillInfoToMovieForm(grabberInfoForm.get());
       final Movie movie = Movie.editOrAddFromForm(movieForm);
 
-      if(movie == null) {
+      if (movie == null) {
         return Results.badRequest("An error happend while creating the new movie");
       }
 
       return ok(String.valueOf(movie.id));
 
-    }catch (final Exception e) {
+    } catch (final Exception e) {
       if (Logger.isErrorEnabled()) {
         Logger.error("Internal Error happened", e);
       }
@@ -157,30 +158,30 @@ public class DvdController extends Controller {
 
   /**
    * Shows the add edit Dvd form with the results from the {@link AmazonMovieLookuper}
+   *
    * @param code
    * @param movieId
    * @param copyId
-   *
    * @return
    */
   @JSRoute
   public static Result showDvdByAmazonAndMovie(final String code, final Long movieId, final Long copyId) {
 
-    if(StringUtils.isEmpty(code) == true || movieId == null) {
+    if (StringUtils.isEmpty(code) == true || movieId == null) {
       return badRequest();
     }
 
     AmazonResult amazonResult = AmazonMovieLookuper.lookUp(code);
-    if(amazonResult == null) {
-      if(Logger.isDebugEnabled() == true) {
+    if (amazonResult == null) {
+      if (Logger.isDebugEnabled() == true) {
         Logger.error("Error adding dvd with amazonecode: " + code);
       }
       return badRequest();
     }
 
     Movie movie = Movie.find.byId(movieId);
-    if(movie == null) {
-      if(Logger.isDebugEnabled() == true) {
+    if (movie == null) {
+      if (Logger.isDebugEnabled() == true) {
         Logger.error("Error adding dvd with movie: " + movieId);
       }
       return badRequest();
@@ -188,9 +189,9 @@ public class DvdController extends Controller {
 
     String mode = DVD_FORM_ADD_MODE;
     Dvd copy = null;
-    if(copyId.equals(NO_COPY_SELECTED_ID) == false) {
+    if (copyId.equals(NO_COPY_SELECTED_ID) == false) {
       mode = DVD_FORM_EDIT_MODE;
-      copy = Dvd.getDvdForUser(copyId,Secured.getUsername());
+      copy = Dvd.getDvdForUser(copyId, Secured.getUsername());
     }
 
     final Form<DvdForm> form = Form.form(DvdForm.class);
@@ -200,8 +201,45 @@ public class DvdController extends Controller {
   }
 
   /**
+   * Just fills the informations from the amazon lookup to the copy form an returns it
+   */
+  public static Result showCopyFormWithAmazonInfo(final String code, final Long copyId) {
+    if (StringUtils.isEmpty(code) == true) {
+      if (Logger.isErrorEnabled() == true) {
+        Logger.error("No code is given for looking up amazon infos.");
+      }
+      return badRequest();
+    }
+
+    Dvd copy = null;
+    if (copyId.equals(NO_COPY_SELECTED_ID) == false) {
+      copy = Dvd.getDvdForUser(copyId, Controller.request().username());
+      if (copy == null) {
+        if (Logger.isDebugEnabled() == true) {
+          Logger.debug("Could not find copy with id: " + copyId + " for user: " + Controller.request().username());
+        }
+        return badRequest();
+      }
+    }
+
+    AmazonResult amazonResult = AmazonMovieLookuper.lookUp(code);
+
+    String mode = DVD_FORM_ADD_MODE;
+    final Form<DvdForm> form = Form.form(DvdForm.class);
+    final DvdForm dvdForm = DvdForm.amazonAndCopyToForm(copy, amazonResult);
+    form.fill(dvdForm);
+
+
+    if (copy != null) {
+      mode = DVD_FORM_EDIT_MODE;
+    }
+
+    return Results.ok(dvdform.render(form.fill(dvdForm), mode));
+  }
+
+  /**
    * Searches for {@link DvdAttribute} returns a json with
-   * {@link DvdAttribute#pk} and {@link DvdAttribute#value}
+   * {@link DvdAttribute} and {@link DvdAttribute#value}
    *
    * @param term
    * @param attrType

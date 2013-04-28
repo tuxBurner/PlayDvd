@@ -5,24 +5,22 @@
     @general.displayposter(item.movie.id,item.movie.hasPoster,EImageSize.SELECT2)
   </span>
   <div class="media-body">
-    <h5 class="media-heading">
+    <h6 class="media-heading">
       @general.displayCopyTitle(item)
-      @if(item.borrowDate != null) {
+    </h6>
+    <span>
+      @item.owner.userName
+      @if(displayBorrower == true && item.borrowDate != null) {
         <strong>
-          ( Borrowed
-          @if(displayBorrower == true) {
-            to:
-            @if(item.borrower != null) {
-              @item.borrower.userName
-            } else {
-              @item.borrowerName
-            }
+            ->
+          @if(item.borrower != null) {
+            @item.borrower.userName
+          } else {
+            @item.borrowerName
           }
-          )
         </strong>
       }
-    </h5>
-    <span>Owner: @item.owner.userName</span>
+    </span>
     @if(DvdAttribute.getCopyTypeAttribute(item) != null) {
       <span><img class="img-rounded" alt="@DvdAttribute.getCopyTypeAttribute(item)" src="@routes.Assets.at("images/copy_type/"+DvdAttribute.getCopyTypeAttribute(item)+".png")" /></span>
     }

@@ -187,6 +187,60 @@ body {
 
 }
 
+li.coverwrapper_small_li {
+
+  position: relative;
+
+.coverwrapper_small {
+
+  img {
+    width: 77px;
+    height: 114px;
+    border: none;
+    padding-left: 13px;
+    padding-top: 4px;
+  }
+  em {
+    width: 99px;
+    height: 125px;
+    display: block;
+    position: absolute;
+    top: -2px;
+    left: -4px;
+    text-align: center;
+    cursor: pointer;
+
+
+    div.rateWrapper, div.rateWrapper img {
+      width: 21px;
+      height: 21px;
+    }
+
+    div.rateWrapper {
+      position: absolute;
+      bottom: 10px;
+      left: 12px;
+    }
+
+    &.DVD {
+      background: url(../images/covers/dvd_small.png) no-repeat;
+    }
+
+    &.BLURAY {
+      background: url(../images/covers/bluray_small.png) no-repeat;
+    }
+
+    &.BLURAY3D {
+      background: url(../images/covers/bluray3d_small.png) no-repeat;
+    }
+
+    &.HDDVD {
+      background: url(../images/covers/hddvd_small.png) no-repeat;
+    }
+  }
+}
+}
+
 .itemList .well {
   padding: 4px;
   height: 150px;

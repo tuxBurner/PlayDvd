@@ -71,18 +71,36 @@ public class DvdForm {
    */
   public static DvdForm amazonAndMovieToDvdForm(final AmazonResult amazonResult, final Long movieId, final Dvd copy) {
 
+    DvdForm dvdForm = amazonAndCopyToForm(copy, amazonResult);
+    dvdForm.movieId = movieId;
+
+    return dvdForm;
+  }
+
+  /**
+   * Creates a dvdform from the informations from the copy and the amazonresult
+   * if the copy is null it will be an empty form with just the amazon results
+   * @param copy
+   * @param amazonResult
+   * @return
+   */
+  public static DvdForm amazonAndCopyToForm(final Dvd copy, final AmazonResult amazonResult) {
     final DvdForm dvdForm = (copy == null) ? new DvdForm() : dvdToDvdForm(copy);
+
     dvdForm.ageRating = amazonResult.rating;
     dvdForm.copyType = amazonResult.copyType;
     dvdForm.audioTypes = amazonResult.audioTypes;
     dvdForm.asinNr = amazonResult.asin;
     dvdForm.eanNr = amazonResult.ean;
-    dvdForm.movieId = movieId;
+    if(copy != null && copy.movie != null) {
+      dvdForm.movieId = copy.movie.id;
+    }
 
     Collections.sort(dvdForm.audioTypes);
 
     return dvdForm;
   }
+
 
   /**
    * Transforms a {@link Dvd} to a {@link DvdForm} for editing the dvd in the
