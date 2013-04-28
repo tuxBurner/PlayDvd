@@ -98,7 +98,10 @@ GET   /lentcopies                           controllers.ReservationsController.s
 GET   /lentcopies/unlent/:copyIds           controllers.ReservationsController.unlentCopies(copyIds: String)
 GET   /borrowedcopies                       controllers.ReservationsController.showBorrowedCopies()
 
-
+#Bookmark
+GET  /bookmark/add/:copyId                 controllers.BookmarksController.bookmarkCopy(copyId: Long)
+GET  /bookmark                             controllers.BookmarksController.listBookmarks()
+GET  /bookmark/delete/:bookmarkId          controllers.BookmarksController.removeBookmark(bookmarkId: Long)
 
 # Grabbers 
 GET    /grabber/search                          controllers.InfoGrabberController.searchGrabber(searchTerm = "", grabberType =  "TMDB")

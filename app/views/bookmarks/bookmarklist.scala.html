@@ -1,0 +1,44 @@
+@(bookmarks: List[Bookmark])
+@import org.apache.commons.collections.CollectionUtils
+
+@mainmenu("Marked copies to view") {
+
+  @if(flash.contains("success")) {
+    <div class="alert alert-success">
+      @flash.get("success")
+    </div>
+  }
+
+  <div class="row well">
+
+    <fieldset>
+      <legend><i class="icon-bookmark"></i> Bookmarked copies</legend>
+
+      @if(CollectionUtils.isEmpty(bookmarks) == true) {
+        <div class="alert">
+          You don't have any bookmarked copies.
+        </div>
+      } else {
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Copy</th>
+              <th>Date</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(bookmark <-bookmarks) {
+              <tr>
+                <td>@general.displayitem(bookmark.copy,true)</td>
+                <td>@{new Date(bookmark.date)}</td>
+                <td><a href="@routes.BookmarksController.removeBookmark(bookmark.id)" class="btn btn-danger" ><i class="icon-trash"></i></a></td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+
+    </fieldset>
+  </div>
+}

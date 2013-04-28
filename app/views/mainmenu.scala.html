@@ -39,6 +39,8 @@
       <li><a href="@routes.DvdController.showAddDvd"><i class="icon-plus"></i>Add a copy</a></li>
 
       @ShoppingCartController.getShoppingCartMenuContent
+
+      <li><a href="@routes.BookmarksController.listBookmarks()"><i class="icon-bookmark"></i>(@Bookmark.getBookmarkCount)</a></li>
       
       @form(routes.ListDvdsController.searchDvd,'class -> "navbar-search pull-left") {
           <i class="icon-search"></i>
