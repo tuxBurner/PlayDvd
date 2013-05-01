@@ -96,9 +96,7 @@
            <legend>Pick movie</legend>
            @inputText(dvdForm("movieId"),'_label -> "Existing movie" , '_showConstraints -> true, 'class-> "span6")
            <button class="btn btn-inverse" id="newMovieInfos" type="button"><i class="icon-film"></i> New Movie</button>
-           @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
-             <button class="btn btn-info" id="editMovieInfos" type="button"><i class="icon-edit"></i> Edit Movie</button>
-           }
+           <button class="btn btn-info" id="editMovieInfos" style="display: none;" type="button"><i class="icon-edit"></i> Edit Movie</button>
          </fieldset>
 
        </div>

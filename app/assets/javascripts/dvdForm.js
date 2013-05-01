@@ -148,12 +148,21 @@ var createMovieDropDown = function(selector) {
       }
     },
     initSelection : function (element,callback) {
+      $('#editMovieInfos').show();
       return callback(selectedMovie);
     },
     formatResult: movieFormatResult,
     formatSelection: movieFormatSelection,
     containerCssClass: cssClassToAdd,
     escapeMarkup: function (m) { return m; } // we do not want to escape markup since we are displaying html in results
+  });
+
+  $(selector).on("change", function(e) {
+    if(e.val == "") {
+      $('#editMovieInfos').hide();
+    } else {
+      $('#editMovieInfos').show();
+    }
   });
 }
 
