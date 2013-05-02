@@ -185,6 +185,8 @@ var stopVideoCapture= function () {
       nativeMediaStream.stop();
     }
   }
+
+  ws.close();
 };
 
 /**
