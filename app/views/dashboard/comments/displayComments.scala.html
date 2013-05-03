@@ -8,6 +8,13 @@
     </div>
   } else {
     <div class="movieCommentsWrapper">
+
+      @if(flash.contains(CommentController.COMMENT_SUCCESS_FLASH)) {
+        <div class="alert alert-success">
+        @flash.get(CommentController.COMMENT_SUCCESS_FLASH)
+        </div>
+      }
+
       <div class="alert alert-info">
         This movie has: <strong>@commentable.commentsCount</strong> comments.
       </div>

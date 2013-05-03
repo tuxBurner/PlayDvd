@@ -20,6 +20,8 @@ import static play.data.Form.form;
 @Security.Authenticated(Secured.class)
 public class CommentController extends Controller {
 
+  public static String COMMENT_SUCCESS_FLASH = "commentSuccess";
+
   @JSRoute
   public static Result addComment(final Long movieId) {
 
@@ -27,6 +29,8 @@ public class CommentController extends Controller {
     final String commentText = requestData.get("commentText");
 
     final Commentable commentable = Movie.addComment(movieId, commentText);
+
+    flash(COMMENT_SUCCESS_FLASH,"Comment was added to movie.");
 
     return ok(views.html.dashboard.comments.displayComments.render(commentable,movieId));
   }
