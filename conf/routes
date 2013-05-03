@@ -36,6 +36,9 @@ GET     /movies/toReview                  controllers.ListDvdsController.listRev
 GET     /dvds/search                      controllers.ListDvdsController.searchDvd()
 POST    /dvds                             controllers.ListDvdsController.applySearchForm()
 
+# Comment
+POST /movie/:movieId/comment              controllers.CommentController.addComment(movieId: Long,commentText: String )
+
 
 # stuff
 GET     /image/:dvdId/:imgType/:imgSize    controllers.Dashboard.streamImage(dvdId: Long, imgType: String, imgSize: String)

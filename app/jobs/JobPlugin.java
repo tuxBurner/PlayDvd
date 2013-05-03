@@ -60,7 +60,7 @@ public class JobPlugin extends Plugin {
         jobs.add(newInstance);
 
       } catch (final NoSuchMethodException e) {
-        Logger.error("Could not find default constructor with no parameters in: " + clazz, e);
+        Logger.error("Could not find defaultold constructor with no parameters in: " + clazz, e);
       } catch (final SecurityException e) {
         Logger.error("Error while initializing class: " + clazz, e);
       } catch (final InstantiationException e) {

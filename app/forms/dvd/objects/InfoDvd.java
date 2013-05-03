@@ -7,6 +7,7 @@ import java.util.List;
 import forms.MovieForm;
 import forms.dvd.DvdForm;
 import forms.dvd.objects.CollectionDvd;
+import models.Commentable;
 import models.Dvd;
 import models.EDvdAttributeType;
 
@@ -14,6 +15,8 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
 public class InfoDvd {
+
+  public final Commentable commentable;
 
   public DvdForm dvdForm;
 
@@ -51,6 +54,8 @@ public class InfoDvd {
     if(StringUtils.isEmpty(dvd.additionalInfo) == false) {
       title += " ["+dvd.additionalInfo+"]";
     }
+
+    commentable = dvd.movie.commentable;
 
     final List<Long> alreadyAdded = new ArrayList<Long>();
     boxDvds = getDvdsByBoxOrCollection(dvd, EDvdAttributeType.BOX, dvdForm.box, alreadyAdded);

@@ -66,6 +66,11 @@ public class Movie extends Model {
   @Enumerated(EnumType.STRING)
   public EGrabberType grabberType = EGrabberType.NONE;
 
+  @OneToOne(fetch = FetchType.LAZY)
+  @Column(nullable = false)
+  public Commentable commentable;
+
+
   /**
    * Id to the imdb
    */
@@ -218,8 +223,6 @@ public class Movie extends Model {
 
   }
 
-
-
   /**
    * Checks if a movie already exists with the grabberId and the grabberType
    * @param grabberId
@@ -233,6 +236,33 @@ public class Movie extends Model {
 
     int rowCount = Movie.find.where().eq("grabberId", grabberId).eq("grabberType", grabberType).findRowCount();
     return rowCount > 0;
+  }
+
+  /**
+   * Adds a  {@link Comment} to the {@link Movie} with the given id
+   * @param movieId
+   * @param commentText
+   */
+  public static void addComment(final Long movieId,final String commentText) {
+
+    final Movie movie = find.byId(movieId);
+    if(movie == null) {
+      if(Logger.isErrorEnabled() == true) {
+        Logger.error("Could not find movie with the id: "+movieId);
+      }
+    }
+
+    if(movie.commentable == null) {
+      movie.commentable = new Commentable();
+    }
+
+    final Comment  comment = new Comment();
+    comment.comment = commentText;
+    comment.user = User.getCurrentUser();
+    movie.commentable.addNewComment(comment);
+
+    movie.save();
+
   }
 
 }

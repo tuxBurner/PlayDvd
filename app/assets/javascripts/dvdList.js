@@ -216,5 +216,15 @@ $(function() {
 	/**
 	 * EO SEARCH FORM
 	 */
-	
 });
+
+/**
+ * This calls the backend to add a comment
+ */
+var addComment = function(movieId) {
+  var val = $('#movieCommentText').val().trim();
+  if(val != "") {
+    pAjax(jsRoutes.controllers.CommentController.addComment(movieId),{"commentText" : val},function(data) {}, function(data) {});
+
+  }
+}

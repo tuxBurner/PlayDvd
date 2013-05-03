@@ -1412,14 +1412,14 @@ the specific language governing permissions and limitations under the Apache Lic
                     context: null,
                     matcher: opts.matcher,
                     callback: this.bind(function (data) {
-                var def; // default choice
+                var def; // defaultold choice
 
                 // ignore a response if the select2 has been closed before it was received
                 if (!this.opened()) return;
 
                 // save context, if any
                 this.context = (data.context===undefined) ? null : data.context;
-                // create a default choice and prepend it to the list
+                // create a defaultold choice and prepend it to the list
                 if (this.opts.createSearchChoice && search.val() !== "") {
                     def = this.opts.createSearchChoice.call(null, search.val(), data.results);
                     if (def !== undefined && def !== null && self.id(def) !== undefined && self.id(def) !== null) {
@@ -1812,7 +1812,7 @@ the specific language governing permissions and limitations under the Apache Lic
                         callback({id: selected.attr("value"), text: selected.text(), element:selected});
                 };
             } else if ("data" in opts) {
-                // install default initSelection when applied to hidden input and data is local
+                // install defaultold initSelection when applied to hidden input and data is local
                 opts.initSelection = opts.initSelection || function (element, callback) {
                     var id = element.val();
                     //search in data by id, storing the actual matching item
@@ -1858,7 +1858,7 @@ the specific language governing permissions and limitations under the Apache Lic
 
                 this.selection.find("span").html(this.opts.escapeMarkup(placeholder));
 
-                this.selection.addClass("select2-default");
+                this.selection.addClass("select2-defaultold");
 
                 this.selection.find("abbr").hide();
             }
@@ -1930,7 +1930,7 @@ the specific language governing permissions and limitations under the Apache Lic
                 container.append(this.opts.escapeMarkup(formatted));
             }
 
-            this.selection.removeClass("select2-default");
+            this.selection.removeClass("select2-defaultold");
 
             if (this.opts.allowClear && this.getPlaceholder() !== undefined) {
                 this.selection.find("abbr").show();
@@ -2050,7 +2050,7 @@ the specific language governing permissions and limitations under the Apache Lic
                     callback(data);
                 };
             } else if ("data" in opts) {
-                // install default initSelection when applied to hidden input and data is local
+                // install defaultold initSelection when applied to hidden input and data is local
                 opts.initSelection = opts.initSelection || function (element, callback) {
                     var ids = splitVal(element.val(), opts.separator);
                     //search in data by array of ids, storing matching items in a list
@@ -2232,7 +2232,7 @@ the specific language governing permissions and limitations under the Apache Lic
             var placeholder = this.getPlaceholder();
 
             if (placeholder !== undefined  && this.getVal().length === 0 && this.search.hasClass("select2-focused") === false) {
-                this.search.val(placeholder).addClass("select2-default");
+                this.search.val(placeholder).addClass("select2-defaultold");
                 // stretch the search box to full width of the container so as much of the placeholder is visible as possible
                 // we could call this.resizeSearch(), but we do not because that requires a sizer and we do not want to create one so early because of a firefox bug, see #944
                 this.search.width(this.getMaxSearchWidth());
@@ -2243,8 +2243,8 @@ the specific language governing permissions and limitations under the Apache Lic
 
         // multi
         clearPlaceholder: function () {
-            if (this.search.hasClass("select2-default")) {
-                this.search.val("").removeClass("select2-default");
+            if (this.search.hasClass("select2-defaultold")) {
+                this.search.val("").removeClass("select2-defaultold");
             }
         },
 

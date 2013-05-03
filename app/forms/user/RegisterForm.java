@@ -47,7 +47,7 @@ public class RegisterForm {
     }
 
     if (StringUtils.isEmpty(defaultCopyType) == true) {
-      return "No default copytype selected.";
+      return "No defaultold copytype selected.";
     }
 
     final List<String> copyTypes = DvdInfoHelper.getCopyTypes();

@@ -43,7 +43,7 @@ public class User extends Model {
   public String email;
 
   /**
-   * If set this will be taken when the user adds a new copy to his collection as default Type.
+   * If set this will be taken when the user adds a new copy to his collection as defaultold Type.
    * Like BluRay etc ...
    */
   public String defaultCopyType;
