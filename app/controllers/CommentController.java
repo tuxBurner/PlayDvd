@@ -1,10 +1,14 @@
 package controllers;
 
 import jsannotation.JSRoute;
+import models.Commentable;
 import models.Movie;
+import play.data.DynamicForm;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
+
+import static play.data.Form.form;
 
 /**
  * Controller for handling {@link models.Comment}
@@ -17,10 +21,14 @@ import play.mvc.Security;
 public class CommentController extends Controller {
 
   @JSRoute
-  public static Result addComment(final Long movieId, final String commentText) {
-    Movie.addComment(movieId,commentText);
+  public static Result addComment(final Long movieId) {
 
-    return ok();
+    DynamicForm requestData = form().bindFromRequest();
+    final String commentText = requestData.get("commentText");
+
+    final Commentable commentable = Movie.addComment(movieId, commentText);
+
+    return ok(views.html.dashboard.comments.displayComments.render(commentable,movieId));
   }
 
 }

@@ -1,0 +1,28 @@
+@(commentable: Commentable, movieId: Long)
+<fieldset class="well" id="comments">
+  <h2>Comments</h2>
+
+  @if(commentable == null || commentable.commentsCount == 0) {
+    <div class="alert">
+      This movie has no comments yet :)
+    </div>
+  } else {
+    <div class="movieCommentsWrapper">
+      <div class="alert alert-info">
+        This movie has: <strong>@commentable.commentsCount</strong> comments.
+      </div>
+
+      @for(comment <- commentable.comments) {
+        <div>@comment.comment</div>
+      }
+
+    </div>
+  }
+
+    <h3>New Comment:</h3>
+    <textarea id="movieCommentText">
+
+    </textarea>
+    <button type="button" class="btn btn-primary" onclick="addComment(@movieId);"><i class="icon-comment"></i>Comment</button>
+
+</fieldset>

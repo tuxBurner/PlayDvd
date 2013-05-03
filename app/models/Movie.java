@@ -243,7 +243,7 @@ public class Movie extends Model {
    * @param movieId
    * @param commentText
    */
-  public static void addComment(final Long movieId,final String commentText) {
+  public static Commentable addComment(final Long movieId, final String commentText) {
 
     final Movie movie = find.byId(movieId);
     if(movie == null) {
@@ -254,6 +254,7 @@ public class Movie extends Model {
 
     if(movie.commentable == null) {
       movie.commentable = new Commentable();
+      movie.commentable.save();
     }
 
     final Comment  comment = new Comment();
@@ -262,6 +263,8 @@ public class Movie extends Model {
     movie.commentable.addNewComment(comment);
 
     movie.save();
+
+    return movie.commentable;
 
   }
 

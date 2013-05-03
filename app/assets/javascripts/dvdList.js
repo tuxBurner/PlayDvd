@@ -224,7 +224,9 @@ $(function() {
 var addComment = function(movieId) {
   var val = $('#movieCommentText').val().trim();
   if(val != "") {
-    pAjax(jsRoutes.controllers.CommentController.addComment(movieId),{"commentText" : val},function(data) {}, function(data) {});
+    pAjax(jsRoutes.controllers.CommentController.addComment(movieId),{"commentText" : val},function(data) {
+      $('#comments').html(data);
+    }, function(data) {});
 
   }
 }

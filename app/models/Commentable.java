@@ -5,7 +5,7 @@ import play.db.ebean.Model;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -29,8 +29,9 @@ public class Commentable extends Model{
   /**
    * The comments which are attached to the commentable entity
    */
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "commentable", orphanRemoval = true)
-  public Set<Comment> comments;
+  @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.PERSIST)
+  @OrderBy("commentDate DESC")
+  public List<Comment> comments;
 
   /**
    * Adds a new comment to the entity
@@ -53,7 +54,7 @@ public class Commentable extends Model{
 
     comment.commentDate = new Date().getTime();
 
-    comment.save();
+
     comments.add(comment);
     commentsCount = comments.size();
 

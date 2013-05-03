@@ -37,7 +37,7 @@ GET     /dvds/search                      controllers.ListDvdsController.searchD
 POST    /dvds                             controllers.ListDvdsController.applySearchForm()
 
 # Comment
-POST /movie/:movieId/comment              controllers.CommentController.addComment(movieId: Long,commentText: String )
+POST /movie/:movieId/comment              controllers.CommentController.addComment(movieId: Long)
 
 
 # stuff

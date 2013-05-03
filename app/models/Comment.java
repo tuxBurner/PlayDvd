@@ -35,8 +35,4 @@ public class Comment extends Model {
   @Column(nullable =  false)
   public User user;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @Column(nullable = false)
-  public Commentable commentable;
-
 }

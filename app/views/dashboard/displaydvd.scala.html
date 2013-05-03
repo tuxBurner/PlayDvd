@@ -6,24 +6,7 @@
 <div class="row-fluid" xmlns="http://www.w3.org/1999/html" >
 <div class="span12">
 
-  <fieldset class="well">
-    <h2>Comments</h2>
-
-    @if(dvd.commentable == null || dvd.commentable.commentsCount == 0) {
-      <div class="alert">
-        This movie has no comments yet :)
-      </div>
-    } else {
-
-    }
-
-    <h3>New Comment:</h3>
-    <textarea id="movieCommentText">
-
-    </textarea>
-    <button type="button" class="btn btn-primary" onclick="addComment(@dvd.movieForm.movieId);"><i class="icon-comment"></i>Comment</button>
-
-  </fieldset>
+  @dashboard.comments.displayComments(dvd.commentable,dvd.movieForm.movieId)
 
   <fieldset class="well">
     <h2>Plot:</h2>
