@@ -1,7 +1,14 @@
-@(dvdPage: DvdPage) 
+@(dvdPage: DvdPage, viewMode: helpers.ECopyListView)
+@import helpers.ECopyListView
 
-   @if(dvdPage.page.getTotalPageCount > 1) {
+@if(dvdPage.page.getTotalPageCount > 1) {
     <div class="row">
+
+      <div class="btn-group">
+        <a class="btn btn-small @if(viewMode == ECopyListView.COVERVIEW){active}" href="@routes.ListDvdsController.changeViewMode(ECopyListView.COVERVIEW.name())"><i class="icon-th-large"></i></a>
+        <a class="btn btn-small @if(viewMode == ECopyListView.SMALLCOVERVIEW){active}" href="@routes.ListDvdsController.changeViewMode(ECopyListView.SMALLCOVERVIEW.name())"><i class="icon-th"></i></a>
+      </div>
+
       <div class="pagination pagination-small pull-right">
         <ul>
           <li  @if(dvdPage.page.hasPrev == false) { class="disabled" }><a @if(dvdPage.page.hasPrev == true) { href="@routes.ListDvdsController.listdvds(dvdPage.page.getPageIndex-1)" }>Prev</a></li>

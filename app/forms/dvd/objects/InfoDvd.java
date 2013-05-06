@@ -16,7 +16,7 @@ import org.apache.commons.lang.StringUtils;
 
 public class InfoDvd {
 
-  public final Commentable commentable;
+  public final Commentable commentable = null;
 
   public DvdForm dvdForm;
 
@@ -55,7 +55,7 @@ public class InfoDvd {
       title += " ["+dvd.additionalInfo+"]";
     }
 
-    commentable = dvd.movie.commentable;
+    //commentable = dvd.movie.commentable;
 
     final List<Long> alreadyAdded = new ArrayList<Long>();
     boxDvds = getDvdsByBoxOrCollection(dvd, EDvdAttributeType.BOX, dvdForm.box, alreadyAdded);

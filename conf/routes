@@ -35,6 +35,7 @@ GET     /dvds/lend                        controllers.ListDvdsController.listLen
 GET     /movies/toReview                  controllers.ListDvdsController.listReviewMovies()
 GET     /dvds/search                      controllers.ListDvdsController.searchDvd()
 POST    /dvds                             controllers.ListDvdsController.applySearchForm()
+GET     /dvds/changeViewMode/:viewMode    controllers.ListDvdsController.changeViewMode(viewMode :String)
 
 # Comment
 POST /movie/:movieId/comment              controllers.CommentController.addComment(movieId: Long)

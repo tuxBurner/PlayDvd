@@ -2,6 +2,7 @@ package grabbers.amazon;
 
 
 import com.typesafe.config.ConfigFactory;
+import helpers.ConfigurationHelper;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Document;
@@ -29,13 +30,8 @@ public class AmazonMovieLookuper {
 
 
   static {
-    for (Map.Entry<String, Object> stringObjectEntry : ConfigFactory.load().getObject("dvdb.amazon.grabber.matchCopyType").unwrapped().entrySet()) {
-     copyTypeMatches.put(stringObjectEntry.getKey(), (String) stringObjectEntry.getValue());
-    }
-
-    for (Map.Entry<String, Object> stringObjectEntry : ConfigFactory.load().getObject("dvdb.amazon.grabber.matchAgeRating").unwrapped().entrySet()) {
-      ageRatingMatches.put(stringObjectEntry.getKey(), (String) stringObjectEntry.getValue());
-    }
+    copyTypeMatches = ConfigurationHelper.createValMap("dvdb.amazon.grabber.matchCopyType");
+    ageRatingMatches = ConfigurationHelper.createValMap("dvdb.amazon.grabber.matchAgeRating");
   }
 
   /**

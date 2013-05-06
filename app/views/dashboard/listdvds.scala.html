@@ -1,7 +1,8 @@
-@(dvdPage: DvdPage)(dvdListForm: Form[forms.dvd.DvdSearchFrom])(username: String)(shoppingCart: objects.shoppingcart.CacheShoppingCart)
+@(dvdPage: DvdPage)(dvdListForm: Form[forms.dvd.DvdSearchFrom])(username: String)(shoppingCart: objects.shoppingcart.CacheShoppingCart)(viewMode: helpers.ECopyListView)
+@import helpers.ECopyListView
 
 
-@scripts = {
+  @scripts = {
    <script src="@routes.Assets.at("javascripts/dvdList.js")" type="text/javascript"></script>
 }
 
@@ -21,16 +22,22 @@
   <div class="row">
     <h4>Displaying @dvdPage.page.getDisplayXtoYofZ(" to "," of ") DVD's</h4>
 
-    @dashboard.dvdlistnav(dvdPage)
+    @dashboard.dvdlistnav(dvdPage,viewMode)
 
     <div class="row">
 
-      @*dashboard.listviews.listDvdsItemView(dvdPage,username,shoppingCart)*@
-      @dashboard.listviews.listDvdsCoverView(dvdPage,username,shoppingCart)
+      @if(viewMode == ECopyListView.COVERVIEW) {
+        @dashboard.listviews.listDvdsCoverView(dvdPage,username,shoppingCart)
+      }
+
+      @if(viewMode == ECopyListView.SMALLCOVERVIEW) {
+        @dashboard.listviews.listDvdsItemView(dvdPage,username,shoppingCart)
+      }
+
 
     </div>
 
-    @dashboard.dvdlistnav(dvdPage)
+    @dashboard.dvdlistnav(dvdPage,viewMode)
     
   </div>
   

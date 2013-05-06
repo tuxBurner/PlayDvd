@@ -1,5 +1,7 @@
 $(function() {
-	
+
+  $('.tooltipo').tooltip();
+
 	$(document).on('mouseenter','.coverwrapper em',function() {
 	      $('.dvdInfo',this).fadeIn(150);
 	    }).on('mouseleave','.coverwrapper em',function() {
@@ -10,7 +12,7 @@ $(function() {
 	 * INFO DIALOG
 	 */
 	// open the info dialog when the user clicks on the info button
-	$(document).on('click','.coverwrapper em',function(event){
+	$(document).on('click','.coverwrapper em, .coverwrapper_small em',function(event){
 		displayAjaxDialog({
 			route: jsRoutes.controllers.Dashboard.displayDvd($(this).data('dvdId')),
         	title: 'Is set from the displaydvdSacla',

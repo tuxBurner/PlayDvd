@@ -66,9 +66,9 @@ public class Movie extends Model {
   @Enumerated(EnumType.STRING)
   public EGrabberType grabberType = EGrabberType.NONE;
 
-  @OneToOne(fetch = FetchType.LAZY)
-  @Column(nullable = false)
-  public Commentable commentable;
+  //@OneToOne(fetch = FetchType.LAZY)
+  //@Column(nullable = false)
+  //public Commentable commentable;
 
 
   /**
@@ -245,7 +245,7 @@ public class Movie extends Model {
    */
   public static Commentable addComment(final Long movieId, final String commentText) {
 
-    final Movie movie = find.byId(movieId);
+   /* final Movie movie = find.byId(movieId);
     if(movie == null) {
       if(Logger.isErrorEnabled() == true) {
         Logger.error("Could not find movie with the id: "+movieId);
@@ -264,7 +264,9 @@ public class Movie extends Model {
 
     movie.save();
 
-    return movie.commentable;
+    return movie.commentable;*/
+
+    return null;
 
   }
 

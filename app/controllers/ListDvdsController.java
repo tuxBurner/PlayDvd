@@ -1,7 +1,10 @@
 package controllers;
 
 import com.avaje.ebean.Page;
+import com.typesafe.config.ConfigFactory;
 import forms.dvd.DvdSearchFrom;
+import helpers.ConfigurationHelper;
+import helpers.ECopyListView;
 import jsannotation.JSRoute;
 import models.Dvd;
 import org.apache.commons.lang.StringUtils;
@@ -15,9 +18,16 @@ import views.html.dashboard.listdvds;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.Map;
 
 @Security.Authenticated(Secured.class)
 public class ListDvdsController extends Controller {
+
+  private final static Map<String, Integer> DVDS_PER_PAGE_CONFIG = ConfigurationHelper.createValMap("dvddb.dvds.perpage");
+
+  private final static ECopyListView DEFAULT_VIEW = ECopyListView.valueOf(ConfigFactory.load().getString("dvddb.dvds.defaultview"));
+
+  private final static String SESSION_VIEW_MODE = "_view_mode";
 
   /**
    * Lists all the dvds
@@ -174,8 +184,22 @@ public class ListDvdsController extends Controller {
 
     final Form<DvdSearchFrom> form = Form.form(DvdSearchFrom.class);
 
-    final Page<Dvd> dvdsByForm = Dvd.getDvdsBySearchForm(dvdSearchFrom);
-    return Results.ok(listdvds.render(new DvdPage(dvdsByForm), form.fill(dvdSearchFrom), username, ShoppingCartController.getShoppingCartFromCache()));
+    final ECopyListView currentViewMode = getCurrentViewMode();
+    final Integer itemsPerPage = DVDS_PER_PAGE_CONFIG.get(currentViewMode.name());
+
+    final Page<Dvd> dvdsByForm = Dvd.getDvdsBySearchForm(dvdSearchFrom, itemsPerPage);
+    return Results.ok(listdvds.render(new DvdPage(dvdsByForm), form.fill(dvdSearchFrom), username, ShoppingCartController.getShoppingCartFromCache(),currentViewMode));
+  }
+
+  /**
+   * Sets the view mode for the dvd view
+   * @param viewMode
+   * @return
+   */
+  public static Result changeViewMode(final String viewMode) {
+    session().put(SESSION_VIEW_MODE,viewMode);
+
+    return redirect(routes.ListDvdsController.listAlldvds());
   }
 
   /**
@@ -194,5 +218,19 @@ public class ListDvdsController extends Controller {
 
       return string;
     }
+  }
+
+  /**
+   * Reads the current {@ECopyListView} from the session
+   * @return
+   */
+  public static ECopyListView getCurrentViewMode() {
+    String viewMode = session().get(SESSION_VIEW_MODE);
+    if(viewMode == null) {
+      viewMode = DEFAULT_VIEW.name();
+      session().put(SESSION_VIEW_MODE,viewMode);
+    }
+
+    return ECopyListView.valueOf(viewMode);
   }
 }

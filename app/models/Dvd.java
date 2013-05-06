@@ -9,6 +9,8 @@ import forms.dvd.DvdForm;
 import forms.dvd.DvdSearchFrom;
 import forms.dvd.objects.EDvdListOrderBy;
 import forms.dvd.objects.EDvdListOrderHow;
+import helpers.ConfigurationHelper;
+import helpers.ECopyListView;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
@@ -44,7 +46,6 @@ public class Dvd extends Model {
 
   public Long borrowDate;
 
-  private final static int DEFAULT_DVDS_PER_PAGE = ConfigFactory.load().getInt("dvddb.dvds.perpage");
 
   /**
    * If this is set the user entered a free name which does not exists in the
@@ -214,10 +215,12 @@ public class Dvd extends Model {
   /**
    * Gets all dvds which fit into the Filter int the {@link forms.dvd.DvdSearchFrom}
    *
+   *
    * @param searchFrom
+   * @param itemsPerPage
    * @return
    */
-  public static Page<Dvd> getDvdsBySearchForm(final DvdSearchFrom searchFrom) {
+  public static Page<Dvd> getDvdsBySearchForm(final DvdSearchFrom searchFrom, Integer itemsPerPage) {
     final ExpressionList<Dvd> where = Dvd.find.where();
 
     if (StringUtils.isEmpty(searchFrom.searchFor) == false) {
@@ -271,7 +274,7 @@ public class Dvd extends Model {
       where.eq("movie.hasToBeReviewed", true);
     }
 
-    return Dvd.getByDefaultPaging(where, searchFrom.currentPage, searchFrom.orderBy, searchFrom.orderHow);
+    return Dvd.getByDefaultPaging(where, searchFrom.currentPage, searchFrom.orderBy, searchFrom.orderHow, itemsPerPage);
   }
 
   /**
@@ -420,18 +423,18 @@ public class Dvd extends Model {
    * @param expressionList
    * @param orderHow
    * @param orderBy
+   * @param  itemsPerPage
    * @return
    */
-  private static Page<Dvd> getByDefaultPaging(final ExpressionList<Dvd> expressionList, Integer pageNr, final EDvdListOrderBy orderBy, final EDvdListOrderHow orderHow) {
+  private static Page<Dvd> getByDefaultPaging(final ExpressionList<Dvd> expressionList, Integer pageNr, final EDvdListOrderBy orderBy, final EDvdListOrderHow orderHow, final Integer itemsPerPage) {
 
     if (pageNr == null) {
       pageNr = 0;
     }
 
     final Page<Dvd> page = expressionList.orderBy(orderBy.dbField + " " + orderHow.dbOrder).fetch("owner", "userName").fetch("borrower", "userName").fetch("movie").findPagingList(
-        Dvd.DEFAULT_DVDS_PER_PAGE).getPage(pageNr);
+        itemsPerPage).getPage(pageNr);
 
-    Logger.debug(expressionList.query().getGeneratedSql());
     return page;
   }
 
