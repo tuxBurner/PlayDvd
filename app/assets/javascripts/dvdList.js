@@ -17,7 +17,12 @@ $(function() {
 			route: jsRoutes.controllers.Dashboard.displayDvd($(this).data('dvdId')),
         	title: 'Is set from the displaydvdSacla',
         	cssClass:	'dvdInfoModal',
-          onClose: function() { $('#modal .modal-body').css('background-image', 'none'); }
+          onClose: function() {
+            $('#modal .modal-body').css('background-image', 'none');
+          },
+          onOpen: function() {
+            $('.dvdInfoModal .tooltipo').tooltip().on('show', function(e) {e.stopPropagation();}).on('hide', function(e) {e.stopPropagation();});
+          }
 		});
 	  return false;		
 	});
