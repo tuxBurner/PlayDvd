@@ -40,15 +40,6 @@ public class DvdPage {
         nav.add(new DvdPageNav(totalPageCount - 1));
       }
 
-      // check if we are at the end
-      if (pageIndex > totalPageCount - 10) {
-        nav.add(new DvdPageNav(0));
-        nav.add(new DvdPageNav("..."));
-        for (int i = totalPageCount - 10; i < totalPageCount; i++) {
-          nav.add(new DvdPageNav(i));
-        }
-      }
-
       // check if we are in the middle
       if ((pageIndex < totalPageCount - 9) && pageIndex > 10 - 1) {
         nav.add(new DvdPageNav(0));
@@ -61,6 +52,17 @@ public class DvdPage {
         nav.add(new DvdPageNav("..."));
         nav.add(new DvdPageNav(totalPageCount - 1));
       }
+
+      // check if we are at the end
+      if (pageIndex > totalPageCount - 10 && pageIndex >= 10) {
+        nav.add(new DvdPageNav(0));
+        nav.add(new DvdPageNav("..."));
+        for (int i = totalPageCount - 10; i < totalPageCount; i++) {
+          nav.add(new DvdPageNav(i));
+        }
+      }
+
+
 
     }
 
