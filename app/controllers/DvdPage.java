@@ -41,7 +41,7 @@ public class DvdPage {
       }
 
       // check if we are in the middle
-      if ((pageIndex < totalPageCount - 9) && pageIndex > 10 - 1) {
+      if ((pageIndex < totalPageCount - 9) && pageIndex > 9) {
         nav.add(new DvdPageNav(0));
         nav.add(new DvdPageNav("..."));
 
