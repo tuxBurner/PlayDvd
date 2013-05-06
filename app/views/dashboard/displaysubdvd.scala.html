@@ -12,8 +12,11 @@
       @for(dvd <- subDvds) {
         <li class="span2 coverwrapper_small_li">
           <div class="coverwrapper_small">
-            <em data-dvd-id="@dvd.id" class="tooltipo @dvd.copyTypeAttribute"  data-toggle="tooltip" data-original-title="@dvd.title">
-              <div class="rateWrapper"><img  src="@routes.Assets.at("images/agerating/"+dvd.ageRating+".gif")" /></div>
+            <em data-dvd-id="@dvd.id" class="tooltipo @dvd.copyTypeAttribute"  data-toggle="tooltip" data-original-title="@dvd.title @if(dvd.borrowerName != null){(@dvd.borrowerName)} @if(dvd.hullNr != null) { (@dvd.hullNr) }">
+              @if(dvd.borrowerName != null){
+                <div class="coverborrowed  @if(dvd.borrowerName == username) {selfBorrowed}"></div>
+              }
+            <div class="rateWrapper"><img  src="@routes.Assets.at("images/agerating/"+dvd.ageRating+".gif")" /></div>
             </em>
             <a>
             @general.displayposter(dvd.movieId,dvd.hasPoster,EImageSize.GRABBER_POSTER_SMALL)
