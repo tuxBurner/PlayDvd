@@ -1,6 +1,9 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
+import com.timgroup.jgravatar.Gravatar;
+import com.timgroup.jgravatar.GravatarDefaultImage;
+import com.timgroup.jgravatar.GravatarRating;
 import forms.ExternalImageForm;
 import forms.LendForm;
 import forms.UnLendForm;
@@ -9,9 +12,7 @@ import helpers.EImageSize;
 import helpers.EImageType;
 import helpers.ETagHelper;
 import helpers.ImageHelper;
-import jgravatar.Gravatar;
-import jgravatar.GravatarDefaultImage;
-import jgravatar.GravatarRating;
+
 import jsannotation.JSRoute;
 import models.CopyReservation;
 import models.Dvd;
