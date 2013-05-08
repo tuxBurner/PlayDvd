@@ -9,9 +9,11 @@ import play.Application;
 import play.Logger;
 import play.Plugin;
 import play.Routes;
+import play.api.Play;
 import play.core.Router;
 import play.mvc.Controller;
 import play.mvc.Results;
+import scala.Option;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -28,6 +30,9 @@ public class JSRoutesPlugin extends Plugin {
 
 
   public static Set<Router.JavascriptReverseRoute> jsRoutes = new HashSet<Router.JavascriptReverseRoute>();
+
+  private static String JSROUTES_CLASS_NAME = "controllers.routes$javascript";
+
 
   public JSRoutesPlugin(final Application application) {
 
@@ -51,7 +56,18 @@ public class JSRoutesPlugin extends Plugin {
         Logger.debug("Found: " + methods.size() + " methods annotated with " + JSRoute.class.getCanonicalName());
       }
 
-      final Class<routes.javascript> staticJsClass = routes.javascript.class;
+      // Get the classloader of the current running app
+      final ClassLoader classLoader = Play.classloader(Play.current());
+      Class<routes.javascript> staticJsClass = null;
+      try {
+        staticJsClass = (Class<routes.javascript>) Class.forName(JSROUTES_CLASS_NAME,true, classLoader);
+      } catch (ClassNotFoundException e) {
+        if(Logger.isErrorEnabled()) {
+          Logger.error("An error happened while loading class: "+JSROUTES_CLASS_NAME,e);
+        }
+       return;
+      }
+
 
       final Map<Class, Object> ctrlInstanceCache = new HashMap<Class, Object>();
       for (final Method method : methods) {
