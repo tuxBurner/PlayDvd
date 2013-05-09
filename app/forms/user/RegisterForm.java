@@ -22,7 +22,6 @@ public class RegisterForm {
 
   @Formats.NonEmpty
   @Constraints.Required(message = "Password is needed")
-  @Constraints.MaxLength(value = 10)
   @Constraints.MinLength(value = 5)
   public String password;
 
