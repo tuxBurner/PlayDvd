@@ -7,6 +7,21 @@ $(function() {
 	    }).on('mouseleave','.coverwrapper em',function() {
 	      $('.dvdInfo',this).fadeOut(150);
 	    });
+
+
+  /**
+   * Clicking on a link in the navbar
+   */
+  $(document).on('click','.copyNavLink',function() {
+    pAjax(
+      jsRoutes.controllers.ListDvdsController.listCopiesJS(),
+      {"pageNr" : $(this).data('idx')},
+      function(data) {
+        $('#copyListContainer').html(data);
+        Holder.run();
+      }
+    );
+  });
 	
 	/**
 	 * INFO DIALOG

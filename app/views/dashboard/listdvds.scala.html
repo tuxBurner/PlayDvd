@@ -1,5 +1,5 @@
 @(dvdPage: DvdPage)(dvdListForm: Form[forms.dvd.DvdSearchFrom])(username: String)(shoppingCart: objects.shoppingcart.CacheShoppingCart)(viewMode: helpers.ECopyListView)(bookmarkedCopys: Set[Long])
-@import helpers.ECopyListView
+
 
 
   @scripts = {
@@ -19,26 +19,8 @@
   @if(dvdPage.page.getTotalRowCount == 0) {
     <h4>No Dvds found !</h4>
   } else {
-  <div class="row">
-    <h4>Displaying @dvdPage.page.getDisplayXtoYofZ(" to "," of ") DVD's</h4>
-
-    @dashboard.dvdlistnav(dvdPage,viewMode)
-
-    <div class="row">
-
-      @if(viewMode == ECopyListView.COVERVIEW) {
-        @dashboard.listviews.listDvdsCoverView(dvdPage,username,shoppingCart,bookmarkedCopys)
-      }
-
-      @if(viewMode == ECopyListView.SMALLCOVERVIEW) {
-        @dashboard.listviews.listDvdsItemView(dvdPage,username,shoppingCart,bookmarkedCopys)
-      }
-
-
-    </div>
-
-    @dashboard.dvdlistnav(dvdPage)
-    
+  <div class="row" id="copyListContainer">
+    @dashboard.listviews.listviewsWrapper(dvdPage,username,shoppingCart,bookmarkedCopys,viewMode);
   </div>
   
   }

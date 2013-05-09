@@ -26,11 +26,12 @@ POST    /register                   controllers.RegisterLoginController.register
 
 # DVD Lists
 GET     /dvds                             controllers.ListDvdsController.listdvds(pageNr: java.lang.Integer ?= null)
+GET     /dvds/forJS                       controllers.ListDvdsController.listCopiesJS(pageNr: java.lang.Integer ?= null)
 GET     /dvds/all                         controllers.ListDvdsController.listAlldvds()
-GET     /dvds/by/genre/:genreName         controllers.ListDvdsController.listByGenre(genreName: String,pageNr: java.lang.Integer ?= 0)
+GET     /dvds/by/genre/:genreName         controllers.ListDvdsController.listByGenre(genreName: String)
 GET     /dvds/by/actor/:actorName         controllers.ListDvdsController.listByActor(actorName: String)
 GET     /dvds/by/director/:directorName   controllers.ListDvdsController.listByDirector(directorName: String)
-GET     /dvds/by/user/:userName           controllers.ListDvdsController.listByUser(userName: String,pageNr: java.lang.Integer ?= 0)
+GET     /dvds/by/user/:userName           controllers.ListDvdsController.listByUser(userName: String)
 GET     /dvds/lend                        controllers.ListDvdsController.listLendDvd()
 GET     /movies/toReview                  controllers.ListDvdsController.listReviewMovies()
 GET     /dvds/search                      controllers.ListDvdsController.searchDvd()

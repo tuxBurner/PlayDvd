@@ -23,7 +23,7 @@
     <div class="row-fluid">
       <label class="span4">Owner:</label>
       <span>
-        <a href="@routes.ListDvdsController.listByUser(dvd.dvdForm.ownerName,0)">
+        <a href="@routes.ListDvdsController.listByUser(dvd.dvdForm.ownerName)">
           <img class="img-rounded" src="@routes.Dashboard.gravatar(50,dvd.dvdForm.ownerName)" />
           @dvd.dvdForm.ownerName
         </a>
@@ -128,7 +128,7 @@
       <dl>
         <dt>Genres:</dt>
         @for(genre <- dvd.movieForm.genres) {
-          <dd><a href="@routes.ListDvdsController.listByGenre(genre,0)">@genre</a></dd>
+          <dd><a href="@routes.ListDvdsController.listByGenre(genre)">@genre</a></dd>
         }
       </dl>
     </div>

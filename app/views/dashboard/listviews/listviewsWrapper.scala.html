@@ -1,0 +1,19 @@
+@(dvdPage: DvdPage,username: String,shoppingCart: objects.shoppingcart.CacheShoppingCart,bookmarkedCopys: Set[Long],viewMode: helpers.ECopyListView)
+@import helpers.ECopyListView
+
+<h4>Displaying @dvdPage.page.getDisplayXtoYofZ(" to "," of ") DVD's</h4>
+
+@dashboard.dvdlistnav(dvdPage,viewMode)
+
+<div class="row">
+
+@if(viewMode == ECopyListView.COVERVIEW) {
+  @dashboard.listviews.listDvdsCoverView(dvdPage,username,shoppingCart,bookmarkedCopys)
+}
+
+@if(viewMode == ECopyListView.SMALLCOVERVIEW) {
+  @dashboard.listviews.listDvdsItemView(dvdPage,username,shoppingCart,bookmarkedCopys)
+}
+</div>
+
+@dashboard.dvdlistnav(dvdPage)

@@ -7,6 +7,7 @@ import helpers.ConfigurationHelper;
 import helpers.ECopyListView;
 import jsannotation.JSRoute;
 import models.Dvd;
+import objects.shoppingcart.CacheShoppingCart;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.Form;
@@ -19,6 +20,7 @@ import views.html.dashboard.listdvds;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.Map;
+import java.util.Set;
 
 @Security.Authenticated(Secured.class)
 public class ListDvdsController extends Controller {
@@ -34,16 +36,26 @@ public class ListDvdsController extends Controller {
    *
    * @return
    */
-  @JSRoute
-  public static Result listdvds(final Integer page) {
-
+  public static Result listdvds(final Integer pageNr) {
     final DvdSearchFrom currentSearchForm = DvdSearchFrom.getCurrentSearchForm();
-
-    if (page != null) {
-      currentSearchForm.currentPage = page;
+    if (pageNr != null) {
+      currentSearchForm.currentPage = pageNr;
     }
-
     return ListDvdsController.returnList(currentSearchForm);
+  }
+
+  /**
+   * Lists all the dvds
+   *
+   * @return
+   */
+  @JSRoute
+  public static Result listCopiesJS(final Integer pageNr) {
+    final DvdSearchFrom currentSearchForm = DvdSearchFrom.getCurrentSearchForm();
+    if (pageNr != null) {
+      currentSearchForm.currentPage = pageNr;
+    }
+    return ListDvdsController.returnList(currentSearchForm,true);
   }
 
   /**
@@ -62,7 +74,7 @@ public class ListDvdsController extends Controller {
    * @param fromUserName
    * @return
    */
-  public static Result listByUser(final String fromUserName, final Integer page) {
+  public static Result listByUser(final String fromUserName) {
     if (StringUtils.isEmpty(fromUserName)) {
       return Results.internalServerError("No Username given");
     }
@@ -79,7 +91,7 @@ public class ListDvdsController extends Controller {
    * @param genreName
    * @return
    */
-  public static Result listByGenre(final String genreName, final Integer pageNr) {
+  public static Result listByGenre(final String genreName) {
     if (StringUtils.isEmpty(genreName)) {
       return Results.internalServerError("No Genrename given");
     }
@@ -170,25 +182,38 @@ public class ListDvdsController extends Controller {
     return ListDvdsController.returnList(form.get());
   }
 
+
+  /**
+   * Returns the dvds for the template
+   * @param dvdSearchFrom
+   * @return
+   */
+  private static Result returnList(final DvdSearchFrom dvdSearchFrom) {
+    return returnList(dvdSearchFrom,false);
+  }
+
   /**
    * Returns the dvds for the template
    *
    * @param dvdSearchFrom
    * @return
    */
-  private static Result returnList(final DvdSearchFrom dvdSearchFrom) {
+  private static Result returnList(final DvdSearchFrom dvdSearchFrom, final boolean jsMode) {
 
-
-    final String username = Controller.request().username();
+    final String username = Secured.getUsername();
     DvdSearchFrom.setCurrentSearchForm(dvdSearchFrom);
-
-    final Form<DvdSearchFrom> form = Form.form(DvdSearchFrom.class);
-
     final ECopyListView currentViewMode = getCurrentViewMode();
     final Integer itemsPerPage = DVDS_PER_PAGE_CONFIG.get(currentViewMode.name());
-
     final Page<Dvd> dvdsByForm = Dvd.getDvdsBySearchForm(dvdSearchFrom, itemsPerPage);
-    return Results.ok(listdvds.render(new DvdPage(dvdsByForm), form.fill(dvdSearchFrom), username, ShoppingCartController.getShoppingCartFromCache(),currentViewMode,BookmarksController.getBookmarkedCopyIds()));
+    final DvdPage dvdPage = new DvdPage(dvdsByForm);
+    final CacheShoppingCart shoppingCartFromCache = ShoppingCartController.getShoppingCartFromCache();
+    final Set<Long> bookmarkedCopyIds = BookmarksController.getBookmarkedCopyIds();
+    if(jsMode == false) {
+      final Form<DvdSearchFrom> form = Form.form(DvdSearchFrom.class);
+      return Results.ok(listdvds.render(dvdPage, form.fill(dvdSearchFrom), username, shoppingCartFromCache,currentViewMode,bookmarkedCopyIds));
+    } else {
+      return Results.ok(views.html.dashboard.listviews.listviewsWrapper.render(dvdPage,username,shoppingCartFromCache,bookmarkedCopyIds,currentViewMode));
+    }
   }
 
   /**

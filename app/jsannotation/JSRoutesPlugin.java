@@ -111,6 +111,7 @@ public class JSRoutesPlugin extends Plugin {
   public static Results.Status getJsRoutesResult() {
     if(JSRoutesPlugin.jsRoutes != null && JSRoutesPlugin.jsRoutes.isEmpty() == false) {
       Controller.response().setContentType("text/javascript");
+
       return Results.ok(Routes.javascriptRouter("jsRoutes", JSRoutesPlugin.jsRoutes.toArray(new Router.JavascriptReverseRoute[JSRoutesPlugin.jsRoutes.size()])));
     } else {
       return Results.internalServerError("No jsroutes found in the Plugin: "+JSRoutesPlugin.class.getCanonicalName());
