@@ -1,4 +1,4 @@
-@(dvdPage: DvdPage,username: String,shoppingCart: objects.shoppingcart.CacheShoppingCart)
+@(dvdPage: DvdPage,username: String,shoppingCart: objects.shoppingcart.CacheShoppingCart, bookmarkedCopys: Set[Long])
 @import helpers.EImageSize
 <ul class="coverlist">
 @for(dvd <- dvdPage.list) {
@@ -21,7 +21,7 @@
 </div>
 <div class="rateWrapper"><img  class="img-rounded" src="@routes.Assets.at("images/agerating/"+DvdAttribute.getAgeRatingAttribute(dvd)+".gif")" /></div>
 </em>
-@dashboard.listviews.copyButtons(dvd,username,shoppingCart)
+@dashboard.listviews.copyButtons(dvd,username,shoppingCart,bookmarkedCopys)
 <a>
   @general.displayposter(dvd.movie.id,dvd.movie.hasPoster,EImageSize.SMALL)
 </a>

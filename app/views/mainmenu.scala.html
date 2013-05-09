@@ -40,7 +40,7 @@
 
       @ShoppingCartController.getShoppingCartMenuContent
 
-      <li><a href="@routes.BookmarksController.listBookmarks()"><i class="icon-bookmark"></i>(@Bookmark.getBookmarkCount)</a></li>
+      <li><a href="@routes.BookmarksController.listBookmarks()"><i class="icon-bookmark"></i>(@Bookmark.getBookmarkCopyIdsForUser.size())</a></li>
       
       @form(routes.ListDvdsController.searchDvd,'class -> "navbar-search pull-left") {
           <i class="icon-search"></i>

@@ -1,4 +1,4 @@
-@(dvdPage: DvdPage)(dvdListForm: Form[forms.dvd.DvdSearchFrom])(username: String)(shoppingCart: objects.shoppingcart.CacheShoppingCart)(viewMode: helpers.ECopyListView)
+@(dvdPage: DvdPage)(dvdListForm: Form[forms.dvd.DvdSearchFrom])(username: String)(shoppingCart: objects.shoppingcart.CacheShoppingCart)(viewMode: helpers.ECopyListView)(bookmarkedCopys: Set[Long])
 @import helpers.ECopyListView
 
 
@@ -27,11 +27,11 @@
     <div class="row">
 
       @if(viewMode == ECopyListView.COVERVIEW) {
-        @dashboard.listviews.listDvdsCoverView(dvdPage,username,shoppingCart)
+        @dashboard.listviews.listDvdsCoverView(dvdPage,username,shoppingCart,bookmarkedCopys)
       }
 
       @if(viewMode == ECopyListView.SMALLCOVERVIEW) {
-        @dashboard.listviews.listDvdsItemView(dvdPage,username,shoppingCart)
+        @dashboard.listviews.listDvdsItemView(dvdPage,username,shoppingCart,bookmarkedCopys)
       }
 
 

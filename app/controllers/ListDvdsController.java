@@ -85,7 +85,7 @@ public class ListDvdsController extends Controller {
     }
 
     final DvdSearchFrom dvdListFrom = new DvdSearchFrom();
-    dvdListFrom.genre = genreName;
+    dvdListFrom.genre = urlDecodeString(genreName);
 
     return ListDvdsController.returnList(dvdListFrom);
   }
@@ -188,7 +188,7 @@ public class ListDvdsController extends Controller {
     final Integer itemsPerPage = DVDS_PER_PAGE_CONFIG.get(currentViewMode.name());
 
     final Page<Dvd> dvdsByForm = Dvd.getDvdsBySearchForm(dvdSearchFrom, itemsPerPage);
-    return Results.ok(listdvds.render(new DvdPage(dvdsByForm), form.fill(dvdSearchFrom), username, ShoppingCartController.getShoppingCartFromCache(),currentViewMode));
+    return Results.ok(listdvds.render(new DvdPage(dvdsByForm), form.fill(dvdSearchFrom), username, ShoppingCartController.getShoppingCartFromCache(),currentViewMode,BookmarksController.getBookmarkedCopyIds()));
   }
 
   /**

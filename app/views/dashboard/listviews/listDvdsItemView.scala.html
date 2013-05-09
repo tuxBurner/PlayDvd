@@ -1,4 +1,4 @@
-@(dvdPage: DvdPage,username: String,shoppingCart: objects.shoppingcart.CacheShoppingCart)
+@(dvdPage: DvdPage,username: String,shoppingCart: objects.shoppingcart.CacheShoppingCart, bookmarkedCopys: Set[Long])
 @import helpers.EImageSize
 <ul class="itemList thumbnails">
   @for(dvd <- dvdPage.list) {
@@ -14,7 +14,7 @@
           @general.displayposter(dvd.movie.id,dvd.movie.hasPoster,EImageSize.SMALL_LIST_VIEW)
         </a>
         <div class="row buttonWrapper">
-          @dashboard.listviews.copyButtons(dvd,username,shoppingCart)
+          @dashboard.listviews.copyButtons(dvd,username,shoppingCart, bookmarkedCopys)
         </div>
       </div>
     </li>

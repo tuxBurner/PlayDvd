@@ -1,4 +1,4 @@
-@(dvd: Dvd, username: String,shoppingCart: objects.shoppingcart.CacheShoppingCart)
+@(dvd: Dvd, username: String,shoppingCart: objects.shoppingcart.CacheShoppingCart, bookmarkedCopys: Set[Long])
 <div class="btn-group dvdBtnGrp">
   @if(dvd.owner.userName == username) {
     @if(dvd.borrower == null && dvd.borrowerName == null) {
@@ -6,7 +6,14 @@
     } else {
       <a class="btn btn-inverse unlendDvdBtn btn-mini" href="#" data-dvd-id="@dvd.id"><i class="icon-download"></i></a>
     }
-    <a class="btn btn-inverse btn-mini" href="@routes.BookmarksController.bookmarkCopy(dvd.id)"><i class="icon-bookmark"></i></a>
+
+    @if(bookmarkedCopys.contains(dvd.id) == false) {
+      <a class="btn btn-inverse btn-mini" href="@routes.BookmarksController.bookmarkCopy(dvd.id)"><i class="icon-bookmark"></i></a>
+    } else {
+      <a class="btn btn-inverse btn-mini" href="#"><i class="icon-bookmark-empty"></i></a>
+    }
+
+
     <a class="btn btn-inverse btn-mini" href="@routes.DvdController.showEditDvd(dvd.id)"><i class="icon-edit"></i></a>
     <a class="btn btn-inverse deleteDvdBtn btn-mini" href="#" data-dvd-id="@dvd.id"><i class="icon-trash"></i></a>
   } else {

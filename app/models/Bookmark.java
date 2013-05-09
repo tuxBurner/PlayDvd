@@ -1,6 +1,9 @@
 package models;
 
 import controllers.Secured;
+import helpers.CacheHelper;
+import helpers.ECacheObjectName;
+import org.apache.commons.collections.CollectionUtils;
 import play.Logger;
 import play.db.ebean.Model;
 
@@ -8,7 +11,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.Callable;
 
 /**
  * This holds the infromation when a user marks an own copy to view in the future
@@ -95,6 +102,28 @@ public class Bookmark extends Model {
   }
 
   /**
+   * Gets all {@link Dvd#id} where the owner of the {@link Dvd} is the current {@link User}
+   * @return
+   */
+  public static Set<Long> getBookmarkCopyIdsForUser() {
+    final String username = Secured.getUsername();
+    final Set<Bookmark> set = Bookmark.finder.fetch("copy", "id").where().eq("copy.owner.userName", username).findSet();
+
+    final Set<Long> copyIds = new HashSet<Long>();
+
+    if(CollectionUtils.isEmpty(set)) {
+      return copyIds;
+    }
+
+    for(final Bookmark bookmark : set) {
+      copyIds.add(bookmark.copy.id);
+    }
+
+    return copyIds;
+  }
+
+
+  /**
    * Gets the amount of {@link Bookmark} the current {@link User} has
    * @return
    */
@@ -123,4 +152,5 @@ public class Bookmark extends Model {
 
     return title;
   }
+
 }

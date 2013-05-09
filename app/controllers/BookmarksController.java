@@ -1,5 +1,7 @@
 package controllers;
 
+import helpers.CacheHelper;
+import helpers.ECacheObjectName;
 import models.Bookmark;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -7,6 +9,8 @@ import play.mvc.Security;
 import views.html.bookmarks.bookmarklist;
 
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.Callable;
 
 /**
  * Created with IntelliJ IDEA.
@@ -42,6 +46,8 @@ public class BookmarksController extends Controller {
 
     Controller.flash("success","Copy: "+ bookmark.copy.movie.title+" was bookmarked.");
 
+    CacheHelper.removeSessionObj(ECacheObjectName.BOOKMARKS);
+
     return redirect(routes.BookmarksController.listBookmarks());
   }
 
@@ -56,7 +62,24 @@ public class BookmarksController extends Controller {
 
     Controller.flash("success","Bookmark for copy: "+title+" was removed");
 
+    CacheHelper.removeSessionObj(ECacheObjectName.BOOKMARKS);
+
     return redirect(routes.BookmarksController.listBookmarks());
+  }
+
+  /**
+   * Gets all {@Dvd#id} which the user bookedmarked
+   * @return
+   */
+  public static Set<Long> getBookmarkedCopyIds() {
+    final Callable<Set<Long>> callable = new Callable<Set<Long>>() {
+      @Override
+      public Set<Long> call() throws Exception {
+        return Bookmark.getBookmarkCopyIdsForUser();
+      }
+    };
+
+    return CacheHelper.getSessionObjectOrElse(ECacheObjectName.BOOKMARKS,callable);
   }
 
 }
