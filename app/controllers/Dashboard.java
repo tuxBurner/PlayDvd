@@ -8,11 +8,7 @@ import forms.ExternalImageForm;
 import forms.LendForm;
 import forms.UnLendForm;
 import forms.dvd.objects.InfoDvd;
-import helpers.EImageSize;
-import helpers.EImageType;
-import helpers.ETagHelper;
-import helpers.ImageHelper;
-
+import helpers.*;
 import jsannotation.JSRoute;
 import models.CopyReservation;
 import models.Dvd;
@@ -225,7 +221,7 @@ public class Dashboard extends Controller {
       response().setHeader("Content-Length",String.valueOf(file.length()));
       return Results.ok(file);
     }
-    return Results.ok();
+    return Results.notFound();
   }
 
   /**
@@ -253,7 +249,7 @@ public class Dashboard extends Controller {
       Controller.response().setContentType("image/png");
       return Results.ok(is);
     } catch (final IOException e) {
-      Logger.error("Failure whiler creating external image:", e);
+      Logger.error("Failure while creating external image:", e);
       return Results.badRequest("Failure");
     }
 
@@ -266,20 +262,32 @@ public class Dashboard extends Controller {
    */
   public static Result gravatar(final Integer size, final String userName) {
 
-    final String ownerName = (userName == null) ? Controller.ctx().session().get(Secured.AUTH_SESSION) : userName;
+    final String ownerName = (userName == null) ? Secured.getUsername() : userName;
     final User userByName = User.getUserByName(ownerName);
 
     final String gravatarEmail = (userByName == null) ? "" : userByName.email;
 
-    final Gravatar gravatar = new Gravatar();
-    gravatar.setSize(size);
-    gravatar.setRating(GravatarRating.GENERAL_AUDIENCES);
-    // TODO: make this configiable
-    gravatar.setDefaultImage(GravatarDefaultImage.GRAVATAR_ICON);
-    final byte[] jpg = gravatar.download(gravatarEmail);
+    final String etag = ETagHelper.getEtag(ECacheObjectName.GRAVATAR_IMAGES + gravatarEmail);
+    final String nonMatch = request().getHeader(IF_NONE_MATCH);
+    if(etag != null && etag.equals(nonMatch) == true) {
+      return status(304);
+    }
 
+    byte[] gravatarBytes = CacheHelper.getObject(ECacheObjectName.GRAVATAR_IMAGES,gravatarEmail);
+    if(gravatarBytes == null) {
+      final Gravatar gravatar = new Gravatar();
+      gravatar.setSize(size);
+      gravatar.setRating(GravatarRating.GENERAL_AUDIENCES);
+      gravatar.setDefaultImage(GravatarDefaultImage.GRAVATAR_ICON);
+      gravatarBytes = gravatar.download(gravatarEmail);
+      CacheHelper.setObject(ECacheObjectName.GRAVATAR_IMAGES,gravatarEmail,gravatarBytes);
+      ETagHelper.removeEtag(ECacheObjectName.GRAVATAR_IMAGES + gravatarEmail);
+      ETagHelper.createEtag(ECacheObjectName.GRAVATAR_IMAGES + gravatarEmail, gravatarBytes);
+    }
+
+    response().setHeader(ETAG,ETagHelper.getEtag(ECacheObjectName.GRAVATAR_IMAGES + gravatarEmail));
     Controller.response().setContentType("image/png");
-    return Results.ok(jpg);
+    return Results.ok(gravatarBytes);
 
   }
 

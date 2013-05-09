@@ -6,8 +6,6 @@ import jsannotation.JSRoute;
 import models.CopyReservation;
 import models.Dvd;
 import objects.shoppingcart.CacheShoppingCart;
-import objects.shoppingcart.CacheShoppingCartItem;
-import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 import play.api.templates.Html;
 import play.cache.Cache;
@@ -16,9 +14,7 @@ import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.concurrent.Callable;
 
 /**
  *
@@ -51,7 +47,7 @@ public class ShoppingCartController extends Controller {
 
     CacheShoppingCart shoppingCartFromCache = getShoppingCartFromCache();
     final Boolean addedToCart = shoppingCartFromCache.addItem(copyToBorrow);
-    CacheHelper.setObjectToCache(ECacheObjectName.SHOPPINGCART,shoppingCartFromCache);
+    CacheHelper.setSessionObject(ECacheObjectName.SHOPPINGCART, shoppingCartFromCache);
 
     return Results.ok(addedToCart.toString());
   }
@@ -65,7 +61,7 @@ public class ShoppingCartController extends Controller {
   public static Result remCopyFromCart(final Long copyId) {
     final CacheShoppingCart shoppingCartFromCache = getShoppingCartFromCache();
     final Boolean removedFromCart = shoppingCartFromCache.removeItem(copyId);
-    CacheHelper.setObjectToCache(ECacheObjectName.SHOPPINGCART, shoppingCartFromCache);
+    CacheHelper.setSessionObject(ECacheObjectName.SHOPPINGCART, shoppingCartFromCache);
 
     return Results.ok(removedFromCart.toString());
   }
@@ -95,7 +91,7 @@ public class ShoppingCartController extends Controller {
     final CacheShoppingCart shoppingCart = getShoppingCartFromCache();
     if(shoppingCart != null) {
       CopyReservation.createFromShoppingCart(shoppingCart);
-      CacheHelper.removeFromCache(ECacheObjectName.SHOPPINGCART);
+      CacheHelper.removeSessionObj(ECacheObjectName.SHOPPINGCART);
     }
 
     return ok(views.html.shoppingcart.showshoppingcart.render(getShoppingCartFromCache()));
@@ -115,13 +111,16 @@ public class ShoppingCartController extends Controller {
    * @return
    */
   public static CacheShoppingCart  getShoppingCartFromCache(){
-    CacheShoppingCart objectFromCache = CacheHelper.getObjectFromCache(ECacheObjectName.SHOPPINGCART);
-    if(objectFromCache == null) {
-      objectFromCache = new CacheShoppingCart();
-    }
 
-    return objectFromCache;
+    return CacheHelper.getSessionObjectOrElse(ECacheObjectName.SHOPPINGCART,callable);
   }
+
+  private static  final Callable<CacheShoppingCart> callable = new Callable<CacheShoppingCart>() {
+    @Override
+    public CacheShoppingCart call() throws Exception {
+      return new CacheShoppingCart();
+    }
+  };
 
 
 }

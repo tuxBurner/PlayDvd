@@ -7,7 +7,8 @@ package helpers;
  */
 public enum  ECacheObjectName {
 
-  SHOPPINGCART(60 * 15);
+  SHOPPINGCART(60 * 15),
+  GRAVATAR_IMAGES(60 * 15);
 
   public final int cacheTime;
 

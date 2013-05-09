@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ETagHelper {
 
   private static Map<String, Long> FILES_LAST_MODIFIED = new ConcurrentHashMap<String, Long>();
-  private static Map<String, String> FILES_ETAG = new ConcurrentHashMap<String, String>();
+  private static Map<String, String> ETAGS = new ConcurrentHashMap<String, String>();
 
   public static String getEtag(final File file) {
     // check etag
@@ -24,7 +24,7 @@ public class ETagHelper {
     final String absolutePath = file.getAbsolutePath();
     if (FILES_LAST_MODIFIED.containsKey(absolutePath) == false) {
       FILES_LAST_MODIFIED.put(absolutePath, lastModified);
-      FILES_ETAG.put(absolutePath, createEtag(file));
+      ETAGS.put(absolutePath, createEtag(file));
     } else {
       final Long storedModified = FILES_LAST_MODIFIED.get(absolutePath);
       if(storedModified.equals(lastModified) == false) {
@@ -32,10 +32,10 @@ public class ETagHelper {
           Logger.debug("ETAG changed for: "+absolutePath);
         }
         FILES_LAST_MODIFIED.put(absolutePath, lastModified);
-        FILES_ETAG.put(absolutePath, createEtag(file));
+        ETAGS.put(absolutePath, createEtag(file));
       }
     }
-    return FILES_ETAG.get(absolutePath);
+    return ETAGS.get(absolutePath);
   }
 
   /**
@@ -46,6 +46,22 @@ public class ETagHelper {
    */
   private static String createEtag(final File file) {
     return "\""+Codecs.sha1(file.getAbsolutePath() + file.lastModified())+"\"";
+  }
+
+  public static String getEtag(final String identIfier) {
+    return ETAGS.get(identIfier);
+  }
+
+  public static void createEtag(final String identIfier, final byte[] bytes) {
+    ETAGS.put(identIfier,createEtag(bytes));
+  }
+
+  public static void removeEtag(final String identIfier) {
+    ETAGS.remove(identIfier);
+  }
+
+  private static String createEtag(final byte[] bytes) {
+    return "\""+Codecs.sha1(bytes)+"\"";
   }
 
 }
