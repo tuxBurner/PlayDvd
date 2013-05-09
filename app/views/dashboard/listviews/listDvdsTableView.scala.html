@@ -1,0 +1,43 @@
+@(dvdPage: DvdPage,username: String,shoppingCart: objects.shoppingcart.CacheShoppingCart, bookmarkedCopys: Set[Long])
+@import helpers.EImageSize
+<table class="table table-condensed well">
+  <thead>
+    <th></th>
+    <th>Title</th>
+    <th>Info</th>
+    <th>Owner</th>
+    <th>Lent</th>
+    <th></th>
+  </thead>
+  <tbody>
+
+  @for(dvd <- dvdPage.list) {
+    <tr class="@if(dvd.borrower != null || dvd.borrowerName != null){error} @if(dvd.borrower != null  && dvd.borrower.userName == username) {warning}">
+      <td><a href="#" class="displayCopy" data-dvd-id="@dvd.id">@general.displayposter(dvd.movie.id,dvd.movie.hasPoster,EImageSize.TINY)</a></td>
+      <td><a href="#" class="displayCopy" data-dvd-id="@dvd.id">@dvd.movie.title</a></td>
+      <td>
+
+        @if(DvdAttribute.getCopyTypeAttribute(dvd) != null) {
+          <span><img class="img-rounded" alt="@DvdAttribute.getCopyTypeAttribute(dvd)" src="@routes.Assets.at("images/copy_type/"+DvdAttribute.getCopyTypeAttribute(dvd)+".png")" /></span>
+        }
+        @if(DvdAttribute.getAgeRatingAttribute(dvd) != null) {
+          <span><img  class="img-rounded" alt="@DvdAttribute.getAgeRatingAttribute(dvd)" src="@routes.Assets.at("images/agerating/"+DvdAttribute.getAgeRatingAttribute(dvd)+".gif")" /></span>
+        }
+      </td>
+      <td>@dvd.owner.userName</td>
+      <td>
+        @if(dvd.borrower != null || dvd.borrowerName != null){
+          @if(dvd.borrower != null){
+            @dvd.borrower.userName
+          } else{
+            @dvd.borrowerName
+          }
+        }
+      </td>
+      <td>
+      @dashboard.listviews.copyButtons(dvd,username,shoppingCart, bookmarkedCopys)
+      </td>
+    </tr>
+  }
+  </tbody>
+</table>

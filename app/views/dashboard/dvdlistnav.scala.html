@@ -5,8 +5,9 @@
 <div class="row">
   @if(viewMode != null) {
     <div class="btn-group switchView">
-      <a class="btn btn-small @if(viewMode == ECopyListView.COVERVIEW){active}" href="@routes.ListDvdsController.changeViewMode(ECopyListView.COVERVIEW.name())"><i class="icon-th-large"></i></a>
-      <a class="btn btn-small @if(viewMode == ECopyListView.SMALLCOVERVIEW){active}" href="@routes.ListDvdsController.changeViewMode(ECopyListView.SMALLCOVERVIEW.name())"><i class="icon-th"></i></a>
+      @for(viewType <- ECopyListView.values()) {
+        <a class="btn btn-small @if(viewMode == viewType){active}" href="@routes.ListDvdsController.changeViewMode(viewType.name())"><i class="@viewType.icon"></i></a>
+      }
     </div>
   }
 

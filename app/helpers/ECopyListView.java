@@ -8,6 +8,13 @@ package helpers;
  * To change this template use File | Settings | File Templates.
  */
 public enum ECopyListView {
-  COVERVIEW,
-  SMALLCOVERVIEW
+  COVERVIEW("icon-th-large"),
+  SMALLCOVERVIEW("icon-th"),
+  TABLEVIEW("icon-table");
+
+  public final String icon;
+
+  ECopyListView(final String icon) {
+     this.icon = icon;
+  }
 }

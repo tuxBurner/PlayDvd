@@ -18,6 +18,7 @@ $(function() {
       {"pageNr" : $(this).data('idx')},
       function(data) {
         $('#copyListContainer').html(data);
+        $('.tooltipo').tooltip();
         Holder.run();
       }
     );
@@ -27,7 +28,7 @@ $(function() {
 	 * INFO DIALOG
 	 */
 	// open the info dialog when the user clicks on the info button
-	$(document).on('click','.coverwrapper em, .coverwrapper_small em',function(event){
+	$(document).on('click','.coverwrapper em, .coverwrapper_small em, a.displayCopy',function(event){
 		displayAjaxDialog({
 			route: jsRoutes.controllers.Dashboard.displayDvd($(this).data('dvdId')),
         	title: 'Is set from the displaydvdSacla',

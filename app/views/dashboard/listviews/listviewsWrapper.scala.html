@@ -7,13 +7,17 @@
 
 <div class="row">
 
-@if(viewMode == ECopyListView.COVERVIEW) {
-  @dashboard.listviews.listDvdsCoverView(dvdPage,username,shoppingCart,bookmarkedCopys)
-}
+  @if(viewMode == ECopyListView.COVERVIEW) {
+    @dashboard.listviews.listDvdsCoverView(dvdPage,username,shoppingCart,bookmarkedCopys)
+  }
 
-@if(viewMode == ECopyListView.SMALLCOVERVIEW) {
-  @dashboard.listviews.listDvdsItemView(dvdPage,username,shoppingCart,bookmarkedCopys)
-}
+  @if(viewMode == ECopyListView.SMALLCOVERVIEW) {
+    @dashboard.listviews.listDvdsItemView(dvdPage,username,shoppingCart,bookmarkedCopys)
+  }
+
+  @if(viewMode == ECopyListView.TABLEVIEW) {
+    @dashboard.listviews.listDvdsTableView(dvdPage,username,shoppingCart,bookmarkedCopys)
+  }
 </div>
 
 @dashboard.dvdlistnav(dvdPage)
