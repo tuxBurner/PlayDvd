@@ -39,7 +39,7 @@ public class TmdbGrabber implements IInfoGrabber {
 
     try {
       final List<GrabberSearchMovie> returnVal = new ArrayList<GrabberSearchMovie>();
-      final List<MovieDb> results = theMovieDb.searchMovie(searchTerm,0, TmdbGrabber.LANGUAGE, true,0);
+      final List<MovieDb> results = theMovieDb.searchMovie(searchTerm,0, TmdbGrabber.LANGUAGE, false,0);
 
       if (CollectionUtils.isEmpty(results) == false) {
         for (final MovieDb movieDb : results) {

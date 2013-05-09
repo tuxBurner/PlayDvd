@@ -36,7 +36,7 @@ public class RegisterForm {
   public String validate() {
 
     if (password.equals(repassword) == false) {
-      return "Passwords dont match";
+      return "Passwords don't match";
     }
 
     // check if the username is unique
@@ -46,7 +46,7 @@ public class RegisterForm {
     }
 
     if (StringUtils.isEmpty(defaultCopyType) == true) {
-      return "No defaultold copytype selected.";
+      return "No default copytype selected.";
     }
 
     final List<String> copyTypes = DvdInfoHelper.getCopyTypes();
