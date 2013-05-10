@@ -1,0 +1,37 @@
+headline.login=Welcome
+headline.register=Register
+headline.lostPassword=Lost password
+headline.resetPassword=Reset password
+headline.userProfile=Userprofile: {0}
+
+btn.password=Password
+btn.register=Register
+btn.passwordRequest=Request password
+btn.login=Login
+btn.passwordReset=Reset password
+btn.update=Update
+btn.back=Back
+
+lbl.username=Username
+lbl.password=Password
+lbl.repassword=Retype password
+lbl.email=E-Mail
+lbl.defaultCopyType=Default copytype
+
+msg.error.noUsername=Username is needed
+msg.error.noPassword=Password is nedded
+msg.error.noEmail=E-Mail is neeeded
+msg.error.invalidEmail=E-Mail is not valid
+msg.error.userNameExists=User: {0} already exists
+msg.error.passwordsNoMatch=Passwords don't match
+msg.error.login=Invalid user or password
+msg.error=An internal error happend
+
+msg.success.passwordMailSend=Please check your email for password reset instructions.
+msg.success.login=Welcome to  PlayDvd: {0}
+msg.success.logout=You've been logged out
+msg.success.passwordChanged=Password reseted
+msg.success.profileUpdated=Your profile has been updated
+
+email.passwordreset.content=Hello {0}\nYou requested to reset the password for the PlayDvd database please click the link to reset the password:\n\n {1}
+email.passwordreset.subject=Password reset for PlayDvd

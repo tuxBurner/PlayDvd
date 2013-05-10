@@ -1,8 +1,6 @@
 @(dvdPage: DvdPage)(dvdListForm: Form[forms.dvd.DvdSearchFrom])(username: String)(shoppingCart: objects.shoppingcart.CacheShoppingCart)(viewMode: helpers.ECopyListView)(bookmarkedCopys: Set[Long])
 
-
-
-  @scripts = {
+@scripts = {
    <script src="@routes.Assets.at("javascripts/dvdList.js")" type="text/javascript"></script>
 }
 

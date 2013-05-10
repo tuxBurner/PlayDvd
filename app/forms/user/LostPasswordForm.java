@@ -9,7 +9,7 @@ import play.data.validation.Constraints;
  */
 public class LostPasswordForm {
 
-  @Constraints.Required(message = "Username is required")
+  @Constraints.Required(message = "msg.error.noUsername")
   public String username;
 
 }

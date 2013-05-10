@@ -3,6 +3,7 @@ package controllers;
 import forms.user.LoginForm;
 import forms.user.RegisterForm;
 import play.data.Form;
+import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
@@ -35,7 +36,9 @@ public class RegisterLoginController extends Controller {
     if (registerForm.hasErrors()) {
       return Results.badRequest(register.render(registerForm));
     } else {
-      Controller.flash("success", "Welcome to  the DVD-Database: " + registerForm.get().username);
+
+      final String message = Messages.get("msg.success.login", registerForm.get().username);
+      Controller.flash("success", message);
       Controller.session(Secured.AUTH_SESSION, "" + registerForm.get().username);
       return Results.redirect(routes.Application.index());
     }
@@ -59,6 +62,8 @@ public class RegisterLoginController extends Controller {
       return Results.badRequest(login.render(loginForm));
     } else {
       Secured.writeUserToSession(loginForm.get().username);
+      final String msg = Messages.get("msg.success.login", loginForm.get().username);
+      Controller.flash("success", msg);
       return Results.redirect(routes.Application.index());
     }
   }
@@ -66,7 +71,7 @@ public class RegisterLoginController extends Controller {
 
   public static Result logout() {
     Controller.session().clear();
-    Controller.flash("success", "You've been logged out");
+    Controller.flash("success", Messages.get("msg.success.logout"));
     return Results.redirect(routes.RegisterLoginController.login());
   }
 

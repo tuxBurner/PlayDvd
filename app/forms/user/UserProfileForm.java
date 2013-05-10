@@ -8,19 +8,19 @@ import play.Logger;
 import play.data.validation.Constraints;
 import play.data.validation.Constraints.MaxLength;
 import play.data.validation.Constraints.MinLength;
+import play.i18n.Messages;
 
 import java.util.List;
 
 public class UserProfileForm {
 
   @MaxLength(value = 10)
-  @MinLength(value = 5)
   public String password;
 
   public String rePassword;
 
-  @Constraints.Required(message = "Email is required")
-  @Constraints.Email(message = "The entered Email is not an email")
+  @Constraints.Required(message = "msg.error.noEmail")
+  @Constraints.Email(message = "msg.error.invalidEmail")
   public String email;
 
   public String defaultCopyType;
@@ -36,7 +36,7 @@ public class UserProfileForm {
     final User userToUpdate = User.getCurrentUser();
     if (userToUpdate == null) {
       Logger.error("No user found by the name: " + Secured.getUsername());
-      return "An error happend.";
+      return Messages.get("msg.error");
     }
 
 
@@ -45,7 +45,7 @@ public class UserProfileForm {
       Logger.debug("User: "+Secured.getUsername()+" wants to change the password.");
       if(StringUtils.equals(password,rePassword) == false) {
         Logger.error(Secured.getUsername()+" did not entered matched passwords.");
-        return "Password do not match";
+        return Messages.get("msg.error.passwordsNoMatch");
       }
 
 
@@ -64,10 +64,7 @@ public class UserProfileForm {
     }
 
     userToUpdate.email = email;
-
     userToUpdate.save();
-
-
     return null;
   }
 }

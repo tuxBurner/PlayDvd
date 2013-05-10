@@ -1,7 +1,7 @@
 @(form: Form[forms.user.LoginForm])
-@import forms.user.LoginForm
 
-@main("Dvd Database") {
+
+@main(Messages.apply("headline.login")) {
 
   <div class="row-fluid">
     <div class="span4"></div>
@@ -9,7 +9,7 @@
     @helper.form(routes.RegisterLoginController.login(), 'class -> "well") {
 
 
-      <h4>Login</h4>
+      <h4>@Messages.apply("headline.login")</h4>
       <hr />
 
       @if(form.hasGlobalErrors) {
@@ -26,17 +26,17 @@
 
 
 
-      <input name="username" type="text" placeholder="Username ..." class="tooltip-top" title="Enter username"/>
-      <input name="password" type="password" placeholder="Password ..." class="tooltip-top" title="Enter password"/>
+      <input name="username" type="text" placeholder="@Messages.apply("lbl.username") ..." class="tooltip-top" title="Enter username"/>
+      <input name="password" type="password" placeholder="@Messages.apply("lbl.password") ..." class="tooltip-top" title="Enter password"/>
 
 
       <div class="form-actions">
-        <button type="submit" clasS="btn btn-primary btn-block"><i class="icon-signin"></i> Login</button>
+        <button type="submit" clasS="btn btn-primary btn-block"><i class="icon-signin"></i> @Messages.apply("btn.login")</button>
       </div>
 
       <div class="form-actions">
-        <a class="btn btn-info" href="@routes.RegisterLoginController.register"><i class="icon-user"></i> Register</a>
-        <a class="btn btn-warning" href="@routes.PasswordResetController.showPasswordForget"><i class="icon-bolt"></i> Password</a>
+        <a class="btn btn-info" href="@routes.RegisterLoginController.register"><i class="icon-user"></i> @Messages.apply("btn.register")</a>
+        <a class="btn btn-warning" href="@routes.PasswordResetController.showPasswordForget"><i class="icon-bolt"></i> @Messages.apply("btn.password")</a>
       </div>
 
 

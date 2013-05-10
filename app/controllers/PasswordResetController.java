@@ -7,6 +7,7 @@ import models.User;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.Form;
+import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
@@ -43,7 +44,6 @@ public class PasswordResetController extends Controller {
   public static Result sendPasswordForget() {
 
     Form<LostPasswordForm> form = Form.form(LostPasswordForm.class).bindFromRequest();
-    flash("success", "Please check your email.");
     if (form.hasErrors() == false && form.hasGlobalErrors() == false) {
 
 
@@ -59,19 +59,17 @@ public class PasswordResetController extends Controller {
       userByName.passwordResetToken = UUID.randomUUID().toString();
       userByName.update();
 
-      final StringBuffer sb = new StringBuffer("Hello ");
-      sb.append(userByName.userName);
-      sb.append("\n");
-      sb.append("You requested to reset the password for the PlayDvd database please click the link to reset the password:");
-      sb.append("\n\t");
       final String activationUrl = routes.PasswordResetController.showPasswordReset(userByName.passwordResetToken).absoluteURL(request());
-      sb.append(activationUrl);
+
+      final String content = Messages.get("email.passwordreset.content",userByName.userName,activationUrl);
 
       if (Logger.isDebugEnabled() == true) {
         Logger.debug("Email send to: " + userByName.email + " with activation code: " + activationUrl);
       }
 
-      MailerHelper.sendMail("Password reset by PlayDvd", userByName.email, sb.toString(), false);
+      MailerHelper.sendMail(Messages.get("email.passwordreset.subject"), userByName.email, content, false);
+
+      flash("success", Messages.get("msg.success.passwordMailSend"));
     }
 
     return redirect(routes.PasswordResetController.showPasswordForget());
@@ -84,8 +82,6 @@ public class PasswordResetController extends Controller {
    * @return
    */
   public static Result showPasswordReset(final String token) {
-
-
     if (StringUtils.isEmpty(token) == true) {
       return redirect(routes.Application.index());
     }
@@ -116,7 +112,7 @@ public class PasswordResetController extends Controller {
       userByResetToken.update();
     }
 
-    flash("success", "Password was changed.");
+    flash("success", Messages.get("msg.success.passwordChanged"));
     return redirect(routes.RegisterLoginController.login());
   }
 }

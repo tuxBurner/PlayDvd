@@ -3,6 +3,7 @@ package forms.user;
 import models.User;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
+import play.i18n.Messages;
 
 /**
  * User: tuxburner
@@ -17,7 +18,7 @@ public class LoginForm {
   public String validate() {
     final User user = User.authenticate(username, password);
     if (user == null) {
-      return "Invalid user or password";
+      return Messages.get("msg.error.login");
     }
 
     if(StringUtils.isEmpty(user.passwordResetToken) == false) {

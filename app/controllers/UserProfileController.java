@@ -4,6 +4,7 @@ import forms.user.UserProfileForm;
 import models.User;
 import play.Logger;
 import play.data.Form;
+import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
@@ -47,7 +48,7 @@ public class UserProfileController extends Controller {
       return Results.badRequest(userprofile.render(form));
     }
 
-    Controller.flash("success", "Your profile has been updated");
+    Controller.flash("success", Messages.get("msg.success.profileUpdated"));
     // redirect so the form gets empty and no passwords are written to the form
     return redirect(routes.UserProfileController.showProfile());
   }

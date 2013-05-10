@@ -5,10 +5,13 @@
 
 @scripts = {
   <script type="text/javascript">
+
+    @if(dvd.movieForm.hasBackdrop != null && dvd.movieForm.hasBackdrop == true) {
+      $('body').css('background-image',"url('@routes.Dashboard.streamImage(dvd.movieForm.movieId,"BACKDROP","BACKCKDROP_POPUP_SIZE")')");
+    }
+
     $(function() {
-      @if(dvd.movieForm.hasBackdrop != null && dvd.movieForm.hasBackdrop == true) {
-        $('body').css('background-image',"url('@routes.Dashboard.streamImage(dvd.movieForm.movieId,"BACKDROP","BACKCKDROP_POPUP_SIZE")')");
-      }
+
       $('.tooltipo').tooltip();
     $(document).on('click','.coverwrapper em, .coverwrapper_small em, a.displayCopy',function(event){
 
@@ -98,8 +101,10 @@
       <div class="span4">
         <dl class="dl-horizontal">
 
+        @if(StringUtils.isEmpty(dvd.movieForm.series) == false) {
           <dt>Movie Series</dt>
           <dd>@dvd.movieForm.series</dd>
+        }
 
 
           <dt>Runtime:</dt>
