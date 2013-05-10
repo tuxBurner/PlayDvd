@@ -28,7 +28,7 @@ public class DvdForm {
   /**
    * The id if the movie the dvd references to
    */
-  @Required(message = "No Movie was selected")
+  @Required(message = "msg.error.noMovieSelected")
   public Long movieId;
 
   /**

@@ -9,6 +9,8 @@ headline.subCopies=Kopien in der
 headline.lendCopy=Kopie verleihen
 headline.unlendCopy=Kopie zurück
 headline.deleteCopy=Kopie löschen
+headline.addCopy=Kopie hinzufügen
+headline.editCopy=Kopie bearbeiten
 
 dateFormat=dd.MM.YYYY
 
@@ -24,6 +26,10 @@ btn.lend=Verleihen
 btn.close=Abbrechen
 btn.unlend=Zurück
 btn.delete=Löschen
+btn.addCopy=Kopie hinzufügen
+btn.editCopy=Kopie bearbeiten
+btn.newMovie=Neuen Film anlegen
+btn.editMovie=Film bearbeiten
 
 lbl.username=Benutzername
 lbl.password=Passwort
@@ -79,6 +85,15 @@ lbl.othersInHullTo=Kopien aus der gleichen Hülle auch
 lbl.selectAnUser=Benutzer auswählen
 lbl.selectAReservation=Reservierung auswählen
 lbl.unlendFrom=von Benutzer
+lbl.eanNr=EAN Nr.
+lbl.asinNr=ASIN Nr.
+lbl.additionalInfos=Zusätzliche Informationen
+lbl.selectBox=Box auswählen
+lbl.selectCollection=Kollektion auswählen
+lbl.pickMovie=Film auswählen
+lbl.existingMovie=Vorhandenen Film
+lbl.enterMovieName=Filmnamen eingeben
+lbl.selectAudioTypes=Audiformat auswählen
 
 
 msg.error.noUsername=Benutzername ist Pflicht
@@ -89,6 +104,7 @@ msg.error.userNameExists=Benutzername: {0} exisitiert schon
 msg.error.passwordsNoMatch=Passwörter stimmen nicht überein
 msg.error.login=Fehler beim Anmelden
 msg.error=Es ist ein interner Fehler aufgetreten
+msg.error.noMovieSelected=Kein Film ausgewählt
 
 msg.success.passwordMailSend=Bitte überprüfe dein E-Mail Postfach.
 msg.success.login=Willkommen zu PlayDvd: {0}

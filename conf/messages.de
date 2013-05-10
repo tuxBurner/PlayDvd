@@ -9,6 +9,8 @@ headline.subCopies=Copies in the
 headline.lendCopy=Lend Copy
 headline.unlendCopy=Unlend Copy
 headline.deleteCopy=Delete Copy
+headline.addCopy=Add a copy
+headline.editCopy=Edit copy
 
 dateFormat=dd.MM.YYYY
 
@@ -24,6 +26,10 @@ btn.lend=Lend
 btn.close=Cancel
 btn.unlend=Unlend
 btn.delete=Delete
+btn.addCopy=Add Copy
+btn.editCopy=Edit Copy
+btn.newMovie=Add new movie
+btn.editMovie=Edit movie
 
 lbl.username=Username
 lbl.password=Password
@@ -78,6 +84,16 @@ lbl.othersInHullTo=Copies from the same hull to
 lbl.selectAnUser=Select an user
 lbl.selectAReservation=Select a reservation
 lbl.unlendFrom=from User
+lbl.eanNr=EAN Nr.
+lbl.asinNr=ASIN Nr.
+lbl.additionalInfos=Additional info
+lbl.selectBox=Select a box
+lbl.selectCollection=Select a collection
+lbl.pickMovie=Pick Movie
+lbl.existingMovie=Existing Movie
+lbl.enterMovieName=Enter movie name
+lbl.selectAudioTypes=Please select audiotypes
+
 
 msg.error.noUsername=Username is needed
 msg.error.noPassword=Password is needed
@@ -87,6 +103,7 @@ msg.error.userNameExists=User: {0} already exists
 msg.error.passwordsNoMatch=Passwords don't match
 msg.error.login=Invalid user or password
 msg.error=An internal error happened
+msg.error.noMovieSelected=No movie selected
 
 msg.success.passwordMailSend=Please check your email for password reset instructions.
 msg.success.login=Welcome to  PlayDvd: {0}
