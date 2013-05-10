@@ -4,7 +4,7 @@
    <script src="@routes.Assets.at("javascripts/dvdList.js")" type="text/javascript"></script>
 }
 
-@mainmenu("Dvd Database - DVDs",scripts) {
+@mainmenu(Messages.apply("headline.listCopies"),scripts) {
 
   @dashboard.searchform(dvdListForm)
 
@@ -15,7 +15,7 @@
   }
 
   @if(dvdPage.page.getTotalRowCount == 0) {
-    <h4>No Dvds found !</h4>
+    <div class="alert alert-info">@Messages.apply("msg.info.noCopiesFound")</div>
   } else {
   <div class="row" id="copyListContainer">
     @dashboard.listviews.listviewsWrapper(dvdPage,username,shoppingCart,bookmarkedCopys,viewMode);

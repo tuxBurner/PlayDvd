@@ -1,7 +1,10 @@
 @(dvdPage: DvdPage,username: String,shoppingCart: objects.shoppingcart.CacheShoppingCart,bookmarkedCopys: Set[Long],viewMode: helpers.ECopyListView)
 @import helpers.ECopyListView
 
-<h4>Displaying @dvdPage.page.getDisplayXtoYofZ(" to "," of ") DVD's</h4>
+<div class="alert alert-info">
+  @Messages.apply("lbl.displayFromTo",dvdPage.page.getDisplayXtoYofZ(" "+Messages.apply("lbl.to")+" "," "+Messages.apply("lbl.of")+" "))
+</div>
+
 
 @dashboard.dvdlistnav(dvdPage,viewMode)
 

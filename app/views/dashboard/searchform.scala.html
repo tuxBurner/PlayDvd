@@ -1,6 +1,5 @@
 @(dvdSearchForm: Form[forms.dvd.DvdSearchFrom])
 
-
 @import helper._
 @import helper.twitterBootstrap._
 
@@ -26,12 +25,12 @@
        <input type="text" class="input-medium search-query" name="searchFor" id="searchFor" value="@dvdSearchForm("searchFor").value" />
        
        <label for="searchGenre"><i class="icon-tag"></i></label>
-       <input type="hidden" name="genre" id="searchGenre" value="@dvdSearchForm("genre").value" class="input-medium" data-placeholder="Genre"/>
+       <input type="hidden" name="genre" id="searchGenre" value="@dvdSearchForm("genre").value" class="input-medium" data-placeholder="@Messages.apply("lbl.genre")"/>
        
        <label for="searchOwner"><i class="icon-user"></i></label>
-       <input type="hidden" name="userName" id="searchOwner" value="@dvdSearchForm("userName").value"  class="input-medium" data-placeholder="Owner"/>
+       <input type="hidden" name="userName" id="searchOwner" value="@dvdSearchForm("userName").value"  class="input-medium" data-placeholder="@Messages.apply("lbl.owner")"/>
        
-       <input type="hidden" name="ageRating" id="searchAgeRating" value="@dvdSearchForm("ageRating").value" class="input-mini"  data-placeholder="Agerating"/>
+       <input type="hidden" name="ageRating" id="searchAgeRating" value="@dvdSearchForm("ageRating").value" class="input-mini"  data-placeholder="@Messages.apply("lbl.agerating")"/>
 
        <label for="searchOrderBy"><i class="icon-list"></i></label>
        <input type="hidden" name="orderBy" id="searchOrderBy" value="@dvdSearchForm("orderBy").value"  class="input-medium" data-placeholder="Order by"/>
@@ -52,13 +51,15 @@
       
       <div id="advancedSearchForm">
         <label for="searchCopyType"><i class="icon-facetime-video"></i></label>
-       <input type="hidden" name="copyType" id="searchCopyType" value="@dvdSearchForm("copyType").value()"  class="input-medium" data-placeholder="Type"/>
-       
+       <input type="hidden" name="copyType" id="searchCopyType" value="@dvdSearchForm("copyType").value"  class="input-medium" data-placeholder="@Messages.apply("lbl.copyType")"/>
+
+        @*
        <label for="searchCopyLend" class="checkbox">
          <input type="checkbox" name="lendDvd" id="searchCopyLend"   value="true" @if(dvdSearchForm("lendDvd").value() == "true") { checked="checked" }/>
          <i class="icon-share"></i> Lent
        </label>
       </div>
+       *@
 
      }
 </div>

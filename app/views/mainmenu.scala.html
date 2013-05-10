@@ -14,9 +14,9 @@
       <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
-      <li><a href="@routes.UserProfileController.showProfile()"><i class="icon-user"></i>Profile</a></li>
+      <li><a href="@routes.UserProfileController.showProfile()"><i class="icon-user"></i> @Messages.apply("lbl.profile")</a></li>
       <li class="divider"></li>
-      <li><a href="@routes.RegisterLoginController.logout"><i class="icon-signout"></i>Sign Out</a></li>
+      <li><a href="@routes.RegisterLoginController.logout"><i class="icon-signout"></i> @Messages.apply("lbl.logout")</a></li>
     </ul>
     </div>
   </div>
@@ -26,17 +26,17 @@
             
       <!--    DVD LIST MENU --> 
       <li class="dropdown" id="listMenu">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#listMenu">List<b class="caret"></b></a>
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#listMenu"> @Messages.apply("lbl.list")<b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-toggle" href="@routes.ListDvdsController.listAlldvds()"><i class="icon-list-alt"></i>List All</a></li>
-          <li><a class="dropdown-toggle" href="@routes.ListDvdsController.listByUser(Secured.getUsername)"><i class="icon-user"></i>List Own</a></li>
-          <li><a class="dropdown-toggle" href="@routes.ListDvdsController.listLendDvd()"><i class="icon-user"></i>List Lend</a></li>
+          <li><a class="dropdown-toggle" href="@routes.ListDvdsController.listAlldvds()"><i class="icon-list-alt"></i> @Messages.apply("lbl.listAll")</a></li>
+          <li><a class="dropdown-toggle" href="@routes.ListDvdsController.listByUser(Secured.getUsername)"><i class="icon-user"></i> @Messages.apply("lbl.listOwn")</a></li>
+          @*<li><a class="dropdown-toggle" href="@routes.ListDvdsController.listLendDvd()"><i class="icon-user"></i>List Lend</a></li>*@
           @*<li><a class="dropdown-toggle" href="@routes.ListDvdsController.listReviewMovies()"><i class="icon-user"></i>Movies to review</a></li>*@
         </ul>
       </li>
       
             
-      <li><a href="@routes.DvdController.showAddDvd"><i class="icon-plus"></i>Add a copy</a></li>
+      <li><a href="@routes.DvdController.showAddDvd"><i class="icon-plus"></i> @Messages.apply("lbl.addCopy")</a></li>
 
       @ShoppingCartController.getShoppingCartMenuContent
 

@@ -3,6 +3,11 @@ headline.register=Registrierung
 headline.lostPassword=Passwort vergessen
 headline.resetPassword=Passwort zurücksetzen
 headline.userProfile=Benutzerprofil: {0}
+headline.listCopies=Kopien
+headline.displayCopy=Kopie: {0}
+headline.subCopies=Kopien in der
+
+dateFormat=dd.MM.YYYY
 
 btn.password=Passwort
 btn.register=Registrieren
@@ -17,6 +22,46 @@ lbl.password=Passwort
 lbl.repassword=Passwort wiederholen
 lbl.email=E-Mail
 lbl.defaultCopyType=Standard Medientyp
+lbl.reservations=Reservierungen
+lbl.reservedCopies=Reservierte Kopien
+lbl.lentCopies=Verliehene Kopien
+lbl.borrowedCopies=Geliehene Kopien
+lbl.profile=Benutzerprofil
+lbl.logout=Abmelden
+lbl.addCopy=Kopie hinzufügen
+lbl.list=Liste
+lbl.listAll=Liste alle
+lbl.listOwn=Liste eigene
+lbl.genre=Genre
+lbl.owner=Besitzer
+lbl.agerating=Altersfreigabe
+lbl.copyType=Typ
+lbl.orderBy.MOVIE_TITLE=Titel
+lbl.orderBy.DATE=Datum
+lbl.displayFromTo=Zeige {0} Kopien
+lbl.to=bis
+lbl.of=von
+lbl.prev=Zurück
+lbl.next=Vor
+lbl.noPoster=Kein Poster
+lbl.title=Titel
+lbl.info=Info
+lbl.lent=Verliehen
+lbl.lentTo=Verliehen an
+lbl.hullNr=Hüllen Nr.
+lbl.movieSeries=Filmreihe
+lbl.audioformats=Tonformate
+lbl.runtime=Laufzeit
+lbl.year=Jahr
+lbl.director=Regisseur
+lbl.informations=Informationen
+lbl.plot=Plot
+lbl.trailer=Trailer
+lbl.actors=Schauspieler
+lbl.genres=Genres
+lbl.box=Box
+lbl.collection=Kollektion
+
 
 
 msg.error.noUsername=Benutzername ist Pflicht
@@ -33,6 +78,8 @@ msg.success.login=Willkommen zu PlayDvd: {0}
 msg.success.logout=Erfolgreich abgemeldet
 msg.success.passwordChanged=Passwort zurückgesetzt.
 msg.success.profileUpdated=Dein Profile wurde bearbeited.
+
+msg.info.noCopiesFound=Keine Kopien gefunden
 
 email.passwordreset.content=Hallo {0}\nfür PlayDvd kannst Du das Passwort zurücksetzen, wenn Du folgenden Link aufrufst:\n\n {1}
 email.passwordreset.subject=Passwort zurücksetzen für PlayDvd

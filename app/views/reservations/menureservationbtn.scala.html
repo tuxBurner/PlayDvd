@@ -5,10 +5,10 @@
   <span class="caret"></span>
 </a>
 <ul class="dropdown-menu">
-  <li><a href="@routes.ReservationsController.showReservations">Reservations (@reservations)</a></li>
-  <li><a href="@routes.ReservationsController.showReserved">Reserved (@reserved)</a></li>
-  <li><a href="@routes.ReservationsController.showLentCopies">Lent to other (@lentCopies)</a></li>
-  <li><a href="@routes.ReservationsController.showBorrowedCopies">Borrowed (@borrowedCopies)</a></li>
+  <li><a href="@routes.ReservationsController.showReservations">@Messages.apply("lbl.reservations") (@reservations)</a></li>
+  <li><a href="@routes.ReservationsController.showReserved">@Messages.apply("lbl.reservedCopies") (@reserved)</a></li>
+  <li><a href="@routes.ReservationsController.showLentCopies">@Messages.apply("lbl.lentCopies") (@lentCopies)</a></li>
+  <li><a href="@routes.ReservationsController.showBorrowedCopies">@Messages.apply("lbl.borrowedCopies") (@borrowedCopies)</a></li>
 </ul>
 </div>
 

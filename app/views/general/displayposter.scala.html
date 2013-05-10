@@ -2,5 +2,5 @@
 @if(hasPoster != null && hasPoster == true) {
   <img class="img-rounded" src="@routes.Dashboard.streamImage(movieId,"POSTER",size.name())"/>
 } else {
-  <img class="img-rounded" data-src="holder.js/@size.getWHString()/#4D99E0:#fff/text:No Poster" />
+  <img class="img-rounded" data-src="holder.js/@size.getWHString()/#4D99E0:#fff/text:@Messages.apply("lbl.noPoster")" />
 }
