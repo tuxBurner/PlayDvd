@@ -32,7 +32,7 @@ var searchGrabber = function(title,grabberType,movieToEditId,grabberAmazonCode,c
       "amazonCode" : grabberAmazonCode,
       "copyId"     : copyId
     },
-    title: 'Movie info from Grabber',
+    title: Messages('headline.grabberSearch'),
     onOpen: closeWaitDiaLog,
     cssClass: "grabberModal"
   });
@@ -57,11 +57,11 @@ var openGrabberMoviePopup = function(grabberId,grabberType,movieToEditId,amazonC
       "amazonCode": amazonCode,
       "copyId" : copyId
     },
-    title: 'Movie info from Grabber',
+    title: Messages('headline.grabberMovieInfo'),
     onOpen: grabberMoviePosterBackdrop(),
     cssClass: "grabberModal",
     buttons : {
-      "Ok" : {
+      "btn.ok" : {
         icon: "icon-ok-sign icon-white",
         cssClass: "btn-danger",
         callback: function() {
@@ -111,11 +111,11 @@ var addToDbAndFillDvdFormCheck = function(grabberId,grabberType,amazonCode,copyI
       if(data == "true" || data == true) {
         // ask the user if he wants to add this movie although it aready exists
         displayDialog({
-          title: 'Movie already exists in the Database',
+          title: Messages('headline.movieAlreadyExists'),
           closeButton: true,
-          content: "The movie already exists in the Database, do you want to add it again ?",
+          content: Messages('lbl.movieAlreadyExists',''),
           buttons : {
-            "Add" : {
+            "btn.ok" : {
               icon: "icon-plus",
               cssClass: "btn-danger",
               callback: function() { addToDbAndFillDvdForm(grabberType,amazonCode,copyId,formParams) }

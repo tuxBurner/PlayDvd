@@ -153,9 +153,9 @@ var startWebcamFallback = function () {
  */
 ws.onmessage = function (e) {
   if (e.data == "error") {
-    jQuery("#barcodeStatus").text("Error trying again.");
+    jQuery("#barcodeStatus").text(Messages('msg.error.barcodeNotFound'));
     if(nativeWebcam == true) {
-      jQuery("#barcodeStatus").text("Wait 1 second");
+      jQuery("#barcodeStatus").text(Messages('msg.info.barcodeWait'));
       window.setTimeout("sendNativeBC()",1000);
     } else {
       webcam.capture(1);

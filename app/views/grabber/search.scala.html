@@ -4,20 +4,19 @@
   <input type="hidden" name="grabberAmazonCode" id="grabberAmazonCode" value="@amazoneCode"/>
   <input type="hidden" name="grabberCopyId" id="grabberCopyId" value="@copyId"/>
 
-  <label>Search:</label>
   <div class="input-append">
     <input type="text" name="searchTerm" id="grabber_search_input" value="@searchTerm"/>
     <select name="grabberType" id="grabberType" >
       <option value="@grabbers.EGrabberType.TMDB.name()">TMDB</option>
       <option @if(grabbers.EGrabberType.THETVDB.name() == grabberType) { selected="selected" } value="@grabbers.EGrabberType.THETVDB.name()">TheTvDb</option>
     </select>
-    <button href="#" id="grabber_search_button" class="btn"><i class="icon-search"></i>Search</button>
+    <button href="#" id="grabber_search_button" class="btn"><i class="icon-search"></i> @Messages("btn.search")</button>
   </div>
 
 </form>
 
 @if(results.isEmpty()) {
-  <div class="alert alert-error">Nothing found</div>
+  <div class="alert alert-error">@Messages("msg.error.grabberNoMovieFound")</div>
 } else {
 
   <section class="span12">
@@ -33,7 +32,7 @@
 
         <div class="caption">
           <h5>@res.movieTitle</h5>
-          <p><a class="btn btn-primary pickGrabberEntry" data-grabber-id="@res.systemId" data-grabber-type="@grabberType"><i class="icon-ok-sign icon-white"></i> Pick</a></p>
+          <p><a class="btn btn-primary pickGrabberEntry" data-grabber-id="@res.systemId" data-grabber-type="@grabberType"><i class="icon-ok-sign icon-white"></i> @Messages("btn.pick")</a></p>
         </div>
         </div>
       </li>

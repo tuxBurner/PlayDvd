@@ -65,11 +65,11 @@ var initializeMovieForm = function() {
           if(data == "true" || data == true) {
             // ask the user if he wants to add this movie although it aready exists
             displayDialog({
-              title: 'Movie already exists in the Database',
+              title: Messages('headline.movieAlreadyExists'),
               closeButton: true,
-              content: "The movie: "+formParams['title']+" already exists in the Database, do you want to add it again ?",
+              content: Messages('lbl.movieAlreadyExists',formParams['title']),
               buttons : {
-                "Ok" : {
+                "btn.ok" : {
                   icon: "icon-plus",
                   cssClass: "btn-danger",
                   callback: submitMovieForm               }

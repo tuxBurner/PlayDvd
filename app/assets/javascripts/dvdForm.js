@@ -62,7 +62,7 @@ var openBarcodePopUp = function() {
   displayAjaxDialog({
     route: jsRoutes.controllers.BarcodeController.displayBarcodeScaner(),
     ajaxParams : null,
-    title: '<i class="icon-barcode"></i> Barcodescanner',
+    title: '<i class="icon-barcode"></i> '+Messages('headline.barcodeScanner'),
     onOpen: closeWaitDiaLog,
     onClose: function() { stopVideoCapture(); },
     cssClass: "barcodeModal"
@@ -89,7 +89,7 @@ var openSearchAmazonPopUp = function(code,copyId) {
     displayAjaxDialog({
       route: jsRoutes.controllers.DvdController.searchAmazonByCode(code,copyId),
       ajaxParams : null,
-      title: '<i class="icon-search"></i> Lookup movie on amazon',
+      title: '<i class="icon-search"></i> '+Messages('headline.amazonGrabber'),
       onOpen: function() { createMovieDropDown('#amazonPickMovie'); closeWaitDiaLog(); },
       cssClass: "grabberModal"
     });

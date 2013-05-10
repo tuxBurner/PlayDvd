@@ -11,6 +11,14 @@ headline.unlendCopy=Unlend Copy
 headline.deleteCopy=Delete Copy
 headline.addCopy=Add a copy
 headline.editCopy=Edit copy
+headline.editMovie=Edit movie
+headline.addMovie=Add movie
+headline.pleasWait=Please Wait
+headline.grabberSearch=Search online for movie
+headline.grabberMovieInfo=Movieinfo from online source
+headline.movieAlreadyExists=Movie already exists in the Database
+headline.barcodeScanner=Barcodescanner
+headline.amazonGrabber=Lookup copyinfo on amazon
 
 dateFormat=dd.MM.YYYY
 
@@ -30,6 +38,13 @@ btn.addCopy=Add Copy
 btn.editCopy=Edit Copy
 btn.newMovie=Add new movie
 btn.editMovie=Edit movie
+btn.lookupWithGrabber=Look up with Onlinegrabber
+btn.refetchData=Refetch data
+btn.search=Search
+btn.pick=Pick
+btn.ok=Okay
+btn.start=Start
+btn.startSearch=Start & Search
 
 lbl.username=Username
 lbl.password=Password
@@ -93,7 +108,22 @@ lbl.pickMovie=Pick Movie
 lbl.existingMovie=Existing Movie
 lbl.enterMovieName=Enter movie name
 lbl.selectAudioTypes=Please select audiotypes
-
+lbl.enterMovieTitle=Enter movie title
+lbl.imdbId=IMDB Id
+lbl.selectMovieSeries=Select movie series
+lbl.trailerYoutubeId=Trailer Youtube Id
+lbl.posterUrl=Poster URL
+lbl.backdropUrl=Backdrop URL
+lbl.noBackdrop=No Backdrop
+lbl.posters=Posters
+lbl.backdrops=Backdrops
+lbl.trailers=Trailers
+lbl.selectedPoster=Selected Poster
+lbl.selectedBackdrop=Selected Backdrop
+lbl.movieAlreadyExists=The movie {0} already exists in the Database, do you want to add it again ?
+lbl.searchAmazon=Search Amazon for EAN or ASIN
+lbl.foundCopyInfo=Found copyinfo
+lbl.moviesMatching=Movies matching in the database
 
 msg.error.noUsername=Username is needed
 msg.error.noPassword=Password is needed
@@ -104,6 +134,9 @@ msg.error.passwordsNoMatch=Passwords don't match
 msg.error.login=Invalid user or password
 msg.error=An internal error happened
 msg.error.noMovieSelected=No movie selected
+msg.error.grabberNoMovieFound=No movie found
+msg.error.barcodeNotFound=Error trying again
+msg.error.noCopyInfoFound=No Copyinfos found
 
 msg.success.passwordMailSend=Please check your email for password reset instructions.
 msg.success.login=Welcome to  PlayDvd: {0}
@@ -113,6 +146,7 @@ msg.success.profileUpdated=Your profile has been updated
 
 msg.info.noCopiesFound=No copies found
 msg.info.emptyShoppingcart=No copies in the shoppingcart found
+msg.info.barcodeWait=Wait 1 second
 
 email.passwordreset.content=Hello {0}\nYou requested to reset the password for the PlayDvd database please click the link to reset the password:\n\n {1}
 email.passwordreset.subject=Password reset for PlayDvd

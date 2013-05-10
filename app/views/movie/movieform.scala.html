@@ -5,93 +5,68 @@
 @import helper.twitterBootstrap._
 
 
-     @form(routes.MovieController.addOrEditMovie(mode),'enctype -> "multipart/form-data",'class -> "well",'id -> "movieForm", 'mode -> mode) {
-     <fieldset>
-    <legend>@if(mode == DvdController.DVD_FORM_EDIT_MODE) {Edit Move} else {Add a Movie}</legend>
+@form(routes.MovieController.addOrEditMovie(mode),'enctype -> "multipart/form-data",'class -> "well",'id -> "movieForm", 'mode -> mode) {
+  <fieldset>
+    <legend>@if(mode == DvdController.DVD_FORM_EDIT_MODE) { @Messages("headline.editMovie") } else { @Messages("headline.addMovie") }</legend>
      
-         @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
-           <input type="hidden" name="movieId" id="movieId" value="@movieForm("movieId").value"/>
-         }
-         
-         <div class="form-actions">
-           @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
-             <button type="button" class="btn btn-primary movieFormSubmitBtn"><i class="icon-edit"></i>Edit Movie</button>
-           } else {
-             <button type="button" class="btn  btn-primary movieFormSubmitBtn"><i class="icon-plus"></i>Add Movie</button>
-           }
-           <button type="button" class="btn movieFormCloseBtn" ><i class="icon-chevron-up"></i>Close</button>
-         </div>
-         
-         
-         @inputText(movieForm("title"),'_label -> "Title", '_showConstraints -> true, 'placeholder -> "Enter Dvd title", 'class -> "span10")
-         <button class="btn btn-info" id="grabberButton" type="button"><i class="icon-film"></i> Look up with Onlinegrabber</button>
+    @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
+      <input type="hidden" name="movieId" id="movieId" value="@movieForm("movieId").value"/>
+    }
+
+    @movie.movieformBtns(mode)
+
+    @inputText(movieForm("title"),'_label -> Messages("lbl.title"), '_showConstraints -> true, 'placeholder -> Messages("lbl.enterMovieTitle"), 'class -> "span10")
+
+    <button class="btn btn-info" id="grabberButton" type="button"><i class="icon-film"></i> @Messages("btn.lookupWithGrabber")</button>
 
 
-         @if(movieForm("grabberId").value != null && movieForm("grabberType").value != null && movieForm("grabberType").value != "NONE" ) {
-           <button class="btn btn-success" id="grabberRefetchButton" type="button"><i class="icon-refresh"></i> Refetch Data</button>
-           <input type="hidden" name="grabberId" id="grabberId" value="@movieForm("grabberId").value" />
-           <input type="hidden" name="grabberType" id="grabberType" value="@movieForm("grabberType").value" />
-         }
+    @if(movieForm("grabberId").value != null && movieForm("grabberType").value != null && movieForm("grabberType").value != "NONE" ) {
+      <button class="btn btn-success" id="grabberRefetchButton" type="button"><i class="icon-refresh"></i> @Messages("btn.refetchData")</button>
+      <input type="hidden" name="grabberId" id="grabberId" value="@movieForm("grabberId").value" />
+      <input type="hidden" name="grabberType" id="grabberType" value="@movieForm("grabberType").value" />
+    }
 
-         <hr />
-         
-         
-         @textarea(movieForm("plot"),'_label -> "Plot",'class -> "span10", 'rows -> "10")
-         
-         @inputText(movieForm("year"),'_label -> "Year", '_showConstraints -> true, 'class-> "span1")
-         
-         @inputText(movieForm("runtime"),'_label -> "Runtime in Min:")
+    <hr />
+    @textarea(movieForm("plot"),'_label -> Messages("lbl.plot"),'class -> "span10", 'rows -> "10")
+    @inputText(movieForm("year"),'_label -> Messages("lbl.year"), '_showConstraints -> true, 'class-> "span1")
+    @inputText(movieForm("runtime"),'_label -> Messages("lbl.runtime"))
+    @inputText(movieForm("imdbId"),'_label -> Messages("lbl.imdbId"),'placeholder -> "ID on IMDB")
 
-         @inputText(movieForm("imdbId"),'_label -> "IMDB-ID",'placeholder -> "ID on IMDB")
+    <label for="genres">@Messages("lbl.genres")</label>
+    <input type="hidden" name="genres" id="genres"  class="span11" value="@forms.MovieForm.getDvdFormAttributesAsString(movieForm("genres").value)"/>
+
+    <hr />
+    <label for="series">@Messages("lbl.movieSeries")</label>
+    <input type="hidden" name="series" id="series" class="span5" value="@movieForm("series").value" data-placeholder="@Messages("lbl.selectMovieSeries")"/>
          
+    <hr  />
+    @inputText(movieForm("director"),'_label -> "Director",'placeholder -> Messages("lbl.director"))
          
-         <label for="genres">Genres</label>
-         <input type="hidden" name="genres" id="genres"  class="span11" value="@forms.MovieForm.getDvdFormAttributesAsString(movieForm("genres").value)" />
+    <label for="actors">@Messages("lbl.actors")</label>
+    <input type="hidden" name="actors" id="actors"  class="span11" value="@forms.MovieForm.getDvdFormAttributesAsString(movieForm("actors").value)"/>
 
-         
-         <hr />
-         <label for="series">Series</label>   
-         <input type="hidden" name="series" id="series" class="span5" value="@movieForm("series").value()" data-placeholder="Please select a movie Series"/>
-         
-        
-         <hr  />
-         @inputText(movieForm("director"),'_label -> "Director",'placeholder -> "Director")
-         
-         <label for="actors">Actors</label>
-         <input type="hidden" name="actors" id="actors"  class="span11" value="@forms.MovieForm.getDvdFormAttributesAsString(movieForm("actors").value())" data-placeholder="Please select actors"/>
+    <hr />
+    @inputText(movieForm("trailerUrl"),'_label -> Messages("lbl.trailerYoutubeId"))
 
+    <div class="media">
+      <span class="pull-left span4">
+        <img class="img-polaroid img-rounded" id="poster_preview" class="caption" title="Currently selected poster" @if(mode == DvdController.DVD_FORM_ADD_MODE) { data-src="holder.js/@EImageSize.GRABBER_POSTER_SMALL.getWHString()/#4D99E0:#fff/text:@Messages("lbl.noPoster")"} else { src="@routes.Dashboard.streamImage(Long.valueOf(movieForm("movieId").value()),"POSTER","SMALL")" } width="@EImageSize.SMALL.getWidth()" height="@EImageSize.SMALL.getHeight()" />
+      </span>
+      <div class="media-body">
+        @inputText(movieForm("posterUrl"),'_label -> Messages("lbl.posterUrl"))
+      </div>
+    </div>
 
-         <hr />
-         @inputText(movieForm("trailerUrl"),'_label -> "Trailer url",'placeholder -> "Url to trailer")
+    <div class="media">
+      <span class="pull-left span4">
+        <img class="img-polaroid img-rounded" class="caption" id="backDrop_preview" title="Currently selected backdrop" @if(mode == DvdController.DVD_FORM_ADD_MODE) { data-src="holder.js/@EImageSize.GRABBER_BACKDROP_SMALL.getWHString()/#4D99E0:#fff/text:@Messages("lbl.noBackdrop")" } else { src="@routes.Dashboard.streamImage(Long.valueOf(movieForm("movieId").value()),"BACKDROP","SMALL")"} width="@EImageSize.SMALL.getWidth()" height="@EImageSize.SMALL.getHeight()" />
+      </span>
+      <div class="media-body">
+        @inputText(movieForm("backDropUrl"),'_label -> Messages("lbl.backdropUrl"))
+      </div>
+    </div>
 
-         <div class="media">
-           <span class="pull-left span4">
-             <img class="img-polaroid img-rounded" id="poster_preview" class="caption" title="Currently selected poster" @if(mode == DvdController.DVD_FORM_ADD_MODE) { data-src="holder.js/@EImageSize.GRABBER_POSTER_SMALL.getWHString()/#4D99E0:#fff/text:No Poster"} else { src="@routes.Dashboard.streamImage(Long.valueOf(movieForm("movieId").value()),"POSTER","SMALL")" } width="@EImageSize.SMALL.getWidth()" height="@EImageSize.SMALL.getHeight()" />
-           </span>
-           <div class="media-body">
-             @inputText(movieForm("posterUrl"),'_label -> "Poster url",'placeholder -> "Url to a poster image")
-           </div>
-         </div>
+    @movie.movieformBtns(mode)
 
-         <div class="media">
-           <span class="pull-left span4">
-             <img class="img-polaroid img-rounded" class="caption" id="backDrop_preview" title="Currently selected backdrop" @if(mode == DvdController.DVD_FORM_ADD_MODE) { data-src="holder.js/@EImageSize.GRABBER_BACKDROP_SMALL.getWHString()/#4D99E0:#fff/text:No Backdrop" } else { src="@routes.Dashboard.streamImage(Long.valueOf(movieForm("movieId").value()),"BACKDROP","SMALL")"} width="@EImageSize.SMALL.getWidth()" height="@EImageSize.SMALL.getHeight()" />
-           </span>
-           <div class="media-body">
-             @inputText(movieForm("backDropUrl"),'_label -> "Back Drop url",'placeholder -> "Url to a back drop image")
-           </div>
-         </div>
-
-
-         <div class="form-actions">
-           @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
-             <button type="button" class="btn btn-primary movieFormSubmitBtn"><i class="icon-edit"></i>Edit Movie</button>
-           } else {
-             <button type="button" class="btn  btn-primary movieFormSubmitBtn"><i class="icon-plus"></i>Add Movie</button>
-           }
-           <button type="button" class="btn movieFormCloseBtn" ><i class="icon-chevron-up"></i>Close</button>
-         </div>
-         
-       
-     </fieldset>    
-   }
+  </fieldset>
+}

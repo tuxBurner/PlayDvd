@@ -11,6 +11,14 @@ headline.unlendCopy=Kopie zurück
 headline.deleteCopy=Kopie löschen
 headline.addCopy=Kopie hinzufügen
 headline.editCopy=Kopie bearbeiten
+headline.editMovie=Film bearbeiten
+headline.addMovie=Film hinzufügen
+headline.pleasWait=Bitte Warten
+headline.grabberSearch=Film online suchen
+headline.grabberMovieInfo=Filminfo von Onlinequelle
+headline.movieAlreadyExists=Film existiert schon
+headline.barcodeScanner=Barcodescanner
+headline.amazonGrabber=Suche Kopieinformationen auf Amazon
 
 dateFormat=dd.MM.YYYY
 
@@ -30,6 +38,13 @@ btn.addCopy=Kopie hinzufügen
 btn.editCopy=Kopie bearbeiten
 btn.newMovie=Neuen Film anlegen
 btn.editMovie=Film bearbeiten
+btn.lookupWithGrabber=Film online suchen
+btn.refetchData=Filmdaten neu laden
+btn.search=Suchen
+btn.pick=Auswhählen
+btn.ok=Okay
+btn.start=Starten
+btn.startSearch=Starten & Suchen
 
 lbl.username=Benutzername
 lbl.password=Passwort
@@ -77,7 +92,6 @@ lbl.box=Box
 lbl.collection=Kollektion
 lbl.shoppingcart=Einkaufswagen
 lbl.showShoppingCart=Einkaufswagen anzeigen
-msg.info.emptyShoppingcart=Keine Kopien im Einkaufswagen gefunden
 lbl.toReservation=An Reservierung
 lbl.toUser=An Benutzer
 lbl.toFreeName=An freien Namen
@@ -94,7 +108,22 @@ lbl.pickMovie=Film auswählen
 lbl.existingMovie=Vorhandenen Film
 lbl.enterMovieName=Filmnamen eingeben
 lbl.selectAudioTypes=Audiformat auswählen
-
+lbl.enterMovieTitle=Filmtitel eingeben
+lbl.imdbId=IMDB Id
+lbl.selectMovieSeries=Filmreihe auswählen
+lbl.trailerYoutubeId=Trailer Youtube Id
+lbl.posterUrl=Poster URL
+lbl.backdropUrl=Hintergrund URL
+lbl.noBackdrop=Kein Hintergrund
+lbl.posters=Posters
+lbl.backdrops=Hintergründe
+lbl.trailers=Trailers
+lbl.selectedPoster=Ausgewähltes Poster
+lbl.selectedBackdrop=Ausgewählter Hintergrund
+lbl.movieAlreadyExists=Der Film {0} existiert schon in der Datenbank, trotzdem hinzufügen ?
+lbl.searchAmazon=Suche Amazon nach EAN oder ASIN
+lbl.foundCopyInfo=Kopieinfo gefunden
+lbl.moviesMatching=Filme passend in der Datenbank
 
 msg.error.noUsername=Benutzername ist Pflicht
 msg.error.noPassword=Passwort ist Pflicht
@@ -105,6 +134,9 @@ msg.error.passwordsNoMatch=Passwörter stimmen nicht überein
 msg.error.login=Fehler beim Anmelden
 msg.error=Es ist ein interner Fehler aufgetreten
 msg.error.noMovieSelected=Kein Film ausgewählt
+msg.error.grabberNoMovieFound=Keinen Film gefunden
+msg.error.barcodeNotFound=Fehler versuche es nocheinmal
+msg.error.noCopyInfoFound=Keine Kopieinformationen gefunden
 
 msg.success.passwordMailSend=Bitte überprüfe dein E-Mail Postfach.
 msg.success.login=Willkommen zu PlayDvd: {0}
@@ -113,6 +145,8 @@ msg.success.passwordChanged=Passwort zurückgesetzt.
 msg.success.profileUpdated=Dein Profile wurde bearbeited.
 
 msg.info.noCopiesFound=Keine Kopien gefunden
+msg.info.emptyShoppingcart=Keine Kopien im Einkaufswagen gefunden
+msg.info.barcodeWait=Warte 1 Sekunde
 
 email.passwordreset.content=Hallo {0}\nfür PlayDvd kannst Du das Passwort zurücksetzen, wenn Du folgenden Link aufrufst:\n\n {1}
 email.passwordreset.subject=Passwort zurücksetzen für PlayDvd

@@ -23,15 +23,15 @@
       <li class="active"><a href="#grabberDataOverview" data-toggle="tab">Overview</a></li>
 
       @if(CollectionUtils.isEmpty(displayMovie.posterUrls) == false) {
-        <li><a href="#grabberDataPosters" data-toggle="tab">Poster</a></li>
+        <li><a href="#grabberDataPosters" data-toggle="tab">@Messages("lbl.posters")</a></li>
       }
 
       @if(CollectionUtils.isEmpty(displayMovie.backDropUrls) == false) {
-        <li><a href="#grabberDataBackdrops" data-toggle="tab">Backdrops</a></li>
+        <li><a href="#grabberDataBackdrops" data-toggle="tab">@Messages("lbl.backdrops")</a></li>
       }
 
       @if(CollectionUtils.isEmpty(displayMovie.trailerUrls)  == false) {
-        <li><a href="#grabberDataTrailers" data-toggle="tab">Trailers</a></li>
+        <li><a href="#grabberDataTrailers" data-toggle="tab">@Messages("lbl.trailers")</a></li>
       }
     </ul>
 
@@ -39,26 +39,26 @@
     <div id="myTabContent" class="tab-content">
 
     <div class="tab-pane fade in active" id="grabberDataOverview">
-      <h3>Description</h3>
+      <h3>@Messages("lbl.plot")</h3>
       <p>
         @displayMovie.plot
       </p>
       @if(StringUtils.isEmpty(displayMovie.imdbId) == false) {
         <p>
-          IMDBID: <a href="http://www.imdb.com/title/@displayMovie.imdbId" target="_blank">@displayMovie.imdbId</a>
+          @Messages("lbl.imdbId"): <a href="http://www.imdb.com/title/@displayMovie.imdbId" target="_blank">@displayMovie.imdbId</a>
         </p>
       }
 
       <div class="row">
         @if(CollectionUtils.isEmpty(displayMovie.posterUrls) == false) {
           <div class="span5">
-            <h5>Selected Poster</h5>
+            <h5>@Messages("lbl.selectedPoster")</h5>
             <img id="grabberSelectedPoster" class="img-rounded" src="@routes.Dashboard.streamExternalImage()?url=@displayMovie.posterUrls.get(0).url&imgSize=GRABBER_POSTER_SMALL"/>
           </div>
         }
         @if(CollectionUtils.isEmpty(displayMovie.backDropUrls) == false) {
           <div class="span5">
-            <h5>Selected Bacdrop</h5>
+            <h5>@Messages("lbl.selectedBackdrop")</h5>
             <img id="grabberSelectedBackdrop" class="img-rounded" src="@routes.Dashboard.streamExternalImage()?url=@displayMovie.backDropUrls.get(0).url&imgSize=GRABBER_BACKDROP_SMALL" />
           </div>
         }
@@ -67,7 +67,6 @@
 
     @if(displayMovie.posterUrls != null && displayMovie.posterUrls.size() > 0) {
       <div class="tab-pane fade in" id="grabberDataPosters">
-      <h3>Posters</h3>
 
        <ul class="thumbnails">
         @for((poster,index) <- displayMovie.posterUrls.zipWithIndex) {
@@ -89,7 +88,6 @@
 
   @if(displayMovie.backDropUrls != null && displayMovie.backDropUrls.size() > 0) {
     <div class="tab-pane fade in" id="grabberDataBackdrops">
-      <h3>Backdrops</h3>
       <ul class="thumbnails">
         @for((backdrop,index) <- displayMovie.backDropUrls.zipWithIndex) {
           <li class="span4" style="height: 190px;">
@@ -111,7 +109,6 @@
 
     @if(displayMovie.trailerUrls != null && displayMovie.trailerUrls.size() > 0) {
       <div class="tab-pane fade in" id="grabberDataTrailers">
-      <h3>Trailers</h3>
       <ul class="thumbnails">
         @for((trailerUrl,index) <- displayMovie.trailerUrls.zipWithIndex) {
           <li class="span4" style="height: 190px;">

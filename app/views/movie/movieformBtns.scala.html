@@ -1,0 +1,9 @@
+@(mode: String)
+<div class="form-actions">
+  @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
+    <button type="button" class="btn btn-primary movieFormSubmitBtn"><i class="icon-edit"></i> @Messages("btn.editMovie")</button>
+  } else {
+    <button type="button" class="btn  btn-primary movieFormSubmitBtn"><i class="icon-plus"></i> @Messages("btn.newMovie")</button>
+  }
+<button type="button" class="btn movieFormCloseBtn" ><i class="icon-chevron-up"></i> @Messages("btn.close")</button>
+</div>
