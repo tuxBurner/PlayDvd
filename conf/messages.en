@@ -6,6 +6,9 @@ headline.userProfile=Benutzerprofil: {0}
 headline.listCopies=Kopien
 headline.displayCopy=Kopie: {0}
 headline.subCopies=Kopien in der
+headline.lendCopy=Kopie verleihen
+headline.unlendCopy=Kopie zurück
+headline.deleteCopy=Kopie löschen
 
 dateFormat=dd.MM.YYYY
 
@@ -16,6 +19,11 @@ btn.passwordRequest=Passwort anfordern
 btn.passwordReset=Passwort zurücksetzen
 btn.update=Bearbeiten
 btn.back=Zurück
+btn.checkout=Reservieren
+btn.lend=Verleihen
+btn.close=Abbrechen
+btn.unlend=Zurück
+btn.delete=Löschen
 
 lbl.username=Benutzername
 lbl.password=Passwort
@@ -61,7 +69,16 @@ lbl.actors=Schauspieler
 lbl.genres=Genres
 lbl.box=Box
 lbl.collection=Kollektion
-
+lbl.shoppingcart=Einkaufswagen
+lbl.showShoppingCart=Einkaufswagen anzeigen
+msg.info.emptyShoppingcart=Keine Kopien im Einkaufswagen gefunden
+lbl.toReservation=An Reservierung
+lbl.toUser=An Benutzer
+lbl.toFreeName=An freien Namen
+lbl.othersInHullTo=Kopien aus der gleichen Hülle auch
+lbl.selectAnUser=Benutzer auswählen
+lbl.selectAReservation=Reservierung auswählen
+lbl.unlendFrom=von Benutzer
 
 
 msg.error.noUsername=Benutzername ist Pflicht

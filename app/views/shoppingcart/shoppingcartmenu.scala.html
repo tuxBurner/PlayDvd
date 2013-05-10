@@ -5,7 +5,7 @@
   <a class="dropdown-toggle" data-toggle="dropdown" href="#shoppingCartMenu"><i class="icon-shopping-cart"></i> (@shoppingCart.getSize) <b class="caret"></b></a>
 
     <ul class="dropdown-menu">
-      <li><a href="@routes.ShoppingCartController.showShoppingCart()"> <i class="icon-shopping-cart icon-2x"></i> Show cart</a></li>
+      <li><a href="@routes.ShoppingCartController.showShoppingCart()"> <i class="icon-shopping-cart icon-2x"></i> @Messages.apply("lbl.showShoppingCart")</a></li>
       <li class="divider"></li>
       @for(item <- shoppingCart.getLastFiveItems) {
         <li class="shoppingCartMenu">

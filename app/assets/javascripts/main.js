@@ -94,13 +94,14 @@ function displayDialog(options) {
       var button = options.buttons[title];
       var iconHtml = (button.icon != null) ? '<i class="' + button.icon + '"></i>' : '';
       var cssClass = (button.cssClass != null) ? ' ' + button.cssClass : '';
+      var i18nTitle = Messages(title);
 
-      $('<button class="btn' + cssClass + '">' + iconHtml + ' ' + title + '</button>').click(button.callback).appendTo('#modal .modal-footer');
+      $('<button class="btn' + cssClass + '">' + iconHtml + ' ' + i18nTitle + '</button>').click(button.callback).appendTo('#modal .modal-footer');
     }
   }
 
   if (options.closeButton == true) {
-    $('#modal .modal-footer').append('<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>');
+    $('#modal .modal-footer').append('<button class="btn" data-dismiss="modal" aria-hidden="true">'+Messages('btn.close')+'</button>');
   }
 
   $('#modalLabel').html(options.title);

@@ -61,24 +61,22 @@ $(function() {
 	$(document).on('click','.lendDvdBtn',function(event){
 		displayAjaxDialog({
 			route: jsRoutes.controllers.Dashboard.lendDialogContent($(this).data('dvdId')),
-	    	title: 'Lend Copy',
+	    	title: Messages('headline.lendCopy'),
 	    	cssClass:	'smallModal',
 	    	closeButton: true,
         onOpen: function() {
           $("#lendToUser").select2({
             width: "element",
-            placeholder: "Select a user",
             allowClear: true
           });
 
           $("#lendToReservation").select2({
             width: "element",
-            placeholder: "Select a reservation",
             allowClear: true
           });
         },
 	    	buttons: {
-	    		"Lend" : {
+	    		"btn.lend" : {
 	    			icon: "icon-share",
 	    			cssClass: "btn-warning",
 	    			callback: function() {
@@ -115,11 +113,11 @@ $(function() {
 	$(document).on('click','.unlendDvdBtn',function(event){
 		displayAjaxDialog({
 			route: jsRoutes.controllers.Dashboard.unLendDialogContent($(this).data('dvdId')),
-	    	title: 'Return DVD',
+	    	title: Messages('headline.unlendCopy'),
 	    	cssClass:	'smallModal',
 	    	closeButton: true,
 	    	buttons: {
-	    		"Unlend" : {
+	    		"btn.unlend" : {
 	    			icon: "icon-download",
 	    			cssClass: "btn-warning",
 	    			callback: function() {
@@ -147,11 +145,11 @@ $(function() {
 	$(document).on('click','.deleteDvdBtn',function(event){
 		displayAjaxDialog({
 			route: jsRoutes.controllers.Dashboard.deleteDialogContent($(this).data('dvdId')),
-	    	title: 'Delete DVD',
+	    	title: Messages('headline.deleteCopy'),
 	    	cssClass:	'smallModal',
 	    	closeButton: true,
 	    	buttons: {
-	    		"Delete" : {
+	    		"btn.delete" : {
 	    			icon: "icon-trash",
 	    			cssClass: "btn-danger",
 	    			callback: function() {

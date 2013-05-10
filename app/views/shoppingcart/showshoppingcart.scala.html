@@ -3,24 +3,24 @@
 @import helper._
 @import helper.twitterBootstrap._
 
-@mainmenu("Dvd Database - Shoppingcart") {
+@mainmenu(Messages.apply("lbl.shoppingcart")) {
 
 
   <div class="row">
     @form(routes.ShoppingCartController.checkoutShoppingCart(), 'class -> "well") {
 
     <fieldset>
-      <legend><i class="icon-shopping-cart"></i> Shoppingcart</legend>
+      <legend><i class="icon-shopping-cart"></i> @Messages.apply("lbl.shoppingcart")</legend>
 
       @if(shoppingCart.getSize == 0) {
-        <div class="alert alert-error">
-          <strong>No Items in the shoppingcart.</strong>
+        <div class="alert alert-info">
+          <strong>@Messages.apply("msg.info.emptyShoppingcart")</strong>
         </div>
       } else {
         <dl>
           @for((username,items) <- shoppingCart.getItemsSortedByUser){
 
-            <dt>Owner: @username</dt>
+            <dt>@Messages.apply("lbl.owner"): @username</dt>
             @for(item <- items) {
               <dd>
                @general.displayitem(item.copyItem)
@@ -30,7 +30,7 @@
         </dl>
 
         <div class="form-actions">
-          <button type="submit" class="btn btn-primary">Checkout</button>
+          <button type="submit" class="btn btn-primary"><i class="icon-ok-sign"></i> @Messages.apply("btn.checkout")</button>
         </div>
       }
 

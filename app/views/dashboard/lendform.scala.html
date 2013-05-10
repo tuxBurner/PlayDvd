@@ -9,24 +9,24 @@
 <form class="form-horizontal">
 
 <fieldset>
-  <legend>Lend Dvd: @general.displayposter(dvd.movie.id,dvd.movie.hasPoster,EImageSize.TINY) <i>@general.displayCopyTitle(dvd)</i></legend>
+  <legend>@Messages.apply("headline.lendCopy"): @general.displayposter(dvd.movie.id,dvd.movie.hasPoster,EImageSize.TINY) <i>@general.displayCopyTitle(dvd)</i></legend>
 
   <input type="hidden" id="lendDvdId" value="@dvd.id" />
 
   @if(MapUtils.isEmpty(reservations) == false) {
-    @select(lendForm("reservation"), options(reservations),'_label->"From reservation",'class-> "span5", 'id -> "lendToReservation")
+    @select(lendForm("reservation"), options(reservations),'_label->Messages.apply("lbl.toReservation"),'class-> "span5", 'id -> "lendToReservation", 'placeholder -> Messages.apply("lbl.selectAReservation"))
   }
 
 
   @if(otherUsers != null) {
-    @select(lendForm("userName"), options(otherUsers),'_label->"To user",'class-> "span5", 'id -> "lendToUser")
+    @select(lendForm("userName"), options(otherUsers),'_label->Messages.apply("lbl.toUser"),'class-> "span5", 'id -> "lendToUser", 'placeholder -> Messages.apply("lbl.selectAnUser"))
   }
 
 
-  @inputText(lendForm("freeName"),'_label -> "To free name", 'class -> "span5")
+  @inputText(lendForm("freeName"),'_label -> Messages.apply("lbl.toFreeName"), 'class -> "span5")
   
   @if(inSameHull != null) {
-    @checkbox(field = lendForm("alsoOthersInHull"), '_label -> "Others in Hull to")
+    @checkbox(field = lendForm("alsoOthersInHull"), '_label -> Messages.apply("lbl.othersInHullTo"))
 
     @general.displaysubcopylist(inSameHull)
   }

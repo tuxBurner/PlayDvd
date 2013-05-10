@@ -6,6 +6,9 @@ headline.userProfile=Userprofile: {0}
 headline.listCopies=List copies
 headline.displayCopy=Copy: {0}
 headline.subCopies=Copies in the
+headline.lendCopy=Lend Copy
+headline.unlendCopy=Unlend Copy
+headline.deleteCopy=Delete Copy
 
 dateFormat=dd.MM.YYYY
 
@@ -16,6 +19,11 @@ btn.login=Login
 btn.passwordReset=Reset password
 btn.update=Update
 btn.back=Back
+btn.checkout=Checkout
+btn.lend=Lend
+btn.close=Cancel
+btn.unlend=Unlend
+btn.delete=Delete
 
 lbl.username=Username
 lbl.password=Password
@@ -61,7 +69,15 @@ lbl.actors=Actors
 lbl.genres=Genres
 lbl.box=Box
 lbl.collection=Collection
-
+lbl.shoppingcart=Shoppingcart
+lbl.showShoppingCart=Show Cart
+lbl.toReservation=To Reservation
+lbl.toUser=To User
+lbl.toFreeName=To free Name
+lbl.othersInHullTo=Copies from the same hull to
+lbl.selectAnUser=Select an user
+lbl.selectAReservation=Select a reservation
+lbl.unlendFrom=from User
 
 msg.error.noUsername=Username is needed
 msg.error.noPassword=Password is needed
@@ -79,6 +95,7 @@ msg.success.passwordChanged=Password is reseted
 msg.success.profileUpdated=Your profile has been updated
 
 msg.info.noCopiesFound=No copies found
+msg.info.emptyShoppingcart=No copies in the shoppingcart found
 
 email.passwordreset.content=Hello {0}\nYou requested to reset the password for the PlayDvd database please click the link to reset the password:\n\n {1}
 email.passwordreset.subject=Password reset for PlayDvd

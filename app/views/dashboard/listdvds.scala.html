@@ -1,10 +1,13 @@
 @(dvdPage: DvdPage)(dvdListForm: Form[forms.dvd.DvdSearchFrom])(username: String)(shoppingCart: objects.shoppingcart.CacheShoppingCart)(viewMode: helpers.ECopyListView)(bookmarkedCopys: Set[Long])
 
 @scripts = {
-   <script src="@routes.Assets.at("javascripts/dvdList.js")" type="text/javascript"></script>
+
+  @general.jsI18n("headline.lendCopy","btn.lend","headline.unlendCopy","btn.unlend","headline.deleteCopy","btn.delete")
+
+  <script src="@routes.Assets.at("javascripts/dvdList.js")" type="text/javascript"></script>
 }
 
-@mainmenu(Messages.apply("headline.listCopies"),scripts) {
+@mainmenu(Messages("headline.listCopies"),scripts) {
 
   @dashboard.searchform(dvdListForm)
 
@@ -15,7 +18,7 @@
   }
 
   @if(dvdPage.page.getTotalRowCount == 0) {
-    <div class="alert alert-info">@Messages.apply("msg.info.noCopiesFound")</div>
+    <div class="alert alert-info">@Messages("msg.info.noCopiesFound")</div>
   } else {
   <div class="row" id="copyListContainer">
     @dashboard.listviews.listviewsWrapper(dvdPage,username,shoppingCart,bookmarkedCopys,viewMode);
