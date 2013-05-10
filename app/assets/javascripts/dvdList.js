@@ -22,6 +22,7 @@ $(function() {
         Holder.run();
       }
     );
+    return false;
   });
 	
 	/**
@@ -29,8 +30,16 @@ $(function() {
 	 */
 	// open the info dialog when the user clicks on the info button
 	$(document).on('click','.coverwrapper em, .coverwrapper_small em, a.displayCopy',function(event){
+
+
+    var copyId = $(this).data('dvdId');
+
+    // testing style
+    window.location = jsRoutes.controllers.Dashboard.displayCopyOnPage(copyId).absoluteURL(appIsInHttps);
+    return;
+
 		displayAjaxDialog({
-			route: jsRoutes.controllers.Dashboard.displayDvd($(this).data('dvdId')),
+			route: jsRoutes.controllers.Dashboard.displayDvd(copyId),
         	title: 'Is set from the displaydvdSacla',
         	cssClass:	'dvdInfoModal',
           onClose: function() {

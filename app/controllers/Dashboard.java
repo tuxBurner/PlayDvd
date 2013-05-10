@@ -23,6 +23,7 @@ import play.mvc.Results;
 import play.mvc.Security;
 import views.html.dashboard.deletedvd;
 import views.html.dashboard.displaydvd;
+import views.html.dashboard.displaydvdPopup;
 import views.html.dashboard.lendform;
 import views.html.dashboard.unlendform;
 
@@ -37,22 +38,50 @@ import java.util.Map;
 public class Dashboard extends Controller {
 
   /**
-   * Display the dvd and its informations
+   * Display the dvd and its informations in a popup
    *
    * @param dvdId
    * @return
    */
   @JSRoute
   public static Result displayDvd(final Long dvdId) {
-    final Dvd dvd = Dvd.find.byId(dvdId);
+    return getInfoDvd(dvdId,true);
+  }
+
+
+  /**
+   * Display the dvd and its informations on a pag
+   * @param dvdId
+   * @return
+   */
+  @JSRoute
+  public static Result displayCopyOnPage(final Long dvdId) {
+    return getInfoDvd(dvdId,false);
+  }
+
+  /**
+   * Gets the {@link InfoDvd} for the given id
+   *
+   * @param copyId
+   * @return
+   */
+  private static Status getInfoDvd(final Long copyId, final boolean popup) {
+    final Dvd dvd = Dvd.find.byId(copyId);
 
     if (dvd == null) {
-      return Results.badRequest("Dvd with the given Id was not found");
+      if(Logger.isErrorEnabled() == true) {
+        Logger.error("Could not find copy with id: "+copyId);
+      }
+      return Results.badRequest("Copy with the given id was not found");
     }
 
     final InfoDvd infoDvd = new InfoDvd(dvd);
 
-    return Results.ok(displaydvd.render(infoDvd, Controller.request().username()));
+    if(popup == true) {
+      return Results.ok(displaydvdPopup.render(infoDvd, Controller.request().username()));
+    } else {
+      return Results.ok(displaydvd.render(infoDvd, Controller.request().username()));
+    }
   }
 
   /**
@@ -267,25 +296,25 @@ public class Dashboard extends Controller {
 
     final String gravatarEmail = (userByName == null) ? "" : userByName.email;
 
-    final String etag = ETagHelper.getEtag(ECacheObjectName.GRAVATAR_IMAGES + gravatarEmail);
+    final String etag = ETagHelper.getEtag(ECacheObjectName.GRAVATAR_IMAGES + gravatarEmail+size);
     final String nonMatch = request().getHeader(IF_NONE_MATCH);
     if(etag != null && etag.equals(nonMatch) == true) {
       return status(304);
     }
 
-    byte[] gravatarBytes = CacheHelper.getObject(ECacheObjectName.GRAVATAR_IMAGES,gravatarEmail);
+    byte[] gravatarBytes = CacheHelper.getObject(ECacheObjectName.GRAVATAR_IMAGES,gravatarEmail+size);
     if(gravatarBytes == null) {
       final Gravatar gravatar = new Gravatar();
       gravatar.setSize(size);
       gravatar.setRating(GravatarRating.GENERAL_AUDIENCES);
       gravatar.setDefaultImage(GravatarDefaultImage.GRAVATAR_ICON);
       gravatarBytes = gravatar.download(gravatarEmail);
-      CacheHelper.setObject(ECacheObjectName.GRAVATAR_IMAGES,gravatarEmail,gravatarBytes);
-      ETagHelper.removeEtag(ECacheObjectName.GRAVATAR_IMAGES + gravatarEmail);
-      ETagHelper.createEtag(ECacheObjectName.GRAVATAR_IMAGES + gravatarEmail, gravatarBytes);
+      CacheHelper.setObject(ECacheObjectName.GRAVATAR_IMAGES,gravatarEmail+size,gravatarBytes);
+      ETagHelper.removeEtag(ECacheObjectName.GRAVATAR_IMAGES + gravatarEmail+size);
+      ETagHelper.createEtag(ECacheObjectName.GRAVATAR_IMAGES + gravatarEmail+size, gravatarBytes);
     }
 
-    response().setHeader(ETAG,ETagHelper.getEtag(ECacheObjectName.GRAVATAR_IMAGES + gravatarEmail));
+    response().setHeader(ETAG,ETagHelper.getEtag(ECacheObjectName.GRAVATAR_IMAGES + gravatarEmail+size));
     Controller.response().setContentType("image/png");
     return Results.ok(gravatarBytes);
 

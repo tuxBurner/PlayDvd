@@ -49,7 +49,8 @@ GET     /gravatar/:userName                controllers.Dashboard.gravatar(size: 
 
 
 # Display the Dvd
-GET     /showdvd/:dvdId              controllers.Dashboard.displayDvd(dvdId: Long)
+GET     /showdvdPopup/:dvdId              controllers.Dashboard.displayDvd(dvdId: Long)
+GET     /showdvd/:dvdId                   controllers.Dashboard.displayCopyOnPage(dvdId: Long)
 
 # Lend DVD
 GET     /lendDvd/:dvdId              controllers.Dashboard.lendDialogContent(dvdId: Long)
