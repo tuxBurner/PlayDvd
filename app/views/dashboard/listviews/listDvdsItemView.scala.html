@@ -1,6 +1,6 @@
 @(dvdPage: DvdPage,username: String,shoppingCart: objects.shoppingcart.CacheShoppingCart, bookmarkedCopys: Set[Long])
 @import helpers.EImageSize
-<ul class="itemList thumbnails">
+<ul class="copyItemList">
   @for(dvd <- dvdPage.list) {
     <li class="span2 coverwrapper_small_li">
       <div class="coverwrapper_small">
