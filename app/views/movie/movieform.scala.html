@@ -6,8 +6,8 @@
 
 
 @form(routes.MovieController.addOrEditMovie(mode),'enctype -> "multipart/form-data",'class -> "well",'id -> "movieForm", 'mode -> mode) {
-  <fieldset>
-    <legend>@if(mode == DvdController.DVD_FORM_EDIT_MODE) { @Messages("headline.editMovie") } else { @Messages("headline.addMovie") }</legend>
+  <div class="span12">
+    <h4>@if(mode == DvdController.DVD_FORM_EDIT_MODE) { @Messages("headline.editMovie") } else { @Messages("headline.addMovie") }</h4>
      
     @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
       <input type="hidden" name="movieId" id="movieId" value="@movieForm("movieId").value"/>
@@ -68,5 +68,5 @@
 
     @movie.movieformBtns(mode)
 
-  </fieldset>
+  </div>
 }

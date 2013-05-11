@@ -41,6 +41,7 @@
 
 @mainmenu(Messages.apply("headline.displayCopy",dvd.title),scripts) {
 <div class="row displayCopyWrapper">
+ <div class="span12">
 
   <div class="well row">
 
@@ -188,6 +189,7 @@
   @dashboard.displaysubdvd(dvd.collectionDvds, dvd, Messages.apply("lbl.collection"),dvd.dvdForm.collection,username)
   
   @dashboard.displaysubdvd(dvd.seriesDvd, dvd, Messages.apply("lbl.movieSeries")+" "+dvd.movieForm.series,dvd.dvdForm.collection,username)
+  </div>
 </div>
 }
 

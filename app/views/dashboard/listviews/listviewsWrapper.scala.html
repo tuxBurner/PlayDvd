@@ -1,26 +1,31 @@
 @(dvdPage: DvdPage,username: String,shoppingCart: objects.shoppingcart.CacheShoppingCart,bookmarkedCopys: Set[Long],viewMode: helpers.ECopyListView)
 @import helpers.ECopyListView
 
-<div class="alert alert-info">
-  @Messages.apply("lbl.displayFromTo",dvdPage.page.getDisplayXtoYofZ(" "+Messages.apply("lbl.to")+" "," "+Messages.apply("lbl.of")+" "))
+<div class="row">
+  <div class="span12">
+    <div class="alert alert-info">
+      @Messages.apply("lbl.displayFromTo",dvdPage.page.getDisplayXtoYofZ(" "+Messages.apply("lbl.to")+" "," "+Messages.apply("lbl.of")+" "))
+    </div>
+  </div>
 </div>
 
 
-@dashboard.dvdlistnav(dvdPage,viewMode)
+@dashboard.dvdlistnav(dvdPage)
 
 <div class="row">
+  <div class="span12">
+    @if(viewMode == ECopyListView.COVERVIEW) {
+      @dashboard.listviews.listDvdsCoverView(dvdPage,username,shoppingCart,bookmarkedCopys)
+    }
 
-  @if(viewMode == ECopyListView.COVERVIEW) {
-    @dashboard.listviews.listDvdsCoverView(dvdPage,username,shoppingCart,bookmarkedCopys)
-  }
+    @if(viewMode == ECopyListView.SMALLCOVERVIEW) {
+      @dashboard.listviews.listDvdsItemView(dvdPage,username,shoppingCart,bookmarkedCopys)
+    }
 
-  @if(viewMode == ECopyListView.SMALLCOVERVIEW) {
-    @dashboard.listviews.listDvdsItemView(dvdPage,username,shoppingCart,bookmarkedCopys)
-  }
-
-  @if(viewMode == ECopyListView.TABLEVIEW) {
-    @dashboard.listviews.listDvdsTableView(dvdPage,username,shoppingCart,bookmarkedCopys)
-  }
+    @if(viewMode == ECopyListView.TABLEVIEW) {
+      @dashboard.listviews.listDvdsTableView(dvdPage,username,shoppingCart,bookmarkedCopys)
+    }
+  </div>
 </div>
 
 @dashboard.dvdlistnav(dvdPage)

@@ -1,17 +1,8 @@
-@(dvdPage: DvdPage, viewMode: helpers.ECopyListView = null)
-@import helpers.ECopyListView
+@(dvdPage: DvdPage)
 
-
-<div class="row">
-  @if(viewMode != null) {
-    <div class="btn-group switchView">
-      @for(viewType <- ECopyListView.values()) {
-        <a class="btn btn-small @if(viewMode == viewType){active}" href="@routes.ListDvdsController.changeViewMode(viewType.name())"><i class="@viewType.icon"></i></a>
-      }
-    </div>
-  }
-
-  @if(dvdPage.page.getTotalPageCount > 1) {
+@if(dvdPage.page.getTotalPageCount > 1) {
+  <div class="row">
+    <div class="span12">
     <div class="pagination pagination-small pull-right">
       <ul>
         <li  @if(dvdPage.page.hasPrev == false) { class="disabled" }><a @if(dvdPage.page.hasPrev == true) {class="copyNavLink" href="#" data-idx="@(dvdPage.page.getPageIndex-1)" }>@Messages.apply("lbl.prev")</a></li>
@@ -27,5 +18,7 @@
         <li @if(dvdPage.page.hasNext == false) { class="disabled" }><a @if(dvdPage.page.hasNext == true) { class="copyNavLink" href="#" data-idx="@(dvdPage.page.getPageIndex+1)"}>@Messages.apply("lbl.next")</a></li>
       </ul>
     </div>
-  }
-</div>
+    </div>
+  </div>
+}
+

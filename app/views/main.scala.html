@@ -8,15 +8,12 @@
     <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
     <link rel="stylesheet" href="@routes.WebJarAssets.at("bootstrap/2.3.1/css/bootstrap.min.css")">
     <link rel="stylesheet" href="@routes.WebJarAssets.at("font-awesome/3.0.2/css/font-awesome.min.css")">
-
     @styles
-
     <link rel="stylesheet" href="@routes.WebJarAssets.at("select2/3.3.1/select2.css")" />
     <link rel="stylesheet"  href="@routes.Assets.at("stylesheets/main.min.css")">
     <link rel="stylesheet"  href="@routes.Assets.at("stylesheets/animate.min.css")">
   </head>
   <body>
-
 
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
@@ -27,36 +24,34 @@
             <span class="icon-bar"></span>
           </a>
           <a class="brand" href="@routes.ListDvdsController.listAlldvds">Play Dvd</a>
-         
           @menuContent
-          
         </div>
       </div>
     </div>
   
     
     <div class="container">
-      @content
+      <div class="row">
+        <div class="span12">
+          @content
+        </div>
+      </div>
     </div>
  
     <!-- Modal -->
-   <div id="modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-      <h3 id="modalLabel"></h3>
+    <div id="modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="modalLabel"></h3>
+      </div>
+      <div class="modal-body">
+        <p></p>
+      </div>
+      <div class="modal-footer"></div>
     </div>
-    <div class="modal-body">
-      <p></p>
-    </div>
-    <div class="modal-footer">
-      
-    </div>
-  </div>
     
-      
-    
-  <!-- WAIT DIALOG -->
 
+    <!-- WAIT DIALOG -->
     <div id="pleaseWaitDialog" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="pleaseWaitDialogLbl" aria-hidden="true">
       <div class="modal-header">
         <h3 id="pleaseWaitDialogLbl">@Messages("headline.pleasWait")</h3>
@@ -69,22 +64,14 @@
     <script src="@routes.WebJarAssets.at("jquery/1.9.1/jquery.min.js")" type="text/javascript"></script>
     <script src="@routes.Assets.at("jquerypp/1.0b2/lib/jquery.form_params.js")" type="text/javascript"></script>
     <script src="@routes.WebJarAssets.at("bootstrap/2.3.1/js/bootstrap.min.js")" type="text/javascript"></script>
-
-    
-    <!-- select 2 is needed  -->
     @*TOOKED OUT IS BROKEN *@
     @*<script src="@routes.WebJarAssets.at("select2/3.3.1/select2.min.js")" type="text/javascript"></script>*@
     <script src="@routes.Assets.at("javascripts/select2.min.js")" type="text/javascript"></script>
-
     <script src="@routes.Assets.at("javascripts/holder.js")" type="text/javascript"></script>
-        
     <!-- we need all the routes for js -->
     <script src="@routes.Application.jsRoutes" type="text/javascript"></script>
-
     <!-- self implemented stuff we need on the page -->
     <script src="@routes.Assets.at("javascripts/main.js")" type="text/javascript"></script>
-
-    
-    @scripts    
+    @scripts
   </body>
 </html>

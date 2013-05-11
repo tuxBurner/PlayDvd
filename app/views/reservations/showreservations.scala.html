@@ -13,10 +13,7 @@
 
 @mainmenu(Messages("lbl.reservations"),scripts) {
 
-  <div class="row well">
-
-    <fieldset>
-      <legend><i class="icon-list"></i> @Messages("lbl.reservations")</legend>
+  @general.displayList("lbl.reservations","icon-list") {
 
           @if(MapUtils.isEmpty(reservations)) {
             <div class="alert alert-info">
@@ -73,8 +70,6 @@
             </div>
           </div>
 
-    </fieldset>
-
-  </div>
+          }
   }
 }

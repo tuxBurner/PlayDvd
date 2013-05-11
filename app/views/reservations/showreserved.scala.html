@@ -11,10 +11,8 @@
 }
 
 @mainmenu(Messages("lbl.reservedCopies"),scripts) {
-  <div class="row well">
 
-    <fieldset>
-      <legend><i class="icon-list"></i> @Messages("lbl.reservedCopies")</legend>
+  @general.displayList("lbl.reservedCopies","icon-list") {
 
       @if(CollectionUtils.isEmpty(reservedCopies) == true) {
         <div class="alert alert-info">
@@ -40,7 +38,5 @@
           </tbody>
         </table>
       }
-
-    </fieldset>
-  </div>
+  }
 }

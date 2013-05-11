@@ -3,42 +3,31 @@
 
 @mainmenu(Messages("headline.bookmars")) {
 
-  @if(flash.contains("success")) {
-    <div class="alert alert-success">
-      @flash.get("success")
-    </div>
-  }
+  @general.displayList("headline.bookmars","icon-bookmark") {
 
-  <div class="row well">
-
-    <fieldset>
-      <legend><i class="icon-bookmark"></i> @Messages("headline.bookmars")</legend>
-
-      @if(CollectionUtils.isEmpty(bookmarks) == true) {
-        <div class="alert alert-info">
-          @Messages("msg.info.noBookmarks")
-        </div>
-      } else {
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>@Messages("lbl.copy")</th>
-              <th>@Messages("lbl.date")</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            @for(bookmark <-bookmarks) {
+        @if(CollectionUtils.isEmpty(bookmarks) == true) {
+          <div class="alert alert-info">
+            @Messages("msg.info.noBookmarks")
+          </div>
+        } else {
+          <table class="table table-hover">
+            <thead>
               <tr>
-                <td>@general.displayitem(bookmark.copy,true)</td>
-                <td>@{new Date(bookmark.date).format(Messages("dateFormatHour"))}</td>
-                <td><a href="@routes.BookmarksController.removeBookmark(bookmark.id)" class="btn btn-danger" ><i class="icon-trash"></i></a></td>
+                <th>@Messages("lbl.copy")</th>
+                <th>@Messages("lbl.date")</th>
+                <th></th>
               </tr>
-            }
-          </tbody>
-        </table>
-      }
-
-    </fieldset>
-  </div>
+            </thead>
+            <tbody>
+              @for(bookmark <-bookmarks) {
+                <tr>
+                  <td>@general.displayitem(bookmark.copy,true)</td>
+                  <td>@{new Date(bookmark.date).format(Messages("dateFormatHour"))}</td>
+                  <td><a href="@routes.BookmarksController.removeBookmark(bookmark.id)" class="btn btn-danger" ><i class="icon-trash"></i></a></td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        }
+  }
 }

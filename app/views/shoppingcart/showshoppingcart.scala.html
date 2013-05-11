@@ -5,12 +5,9 @@
 
 @mainmenu(Messages.apply("lbl.shoppingcart")) {
 
+  @general.displayList("lbl.shoppingcart","icon-shopping-cart") {
 
-  <div class="row">
-    @form(routes.ShoppingCartController.checkoutShoppingCart(), 'class -> "well") {
-
-    <fieldset>
-      <legend><i class="icon-shopping-cart"></i> @Messages.apply("lbl.shoppingcart")</legend>
+    @form(routes.ShoppingCartController.checkoutShoppingCart()) {
 
       @if(shoppingCart.getSize == 0) {
         <div class="alert alert-info">
@@ -34,8 +31,8 @@
         </div>
       }
 
-    </fieldset>
     }
-  </div>
+
+  }
 }
 

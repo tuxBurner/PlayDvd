@@ -10,10 +10,8 @@
 }
 
 @mainmenu(Messages("lbl.borrowedCopies"),scripts) {
-  <div class="row well">
 
-    <fieldset>
-      <legend><i class="icon-list"></i> @Messages("lbl.borrowedCopies")</legend>
+  @general.displayList("lbl.borrowedCopies","icon-list") {
 
       @if(CollectionUtils.isEmpty(borrowedCopies) == true) {
         <div class="alert alert-info">
@@ -37,7 +35,5 @@
           </tbody>
         </table>
       }
-
-    </fieldset>
-  </div>
+  }
 }

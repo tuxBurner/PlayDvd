@@ -32,12 +32,15 @@
 
 @mainmenu(Messages("headline."+mode+"Copy"),scripts,Html("")) {
 
+  <div class="row">
+    <div class="span12">
+
   @form(routes.DvdController.addDvd(mode)) {
   <div class="row" id="dvdFormWrapper">
 
        <div class="span5 well">
-         <fieldset>
-           <legend>@if(mode == DvdController.DVD_FORM_EDIT_MODE) {<i class="icon-edit"></i> @Messages("headline.editCopy")} else {<i class="icon-plus"></i> @Messages("headline.addCopy")} </legend>
+
+           <h4>@if(mode == DvdController.DVD_FORM_EDIT_MODE) {<i class="icon-edit"></i> @Messages("headline.editCopy")} else {<i class="icon-plus"></i> @Messages("headline.addCopy")} </h4>
 
            @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
              <input type="hidden" name="dvdId" id="dvdId" value="@dvdForm("dvdId").value"/>
@@ -97,25 +100,25 @@
              }
              <a class="btn" href="@routes.ListDvdsController.listdvds(null)"><i class="icon-arrow-left"></i> @Messages("btn.back")</a>
            </div>
-         </fieldset>
+
 
        </div>
        <div  class="span6 well">
-         <fieldset>
-           <legend>@Messages("lbl.pickMovie")</legend>
+           <h4>@Messages("lbl.pickMovie")</h4>
            @inputText(dvdForm("movieId"),'_label -> Messages("lbl.existingMovie") , '_showConstraints -> true, 'class-> "span6", 'placeholder -> Messages("lbl.enterMovieName"))
            <button class="btn btn-inverse" id="newMovieInfos" type="button"><i class="icon-film"></i> @Messages("btn.newMovie")</button>
            <button class="btn btn-info" id="editMovieInfos" style="display: none;" type="button"><i class="icon-edit"></i> @Messages("btn.editMovie")</button>
-         </fieldset>
-
        </div>
 
    </div>
   }
 
+      </div>
+    </div>
+
      
   <!-- NEW MOVIE WRAPPER -->
-  <div class="row" id="newMovieFormWrapper">
-  
+  <div class="row">
+    <div span="12" id="newMovieFormWrapper"></div>
   </div>
 }

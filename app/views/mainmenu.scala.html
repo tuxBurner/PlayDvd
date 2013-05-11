@@ -1,9 +1,18 @@
 @(title: String,scripts: Html = Html(""),styles: Html = Html(""))(content: Html)
+@import helpers.ECopyListView
 
 @import helper._
 
 @menuContent = {
   <div class="pull-right">
+
+    @defining(ListDvdsController.getCurrentViewMode) { viewMode =>
+      <div class="btn-group">
+        @for(viewType <- ECopyListView.values()) {
+          <a class="btn btn-small @if(viewMode == viewType){active}" href="@routes.ListDvdsController.changeViewMode(viewType.name())"><i class="@viewType.icon"></i></a>
+        }
+      </div>
+    }
 
     @reservations.menureservationbtn(CopyReservation.getReservationsCount,CopyReservation.getReservedCount,Dvd.getLentDvdsCount,Dvd.getBorrowedDvdsCount)
 
@@ -41,15 +50,19 @@
       @ShoppingCartController.getShoppingCartMenuContent
 
       <li><a href="@routes.BookmarksController.listBookmarks()"><i class="icon-bookmark"></i>(@Bookmark.getBookmarkCopyIdsForUser.size())</a></li>
-      
-      @form(routes.ListDvdsController.searchDvd,'class -> "navbar-search pull-left") {
-          <i class="icon-search"></i>
-          <input type="text" name="searchFor" class="search-query span2">
-      }
+
+
     </ul>
   </div>
 }
 
 @main(title,menuContent,scripts,styles) {
+
+  @if(flash.contains("success")) {
+    <div class="alert alert-success">
+    @flash.get("success")
+    </div>
+  }
+
   @content
 }

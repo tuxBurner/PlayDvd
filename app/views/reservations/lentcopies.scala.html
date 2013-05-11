@@ -7,10 +7,8 @@
 }
 
 @mainmenu(Messages("lbl.lentCopies"),scripts) {
-<div class="row well">
 
-  <fieldset>
-    <legend><i class="icon-list"></i> @Messages("lbl.lentCopies")</legend>
+  @general.displayList("lbl.lentCopies","icon-list") {
 
     @if(MapUtils.isEmpty(lentCopies)) {
     <div class="alert alert-info">
@@ -64,8 +62,5 @@
             </div>
           </div>
     }
-
-    </fieldset>
-
-  </div>
+  }
 }

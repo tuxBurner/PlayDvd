@@ -11,17 +11,13 @@
 
   @dashboard.searchform(dvdListForm)
 
-  @if(flash.contains("success")) {
-    <div class="alert alert-success">
-      @flash.get("success")
-    </div>
-  }
-
   @if(dvdPage.page.getTotalRowCount == 0) {
     <div class="alert alert-info">@Messages("msg.info.noCopiesFound")</div>
   } else {
-  <div class="row" id="copyListContainer">
-    @dashboard.listviews.listviewsWrapper(dvdPage,username,shoppingCart,bookmarkedCopys,viewMode);
+  <div class="row">
+    <div class="span12"  id="copyListContainer">
+      @dashboard.listviews.listviewsWrapper(dvdPage,username,shoppingCart,bookmarkedCopys,viewMode)
+    </div>
   </div>
   
   }

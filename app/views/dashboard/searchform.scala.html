@@ -17,6 +17,7 @@
 
 
 <div class="row searchFormRow">
+  <div class="span12">
 
      @form(routes.ListDvdsController.applySearchForm(), 'class -> "form-inline well  searchFormWrapper") {
 
@@ -58,8 +59,9 @@
          <input type="checkbox" name="lendDvd" id="searchCopyLend"   value="true" @if(dvdSearchForm("lendDvd").value() == "true") { checked="checked" }/>
          <i class="icon-share"></i> Lent
        </label>
-      </div>
        *@
+      </div>
 
      }
+   </div>
 </div>

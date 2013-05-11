@@ -1,0 +1,10 @@
+@(headlineKey: String, headlineIcon: String)(content: Html)
+<div class="row">
+  <div class="span12">
+    <div class="well">
+      <h4><i class="@headlineIcon"></i> @Messages(headlineKey)</h4>
+
+      @content
+    </div>
+  </div>
+</div>
