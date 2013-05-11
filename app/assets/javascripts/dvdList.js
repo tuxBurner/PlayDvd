@@ -13,15 +13,7 @@ $(function() {
    * Clicking on a link in the navbar
    */
   $(document).on('click','.copyNavLink',function() {
-    pAjax(
-      jsRoutes.controllers.ListDvdsController.listCopiesJS(),
-      {"pageNr" : $(this).data('idx')},
-      function(data) {
-        $('#copyListContainer').html(data);
-        $('.tooltipo').tooltip();
-        Holder.run();
-      }
-    );
+    navToPage($(this).data('idx'));
     return false;
   });
 	
@@ -260,3 +252,19 @@ var addComment = function(movieId) {
 
   }
 }
+
+/**
+ * Loads the list page for the given idx and replaces the current one
+ * @param idx
+ */
+var navToPage = function(idx) {
+  pAjax(
+    jsRoutes.controllers.ListDvdsController.listCopiesJS(),
+    {"pageNr" : idx},
+    function(data) {
+      $('#copyListContainer').html(data);
+      $('.tooltipo').tooltip();
+      Holder.run();
+    }
+  );
+};

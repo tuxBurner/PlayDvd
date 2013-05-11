@@ -1,10 +1,28 @@
 @(dvdPage: DvdPage)(dvdListForm: Form[forms.dvd.DvdSearchFrom])(username: String)(shoppingCart: objects.shoppingcart.CacheShoppingCart)(viewMode: helpers.ECopyListView)(bookmarkedCopys: Set[Long])
 
 @scripts = {
-
   @general.jsI18n("headline.lendCopy","btn.lend","headline.unlendCopy","btn.unlend","headline.deleteCopy","btn.delete")
-
   <script src="@routes.Assets.at("javascripts/dvdList.js")" type="text/javascript"></script>
+
+  @if(dvdPage.page.getTotalRowCount > 0) {
+    <script src="@routes.Assets.at("javascripts/jquery.hammer.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+      $(document).hammer().on("swipeleft", function(event) {
+        var hasNext = $('#navInfos').data("hasnext");
+        if(hasNext == true) {
+          var idx = $('#navInfos').data("curridx");
+          navToPage(idx+1);
+        }
+      });
+      $(document).hammer().on("swiperight", function(event) {
+        var hasNext = $('#navInfos').data("hasprev");
+        if(hasNext == true) {
+          var idx = $('#navInfos').data("curridx");
+          navToPage(idx-1);
+        }
+      });
+    </script>
+  }
 }
 
 @mainmenu(Messages("headline.listCopies"),scripts) {
