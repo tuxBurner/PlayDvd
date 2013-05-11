@@ -1,7 +1,7 @@
 @(bookmarks: List[Bookmark])
 @import org.apache.commons.collections.CollectionUtils
 
-@mainmenu("Marked copies to view") {
+@mainmenu(Messages("headline.bookmars")) {
 
   @if(flash.contains("success")) {
     <div class="alert alert-success">
@@ -12,18 +12,18 @@
   <div class="row well">
 
     <fieldset>
-      <legend><i class="icon-bookmark"></i> Bookmarked copies</legend>
+      <legend><i class="icon-bookmark"></i> @Messages("headline.bookmars")</legend>
 
       @if(CollectionUtils.isEmpty(bookmarks) == true) {
-        <div class="alert">
-          You don't have any bookmarked copies.
+        <div class="alert alert-info">
+          @Messages("msg.info.noBookmarks")
         </div>
       } else {
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>Copy</th>
-              <th>Date</th>
+              <th>@Messages("lbl.copy")</th>
+              <th>@Messages("lbl.date")</th>
               <th></th>
             </tr>
           </thead>
@@ -31,7 +31,7 @@
             @for(bookmark <-bookmarks) {
               <tr>
                 <td>@general.displayitem(bookmark.copy,true)</td>
-                <td>@{new Date(bookmark.date)}</td>
+                <td>@{new Date(bookmark.date).format(Messages("dateFormatHour"))}</td>
                 <td><a href="@routes.BookmarksController.removeBookmark(bookmark.id)" class="btn btn-danger" ><i class="icon-trash"></i></a></td>
               </tr>
             }

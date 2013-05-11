@@ -19,8 +19,14 @@ headline.grabberMovieInfo=Movieinfo from online source
 headline.movieAlreadyExists=Movie already exists in the Database
 headline.barcodeScanner=Barcodescanner
 headline.amazonGrabber=Lookup copyinfo on amazon
+headline.removeReservations=Remove reservations
+headline.lendReservations=Lend reservations
+headline.removeReservation=Remove reservation
+headline.unlendCopies=Unlend Copies
+headline.bookmars=Bookmarked Copies
 
 dateFormat=dd.MM.YYYY
+dateFormatHour=dd.MM.YYYY HH:mm
 
 btn.password=Password
 btn.register=Register
@@ -124,6 +130,11 @@ lbl.movieAlreadyExists=The movie {0} already exists in the Database, do you want
 lbl.searchAmazon=Search Amazon for EAN or ASIN
 lbl.foundCopyInfo=Found copyinfo
 lbl.moviesMatching=Movies matching in the database
+lbl.copy=Copy
+lbl.date=Date
+lbl.removeReservations=Remove selected reservations ?
+lbl.lendSelectedReservations=Lend selected reservations ?
+lbl.unlendCopies=Unlend selected copies ?
 
 msg.error.noUsername=Username is needed
 msg.error.noPassword=Password is needed
@@ -143,10 +154,17 @@ msg.success.login=Welcome to  PlayDvd: {0}
 msg.success.logout=You've been logged out
 msg.success.passwordChanged=Password is reseted
 msg.success.profileUpdated=Your profile has been updated
+msg.success.bookmarkRemoved=Bookmark for copy: {0} was removed
+msg.success.bookmarkAdded=Copy: {0} is bookmarked
 
 msg.info.noCopiesFound=No copies found
 msg.info.emptyShoppingcart=No copies in the shoppingcart found
 msg.info.barcodeWait=Wait 1 second
+msg.info.noReservations=No reservations found
+msg.info.noReserved=You don't have any reserved copies
+msg.info.noLendCopies=You don't have any lend copies
+msg.info.noBorrowedCopies=You don't have any copies borrowed
+msg.info.noBookmarks=You don't have any bookmarked copies
 
 email.passwordreset.content=Hello {0}\nYou requested to reset the password for the PlayDvd database please click the link to reset the password:\n\n {1}
 email.passwordreset.subject=Password reset for PlayDvd

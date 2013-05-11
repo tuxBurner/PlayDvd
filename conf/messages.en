@@ -19,8 +19,14 @@ headline.grabberMovieInfo=Filminfo von Onlinequelle
 headline.movieAlreadyExists=Film existiert schon
 headline.barcodeScanner=Barcodescanner
 headline.amazonGrabber=Suche Kopieinformationen auf Amazon
+headline.removeReservations=Reservierung entfernen
+headline.lendReservations=Reservierungen verleihen
+headline.removeReservation=Reservierung entfernen
+headline.unlendCopies=Kopien zurück
+headline.bookmars=Vorgemerkte Kopien
 
 dateFormat=dd.MM.YYYY
+dateFormatHour=dd.MM.YYYY HH:mm
 
 btn.password=Passwort
 btn.register=Registrieren
@@ -124,6 +130,11 @@ lbl.movieAlreadyExists=Der Film {0} existiert schon in der Datenbank, trotzdem h
 lbl.searchAmazon=Suche Amazon nach EAN oder ASIN
 lbl.foundCopyInfo=Kopieinfo gefunden
 lbl.moviesMatching=Filme passend in der Datenbank
+lbl.copy=Kopie
+lbl.date=Datum
+lbl.removeReservations=Sollen die ausgewählten Reservierungen entfernt werden ?
+lbl.lendSelectedReservations=Sollen die ausgewählten Reservierungen verliehen werden?
+lbl.unlendCopies=Ausgewählte Kopien zurück ?
 
 msg.error.noUsername=Benutzername ist Pflicht
 msg.error.noPassword=Passwort ist Pflicht
@@ -143,10 +154,17 @@ msg.success.login=Willkommen zu PlayDvd: {0}
 msg.success.logout=Erfolgreich abgemeldet
 msg.success.passwordChanged=Passwort zurückgesetzt.
 msg.success.profileUpdated=Dein Profile wurde bearbeited.
+msg.success.bookmarkRemoved=Vorgemerkte Kopie: {0} wurde entfernt
+msg.success.bookmarkAdded=Kopie: {0} ist vorgemerkt
 
 msg.info.noCopiesFound=Keine Kopien gefunden
 msg.info.emptyShoppingcart=Keine Kopien im Einkaufswagen gefunden
 msg.info.barcodeWait=Warte 1 Sekunde
+msg.info.noReservations=Keine Reservierungen gefunden
+msg.info.noReserved=Du hast keine Kopien reserviert
+msg.info.noLendCopies=Du hast keine verliehenen Kopien
+msg.info.noBorrowedCopies=Du hast Dir keine Kopien ausgeliehen
+msg.info.noBookmarks=Du hast keine vorgemerkten Kopien
 
 email.passwordreset.content=Hallo {0}\nfür PlayDvd kannst Du das Passwort zurücksetzen, wenn Du folgenden Link aufrufst:\n\n {1}
 email.passwordreset.subject=Passwort zurücksetzen für PlayDvd

@@ -115,11 +115,11 @@ var deleteReservations = function(borrowerId) {
   }
 
   displayDialog({
-    title: '<i class="icon-trash"></i> Remove reservations',
+    title: '<i class="icon-trash"></i> '+ Messages('headline.removeReservations'),
     closeButton: true,
-    content: 'Remove selected reservations ?',
+    content: Messages('lbl.removeReservations'),
     buttons : {
-      "Delete" : {
+      "btn.delete" : {
         icon: 'icon-trash',
         cssClass: 'btn-danger',
         callback: function()  {
@@ -142,11 +142,11 @@ var borrowReservations = function(borrowerId) {
   }
 
   displayDialog({
-    title: '<i class="icon-share"></i> Borrow reservations',
+    title: '<i class="icon-share"></i> '+Messages('headline.lendReservations'),
     closeButton: true,
-    content: 'Borrow selected reservations ?',
+    content: Messages('lbl.lendSelectedReservations'),
     buttons : {
-      "Borrow" : {
+      "btn.lend" : {
         icon: 'icon-share',
         cssClass: 'btn-warning',
         callback: function()  {
@@ -169,11 +169,11 @@ var unlentCopies = function(borrowerId) {
   }
 
   displayDialog({
-    title: '<i class="icon-download"></i> Unlent copies',
+    title: '<i class="icon-download"></i> '+Messages('headline.unlendCopies'),
     closeButton: true,
-    content: 'Unlent selected copies ?',
+    content: Messages('lbl.unlendCopies'),
     buttons : {
-      "Unlent" : {
+      "btn.unlend" : {
         icon: 'icon-download',
         cssClass: 'btn-warning',
         callback: function()  {
@@ -204,11 +204,11 @@ var getIdsAsCommaString = function(borrowerId,idPrefix) {
  */
 var removeReserved = function(reservationId) {
   displayDialog({
-    title: 'Remove reservation ?',
+    title: Messages('headline.removeReservation'),
     closeButton: true,
-    content: 'Remove reservation ? <br />'+$('#ownReservation'+reservationId+' .media').html(),
+    content: $('#ownReservation'+reservationId+' .media').html(),
     buttons : {
-      "Ok" : {
+      "btn.delete" : {
         icon: 'icon-trash',
         cssClass: 'btn-danger',
         callback: function()  {

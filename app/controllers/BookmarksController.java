@@ -3,6 +3,7 @@ package controllers;
 import helpers.CacheHelper;
 import helpers.ECacheObjectName;
 import models.Bookmark;
+import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
@@ -44,7 +45,8 @@ public class BookmarksController extends Controller {
       return badRequest();
     }
 
-    Controller.flash("success","Copy: "+ bookmark.copy.movie.title+" was bookmarked.");
+    final String msg = Messages.get("msg.success.bookmarkAdded",bookmark.copy.movie.title);
+    Controller.flash("success",msg);
 
     CacheHelper.removeSessionObj(ECacheObjectName.BOOKMARKS);
 
@@ -60,7 +62,8 @@ public class BookmarksController extends Controller {
 
     String title = Bookmark.removeBookmark(bookmarkId);
 
-    Controller.flash("success","Bookmark for copy: "+title+" was removed");
+    final String msg = Messages.get("msg.success.bookmarkRemoved",title);
+    Controller.flash("success",msg);
 
     CacheHelper.removeSessionObj(ECacheObjectName.BOOKMARKS);
 
