@@ -7,7 +7,9 @@ import com.timgroup.jgravatar.GravatarRating;
 import forms.ExternalImageForm;
 import forms.LendForm;
 import forms.UnLendForm;
+import forms.dvd.DvdSearchFrom;
 import forms.dvd.objects.InfoDvd;
+import forms.dvd.objects.PrevNextCopies;
 import helpers.*;
 import jsannotation.JSRoute;
 import models.CopyReservation;
@@ -75,12 +77,16 @@ public class Dashboard extends Controller {
       return Results.badRequest("Copy with the given id was not found");
     }
 
+
     final InfoDvd infoDvd = new InfoDvd(dvd);
 
+    final DvdSearchFrom currentSearchForm = DvdSearchFrom.getCurrentSearchForm();
+    final PrevNextCopies nextAndPrev = Dvd.getNextAndPrev(dvd, currentSearchForm);
+
     if(popup == true) {
-      return Results.ok(displaydvdPopup.render(infoDvd, Controller.request().username()));
+      return Results.ok(displaydvdPopup.render(infoDvd, Secured.getUsername()));
     } else {
-      return Results.ok(displaydvd.render(infoDvd, Controller.request().username()));
+      return Results.ok(displaydvd.render(infoDvd, Secured.getUsername(),nextAndPrev));
     }
   }
 

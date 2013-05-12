@@ -1,11 +1,27 @@
-@(dvd: forms.dvd.objects.InfoDvd)(username: String)
+@(dvd: forms.dvd.objects.InfoDvd,username: String, prevNext: forms.dvd.objects.PrevNextCopies)
 @import org.apache.commons.collections.CollectionUtils
 @import org.apache.commons.lang.StringUtils
 @import helpers.EImageSize
 
 @scripts = {
-  <script type="text/javascript">
 
+  @if(prevNext.next != null || prevNext.prev != null) {
+    <script src="@routes.Assets.at("javascripts/jquery.hammer.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+      @if(prevNext.next != null) {
+        $(document).hammer().on("swipeleft", function(event) {
+          window.location = jsRoutes.controllers.Dashboard.displayCopyOnPage(@prevNext.next.id).absoluteURL(appIsInHttps);
+        });
+      }
+      @if(prevNext.prev != null) {
+        $(document).hammer().on("swiperight", function(event) {
+          window.location = jsRoutes.controllers.Dashboard.displayCopyOnPage(@prevNext.prev.id).absoluteURL(appIsInHttps);
+        });
+      }
+    </script>
+  }
+
+  <script type="text/javascript">
     @if(dvd.movieForm.hasBackdrop != null && dvd.movieForm.hasBackdrop == true) {
       $('body').css('background-image',"url('@routes.Dashboard.streamImage(dvd.movieForm.movieId,"BACKDROP","BACKCKDROP_POPUP_SIZE")')");
     }
@@ -42,6 +58,27 @@
 @mainmenu(Messages.apply("headline.displayCopy",dvd.title),scripts) {
 <div class="row displayCopyWrapper">
  <div class="span12">
+
+   @if(prevNext.next != null || prevNext.prev != null) {
+     <div class="well row">
+       <div class="span6">
+         @if(prevNext.prev != null) {
+           <a href="@routes.Dashboard.displayCopyOnPage(prevNext.prev.id)">
+             @general.displayposter(prevNext.prev.id,prevNext.prev.hasPoster,EImageSize.TINY)
+             @prevNext.prev.title
+           </a>
+         }
+       </div>
+       <div class="span5">
+         @if(prevNext.next != null) {
+           <a class="pull-right" href="@routes.Dashboard.displayCopyOnPage(prevNext.next.id)">
+             @general.displayposter(prevNext.next.id,prevNext.next.hasPoster,EImageSize.TINY)
+             @prevNext.next.title
+           </a>
+         }
+       </div>
+     </div>
+   }
 
   <div class="well row">
 

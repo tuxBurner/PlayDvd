@@ -1,14 +1,13 @@
 package models;
 
-import com.avaje.ebean.Ebean;
-import com.avaje.ebean.ExpressionList;
-import com.avaje.ebean.Page;
+import com.avaje.ebean.*;
 import com.avaje.ebean.Query;
 import com.typesafe.config.ConfigFactory;
 import forms.dvd.DvdForm;
 import forms.dvd.DvdSearchFrom;
 import forms.dvd.objects.EDvdListOrderBy;
 import forms.dvd.objects.EDvdListOrderHow;
+import forms.dvd.objects.PrevNextCopies;
 import helpers.ConfigurationHelper;
 import helpers.ECopyListView;
 import org.apache.commons.collections.CollectionUtils;
@@ -221,6 +220,19 @@ public class Dvd extends Model {
    * @return
    */
   public static Page<Dvd> getDvdsBySearchForm(final DvdSearchFrom searchFrom, Integer itemsPerPage) {
+
+    final ExpressionList<Dvd> where = buildExpressionFromSearchFrom(searchFrom);
+
+
+    return Dvd.getByDefaultPaging(where, searchFrom.currentPage, searchFrom.orderBy, searchFrom.orderHow, itemsPerPage);
+  }
+
+  /**
+   * Creates the {@link ExpressionList} from the given {@link DvdSearchFrom}
+  * @param searchFrom
+   * @return
+   */
+  private final static ExpressionList<Dvd> buildExpressionFromSearchFrom(final DvdSearchFrom searchFrom) {
     final ExpressionList<Dvd> where = Dvd.find.where();
 
     if (StringUtils.isEmpty(searchFrom.searchFor) == false) {
@@ -274,7 +286,103 @@ public class Dvd extends Model {
       where.eq("movie.hasToBeReviewed", true);
     }
 
-    return Dvd.getByDefaultPaging(where, searchFrom.currentPage, searchFrom.orderBy, searchFrom.orderHow, itemsPerPage);
+    return where;
+  }
+
+
+  /**
+   * Retrieves the {@link Dvd} is below or before the current {@link Dvd}
+   *
+   * @param dvd
+   * @param searchFrom
+   * @return
+   */
+  public static PrevNextCopies getNextAndPrev(final Dvd dvd, final DvdSearchFrom searchFrom) {
+
+    final EDvdListOrderHow orderHow = searchFrom.orderHow;
+    final EDvdListOrderBy orderBy = searchFrom.orderBy;
+
+
+    Object orderDvdVal = null;
+
+    switch(orderBy) {
+      case DATE:
+        orderDvdVal = dvd.createdDate;
+        break;
+      case MOVIE_TITLE:
+        orderDvdVal = dvd.movie.title;
+        break;
+    }
+
+    if(orderDvdVal == null) {
+      if(Logger.isErrorEnabled() == true) {
+        Logger.error("The value for ordering is null");
+      }
+      return new PrevNextCopies(null,null);
+    }
+
+    // now lets make the order for the prev
+    final Dvd prevCopy = getPrev(searchFrom,orderDvdVal);
+    final Dvd nextCopy = getNext(searchFrom,orderDvdVal);
+
+    return new PrevNextCopies(prevCopy,nextCopy);
+  }
+
+  /**
+   * Gets the previous {@link Dvd} according to the current {@link DvdSearchFrom}
+   * @param searchFrom
+   * @param orderDvdVal
+   * @return
+   */
+  private static  Dvd getPrev(final DvdSearchFrom searchFrom, final Object orderDvdVal) {
+    final EDvdListOrderBy orderBy = searchFrom.orderBy;
+    final EDvdListOrderHow orderHow = searchFrom.orderHow;
+
+    final ExpressionList<Dvd> prev = buildExpressionFromSearchFrom(searchFrom);
+
+    // decide which to take
+    if(EDvdListOrderHow.UP.equals(orderHow)) {
+      prev.lt(orderBy.dbField, orderDvdVal);
+    } else {
+      prev.gt(orderBy.dbField, orderDvdVal);
+    }
+
+    final PagingList<Dvd> prevPagingList = prev.orderBy(orderBy.dbField + " " + orderHow.dbOrder).findPagingList(1);
+    final int totalRowCount = prevPagingList.getTotalRowCount();
+    Dvd prevCopy = null;
+    if(totalRowCount > 0) {
+      final Page<Dvd> prevPage = prevPagingList.getPage(totalRowCount-1);
+      final List<Dvd> prevList = prevPage.getList();
+      prevCopy = (prevList.size() == 1) ? prevList.get(0) : null;
+    }
+
+    return prevCopy;
+  }
+
+  /**
+   * Gets the next {@link Dvd} according to the current {@link DvdSearchFrom}
+   * @param searchFrom
+   * @param orderDvdVal
+   * @return
+   */
+  private static Dvd getNext(final DvdSearchFrom searchFrom, final Object orderDvdVal) {
+
+    final EDvdListOrderBy orderBy = searchFrom.orderBy;
+    final EDvdListOrderHow orderHow = searchFrom.orderHow;
+    final ExpressionList<Dvd> next = buildExpressionFromSearchFrom(searchFrom);
+
+    // decide which to take
+    if(EDvdListOrderHow.UP.equals(orderHow)) {
+      next.gt(orderBy.dbField, orderDvdVal);
+    } else {
+      next.lt(orderBy.dbField, orderDvdVal);
+    }
+
+    final Page<Dvd> nextPage = next.orderBy(orderBy.dbField + " " + orderHow.dbOrder).findPagingList(1).getPage(0);
+    final List<Dvd> nextList = nextPage.getList();
+    final Dvd nextCopy = (nextList.size() == 1) ? nextList.get(0) : null;
+
+    return nextCopy;
   }
 
   /**
