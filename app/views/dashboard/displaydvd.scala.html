@@ -4,7 +4,6 @@
 @import helpers.EImageSize
 
 @scripts = {
-
   @if(prevNext.next != null || prevNext.prev != null) {
     <script src="@routes.Assets.at("javascripts/jquery.hammer.js")" type="text/javascript"></script>
     <script type="text/javascript">
@@ -22,10 +21,6 @@
   }
 
   <script type="text/javascript">
-    @if(dvd.movieForm.hasBackdrop != null && dvd.movieForm.hasBackdrop == true) {
-      $('body').css('background-image',"url('@routes.Dashboard.streamImage(dvd.movieForm.movieId,"BACKDROP","BACKCKDROP_POPUP_SIZE")')");
-    }
-
     $(function() {
 
       $('.tooltipo').tooltip();
@@ -55,7 +50,17 @@
   </script>
 }
 
-@mainmenu(Messages.apply("headline.displayCopy",dvd.title),scripts) {
+@styles = {
+  @if(dvd.movieForm.hasBackdrop != null && dvd.movieForm.hasBackdrop == true) {
+    <style type="text/css">
+      body {
+        background-image: url('@routes.Dashboard.streamImage(dvd.movieForm.movieId,"BACKDROP","BACKCKDROP_POPUP_SIZE")') !important;
+      }
+    </style>
+  }
+}
+
+@mainmenu(Messages.apply("headline.displayCopy",dvd.title),scripts,styles) {
 <div class="row displayCopyWrapper">
  <div class="span12">
 
