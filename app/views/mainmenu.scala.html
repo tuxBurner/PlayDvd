@@ -25,6 +25,10 @@
     <ul class="dropdown-menu">
       <li><a href="@routes.UserProfileController.showProfile()"><i class="icon-user"></i> @Messages.apply("lbl.profile")</a></li>
       <li class="divider"></li>
+      @for((langCode,langName) <- LanguageController.getLanguages) {
+        <li><a href="@routes.LanguageController.changeLanguage(langCode)"><i class="icon-signout"></i> @langName</a></li>
+      }
+      <li class="divider"></li>
       <li><a href="@routes.RegisterLoginController.logout"><i class="icon-signout"></i> @Messages.apply("lbl.logout")</a></li>
     </ul>
     </div>

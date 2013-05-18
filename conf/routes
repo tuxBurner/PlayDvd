@@ -109,6 +109,10 @@ GET  /bookmark/add/:copyId                 controllers.BookmarksController.bookm
 GET  /bookmark                             controllers.BookmarksController.listBookmarks()
 GET  /bookmark/delete/:bookmarkId          controllers.BookmarksController.removeBookmark(bookmarkId: Long)
 
+# language
+GET /language/:code                        controllers.LanguageController.changeLanguage(code: String)
+
+
 # Grabbers 
 GET    /grabber/search                          controllers.InfoGrabberController.searchGrabber(searchTerm = "", grabberType =  "TMDB")
 GET    /grabber/:grabberType/search/:searchTerm controllers.InfoGrabberController.searchGrabber(searchTerm: String, grabberType:  String)
