@@ -1,28 +1,25 @@
 package helpers;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Iterator;
-import java.util.List;
-
 import com.amazonaws.services.s3.model.*;
+import com.typesafe.config.ConfigFactory;
 import models.MovieImage;
 import net.coobird.thumbnailator.Thumbnails;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.io.filefilter.PrefixFileFilter;
 import org.apache.commons.lang.StringUtils;
-
-import com.typesafe.config.ConfigFactory;
 import play.Logger;
 import plugins.s3.S3Plugin;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Iterator;
+import java.util.List;
 
 public class ImageHelper {
 
