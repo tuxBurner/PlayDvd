@@ -1,4 +1,4 @@
-package jsannotation;
+package plugins.jsannotation;
 
 import controllers.routes;
 import org.reflections.Reflections;
@@ -13,7 +13,6 @@ import play.api.Play;
 import play.core.Router;
 import play.mvc.Controller;
 import play.mvc.Results;
-import scala.Option;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

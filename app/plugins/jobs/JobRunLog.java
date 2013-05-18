@@ -1,4 +1,4 @@
-package jobs;
+package plugins.jobs;
 
 /**
  * This is returned from a job when it was running

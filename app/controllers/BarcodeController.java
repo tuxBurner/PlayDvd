@@ -7,7 +7,7 @@ import com.google.zxing.NotFoundException;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.oned.EAN13Reader;
 import helpers.BufferedImageLuminanceSource;
-import jsannotation.JSRoute;
+import plugins.jsannotation.JSRoute;
 import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 import play.libs.F;
@@ -17,11 +17,9 @@ import play.mvc.Security;
 import play.mvc.WebSocket;
 import views.html.barcode.barcodescanner;
 
-import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 

@@ -11,7 +11,7 @@ import forms.dvd.DvdSearchFrom;
 import forms.dvd.objects.InfoDvd;
 import forms.dvd.objects.PrevNextCopies;
 import helpers.*;
-import jsannotation.JSRoute;
+import plugins.jsannotation.JSRoute;
 import models.CopyReservation;
 import models.Dvd;
 import models.User;

@@ -36,7 +36,9 @@ object ApplicationBuild extends Build {
       "org.webjars" % "select2" % "3.3.1",
       "org.webjars" % "font-awesome" % "3.0.2",
 
-      "com.github.julienrf" %% "play-jsmessages" % "1.4.2-SNAPSHOT"
+      "com.github.julienrf" %% "play-jsmessages" % "1.4.2-SNAPSHOT",
+
+      "com.amazonaws" % "aws-java-sdk" % "1.4.3"
     )
 
 

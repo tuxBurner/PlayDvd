@@ -1,4 +1,4 @@
-package jobs;
+package plugins.jobs;
 
 import java.util.Date;
 

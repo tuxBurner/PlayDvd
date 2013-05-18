@@ -1,6 +1,6 @@
 package controllers;
 
-import jsannotation.JSRoute;
+import plugins.jsannotation.JSRoute;
 import models.Commentable;
 import models.Movie;
 import play.data.DynamicForm;

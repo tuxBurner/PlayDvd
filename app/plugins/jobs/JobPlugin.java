@@ -1,4 +1,4 @@
-package jobs;
+package plugins.jobs;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -37,9 +37,9 @@ public class JobPlugin extends Plugin {
 
 
     // find all classes which are annotated with AkkaJob and which are located
-    // in the jobs classpath
+    // in the plugins.jobs classpath
 
-    Reflections reflections = ReflectionsCache.getReflections(application.classloader(), "jobs");
+    Reflections reflections = ReflectionsCache.getReflections(application.classloader(), "plugins/jobs");
     Set<Class<?>> classes = reflections.getTypesAnnotatedWith(AkkaJob.class);
 
     for (final Class clazz : classes) {

@@ -7,7 +7,7 @@ import grabbers.EGrabberType;
 import grabbers.GrabberException;
 import grabbers.IInfoGrabber;
 import helpers.RequestToCollectionHelper;
-import jsannotation.JSRoute;
+import plugins.jsannotation.JSRoute;
 import models.EMovieAttributeType;
 import models.Movie;
 import models.MovieAttribute;

@@ -2,7 +2,7 @@ package controllers;
 
 import helpers.CacheHelper;
 import helpers.ECacheObjectName;
-import jsannotation.JSRoute;
+import plugins.jsannotation.JSRoute;
 import models.CopyReservation;
 import models.Dvd;
 import objects.shoppingcart.CacheShoppingCart;

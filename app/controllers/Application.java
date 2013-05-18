@@ -1,7 +1,6 @@
 package controllers;
 
-import jsannotation.JSRoutesPlugin;
-import jsmessages.JsMessages;
+import plugins.jsannotation.JSRoutesPlugin;
 import org.apache.commons.lang.ArrayUtils;
 import play.mvc.Controller;
 import play.mvc.Result;
