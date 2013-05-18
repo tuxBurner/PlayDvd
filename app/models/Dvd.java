@@ -2,14 +2,11 @@ package models;
 
 import com.avaje.ebean.*;
 import com.avaje.ebean.Query;
-import com.typesafe.config.ConfigFactory;
 import forms.dvd.DvdForm;
 import forms.dvd.DvdSearchFrom;
 import forms.dvd.objects.EDvdListOrderBy;
 import forms.dvd.objects.EDvdListOrderHow;
 import forms.dvd.objects.PrevNextCopies;
-import helpers.ConfigurationHelper;
-import helpers.ECopyListView;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
@@ -145,7 +142,7 @@ public class Dvd extends Model {
    */
   private static Dvd createOrUpdateFromForm(final DvdForm dvdForm, final Dvd dvd) throws Exception {
 
-    final Movie movie = Movie.find.byId(dvdForm.movieId);
+    final Movie movie = Movie.finder.byId(dvdForm.movieId);
 
     if (movie == null) {
       final String message = "No movie by the id: " + dvdForm.movieId + " found.";

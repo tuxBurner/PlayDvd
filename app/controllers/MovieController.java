@@ -53,7 +53,7 @@ public class MovieController extends Controller {
   @JSRoute
   public static Result showEditMovieForm(final Long movieId) {
 
-    final Movie movie = Movie.find.byId(movieId);
+    final Movie movie = Movie.finder.byId(movieId);
 
     if (movie == null) {
       final String message = "No Movie found to edit under the id: " + movieId;

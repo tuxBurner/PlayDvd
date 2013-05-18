@@ -1,8 +1,6 @@
 package models;
 
-import com.avaje.ebean.ExpressionList;
 import grabbers.EGrabberType;
-import helpers.EImageSize;
 import helpers.EImageType;
 import helpers.ImageHelper;
 
@@ -84,7 +82,7 @@ public class Movie extends Model {
   /**
    * The finder for the database for searching in the database
    */
-  public static Finder<Long, Movie> find = new Finder<Long, Movie>(Long.class, Movie.class);
+  public static Finder<Long, Movie> finder = new Finder<Long, Movie>(Long.class, Movie.class);
 
   /**
    * This creates a movie from the information of the given {@link forms.dvd.DvdForm}
@@ -98,7 +96,7 @@ public class Movie extends Model {
     Movie movie = null;
 
     if (movieForm.movieId != null) {
-      movie = Movie.find.byId(movieForm.movieId);
+      movie = Movie.finder.byId(movieForm.movieId);
       if (movie == null) {
         final String message = "No Movie by the id: " + movieForm.movieId + " found !";
         Logger.error(message);
@@ -133,12 +131,12 @@ public class Movie extends Model {
     }
 
     // add the images if we have some :)
-    final Boolean newPoster = ImageHelper.createFileFromUrl(movie.id, movieForm.posterUrl, EImageType.POSTER, EImageSize.ORIGINAL);
+    final Boolean newPoster = ImageHelper.createFileFromUrl(movie.id, movieForm.posterUrl, EImageType.POSTER);
     if (movie.hasPoster == false || movie.hasPoster == null) {
       movie.hasPoster = newPoster;
     }
 
-    final Boolean newBackDrop = ImageHelper.createFileFromUrl(movie.id, movieForm.backDropUrl, EImageType.BACKDROP, EImageSize.ORIGINAL);
+    final Boolean newBackDrop = ImageHelper.createFileFromUrl(movie.id, movieForm.backDropUrl, EImageType.BACKDROP);
     if (movie.hasBackdrop == false || movie.hasBackdrop == null) {
       movie.hasBackdrop = newBackDrop;
     }
@@ -187,7 +185,7 @@ public class Movie extends Model {
    */
   @Transactional
   public static List<Movie> searchLike(final String term, final int numberOfResults) {
-    final Query<Movie> order = Movie.find.where().ilike("title", "%" + term + "%").select("id ,title, hasPoster").order("title asc");
+    final Query<Movie> order = Movie.finder.where().ilike("title", "%" + term + "%").select("id ,title, hasPoster").order("title asc");
     if (numberOfResults <= 0) {
       return order.findList();
     } else {
@@ -234,7 +232,7 @@ public class Movie extends Model {
       return false;
     }
 
-    int rowCount = Movie.find.where().eq("grabberId", grabberId).eq("grabberType", grabberType).findRowCount();
+    int rowCount = Movie.finder.where().eq("grabberId", grabberId).eq("grabberType", grabberType).findRowCount();
     return rowCount > 0;
   }
 

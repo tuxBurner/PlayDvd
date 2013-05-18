@@ -179,7 +179,7 @@ public class DvdController extends Controller {
       return badRequest();
     }
 
-    Movie movie = Movie.find.byId(movieId);
+    Movie movie = Movie.finder.byId(movieId);
     if (movie == null) {
       if (Logger.isDebugEnabled() == true) {
         Logger.error("Error adding dvd with movie: " + movieId);

@@ -5,7 +5,6 @@ import controllers.MovieSelect2Value;
 import grabbers.amazon.AmazonResult;
 import models.Dvd;
 import models.DvdAttribute;
-import models.EDvdAttributeType;
 import models.Movie;
 import org.apache.commons.lang.StringUtils;
 import play.data.validation.Constraints;
@@ -165,7 +164,7 @@ public class DvdForm {
       return gson.toJson(null);
     }
 
-    final Movie byId = Movie.find.select("id, hasPoster,title").where().eq("id", movieId).findUnique();
+    final Movie byId = Movie.finder.select("id, hasPoster,title").where().eq("id", movieId).findUnique();
 
     return gson.toJson(new MovieSelect2Value(byId));
   }

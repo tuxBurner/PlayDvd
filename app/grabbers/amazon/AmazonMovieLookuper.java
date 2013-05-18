@@ -99,10 +99,10 @@ public class AmazonMovieLookuper {
    * @return
    */
   private static AmazonResult searchByID(final String id,Map<String,String> params) {
-    String awsEndPoint = ConfigFactory.load().getString("dvddb.amazon.endpoint");
+    String awsEndPoint = ConfigFactory.load().getString("dvddb.amazon.endPoint");
     if(StringUtils.isEmpty(awsEndPoint) == true) {
       if(Logger.isErrorEnabled() == true) {
-        Logger.error("No AWS endpoint set in the configuration.");
+        Logger.error("No AWS endPoint set in the configuration.");
       }
       return null;
     }

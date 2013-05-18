@@ -93,7 +93,7 @@ public class SignedRequestsHelper {
       String awsSecretKey
   ) throws IllegalArgumentException, UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
     if (null == endpoint || endpoint.length() == 0) {
-      throw new IllegalArgumentException("endpoint is null or empty");
+      throw new IllegalArgumentException("endPoint is null or empty");
     }
     if (null == awsAccessKeyId || awsAccessKeyId.length() == 0) {
       throw new IllegalArgumentException("awsAccessKeyId is null or empty");
