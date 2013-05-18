@@ -89,7 +89,7 @@ public class Global extends GlobalSettings {
         final EImageSize size = EImageSize.valueOf(split[2]);
 
         final boolean exists = MovieImage.checkForImage(movieId, size, type);
-        if(exists == false) {
+        if(exists == false && EImageSize.ORIGINAL.equals(size) == true) {
           MovieImage.createMovieImage(movieId,size,type, EImageStoreType.S3);
         } else {
           final MovieImage movieImage = MovieImage.getForMovie(movieId, size, type);
