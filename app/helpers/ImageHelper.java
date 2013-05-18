@@ -102,6 +102,8 @@ public class ImageHelper {
           }
           S3Plugin.amazonS3.deleteObject(S3Plugin.s3Bucket, s3ObjectSummary.getKey());
         }
+
+        MovieImage.deleteForMovie(movieId);
       }
 
       tempFile = File.createTempFile("play", "tmp");
@@ -160,6 +162,7 @@ public class ImageHelper {
           }
           FileUtils.deleteQuietly(subFile);
         }
+        MovieImage.deleteForMovie(movieId);
       }
 
       FileUtils.copyInputStreamToFile(is,file);
