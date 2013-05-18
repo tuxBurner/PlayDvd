@@ -36,7 +36,7 @@ object ApplicationBuild extends Build {
       "org.webjars" % "select2" % "3.3.1",
       "org.webjars" % "font-awesome" % "3.0.2",
 
-      "com.github.julienrf" %% "play-jsmessages" % "1.4.2-SNAPSHOT",
+      "com.github.julienrf" %% "play-jsmessages" % "1.4.3",
 
       "com.amazonaws" % "aws-java-sdk" % "1.4.3"
     )
@@ -44,9 +44,8 @@ object ApplicationBuild extends Build {
 
     val main = play.Project(appName, appVersion, appDependencies).settings(
       resolvers += ("Local Maven Repository" at "file://"+Path.userHome.absolutePath+"/.m2/repository"),
-      resolvers += ("webjars" at "http://webjars.github.com/m2")
-
-      //resolvers += "julienrf.github.com" at "http://julienrf.github.com/repo/"
+      resolvers += ("webjars" at "http://webjars.github.com/m2"),
+      resolvers += "tuxburner.github.io" at "http://tuxburner.github.io/repo"
     )
     
 }
