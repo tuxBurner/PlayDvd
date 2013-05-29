@@ -11,11 +11,11 @@ import forms.dvd.DvdSearchFrom;
 import forms.dvd.objects.InfoDvd;
 import forms.dvd.objects.PrevNextCopies;
 import helpers.*;
-import plugins.jsannotation.JSRoute;
 import models.CopyReservation;
 import models.Dvd;
 import models.User;
 import net.coobird.thumbnailator.Thumbnails;
+import objects.shoppingcart.CacheShoppingCart;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.Form;
@@ -23,12 +23,9 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
+import plugins.jsannotation.JSRoute;
 import plugins.s3.S3Plugin;
-import views.html.dashboard.deletedvd;
-import views.html.dashboard.displaydvd;
-import views.html.dashboard.displaydvdPopup;
-import views.html.dashboard.lendform;
-import views.html.dashboard.unlendform;
+import views.html.dashboard.*;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -36,6 +33,7 @@ import java.io.*;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Security.Authenticated(Secured.class)
 public class Dashboard extends Controller {
@@ -85,10 +83,14 @@ public class Dashboard extends Controller {
     final DvdSearchFrom currentSearchForm = DvdSearchFrom.getCurrentSearchForm();
     final PrevNextCopies nextAndPrev = Dvd.getNextAndPrev(dvd, currentSearchForm);
 
+    final CacheShoppingCart shoppingCartFromCache = ShoppingCartController.getShoppingCartFromCache();
+    final Set<Long> bookmarkedCopyIds = BookmarksController.getBookmarkedCopyIds();
+
+
     if (popup == true) {
       return Results.ok(displaydvdPopup.render(infoDvd, Secured.getUsername()));
     } else {
-      return Results.ok(displaydvd.render(infoDvd, Secured.getUsername(), nextAndPrev));
+      return Results.ok(displaydvd.render(infoDvd, Secured.getUsername(), nextAndPrev,shoppingCartFromCache,bookmarkedCopyIds));
     }
   }
 

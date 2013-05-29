@@ -1,0 +1,26 @@
+@(copyId: Long, userOwnsCopy: Boolean, copyIsLent: Boolean , userBorrowedCopy: Boolean ,shoppingCart: objects.shoppingcart.CacheShoppingCart, bookmarkedCopys: Set[Long])
+<div class="btn-group dvdBtnGrp">
+  @if(userOwnsCopy) {
+    @if(copyIsLent) {
+      <a class="btn btn-inverse lendDvdBtn btn-mini" href="#" data-dvd-id="@copyId"><i class="icon-share"></i></a>
+    } else {
+      <a class="btn btn-inverse unlendDvdBtn btn-mini" href="#" data-dvd-id="@copyId"><i class="icon-download"></i></a>
+    }
+
+    @if(bookmarkedCopys.contains(copyId) == false) {
+      <a class="btn btn-inverse btn-mini" href="@routes.BookmarksController.bookmarkCopy(copyId)"><i class="icon-bookmark"></i></a>
+    } else {
+      <a class="btn btn-inverse btn-mini" href="#"><i class="icon-bookmark-empty"></i></a>
+    }
+
+
+    <a class="btn btn-inverse btn-mini" href="@routes.DvdController.showEditDvd(copyId)"><i class="icon-edit"></i></a>
+    <a class="btn btn-inverse deleteDvdBtn btn-mini" href="#" data-dvd-id="@copyId"><i class="icon-trash"></i></a>
+  } else {
+    @if(userBorrowedCopy) {
+    } else {
+      <a @if(shoppingCart.isInShoppingCart(copyId) == true) {style="display: none;"} class="btn btn-inverse btn-mini addToCartBtn" href="#" data-dvd-id="@copyId" ><i class="icon-shopping-cart"> <i class="icon-plus-sign"></i></i></a>
+      <a @if(shoppingCart.isInShoppingCart(copyId) == false) {style="display: none;"} class="btn btn-mini btn-danger remFromCartBtn" href="#" data-dvd-id="@copyId" ><i class="icon-shopping-cart"></i> <i class="icon-remove-sign"></i></a>
+    }
+  }
+</div>

@@ -1,4 +1,4 @@
-@(dvd: forms.dvd.objects.InfoDvd,username: String, prevNext: forms.dvd.objects.PrevNextCopies)
+@(dvd: forms.dvd.objects.InfoDvd,username: String, prevNext: forms.dvd.objects.PrevNextCopies,shoppingCart: objects.shoppingcart.CacheShoppingCart, bookmarkedCopys: Set[Long])
 @import org.apache.commons.collections.CollectionUtils
 @import org.apache.commons.lang.StringUtils
 @import helpers.EImageSize
@@ -125,6 +125,11 @@
             <dt class="span4">@Messages.apply("lbl.hullNr"):</dt>
             <dd><a href="@routes.ListDvdsController.searchDvd?searchFor=@models.Dvd.HULL_NR_SEARCH @dvd.dvdForm.hullNr">@dvd.dvdForm.hullNr</a></dd>
           }
+
+          <dt>Actions</dt>
+          <dd>
+          @general.copyButtons(dvd.dvdForm.dvdId,(dvd.dvdForm.ownerName == username), (dvd.borrowedOn != null),(username == dvd.borrowedBy), shoppingCart, bookmarkedCopys)
+          </dd>
 
         </dl>
 
