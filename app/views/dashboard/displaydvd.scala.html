@@ -4,6 +4,9 @@
 @import helpers.EImageSize
 
 @scripts = {
+  @general.jsI18n("headline.lendCopy","btn.lend","headline.unlendCopy","btn.unlend","headline.deleteCopy","btn.delete")
+  <script src="@routes.Assets.at("javascripts/copyButtons.js")" type="text/javascript"></script>
+
   @if(prevNext.next != null || prevNext.prev != null) {
     <script src="@routes.Assets.at("javascripts/jquery.hammer.js")" type="text/javascript"></script>
     <script type="text/javascript">
@@ -128,7 +131,7 @@
 
           <dt>Actions</dt>
           <dd>
-          @general.copyButtons(dvd.dvdForm.dvdId,(dvd.dvdForm.ownerName == username), (dvd.borrowedOn != null),(username == dvd.borrowedBy), shoppingCart, bookmarkedCopys)
+          @general.copyButtons(dvd.dvdForm.dvdId,(dvd.dvdForm.ownerName == username), (dvd.borrowedOn == null),(username == dvd.borrowedBy), shoppingCart, bookmarkedCopys)
           </dd>
 
         </dl>
