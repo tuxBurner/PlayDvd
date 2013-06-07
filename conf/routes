@@ -109,6 +109,9 @@ GET  /bookmark/add/:copyId                 controllers.BookmarksController.bookm
 GET  /bookmark                             controllers.BookmarksController.listBookmarks()
 GET  /bookmark/delete/:bookmarkId          controllers.BookmarksController.removeBookmark(bookmarkId: Long)
 
+#MarkAsViewed
+GET /viewedcopies/mark/:copyId             controllers.ViewedCopyController.markCopyAsViewedDialog(copyId: Long)
+
 # language
 GET /language/:code                        controllers.LanguageController.changeLanguage(code: String)
 

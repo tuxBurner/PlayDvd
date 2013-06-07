@@ -1,5 +1,6 @@
 @(copyId: Long, userOwnsCopy: Boolean, copyIsLent: Boolean , userBorrowedCopy: Boolean ,shoppingCart: objects.shoppingcart.CacheShoppingCart, bookmarkedCopys: Set[Long])
 <div class="btn-group dvdBtnGrp">
+  <a class="btn btn-inverse markAsViewedBtn btn-mini" href="#" data-copy-id="@copyId"><i class="icon-share"></i></a>
   @if(userOwnsCopy) {
     @if(copyIsLent) {
       <a class="btn btn-inverse lendDvdBtn btn-mini" href="#" data-dvd-id="@copyId"><i class="icon-share"></i></a>
