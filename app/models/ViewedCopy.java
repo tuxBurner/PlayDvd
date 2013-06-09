@@ -1,7 +1,6 @@
 package models;
 
 import controllers.Secured;
-import org.apache.commons.collections.CollectionUtils;
 import play.Logger;
 import play.db.ebean.Model;
 
@@ -10,9 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Here the user can mark a {@link Dvd} as viewed
@@ -99,7 +96,7 @@ public class ViewedCopy extends Model {
    */
   public static List<ViewedCopy> getCopyViewed(final Dvd copy) {
     String username = Secured.getUsername();
-    return ViewedCopy.finder.where().ieq("user.userName", username).eq("copy",copy).orderBy("date DESC").findList();
+    return ViewedCopy.finder.where().ieq("user.userName", username).eq("copy", copy).orderBy("date DESC").findList();
   }
 
   /**
@@ -109,6 +106,15 @@ public class ViewedCopy extends Model {
   public static List<ViewedCopy> getViewedCopiesForUser() {
     String username = Secured.getUsername();
     return ViewedCopy.finder.where().ieq("user.userName", username).orderBy("date DESC").findList();
+  }
+
+  /**
+   * Gets the count of viewed {@link Dvd}s off the current {@link User}
+   * @return
+   */
+  public static int getCopiesViewedCount() {
+    String username = Secured.getUsername();
+    return ViewedCopy.finder.where().ieq("user.userName", username).findRowCount();
   }
 
 }
