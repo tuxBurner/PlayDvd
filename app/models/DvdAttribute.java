@@ -143,10 +143,16 @@ public class DvdAttribute extends Model {
 
     for (final String formAttr : attributeValues) {
 
+      final String trimedFormAttr = StringUtils.trim(formAttr);
+
+      if(StringUtils.isEmpty(trimedFormAttr) == true) {
+        continue;
+      }
+
       DvdAttribute dvdAttibuteToAdd = null;
 
       for (final DvdAttribute dvdAttibute : dbAttributes) {
-        if (dvdAttibute.value.equals(formAttr) == true) {
+        if (dvdAttibute.value.equals(trimedFormAttr) == true) {
           dvdAttibuteToAdd = dvdAttibute;
           break;
         }
@@ -154,7 +160,7 @@ public class DvdAttribute extends Model {
 
       // attr does not exists in the db ? we will create it
       if (dvdAttibuteToAdd == null) {
-        dvdAttibuteToAdd = DvdAttribute.createAttribute(type, formAttr);
+        dvdAttibuteToAdd = DvdAttribute.createAttribute(type, trimedFormAttr);
       }
 
       attributes.add(dvdAttibuteToAdd);

@@ -116,14 +116,16 @@ public class MovieAttribute extends Model {
 
     for (final String formAttr : attributeValues) {
 
-      if (StringUtils.isEmpty(formAttr) == true) {
+      final String trimedFormAttr = StringUtils.trim(formAttr);
+
+      if (StringUtils.isEmpty(trimedFormAttr) == true) {
         continue;
       }
 
       MovieAttribute movieAttributeToAdd = null;
 
       for (final MovieAttribute dbAttribute : dbAttributes) {
-        if (dbAttribute.value.equals(formAttr) == true) {
+        if (dbAttribute.value.equals(trimedFormAttr) == true) {
           movieAttributeToAdd = dbAttribute;
           break;
         }
@@ -131,7 +133,7 @@ public class MovieAttribute extends Model {
 
       // attr does not exists in the db ? we will create it
       if (movieAttributeToAdd == null) {
-        movieAttributeToAdd = MovieAttribute.createAttribute(type, formAttr);
+        movieAttributeToAdd = MovieAttribute.createAttribute(type, trimedFormAttr);
       }
 
       attributes.add(movieAttributeToAdd);
