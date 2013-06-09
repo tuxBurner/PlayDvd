@@ -12,7 +12,7 @@ object ApplicationBuild extends Build {
       javaCore, javaJdbc, javaEbean,
 
       "mysql" % "mysql-connector-java" % "5.1.18",      
-      "net.coobird" % "thumbnailator" % "0.4.1",
+      "net.coobird" % "thumbnailator" % "0.4.4",
 
       "commons-io" % "commons-io" % "2.0.1",
       "commons-collections" % "commons-collections" % "3.2.1",
