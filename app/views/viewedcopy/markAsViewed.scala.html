@@ -1,15 +1,28 @@
-@(copy: Dvd)
+@(copy: Dvd, copyViewed: List[ViewedCopy],copyBookmarkedByUser: Boolean)
+@import org.apache.commons.collections.CollectionUtils
+
 
 @import helpers.EImageSize
+@Messages("headline.markAsViewed"): @general.displayposter(copy.movie.id,copy.movie.hasPoster,EImageSize.TINY) <i>@general.displayCopyTitle(copy)</i>
 
-<form class="form-horizontal">
+<input type="hidden" id="copyId" value="@copy.id" />
 
-<fieldset>
-  <legend>@Messages("headline.markCopyAsViewed"): @general.displayposter(copy.movie.id,copy.movie.hasPoster,EImageSize.TINY) <i>@general.displayCopyTitle(copy)</i></legend>
+@if(copyBookmarkedByUser == true) {
+  <label for="removeBookmarkForViewed">
+    @Messages("lbl.removeBookmarkForViewed")
+    <input name="removeBookmarkForViewed" type="checkbox" id="removeBookmarkForViewed" checked="checked"/>
+  </label>
 
-  <input type="hidden" id="lendDvdId" value="@copy.id" />
+}
 
-   @Messages("lbl.markCopyAsViewed",general.displayCopyTitle(copy));
-</fieldset>
-</form>
+@import org.apache.commons.collections.CollectionUtils
+
+@if(CollectionUtils.isEmpty(copyViewed) == false) {
+  <ul class="unstyled">
+    <li><strong>@Messages("lbl.copyAlreadyViewed",copyViewed.size)</strong></li>
+    @for(copyView <-  copyViewed) {
+      <li>@{new Date(copyView.date).format(Messages("dateFormatHour"))}</li>
+    }
+  </ul>
+}
 

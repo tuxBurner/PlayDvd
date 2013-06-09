@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.Ebean;
 import controllers.Secured;
 import helpers.CacheHelper;
 import helpers.ECacheObjectName;
@@ -133,6 +134,15 @@ public class Bookmark extends Model {
   }
 
   /**
+   * Check if the current {@link User} has bookmarked the {@link Dvd}
+   * @return
+   */
+  public static boolean isCopyBookmarkedByUser(final Dvd copy) {
+    String username = Secured.getUsername();
+    return (Bookmark.finder.where().eq("copy.owner.userName", username).eq("copy",copy).findRowCount() != 0);
+  }
+
+  /**
    * Removes the {@link Bookmark} from the list
    * @param id
    */
@@ -151,6 +161,18 @@ public class Bookmark extends Model {
     bookmarkToDelete.delete();
 
     return title;
+  }
+
+  /**
+   * Deletes all the bookmarks for the {@link Dvd} where the owner is the current {@link User}
+   * @param copy
+   */
+  public static void deletAllBookmarksForCopy(final Dvd copy) {
+    String username = Secured.getUsername();
+    final Set<Bookmark> bookmarks = Bookmark.finder.where().eq("copy.owner.userName", username).eq("copy", copy).findSet();
+    if(CollectionUtils.isEmpty(bookmarks) == false) {
+      Ebean.delete(bookmarks);
+    }
   }
 
 }

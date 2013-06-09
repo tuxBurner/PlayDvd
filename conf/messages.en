@@ -24,6 +24,8 @@ headline.lendReservations=Lend reservations
 headline.removeReservation=Remove reservation
 headline.unlendCopies=Unlend Copies
 headline.bookmars=Bookmarked Copies
+headline.markAsViewed=Mark copy as viewed
+headline.viewedCopies=Seen copies
 
 dateFormat=dd.MM.YYYY
 dateFormatHour=dd.MM.YYYY HH:mm
@@ -135,6 +137,10 @@ lbl.date=Date
 lbl.removeReservations=Remove selected reservations ?
 lbl.lendSelectedReservations=Lend selected reservations ?
 lbl.unlendCopies=Unlend selected copies ?
+lbl.copyAlreadyViewed=You have seen this copy already {0} times
+lbl.actions=Actions
+lbl.copyViewedOn=Viewed on
+lbl.removeBookmarkForViewed=Remove copy from the bookmarklist ?
 
 msg.error.noUsername=Username is needed
 msg.error.noPassword=Password is needed
@@ -165,6 +171,7 @@ msg.info.noReserved=You don't have any reserved copies
 msg.info.noLendCopies=You don't have any lend copies
 msg.info.noBorrowedCopies=You don't have any copies borrowed
 msg.info.noBookmarks=You don't have any bookmarked copies
+msg.info.noViewedCopies=You don't have any marked as viewed copies
 
 email.passwordreset.content=Hello {0}\nYou requested to reset the password for the PlayDvd database please click the link to reset the password:\n\n {1}
 email.passwordreset.subject=Password reset for PlayDvd

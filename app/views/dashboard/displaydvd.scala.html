@@ -1,10 +1,10 @@
-@(dvd: forms.dvd.objects.InfoDvd,username: String, prevNext: forms.dvd.objects.PrevNextCopies,shoppingCart: objects.shoppingcart.CacheShoppingCart, bookmarkedCopys: Set[Long])
+@(dvd: forms.dvd.objects.InfoDvd,username: String, prevNext: forms.dvd.objects.PrevNextCopies,shoppingCart: objects.shoppingcart.CacheShoppingCart, bookmarkedCopys: Set[Long], viewedCopy: List[ViewedCopy])
 @import org.apache.commons.collections.CollectionUtils
 @import org.apache.commons.lang.StringUtils
 @import helpers.EImageSize
 
 @scripts = {
-  @general.jsI18n("headline.lendCopy","btn.lend","headline.unlendCopy","btn.unlend","headline.deleteCopy","btn.delete")
+  @general.jsI18n("headline.lendCopy","btn.lend","headline.unlendCopy","btn.unlend","headline.deleteCopy","btn.delete","headline.markAsViewed","btn.ok")
   <script src="@routes.Assets.at("javascripts/copyButtons.js")" type="text/javascript"></script>
 
   @if(prevNext.next != null || prevNext.prev != null) {
@@ -129,10 +129,18 @@
             <dd><a href="@routes.ListDvdsController.searchDvd?searchFor=@models.Dvd.HULL_NR_SEARCH @dvd.dvdForm.hullNr">@dvd.dvdForm.hullNr</a></dd>
           }
 
-          <dt>Actions</dt>
-          <dd>
-          @general.copyButtons(dvd.dvdForm.dvdId,(dvd.dvdForm.ownerName == username), (dvd.borrowedOn == null),(username == dvd.borrowedBy), shoppingCart, bookmarkedCopys)
-          </dd>
+
+          @if(CollectionUtils.isEmpty(viewedCopy) == false) {
+            <dt>@Messages("lbl.copyViewedOn"):</dt>
+            @for(copyView <-  viewedCopy) {
+              <dd>@{new Date(copyView.date).format(Messages("dateFormatHour"))}</dd>
+            }
+          }
+
+          <dt>@Messages("lbl.actions")</dt>
+          <dd>@general.copyButtons(dvd.dvdForm.dvdId,(dvd.dvdForm.ownerName == username), (dvd.borrowedOn == null),(username == dvd.borrowedBy), shoppingCart, bookmarkedCopys)</dd>
+
+
 
         </dl>
 

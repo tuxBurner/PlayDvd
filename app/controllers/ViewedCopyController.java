@@ -1,7 +1,12 @@
 package controllers;
 
+import helpers.CacheHelper;
+import helpers.ECacheObjectName;
+import models.Bookmark;
 import models.Dvd;
 import models.ViewedCopy;
+import org.apache.commons.lang.BooleanUtils;
+import play.data.DynamicForm;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
@@ -9,6 +14,8 @@ import plugins.jsannotation.JSRoute;
 import views.html.viewedcopy.markAsViewed;
 
 import java.util.List;
+
+import static play.data.Form.form;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,7 +34,7 @@ public class ViewedCopyController extends Controller {
    */
   public static Result getViewedCopiesForCurrentUser() {
     final List<ViewedCopy> viewedCopiesForUser = ViewedCopy.getViewedCopiesForUser();
-    return ok();
+    return ok(views.html.viewedcopy.viewedList.render(viewedCopiesForUser));
   }
 
   /**
@@ -43,7 +50,11 @@ public class ViewedCopyController extends Controller {
       return internalServerError();
     }
 
-    return ok(markAsViewed.render(copy));
+
+    final List<ViewedCopy> copyViewed = ViewedCopy.getCopyViewed(copy);
+    final boolean copyBookmarkedByUser = Bookmark.isCopyBookmarkedByUser(copy);
+
+    return ok(markAsViewed.render(copy,copyViewed,copyBookmarkedByUser));
   }
 
 
@@ -52,11 +63,17 @@ public class ViewedCopyController extends Controller {
    * @param copyId
    * @return
    */
-  public static Result doMarkCopyAsViewed(final Long copyId) {
+  @JSRoute
+  public static Result doMarkCopyAsViewed(final Long copyId, final Boolean remBookMark) {
     final ViewedCopy viewedCopy = ViewedCopy.markCopyAsViewed(copyId);
 
     if (viewedCopy == null) {
       return internalServerError("Could not mark copy as viewed.");
+    }
+
+    if(BooleanUtils.isTrue(remBookMark)) {
+      Bookmark.deletAllBookmarksForCopy(viewedCopy.copy);
+      CacheHelper.removeSessionObj(ECacheObjectName.BOOKMARKS);
     }
 
     return ok();

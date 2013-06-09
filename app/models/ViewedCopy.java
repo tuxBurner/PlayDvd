@@ -93,6 +93,16 @@ public class ViewedCopy extends Model {
 
 
   /**
+   * Gets the list when the current {@link User} has last seen the {@link Dvd}
+   * @param copy
+   * @return
+   */
+  public static List<ViewedCopy> getCopyViewed(final Dvd copy) {
+    String username = Secured.getUsername();
+    return ViewedCopy.finder.where().ieq("user.userName", username).eq("copy",copy).orderBy("date DESC").findList();
+  }
+
+  /**
    * Gets all  {@link models.ViewedCopy} where the owner of the {@link models.Dvd} is the current {@link models.User}
    * @return
    */

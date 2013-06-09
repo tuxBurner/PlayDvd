@@ -161,3 +161,35 @@ $(document).on('click','.remFromCartBtn',function(event){
 /**
  * EO SHOPPING CART
  */
+
+/**
+ * MARK AS VIEWED
+ */
+$(document).on('click','.markAsViewedBtn',function(event){
+  displayAjaxDialog({
+    route: jsRoutes.controllers.ViewedCopyController.markCopyAsViewedDialog($(this).data('copyId')),
+    title: Messages('headline.markAsViewed'),
+    cssClass:	'smallModal',
+    closeButton: true,
+    buttons: {
+      "btn.ok" : {
+        icon: "icon-eye-open",
+        cssClass: "btn-warning",
+        callback: function() {
+          var copyId = $('#copyId').val();
+          var remFromBookMarks = $('#removeBookmarkForViewed').prop('checked');
+          pAjax(jsRoutes.controllers.ViewedCopyController.doMarkCopyAsViewed(copyId,remFromBookMarks ),null,
+            function(data){
+              closeDialog();
+              window.location.reload();
+            }, function(err) {
+              closeDialog();
+            });
+        }
+      }
+    }
+  });
+});
+/**
+ * EO AS VIEWED
+ */

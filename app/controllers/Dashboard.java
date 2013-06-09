@@ -14,6 +14,7 @@ import helpers.*;
 import models.CopyReservation;
 import models.Dvd;
 import models.User;
+import models.ViewedCopy;
 import net.coobird.thumbnailator.Thumbnails;
 import objects.shoppingcart.CacheShoppingCart;
 import org.apache.commons.lang.StringUtils;
@@ -68,9 +69,9 @@ public class Dashboard extends Controller {
    * @return
    */
   private static Status getInfoDvd(final Long copyId, final boolean popup) {
-    final Dvd dvd = Dvd.find.byId(copyId);
+    final Dvd copy = Dvd.find.byId(copyId);
 
-    if (dvd == null) {
+    if (copy == null) {
       if (Logger.isErrorEnabled() == true) {
         Logger.error("Could not find copy with id: " + copyId);
       }
@@ -78,19 +79,20 @@ public class Dashboard extends Controller {
     }
 
 
-    final InfoDvd infoDvd = new InfoDvd(dvd);
+    final InfoDvd infoDvd = new InfoDvd(copy);
 
     final DvdSearchFrom currentSearchForm = DvdSearchFrom.getCurrentSearchForm();
-    final PrevNextCopies nextAndPrev = Dvd.getNextAndPrev(dvd, currentSearchForm);
+    final PrevNextCopies nextAndPrev = Dvd.getNextAndPrev(copy, currentSearchForm);
 
     final CacheShoppingCart shoppingCartFromCache = ShoppingCartController.getShoppingCartFromCache();
     final Set<Long> bookmarkedCopyIds = BookmarksController.getBookmarkedCopyIds();
+    final List<ViewedCopy> copyViewed = ViewedCopy.getCopyViewed(copy);
 
 
     if (popup == true) {
       return Results.ok(displaydvdPopup.render(infoDvd, Secured.getUsername()));
     } else {
-      return Results.ok(displaydvd.render(infoDvd, Secured.getUsername(), nextAndPrev,shoppingCartFromCache,bookmarkedCopyIds));
+      return Results.ok(displaydvd.render(infoDvd, Secured.getUsername(), nextAndPrev,shoppingCartFromCache,bookmarkedCopyIds,copyViewed));
     }
   }
 

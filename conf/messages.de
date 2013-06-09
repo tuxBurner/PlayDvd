@@ -24,6 +24,8 @@ headline.lendReservations=Reservierungen verleihen
 headline.removeReservation=Reservierung entfernen
 headline.unlendCopies=Kopien zurück
 headline.bookmars=Vorgemerkte Kopien
+headline.markAsViewed=Kopie als gesehen markieren
+headline.viewedCopies=Gesehne Kopien
 
 dateFormat=dd.MM.YYYY
 dateFormatHour=dd.MM.YYYY HH:mm
@@ -135,6 +137,10 @@ lbl.date=Datum
 lbl.removeReservations=Sollen die ausgewählten Reservierungen entfernt werden ?
 lbl.lendSelectedReservations=Sollen die ausgewählten Reservierungen verliehen werden?
 lbl.unlendCopies=Ausgewählte Kopien zurück ?
+lbl.copyAlreadyViewed=Sie haben die Kopie schon {0} mal gesehen
+lbl.actions=Aktionen
+lbl.copyViewedOn=Gesehen am
+lbl.removeBookmarkForViewed=Soll die Kopie von den Bookmarks entfernt werden ?
 
 msg.error.noUsername=Benutzername ist Pflicht
 msg.error.noPassword=Passwort ist Pflicht
@@ -165,6 +171,7 @@ msg.info.noReserved=Du hast keine Kopien reserviert
 msg.info.noLendCopies=Du hast keine verliehenen Kopien
 msg.info.noBorrowedCopies=Du hast Dir keine Kopien ausgeliehen
 msg.info.noBookmarks=Du hast keine vorgemerkten Kopien
+msg.info.noViewedCopies=Du hast noch keine Kopiene als gesehen markiert
 
 email.passwordreset.content=Hallo {0}\nfür PlayDvd kannst Du das Passwort zurücksetzen, wenn Du folgenden Link aufrufst:\n\n {1}
 email.passwordreset.subject=Passwort zurücksetzen für PlayDvd
