@@ -1,6 +1,7 @@
 package controllers;
 
 import com.typesafe.config.ConfigFactory;
+import helpers.CacheHelper;
 import play.i18n.Lang;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -63,6 +64,33 @@ public class LanguageController extends Controller {
       languageName = languageNames[i];
     }
     return languageName.trim();
+  }
+
+  /**
+   * Gets the language flag for the lang at the position from the configuration
+   * @param i
+   * @return
+   */
+  private static String getLanguageFlagName(int i) {
+    String[] languageNames = ConfigFactory.load().getString("application.languageFlags").split(",");
+    String languageName = Lang.availables().get(i).code();
+    if (languageNames[i] != null) {
+      languageName = languageNames[i];
+    }
+    return languageName.trim();
+  }
+
+  /**
+   * Gets the language codes and names for the menue
+   * @return
+   */
+  public static Map<String, String> getLanguageFlags() {
+    Map<String, String> languages = new HashMap<String, String>();
+    final List<Lang> availables = Lang.availables();
+    for (int i = 0; i < availables.size(); i++) {
+      languages.put(availables.get(i).code(), getLanguageFlagName(i));
+    }
+    return languages;
   }
 
 
