@@ -1,7 +1,6 @@
 package controllers;
 
 import com.typesafe.config.ConfigFactory;
-import helpers.CacheHelper;
 import play.i18n.Lang;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -14,6 +13,17 @@ public class LanguageController extends Controller {
 
 
   /**
+   * Flag name for the languages
+   */
+  private static HashMap<String, String> languageFlags;
+
+
+  /**
+   * Names of the languages
+   */
+  private static HashMap<String, String> languages;
+
+  /**
    * Tries to determine default language based on users accept-languages
    *
    * @return Integer: Number of language allowed in application's conf
@@ -23,9 +33,9 @@ public class LanguageController extends Controller {
     List<Lang> accepted = request().acceptLanguages();
 
     for (Lang testLang : accepted) {
-        if (availables.contains(testLang)) {
-          return testLang;
-        }
+      if (availables.contains(testLang)) {
+        return testLang;
+      }
     }
     return ctx().lang();
   }
@@ -43,7 +53,7 @@ public class LanguageController extends Controller {
 
     final List<Lang> availables = Lang.availables();
 
-    if(availables.contains(lang) == false) {
+    if (availables.contains(lang) == false) {
       lang = getDefaultLang();
     }
 
@@ -54,6 +64,7 @@ public class LanguageController extends Controller {
 
   /**
    * Gets the language name for the lang at the position from the configuration
+   *
    * @param i
    * @return
    */
@@ -68,6 +79,7 @@ public class LanguageController extends Controller {
 
   /**
    * Gets the language flag for the lang at the position from the configuration
+   *
    * @param i
    * @return
    */
@@ -82,27 +94,33 @@ public class LanguageController extends Controller {
 
   /**
    * Gets the language codes and names for the menue
+   *
    * @return
    */
   public static Map<String, String> getLanguageFlags() {
-    Map<String, String> languages = new HashMap<String, String>();
-    final List<Lang> availables = Lang.availables();
-    for (int i = 0; i < availables.size(); i++) {
-      languages.put(availables.get(i).code(), getLanguageFlagName(i));
+    if (languageFlags == null) {
+      languageFlags = new HashMap<String, String>();
+      final List<Lang> availables = Lang.availables();
+      for (int i = 0; i < availables.size(); i++) {
+        languageFlags.put(availables.get(i).code(), getLanguageFlagName(i));
+      }
     }
-    return languages;
+    return languageFlags;
   }
 
 
   /**
    * Gets the language codes and names for the menue
+   *
    * @return
    */
   public static Map<String, String> getLanguages() {
-    Map<String, String> languages = new HashMap<String, String>();
-    final List<Lang> availables = Lang.availables();
-    for (int i = 0; i < availables.size(); i++) {
-      languages.put(availables.get(i).code(), getLanguageName(i));
+    if (languages == null) {
+      languages = new HashMap<String, String>();
+      final List<Lang> availables = Lang.availables();
+      for (int i = 0; i < availables.size(); i++) {
+        languages.put(availables.get(i).code(), getLanguageName(i));
+      }
     }
     return languages;
   }
