@@ -4,7 +4,7 @@
 
 <div>
  @if(copy.movie.hasPoster == true) {
-   <img style="float: left; margin-right: 10px;" src="@routes.RssFeedsController.getPosterImage(copy.id)?@RssSecurityAction.RSS_FEED_AUTH_PARAM=@rssAuthKey" alt="poster" />
+   <img style="float: left; margin-right: 10px;" src="@routes.RssFeedsController.getPosterImage(copy.id).absoluteURL()?@RssSecurityAction.RSS_FEED_AUTH_PARAM=@rssAuthKey" alt="poster" />
  }
 
  <div>
