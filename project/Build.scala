@@ -37,6 +37,7 @@ object ApplicationBuild extends Build {
       "org.webjars" % "jquerypp" % "1.0b2-1",
       "org.webjars" % "select2" % "3.3.1",
       "org.webjars" % "font-awesome" % "3.1.1-1",
+      "org.webjars" % "famfamfam-flags" % "0.0",
 
       "com.github.julienrf" %% "play-jsmessages" % "1.4.3",
       "com.github.tuxBurner" %% "play-jsannotations" % "1.0.0",
