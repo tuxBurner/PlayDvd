@@ -12,6 +12,7 @@
       <sourceFolder url="file://$MODULE_DIR$/../test/resources" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/../target/native_libraries" />
       <excludeFolder url="file://$MODULE_DIR$/../target/resolution-cache" />
+      <excludeFolder url="file://$MODULE_DIR$/../target/scala-2.10/api" />
       <excludeFolder url="file://$MODULE_DIR$/../target/scala-2.10/cache" />
       <excludeFolder url="file://$MODULE_DIR$/../target/scala-2.10/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../target/scala-2.10/classes_managed" />
@@ -77,10 +78,12 @@
     <orderEntry type="library" name="SBT: org.avaje.ebeanorm:avaje-ebeanorm-server:3.1.2" level="project" />
     <orderEntry type="library" name="SBT: org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.1.Final" level="project" />
     <orderEntry type="library" name="SBT: mysql:mysql-connector-java:5.1.18" level="project" />
-    <orderEntry type="library" name="SBT: net.coobird:thumbnailator:0.4.1" level="project" />
+    <orderEntry type="library" name="SBT: net.coobird:thumbnailator:0.4.4" level="project" />
     <orderEntry type="library" name="SBT: commons-io:commons-io:2.0.1" level="project" />
     <orderEntry type="library" name="SBT: commons-collections:commons-collections:3.2.1" level="project" />
     <orderEntry type="library" name="SBT: commons-lang:commons-lang:2.6" level="project" />
+    <orderEntry type="library" name="SBT: commons-digester:commons-digester:2.1" level="project" />
+    <orderEntry type="library" name="SBT: commons-beanutils:commons-beanutils:1.8.3" level="project" />
     <orderEntry type="library" name="SBT: com.google.code.gson:gson:2.2.1" level="project" />
     <orderEntry type="library" name="SBT: com.timgroup:jgravatar:1.0" level="project" />
     <orderEntry type="library" name="SBT: com.omertron:thetvdbapi:1.5" level="project" />

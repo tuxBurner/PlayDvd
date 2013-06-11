@@ -5,6 +5,7 @@ import com.typesafe.config.ConfigFactory;
 import controllers.Secured;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 import play.data.format.Formats;
 import play.data.validation.Constraints.Required;
@@ -17,6 +18,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 public class User extends Model {
@@ -52,6 +54,11 @@ public class User extends Model {
    * If this token is set the user asked for a password reset
    */
   public String passwordResetToken;
+
+  /**
+   * If generated the user can use this token to access a rss feed
+   */
+  public String rssAuthKey;
 
   public static Model.Finder<String, User> find = new Model.Finder<String, User>(String.class, User.class);
 
@@ -168,6 +175,37 @@ public class User extends Model {
       }
     }
     return list;
+  }
+
+  /**
+   * Gets a {@link User} by the rss auth key
+   * @param rssAuthKey
+   * @return
+   */
+  public static User getUserByRssAuthKey(final String rssAuthKey) {
+    if(StringUtils.isEmpty(rssAuthKey) == true) {
+      return null;
+    }
+
+    return User.find.where().eq("rssAuthKey",rssAuthKey).findUnique();
+  }
+
+  /**
+   * Creates a rss auth key for the current user
+   * @return
+   */
+  public static String createUserRssAuthKey() {
+    final User currentUser = getCurrentUser();
+    if(currentUser == null) {
+      return null;
+    }
+    if(StringUtils.isEmpty(currentUser.rssAuthKey) == true) {
+      final String key = UUID.randomUUID().toString();
+      currentUser.rssAuthKey = key;
+      currentUser.update();
+    }
+
+    return currentUser.rssAuthKey;
   }
 
 }

@@ -102,6 +102,8 @@ var navToPage = function(idx) {
     function(data) {
       $('#copyListContainer').html(data);
       $('.tooltipo').tooltip();
+
+      window.location.hash = idx;
       Holder.run();
     }
   );

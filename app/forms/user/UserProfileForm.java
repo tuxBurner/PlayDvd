@@ -25,6 +25,8 @@ public class UserProfileForm {
 
   public String defaultCopyType;
 
+  public String rssAuthKey;
+
   /**
    * Checks if the user change the password
    * 

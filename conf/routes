@@ -123,6 +123,9 @@ GET    /grabber/search                          controllers.InfoGrabberControlle
 GET    /grabber/:grabberType/search/:searchTerm controllers.InfoGrabberController.searchGrabber(searchTerm: String, grabberType:  String)
 GET    /grabber/:grabberType/:grabberId         controllers.InfoGrabberController.getMovieById(grabberId: String, grabberType:  String)
 
+#RSS
+GET /rssFeeds/lastAddedCopies    controllers.RssFeedsController.gettLastAddedCopies
+
 # Javascript routing
 GET     /assets/javascripts/routes 	 controllers.Application.jsRoutes()
 

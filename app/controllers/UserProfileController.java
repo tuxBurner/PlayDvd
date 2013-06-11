@@ -2,6 +2,7 @@ package controllers;
 
 import forms.user.UserProfileForm;
 import models.User;
+import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 import play.data.Form;
 import play.i18n.Messages;
@@ -34,9 +35,15 @@ public class UserProfileController extends Controller {
       }
     }
 
+    if(StringUtils.isEmpty(currentUser.rssAuthKey) == true) {
+      final String userRssAuthKey = User.createUserRssAuthKey();
+      currentUser.rssAuthKey = userRssAuthKey;
+    }
+
     UserProfileForm userProfileForm = new UserProfileForm();
     userProfileForm.defaultCopyType = currentUser.defaultCopyType;
     userProfileForm.email = currentUser.email;
+    userProfileForm.rssAuthKey = currentUser.rssAuthKey;
 
     return ok(userprofile.render(Form.form(UserProfileForm.class).fill(userProfileForm)));
   }
