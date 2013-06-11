@@ -124,7 +124,10 @@ GET    /grabber/:grabberType/search/:searchTerm controllers.InfoGrabberControlle
 GET    /grabber/:grabberType/:grabberId         controllers.InfoGrabberController.getMovieById(grabberId: String, grabberType:  String)
 
 #RSS
-GET /rssFeeds/lastAddedCopies    controllers.RssFeedsController.gettLastAddedCopies
+GET /rssFeeds/displayList            controllers.RssFeedsController.displayRssFeedLinks
+GET /rssFeeds/lastAddedCopies        controllers.RssFeedsController.getLastAddedCopies
+GET /rssFeeds/lastWeekAddedCopies    controllers.RssFeedsController.getLastAddedWeekCopies
+GET /rssFeeds/copyPoster/:copyId     controllers.RssFeedsController.getPosterImage(copyId: Long)
 
 # Javascript routing
 GET     /assets/javascripts/routes 	 controllers.Application.jsRoutes()

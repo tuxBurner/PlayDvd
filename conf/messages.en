@@ -26,6 +26,7 @@ headline.unlendCopies=Unlend Copies
 headline.bookmars=Bookmarked Copies
 headline.markAsViewed=Mark copy as viewed
 headline.viewedCopies=Seen copies
+headline.rssFeedLinks=Rss feeds links
 
 dateFormat=dd.MM.YYYY
 dateFormatHour=dd.MM.YYYY HH:mm
@@ -141,6 +142,9 @@ lbl.copyAlreadyViewed=You have seen this copy already {0} times
 lbl.actions=Actions
 lbl.copyViewedOn=Viewed on
 lbl.removeBookmarkForViewed=Remove copy from the bookmarklist ?
+lbl.rssAuthKey=Rss auth key
+lbl.rssLastAdded=Last added copies
+lbl.rssLastWeekAdded=Last 7 days added copies
 
 msg.error.noUsername=Username is needed
 msg.error.noPassword=Password is needed
@@ -172,6 +176,7 @@ msg.info.noLendCopies=You don't have any lend copies
 msg.info.noBorrowedCopies=You don't have any copies borrowed
 msg.info.noBookmarks=You don't have any bookmarked copies
 msg.info.noViewedCopies=You don't have any marked as viewed copies
+msg.info.noRssAuthKey=You don't have generated a rss auth key please go to {0} to generate one and come back here.
 
 email.passwordreset.content=Hello {0}\nYou requested to reset the password for the PlayDvd database please click the link to reset the password:\n\n {1}
 email.passwordreset.subject=Password reset for PlayDvd

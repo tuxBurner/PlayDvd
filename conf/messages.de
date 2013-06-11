@@ -26,6 +26,7 @@ headline.unlendCopies=Kopien zurück
 headline.bookmars=Vorgemerkte Kopien
 headline.markAsViewed=Kopie als gesehen markieren
 headline.viewedCopies=Gesehne Kopien
+headline.rssFeedLinks=Rss Feeds Links
 
 dateFormat=dd.MM.YYYY
 dateFormatHour=dd.MM.YYYY HH:mm
@@ -141,6 +142,9 @@ lbl.copyAlreadyViewed=Sie haben die Kopie schon {0} mal gesehen
 lbl.actions=Aktionen
 lbl.copyViewedOn=Gesehen am
 lbl.removeBookmarkForViewed=Soll die Kopie von den Bookmarks entfernt werden ?
+lbl.rssAuthKey=Rss Authentifizierung Schlüssel
+lbl.rssLastAdded=Letzten hinzugefügten Kopien
+lbl.rssLastWeekAdded=In den letzten 7 Tagen hinzugefügten Kopien
 
 msg.error.noUsername=Benutzername ist Pflicht
 msg.error.noPassword=Passwort ist Pflicht
@@ -172,6 +176,7 @@ msg.info.noLendCopies=Du hast keine verliehenen Kopien
 msg.info.noBorrowedCopies=Du hast Dir keine Kopien ausgeliehen
 msg.info.noBookmarks=Du hast keine vorgemerkten Kopien
 msg.info.noViewedCopies=Du hast noch keine Kopiene als gesehen markiert
+msg.info.noRssAuthKey=Du hast noch keinen Rss Authentifizierung Schlüssel bitte gehe zum {0} um einen zu erstellen und komme hierhin zurück.
 
 email.passwordreset.content=Hallo {0}\nfür PlayDvd kannst Du das Passwort zurücksetzen, wenn Du folgenden Link aufrufst:\n\n {1}
 email.passwordreset.subject=Passwort zurücksetzen für PlayDvd

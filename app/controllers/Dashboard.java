@@ -241,14 +241,14 @@ public class Dashboard extends Controller {
   /**
    * Streams an image which is bundled with the given {@link Dvd}
    *
-   * @param dvdId
+   * @param copyId
    * @param imgType
    * @param imgSize
    * @return
    */
   @JSRoute
-  public static Result streamImage(final Long dvdId, final String imgType, final String imgSize) {
-    final String url = ImageHelper.getImageFile(dvdId, EImageType.valueOf(imgType), EImageSize.valueOf(imgSize));
+  public static Result streamImage(final Long copyId, final String imgType, final String imgSize) {
+    final String url = ImageHelper.getImageFile(copyId, EImageType.valueOf(imgType), EImageSize.valueOf(imgSize));
     if (StringUtils.isEmpty(url) == true) {
       return Results.notFound();
     }

@@ -19,8 +19,9 @@ object ApplicationBuild extends Build {
       "commons-lang" % "commons-lang" % "2.6",
 
 
-  "com.google.code.gson" % "gson" % "2.2.1",
+      "com.google.code.gson" % "gson" % "2.2.1",
       "com.timgroup" % "jgravatar" % "1.0",
+      "rome" % "rome" % "1.0",
 
       "com.omertron" % "thetvdbapi" % "1.5",
       "com.omertron" % "themoviedbapi" % "3.3",

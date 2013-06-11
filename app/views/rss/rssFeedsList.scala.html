@@ -1,0 +1,27 @@
+@(rssAuthKey: String)
+@import org.apache.commons.lang.StringUtils
+
+@mainmenu(Messages("headline.rssFeedLinks")) {
+  @general.displayList("headline.rssFeedLinks","icon-rss-sign") {
+    @if(StringUtils.isEmpty(rssAuthKey) == false) {
+      <dl class="dl-horizontal">
+        <dt>@Messages("lbl.rssLastAdded")</dt>
+        <dd>
+          <a href="@routes.RssFeedsController.getLastAddedCopies().absoluteURL()?@RssSecurityAction.RSS_FEED_AUTH_PARAM=@rssAuthKey" target="_blank">
+            @routes.RssFeedsController.getLastAddedCopies().absoluteURL()?@RssSecurityAction.RSS_FEED_AUTH_PARAM=@rssAuthKey
+          </a>
+        </dd>
+        <dt>@Messages("lbl.rssLastWeekAdded")</dt>
+        <dd>
+          <a href="@routes.RssFeedsController.getLastAddedWeekCopies().absoluteURL()?@RssSecurityAction.RSS_FEED_AUTH_PARAM=@rssAuthKey" target="_blank">
+            @routes.RssFeedsController.getLastAddedWeekCopies().absoluteURL()?@RssSecurityAction.RSS_FEED_AUTH_PARAM=@rssAuthKey
+          </a>
+        </dd>
+      </dl>
+    } else {
+      <div class="alert">
+        <strong>@Html(Messages.apply("msg.info.noRssAuthKey", "<a href="+routes.UserProfileController.showProfile()+">"+Messages("lbl.profile")+"</a>"))</strong>
+      </div>
+    }
+  }
+}
