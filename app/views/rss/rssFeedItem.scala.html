@@ -1,0 +1,30 @@
+@(copy: Dvd, rssAuthKey: String)
+@import org.apache.commons.lang.StringUtils
+<h1>@general.displayCopyTitle(copy)</h1>
+
+<div>
+ @if(copy.movie.hasPoster == true) {
+   <img style="float: left; margin-left: 10px;" src="@routes.RssFeedsController.getPosterImage(copy.id)?@RssSecurityAction.RSS_FEED_AUTH_PARAM=@rssAuthKey" alt="poster" />
+ }
+
+ <div>
+
+   <ul>
+     @for(attr <- copy.attributes) {
+       @if(EDvdAttributeType.COPY_TYPE.eq(attr.attributeType) == true) {
+         <li>@attr.value</li>
+       }
+
+       @if(EDvdAttributeType.RATING.eq(attr.attributeType) == true) {
+         <li>@attr.value</li>
+       }
+     }
+   </ul>
+
+   @if(StringUtils.isEmpty(copy.movie.description) == false) {
+     <p>@copy.movie.description</p>
+   }
+
+ </div>
+
+</div>

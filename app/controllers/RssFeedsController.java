@@ -173,29 +173,7 @@ public class RssFeedsController extends Controller {
 
     SyndContent description = new SyndContentImpl();
     description.setType("text/html");
-
-    final StringBuilder sb = new StringBuilder("<div>");
-
-    if (copy.movie.hasPoster == true) {
-      sb.append("<img style=\"float: left\" src=\"");
-      sb.append(routes.RssFeedsController.getPosterImage(copy.id).absoluteURL(request()));
-      sb.append("?");
-      sb.append(RssSecurityAction.RSS_FEED_AUTH_PARAM);
-      sb.append("=");
-      sb.append(request().getQueryString(RssSecurityAction.RSS_FEED_AUTH_PARAM));
-      sb.append("\" />");
-    }
-
-    if (StringUtils.isEmpty(copy.movie.description) == false) {
-      sb.append("<p>");
-      sb.append(copy.movie.description);
-      sb.append("</p>");
-    }
-
-
-    sb.append("</div>");
-
-    description.setValue(sb.toString());
+    description.setValue(views.html.rss.rssFeedItem.render(copy,request().getQueryString(RssSecurityAction.RSS_FEED_AUTH_PARAM)).toString());
     entry.setDescription(description);
 
     return entry;
