@@ -54,7 +54,7 @@ public class RssFeedsController extends Controller {
    */
   @With(RssSecurityAction.class)
   public static Result getLastAddedCopies() {
-    final List<Dvd> copies = Dvd.find.orderBy("createdDate DESC").findPagingList(10).getAsList();
+    final List<Dvd> copies = Dvd.find.orderBy("createdDate DESC").findPagingList(10).getPage(0).getList();
     return createFeedContentForList(copies,"Last 10 added copies","The last 10 added copies in the database");
   }
 

@@ -4,7 +4,7 @@
 
 <div>
  @if(copy.movie.hasPoster == true) {
-   <img style="float: left; margin-left: 10px;" src="@routes.RssFeedsController.getPosterImage(copy.id)?@RssSecurityAction.RSS_FEED_AUTH_PARAM=@rssAuthKey" alt="poster" />
+   <img style="float: left; margin-right: 10px;" src="@routes.RssFeedsController.getPosterImage(copy.id)?@RssSecurityAction.RSS_FEED_AUTH_PARAM=@rssAuthKey" alt="poster" />
  }
 
  <div>
@@ -14,7 +14,6 @@
        @if(EDvdAttributeType.COPY_TYPE.eq(attr.attributeType) == true) {
          <li>@attr.value</li>
        }
-
        @if(EDvdAttributeType.RATING.eq(attr.attributeType) == true) {
          <li>@attr.value</li>
        }
