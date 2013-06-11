@@ -17,7 +17,6 @@ object ApplicationBuild extends Build {
       "commons-io" % "commons-io" % "2.0.1",
       "commons-collections" % "commons-collections" % "3.2.1",
       "commons-lang" % "commons-lang" % "2.6",
-      "commons-digester" % "commons-digester" % "1.5",
 
 
   "com.google.code.gson" % "gson" % "2.2.1",
