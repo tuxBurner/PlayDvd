@@ -4,12 +4,12 @@
 
 <div>
  @if(copy.movie.hasPoster == true) {
-   <img style="float: left; margin-right: 10px;" src="@routes.RssFeedsController.getPosterImage(copy.id).absoluteURL()?@RssSecurityAction.RSS_FEED_AUTH_PARAM=@rssAuthKey" alt="poster" />
+   <img style="float: left; margin-right: 10px;" src="@routes.RssFeedsController.getPosterImage(copy.movie.id).absoluteURL()?@RssSecurityAction.RSS_FEED_AUTH_PARAM=@rssAuthKey" alt="poster" />
  }
 
  <div>
 
-   <ul>
+   <ul style="list-style: none;">
      @for(attr <- copy.attributes) {
        @if(EDvdAttributeType.COPY_TYPE.eq(attr.attributeType) == true) {
          <li>@attr.value</li>
