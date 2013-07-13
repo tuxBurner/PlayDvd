@@ -50,7 +50,7 @@ public class ExportMoviesController extends Controller {
    */
   @With(RssSecurityAction.class)
   public static Result exportXbmc()  {
-    List<Dvd> dvds = Dvd.getAllCopiesForUserForExport(Secured.getUsername());
+       List<Dvd> dvds = Dvd.getAllCopiesForUserForExport(request().username());
     if (CollectionUtils.isEmpty(dvds) == false) {
 
       try {
