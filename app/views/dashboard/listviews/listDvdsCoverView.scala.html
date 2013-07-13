@@ -1,9 +1,9 @@
 @(dvdPage: DvdPage,username: String,shoppingCart: objects.shoppingcart.CacheShoppingCart, bookmarkedCopys: Set[Long])
 @import helpers.EImageSize
 
-<ul class="coverlist">
+<ul class="coverlist_ul">
   @for(dvd <- dvdPage.list) {
-    <li class="span3">
+    <li class="span3 coverlist_li">
       <div class="coverwrapper">
         <em data-dvd-id="@dvd.id" class="@DvdAttribute.getCopyTypeAttribute(dvd)">
           @if(dvd.borrower != null || dvd.borrowerName != null){

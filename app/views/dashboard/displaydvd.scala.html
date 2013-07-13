@@ -27,28 +27,26 @@
     $(function() {
 
       $('.tooltipo').tooltip();
-    $(document).on('click','.coverwrapper em, .coverwrapper_small em, a.displayCopy',function(event){
+      $(document).on('click','.coverwrapper em, .coverwrapper_small em, a.displayCopy',function(event){
+        var copyId = $(this).data('dvdId');
 
+        // testing style
+        window.location = jsRoutes.controllers.Dashboard.displayCopyOnPage(copyId).absoluteURL(appIsInHttps);
+        return;
 
-    var copyId = $(this).data('dvdId');
-
-    // testing style
-    window.location = jsRoutes.controllers.Dashboard.displayCopyOnPage(copyId).absoluteURL(appIsInHttps);
-    return;
-
-    displayAjaxDialog({
-    route: jsRoutes.controllers.Dashboard.displayDvd(copyId),
-    title: 'Is set from the displaydvdSacla',
-    cssClass:	'dvdInfoModal',
-    onClose: function() {
-    $('#modal .modal-body').css('background-image', 'none');
-    },
-    onOpen: function() {
-    $('.dvdInfoModal .tooltipo').tooltip().on('show', function(e) {e.stopPropagation();}).on('hide', function(e) {e.stopPropagation();});
-    }
-    });
-    return false;
-    });
+        /*displayAjaxDialog({
+          route: jsRoutes.controllers.Dashboard.displayDvd(copyId),
+          title: 'Is set from the displaydvdSacla',
+          cssClass:	'dvdInfoModal',
+          onClose: function() {
+            $('#modal .modal-body').css('background-image', 'none');
+          },
+          onOpen: function() {
+            $('.dvdInfoModal .tooltipo').tooltip().on('show', function(e) {e.stopPropagation();}).on('hide', function(e) {e.stopPropagation();});
+          }
+        });
+        return false;*/
+      });
     });
   </script>
 }
@@ -112,16 +110,6 @@
               @dvd.borrowedBy
               (@dvd.borrowedOn.format(Messages.apply("dateFormat")))
             </dd>
-          }
-
-          @if(dvd.dvdForm.copyType != null) {
-            <dt>@Messages.apply("lbl.copyType"):</dt>
-            <dd><img class="img-rounded" alt="@dvd.dvdForm.copyType" src="@routes.Assets.at("images/copy_type/"+dvd.dvdForm.copyType+".png")" /></dd>
-          }
-
-          @if(dvd.dvdForm.ageRating != null) {
-            <dt>@Messages.apply("lbl.agerating"):</dt>
-            <dd><img  class="img-rounded" alt="@dvd.dvdForm.ageRating" src="@routes.Assets.at("images/agerating/"+dvd.dvdForm.ageRating+".gif")" /></dd>
           }
 
           @if(dvd.dvdForm.hullNr != null) {
@@ -196,7 +184,19 @@
       </div>
 
       <div class="span3 pull-right">
-        @general.displayposter(dvd.movieForm.movieId, dvd.movieForm.hasPoster, EImageSize.SMALL)
+        <div class="coverlist_li">
+          <div class="coverwrapper">
+            <em data-dvd-id="@dvd.dvdForm.dvdId" class="@dvd.dvdForm.copyType">
+
+              <div class="well well-small dvdInfo">
+              </div>
+              <div class="rateWrapper"><img  class="img-rounded" src="@routes.Assets.at("images/agerating/"+dvd.dvdForm.ageRating+".gif")" /></div>
+            </em>
+            <a>
+            @general.displayposter(dvd.movieForm.movieId, dvd.movieForm.hasPoster, EImageSize.SMALL)
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
