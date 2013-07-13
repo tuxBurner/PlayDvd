@@ -110,7 +110,7 @@ GET  /bookmark                             controllers.BookmarksController.listB
 GET  /bookmark/delete/:bookmarkId          controllers.BookmarksController.removeBookmark(bookmarkId: Long)
 
 #MarkAsViewed
-GET   /viewedcopies/list                     controllers.ViewedCopyController.getViewedCopiesForCurrentUser()
+GET   /viewedcopies/list                     controllers.ViewedCopyController.getViewedCopiesForCurrentUser(page: Integer ?= 0)
 GET   /viewedcopies/mark/:copyId             controllers.ViewedCopyController.markCopyAsViewedDialog(copyId: Long)
 POST  /viewedcopies/mark/:copyId             controllers.ViewedCopyController.doMarkCopyAsViewed(copyId: Long, remBookMark: Boolean)
 

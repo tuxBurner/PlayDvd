@@ -1,31 +1,55 @@
-@(viewedCopies: List[ViewedCopy])
+@(viewedCopyPage: com.avaje.ebean.Page[ViewedCopy], currentPage: Integer = 0)
 @import org.apache.commons.collections.CollectionUtils
+
+@navigation(viewedCopyPage: com.avaje.ebean.Page[ViewedCopy]) = {
+  @if(viewedCopyPage.getTotalPageCount > 1) {
+    <div class="row">
+      <div class="span12">
+        <div class="pagination pagination-small pull-right">
+          <ul>
+            <li  @if(viewedCopyPage.hasPrev == false) { class="disabled" }><a @if(viewedCopyPage.hasPrev == true) { href="@routes.ViewedCopyController.getViewedCopiesForCurrentUser(viewedCopyPage.getPageIndex-1)"  }>@Messages.apply("lbl.prev")</a></li>
+
+            @for(idx <- 0 to viewedCopyPage.getTotalPageCount-1) {
+              <li @if((idx) == currentPage){class="active"}>
+              <a href="@routes.ViewedCopyController.getViewedCopiesForCurrentUser(idx)">@(idx+1)</a>
+              </li>
+            }
+            <li @if(viewedCopyPage.hasNext == false) { class="disabled" }><a @if(viewedCopyPage.hasNext == true) { href="@routes.ViewedCopyController.getViewedCopiesForCurrentUser(viewedCopyPage.getPageIndex+1)"}>@Messages.apply("lbl.next")</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  }
+}
 
 @mainmenu(Messages("headline.viewedCopies")) {
 
+  @navigation(viewedCopyPage)
+
   @general.displayList("headline.viewedCopies","icon-eye-open") {
 
-        @if(CollectionUtils.isEmpty(viewedCopies) == true) {
-          <div class="alert alert-info">
-            @Messages("msg.info.noViewedCopies")
-          </div>
-        } else {
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>@Messages("lbl.copy")</th>
-                <th>@Messages("lbl.date")</th>
-              </tr>
-            </thead>
-            <tbody>
-              @for(viewedCopy <-viewedCopies) {
-                <tr>
-                  <td>@general.displayitem(viewedCopy.copy,true)</td>
-                  <td>@{new Date(viewedCopy.date).format(Messages("dateFormatHour"))}</td>
-                </tr>
-              }
-            </tbody>
-          </table>
-        }
+    @if(CollectionUtils.isEmpty(viewedCopyPage.getList) == true) {
+      <div class="alert alert-info">
+        @Messages("msg.info.noViewedCopies")
+      </div>
+    } else {
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>@Messages("lbl.copy")</th>
+            <th>@Messages("lbl.date")</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(viewedCopy <-viewedCopyPage.getList) {
+            <tr>
+              <td>@general.displayitem(viewedCopy.copy,true)</td>
+              <td>@{new Date(viewedCopy.date).format(Messages("dateFormatHour"))}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
   }
+  @navigation(viewedCopyPage)
 }

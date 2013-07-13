@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.Page;
 import controllers.Secured;
 import play.Logger;
 import play.db.ebean.Model;
@@ -103,9 +104,9 @@ public class ViewedCopy extends Model {
    * Gets all  {@link models.ViewedCopy} where the owner of the {@link models.Dvd} is the current {@link models.User}
    * @return
    */
-  public static List<ViewedCopy> getViewedCopiesForUser() {
+  public static Page<ViewedCopy> getViewedCopiesForUser(final Integer page) {
     String username = Secured.getUsername();
-    return ViewedCopy.finder.where().ieq("user.userName", username).orderBy("date DESC").findList();
+    return ViewedCopy.finder.where().ieq("user.userName", username).orderBy("date DESC").findPagingList(10).getPage(page);
   }
 
   /**
