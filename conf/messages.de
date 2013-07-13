@@ -27,6 +27,7 @@ headline.bookmars=Vorgemerkte Kopien
 headline.markAsViewed=Kopie als gesehen markieren
 headline.viewedCopies=Gesehne Kopien
 headline.rssFeedLinks=Rss Feeds Links
+headline.export=Kopien exportieren
 
 dateFormat=dd.MM.YYYY
 dateFormatHour=dd.MM.YYYY HH:mm
@@ -145,6 +146,8 @@ lbl.removeBookmarkForViewed=Soll die Kopie von den Bookmarks entfernt werden ?
 lbl.rssAuthKey=Rss Authentifizierung Schlüssel
 lbl.rssLastAdded=Letzten hinzugefügten Kopien
 lbl.rssLastWeekAdded=In den letzten 7 Tagen hinzugefügten Kopien
+lbl.export=Kopien exportieren
+lbl.exportXbmc=XBMC Stub export
 
 msg.error.noUsername=Benutzername ist Pflicht
 msg.error.noPassword=Passwort ist Pflicht

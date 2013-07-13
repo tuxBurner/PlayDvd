@@ -27,6 +27,7 @@ headline.bookmars=Bookmarked Copies
 headline.markAsViewed=Mark copy as viewed
 headline.viewedCopies=Seen copies
 headline.rssFeedLinks=Rss feeds links
+headline.export=Export copies
 
 dateFormat=dd.MM.YYYY
 dateFormatHour=dd.MM.YYYY HH:mm
@@ -145,6 +146,8 @@ lbl.removeBookmarkForViewed=Remove copy from the bookmarklist ?
 lbl.rssAuthKey=Rss auth key
 lbl.rssLastAdded=Last added copies
 lbl.rssLastWeekAdded=Last 7 days added copies
+lbl.export=Export copies
+lbl.exportXbmc=XBMC Stub export
 
 msg.error.noUsername=Username is needed
 msg.error.noPassword=Password is needed

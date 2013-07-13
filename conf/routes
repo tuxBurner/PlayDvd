@@ -129,6 +129,10 @@ GET /rssFeeds/lastAddedCopies        controllers.RssFeedsController.getLastAdded
 GET /rssFeeds/lastWeekAddedCopies    controllers.RssFeedsController.getLastAddedWeekCopies
 GET /rssFeeds/copyPoster/:copyId     controllers.RssFeedsController.getPosterImage(copyId: Long)
 
+# EXPORT
+GET /export                          controllers.ExportMoviesController.displayExportOptions()
+GET /export/xbmc                     controllers.ExportMoviesController.exportXbmc()
+
 # Javascript routing
 GET     /assets/javascripts/routes 	 controllers.Application.jsRoutes()
 

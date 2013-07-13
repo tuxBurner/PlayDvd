@@ -1,0 +1,10 @@
+@()
+
+@mainmenu(Messages("headline.export")) {
+  @general.displayList("headline.export","icon-download-alt") {
+    <dl class="dl-horizontal">
+      <dt>@Messages("lbl.exportXbmc")</dt>
+      <dd><a href="@routes.ExportMoviesController.exportXbmc"><i class="icon-download-alt"></i></a></dd>
+    </dl>
+  }
+}
