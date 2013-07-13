@@ -18,7 +18,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.nio.charset.Charset;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -56,6 +58,8 @@ public class ExportMoviesController extends Controller {
         ZipOutputStream zipOutputStream = new ZipOutputStream(baos, Charset.forName("UTF-8"));
 
 
+        final Set<String> alreadyAdded = new HashSet<String>();
+
         for (final Dvd copy : dvds) {
           final String copyTypeAttribute = DvdAttribute.getCopyTypeAttribute(copy);
           final StringBuilder entryName = new StringBuilder(copy.movie.title);
@@ -63,9 +67,21 @@ public class ExportMoviesController extends Controller {
             entryName.append(" - ");
             entryName.append(copy.additionalInfo);
           }
+          entryName.append(".");
+          entryName.append(copyTypeAttribute.toLowerCase());
+          entryName.append(".disc");
+
+          final String entryNameStr = entryName.toString();
+
+          if(alreadyAdded.contains(entryNameStr) == true) {
+            continue;
+          }
+
+          alreadyAdded.add(entryNameStr);
+
+          ZipEntry zipEntry = new ZipEntry(entryNameStr);
 
 
-          ZipEntry zipEntry = new ZipEntry(entryName.toString() +"."+copy.id+"." + copyTypeAttribute.toLowerCase() + ".disc");
           zipOutputStream.putNextEntry(zipEntry);
           String xbmcStubContent = generateXBMCStubContent(copy);
           IOUtils.write(xbmcStubContent, zipOutputStream, "UTF-8");
