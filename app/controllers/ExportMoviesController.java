@@ -63,7 +63,7 @@ public class ExportMoviesController extends Controller {
           }
 
 
-          ZipEntry zipEntry = new ZipEntry(entryName.toString() +"."+copy.id+"."+ "." + copyTypeAttribute.toLowerCase() + ".disc");
+          ZipEntry zipEntry = new ZipEntry(entryName.toString() +"."+copy.id+"." + copyTypeAttribute.toLowerCase() + ".disc");
           zipOutputStream.putNextEntry(zipEntry);
           String xbmcStubContent = generateXBMCStubContent(copy);
           IOUtils.write(xbmcStubContent, zipOutputStream, "UTF-8");
