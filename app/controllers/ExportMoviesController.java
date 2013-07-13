@@ -3,12 +3,15 @@ package controllers;
 
 import models.Dvd;
 import models.DvdAttribute;
+import models.User;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
+import play.mvc.With;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -26,9 +29,12 @@ import java.util.zip.ZipOutputStream;
  */
 public class ExportMoviesController extends Controller {
 
+  @Security.Authenticated(Secured.class)
   public static Result displayExportOptions() {
 
-    return ok(views.html.export.export.render());
+    final User currentUser = User.getCurrentUser();
+
+    return ok(views.html.export.export.render(currentUser.rssAuthKey));
   }
 
   /**
@@ -39,6 +45,7 @@ public class ExportMoviesController extends Controller {
    * @throws ExecutionException
    * @throws InterruptedException
    */
+  @With(RssSecurityAction.class)
   public static Result exportXbmc()  {
     List<Dvd> dvds = Dvd.getAllCopiesForUserForExport(Secured.getUsername());
     if (CollectionUtils.isEmpty(dvds) == false) {
@@ -56,7 +63,7 @@ public class ExportMoviesController extends Controller {
           }
 
 
-          ZipEntry zipEntry = new ZipEntry(entryName.toString() +"."+copy.id+"."+ "." + copyTypeAttribute + ".disc");
+          ZipEntry zipEntry = new ZipEntry(entryName.toString() +"."+copy.id+"."+ "." + copyTypeAttribute.toLowerCase() + ".disc");
           zipOutputStream.putNextEntry(zipEntry);
           String xbmcStubContent = generateXBMCStubContent(copy);
           IOUtils.write(xbmcStubContent, zipOutputStream, "UTF-8");
