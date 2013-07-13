@@ -17,6 +17,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.zip.ZipEntry;
@@ -52,7 +53,8 @@ public class ExportMoviesController extends Controller {
 
       try {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ZipOutputStream zipOutputStream = new ZipOutputStream(baos);
+        ZipOutputStream zipOutputStream = new ZipOutputStream(baos, Charset.forName("UTF-8"));
+
 
         for (final Dvd copy : dvds) {
           final String copyTypeAttribute = DvdAttribute.getCopyTypeAttribute(copy);
