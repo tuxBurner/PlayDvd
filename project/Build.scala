@@ -5,7 +5,7 @@ import play.Project._
 object ApplicationBuild extends Build {
 
     val appName         = "dvdDataBase"
-    val appVersion      = "1.2-SNAPSHOT"
+    val appVersion      = "1.3-SNAPSHOT"
 
     val appDependencies = Seq(
 
