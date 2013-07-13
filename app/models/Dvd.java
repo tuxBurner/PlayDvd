@@ -414,6 +414,16 @@ public class Dvd extends Model {
   }
 
   /**
+   * Gets all {@link Dvd}s for the user
+   *
+   * @param username
+   * @return
+   */
+  public static List<Dvd> getAllCopiesForUserForExport(final String username) {
+    return Dvd.find.fetch("movie","title").where().ieq("owner.userName", username).findList();
+  }
+
+  /**
    * Gets dvds which are in the same hull but not the dvd itself
    *
    * @param dvd
