@@ -1,5 +1,6 @@
 package controllers;
 
+import com.avaje.ebean.Page;
 import helpers.CacheHelper;
 import helpers.ECacheObjectName;
 import models.Bookmark;
@@ -9,7 +10,6 @@ import play.mvc.Result;
 import play.mvc.Security;
 import views.html.bookmarks.bookmarklist;
 
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
@@ -27,10 +27,10 @@ public class BookmarksController extends Controller {
    * Lists all the {@models.Bookmarks} which the current user created
    * @return
    */
-  public static Result listBookmarks() {
-    List<Bookmark> listForUser = Bookmark.getBookmarksForUser();
+  public static Result listBookmarks(final Integer page) {
+    Page<Bookmark> listForUser = Bookmark.getBookmarksForUser(page);
 
-    return ok(bookmarklist.render(listForUser));
+    return ok(bookmarklist.render(listForUser,page));
   }
 
   /**
@@ -50,7 +50,7 @@ public class BookmarksController extends Controller {
 
     CacheHelper.removeSessionObj(ECacheObjectName.BOOKMARKS);
 
-    return redirect(routes.BookmarksController.listBookmarks());
+    return redirect(routes.BookmarksController.listBookmarks(null));
   }
 
   /**
@@ -67,7 +67,7 @@ public class BookmarksController extends Controller {
 
     CacheHelper.removeSessionObj(ECacheObjectName.BOOKMARKS);
 
-    return redirect(routes.BookmarksController.listBookmarks());
+    return redirect(routes.BookmarksController.listBookmarks(null));
   }
 
   /**

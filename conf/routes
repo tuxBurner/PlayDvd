@@ -106,7 +106,7 @@ GET   /borrowedcopies                       controllers.ReservationsController.s
 
 #Bookmark
 GET  /bookmark/add/:copyId                 controllers.BookmarksController.bookmarkCopy(copyId: Long)
-GET  /bookmark                             controllers.BookmarksController.listBookmarks()
+GET  /bookmark                             controllers.BookmarksController.listBookmarks(page: Integer ?= 0)
 GET  /bookmark/delete/:bookmarkId          controllers.BookmarksController.removeBookmark(bookmarkId: Long)
 
 #MarkAsViewed

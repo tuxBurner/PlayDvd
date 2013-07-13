@@ -1,33 +1,58 @@
-@(bookmarks: List[Bookmark])
+@(bookmarkPage: com.avaje.ebean.Page[Bookmark], currentPage: Integer = 0)
 @import org.apache.commons.collections.CollectionUtils
+
+@navigation(bookmarkPage: com.avaje.ebean.Page[Bookmark]) = {
+  @if(bookmarkPage.getTotalPageCount > 1) {
+    <div class="row">
+      <div class="span12">
+        <div class="pagination pagination-small pull-right">
+          <ul>
+            <li  @if(bookmarkPage.hasPrev == false) { class="disabled" }><a @if(bookmarkPage.hasPrev == true) { href="@routes.BookmarksController.listBookmarks(bookmarkPage.getPageIndex-1)"  }>@Messages.apply("lbl.prev")</a></li>
+
+            @for(idx <- 0 to bookmarkPage.getTotalPageCount-1) {
+              <li @if((idx) == currentPage){class="active"}>
+              <a href="@routes.BookmarksController.listBookmarks(idx)">@(idx+1)</a>
+              </li>
+            }
+            <li @if(bookmarkPage.hasNext == false) { class="disabled" }><a @if(bookmarkPage.hasNext == true) { href="@routes.BookmarksController.listBookmarks(bookmarkPage.getPageIndex+1)"}>@Messages.apply("lbl.next")</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  }
+}
 
 @mainmenu(Messages("headline.bookmars")) {
 
-  @general.displayList("headline.bookmars","icon-bookmark") {
+  @navigation(bookmarkPage)
 
-        @if(CollectionUtils.isEmpty(bookmarks) == true) {
-          <div class="alert alert-info">
-            @Messages("msg.info.noBookmarks")
-          </div>
-        } else {
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>@Messages("lbl.copy")</th>
-                <th>@Messages("lbl.date")</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              @for(bookmark <-bookmarks) {
-                <tr>
-                  <td>@general.displayitem(bookmark.copy,true)</td>
-                  <td>@{new Date(bookmark.date).format(Messages("dateFormatHour"))}</td>
-                  <td><a href="@routes.BookmarksController.removeBookmark(bookmark.id)" class="btn btn-danger" ><i class="icon-trash"></i></a></td>
-                </tr>
-              }
-            </tbody>
-          </table>
-        }
+  @general.displayList("headline.bookmars","icon-bookmark") {
+    @if(CollectionUtils.isEmpty(bookmarkPage.getList) == true) {
+      <div class="alert alert-info">
+        @Messages("msg.info.noBookmarks")
+      </div>
+    } else {
+
+     <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>@Messages("lbl.copy")</th>
+            <th>@Messages("lbl.date")</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(bookmark <-bookmarkPage.getList) {
+            <tr>
+              <td>@general.displayitem(bookmark.copy,true)</td>
+              <td>@{new Date(bookmark.date).format(Messages("dateFormatHour"))}</td>
+              <td><a href="@routes.BookmarksController.removeBookmark(bookmark.id)" class="btn btn-danger" ><i class="icon-trash"></i></a></td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
   }
+
+  @navigation(bookmarkPage)
 }

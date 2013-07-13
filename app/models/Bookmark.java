@@ -1,9 +1,8 @@
 package models;
 
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.Page;
 import controllers.Secured;
-import helpers.CacheHelper;
-import helpers.ECacheObjectName;
 import org.apache.commons.collections.CollectionUtils;
 import play.Logger;
 import play.db.ebean.Model;
@@ -14,9 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.concurrent.Callable;
 
 /**
  * This holds the infromation when a user marks an own copy to view in the future
@@ -97,9 +94,9 @@ public class Bookmark extends Model {
    * Gets all  {@link Bookmark} where the owner of the {@link Dvd} is the current {@link User}
    * @return
    */
-  public static List<Bookmark> getBookmarksForUser() {
+  public static Page<Bookmark> getBookmarksForUser(final Integer page) {
     String username = Secured.getUsername();
-    return Bookmark.finder.where().eq("copy.owner.userName", username).orderBy("date DESC").findList();
+    return Bookmark.finder.where().eq("copy.owner.userName", username).orderBy("date DESC").findPagingList(10).getPage(page);
   }
 
   /**
