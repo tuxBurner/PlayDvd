@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="SBT: com.amazonaws:aws-java-sdk:1.6.10">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/com.amazonaws/aws-java-sdk/jars/aws-java-sdk-1.6.10.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/com.amazonaws/aws-java-sdk/docs/aws-java-sdk-1.6.10-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/com.amazonaws/aws-java-sdk/srcs/aws-java-sdk-1.6.10-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -74,8 +74,8 @@ public class MailerHelper {
 
     MailerAPI mail = play.Play.application().plugin(MailerPlugin.class).email();
     mail.setSubject(subject);
-    mail.addRecipient(receiver);
-    mail.addFrom(mailFrom);
+    mail.setRecipient(receiver);
+    mail.setFrom(mailFrom);
     if(htmlContent == true) {
       mail.sendHtml(content);
     } else {

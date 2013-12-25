@@ -5,7 +5,7 @@ import com.typesafe.config.ConfigFactory;
 import forms.dvd.DvdSearchFrom;
 import helpers.ConfigurationHelper;
 import helpers.ECopyListView;
-import plugins.jsannotation.JSRoute;
+import plugins.jsAnnotations.JSRoute;
 import models.Dvd;
 import objects.shoppingcart.CacheShoppingCart;
 import org.apache.commons.lang.StringUtils;

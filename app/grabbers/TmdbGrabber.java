@@ -39,9 +39,10 @@ public class TmdbGrabber implements IInfoGrabber {
 
     try {
       final List<GrabberSearchMovie> returnVal = new ArrayList<GrabberSearchMovie>();
-      final List<MovieDb> results = theMovieDb.searchMovie(searchTerm,0, TmdbGrabber.LANGUAGE, false,0);
+      //final List<MovieDb> results = theMovieDb.searchMovie(searchTerm,0, TmdbGrabber.LANGUAGE, false,0);
+        List<MovieDb> results = theMovieDb.searchMovie(searchTerm, 0, TmdbGrabber.LANGUAGE, false, 0).getResults();
 
-      if (CollectionUtils.isEmpty(results) == false) {
+        if (CollectionUtils.isEmpty(results) == false) {
         for (final MovieDb movieDb : results) {
           final String posterImageUrl = buildImageUrl(configuration.getPosterSizes().get(0), movieDb.getPosterPath());
           returnVal.add(new GrabberSearchMovie(String.valueOf(movieDb.getId()), movieDb.getTitle(), posterImageUrl, TmdbGrabber.TYPE));
@@ -58,7 +59,7 @@ public class TmdbGrabber implements IInfoGrabber {
 
   /**
    * Builds an url to the image
-   * 
+   *
    * @param size
    * @param imgPath
    * @return
@@ -77,7 +78,7 @@ public class TmdbGrabber implements IInfoGrabber {
       final Integer idAsInt = Integer.valueOf(id);
       MovieDb movieInfo = getMovieDB(idAsInt);
 
-      final List<Artwork> movieImages = theMovieDb.getMovieImages(idAsInt, null);
+      final List<Artwork> movieImages = theMovieDb.getMovieImages(idAsInt, null).getResults();
 
       final List<GrabberImage> posters = new ArrayList<GrabberImage>();
       final List<GrabberImage> backdrops = new ArrayList<GrabberImage>();
@@ -95,8 +96,8 @@ public class TmdbGrabber implements IInfoGrabber {
       }
 
       final List<String> trailerUrls = new ArrayList<String>();
-      final List<Trailer> movieTrailers = theMovieDb.getMovieTrailers(idAsInt, TmdbGrabber.LANGUAGE);
-      movieTrailers.addAll(theMovieDb.getMovieTrailers(idAsInt, null));
+      final List<Trailer> movieTrailers = theMovieDb.getMovieTrailers(idAsInt, TmdbGrabber.LANGUAGE).getResults();
+      movieTrailers.addAll(theMovieDb.getMovieTrailers(idAsInt, null).getResults());
 
       for (final Trailer trailer : movieTrailers) {
         if ("youtube".equals(trailer.getWebsite()) == true) {
@@ -145,7 +146,7 @@ public class TmdbGrabber implements IInfoGrabber {
         movieForm.genres.add(genre.getName());
       }
 
-      final List<Person> movieCasts = theMovieDb.getMovieCasts(id);
+      final List<Person> movieCasts = theMovieDb.getMovieCasts(id).getResults();
       for (final Person castInfo : movieCasts) {
         if ("Director".equals(castInfo.getJob())) {
           movieForm.director = castInfo.getName();

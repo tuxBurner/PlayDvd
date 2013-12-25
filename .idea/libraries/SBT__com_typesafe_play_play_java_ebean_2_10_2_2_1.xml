@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="SBT: com.typesafe.play:play-java-ebean_2.10:2.2.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/local/com.typesafe.play/play-java-ebean_2.10/2.2.1/jars/play-java-ebean_2.10.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/com.typesafe.play/play-java-ebean_2.10/srcs/play-java-ebean_2.10-2.2.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

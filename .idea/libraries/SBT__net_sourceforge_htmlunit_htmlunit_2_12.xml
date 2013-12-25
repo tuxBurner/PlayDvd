@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="SBT: net.sourceforge.htmlunit:htmlunit:2.12">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/local/net.sourceforge.htmlunit/htmlunit/2.12/jars/htmlunit.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/net.sourceforge.htmlunit/htmlunit/docs/htmlunit-2.12-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/net.sourceforge.htmlunit/htmlunit/srcs/htmlunit-2.12-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,7 +1,7 @@
 package controllers;
 
 import grabbers.*;
-import plugins.jsannotation.JSRoute;
+import plugins.jsAnnotations.JSRoute;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.mvc.Controller;

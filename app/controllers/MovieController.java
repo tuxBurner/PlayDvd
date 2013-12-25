@@ -1,5 +1,6 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.gson.Gson;
 import forms.MovieForm;
 import forms.grabbers.GrabberInfoForm;
@@ -7,12 +8,11 @@ import grabbers.EGrabberType;
 import grabbers.GrabberException;
 import grabbers.IInfoGrabber;
 import helpers.RequestToCollectionHelper;
-import plugins.jsannotation.JSRoute;
+import plugins.jsAnnotations.JSRoute;
 import models.EMovieAttributeType;
 import models.Movie;
 import models.MovieAttribute;
 import org.apache.commons.lang.StringUtils;
-import org.codehaus.jackson.node.ObjectNode;
 import play.Logger;
 import play.data.Form;
 import play.libs.Json;

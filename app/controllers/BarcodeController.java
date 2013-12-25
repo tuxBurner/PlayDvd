@@ -7,7 +7,7 @@ import com.google.zxing.NotFoundException;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.oned.EAN13Reader;
 import helpers.BufferedImageLuminanceSource;
-import plugins.jsannotation.JSRoute;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 import play.libs.F;
@@ -15,6 +15,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 import play.mvc.WebSocket;
+import plugins.jsAnnotations.JSRoute;
 import views.html.barcode.barcodescanner;
 
 import javax.imageio.ImageIO;
@@ -58,7 +59,7 @@ public class BarcodeController extends Controller {
                Logger.debug("Got an image. Trying to parse it.");
 
               try {
-                byte decoded[] = new sun.misc.BASE64Decoder().decodeBuffer(StringUtils.removeStart(event, "data:image/jpeg;base64,"));
+                byte decoded[] = Base64.decodeBase64(StringUtils.removeStart(event, "data:image/jpeg;base64,"));
                 InputStream in = new ByteArrayInputStream(decoded);
                 BufferedImage bufferedImage = ImageIO.read(in);
                 LuminanceSource source = new BufferedImageLuminanceSource(bufferedImage);

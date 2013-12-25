@@ -2,7 +2,6 @@ package controllers;
 
 import helpers.CacheHelper;
 import helpers.ECacheObjectName;
-import plugins.jsannotation.JSRoute;
 import models.CopyReservation;
 import models.Dvd;
 import objects.shoppingcart.CacheShoppingCart;
@@ -13,6 +12,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
+import plugins.jsAnnotations.JSRoute;
 
 import java.util.concurrent.Callable;
 

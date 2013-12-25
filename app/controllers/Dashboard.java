@@ -24,7 +24,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
-import plugins.jsannotation.JSRoute;
+import plugins.jsAnnotations.JSRoute;
 import plugins.s3.S3Plugin;
 import views.html.dashboard.*;
 

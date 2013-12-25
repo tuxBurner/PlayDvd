@@ -1,6 +1,6 @@
 package controllers;
 
-import plugins.jsannotation.JSRoute;
+import plugins.jsAnnotations.JSRoute;
 import models.CopyReservation;
 import models.Dvd;
 import models.User;

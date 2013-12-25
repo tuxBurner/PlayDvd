@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="SBT: com.github.julienrf:play-jsmessages_2.10:1.5.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/com.github.julienrf/play-jsmessages_2.10/jars/play-jsmessages_2.10-1.5.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/com.github.julienrf/play-jsmessages_2.10/docs/play-jsmessages_2.10-1.5.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/com.github.julienrf/play-jsmessages_2.10/srcs/play-jsmessages_2.10-1.5.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

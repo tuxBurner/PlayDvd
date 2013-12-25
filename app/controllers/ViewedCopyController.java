@@ -11,7 +11,7 @@ import play.data.DynamicForm;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-import plugins.jsannotation.JSRoute;
+import plugins.jsAnnotations.JSRoute;
 import views.html.viewedcopy.markAsViewed;
 
 import java.util.List;
