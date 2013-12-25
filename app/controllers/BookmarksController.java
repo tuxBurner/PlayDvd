@@ -50,7 +50,7 @@ public class BookmarksController extends Controller {
 
     CacheHelper.removeSessionObj(ECacheObjectName.BOOKMARKS);
 
-    return redirect(routes.BookmarksController.listBookmarks(null));
+    return redirect(routes.BookmarksController.listBookmarks(0));
   }
 
   /**
@@ -67,7 +67,7 @@ public class BookmarksController extends Controller {
 
     CacheHelper.removeSessionObj(ECacheObjectName.BOOKMARKS);
 
-    return redirect(routes.BookmarksController.listBookmarks(null));
+    return redirect(routes.BookmarksController.listBookmarks(0));
   }
 
   /**
