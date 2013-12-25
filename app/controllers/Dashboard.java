@@ -296,7 +296,6 @@ public class Dashboard extends Controller {
       ImageIO.write(asBufferedImage, "png", os);
       final InputStream is = new ByteArrayInputStream(os.toByteArray());
 
-      response().setHeader("Content-Length", String.valueOf(os.size()));
       Controller.response().setContentType("image/png");
       return Results.ok(is);
     } catch (final IOException e) {
