@@ -40,7 +40,7 @@ object ApplicationBuild extends Build {
       "org.webjars" % "bootstrap" % "2.3.2",
       "org.webjars" % "jquery" % "1.9.1",
       "org.webjars" % "jquerypp" % "1.0b2-1",
-      "org.webjars" % "select2" % "3.3.1",
+      "org.webjars" % "select2" % "3.4.4",
       "org.webjars" % "font-awesome" % "3.2.1",
       "org.webjars" % "famfamfam-flags" % "0.0",
 
