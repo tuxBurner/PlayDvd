@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="SBT: org.slf4j:jcl-over-slf4j:1.7.5">
     <CLASSES>
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/local/org.slf4j/jcl-over-slf4j/1.7.5/jars/jcl-over-slf4j.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/local/org.slf4j/jcl-over-slf4j/1.7.5/jars/jcl-over-slf4j.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/org.slf4j/jcl-over-slf4j/docs/jcl-over-slf4j-1.7.5-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/org.slf4j/jcl-over-slf4j/docs/jcl-over-slf4j-1.7.5-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/org.slf4j/jcl-over-slf4j/srcs/jcl-over-slf4j-1.7.5-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/org.slf4j/jcl-over-slf4j/srcs/jcl-over-slf4j-1.7.5-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="SBT: org.seleniumhq.selenium:selenium-firefox-driver:2.33.0">
     <CLASSES>
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/org.seleniumhq.selenium/selenium-firefox-driver/jars/selenium-firefox-driver-2.33.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/org.seleniumhq.selenium/selenium-firefox-driver/jars/selenium-firefox-driver-2.33.0.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/org.seleniumhq.selenium/selenium-firefox-driver/docs/selenium-firefox-driver-2.33.0-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/org.seleniumhq.selenium/selenium-firefox-driver/docs/selenium-firefox-driver-2.33.0-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/org.seleniumhq.selenium/selenium-firefox-driver/srcs/selenium-firefox-driver-2.33.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/org.seleniumhq.selenium/selenium-firefox-driver/srcs/selenium-firefox-driver-2.33.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

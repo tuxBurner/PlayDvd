@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="SBT: org.apache.httpcomponents:httpclient:4.2.5">
     <CLASSES>
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/org.apache.httpcomponents/httpclient/jars/httpclient-4.2.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/org.apache.httpcomponents/httpclient/jars/httpclient-4.2.5.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/org.apache.httpcomponents/httpclient/docs/httpclient-4.2.5-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/org.apache.httpcomponents/httpclient/docs/httpclient-4.2.5-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/org.apache.httpcomponents/httpclient/srcs/httpclient-4.2.5-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/org.apache.httpcomponents/httpclient/srcs/httpclient-4.2.5-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

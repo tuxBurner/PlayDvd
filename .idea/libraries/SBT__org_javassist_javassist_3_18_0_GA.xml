@@ -1,12 +1,12 @@
 <component name="libraryTable">
   <library name="SBT: org.javassist:javassist:3.18.0-GA">
     <CLASSES>
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/org.javassist/javassist/jars/javassist-3.18.0-GA.jar!/" />
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/local/org.javassist/javassist/3.18.0-GA/bundles/javassist.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/org.javassist/javassist/jars/javassist-3.18.0-GA.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/local/org.javassist/javassist/3.18.0-GA/bundles/javassist.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/org.javassist/javassist/srcs/javassist-3.18.0-GA-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/org.javassist/javassist/srcs/javassist-3.18.0-GA-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

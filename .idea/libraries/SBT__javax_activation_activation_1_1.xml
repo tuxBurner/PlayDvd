@@ -1,11 +1,11 @@
 <component name="libraryTable">
   <library name="SBT: javax.activation:activation:1.1">
     <CLASSES>
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/javax.activation/activation/jars/activation-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/javax.activation/activation/jars/activation-1.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/javax.activation/activation/srcs/activation-1.1-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/javax.activation/activation/srcs/activation-1.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

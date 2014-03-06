@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="SBT: com.google.code.findbugs:jsr305:2.0.1">
     <CLASSES>
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/local/com.google.code.findbugs/jsr305/2.0.1/jars/jsr305.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/local/com.google.code.findbugs/jsr305/2.0.1/jars/jsr305.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

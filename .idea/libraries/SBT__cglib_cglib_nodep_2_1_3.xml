@@ -1,11 +1,11 @@
 <component name="libraryTable">
   <library name="SBT: cglib:cglib-nodep:2.1_3">
     <CLASSES>
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/local/cglib/cglib-nodep/2.1_3/jars/cglib-nodep.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/local/cglib/cglib-nodep/2.1_3/jars/cglib-nodep.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/cglib/cglib-nodep/srcs/cglib-nodep-2.1_3-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/cglib/cglib-nodep/srcs/cglib-nodep-2.1_3-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

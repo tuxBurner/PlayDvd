@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="SBT: com.jquery:jquery:1.7.2">
     <CLASSES>
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/com.jquery/jquery/jars/jquery-1.7.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/com.jquery/jquery/jars/jquery-1.7.2.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

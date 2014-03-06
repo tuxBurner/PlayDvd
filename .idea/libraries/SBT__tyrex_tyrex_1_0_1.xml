@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="SBT: tyrex:tyrex:1.0.1">
     <CLASSES>
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/local/tyrex/tyrex/1.0.1/jars/tyrex.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/local/tyrex/tyrex/1.0.1/jars/tyrex.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

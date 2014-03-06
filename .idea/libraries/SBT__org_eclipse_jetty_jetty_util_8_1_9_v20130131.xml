@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="SBT: org.eclipse.jetty:jetty-util:8.1.9.v20130131">
     <CLASSES>
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/local/org.eclipse.jetty/jetty-util/8.1.9.v20130131/jars/jetty-util.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/local/org.eclipse.jetty/jetty-util/8.1.9.v20130131/jars/jetty-util.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/org.eclipse.jetty/jetty-util/docs/jetty-util-8.1.9.v20130131-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/org.eclipse.jetty/jetty-util/docs/jetty-util-8.1.9.v20130131-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/org.eclipse.jetty/jetty-util/srcs/jetty-util-8.1.9.v20130131-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/org.eclipse.jetty/jetty-util/srcs/jetty-util-8.1.9.v20130131-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

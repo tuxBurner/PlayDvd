@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="SBT: com.typesafe.play:play_2.10:2.2.1">
     <CLASSES>
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/local/com.typesafe.play/play_2.10/2.2.1/jars/play_2.10.jar!/" />
-      <root url="file://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/com.typesafe.play/play_2.10/poms/play_2.10-2.2.1.pom" />
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/com.typesafe.play/play_2.10/srcs/play_2.10-2.2.1-test-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.1/repository/local/com.typesafe.play/play_2.10/2.2.1/jars/play_2.10.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.1/repository/cache/com.typesafe.play/play_2.10/poms/play_2.10-2.2.1.pom" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.1/repository/cache/com.typesafe.play/play_2.10/srcs/play_2.10-2.2.1-test-sources.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/com.typesafe.play/play_2.10/srcs/play_2.10-2.2.1-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.1/repository/cache/com.typesafe.play/play_2.10/srcs/play_2.10-2.2.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="SBT: net.sourceforge.nekohtml:nekohtml:1.9.18">
     <CLASSES>
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/local/net.sourceforge.nekohtml/nekohtml/1.9.18/jars/nekohtml.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/local/net.sourceforge.nekohtml/nekohtml/1.9.18/jars/nekohtml.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/net.sourceforge.nekohtml/nekohtml/docs/nekohtml-1.9.18-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/net.sourceforge.nekohtml/nekohtml/docs/nekohtml-1.9.18-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$USER_HOME$/_software/_coding/play-2.2.1/repository/cache/net.sourceforge.nekohtml/nekohtml/srcs/nekohtml-1.9.18-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/net.sourceforge.nekohtml/nekohtml/srcs/nekohtml-1.9.18-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
