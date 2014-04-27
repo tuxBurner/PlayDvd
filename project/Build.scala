@@ -5,7 +5,7 @@ import play.Project._
 object ApplicationBuild extends Build {
 
     val appName         = "dvdDataBase"
-    val appVersion      = "1.5-SNAPSHOT"
+    val appVersion      = "1.6"
 
     val appDependencies = Seq(
 
@@ -27,8 +27,9 @@ object ApplicationBuild extends Build {
       /* RSS FEEDS */
       "rome" % "rome" % "1.0",
 
+      // grabbers
       "com.omertron" % "thetvdbapi" % "1.6",
-      "com.omertron" % "themoviedbapi" % "3.8",
+      "com.omertron" % "themoviedbapi" % "3.9",
       "com.omertron" % "traileraddictapi" % "1.4",
 
       "com.google.zxing" % "core" % "2.3.0",
@@ -47,7 +48,11 @@ object ApplicationBuild extends Build {
       "com.github.julienrf" %% "play-jsmessages" % "1.5.1", 
       "com.github.tuxBurner" %% "play-jsannotations" % "1.2.0",
 
-      "com.amazonaws" % "aws-java-sdk" % "1.6.10"
+      // amazon
+      "com.amazonaws" % "aws-java-sdk" % "1.6.10",
+
+      // neo4j
+      "com.github.tuxBurner" %% "play-neo4jplugin" % "1.3.2"
     )
 
 
@@ -55,7 +60,9 @@ object ApplicationBuild extends Build {
       resolvers += ("Local Maven Repository" at "file://"+Path.userHome.absolutePath+"/.m2/repository"),
       resolvers += ("webjars" at "http://webjars.github.com/m2"),
       resolvers += "tuxburner.github.io" at "http://tuxburner.github.io/repo",
-      resolvers += "julienrf.github.com" at "http://julienrf.github.com/repo/"
+      resolvers += "julienrf.github.com" at "http://julienrf.github.com/repo/",
+      resolvers += "Neo4j" at "http://m2.neo4j.org/content/repositories/releases/",
+      resolvers += "Spring milestones" at "http://repo.spring.io/milestone"
     )
     
 }
