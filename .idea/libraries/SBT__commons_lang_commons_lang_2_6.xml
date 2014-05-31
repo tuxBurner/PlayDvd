@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="SBT: commons-lang:commons-lang:2.6">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/commons-lang/commons-lang/jars/commons-lang-2.6.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/commons-lang/commons-lang/jars/commons-lang-2.6.jar!/"/>
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/commons-lang/commons-lang/docs/commons-lang-2.6-javadoc.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/commons-lang/commons-lang/docs/commons-lang-2.6-javadoc.jar!/"/>
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/commons-lang/commons-lang/srcs/commons-lang-2.6-sources.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/commons-lang/commons-lang/srcs/commons-lang-2.6-sources.jar!/"/>
     </SOURCES>
   </library>
 </component>

@@ -1,13 +1,19 @@
 <component name="libraryTable">
   <library name="SBT: com.typesafe.netty:netty-http-pipelining:1.1.2">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/local/com.typesafe.netty/netty-http-pipelining/1.1.2/jars/netty-http-pipelining.jar!/" />
+      <root 
+      url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/local/com.typesafe.netty/netty-http-pipelining/1.1.2/jars/netty-http-pipelining.jar!/">
+</root>
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/com.typesafe.netty/netty-http-pipelining/docs/netty-http-pipelining-1.1.2-javadoc.jar!/" />
+      <root 
+      url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/com.typesafe.netty/netty-http-pipelining/docs/netty-http-pipelining-1.1.2-javadoc.jar!/">
+</root>
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/com.typesafe.netty/netty-http-pipelining/srcs/netty-http-pipelining-1.1.2-sources.jar!/" />
+      <root 
+      url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/com.typesafe.netty/netty-http-pipelining/srcs/netty-http-pipelining-1.1.2-sources.jar!/">
+</root>
     </SOURCES>
   </library>
 </component>

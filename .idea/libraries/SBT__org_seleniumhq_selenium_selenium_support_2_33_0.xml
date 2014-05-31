@@ -1,13 +1,18 @@
 <component name="libraryTable">
   <library name="SBT: org.seleniumhq.selenium:selenium-support:2.33.0">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/org.seleniumhq.selenium/selenium-support/jars/selenium-support-2.33.0.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/org.seleniumhq.selenium/selenium-support/jars/selenium-support-2.33.0.jar!/">
+      </root>
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/org.seleniumhq.selenium/selenium-support/docs/selenium-support-2.33.0-javadoc.jar!/" />
+      <root 
+      url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/org.seleniumhq.selenium/selenium-support/docs/selenium-support-2.33.0-javadoc.jar!/">
+</root>
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/org.seleniumhq.selenium/selenium-support/srcs/selenium-support-2.33.0-sources.jar!/" />
+      <root 
+      url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/org.seleniumhq.selenium/selenium-support/srcs/selenium-support-2.33.0-sources.jar!/">
+</root>
     </SOURCES>
   </library>
 </component>

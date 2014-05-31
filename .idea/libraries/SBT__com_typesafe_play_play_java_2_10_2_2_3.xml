@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="SBT: com.typesafe.play:play-java_2.10:2.2.3">
+    <CLASSES>
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/local/com.typesafe.play/play-java_2.10/2.2.3/jars/play-java_2.10.jar!/"/>
+      <root url="file:///_data/_coding/_frameworks/play-2.2.3/repository/cache/com.typesafe.play/play-java_2.10/poms/play-java_2.10-2.2.3.pom"/>
+      <root 
+      url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/com.typesafe.play/play-java_2.10/srcs/play-java_2.10-2.2.3-test-sources.jar!/">
+</root>
+    </CLASSES>
+    <JAVADOC> </JAVADOC>
+    <SOURCES>
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/com.typesafe.play/play-java_2.10/srcs/play-java_2.10-2.2.3-sources.jar!/"/>
+    </SOURCES>
+  </library>
+</component>

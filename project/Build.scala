@@ -32,7 +32,7 @@ object ApplicationBuild extends Build {
       "com.omertron" % "themoviedbapi" % "3.9",
       "com.omertron" % "traileraddictapi" % "1.4",
 
-      "com.google.zxing" % "core" % "2.3.0",
+      "com.google.zxing" % "core" % "3.1.0",
 
       "com.typesafe" %% "play-plugins-util" % "2.2.0",
       "com.typesafe" %% "play-plugins-mailer" % "2.2.0",
@@ -41,7 +41,7 @@ object ApplicationBuild extends Build {
       "org.webjars" % "bootstrap" % "2.3.2",
       "org.webjars" % "jquery" % "1.9.1",
       "org.webjars" % "jquerypp" % "1.0b2-1",
-      "org.webjars" % "select2" % "3.4.4",
+      "org.webjars" % "select2" % "3.4.8-1",
       "org.webjars" % "font-awesome" % "3.2.1",
       "org.webjars" % "famfamfam-flags" % "0.0",
 
@@ -49,10 +49,10 @@ object ApplicationBuild extends Build {
       "com.github.tuxBurner" %% "play-jsannotations" % "1.2.0",
 
       // amazon
-      "com.amazonaws" % "aws-java-sdk" % "1.6.10",
+      "com.amazonaws" % "aws-java-sdk" % "1.6.10"
 
       // neo4j
-      "com.github.tuxBurner" %% "play-neo4jplugin" % "1.3.2"
+      //"com.github.tuxBurner" %% "play-neo4jplugin" % "1.3.2"
     )
 
 

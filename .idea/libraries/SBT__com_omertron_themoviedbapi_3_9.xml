@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="SBT: com.omertron:themoviedbapi:3.9">
+    <CLASSES>
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/com.omertron/themoviedbapi/jars/themoviedbapi-3.9.jar!/"/>
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/com.omertron/themoviedbapi/docs/themoviedbapi-3.9-javadoc.jar!/"/>
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/com.omertron/themoviedbapi/srcs/themoviedbapi-3.9-sources.jar!/"/>
+    </SOURCES>
+  </library>
+</component>

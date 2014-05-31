@@ -1,11 +1,11 @@
 <component name="libraryTable">
   <library name="SBT: scala:2.10.3">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/framework/sbt/boot/scala-2.10.3/lib/scala-library.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/framework/sbt/boot/scala-2.10.3/lib/scala-compiler.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/framework/sbt/boot/scala-2.10.3/lib/scala-reflect.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/framework/sbt/boot/scala-2.10.3/lib/scala-library.jar!/"/>
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/framework/sbt/boot/scala-2.10.3/lib/scala-compiler.jar!/"/>
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/framework/sbt/boot/scala-2.10.3/lib/scala-reflect.jar!/"/>
     </CLASSES>
-    <JAVADOC />
-    <SOURCES />
+    <JAVADOC> </JAVADOC>
+    <SOURCES> </SOURCES>
   </library>
 </component>

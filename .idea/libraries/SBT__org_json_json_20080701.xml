@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="SBT: org.json:json:20080701">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/local/org.json/json/20080701/jars/json.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/local/org.json/json/20080701/jars/json.jar!/"/>
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/org.json/json/docs/json-20080701-javadoc.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/org.json/json/docs/json-20080701-javadoc.jar!/"/>
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/org.json/json/srcs/json-20080701-sources.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/org.json/json/srcs/json-20080701-sources.jar!/"/>
     </SOURCES>
   </library>
 </component>

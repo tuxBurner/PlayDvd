@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="SBT: org.yamj:api-common:1.1">
+    <CLASSES>
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/org.yamj/api-common/jars/api-common-1.1.jar!/"/>
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/org.yamj/api-common/docs/api-common-1.1-javadoc.jar!/"/>
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/org.yamj/api-common/srcs/api-common-1.1-sources.jar!/"/>
+    </SOURCES>
+  </library>
+</component>

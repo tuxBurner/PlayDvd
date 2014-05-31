@@ -1,14 +1,14 @@
 <component name="libraryTable">
   <library name="SBT: com.jolbox:bonecp:0.8.0.RELEASE">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/com.jolbox/bonecp/jars/bonecp-0.8.0.RELEASE.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/local/com.jolbox/bonecp/0.8.0.RELEASE/bundles/bonecp.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/com.jolbox/bonecp/jars/bonecp-0.8.0.RELEASE.jar!/"/>
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/local/com.jolbox/bonecp/0.8.0.RELEASE/bundles/bonecp.jar!/"/>
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/com.jolbox/bonecp/docs/bonecp-0.8.0.RELEASE-javadoc.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/com.jolbox/bonecp/docs/bonecp-0.8.0.RELEASE-javadoc.jar!/"/>
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/com.jolbox/bonecp/srcs/bonecp-0.8.0.RELEASE-sources.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/com.jolbox/bonecp/srcs/bonecp-0.8.0.RELEASE-sources.jar!/"/>
     </SOURCES>
   </library>
 </component>

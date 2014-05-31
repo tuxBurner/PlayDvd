@@ -1,11 +1,11 @@
 <component name="libraryTable">
   <library name="SBT: jdom:jdom:1.0">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/jdom/jdom/jars/jdom-1.0.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/jdom/jdom/jars/jdom-1.0.jar!/"/>
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC> </JAVADOC>
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/jdom/jdom/srcs/jdom-1.0-sources.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/jdom/jdom/srcs/jdom-1.0-sources.jar!/"/>
     </SOURCES>
   </library>
 </component>

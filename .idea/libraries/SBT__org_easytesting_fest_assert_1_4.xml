@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="SBT: org.easytesting:fest-assert:1.4">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/local/org.easytesting/fest-assert/1.4/jars/fest-assert.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/local/org.easytesting/fest-assert/1.4/jars/fest-assert.jar!/"/>
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/org.easytesting/fest-assert/docs/fest-assert-1.4-javadoc.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/org.easytesting/fest-assert/docs/fest-assert-1.4-javadoc.jar!/"/>
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/org.easytesting/fest-assert/srcs/fest-assert-1.4-sources.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/org.easytesting/fest-assert/srcs/fest-assert-1.4-sources.jar!/"/>
     </SOURCES>
   </library>
 </component>

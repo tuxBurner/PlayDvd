@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="SBT: com.fasterxml.jackson.core:jackson-core:2.3.0">
+    <CLASSES>
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/com.fasterxml.jackson.core/jackson-core/jars/jackson-core-2.3.0.jar!/"/>
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/com.fasterxml.jackson.core/jackson-core/bundles/jackson-core-2.3.0.jar!/"/>
+    </CLASSES>
+    <JAVADOC>
+      <root 
+      url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/com.fasterxml.jackson.core/jackson-core/docs/jackson-core-2.3.0-javadoc.jar!/">
+</root>
+    </JAVADOC>
+    <SOURCES>
+      <root 
+      url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/com.fasterxml.jackson.core/jackson-core/srcs/jackson-core-2.3.0-sources.jar!/">
+</root>
+    </SOURCES>
+  </library>
+</component>

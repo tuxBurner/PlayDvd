@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="SBT: com.google.zxing:core:3.1.0">
+    <CLASSES>
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/com.google.zxing/core/jars/core-3.1.0.jar!/"/>
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/com.google.zxing/core/docs/core-3.1.0-javadoc.jar!/"/>
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/com.google.zxing/core/srcs/core-3.1.0-sources.jar!/"/>
+    </SOURCES>
+  </library>
+</component>

@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="SBT: org.avaje.ebeanorm:avaje-ebeanorm:3.2.2">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/local/org.avaje.ebeanorm/avaje-ebeanorm/3.2.2/jars/avaje-ebeanorm.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/local/org.avaje.ebeanorm/avaje-ebeanorm/3.2.2/jars/avaje-ebeanorm.jar!/"/>
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/org.avaje.ebeanorm/avaje-ebeanorm/docs/avaje-ebeanorm-3.2.2-javadoc.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/org.avaje.ebeanorm/avaje-ebeanorm/docs/avaje-ebeanorm-3.2.2-javadoc.jar!/"/>
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/org.avaje.ebeanorm/avaje-ebeanorm/srcs/avaje-ebeanorm-3.2.2-sources.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/org.avaje.ebeanorm/avaje-ebeanorm/srcs/avaje-ebeanorm-3.2.2-sources.jar!/"/>
     </SOURCES>
   </library>
 </component>

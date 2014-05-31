@@ -1,11 +1,11 @@
 <component name="libraryTable">
   <library name="SBT: org.webjars:famfamfam-flags:0.0">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/org.webjars/famfamfam-flags/jars/famfamfam-flags-0.0.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/org.webjars/famfamfam-flags/jars/famfamfam-flags-0.0.jar!/"/>
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/org.webjars/famfamfam-flags/docs/famfamfam-flags-0.0-javadoc.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/org.webjars/famfamfam-flags/docs/famfamfam-flags-0.0-javadoc.jar!/"/>
     </JAVADOC>
-    <SOURCES />
+    <SOURCES> </SOURCES>
   </library>
 </component>

@@ -1,11 +1,11 @@
 <component name="libraryTable">
   <library name="SBT: xalan:xalan:2.7.1">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/local/xalan/xalan/2.7.1/jars/xalan.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/local/xalan/xalan/2.7.1/jars/xalan.jar!/"/>
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC> </JAVADOC>
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/xalan/xalan/srcs/xalan-2.7.1-sources.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/xalan/xalan/srcs/xalan-2.7.1-sources.jar!/"/>
     </SOURCES>
   </library>
 </component>

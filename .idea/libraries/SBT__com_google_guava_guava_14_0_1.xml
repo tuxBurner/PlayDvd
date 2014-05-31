@@ -1,14 +1,14 @@
 <component name="libraryTable">
   <library name="SBT: com.google.guava:guava:14.0.1">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/com.google.guava/guava/jars/guava-14.0.1.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/local/com.google.guava/guava/14.0.1/bundles/guava.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/com.google.guava/guava/jars/guava-14.0.1.jar!/"/>
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/local/com.google.guava/guava/14.0.1/bundles/guava.jar!/"/>
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/com.google.guava/guava/docs/guava-14.0.1-javadoc.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/com.google.guava/guava/docs/guava-14.0.1-javadoc.jar!/"/>
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/com.google.guava/guava/srcs/guava-14.0.1-sources.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/com.google.guava/guava/srcs/guava-14.0.1-sources.jar!/"/>
     </SOURCES>
   </library>
 </component>

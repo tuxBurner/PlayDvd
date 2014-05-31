@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="SBT: org.webjars:webjars-locator:0.5">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/org.webjars/webjars-locator/jars/webjars-locator-0.5.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/org.webjars/webjars-locator/jars/webjars-locator-0.5.jar!/"/>
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/org.webjars/webjars-locator/docs/webjars-locator-0.5-javadoc.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/org.webjars/webjars-locator/docs/webjars-locator-0.5-javadoc.jar!/"/>
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../../_coding/_frameworks/play-2.2.2/repository/cache/org.webjars/webjars-locator/srcs/webjars-locator-0.5-sources.jar!/" />
+      <root url="jar:///_data/_coding/_frameworks/play-2.2.3/repository/cache/org.webjars/webjars-locator/srcs/webjars-locator-0.5-sources.jar!/"/>
     </SOURCES>
   </library>
 </component>
