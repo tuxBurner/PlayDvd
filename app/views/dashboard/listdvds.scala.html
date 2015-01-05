@@ -6,7 +6,7 @@
   <script src="@routes.Assets.at("javascripts/copyButtons.js")" type="text/javascript"></script>
 
   @if(dvdPage.page.getTotalRowCount > 0) {
-    <script src="@routes.Assets.at("javascripts/jquery.hammer.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("/lib/hammerjs/hammer.js")" type="text/javascript"></script>
     <script type="text/javascript">
       $(document).hammer().on("swipeleft", function(event) {
         var hasNext = $('#navInfos').data("hasnext");

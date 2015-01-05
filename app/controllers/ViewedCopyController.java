@@ -3,20 +3,17 @@ package controllers;
 import com.avaje.ebean.Page;
 import helpers.CacheHelper;
 import helpers.ECacheObjectName;
+import jsAnnotations.JSRoute;
 import models.Bookmark;
 import models.Dvd;
 import models.ViewedCopy;
 import org.apache.commons.lang.BooleanUtils;
-import play.data.DynamicForm;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-import plugins.jsAnnotations.JSRoute;
 import views.html.viewedcopy.markAsViewed;
 
 import java.util.List;
-
-import static play.data.Form.form;
 
 /**
  * Created with IntelliJ IDEA.

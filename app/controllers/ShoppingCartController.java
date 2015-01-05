@@ -2,17 +2,17 @@ package controllers;
 
 import helpers.CacheHelper;
 import helpers.ECacheObjectName;
+import jsAnnotations.JSRoute;
 import models.CopyReservation;
 import models.Dvd;
 import objects.shoppingcart.CacheShoppingCart;
 import play.Logger;
-import play.api.templates.Html;
 import play.cache.Cache;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
-import plugins.jsAnnotations.JSRoute;
+import play.twirl.api.Html;
 
 import java.util.concurrent.Callable;
 

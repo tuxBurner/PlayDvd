@@ -8,7 +8,7 @@ import grabbers.IInfoGrabber;
 import grabbers.amazon.AmazonMovieLookuper;
 import grabbers.amazon.AmazonResult;
 import helpers.RequestToCollectionHelper;
-import plugins.jsAnnotations.JSRoute;
+import jsAnnotations.JSRoute;
 import models.Dvd;
 import models.DvdAttribute;
 import models.EDvdAttributeType;

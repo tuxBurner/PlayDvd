@@ -16,7 +16,7 @@ $(function () {
     $('#modal .modal-footer').empty();
 
     var oldCssClassToAdd = $('#modal').data('cssClassToAdd');
-    if (oldCssClassToAdd != null) {
+    if (oldCssClassToAdd !== undefined) {
       $('#modal').removeClass(oldCssClassToAdd);
     }
 
@@ -38,7 +38,7 @@ function pAjax(controller, fnData, sucessFn, errorFn) {
     },
     error: function (data) {
       // TODO: on error and no errorFn alert here something
-      errorFn(data)
+      errorFn(data);
     }
   });
 }
@@ -64,7 +64,7 @@ function closeWaitDiaLog() {
 function displayAjaxDialog(options) {
   pAjax(options.route, options.ajaxParams,
     function (data) {
-      options["content"] = data;
+      options.content = data;
       displayDialog(options);
     },
     function (err) {
@@ -82,37 +82,37 @@ function displayDialog(options) {
   $("html").css("overflow", "hidden");
 
   $('#modal').data('cssClassToAdd', options.cssClass);
-  if (options.cssClass != null) {
+  if (options.cssClass !== undefined) {
     $('#modal').addClass(options.cssClass);
   }
 
   $('#modal .modal-footer').empty();
 
-  if (options.buttons != null) {
+  if (options.buttons !== undefined) {
 
     for (var title in options.buttons) {
       var button = options.buttons[title];
-      var iconHtml = (button.icon != null) ? '<i class="' + button.icon + '"></i>' : '';
-      var cssClass = (button.cssClass != null) ? ' ' + button.cssClass : '';
+      var iconHtml = (button.icon !== undefined) ? '<i class="' + button.icon + '"></i>' : '';
+      var cssClass = (button.cssClass !== undefined) ? ' ' + button.cssClass : '';
       var i18nTitle = Messages(title);
 
       $('<button class="btn' + cssClass + '">' + iconHtml + ' ' + i18nTitle + '</button>').click(button.callback).appendTo('#modal .modal-footer');
     }
   }
 
-  if (options.closeButton == true) {
-    $('#modal .modal-footer').append('<button class="btn" data-dismiss="modal" aria-hidden="true">'+Messages('btn.close')+'</button>');
+  if (options.closeButton === true) {
+    $('#modal .modal-footer').append('<button class="btn" data-dismiss="modal" aria-hidden="true">' + Messages('btn.close') + '</button>');
   }
 
   $('#modalLabel').html(options.title);
   $('#modal .modal-body').html(options.content);
   $('#modal').modal('show');
 
-  if (options.onOpen != null) {
+  if (options.onOpen !== undefined) {
     options.onOpen();
   }
 
-  if(options.onClose != null) {
+  if (options.onClose !== undefined) {
     $('#modal').data("onCloseFunction", options.onClose);
   }
 
@@ -124,21 +124,21 @@ function displayDialog(options) {
  */
 function closeDialog() {
   $("html").css("overflow", "auto"); // enable scrollbars on html
-  $('#modal').modal('hide')
+  $('#modal').modal('hide');
 }
-
 
 
 /**
  * Checks if the dialog has a close function set and if so calls it
  *
  */
-var checkDialogCloseFunction = function() {
+var checkDialogCloseFunction = function () {
   var onCloseFunction = $('#modal').data("onCloseFunction");
-  if(onCloseFunction != null) {
+  if (onCloseFunction !== undefined && onCloseFunction !== null) {
+    console.error(onCloseFunction);
     onCloseFunction();
   }
-  $('#modal').data("onCloseFunction",null);
+  $('#modal').data("onCloseFunction", null);
 };
 
 /**
@@ -148,15 +148,17 @@ var checkDialogCloseFunction = function() {
  * @param allowClear
  * @param formatFunc
  */
-var createSelect2Deselect = function(jqSelector, dataObj, formatFunc, allowClear) {
+var createSelect2Deselect = function (jqSelector, dataObj, formatFunc, allowClear) {
 
   var cssClassToAdd = $(jqSelector).attr("class");
 
   $(jqSelector).select2({
-    allowClear: (allowClear == null || allowClear == true) ? true : false,
-    escapeMarkup: function (m) { return m; }, // we do not want to escape markup since we are displaying html in results
-    formatSelection: (formatFunc == null) ? select2Format : formatFunc,
-    formatResult: (formatFunc == null) ? select2Format : formatFunc,
+    allowClear: (allowClear === null || allowClear === true) ? true : false,
+    escapeMarkup: function (m) {
+      return m;
+    }, // we do not want to escape markup since we are displaying html in results
+    formatSelection: (formatFunc === null) ? select2Format : formatFunc,
+    formatResult: (formatFunc === null) ? select2Format : formatFunc,
     data: prepareSelect2Data(dataObj),
     initSelection: select2InitSelection,
     containerCssClass: cssClassToAdd
@@ -168,23 +170,29 @@ var createSelect2Deselect = function(jqSelector, dataObj, formatFunc, allowClear
  * @param jqSelector
  * @param dataObj
  */
-var createSelect2DeselectCreate = function(jqSelector, dataObj) {
+var createSelect2DeselectCreate = function (jqSelector, dataObj) {
 
   var cssClassToAdd = $(jqSelector).attr("class");
 
   $(jqSelector).select2({
     allowClear: true,
-    createSearchChoice:function(term, data) { if ($(data).filter(function() { return this.text.localeCompare(term)===0; }).length===0) {return {id:term, text:term};} },
+    createSearchChoice: function (term, data) {
+      if ($(data).filter(function () {
+          return this.text.localeCompare(term) === 0;
+        }).length === 0) {
+        return {id: term, text: term};
+      }
+    },
     formatSelection: select2Format,
     formatResult: select2Format,
     initSelection: select2InitSelection,
     data: prepareSelect2Data(dataObj),
     containerCssClass: cssClassToAdd,
     matcher: function (term, text) {
-      return text.toUpperCase().indexOf(term.toUpperCase()) == 0;
+      return text.toUpperCase().indexOf(term.toUpperCase()) === 0;
     }
   });
-}
+};
 
 /**
  * Creates a tag box with select2 which queries the backend for tags via ajax
@@ -200,7 +208,7 @@ function createSelect2TagAjaxBox(jqSelector, controllerAction, queryParams) {
     minimumInputLength: 3,
     initSelection: function (element, callback) {
       var data = [];
-      $(element.val().split(",")).each(function (i,obj) {
+      $(element.val().split(",")).each(function (i, obj) {
         data.push({id: obj, text: obj});
       });
       callback(data);
@@ -209,7 +217,7 @@ function createSelect2TagAjaxBox(jqSelector, controllerAction, queryParams) {
       url: controllerAction.url.substring(0, controllerAction.url.indexOf('?')),
       dataType: 'json',
       data: function (term, page) {
-        queryParams["term"] = term;
+        queryParams.term = term;
         return queryParams;
       },
       results: function (data, page) {
@@ -227,8 +235,8 @@ function createSelect2TagAjaxBox(jqSelector, controllerAction, queryParams) {
  */
 // TODO: can this be done in the backend ?
 function prepareSelect2Data(dataObj) {
-  var select2Data = new Array();
-  for (idx in dataObj) {
+  var select2Data = [];
+  for (var idx in dataObj) {
     select2Data[idx] = {"id": dataObj[idx], "text": dataObj[idx]};
   }
 

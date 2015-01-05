@@ -11,12 +11,13 @@ import models.User;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import play.Logger;
-import play.api.templates.Html;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 import play.mvc.With;
 import scala.collection.mutable.StringBuilder;
+
+import play.twirl.api.Html;
 
 import java.io.StringWriter;
 import java.io.Writer;
@@ -112,7 +113,7 @@ public class RssFeedsController extends Controller {
       SyndFeedOutput output = new SyndFeedOutput();
       output.output(feed, writer);
       writer.close();
-      Html html = new Html(new StringBuilder(writer.toString()));
+      Html html = new Html(writer.toString());
       return ok(html);
 
     } catch (Exception e) {
