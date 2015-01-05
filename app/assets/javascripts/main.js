@@ -135,7 +135,6 @@ function closeDialog() {
 var checkDialogCloseFunction = function () {
   var onCloseFunction = $('#modal').data("onCloseFunction");
   if (onCloseFunction !== undefined && onCloseFunction !== null) {
-    console.error(onCloseFunction);
     onCloseFunction();
   }
   $('#modal').data("onCloseFunction", null);
