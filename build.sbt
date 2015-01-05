@@ -1,6 +1,6 @@
 name := """dvdDataBase"""
 
-version := "1.7-SNAPSHOT"
+version := "1.7"
 
 lazy val root = (project in file(".")).enablePlugins(PlayJava)
 
