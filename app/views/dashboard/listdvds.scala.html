@@ -6,22 +6,25 @@
   <script src="@routes.Assets.at("javascripts/copyButtons.js")" type="text/javascript"></script>
 
   @if(dvdPage.page.getTotalRowCount > 0) {
-    <script src="@routes.Assets.at("/lib/hammerjs/hammer.js")" type="text/javascript"></script>
+    <script type='text/javascript' src="@routes.WebJarAssets.at(WebJarAssets.locate("hammer.js"))"></script>
     <script type="text/javascript">
-      $(document).hammer().on("swipeleft", function(event) {
-        var hasNext = $('#navInfos').data("hasnext");
-        if(hasNext == true) {
-          var idx = $('#navInfos').data("curridx");
-          navToPage(idx+1);
-        }
-      });
-      $(document).hammer().on("swiperight", function(event) {
-        var hasNext = $('#navInfos').data("hasprev");
+       var hammerDoc = new Hammer(document.getElementById('copyListContainer'));
+       hammerDoc.get('swipe').set({ direction: Hammer.DIRECTION_HORIZONTAL });
+       hammerDoc.on('swipeleft', function(ev) {
+         var hasNext = $('#navInfos').data("hasnext");
+         if(hasNext == true) {
+           var idx = $('#navInfos').data("curridx");
+           navToPage(idx+1);
+         } 
+       });
+
+       hammerDoc.on('swiperight', function(ev) {
+       	var hasNext = $('#navInfos').data("hasprev");
         if(hasNext == true) {
           var idx = $('#navInfos').data("curridx");
           navToPage(idx-1);
         }
-      });
+       });
     </script>
   }
 }
