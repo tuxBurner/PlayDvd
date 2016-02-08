@@ -24,9 +24,9 @@ libraryDependencies ++= Seq(
   "com.omertron" % "themoviedbapi" % "3.10",
   "com.omertron" % "traileraddictapi" % "1.4",
   "com.google.zxing" % "core" % "3.1.0",
-  "com.typesafe.play.plugins" %% "play-plugins-mailer" % "2.3.1",
+  "com.typesafe.play" %% "play-mailer" % "3.0.1",
   // webjars
-  "org.webjars" %% "webjars-play" % "2.3.0-2",
+  "org.webjars" %% "webjars-play" % "2.4.0-1",
   "org.webjars" % "bootstrap" % "2.3.2",
   "org.webjars" % "jquery" % "1.11.2",
   "org.webjars" % "jquerypp" % "1.0b2",
@@ -37,7 +37,7 @@ libraryDependencies ++= Seq(
   "org.webjars" % "hammerjs" % "2.0.3-1",
   "org.webjars" % "animate.css" % "3.2.0",
   "org.julienrf" %% "play-jsmessages" % "1.6.2",
-  "com.github.tuxBurner" %% "play-jsannotations" % "1.2.2",
+  "com.github.tuxBurner" %% "play-jsannotations" % "1.2.3-SNAPSHOT",
   "com.github.tuxBurner" %% "play-twbs3" % "1.0",
   "com.amazonaws" % "aws-java-sdk" % "1.6.10"
 )

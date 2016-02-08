@@ -1,11 +1,10 @@
 package helpers;
 
 import com.typesafe.config.ConfigFactory;
-import com.typesafe.plugin.MailerAPI;
-import com.typesafe.plugin.MailerPlugin;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.validation.Constraints;
+
 
 /**
  * Simple helper for sending mails
@@ -16,6 +15,7 @@ import play.data.validation.Constraints;
  * Time: 10:49 PM
  */
 public class MailerHelper {
+
 
   /**
    * Sends an email
@@ -72,7 +72,8 @@ public class MailerHelper {
     }
 
 
-    MailerAPI mail = play.Play.application().plugin(MailerPlugin.class).email();
+    // TODO SHARDT PLAY24
+    /*MailerAPI mail = play.Play.application().plugin(MailerPlugin.class).email();
     mail.setSubject(subject);
     mail.setRecipient(receiver);
     mail.setFrom(mailFrom);
@@ -80,7 +81,7 @@ public class MailerHelper {
       mail.sendHtml(content);
     } else {
       mail.send(content);
-    }
+    } */
   }
 
   /**

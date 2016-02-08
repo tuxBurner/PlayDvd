@@ -1,12 +1,12 @@
 package controllers;
 
 
-import jsAnnotations.JSRoutesPlugin;
 import jsmessages.JsMessages;
 import org.apache.commons.lang.ArrayUtils;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
+import jsAnnotations.JsRoutesComponentImpl;
 
 @Security.Authenticated(Secured.class)
 public class Application extends Controller
@@ -33,7 +33,7 @@ public class Application extends Controller
    */
   public static Result jsRoutes()
   {
-    return JSRoutesPlugin.getJsRoutesResult();
+    return JsRoutesComponentImpl.getJsRoutesResult();
   }
 
   /**
