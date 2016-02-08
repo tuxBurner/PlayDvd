@@ -1,5 +1,6 @@
 package controllers;
 
+import com.omertron.themoviedbapi.MovieDbException;
 import grabbers.EGrabberType;
 import grabbers.GrabberDisplayMovie;
 import grabbers.GrabberException;
@@ -72,7 +73,13 @@ public class InfoGrabberController extends Controller {
   public static IInfoGrabber getGrabber(final EGrabberType grabberType) {
 
     if (EGrabberType.TMDB.equals(grabberType)) {
-      return new TmdbGrabber();
+      try {
+        return new TmdbGrabber();
+      } catch (MovieDbException e) {
+        if(Logger.isErrorEnabled() == true) {
+         Logger.error("An error happened while loading the: "+TmdbGrabber.class.getName(),e);
+        }
+      }
     }
 
     if (EGrabberType.THETVDB.equals(grabberType)) {
@@ -80,7 +87,13 @@ public class InfoGrabberController extends Controller {
     }
 
     if (EGrabberType.MOVIECOMBINED.equals(grabberType)) {
-      return new MovieCombined();
+      try {
+        return new MovieCombined();
+      } catch (MovieDbException e) {
+        if(Logger.isErrorEnabled() == true) {
+          Logger.error("An error happened while loading the: "+TmdbGrabber.class.getName(),e);
+        }
+      }
     }
 
     return null;

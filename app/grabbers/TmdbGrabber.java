@@ -1,8 +1,20 @@
 package grabbers;
 
+
 import com.omertron.themoviedbapi.MovieDbException;
 import com.omertron.themoviedbapi.TheMovieDbApi;
-import com.omertron.themoviedbapi.model.*;
+import com.omertron.themoviedbapi.enumeration.ArtworkType;
+import com.omertron.themoviedbapi.enumeration.SearchType;
+import com.omertron.themoviedbapi.model.Genre;
+import com.omertron.themoviedbapi.model.artwork.Artwork;
+import com.omertron.themoviedbapi.model.collection.Collection;
+import com.omertron.themoviedbapi.model.config.Configuration;
+import com.omertron.themoviedbapi.model.credits.MediaCreditCast;
+import com.omertron.themoviedbapi.model.media.MediaCreditList;
+import com.omertron.themoviedbapi.model.media.Trailer;
+import com.omertron.themoviedbapi.model.media.Video;
+import com.omertron.themoviedbapi.model.movie.MovieInfo;
+import com.sun.syndication.feed.atom.Person;
 import forms.MovieForm;
 import forms.grabbers.GrabberInfoForm;
 import org.apache.commons.collections.CollectionUtils;
@@ -23,9 +35,9 @@ public class TmdbGrabber implements IInfoGrabber {
 
   private TheMovieDbApi theMovieDb;
 
-  private TmdbConfiguration configuration;
+  private Configuration configuration;
 
-  public TmdbGrabber() {
+  public TmdbGrabber() throws MovieDbException {
     try {
       theMovieDb = new TheMovieDbApi(TmdbGrabber.API_KEY);
       configuration = theMovieDb.getConfiguration();
@@ -40,10 +52,10 @@ public class TmdbGrabber implements IInfoGrabber {
     try {
       final List<GrabberSearchMovie> returnVal = new ArrayList<GrabberSearchMovie>();
       //final List<MovieDb> results = theMovieDb.searchMovie(searchTerm,0, TmdbGrabber.LANGUAGE, false,0);
-        List<MovieDb> results = theMovieDb.searchMovie(searchTerm, 0, TmdbGrabber.LANGUAGE, false, 0).getResults();
+        List<MovieInfo> results = theMovieDb.searchMovie(searchTerm, 0, TmdbGrabber.LANGUAGE, false, 0,0, SearchType.PHRASE).getResults();
 
         if (CollectionUtils.isEmpty(results) == false) {
-        for (final MovieDb movieDb : results) {
+        for (final MovieInfo movieDb : results) {
           final String posterImageUrl = buildImageUrl(configuration.getPosterSizes().get(0), movieDb.getPosterPath());
           returnVal.add(new GrabberSearchMovie(String.valueOf(movieDb.getId()), movieDb.getTitle(), posterImageUrl, TmdbGrabber.TYPE));
         }
@@ -76,7 +88,7 @@ public class TmdbGrabber implements IInfoGrabber {
 
     try {
       final Integer idAsInt = Integer.valueOf(id);
-      MovieDb movieInfo = getMovieDB(idAsInt);
+      MovieInfo movieInfo = getMovieDB(idAsInt);
 
       final List<Artwork> movieImages = theMovieDb.getMovieImages(idAsInt, null).getResults();
 
@@ -96,12 +108,12 @@ public class TmdbGrabber implements IInfoGrabber {
       }
 
       final List<String> trailerUrls = new ArrayList<String>();
-      final List<Trailer> movieTrailers = theMovieDb.getMovieTrailers(idAsInt, TmdbGrabber.LANGUAGE).getResults();
-      movieTrailers.addAll(theMovieDb.getMovieTrailers(idAsInt, null).getResults());
+      final List<Video> movieTrailers = theMovieDb.getMovieVideos(idAsInt, TmdbGrabber.LANGUAGE).getResults();
+      movieTrailers.addAll(theMovieDb.getMovieVideos(idAsInt, null).getResults());
 
-      for (final Trailer trailer : movieTrailers) {
-        if ("youtube".equals(trailer.getWebsite()) == true) {
-          trailerUrls.add(trailer.getSource());
+      for (final Video trailer : movieTrailers) {
+        if ("youtube".equals(trailer.getSite()) == true) {
+          trailerUrls.add(trailer.getSite());
         }
       }
 
@@ -122,7 +134,7 @@ public class TmdbGrabber implements IInfoGrabber {
     try {
 
       final Integer id = Integer.valueOf(grabberInfoForm.grabberMovieId);
-      MovieDb movieInfo = getMovieDB(id);
+      MovieInfo movieInfo = getMovieDB(id);
 
       final MovieForm movieForm = new MovieForm();
       movieForm.title = movieInfo.getTitle();
@@ -146,9 +158,10 @@ public class TmdbGrabber implements IInfoGrabber {
         movieForm.genres.add(genre.getName());
       }
 
-      final List<Person> movieCasts = theMovieDb.getMovieCasts(id).getResults();
-      for (final Person castInfo : movieCasts) {
-        if ("Director".equals(castInfo.getJob())) {
+      final MediaCreditList movieCasts = theMovieDb.getMovieCredits(id);
+      List<MediaCreditCast> cast = movieCasts.getCast();
+      for (final MediaCreditCast castInfo : cast) {
+        /*if ("Director".equals(castInfo.getJob())) {
           movieForm.director = castInfo.getName();
           continue;
         }
@@ -156,7 +169,7 @@ public class TmdbGrabber implements IInfoGrabber {
         if ("actor".equals(castInfo.getJob())) {
           movieForm.actors.add(castInfo.getName());
           continue;
-        }
+        } */
       }
 
       final Collection belongsToCollection = movieInfo.getBelongsToCollection();
@@ -192,8 +205,8 @@ public class TmdbGrabber implements IInfoGrabber {
    * @return
    * @throws MovieDbException
    */
-  protected MovieDb getMovieDB(int id) throws MovieDbException {
-    final MovieDb movieInfo = theMovieDb.getMovieInfo(id, TmdbGrabber.LANGUAGE);
+  protected MovieInfo getMovieDB(int id) throws MovieDbException {
+    final MovieInfo movieInfo = theMovieDb.getMovieInfo(id, TmdbGrabber.LANGUAGE);
     return movieInfo;
   }
 }

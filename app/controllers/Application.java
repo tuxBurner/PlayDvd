@@ -57,7 +57,6 @@ public class Application extends Controller
 
     final String[] allKeys = (String[]) ArrayUtils.addAll(GENERAL_I18N_JS_KEYS, keys);
 
-
     //jsMessagesFactory.subset(keys);
 
     //return JS_MESSAGES.subset(play.Play.application(), allKeys).generate(namespace).toString();

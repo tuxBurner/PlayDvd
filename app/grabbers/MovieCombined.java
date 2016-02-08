@@ -1,5 +1,6 @@
 package grabbers;
 
+import com.omertron.themoviedbapi.MovieDbException;
 import com.omertron.traileraddictapi.TrailerAddictApi;
 import com.omertron.traileraddictapi.TrailerAddictException;
 import com.omertron.traileraddictapi.model.Trailer;
@@ -14,6 +15,10 @@ import java.util.List;
  * Time: 1:02 PM
  */
 public class MovieCombined extends TmdbGrabber {
+
+  public MovieCombined() throws MovieDbException {
+    super();
+  }
 
   @Override
   public GrabberDisplayMovie getDisplayMovie(final String id) throws GrabberException {

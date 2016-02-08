@@ -20,10 +20,12 @@ libraryDependencies ++= Seq(
   // RSS FEEDS
   "rome" % "rome" % "1.0",
   // grabbers
-  "com.omertron" % "thetvdbapi" % "1.6",
-  "com.omertron" % "themoviedbapi" % "3.10",
-  "com.omertron" % "traileraddictapi" % "1.4",
+  "com.omertron" % "thetvdbapi" % "1.8",
+  "com.omertron" % "themoviedbapi" % "4.1",
+  "com.omertron" % "traileraddictapi" % "1.5",
+  // barcode stuff
   "com.google.zxing" % "core" % "3.1.0",
+  // mail
   "com.typesafe.play" %% "play-mailer" % "3.0.1",
   // webjars
   "org.webjars" %% "webjars-play" % "2.4.0-1",
