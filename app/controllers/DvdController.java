@@ -8,7 +8,7 @@ import grabbers.IInfoGrabber;
 import grabbers.amazon.AmazonMovieLookuper;
 import grabbers.amazon.AmazonResult;
 import helpers.RequestToCollectionHelper;
-import jsAnnotations.JSRoute;
+import com.github.tuxBurner.jsAnnotations.JSRoute;
 import models.Dvd;
 import models.DvdAttribute;
 import models.EDvdAttributeType;
@@ -45,7 +45,7 @@ public class DvdController extends Controller {
    *
    * @return
    */
-  public static Result showAddDvd() {
+  public Result showAddDvd() {
 
     final Form<DvdForm> form = Form.form(DvdForm.class);
     return Results.ok(dvdform.render(form.fill(new DvdForm()), DvdController.DVD_FORM_ADD_MODE));
@@ -56,7 +56,7 @@ public class DvdController extends Controller {
    *
    * @return
    */
-  public static Result showEditDvd(final Long dvdId) {
+  public Result showEditDvd(final Long dvdId) {
 
     final Dvd dvdToEdit = Dvd.getDvdForUser(dvdId, Controller.request().username());
 
@@ -74,7 +74,7 @@ public class DvdController extends Controller {
    *
    * @return
    */
-  public static Result addDvd(final String mode) {
+  public Result addDvd(final String mode) {
 
     final Map<String, String> map = RequestToCollectionHelper.requestToFormMap(Controller.request(), "audioTypes");
     final Form<DvdForm> dvdForm = new Form<DvdForm>(DvdForm.class).bind(map);
@@ -113,7 +113,7 @@ public class DvdController extends Controller {
    * @return
    */
   @JSRoute
-  public static Result searchAmazonByCode(final String code, final Long copyId) {
+  public Result searchAmazonByCode(final String code, final Long copyId) {
     AmazonResult result = null;
     List<Movie> movies = null;
     if (StringUtils.isEmpty(code) == false) {
@@ -133,7 +133,7 @@ public class DvdController extends Controller {
    * @return
    */
   @JSRoute
-  public static Result addMovieByGrabber(final String grabberType) {
+  public Result addMovieByGrabber(final String grabberType) {
     try {
       final Form<GrabberInfoForm> grabberInfoForm = Form.form(GrabberInfoForm.class).bindFromRequest();
 
@@ -165,7 +165,7 @@ public class DvdController extends Controller {
    * @return
    */
   @JSRoute
-  public static Result showDvdByAmazonAndMovie(final String code, final Long movieId, final Long copyId) {
+  public Result showDvdByAmazonAndMovie(final String code, final Long movieId, final Long copyId) {
 
     if (StringUtils.isEmpty(code) == true || movieId == null) {
       return badRequest();
@@ -203,7 +203,7 @@ public class DvdController extends Controller {
   /**
    * Just fills the informations from the amazon lookup to the copy form an returns it
    */
-  public static Result showCopyFormWithAmazonInfo(final String code, final Long copyId) {
+  public Result showCopyFormWithAmazonInfo(final String code, final Long copyId) {
     if (StringUtils.isEmpty(code) == true) {
       if (Logger.isErrorEnabled() == true) {
         Logger.error("No code is given for looking up amazon infos.");
@@ -246,7 +246,7 @@ public class DvdController extends Controller {
    * @return
    */
   @JSRoute
-  public static Result searchForCopyAttribute(final String term, final String attrType) {
+  public Result searchForCopyAttribute(final String term, final String attrType) {
     try {
       final EDvdAttributeType eattrType = EDvdAttributeType.valueOf(attrType);
       final String result = DvdAttribute.searchAvaibleAttributesAsJson(eattrType, term);

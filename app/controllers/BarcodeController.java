@@ -7,7 +7,7 @@ import com.google.zxing.NotFoundException;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.oned.EAN13Reader;
 import helpers.BufferedImageLuminanceSource;
-import jsAnnotations.JSRoute;
+import com.github.tuxBurner.jsAnnotations.JSRoute;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 import play.Logger;
@@ -38,12 +38,12 @@ public class BarcodeController extends Controller {
    * @return
    */
   @JSRoute
-  public static Result displayBarcodeScaner() {
+  public Result displayBarcodeScaner() {
     return ok(barcodescanner.render());
   }
 
   @JSRoute
-  public static WebSocket<String> scanBarcode() {
+  public WebSocket<String> scanBarcode() {
     return new WebSocket<String>() {
 
       // Called when the Websocket Handshake is done.
@@ -107,7 +107,7 @@ public class BarcodeController extends Controller {
     };
   }
 
-  /*public static Result scanBarcode(final String type, final String data) {
+  /*public Result scanBarcode(final String type, final String data) {
 
     DynamicForm requestData = form().bindFromRequest();
 

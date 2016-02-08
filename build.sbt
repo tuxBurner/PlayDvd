@@ -36,9 +36,12 @@ libraryDependencies ++= Seq(
   "org.webjars" % "holderjs" % "2.4.0",
   "org.webjars" % "hammerjs" % "2.0.3-1",
   "org.webjars" % "animate.css" % "3.2.0",
+  // js i18n stuff
   "org.julienrf" %% "play-jsmessages" % "2.0.0",
-  "com.github.tuxBurner" %% "play-jsannotations" % "1.2.3-SNAPSHOT",
+  // tuxburners helpers :)
+  "com.github.tuxBurner" %% "play-jsannotations" % "2.4.0",
   "com.github.tuxBurner" %% "play-twbs3" % "1.0",
+  // amazon stuff
   "com.amazonaws" % "aws-java-sdk" % "1.6.10"
 )
 
@@ -51,5 +54,5 @@ resolvers ++= Seq(
 
 // Play provides two styles of routers, one expects its actions to be injected, the
 // other, legacy style, accesses its actions statically.
-//routesGenerator := InjectedRoutesGenerator
+routesGenerator := InjectedRoutesGenerator
 

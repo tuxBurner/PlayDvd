@@ -118,7 +118,7 @@ POST        /viewedcopies/mark/:copyId                      controllers.ViewedCo
 GET         /language/:code                                 controllers.LanguageController.changeLanguage(code: String)
 
 
-# Grabbers 
+# Grabbers
 GET         /grabber/search                                 controllers.InfoGrabberController.searchGrabber(searchTerm = "", grabberType =  "TMDB")
 GET         /grabber/:grabberType/search/:searchTerm        controllers.InfoGrabberController.searchGrabber(searchTerm: String, grabberType:  String)
 GET         /grabber/:grabberType/:grabberId                controllers.InfoGrabberController.getMovieById(grabberId: String, grabberType:  String)

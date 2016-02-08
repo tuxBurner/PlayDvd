@@ -8,7 +8,7 @@ import grabbers.IInfoGrabber;
 import grabbers.MovieCombined;
 import grabbers.TheTvDbGrabber;
 import grabbers.TmdbGrabber;
-import jsAnnotations.JSRoute;
+import com.github.tuxBurner.jsAnnotations.JSRoute;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.mvc.Controller;
@@ -37,7 +37,7 @@ public class InfoGrabberController extends Controller {
    * @return
    */
   @JSRoute
-  public static Result searchGrabber(final String searchTerm, final String grabberType) {
+  public Result searchGrabber(final String searchTerm, final String grabberType) {
 
     final Long movieToEditId = InfoGrabberController.getMovieToEditIdFromReq();
     final String amazonCode = request().getQueryString(AMAZON_CODE);
@@ -113,7 +113,7 @@ public class InfoGrabberController extends Controller {
    * @return
    */
   @JSRoute
-  public static Result getMovieById(final String grabberId, final String grabberType) {
+  public Result getMovieById(final String grabberId, final String grabberType) {
 
     try {
 

@@ -1,6 +1,6 @@
 package controllers;
 
-import jsAnnotations.JSRoute;
+import com.github.tuxBurner.jsAnnotations.JSRoute;
 import models.CopyReservation;
 import models.Dvd;
 import models.User;
@@ -22,7 +22,7 @@ public class ReservationsController extends Controller {
    * Displays the overview over {@link CopyReservation} made by other {@link models.User}s and made by the current  {@link models.User}
    * @return
    */
-  public static Result showReservations() {
+  public Result showReservations() {
     return ok(views.html.reservations.showreservations.render(CopyReservation.getReservations()));
   }
 
@@ -31,7 +31,7 @@ public class ReservationsController extends Controller {
    * Shows an overview off all {@CopyReservation}s the current {@link models.User} has
    * @return
    */
-  public static Result showReserved() {
+  public Result showReserved() {
     return ok(views.html.reservations.showreserved.render(CopyReservation.getOwnReservations()));
   }
 
@@ -39,7 +39,7 @@ public class ReservationsController extends Controller {
    * Displays all {@Dvd}s which the current {@link User} lent to somebody else
    * @return
    */
-  public static Result showLentCopies() {
+  public Result showLentCopies() {
     return ok(views.html.reservations.lentcopies.render(Dvd.getLentDvds()));
   }
 
@@ -47,7 +47,7 @@ public class ReservationsController extends Controller {
    * Displays all {@Dvd}s which the which the current {@link User} borrowed from other {@link User}s
    * @return
    */
-  public static Result showBorrowedCopies() {
+  public Result showBorrowedCopies() {
     return ok(showborrowed.render(Dvd.getBorrowedDvds()));
   }
 
@@ -57,7 +57,7 @@ public class ReservationsController extends Controller {
    * @return
    */
   @JSRoute
-  public static  Result deleteReserved(final Long reservationId) {
+  public Result deleteReserved(final Long reservationId) {
    CopyReservation.deleteReserved(reservationId);
     return redirect(routes.ReservationsController.showReserved());
   }
@@ -68,7 +68,7 @@ public class ReservationsController extends Controller {
    * @return
    */
   @JSRoute
-  public static  Result deleteReservations(final String reservationIds) {
+  public Result deleteReservations(final String reservationIds) {
     if(StringUtils.isEmpty(reservationIds) == false) {
       final String[] ids = extractIds(reservationIds);
       final User currentUser = User.getCurrentUser();
@@ -89,7 +89,7 @@ public class ReservationsController extends Controller {
    * @return
    */
   @JSRoute
-  public static Result borrowReservations(final String reservationIds) {
+  public Result borrowReservations(final String reservationIds) {
     if(StringUtils.isEmpty(reservationIds) == false) {
       final String[] ids = extractIds(reservationIds);
       final User currentUser = User.getCurrentUser();
@@ -109,7 +109,7 @@ public class ReservationsController extends Controller {
    * @return
    */
   @JSRoute
-  public static Result unlentCopies(final String copyIds) {
+  public Result unlentCopies(final String copyIds) {
     if(StringUtils.isEmpty(copyIds) == false) {
       final String[] ids = extractIds(copyIds);
       final User currentUser = User.getCurrentUser();

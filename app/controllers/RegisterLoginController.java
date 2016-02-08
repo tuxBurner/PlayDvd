@@ -22,7 +22,7 @@ public class RegisterLoginController extends Controller {
    *
    * @return
    */
-  public static Result showRegister() {
+  public Result showRegister() {
     return Results.ok(register.render(Form.form(RegisterForm.class)));
   }
 
@@ -31,7 +31,7 @@ public class RegisterLoginController extends Controller {
    *
    * @return
    */
-  public static Result register() {
+  public Result register() {
     final Form<RegisterForm> registerForm = Form.form(RegisterForm.class).bindFromRequest();
     if (registerForm.hasErrors()) {
       return Results.badRequest(register.render(registerForm));
@@ -47,7 +47,7 @@ public class RegisterLoginController extends Controller {
   /**
    * Login page.
    */
-  public static Result showLogin() {
+  public Result showLogin() {
     return Results.ok(login.render(Form.form(LoginForm.class)));
   }
 
@@ -56,7 +56,7 @@ public class RegisterLoginController extends Controller {
    *
    * @return
    */
-  public static Result login() {
+  public Result login() {
     final Form<LoginForm> loginForm = Form.form(LoginForm.class).bindFromRequest();
     if (loginForm.hasErrors()) {
       return Results.badRequest(login.render(loginForm));
@@ -69,7 +69,7 @@ public class RegisterLoginController extends Controller {
   }
 
 
-  public static Result logout() {
+  public Result logout() {
     Controller.session().clear();
     Controller.flash("success", Messages.get("msg.success.logout"));
     return Results.redirect(routes.RegisterLoginController.login());

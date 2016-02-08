@@ -5,7 +5,7 @@ import com.typesafe.config.ConfigFactory;
 import forms.dvd.DvdSearchFrom;
 import helpers.ConfigurationHelper;
 import helpers.ECopyListView;
-import jsAnnotations.JSRoute;
+import com.github.tuxBurner.jsAnnotations.JSRoute;
 import models.Dvd;
 import objects.shoppingcart.CacheShoppingCart;
 import org.apache.commons.lang.StringUtils;
@@ -36,7 +36,7 @@ public class ListDvdsController extends Controller {
    *
    * @return
    */
-  public static Result listdvds(final Integer pageNr) {
+  public Result listdvds(final Integer pageNr) {
     final DvdSearchFrom currentSearchForm = DvdSearchFrom.getCurrentSearchForm();
     if (pageNr != null) {
       currentSearchForm.currentPage = pageNr;
@@ -50,7 +50,7 @@ public class ListDvdsController extends Controller {
    * @return
    */
   @JSRoute
-  public static Result listCopiesJS(final Integer pageNr) {
+  public Result listCopiesJS(final Integer pageNr) {
     final DvdSearchFrom currentSearchForm = DvdSearchFrom.getCurrentSearchForm();
     if (pageNr != null) {
       currentSearchForm.currentPage = pageNr;
@@ -63,7 +63,7 @@ public class ListDvdsController extends Controller {
    *
    * @return
    */
-  public static Result listAlldvds() {
+  public Result listAlldvds() {
     final DvdSearchFrom dvdSearchFrom = new DvdSearchFrom();
     return ListDvdsController.returnList(dvdSearchFrom);
   }
@@ -74,7 +74,7 @@ public class ListDvdsController extends Controller {
    * @param fromUserName
    * @return
    */
-  public static Result listByUser(final String fromUserName) {
+  public Result listByUser(final String fromUserName) {
     if (StringUtils.isEmpty(fromUserName)) {
       return Results.internalServerError("No Username given");
     }
@@ -91,7 +91,7 @@ public class ListDvdsController extends Controller {
    * @param genreName
    * @return
    */
-  public static Result listByGenre(final String genreName) {
+  public Result listByGenre(final String genreName) {
     if (StringUtils.isEmpty(genreName)) {
       return Results.internalServerError("No Genrename given");
     }
@@ -108,7 +108,7 @@ public class ListDvdsController extends Controller {
    * @param actorName
    * @return
    */
-  public static Result listByActor(final String actorName) {
+  public Result listByActor(final String actorName) {
     if (StringUtils.isEmpty(actorName)) {
       return Results.internalServerError("No actorname given");
     }
@@ -126,7 +126,7 @@ public class ListDvdsController extends Controller {
    * @param directorName
    * @return
    */
-  public static Result listByDirector(final String directorName) {
+  public Result listByDirector(final String directorName) {
     if (StringUtils.isEmpty(directorName)) {
       return Results.internalServerError("No directorname given");
     }
@@ -140,7 +140,7 @@ public class ListDvdsController extends Controller {
    *
    * @return
    */
-  public static Result listLendDvd() {
+  public Result listLendDvd() {
 
     final DvdSearchFrom dvdListFrom = new DvdSearchFrom();
     dvdListFrom.lendDvd = true;
@@ -149,7 +149,7 @@ public class ListDvdsController extends Controller {
     return ListDvdsController.returnList(dvdListFrom);
   }
 
-  public static Result listReviewMovies() {
+  public Result listReviewMovies() {
     final DvdSearchFrom dvdListFrom = new DvdSearchFrom();
     dvdListFrom.moviesToReview = true;
 
@@ -157,10 +157,10 @@ public class ListDvdsController extends Controller {
 
   }
 
-  public static Result searchDvd() {
+  public Result searchDvd() {
     final String[] strings = Controller.request().queryString().get("searchFor");
     if (strings == null || strings.length != 1) {
-      return ListDvdsController.listAlldvds();
+      return listAlldvds();
     } else {
       final DvdSearchFrom listFrom = new DvdSearchFrom();
       listFrom.searchFor = strings[0];
@@ -175,7 +175,7 @@ public class ListDvdsController extends Controller {
    *
    * @return
    */
-  public static Result applySearchForm() {
+  public Result applySearchForm() {
 
     final Form<DvdSearchFrom> form = Form.form(DvdSearchFrom.class).bindFromRequest();
 
@@ -221,7 +221,7 @@ public class ListDvdsController extends Controller {
    * @param viewMode
    * @return
    */
-  public static Result changeViewMode(final String viewMode) {
+  public Result changeViewMode(final String viewMode) {
     session().put(SESSION_VIEW_MODE,viewMode);
 
     return redirect(routes.ListDvdsController.listAlldvds());

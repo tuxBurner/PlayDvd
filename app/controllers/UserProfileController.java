@@ -25,7 +25,7 @@ public class UserProfileController extends Controller {
    *
    * @return
    */
-  public static Result showProfile() {
+  public Result showProfile() {
 
     User currentUser = User.getCurrentUser();
     if(currentUser == null) {
@@ -48,7 +48,7 @@ public class UserProfileController extends Controller {
     return ok(userprofile.render(Form.form(UserProfileForm.class).fill(userProfileForm)));
   }
 
-  public static Result updateProfile() {
+  public Result updateProfile() {
 
     final Form<UserProfileForm> form = Form.form(UserProfileForm.class).bindFromRequest();
     if(form.hasErrors()) {

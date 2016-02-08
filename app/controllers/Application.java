@@ -1,12 +1,12 @@
 package controllers;
 
 
+import com.github.tuxBurner.jsAnnotations.JsRoutesComponent;
 import jsmessages.JsMessagesFactory;
 import org.apache.commons.lang.ArrayUtils;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-import jsAnnotations.JsRoutesComponentImpl;
 
 import javax.inject.Inject;
 
@@ -15,7 +15,11 @@ public class Application extends Controller
 {
 
   @Inject
-  static JsMessagesFactory jsMessagesFactory;
+  JsMessagesFactory jsMessagesFactory;
+
+  @Inject
+  JsRoutesComponent jsRoutesComponent;
+
 
   /**
    * Array of keys which are in general use for js
@@ -25,7 +29,7 @@ public class Application extends Controller
   //final static JsMessages JS_MESSAGES = jsmessages.JsMessages.create(play.Play.application());
 
 
-  public static Result index()
+  public Result index()
   {
     return redirect(routes.ListDvdsController.listAlldvds());
   }
@@ -36,9 +40,9 @@ public class Application extends Controller
    *
    * @return
    */
-  public static Result jsRoutes()
+  public Result jsRoutes()
   {
-    return JsRoutesComponentImpl.getJsRoutesResult();
+    return jsRoutesComponent.getJsRoutesResult();
   }
 
   /**

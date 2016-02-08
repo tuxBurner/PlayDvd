@@ -27,7 +27,7 @@ public class BookmarksController extends Controller {
    * Lists all the {@models.Bookmarks} which the current user created
    * @return
    */
-  public static Result listBookmarks(final Integer page) {
+  public Result listBookmarks(final Integer page) {
     PagedList<Bookmark> listForUser = Bookmark.getBookmarksForUser(page);
 
     return ok(bookmarklist.render(listForUser,page));
@@ -38,7 +38,7 @@ public class BookmarksController extends Controller {
    * @param copyId
    * @return
    */
-  public static Result bookmarkCopy(final Long copyId) {
+  public Result bookmarkCopy(final Long copyId) {
 
     final Bookmark bookmark = Bookmark.bookmarkCopy(copyId);
     if(bookmark == null) {
@@ -58,7 +58,7 @@ public class BookmarksController extends Controller {
    * @param bookmarkId
    * @return
    */
-  public static Result removeBookmark(final Long bookmarkId) {
+  public Result removeBookmark(final Long bookmarkId) {
 
     String title = Bookmark.removeBookmark(bookmarkId);
 

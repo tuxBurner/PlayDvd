@@ -28,7 +28,7 @@ public class PasswordResetController extends Controller {
    *
    * @return
    */
-  public static Result showPasswordForget() {
+  public Result showPasswordForget() {
     if (MailerHelper.mailerActive() == false) {
       return Controller.internalServerError("Cannot display this form.");
     }
@@ -41,7 +41,7 @@ public class PasswordResetController extends Controller {
    *
    * @return
    */
-  public static Result sendPasswordForget() {
+  public Result sendPasswordForget() {
 
     Form<LostPasswordForm> form = Form.form(LostPasswordForm.class).bindFromRequest();
     if (form.hasErrors() == false && form.hasGlobalErrors() == false) {
@@ -81,7 +81,7 @@ public class PasswordResetController extends Controller {
    * @param token
    * @return
    */
-  public static Result showPasswordReset(final String token) {
+  public Result showPasswordReset(final String token) {
     if (StringUtils.isEmpty(token) == true) {
       return redirect(routes.Application.index());
     }
@@ -95,7 +95,7 @@ public class PasswordResetController extends Controller {
    * @param token
    * @return
    */
-  public static Result passwordReset(final String token) {
+  public Result passwordReset(final String token) {
 
     if (StringUtils.isEmpty(token) == true) {
       return redirect(routes.Application.index());

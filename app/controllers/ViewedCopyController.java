@@ -3,7 +3,7 @@ package controllers;
 import com.avaje.ebean.PagedList;
 import helpers.CacheHelper;
 import helpers.ECacheObjectName;
-import jsAnnotations.JSRoute;
+import com.github.tuxBurner.jsAnnotations.JSRoute;
 import models.Bookmark;
 import models.Dvd;
 import models.ViewedCopy;
@@ -30,7 +30,7 @@ public class ViewedCopyController extends Controller {
    *
    * @return
    */
-  public static Result getViewedCopiesForCurrentUser(final Integer page) {
+  public Result getViewedCopiesForCurrentUser(final Integer page) {
     final PagedList<ViewedCopy> viewedCopiesForUser = ViewedCopy.getViewedCopiesForUser(page);
     return ok(views.html.viewedcopy.viewedList.render(viewedCopiesForUser,null));
   }
@@ -41,7 +41,7 @@ public class ViewedCopyController extends Controller {
    * @return
    */
   @JSRoute
-  public static Result markCopyAsViewedDialog(final Long copyId) {
+  public Result markCopyAsViewedDialog(final Long copyId) {
 
     final Dvd copy = Dvd.find.byId(copyId);
     if(copy == null) {
@@ -62,7 +62,7 @@ public class ViewedCopyController extends Controller {
    * @return
    */
   @JSRoute
-  public static Result doMarkCopyAsViewed(final Long copyId, final Boolean remBookMark) {
+  public Result doMarkCopyAsViewed(final Long copyId, final Boolean remBookMark) {
     final ViewedCopy viewedCopy = ViewedCopy.markCopyAsViewed(copyId);
 
     if (viewedCopy == null) {

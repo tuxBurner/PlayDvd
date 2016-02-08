@@ -38,7 +38,7 @@ public class RssFeedsController extends Controller {
    * @return
    */
   @Security.Authenticated(Secured.class)
-  public static Result displayRssFeedLinks() {
+  public Result displayRssFeedLinks() {
 
     final User currentUser = User.getCurrentUser();
     if(currentUser == null) {
@@ -54,7 +54,7 @@ public class RssFeedsController extends Controller {
    * @return
    */
   @With(RssSecurityAction.class)
-  public static Result getLastAddedCopies() {
+  public Result getLastAddedCopies() {
     final List<Dvd> copies = Dvd.find.orderBy("createdDate DESC").findPagedList(0,10).getList();
     return createFeedContentForList(copies,"Last 10 added copies","The last 10 added copies in the database");
   }
@@ -64,7 +64,7 @@ public class RssFeedsController extends Controller {
    * @return
    */
   @With(RssSecurityAction.class)
-  public static Result getLastAddedWeekCopies() {
+  public Result getLastAddedWeekCopies() {
     final Date now = new Date();
     final Calendar cal = Calendar.getInstance();
     cal.setTime(now);
@@ -82,8 +82,8 @@ public class RssFeedsController extends Controller {
    * @return
    */
   @With(RssSecurityAction.class)
-  public static Result getPosterImage(final Long copyId) {
-    return Dashboard.streamImage(copyId, EImageType.POSTER.name(), EImageSize.SMALL.name());
+  public Result getPosterImage(final Long copyId) {
+    return Dashboard.getStreamImage(copyId, EImageType.POSTER.name(), EImageSize.SMALL.name());
   }
 
 
@@ -94,7 +94,7 @@ public class RssFeedsController extends Controller {
    * @param feedSubTitle
    * @return
    */
-  private static Result createFeedContentForList(final List<Dvd> copies, final String feedTitle, final String feedSubTitle) {
+  private Result createFeedContentForList(final List<Dvd> copies, final String feedTitle, final String feedSubTitle) {
     try {
       SyndFeed feed = new SyndFeedImpl();
       feed.setFeedType("atom_1.0");
@@ -131,7 +131,7 @@ public class RssFeedsController extends Controller {
    * @param copies
    * @return
    */
-  private static List<SyndEntry> createFeedEntriesFromCopies(final List<Dvd> copies) {
+  private List<SyndEntry> createFeedEntriesFromCopies(final List<Dvd> copies) {
     List<SyndEntry> entries = new ArrayList<SyndEntry>();
     if (CollectionUtils.isEmpty(copies) == false) {
       for (final Dvd copy : copies) {
@@ -148,7 +148,7 @@ public class RssFeedsController extends Controller {
    * @param copy
    * @return
    */
-  private static SyndEntry convertCopyToFeedEntry(final Dvd copy) {
+  private SyndEntry convertCopyToFeedEntry(final Dvd copy) {
     final SyndEntryImpl entry = new SyndEntryImpl();
 
     String title = copy.movie.title;

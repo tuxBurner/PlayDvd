@@ -2,7 +2,7 @@ package controllers;
 
 import helpers.CacheHelper;
 import helpers.ECacheObjectName;
-import jsAnnotations.JSRoute;
+import com.github.tuxBurner.jsAnnotations.JSRoute;
 import models.CopyReservation;
 import models.Dvd;
 import objects.shoppingcart.CacheShoppingCart;
@@ -34,7 +34,7 @@ public class ShoppingCartController extends Controller {
    * @return
    */
   @JSRoute
-  public static Result addCopyToCart(final Long copyId) {
+  public Result addCopyToCart(final Long copyId) {
 
     Dvd copyToBorrow = Dvd.getDvdToBorrow(copyId, Secured.getUsername());
     if(copyToBorrow == null) {
@@ -58,7 +58,7 @@ public class ShoppingCartController extends Controller {
    * @return
    */
   @JSRoute
-  public static Result remCopyFromCart(final Long copyId) {
+  public Result remCopyFromCart(final Long copyId) {
     final CacheShoppingCart shoppingCartFromCache = getShoppingCartFromCache();
     final Boolean removedFromCart = shoppingCartFromCache.removeItem(copyId);
     CacheHelper.setSessionObject(ECacheObjectName.SHOPPINGCART, shoppingCartFromCache);
@@ -71,7 +71,7 @@ public class ShoppingCartController extends Controller {
    * @return
    */
   @JSRoute
-  public static Result getShoppingCartMenu() {
+  public Result getShoppingCartMenu() {
     return ok(getShoppingCartMenuContent());
   }
 
@@ -79,7 +79,7 @@ public class ShoppingCartController extends Controller {
    * Displays the current {@link CacheShoppingCart} and its items for checkout
    * @return
    */
-  public static Result showShoppingCart() {
+  public Result showShoppingCart() {
     return ok(views.html.shoppingcart.showshoppingcart.render(getShoppingCartFromCache()));
   }
 
@@ -87,7 +87,7 @@ public class ShoppingCartController extends Controller {
    * Persists the shopping cart and displays the reservations
    * @return
    */
-  public static Result checkoutShoppingCart() {
+  public Result checkoutShoppingCart() {
     final CacheShoppingCart shoppingCart = getShoppingCartFromCache();
     if(shoppingCart != null) {
       CopyReservation.createFromShoppingCart(shoppingCart);

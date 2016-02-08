@@ -16,7 +16,7 @@ import helpers.EImageSize;
 import helpers.EImageType;
 import helpers.ETagHelper;
 import helpers.ImageHelper;
-import jsAnnotations.JSRoute;
+import com.github.tuxBurner.jsAnnotations.JSRoute;
 import models.CopyReservation;
 import models.Dvd;
 import models.User;
@@ -59,7 +59,7 @@ public class Dashboard extends Controller {
    * @return
    */
   @JSRoute
-  public static Result displayDvd(final Long dvdId) {
+  public Result displayDvd(final Long dvdId) {
     return getInfoDvd(dvdId, true);
   }
 
@@ -71,7 +71,7 @@ public class Dashboard extends Controller {
    * @return
    */
   @JSRoute
-  public static Result displayCopyOnPage(final Long dvdId) {
+  public Result displayCopyOnPage(final Long dvdId) {
     return getInfoDvd(dvdId, false);
   }
 
@@ -115,7 +115,7 @@ public class Dashboard extends Controller {
    * @return
    */
   @JSRoute
-  public static Result lendDialogContent(final Long dvdId) {
+  public Result lendDialogContent(final Long dvdId) {
     // check if the user may see the dvd
     final String userName = Secured.getUsername();
     final Dvd dvdForUser = Dvd.getDvdForUser(dvdId, userName);
@@ -137,7 +137,7 @@ public class Dashboard extends Controller {
    * @return
    */
   @JSRoute
-  public static Result unLendDialogContent(final Long dvdId) {
+  public Result unLendDialogContent(final Long dvdId) {
     // check if the user may see the dvd
     final String userName = Secured.getUsername();
     final Dvd dvdForUser = Dvd.getDvdForUser(dvdId, userName, true);
@@ -164,7 +164,7 @@ public class Dashboard extends Controller {
    * @return
    */
   @JSRoute
-  public static Result lendDvd(final Long dvdId) {
+  public Result lendDvd(final Long dvdId) {
 
     final Form<LendForm> form = Form.form(LendForm.class).bindFromRequest();
 
@@ -200,7 +200,7 @@ public class Dashboard extends Controller {
    * @return
    */
   @JSRoute
-  public static Result unlendDvd(final Long dvdId) {
+  public Result unlendDvd(final Long dvdId) {
 
     final Form<UnLendForm> form = Form.form(UnLendForm.class).bindFromRequest();
 
@@ -220,7 +220,7 @@ public class Dashboard extends Controller {
    * @return
    */
   @JSRoute
-  public static Result deleteDialogContent(final Long dvdId) {
+  public Result deleteDialogContent(final Long dvdId) {
 
     final String userName = Secured.getUsername();
     final Dvd dvdForUser = Dvd.getDvdForUser(dvdId, userName);
@@ -238,7 +238,7 @@ public class Dashboard extends Controller {
    * @return
    */
   @JSRoute
-  public static Result deleteDvd(final Long dvdId) {
+  public Result deleteDvd(final Long dvdId) {
     final String userName = Secured.getUsername();
     final Dvd dvdForUser = Dvd.getDvdForUser(dvdId, userName);
     if (dvdForUser == null) {
@@ -260,7 +260,18 @@ public class Dashboard extends Controller {
    * @return
    */
   @JSRoute
-  public static Result streamImage(final Long copyId, final String imgType, final String imgSize) {
+  public Result streamImage(final Long copyId, final String imgType, final String imgSize) {
+    return getStreamImage(copyId,imgType,imgSize);
+  }
+
+  /**
+   * Static helper for getting the correct image.
+   * @param copyId
+   * @param imgType
+   * @param imgSize
+   * @return
+   */
+  public static Result getStreamImage(final Long copyId, final String imgType, final String imgSize) {
     final String url = ImageHelper.getImageFile(copyId, EImageType.valueOf(imgType), EImageSize.valueOf(imgSize));
     if (StringUtils.isEmpty(url) == true) {
       return Results.notFound();
@@ -293,7 +304,7 @@ public class Dashboard extends Controller {
    *
    * @return
    */
-  public static Result streamExternalImage() {
+  public Result streamExternalImage() {
     final Form<ExternalImageForm> form = Form.form(ExternalImageForm.class).bindFromRequest();
 
     if (form.hasErrors()) {
@@ -323,7 +334,7 @@ public class Dashboard extends Controller {
    *
    * @return
    */
-  public static Result gravatar(final Integer size, final String userName) {
+  public Result gravatar(final Integer size, final String userName) {
 
     final String ownerName = (userName == null) ? Secured.getUsername() : userName;
     final User userByName = User.getUserByName(ownerName);

@@ -1,6 +1,6 @@
 package controllers;
 
-import jsAnnotations.JSRoute;
+import com.github.tuxBurner.jsAnnotations.JSRoute;
 import models.Commentable;
 import models.Movie;
 import play.data.DynamicForm;
@@ -23,7 +23,7 @@ public class CommentController extends Controller {
   public static String COMMENT_SUCCESS_FLASH = "commentSuccess";
 
   @JSRoute
-  public static Result addComment(final Long movieId) {
+  public Result addComment(final Long movieId) {
 
     DynamicForm requestData = form().bindFromRequest();
     final String commentText = requestData.get("commentText");

@@ -47,7 +47,7 @@ public class LanguageController extends Controller {
    * @param code Language's code
    * @return Redirect to main page
    */
-  public static Result changeLanguage(String code) {
+  public Result changeLanguage(String code) {
 
     play.api.i18n.Lang lang = Lang.apply(code);
 

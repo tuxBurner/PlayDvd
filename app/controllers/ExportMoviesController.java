@@ -33,7 +33,7 @@ import java.util.zip.ZipOutputStream;
 public class ExportMoviesController extends Controller {
 
   @Security.Authenticated(Secured.class)
-  public static Result displayExportOptions() {
+  public Result displayExportOptions() {
 
     final User currentUser = User.getCurrentUser();
 
@@ -49,7 +49,7 @@ public class ExportMoviesController extends Controller {
    * @throws InterruptedException
    */
   @With(RssSecurityAction.class)
-  public static Result exportXbmc()  {
+  public Result exportXbmc()  {
        List<Dvd> dvds = Dvd.getAllCopiesForUserForExport(request().username());
     if (CollectionUtils.isEmpty(dvds) == false) {
 

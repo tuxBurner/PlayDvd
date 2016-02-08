@@ -8,7 +8,7 @@ import grabbers.EGrabberType;
 import grabbers.GrabberException;
 import grabbers.IInfoGrabber;
 import helpers.RequestToCollectionHelper;
-import jsAnnotations.JSRoute;
+import com.github.tuxBurner.jsAnnotations.JSRoute;
 import models.EMovieAttributeType;
 import models.Movie;
 import models.MovieAttribute;
@@ -40,7 +40,7 @@ public class MovieController extends Controller {
    * @return
    */
   @JSRoute
-  public static Result showAddMovieForm() {
+  public Result showAddMovieForm() {
     final Form<MovieForm> form = Form.form(MovieForm.class);
     return Results.ok(movieform.render(form.fill(new MovieForm()), DvdController.DVD_FORM_ADD_MODE));
   }
@@ -51,7 +51,7 @@ public class MovieController extends Controller {
    * @return
    */
   @JSRoute
-  public static Result showEditMovieForm(final Long movieId) {
+  public Result showEditMovieForm(final Long movieId) {
 
     final Movie movie = Movie.finder.byId(movieId);
 
@@ -71,7 +71,7 @@ public class MovieController extends Controller {
    * @return
    */
   @JSRoute
-  public static Result addOrEditMovie(final String mode) {
+  public Result addOrEditMovie(final String mode) {
 
     final Map<String, String> map = RequestToCollectionHelper.requestToFormMap(Controller.request(), "actors", "genres");
     final Form<MovieForm> movieForm = new Form<MovieForm>(MovieForm.class).bind(map);
@@ -101,7 +101,7 @@ public class MovieController extends Controller {
    * @return
    */
   @JSRoute
-  public static Result addMovieByGrabberId(final String mode, final String grabberType) {
+  public Result addMovieByGrabberId(final String mode, final String grabberType) {
 
     try {
 
@@ -132,7 +132,7 @@ public class MovieController extends Controller {
    * @return
    */
   @JSRoute
-  public static Result searchMoviesForDvdSelect(final String term) {
+  public Result searchMoviesForDvdSelect(final String term) {
 
     final List<MovieSelect2Value> result = new ArrayList<MovieSelect2Value>();
 
@@ -157,7 +157,7 @@ public class MovieController extends Controller {
    * @return
    */
   @JSRoute
-  public static Result searchForMovieAttribute(final String term, final String attrType) {
+  public Result searchForMovieAttribute(final String term, final String attrType) {
     try {
       final EMovieAttributeType eattrType = EMovieAttributeType.valueOf(attrType);
       final String result = MovieAttribute.searchAvaibleAttributesAsJson(eattrType, term);
@@ -177,7 +177,7 @@ public class MovieController extends Controller {
    * @return
    */
   @JSRoute
-  public static Result checkIfMovieAlreadyExists(final String grabberId, final String grabberType) {
+  public Result checkIfMovieAlreadyExists(final String grabberId, final String grabberType) {
     final Gson gson = new Gson();
 
     boolean movieExists = Movie.checkIfMovieWasGrabbedBefore(grabberId, EGrabberType.valueOf(grabberType));
