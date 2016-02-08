@@ -36,7 +36,7 @@ libraryDependencies ++= Seq(
   "org.webjars" % "holderjs" % "2.4.0",
   "org.webjars" % "hammerjs" % "2.0.3-1",
   "org.webjars" % "animate.css" % "3.2.0",
-  "org.julienrf" %% "play-jsmessages" % "1.6.2",
+  "org.julienrf" %% "play-jsmessages" % "2.0.0",
   "com.github.tuxBurner" %% "play-jsannotations" % "1.2.3-SNAPSHOT",
   "com.github.tuxBurner" %% "play-twbs3" % "1.0",
   "com.amazonaws" % "aws-java-sdk" % "1.6.10"

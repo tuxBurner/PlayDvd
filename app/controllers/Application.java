@@ -1,23 +1,28 @@
 package controllers;
 
 
-import jsmessages.JsMessages;
+import jsmessages.JsMessagesFactory;
 import org.apache.commons.lang.ArrayUtils;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 import jsAnnotations.JsRoutesComponentImpl;
 
+import javax.inject.Inject;
+
 @Security.Authenticated(Secured.class)
 public class Application extends Controller
 {
+
+  @Inject
+  static JsMessagesFactory jsMessagesFactory;
 
   /**
    * Array of keys which are in general use for js
    */
   private final static String[] GENERAL_I18N_JS_KEYS = {"btn.close"};
 
-  final static JsMessages JS_MESSAGES = jsmessages.JsMessages.create(play.Play.application());
+  //final static JsMessages JS_MESSAGES = jsmessages.JsMessages.create(play.Play.application());
 
 
   public static Result index()
@@ -48,7 +53,11 @@ public class Application extends Controller
 
     final String[] allKeys = (String[]) ArrayUtils.addAll(GENERAL_I18N_JS_KEYS, keys);
 
-    return JS_MESSAGES.subset(play.Play.application(), allKeys).generate(namespace).toString();
+
+    //jsMessagesFactory.subset(keys);
+
+    //return JS_MESSAGES.subset(play.Play.application(), allKeys).generate(namespace).toString();
+    return "";
 
 
   }

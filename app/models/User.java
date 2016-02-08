@@ -86,7 +86,7 @@ public class User extends Model {
    * @throws UnsupportedEncodingException
    */
   public static String cryptPassword(final String password) {
-    final String md5Hex = DigestUtils.md5Hex(ConfigFactory.load().getString("application.secret") + password + ConfigFactory.load().getString("application.secret"));
+    final String md5Hex = DigestUtils.md5Hex(ConfigFactory.load().getString("play.crypto.secret") + password + ConfigFactory.load().getString("play.crypto.secret"));
     return md5Hex;
   }
 
