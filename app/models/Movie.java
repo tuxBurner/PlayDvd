@@ -14,7 +14,7 @@ import org.apache.commons.lang.StringUtils;
 
 import play.Logger;
 import play.data.validation.Constraints.Required;
-import play.db.ebean.Model;
+import com.avaje.ebean.Model;
 import play.db.ebean.Transactional;
 
 import com.avaje.ebean.Ebean;
@@ -189,7 +189,7 @@ public class Movie extends Model {
     if (numberOfResults <= 0) {
       return order.findList();
     } else {
-      return order.findPagingList(numberOfResults).getAsList();
+      return order.findPagedList(0,numberOfResults).getList();
     }
   }
 

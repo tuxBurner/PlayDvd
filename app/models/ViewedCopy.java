@@ -1,9 +1,10 @@
 package models;
 
 import com.avaje.ebean.Page;
+import com.avaje.ebean.PagedList;
 import controllers.Secured;
 import play.Logger;
-import play.db.ebean.Model;
+import com.avaje.ebean.Model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -104,9 +105,9 @@ public class ViewedCopy extends Model {
    * Gets all  {@link models.ViewedCopy} where the owner of the {@link models.Dvd} is the current {@link models.User}
    * @return
    */
-  public static Page<ViewedCopy> getViewedCopiesForUser(final Integer page) {
+  public static PagedList<ViewedCopy> getViewedCopiesForUser(final Integer page) {
     String username = Secured.getUsername();
-    return ViewedCopy.finder.where().ieq("user.userName", username).orderBy("date DESC").findPagingList(10).getPage(page);
+    return ViewedCopy.finder.where().ieq("user.userName", username).orderBy("date DESC").findPagedList(page,10);
   }
 
   /**

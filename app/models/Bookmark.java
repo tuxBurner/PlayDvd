@@ -2,10 +2,11 @@ package models;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Page;
+import com.avaje.ebean.PagedList;
 import controllers.Secured;
 import org.apache.commons.collections.CollectionUtils;
 import play.Logger;
-import play.db.ebean.Model;
+import com.avaje.ebean.Model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -94,9 +95,10 @@ public class Bookmark extends Model {
    * Gets all  {@link Bookmark} where the owner of the {@link Dvd} is the current {@link User}
    * @return
    */
-  public static Page<Bookmark> getBookmarksForUser(final Integer page) {
+  public static PagedList<Bookmark> getBookmarksForUser(final Integer page) {
     String username = Secured.getUsername();
-    return Bookmark.finder.where().eq("copy.owner.userName", username).orderBy("date DESC").findPagingList(10).getPage(page);
+    return Bookmark.finder.where().eq("copy.owner.userName", username).orderBy("date DESC")
+            .findPagedList(page,10);
   }
 
   /**

@@ -11,7 +11,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.validation.Constraints.Required;
-import play.db.ebean.Model;
+import com.avaje.ebean.Model;
 
 import javax.persistence.*;
 import java.util.*;
@@ -216,7 +216,7 @@ public class Dvd extends Model {
    * @param itemsPerPage
    * @return
    */
-  public static Page<Dvd> getDvdsBySearchForm(final DvdSearchFrom searchFrom, Integer itemsPerPage) {
+  public static PagedList<Dvd> getDvdsBySearchForm(final DvdSearchFrom searchFrom, Integer itemsPerPage) {
 
     final ExpressionList<Dvd> where = buildExpressionFromSearchFrom(searchFrom);
 
@@ -541,16 +541,19 @@ public class Dvd extends Model {
    * @param  itemsPerPage
    * @return
    */
-  private static Page<Dvd> getByDefaultPaging(final ExpressionList<Dvd> expressionList, Integer pageNr, final EDvdListOrderBy orderBy, final EDvdListOrderHow orderHow, final Integer itemsPerPage) {
+  private static PagedList<Dvd> getByDefaultPaging(final ExpressionList<Dvd> expressionList, Integer pageNr, final EDvdListOrderBy orderBy, final EDvdListOrderHow orderHow, final Integer itemsPerPage) {
 
     if (pageNr == null) {
       pageNr = 0;
     }
 
-    final Page<Dvd> page = expressionList.orderBy(orderBy.dbField + " " + orderHow.dbOrder).fetch("owner", "userName").fetch("borrower", "userName").fetch("movie").findPagingList(
-        itemsPerPage).getPage(pageNr);
+    PagedList<Dvd> pagedList = expressionList.orderBy(orderBy.dbField + " " + orderHow.dbOrder)
+            .fetch("owner", "userName")
+            .fetch("borrower", "userName")
+            .fetch("movie")
+            .findPagedList(pageNr, itemsPerPage);
 
-    return page;
+    return pagedList;
   }
 
   /**

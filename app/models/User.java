@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 import play.data.format.Formats;
 import play.data.validation.Constraints.Required;
-import play.db.ebean.Model;
+import com.avaje.ebean.Model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

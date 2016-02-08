@@ -16,10 +16,9 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
-import play.db.ebean.Model;
+import com.avaje.ebean.Model;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

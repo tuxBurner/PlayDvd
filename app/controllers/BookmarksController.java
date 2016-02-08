@@ -1,6 +1,6 @@
 package controllers;
 
-import com.avaje.ebean.Page;
+import com.avaje.ebean.PagedList;
 import helpers.CacheHelper;
 import helpers.ECacheObjectName;
 import models.Bookmark;
@@ -28,7 +28,7 @@ public class BookmarksController extends Controller {
    * @return
    */
   public static Result listBookmarks(final Integer page) {
-    Page<Bookmark> listForUser = Bookmark.getBookmarksForUser(page);
+    PagedList<Bookmark> listForUser = Bookmark.getBookmarksForUser(page);
 
     return ok(bookmarklist.render(listForUser,page));
   }
