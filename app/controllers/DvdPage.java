@@ -3,19 +3,18 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.avaje.ebean.PagedList;
 import models.Dvd;
-
-import com.avaje.ebean.Page;
 
 public class DvdPage {
 
-  public final Page<Dvd> page;
+  public final PagedList<Dvd> page;
 
   public final List<DvdPageNav> nav;
 
   public final List<Dvd> list;
 
-  public DvdPage(final Page<Dvd> page) {
+  public DvdPage(final PagedList<Dvd> page) {
     this.page = page;
     list = page.getList();
 
