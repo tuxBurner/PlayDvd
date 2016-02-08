@@ -2,15 +2,12 @@ name := """dvdDataBase"""
 
 version := "1.8-SNAPSHOT"
 
-lazy val root = (project in file(".")).enablePlugins(PlayJava)
+lazy val root = (project in file(".")).enablePlugins(PlayJava,PlayEbean)
 
 scalaVersion := "2.11.6"
 
-
-
 libraryDependencies ++= Seq(
   javaJdbc,
-  javaEbean,
   cache,
   javaWs,
   "mysql" % "mysql-connector-java" % "5.1.18",
