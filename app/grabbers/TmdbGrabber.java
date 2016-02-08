@@ -10,6 +10,7 @@ import com.omertron.themoviedbapi.model.artwork.Artwork;
 import com.omertron.themoviedbapi.model.collection.Collection;
 import com.omertron.themoviedbapi.model.config.Configuration;
 import com.omertron.themoviedbapi.model.credits.MediaCreditCast;
+import com.omertron.themoviedbapi.model.credits.MediaCreditCrew;
 import com.omertron.themoviedbapi.model.media.MediaCreditList;
 import com.omertron.themoviedbapi.model.media.Trailer;
 import com.omertron.themoviedbapi.model.media.Video;
@@ -112,8 +113,8 @@ public class TmdbGrabber implements IInfoGrabber {
       movieTrailers.addAll(theMovieDb.getMovieVideos(idAsInt, null).getResults());
 
       for (final Video trailer : movieTrailers) {
-        if ("youtube".equals(trailer.getSite()) == true) {
-          trailerUrls.add(trailer.getSite());
+        if ("YouTube".equals(trailer.getSite()) == true) {
+          trailerUrls.add(trailer.getKey());
         }
       }
 
@@ -161,15 +162,15 @@ public class TmdbGrabber implements IInfoGrabber {
       final MediaCreditList movieCasts = theMovieDb.getMovieCredits(id);
       List<MediaCreditCast> cast = movieCasts.getCast();
       for (final MediaCreditCast castInfo : cast) {
-        /*if ("Director".equals(castInfo.getJob())) {
-          movieForm.director = castInfo.getName();
-          continue;
-        }
+        movieForm.actors.add(castInfo.getName());
+      }
 
-        if ("actor".equals(castInfo.getJob())) {
-          movieForm.actors.add(castInfo.getName());
-          continue;
-        } */
+      List<MediaCreditCrew> crew = movieCasts.getCrew();
+      for (MediaCreditCrew mediaCreditCrew : crew) {
+        if(mediaCreditCrew.getJob().equals("Director")) {
+          movieForm.director = mediaCreditCrew.getName();
+          break;
+        }
       }
 
       final Collection belongsToCollection = movieInfo.getBelongsToCollection();
