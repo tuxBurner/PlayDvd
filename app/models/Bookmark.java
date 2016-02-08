@@ -1,12 +1,11 @@
 package models;
 
 import com.avaje.ebean.Ebean;
-import com.avaje.ebean.Page;
+import com.avaje.ebean.Model;
 import com.avaje.ebean.PagedList;
 import controllers.Secured;
 import org.apache.commons.collections.CollectionUtils;
 import play.Logger;
-import com.avaje.ebean.Model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

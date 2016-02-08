@@ -344,12 +344,14 @@ public class Dvd extends Model {
       prev.gt(orderBy.dbField, orderDvdVal);
     }
 
-    final PagingList<Dvd> prevPagingList = prev.orderBy(orderBy.dbField + " " + orderHow.dbOrder).findPagingList(1);
+    final PagedList<Dvd> prevPagingList = prev.orderBy(orderBy.dbField + " " + orderHow.dbOrder).findPagedList(1, 1);
     final int totalRowCount = prevPagingList.getTotalRowCount();
     Dvd prevCopy = null;
+    //TODO SHARDT PLAY24 REVIEW !!!!11!
     if(totalRowCount > 0) {
-      final Page<Dvd> prevPage = prevPagingList.getPage(totalRowCount-1);
-      final List<Dvd> prevList = prevPage.getList();
+      PagedList<Dvd> pagedList = prev.orderBy(orderBy.dbField + " " + orderHow.dbOrder).findPagedList(0, 1);
+      //final Page<Dvd> prevPage = prevPagingList.findPagedList(totalRowCount-1);
+      final List<Dvd> prevList = pagedList.getList();
       prevCopy = (prevList.size() == 1) ? prevList.get(0) : null;
     }
 
@@ -375,7 +377,7 @@ public class Dvd extends Model {
       next.lt(orderBy.dbField, orderDvdVal);
     }
 
-    final Page<Dvd> nextPage = next.orderBy(orderBy.dbField + " " + orderHow.dbOrder).findPagingList(1).getPage(0);
+    final PagedList<Dvd> nextPage = next.orderBy(orderBy.dbField + " " + orderHow.dbOrder).findPagedList(0, 1);
     final List<Dvd> nextList = nextPage.getList();
     final Dvd nextCopy = (nextList.size() == 1) ? nextList.get(0) : null;
 

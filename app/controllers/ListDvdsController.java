@@ -1,6 +1,6 @@
 package controllers;
 
-import com.avaje.ebean.Page;
+import com.avaje.ebean.PagedList;
 import com.typesafe.config.ConfigFactory;
 import forms.dvd.DvdSearchFrom;
 import helpers.ConfigurationHelper;
@@ -204,7 +204,7 @@ public class ListDvdsController extends Controller {
     DvdSearchFrom.setCurrentSearchForm(dvdSearchFrom);
     final ECopyListView currentViewMode = getCurrentViewMode();
     final Integer itemsPerPage = DVDS_PER_PAGE_CONFIG.get(currentViewMode.name());
-    final Page<Dvd> dvdsByForm = Dvd.getDvdsBySearchForm(dvdSearchFrom, itemsPerPage);
+    final PagedList<Dvd> dvdsByForm = Dvd.getDvdsBySearchForm(dvdSearchFrom, itemsPerPage);
     final DvdPage dvdPage = new DvdPage(dvdsByForm);
     final CacheShoppingCart shoppingCartFromCache = ShoppingCartController.getShoppingCartFromCache();
     final Set<Long> bookmarkedCopyIds = BookmarksController.getBookmarkedCopyIds();

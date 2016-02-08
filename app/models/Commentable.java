@@ -29,7 +29,7 @@ public class Commentable extends Model{
   /**
    * The comments which are attached to the commentable entity
    */
-  @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.PERSIST)
+  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
   @OrderBy("commentDate DESC")
   public List<Comment> comments;
 

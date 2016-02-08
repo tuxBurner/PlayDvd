@@ -55,7 +55,7 @@ public class Movie extends Model {
   @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "movies")
   public Set<MovieAttribute> attributes;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "movie", orphanRemoval = true)
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "movie")
   public Set<Dvd> dvds;
 
   public String trailerUrl;

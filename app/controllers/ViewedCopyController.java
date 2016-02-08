@@ -1,6 +1,6 @@
 package controllers;
 
-import com.avaje.ebean.Page;
+import com.avaje.ebean.PagedList;
 import helpers.CacheHelper;
 import helpers.ECacheObjectName;
 import jsAnnotations.JSRoute;
@@ -31,7 +31,7 @@ public class ViewedCopyController extends Controller {
    * @return
    */
   public static Result getViewedCopiesForCurrentUser(final Integer page) {
-    final Page<ViewedCopy> viewedCopiesForUser = ViewedCopy.getViewedCopiesForUser(page);
+    final PagedList<ViewedCopy> viewedCopiesForUser = ViewedCopy.getViewedCopiesForUser(page);
     return ok(views.html.viewedcopy.viewedList.render(viewedCopiesForUser,null));
   }
 

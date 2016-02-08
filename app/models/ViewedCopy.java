@@ -1,6 +1,5 @@
 package models;
 
-import com.avaje.ebean.Page;
 import com.avaje.ebean.PagedList;
 import controllers.Secured;
 import play.Logger;
