@@ -24,8 +24,13 @@ public class Application extends Controller
   @Inject
   JsRoutesComponent jsRoutesComponent;
 
-  static JsMessagesFactory jsMessagesFactory;
 
+  private static JsMessagesFactory jsMessagesFactory;
+
+  /**
+   * Constructor which gets the js message factory injected.
+   * @param jsMessagesFactory the js message factory
+     */
   @Inject
   public Application(JsMessagesFactory jsMessagesFactory) {
     Application.jsMessagesFactory = jsMessagesFactory;
