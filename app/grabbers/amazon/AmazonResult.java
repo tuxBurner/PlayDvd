@@ -19,8 +19,9 @@ public class AmazonResult {
   public final String asin;
   public final String ean;
   public final List<String> audioTypes;
+  public final String imageUrl;
 
-  public AmazonResult(String title, String rating, String copyType, String asin, String ean, Set<String> audioTypes) {
+  public AmazonResult(String title, String rating, String copyType, String asin, String ean, Set<String> audioTypes, String imageUrl) {
 
     this.title = title;
     this.rating = rating;
@@ -28,5 +29,6 @@ public class AmazonResult {
     this.asin = asin;
     this.ean = ean;
     this.audioTypes = new ArrayList<String>(audioTypes);
+    this.imageUrl = imageUrl;
   }
 }

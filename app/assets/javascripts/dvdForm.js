@@ -104,6 +104,32 @@ var openSearchAmazonPopUp = function (code, copyId) {
 };
 
 /**
+ * Opens the dialog where the user can search for a copy on amazon
+ * @param title the title to search for.
+ */
+var openAmazonTitleSearchPopUp = function(title) {
+  showWaitDiaLog();
+  displayAjaxDialog({
+    route: jsRoutes.controllers.DvdController.searchAmazonByTitle(title),
+    ajaxParams: null,
+    title: '<i class="icon-search"></i> ' + Messages('headline.amazonSearchByTitle'),
+    onOpen: function () {
+      $('a.pickAmazonEntry').on('click',function() {
+        var asin = $(this).data('asin');
+        /*closeDialog();
+        window.timeout(function() {
+          openSearchAmazonPopUp(asin,"");
+        },2000);*/
+        openAmazonLookUp(asin);
+      });
+      closeWaitDiaLog();
+    },
+    cssClass: "grabberModal"
+  });
+  return false;
+};
+
+/**
  * Opens the grabber modal with the given code and the title to search for
  *
  * @param code

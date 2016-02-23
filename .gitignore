@@ -16,3 +16,4 @@ dist
 images
 .target
 Procfile
+conf/secrets.conf

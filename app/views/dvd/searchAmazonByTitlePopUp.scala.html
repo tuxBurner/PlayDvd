@@ -1,0 +1,43 @@
+@import org.apache.commons.lang3.StringUtils
+@(results: List[grabbers.amazon.AmazonResult], title: String)
+
+@import org.apache.commons.collections.CollectionUtils
+
+<form method="GET" >
+  <label>@Messages("lbl.searchAmazonByTitle"):</label>
+  <div class="input-append">
+    <input type="text" name="title_input" id="title_input" value="@title"/>
+    <button type="button" id="amazon_search_button" class="btn" onclick="openAmazonTitleSearchPopUp($('#title_input').val());"><i class="icon-search"></i></button>
+  </div>
+
+  <hr />
+
+  @if(CollectionUtils.isEmpty(results) == true) {
+    <div class="alert alert-error">@Messages("msg.error.noCopyInfoFound")</div>
+  } else {
+    <ul class="thumbnails">
+
+    @for(res <- results) {
+
+      <li class="span3" style="height: 260px ;">
+        <div class="thumbnail" style="height: 260px ;">
+          @if(StringUtils.isBlank(res.imageUrl) == false) {
+            <img class="img-rounded" src="@routes.Dashboard.streamExternalImage()?url=@res.imageUrl&imgSize=GRABBER_POSTER_SMALL" />
+          }
+
+        <div class="caption">
+          <h5>@res.title</h5>
+          @if(res.copyType != null) {
+            <h5><img class="img-rounded" alt="@res.copyType" src="@routes.Assets.at("images/copy_type/" + res.copyType + ".png")" /></h5>
+          }
+          <p>
+            <a class="btn btn-primary pickAmazonEntry" data-asin="@res.asin"><i class="icon-ok-sign icon-white"></i> @Messages("btn.pick")</a>
+          </p>
+        </div>
+        </div>
+      </li>
+    }
+
+    </ul>
+  }
+</form>

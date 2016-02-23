@@ -194,7 +194,7 @@ public class AmazonMovieLookuper {
 
       params.put("Service", "AWSECommerceService");
       params.put("Version", "2011-08-02");
-      params.put("ResponseGroup", "ItemAttributes");
+      params.put("ResponseGroup", "ItemAttributes,Images");
       params.put("AssociateTag", "aztag-20");
 
 
@@ -314,9 +314,10 @@ public class AmazonMovieLookuper {
       }
     }
 
+    final String imageUrl = getNodeContent(nodeObj,"./MediumImage/URL");
 
 
-    final AmazonResult result = new AmazonResult(title,rating,copyType,asin,ean,audioTypes);
+    final AmazonResult result = new AmazonResult(title,rating,copyType,asin,ean,audioTypes, imageUrl);
 
     return result;
   }
