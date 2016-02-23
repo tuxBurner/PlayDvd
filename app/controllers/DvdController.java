@@ -13,6 +13,7 @@ import models.Dvd;
 import models.DvdAttribute;
 import models.EDvdAttributeType;
 import models.Movie;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 import play.data.Form;
@@ -222,8 +223,7 @@ public class DvdController extends Controller {
       }
     }
 
-    AmazonResult amazonResult = AmazonMovieLookuper.lookUp(code);
-
+    final AmazonResult amazonResult = AmazonMovieLookuper.lookUp(code);
     String mode = DVD_FORM_ADD_MODE;
     final Form<DvdForm> form = Form.form(DvdForm.class);
     final DvdForm dvdForm = DvdForm.amazonAndCopyToForm(copy, amazonResult);
