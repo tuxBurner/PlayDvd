@@ -2,7 +2,7 @@ name := """dvdDataBase"""
 
 version := "1.8-SNAPSHOT"
 
-lazy val root = (project in file(".")).enablePlugins(PlayJava,PlayEbean)
+lazy val root = (project in file(".")).enablePlugins(PlayJava, PlayEbean)
 
 scalaVersion := "2.11.6"
 
@@ -24,20 +24,25 @@ libraryDependencies ++= Seq(
   "com.omertron" % "themoviedbapi" % "4.1",
   "com.omertron" % "traileraddictapi" % "1.5",
   // barcode stuff
-  "com.google.zxing" % "core" % "3.1.0",
+  "com.google.zxing" % "core" % "3.2.1",
   // mail
   "com.typesafe.play" %% "play-mailer" % "3.0.1",
   // webjars
   "org.webjars" %% "webjars-play" % "2.4.0-1",
-  "org.webjars" % "bootstrap" % "2.3.2",
-  "org.webjars" % "jquery" % "1.11.2",
+  "org.webjars.npm" % "bootstrap" % "3.3.6",
+
+  //"org.webjars.npm" % "jquery" % "2.2.0",
+  "org.webjars" % "jquery" % "1.12.0",
   "org.webjars" % "jquerypp" % "1.0b2",
+
   "org.webjars" % "select2" % "3.5.2",
-  "org.webjars" % "font-awesome" % "3.2.1",
+
+  "org.webjars.npm" % "font-awesome" % "4.3.0",
+
   "org.webjars" % "famfamfam-flags" % "0.0",
-  "org.webjars" % "holderjs" % "2.4.0",
-  "org.webjars" % "hammerjs" % "2.0.3-1",
-  "org.webjars" % "animate.css" % "3.2.0",
+  "org.webjars.npm" % "holderjs" % "2.8.1",
+  "org.webjars.bower" % "hammerjs" % "2.0.6",
+  "org.webjars.bower" % "animate.css" % "3.5.1",
   // js i18n stuff
   "org.julienrf" %% "play-jsmessages" % "2.0.0",
   // tuxburners helpers :)
