@@ -20,13 +20,13 @@
       <ul class="nav nav-tabs">
         @for((borrower,copies) <- lentCopies) {
           <li>
-          <a href="#lentTab@borrower" data-toggle="tab"><img src="@routes.Dashboard.gravatar(16,borrower)" width="16" height="16" /> @borrower (@copies.size)</a>
+          <a href="#lentTab@borrower.replace(' ','_')" data-toggle="tab"><img src="" width="16" height="16" /> @borrower (@copies.size)</a>
           </li>
         }
       </ul>
       <div class="tab-content">
       @for((borrower,copies) <- lentCopies) {
-        <div class="tab-pane" id="lentTab@borrower">
+        <div class="tab-pane" id="lentTab@borrower.replace(' ','_')">
 
           <table class="table table-hover">
             <thead>
