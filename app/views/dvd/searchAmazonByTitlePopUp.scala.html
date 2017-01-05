@@ -28,7 +28,7 @@
         <div class="caption">
           <h5>@res.title</h5>
           @if(res.copyType != null) {
-            <h5><img class="img-rounded" alt="@res.copyType" src="@routes.Assets.at("images/copy_type/" + res.copyType + ".png")" /></h5>
+            <h5><img class="img-rounded" alt="@res.copyType" src="@routes.Assets.versioned("images/copy_type/" + res.copyType + ".png")" /></h5>
           }
           <p>
             <a class="btn btn-primary pickAmazonEntry" data-asin="@res.asin"><i class="icon-ok-sign icon-white"></i> @Messages("btn.pick")</a>

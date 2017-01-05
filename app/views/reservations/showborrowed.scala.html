@@ -4,7 +4,7 @@
 @import helper._
 
 @scripts = {
-  <script src="@routes.Assets.at("javascripts/reservations.js")" type="text/javascript"></script>
+  <script src="@routes.Assets.versioned("javascripts/reservations.js")" type="text/javascript"></script>
 }
 
 @mainmenu(Messages("lbl.borrowedCopies"),scripts) {

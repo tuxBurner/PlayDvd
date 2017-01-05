@@ -1,11 +1,10 @@
 package models;
 
-import com.avaje.ebean.ExpressionList;
+import com.avaje.ebean.Model;
 import objects.shoppingcart.CacheShoppingCart;
 import objects.shoppingcart.CacheShoppingCartItem;
 import org.apache.commons.collections.CollectionUtils;
 import play.Logger;
-import play.db.ebean.Model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

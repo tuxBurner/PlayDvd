@@ -1,5 +1,6 @@
 package controllers;
 
+import com.google.inject.Inject;
 import forms.MovieForm;
 import forms.dvd.DvdForm;
 import forms.grabbers.GrabberInfoForm;
@@ -17,6 +18,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 import play.data.Form;
+import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
@@ -41,6 +43,10 @@ public class DvdController extends Controller {
     public static final String DVD_FORM_EDIT_MODE = "edit";
 
     public static final Long NO_COPY_SELECTED_ID = new Long(-1);
+
+
+    @Inject
+    FormFactory formFactory;
 
     /**
      * Shows the add Dvd form
@@ -79,7 +85,7 @@ public class DvdController extends Controller {
     public Result addDvd(final String mode) {
 
         final Map<String, String> map = RequestToCollectionHelper.requestToFormMap(Controller.request(), "audioTypes");
-        final Form<DvdForm> dvdForm = new Form<DvdForm>(DvdForm.class).bind(map);
+        final Form<DvdForm> dvdForm = formFactory.form(DvdForm.class).bind(map);
         if (dvdForm.hasErrors()) {
             return Results.badRequest(dvdform.render(dvdForm, mode));
         } else {

@@ -9,7 +9,6 @@ import org.reflections.Reflections;
 import play.Application;
 import play.Logger;
 import akka.actor.Scheduler;
-import play.Plugin;
 import play.libs.ReflectionsCache;
 
 /**
@@ -17,9 +16,10 @@ import play.libs.ReflectionsCache;
  * {@link AkkaJob} annotation and adds them to the {@link Scheduler}
  * 
  * @author tuxburner
- * 
+ *
  */
-public class JobPlugin extends Plugin {
+//TODO: FIX ME TO A MODULE
+public class JobPlugin {
 
   private final Application application;
 
@@ -32,7 +32,7 @@ public class JobPlugin extends Plugin {
   public void $init$() {
   }
 
-  @Override
+
   public void onStart() {
 
 

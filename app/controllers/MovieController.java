@@ -2,6 +2,7 @@ package controllers;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.gson.Gson;
+import com.google.inject.Inject;
 import forms.MovieForm;
 import forms.grabbers.GrabberInfoForm;
 import grabbers.EGrabberType;
@@ -15,6 +16,7 @@ import models.MovieAttribute;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.Form;
+import play.data.FormFactory;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -33,6 +35,9 @@ import java.util.Map;
  */
 @Security.Authenticated(Secured.class)
 public class MovieController extends Controller {
+
+  @Inject
+  FormFactory formFactory;
 
   /**
    * Displays the {@link MovieForm} to the user in the add mode
@@ -74,7 +79,7 @@ public class MovieController extends Controller {
   public Result addOrEditMovie(final String mode) {
 
     final Map<String, String> map = RequestToCollectionHelper.requestToFormMap(Controller.request(), "actors", "genres");
-    final Form<MovieForm> movieForm = new Form<MovieForm>(MovieForm.class).bind(map);
+    final Form<MovieForm> movieForm = formFactory.form(MovieForm.class).bind(map);
 
     if (movieForm.hasErrors()) {
       return Results.badRequest(movieform.render(movieForm, mode));

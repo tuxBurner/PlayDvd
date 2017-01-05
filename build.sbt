@@ -4,7 +4,7 @@ version := "1.8-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayJava,PlayEbean)
 
-scalaVersion := "2.11.6"
+scalaVersion := "2.11.7"
 
 libraryDependencies ++= Seq(
   javaJdbc,
@@ -28,10 +28,10 @@ libraryDependencies ++= Seq(
   // mail
   "com.typesafe.play" %% "play-mailer" % "3.0.1",
   // webjars
-  "org.webjars" %% "webjars-play" % "2.4.0-1",
+  "org.webjars" %% "webjars-play" % "2.5.0",
   "org.webjars" % "bootstrap" % "2.3.2",
   "org.webjars" % "jquery" % "1.11.2",
-  "org.webjars" % "jquerypp" % "1.0b2",
+  //TODO: breaks some stuff"org.webjars" % "jquerypp" % "1.0b2",
   "org.webjars" % "select2" % "3.5.2",
   "org.webjars" % "font-awesome" % "3.2.1",
   "org.webjars" % "famfamfam-flags" % "0.0",
@@ -41,7 +41,7 @@ libraryDependencies ++= Seq(
   // js i18n stuff
   "org.julienrf" %% "play-jsmessages" % "2.0.0",
   // tuxburners helpers :)
-  "com.github.tuxBurner" %% "play-jsannotations" % "2.4.0",
+  "com.github.tuxBurner" %% "play-jsannotations" % "2.5.0-SNAPSHOT",
   "com.github.tuxBurner" %% "play-twbs3" % "2.4.0",
   // amazon stuff
   "com.amazonaws" % "aws-java-sdk" % "1.6.10"

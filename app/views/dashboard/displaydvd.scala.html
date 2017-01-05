@@ -5,10 +5,10 @@
 
 @scripts = {
   @general.jsI18n("headline.lendCopy","btn.lend","headline.unlendCopy","btn.unlend","headline.deleteCopy","btn.delete","headline.markAsViewed","btn.ok")
-  <script src="@routes.Assets.at("javascripts/copyButtons.js")" type="text/javascript"></script>
+  <script src="@routes.Assets.versioned("javascripts/copyButtons.js")" type="text/javascript"></script>
 
   @if(prevNext.next != null || prevNext.prev != null) {
-    <script type='text/javascript' src="@routes.WebJarAssets.at(WebJarAssets.locate("hammer.js"))"></script>
+    <script type='text/javascript' src="@routes.Assets.versioned("hammer.js")"></script>
     <script type="text/javascript">
       var hammerDoc = new Hammer(document.getElementById('displayCopyWrapper'));
       hammerDoc.get('swipe').set({ direction: Hammer.DIRECTION_HORIZONTAL });
@@ -174,10 +174,10 @@
             <dt>@Messages.apply("lbl.informations"):</dt>
             <dd>
               @if(StringUtils.isEmpty(dvd.dvdForm.asinNr) == false ) {
-                <a href="http://www.amazon.de/dp/@dvd.dvdForm.asinNr" target="_blank"><img src="@routes.Assets.at("images/amazon.jpg")" /></a>
+                <a href="http://www.amazon.de/dp/@dvd.dvdForm.asinNr" target="_blank"><img src="@routes.Assets.versioned("images/amazon.jpg")" /></a>
               }
               @if(StringUtils.isEmpty(dvd.movieForm.imdbId ) == false) {
-                <a href="http://www.imdb.com/title/@dvd.movieForm.imdbId" target="_blank"><img src="@routes.Assets.at("images/imdb.jpg")" /></a>
+                <a href="http://www.imdb.com/title/@dvd.movieForm.imdbId" target="_blank"><img src="@routes.Assets.versioned("images/imdb.jpg")" /></a>
               }
             </dd>
           }
@@ -192,7 +192,7 @@
 
               <div class="well well-small dvdInfo">
               </div>
-              <div class="rateWrapper"><img  class="img-rounded" src="@routes.Assets.at("images/agerating/"+dvd.dvdForm.ageRating+".gif")" /></div>
+              <div class="rateWrapper"><img  class="img-rounded" src="@routes.Assets.versioned("images/agerating/"+dvd.dvdForm.ageRating+".gif")" /></div>
             </em>
             <a>
             @general.displayposter(dvd.movieForm.movieId, dvd.movieForm.hasPoster, EImageSize.SMALL)

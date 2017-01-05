@@ -140,8 +140,4 @@ GET         /assets/javascripts/routes                      controllers.Applicat
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                                   controllers.Assets.at(path="/public", file)
-
-
-# webjars
-GET         /webjars/*file                                  controllers.WebJarAssets.at(file)
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

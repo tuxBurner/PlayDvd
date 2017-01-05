@@ -26,7 +26,7 @@
       <li><a href="@routes.UserProfileController.showProfile()"><i class="icon-user"></i> @Messages("lbl.profile")</a></li>
       <li class="divider"></li>
       @for((langCode,langName) <- LanguageController.getLanguages) {
-        <li><a href="@routes.LanguageController.changeLanguage(langCode)"><img src="@routes.WebJarAssets.at("famfamfam-flags/0.0/png/"+LanguageController.getLanguageFlags.get(langCode)+".png")" alt="@langCode"/> @langName</a></li>
+        <li><a href="@routes.LanguageController.changeLanguage(langCode)"><img src="@routes.Assets.versioned("famfamfam-flags/0.0/png/"+LanguageController.getLanguageFlags.get(langCode)+".png")" alt="@langCode"/> @langName</a></li>
       }
       <li class="divider"></li>
       <li><a href="@routes.ExportMoviesController.displayExportOptions"><i class="icon-download-alt"></i> @Messages("lbl.export")</a></li>

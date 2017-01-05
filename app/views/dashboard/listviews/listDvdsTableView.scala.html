@@ -18,10 +18,10 @@
       <td>
 
         @if(DvdAttribute.getCopyTypeAttribute(dvd) != null) {
-          <span><img class="img-rounded" alt="@DvdAttribute.getCopyTypeAttribute(dvd)" src="@routes.Assets.at("images/copy_type/"+DvdAttribute.getCopyTypeAttribute(dvd)+".png")" /></span>
+          <span><img class="img-rounded" alt="@DvdAttribute.getCopyTypeAttribute(dvd)" src="@routes.Assets.versioned("images/copy_type/"+DvdAttribute.getCopyTypeAttribute(dvd)+".png")" /></span>
         }
         @if(DvdAttribute.getAgeRatingAttribute(dvd) != null) {
-          <span><img  class="img-rounded" alt="@DvdAttribute.getAgeRatingAttribute(dvd)" src="@routes.Assets.at("images/agerating/"+DvdAttribute.getAgeRatingAttribute(dvd)+".gif")" /></span>
+          <span><img  class="img-rounded" alt="@DvdAttribute.getAgeRatingAttribute(dvd)" src="@routes.Assets.versioned("images/agerating/"+DvdAttribute.getAgeRatingAttribute(dvd)+".gif")" /></span>
         }
       </td>
       <td>@dvd.owner.userName</td>

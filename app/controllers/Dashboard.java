@@ -81,7 +81,7 @@ public class Dashboard extends Controller {
    * @param copyId
    * @return
    */
-  private static Status getInfoDvd(final Long copyId, final boolean popup) {
+  private static Result getInfoDvd(final Long copyId, final boolean popup) {
     final Dvd copy = Dvd.find.byId(copyId);
 
     if (copy == null) {

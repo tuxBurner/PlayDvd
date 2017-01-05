@@ -18,8 +18,8 @@
     <div class="col_12">
       <div class="alert alert-success">
         @Messages("lbl.foundCopyInfo"): <strong>@amazonResult.title</strong>
-        <img alt="@amazonResult.copyType" src="@routes.Assets.at("images/copy_type/"+amazonResult.copyType+".png")" />
-        <img alt="@amazonResult.rating" src="@routes.Assets.at("images/agerating/"+amazonResult.rating+".gif")" />
+        <img alt="@amazonResult.copyType" src="@routes.Assets.versioned("images/copy_type/"+amazonResult.copyType+".png")" />
+        <img alt="@amazonResult.rating" src="@routes.Assets.versioned("images/agerating/"+amazonResult.rating+".gif")" />
         @Messages("lbl.asinNr"): <a href="http://www.amazon.de/dp/@amazonResult.asin" target="_blank">@amazonResult.asin</a>
         @Messages("lbl.eanNr"): @amazonResult.ean
         <a href="@routes.DvdController.showCopyFormWithAmazonInfo(code,copyId)"  class="btn btn-primary"><i class="icon-reply"></i></a>
