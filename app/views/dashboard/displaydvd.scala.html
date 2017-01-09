@@ -9,7 +9,7 @@
   <script src="@routes.Assets.versioned("javascripts/copyButtons.js")" type="text/javascript"></script>
 
   @if(prevNext.next != null || prevNext.prev != null) {
-    <script type='text/javascript' src="@routes.Assets.versioned("hammer.js")"></script>
+    <script type='text/javascript' src="@routes.Assets.versioned("lib/hammerjs/hammer.js")"></script>
     <script type="text/javascript">
       var hammerDoc = new Hammer(document.getElementById('displayCopyWrapper'));
       hammerDoc.get('swipe').set({ direction: Hammer.DIRECTION_HORIZONTAL });
@@ -101,7 +101,7 @@
 
           <dt>@Messages.apply("lbl.owner"):</dt>
           <dd>
-            <a href="@routes.ListDvdsController.listByUser(dvd.copyForm.ownerName)">
+            <a href="@routes.ListCopiesController.listByUser(dvd.copyForm.ownerName)">
               <img class="img-rounded"  src="@routes.DashboardController.gravatar(25,dvd.copyForm.ownerName)" width="25" height="25" /> @dvd.copyForm.ownerName
             </a>
           </dd>
@@ -117,7 +117,7 @@
 
           @if(dvd.copyForm.hullNr != null) {
             <dt class="span4">@Messages.apply("lbl.hullNr"):</dt>
-            <dd><a href="@routes.ListDvdsController.searchDvd?searchFor=@models.Dvd.HULL_NR_SEARCH @dvd.copyForm.hullNr">@dvd.copyForm.hullNr</a></dd>
+            <dd><a href="@routes.ListCopiesController.searchDvd?searchFor=@models.Dvd.HULL_NR_SEARCH @dvd.copyForm.hullNr">@dvd.copyForm.hullNr</a></dd>
           }
 
 
@@ -168,7 +168,7 @@
 
           @if(StringUtils.isEmpty(dvd.movieForm.director) == false) {
             <dt>@Messages.apply("lbl.director"):</dt>
-            <dd><a href="@routes.ListDvdsController.listByDirector(dvd.movieForm.director)">@dvd.movieForm.director</a></dd>
+            <dd><a href="@routes.ListCopiesController.listByDirector(dvd.movieForm.director)">@dvd.movieForm.director</a></dd>
           }
 
           @if(StringUtils.isEmpty(dvd.copyForm.asinNr) == false || StringUtils.isEmpty(dvd.movieForm.imdbId) == false) {
@@ -229,7 +229,7 @@
          <h5>@Messages.apply("lbl.genres"):</h5>
          <ul class="inline">
          @for(genre <- dvd.movieForm.genres) {
-           <li><a href="@routes.ListDvdsController.listByGenre(genre)">@genre</a></li>
+           <li><a href="@routes.ListCopiesController.listByGenre(genre)">@genre</a></li>
          }
         </ul>
        </div>
@@ -238,7 +238,7 @@
          <h5>@Messages.apply("lbl.actors"):</h5>
          <ul class="inline">
            @for(actor <- dvd.movieForm.actors) {
-             <li><a href="@routes.ListDvdsController.listByActor(actor)">@actor</a></li>
+             <li><a href="@routes.ListCopiesController.listByActor(actor)">@actor</a></li>
            }
          </ul>
        </div>
