@@ -117,8 +117,7 @@ public class DvdSearchFrom {
 
   /**
    * Write the {@link DvdSearchFrom} to the cache for the user
-   * 
-   * @param ctx
+   *
    * @param dvdSearchFrom
    */
   public static void setCurrentSearchForm(final DvdSearchFrom dvdSearchFrom) {
@@ -235,4 +234,6 @@ public class DvdSearchFrom {
   public void setCopyType(String copyType) {
     this.copyType = copyType;
   }
+
+
 }
