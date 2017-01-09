@@ -10,12 +10,15 @@ import play.mvc.Result;
 import play.mvc.Security;
 import views.html.reservations.showborrowed;
 
+import javax.inject.Singleton;
+
 /**
  * User: tuxburner
  * Date: 3/20/13
  * Time: 5:21 PM
  */
 @Security.Authenticated(Secured.class)
+@Singleton
 public class ReservationsController extends Controller {
 
   /**

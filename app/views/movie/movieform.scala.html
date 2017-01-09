@@ -7,9 +7,9 @@
 @form(routes.MovieController.addOrEditMovie(mode),'enctype -> "multipart/form-data",'id -> "movieForm", 'mode -> mode) {
   <div class="span12">
     <div class="well">
-      <h4><i class="icon-film"></i> @if(mode == DvdController.DVD_FORM_EDIT_MODE) { @Messages("headline.editMovie") } else { @Messages("headline.addMovie") }</h4>
+      <h4><i class="icon-film"></i> @if(mode == CopyController.DVD_FORM_EDIT_MODE) { @Messages("headline.editMovie") } else { @Messages("headline.addMovie") }</h4>
      
-      @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
+      @if(mode == CopyController.DVD_FORM_EDIT_MODE) {
         <input type="hidden" name="movieId" id="movieId" value="@movieForm("movieId").value"/>
       }
 
@@ -50,7 +50,7 @@
 
       <div class="media">
         <span class="pull-left span4">
-          <img class="img-polaroid img-rounded" id="poster_preview" class="caption" title="Currently selected poster" @if(mode == DvdController.DVD_FORM_ADD_MODE) { data-src="holder.js/@EImageSize.GRABBER_POSTER_SMALL.getWHString()/#4D99E0:#fff/text:@Messages("lbl.noPoster")"} else { src="@routes.DashboardController.streamImage(Long.valueOf(movieForm("movieId").value()),"POSTER","SMALL")" } width="@EImageSize.SMALL.getWidth()" height="@EImageSize.SMALL.getHeight()" />
+          <img class="img-polaroid img-rounded" id="poster_preview" class="caption" title="Currently selected poster" @if(mode == CopyController.DVD_FORM_ADD_MODE) { data-src="holder.js/@EImageSize.GRABBER_POSTER_SMALL.getWHString()/#4D99E0:#fff/text:@Messages("lbl.noPoster")"} else { src="@routes.DashboardController.streamImage(Long.valueOf(movieForm("movieId").value()),"POSTER","SMALL")" } width="@EImageSize.SMALL.getWidth()" height="@EImageSize.SMALL.getHeight()" />
         </span>
         <div class="media-body">
           @inputText(movieForm("posterUrl"),'_label -> Messages("lbl.posterUrl"))
@@ -59,7 +59,7 @@
 
       <div class="media">
         <span class="pull-left span4">
-          <img class="img-polaroid img-rounded" class="caption" id="backDrop_preview" title="Currently selected backdrop" @if(mode == DvdController.DVD_FORM_ADD_MODE) { data-src="holder.js/@EImageSize.GRABBER_BACKDROP_SMALL.getWHString()/#4D99E0:#fff/text:@Messages("lbl.noBackdrop")" } else { src="@routes.DashboardController.streamImage(Long.valueOf(movieForm("movieId").value()),"BACKDROP","SMALL")"} width="@EImageSize.SMALL.getWidth()" height="@EImageSize.SMALL.getHeight()" />
+          <img class="img-polaroid img-rounded" class="caption" id="backDrop_preview" title="Currently selected backdrop" @if(mode == CopyController.DVD_FORM_ADD_MODE) { data-src="holder.js/@EImageSize.GRABBER_BACKDROP_SMALL.getWHString()/#4D99E0:#fff/text:@Messages("lbl.noBackdrop")" } else { src="@routes.DashboardController.streamImage(Long.valueOf(movieForm("movieId").value()),"BACKDROP","SMALL")"} width="@EImageSize.SMALL.getWidth()" height="@EImageSize.SMALL.getHeight()" />
         </span>
         <div class="media-body">
           @inputText(movieForm("backDropUrl"),'_label -> Messages("lbl.backdropUrl"))

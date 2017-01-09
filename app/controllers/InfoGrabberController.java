@@ -19,10 +19,12 @@ import play.mvc.Security;
 import views.html.grabber.displaymovie;
 import views.html.grabber.search;
 
+import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.List;
 
 @Security.Authenticated(Secured.class)
+@Singleton
 public class InfoGrabberController extends Controller {
 
   public final static String MOVIE_TO_EDIT_ID = "movieToEditId";
@@ -137,7 +139,7 @@ public class InfoGrabberController extends Controller {
       final IInfoGrabber grabber = InfoGrabberController.getGrabber(EGrabberType.valueOf(grabberType));
       final GrabberDisplayMovie displayMovie = grabber.getDisplayMovie(grabberId);
 
-      final String mode = (movieToEditId == null) ? DvdController.DVD_FORM_ADD_MODE : DvdController.DVD_FORM_EDIT_MODE;
+      final String mode = (movieToEditId == null) ? CopyController.DVD_FORM_ADD_MODE : CopyController.DVD_FORM_EDIT_MODE;
 
       return Results.ok(displaymovie.render(displayMovie, grabberType, movieToEditId, mode,amazonCode,copyId));
 

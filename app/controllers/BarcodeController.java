@@ -1,5 +1,6 @@
 package controllers;
 
+import com.google.inject.Singleton;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.FormatException;
 import com.google.zxing.LuminanceSource;
@@ -28,6 +29,7 @@ import java.io.InputStream;
  * Time: 8:19 PM
  */
 @Security.Authenticated(Secured.class)
+@Singleton
 public class BarcodeController extends Controller {
 
   /**

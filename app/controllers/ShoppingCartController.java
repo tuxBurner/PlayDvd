@@ -14,6 +14,7 @@ import play.mvc.Results;
 import play.mvc.Security;
 import play.twirl.api.Html;
 
+import javax.inject.Singleton;
 import java.util.concurrent.Callable;
 
 /**
@@ -22,10 +23,9 @@ import java.util.concurrent.Callable;
  * and if he wants to send the owners a mail which movies he wants to borrow
  *
  * User: tuxburner
- * Date: 2/9/13
- * Time: 12:21 PM
  */
 @Security.Authenticated(Secured.class)
+@Singleton
 public class ShoppingCartController extends Controller {
 
   /**

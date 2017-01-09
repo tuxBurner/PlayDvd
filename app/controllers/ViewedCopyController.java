@@ -13,16 +13,15 @@ import play.mvc.Result;
 import play.mvc.Security;
 import views.html.viewedcopy.markAsViewed;
 
+import javax.inject.Singleton;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
+ * Controller for handling viewed copies.
  * User: tuxburner
- * Date: 6/7/13
- * Time: 4:45 PM
- * To change this template use File | Settings | File Templates.
  */
 @Security.Authenticated(Secured.class)
+@Singleton
 public class ViewedCopyController extends Controller {
 
   /**

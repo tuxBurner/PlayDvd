@@ -14,14 +14,14 @@ import play.mvc.Results;
 import views.html.user.lostpassword;
 import views.html.user.passwordreset;
 
+import javax.inject.Singleton;
 import java.util.UUID;
 
 /**
  * Controller which handles the password reset process.
  * User: tuxburner
- * Date: 2/4/13
- * Time: 1:48 AM
  */
+@Singleton
 public class PasswordResetController extends Controller {
 
   /**

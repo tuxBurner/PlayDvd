@@ -1,6 +1,7 @@
 package controllers;
 
 import com.avaje.ebean.PagedList;
+import com.google.inject.Singleton;
 import helpers.CacheHelper;
 import helpers.ECacheObjectName;
 import models.Bookmark;
@@ -14,13 +15,11 @@ import java.util.Set;
 import java.util.concurrent.Callable;
 
 /**
- * Created with IntelliJ IDEA.
+ * Controller which handles the bookmarks.
  * User: tuxburner
- * Date: 4/29/13
- * Time: 12:04 AM
- * To change this template use File | Settings | File Templates.
  */
 @Security.Authenticated(Secured.class)
+@Singleton
 public class BookmarksController extends Controller {
 
   /**

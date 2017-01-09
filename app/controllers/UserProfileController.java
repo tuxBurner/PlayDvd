@@ -12,12 +12,13 @@ import play.mvc.Results;
 import play.mvc.Security;
 import views.html.user.userprofile;
 
+import javax.inject.Singleton;
+
 /**
  * User: tuxburner
- * Date: 2/3/13
- * Time: 4:24 PM
  */
 @Security.Authenticated(Secured.class)
+@Singleton
 public class UserProfileController extends Controller {
 
   /**

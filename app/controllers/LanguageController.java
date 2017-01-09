@@ -5,10 +5,12 @@ import play.i18n.Lang;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import javax.inject.Singleton;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Singleton
 public class LanguageController extends Controller {
 
 

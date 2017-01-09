@@ -24,6 +24,7 @@ import play.mvc.Results;
 import play.mvc.Security;
 import views.html.movie.movieform;
 
+import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,7 @@ import java.util.Map;
  * @author tuxburner
  */
 @Security.Authenticated(Secured.class)
+@Singleton
 public class MovieController extends Controller {
 
   @Inject
@@ -47,7 +49,7 @@ public class MovieController extends Controller {
   @JSRoute
   public Result showAddMovieForm() {
     final Form<MovieForm> form = Form.form(MovieForm.class);
-    return Results.ok(movieform.render(form.fill(new MovieForm()), DvdController.DVD_FORM_ADD_MODE));
+    return Results.ok(movieform.render(form.fill(new MovieForm()), CopyController.DVD_FORM_ADD_MODE));
   }
 
   /**
@@ -67,7 +69,7 @@ public class MovieController extends Controller {
     }
 
     final Form<MovieForm> form = Form.form(MovieForm.class).fill(MovieForm.movieToForm(movie));
-    return Results.ok(movieform.render(form, DvdController.DVD_FORM_EDIT_MODE));
+    return Results.ok(movieform.render(form, CopyController.DVD_FORM_EDIT_MODE));
   }
 
   /**

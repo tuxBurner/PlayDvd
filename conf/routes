@@ -64,16 +64,16 @@ GET         /barcodescannerws                               controllers.BarcodeC
 
 
 # ADD edit DVD
-GET         /dvd/add                                        controllers.DvdController.showAddDvd()
-POST        /dvd/:mode                                      controllers.DvdController.addDvd(mode: String)
-GET         /dvd/edit/:dvdId                                controllers.DvdController.showEditDvd(dvdId: Long)
-GET         /dvd/amazon/search/byCode/:code                 controllers.DvdController.searchAmazonByCode(code: String, copyId: Long ?= -1)
-GET         /dvd/amazon/search/byTitle/                     controllers.DvdController.searchAmazonByTitle(title = "")
-GET         /dvd/amazon/search/byTitle/:title               controllers.DvdController.searchAmazonByTitle(title: String)
-GET         /dvd/amazon/form/:code/:movieId                 controllers.DvdController.showDvdByAmazonAndMovie(code: String, movieId: Long,copyId: Long ?= -1)
-GET         /dvd/amazon/formfill/:code                      controllers.DvdController.showCopyFormWithAmazonInfo(code: String, copyId: Long ?= -1)
-POST        /dvd/addMovieByGrabber/                         controllers.DvdController.addMovieByGrabber(grabberType : String)
-GET         /dvd/searchattr                                 controllers.DvdController.searchForCopyAttribute(term: String, attrType:String)
+GET         /dvd/add                                        controllers.CopyController.showAddDvd()
+POST        /dvd/:mode                                      controllers.CopyController.addDvd(mode: String)
+GET         /dvd/edit/:dvdId                                controllers.CopyController.showEditDvd(dvdId: Long)
+GET         /dvd/amazon/search/byCode/:code                 controllers.CopyController.searchAmazonByCode(code: String, copyId: Long ?= -1)
+GET         /dvd/amazon/search/byTitle/                     controllers.CopyController.searchAmazonByTitle(title = "")
+GET         /dvd/amazon/search/byTitle/:title               controllers.CopyController.searchAmazonByTitle(title: String)
+GET         /dvd/amazon/form/:code/:movieId                 controllers.CopyController.showDvdByAmazonAndMovie(code: String, movieId: Long,copyId: Long ?= -1)
+GET         /dvd/amazon/formfill/:code                      controllers.CopyController.showCopyFormWithAmazonInfo(code: String, copyId: Long ?= -1)
+POST        /dvd/addMovieByGrabber/                         controllers.CopyController.addMovieByGrabber(grabberType : String)
+GET         /dvd/searchattr                                 controllers.CopyController.searchForCopyAttribute(term: String, attrType:String)
 
 
 # DELETE DVD

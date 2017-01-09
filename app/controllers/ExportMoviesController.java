@@ -13,6 +13,7 @@ import play.mvc.Result;
 import play.mvc.Security;
 import play.mvc.With;
 
+import javax.inject.Singleton;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PipedInputStream;
@@ -30,6 +31,7 @@ import java.util.zip.ZipOutputStream;
  * Date: 7/13/13
  * Time: 3:43 PM
  */
+@Singleton
 public class ExportMoviesController extends Controller {
 
   @Security.Authenticated(Secured.class)

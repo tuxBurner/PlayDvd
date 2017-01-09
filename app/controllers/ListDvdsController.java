@@ -17,12 +17,14 @@ import play.mvc.Results;
 import play.mvc.Security;
 import views.html.dashboard.listdvds;
 
+import javax.inject.Singleton;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.Map;
 import java.util.Set;
 
 @Security.Authenticated(Secured.class)
+@Singleton
 public class ListDvdsController extends Controller {
 
   private final static Map<String, Integer> DVDS_PER_PAGE_CONFIG = ConfigurationHelper.createValMap("dvddb.dvds.perpage");

@@ -18,6 +18,7 @@ import play.mvc.With;
 
 import play.twirl.api.Html;
 
+import javax.inject.Singleton;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -27,9 +28,8 @@ import java.util.List;
 
 /**
  * User: tuxburner
- * Date: 6/9/13
- * Time: 10:55 PM
  */
+@Singleton
 public class RssFeedsController extends Controller {
 
   /**

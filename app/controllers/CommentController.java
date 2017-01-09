@@ -1,6 +1,7 @@
 package controllers;
 
 import com.github.tuxBurner.jsAnnotations.JSRoute;
+import com.google.inject.Singleton;
 import models.Commentable;
 import models.Movie;
 import play.data.DynamicForm;
@@ -18,6 +19,7 @@ import static play.data.Form.form;
  * To change this template use File | Settings | File Templates.
  */
 @Security.Authenticated(Secured.class)
+@Singleton
 public class CommentController extends Controller {
 
   public static String COMMENT_SUCCESS_FLASH = "commentSuccess";

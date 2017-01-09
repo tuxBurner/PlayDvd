@@ -36,18 +36,18 @@
   <div class="row" id="dvdFormWrapper">
     <div class="span12">
 
-    @form(routes.DvdController.addDvd(mode)) {
+    @form(routes.CopyController.addDvd(mode)) {
       <div class="row">
 
         <div class="span5 well">
 
-          <h4>@if(mode == DvdController.DVD_FORM_EDIT_MODE) {
+          <h4>@if(mode == CopyController.DVD_FORM_EDIT_MODE) {
             <i class="icon-edit"></i> @Messages("headline.editCopy")
           } else {
             <i class="icon-plus"></i> @Messages("headline.addCopy")
           } </h4>
 
-          @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
+          @if(mode == CopyController.DVD_FORM_EDIT_MODE) {
             <input type="hidden" name="dvdId" id="dvdId" value="@dvdForm("dvdId").value"/>
           }
 
@@ -75,7 +75,7 @@
 
           <label for="copyType">@Messages("lbl.copyType"):</label>
           @for((copyType, index) <- helpers.DvdInfoHelper.getCopyTypes.zipWithIndex) {
-            <input type="radio" id="copyType" name="copyType" value="@copyType" @if(mode == DvdController.DVD_FORM_EDIT_MODE && copyType == dvdForm("copyType").value() || mode == DvdController.DVD_FORM_ADD_MODE && dvdForm("copyType").value() == null && (index == 0 || copyType.equals(User.getCurrentUser().defaultCopyType)) || mode == DvdController.DVD_FORM_ADD_MODE && dvdForm("copyType").value() != null && copyType == dvdForm("copyType").value()) {
+            <input type="radio" id="copyType" name="copyType" value="@copyType" @if(mode == CopyController.DVD_FORM_EDIT_MODE && copyType == dvdForm("copyType").value() || mode == CopyController.DVD_FORM_ADD_MODE && dvdForm("copyType").value() == null && (index == 0 || copyType.equals(User.getCurrentUser().defaultCopyType)) || mode == CopyController.DVD_FORM_ADD_MODE && dvdForm("copyType").value() != null && copyType == dvdForm("copyType").value()) {
               checked="checked"
           } /><span><img class="img-rounded" alt="@copyType" src="@routes.Assets.versioned("images/copy_type/" + copyType + ".png")" /></span>
           }
@@ -83,7 +83,7 @@
 
           <label for="ageRating">@Messages("lbl.agerating"):</label>
           @for((rating, index) <- helpers.DvdInfoHelper.getAgeRatings.zipWithIndex) {
-            <input type="radio" id="ageRating" name="ageRating" value="@rating" @if(mode == DvdController.DVD_FORM_EDIT_MODE && rating == dvdForm("ageRating").value() || mode == DvdController.DVD_FORM_ADD_MODE && (rating == dvdForm("ageRating").value() || index == 0)) {
+            <input type="radio" id="ageRating" name="ageRating" value="@rating" @if(mode == CopyController.DVD_FORM_EDIT_MODE && rating == dvdForm("ageRating").value() || mode == CopyController.DVD_FORM_ADD_MODE && (rating == dvdForm("ageRating").value() || index == 0)) {
               checked="checked"
           } /><span><img class="img-rounded" alt="@rating" src="@routes.Assets.versioned("images/agerating/" + rating + ".gif")" /></span>
           }
@@ -108,7 +108,7 @@
           </div>
 
           <div class="form-actions">
-            @if(mode == DvdController.DVD_FORM_EDIT_MODE) {
+            @if(mode == CopyController.DVD_FORM_EDIT_MODE) {
               <button type="submit" class="btn btn-primary"><i class="icon-edit"></i> @Messages("btn.editCopy")</button>
             } else {
               <button type="submit" class="btn  btn-primary"><i class="icon-plus"></i> @Messages("btn.addCopy")</button>
