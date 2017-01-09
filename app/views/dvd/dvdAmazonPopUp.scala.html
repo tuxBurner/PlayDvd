@@ -41,7 +41,7 @@
           @for(movie <- movies) {
             <li>
               @if(movie.hasPoster) {
-                <img src="@routes.Dashboard.streamImage(movie.id,EImageType.POSTER.name(),EImageSize.TINY.name())"/>
+                <img src="@routes.DashboardController.streamImage(movie.id,EImageType.POSTER.name(),EImageSize.TINY.name())"/>
               }
               @movie.title
             <a href="@routes.DvdController.showDvdByAmazonAndMovie(code,movie.id,copyId)"  class="btn btn-primary"><i class="icon-reply"></i></a>

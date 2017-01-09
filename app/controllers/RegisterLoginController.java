@@ -1,8 +1,11 @@
 package controllers;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import forms.user.LoginForm;
 import forms.user.RegisterForm;
 import play.data.Form;
+import play.data.FormFactory;
 import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -11,11 +14,22 @@ import views.html.user.login;
 import views.html.user.register;
 
 /**
+ * Controller which manages the register process for the application.
  * User: tuxburner
  * Date: 2/4/13
  * Time: 1:51 AM
  */
+@Singleton
 public class RegisterLoginController extends Controller {
+
+
+  private final FormFactory formFactory;
+
+  @Inject
+  public RegisterLoginController(final FormFactory formFactory) {
+
+    this.formFactory = formFactory;
+  }
 
   /**
    * Display the register page
@@ -23,7 +37,8 @@ public class RegisterLoginController extends Controller {
    * @return
    */
   public Result showRegister() {
-    return Results.ok(register.render(Form.form(RegisterForm.class)));
+    Form<RegisterForm> form = formFactory.form(RegisterForm.class);
+    return Results.ok(register.render(form));
   }
 
   /**
@@ -32,7 +47,7 @@ public class RegisterLoginController extends Controller {
    * @return
    */
   public Result register() {
-    final Form<RegisterForm> registerForm = Form.form(RegisterForm.class).bindFromRequest();
+    final Form<RegisterForm> registerForm = formFactory.form(RegisterForm.class).bindFromRequest();
     if (registerForm.hasErrors()) {
       return Results.badRequest(register.render(registerForm));
     } else {
@@ -40,7 +55,7 @@ public class RegisterLoginController extends Controller {
       final String message = Messages.get("msg.success.login", registerForm.get().username);
       Controller.flash("success", message);
       Controller.session(Secured.AUTH_SESSION, "" + registerForm.get().username);
-      return Results.redirect(routes.Application.index());
+      return Results.redirect(routes.ApplicationController.index());
     }
   }
 
@@ -57,14 +72,14 @@ public class RegisterLoginController extends Controller {
    * @return
    */
   public Result login() {
-    final Form<LoginForm> loginForm = Form.form(LoginForm.class).bindFromRequest();
+    final Form<LoginForm> loginForm = formFactory.form(LoginForm.class).bindFromRequest();
     if (loginForm.hasErrors()) {
       return Results.badRequest(login.render(loginForm));
     } else {
       Secured.writeUserToSession(loginForm.get().username);
       final String msg = Messages.get("msg.success.login", loginForm.get().username);
       Controller.flash("success", msg);
-      return Results.redirect(routes.Application.index());
+      return Results.redirect(routes.ApplicationController.index());
     }
   }
 

@@ -15,7 +15,6 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 import play.mvc.With;
-import scala.collection.mutable.StringBuilder;
 
 import play.twirl.api.Html;
 
@@ -83,7 +82,7 @@ public class RssFeedsController extends Controller {
    */
   @With(RssSecurityAction.class)
   public Result getPosterImage(final Long copyId) {
-    return Dashboard.getStreamImage(copyId, EImageType.POSTER.name(), EImageSize.SMALL.name());
+    return DashboardController.getStreamImage(copyId, EImageType.POSTER.name(), EImageSize.SMALL.name());
   }
 
 
@@ -99,7 +98,7 @@ public class RssFeedsController extends Controller {
       SyndFeed feed = new SyndFeedImpl();
       feed.setFeedType("atom_1.0");
       feed.setTitle(feedTitle);
-      feed.setLink(routes.Application.index().absoluteURL(request()));
+      feed.setLink(routes.ApplicationController.index().absoluteURL(request()));
       if(StringUtils.isEmpty(feedSubTitle) == false) {
         feed.setDescription(feedSubTitle);
       }
@@ -157,7 +156,7 @@ public class RssFeedsController extends Controller {
     }
 
     entry.setTitle(title);
-    entry.setLink(routes.Dashboard.displayCopyOnPage(copy.id).absoluteURL(request()));
+    entry.setLink(routes.DashboardController.displayCopyOnPage(copy.id).absoluteURL(request()));
     entry.setPublishedDate(new Date(copy.createdDate));
     entry.setAuthor(copy.owner.userName);
 

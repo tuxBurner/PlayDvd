@@ -59,7 +59,7 @@ public class LanguageController extends Controller {
 
     ctx().changeLang(lang.code());
 
-    return redirect(routes.Application.index());
+    return redirect(routes.ApplicationController.index());
   }
 
   /**

@@ -22,7 +22,7 @@
       <li class="span3" style="height: 260px ;">
         <div class="thumbnail" style="height: 260px ;">
           @if(StringUtils.isBlank(res.imageUrl) == false) {
-            <img class="img-rounded" src="@routes.Dashboard.streamExternalImage()?url=@res.imageUrl&imgSize=GRABBER_POSTER_SMALL" />
+            <img class="img-rounded" src="@routes.DashboardController.streamExternalImage()?url=@res.imageUrl&imgSize=GRABBER_POSTER_SMALL" />
           }
 
         <div class="caption">

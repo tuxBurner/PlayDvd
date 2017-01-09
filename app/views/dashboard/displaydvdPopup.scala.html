@@ -24,7 +24,7 @@
       <label class="span4">Owner:</label>
       <span>
         <a href="@routes.ListDvdsController.listByUser(dvd.dvdForm.ownerName)">
-          <img class="img-rounded" src="@routes.Dashboard.gravatar(50,dvd.dvdForm.ownerName)" />
+          <img class="img-rounded" src="@routes.DashboardController.gravatar(50,dvd.dvdForm.ownerName)" />
           @dvd.dvdForm.ownerName
         </a>
       </span>
@@ -34,7 +34,7 @@
       <div class="row-fluid">
         <label class="span4">Borrowed by:</label>
         <span>
-          <img class="img-rounded" src="@routes.Dashboard.gravatar(50,dvd.borrowedBy)" />
+          <img class="img-rounded" src="@routes.DashboardController.gravatar(50,dvd.borrowedBy)" />
           @dvd.borrowedBy 
           (@dvd.borrowedOn)
         </span>
@@ -172,7 +172,7 @@
 $(function() {
   $('#modalLabel').html("@dvd.title");
   @if(dvd.movieForm.hasBackdrop != null && dvd.movieForm.hasBackdrop == true) {
-    $('#modal.dvdInfoModal .modal-body').css('background-image',"url('@routes.Dashboard.streamImage(dvd.movieForm.movieId,"BACKDROP","BACKCKDROP_POPUP_SIZE")')");
+    $('#modal.dvdInfoModal .modal-body').css('background-image',"url('@routes.DashboardController.streamImage(dvd.movieForm.movieId,"BACKDROP","BACKCKDROP_POPUP_SIZE")')");
   }
   });
 </script>

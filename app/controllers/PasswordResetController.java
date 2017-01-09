@@ -17,6 +17,7 @@ import views.html.user.passwordreset;
 import java.util.UUID;
 
 /**
+ * Controller which handles the password reset process.
  * User: tuxburner
  * Date: 2/4/13
  * Time: 1:48 AM
@@ -83,7 +84,7 @@ public class PasswordResetController extends Controller {
    */
   public Result showPasswordReset(final String token) {
     if (StringUtils.isEmpty(token) == true) {
-      return redirect(routes.Application.index());
+      return redirect(routes.ApplicationController.index());
     }
 
     return ok(passwordreset.render(Form.form(PasswordResetForm.class), token));
@@ -98,7 +99,7 @@ public class PasswordResetController extends Controller {
   public Result passwordReset(final String token) {
 
     if (StringUtils.isEmpty(token) == true) {
-      return redirect(routes.Application.index());
+      return redirect(routes.ApplicationController.index());
     }
 
     Form<PasswordResetForm> passwordResetForm = Form.form(PasswordResetForm.class).bindFromRequest();

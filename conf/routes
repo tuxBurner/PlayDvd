@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET         /                                               controllers.Application.index()
+GET         /                                               controllers.ApplicationController.index()
 
 # Authentication
 GET         /login                                          controllers.RegisterLoginController.showLogin()
@@ -43,20 +43,20 @@ POST        /movie/:movieId/comment                         controllers.CommentC
 
 
 # stuff
-GET         /image/:dvdId/:imgType/:imgSize                 controllers.Dashboard.streamImage(dvdId: Long, imgType: String, imgSize: String)
-GET         /extimage                                       controllers.Dashboard.streamExternalImage()
-GET         /gravatar/:userName                             controllers.Dashboard.gravatar(size: java.lang.Integer, userName: String)
+GET         /image/:dvdId/:imgType/:imgSize                 controllers.DashboardController.streamImage(dvdId: Long, imgType: String, imgSize: String)
+GET         /extimage                                       controllers.DashboardController.streamExternalImage()
+GET         /gravatar/:userName                             controllers.DashboardController.gravatar(size: java.lang.Integer, userName: String)
 
 
 # Display the Dvd
-GET         /showdvdPopup/:dvdId                            controllers.Dashboard.displayDvd(dvdId: Long)
-GET         /showdvd/:dvdId                                 controllers.Dashboard.displayCopyOnPage(dvdId: Long)
+GET         /showdvdPopup/:dvdId                            controllers.DashboardController.displayDvd(dvdId: Long)
+GET         /showdvd/:dvdId                                 controllers.DashboardController.displayCopyOnPage(dvdId: Long)
 
 # Lend DVD
-GET         /lendDvd/:dvdId                                 controllers.Dashboard.lendDialogContent(dvdId: Long)
-POST        /lendDvd/:dvdId                                 controllers.Dashboard.lendDvd(dvdId: Long)
-GET         /unLendDvd/:dvdId                               controllers.Dashboard.unLendDialogContent(dvdId: Long)
-POST        /unLendDvd/:dvdId                               controllers.Dashboard.unlendDvd(dvdId: Long)
+GET         /lendDvd/:dvdId                                 controllers.DashboardController.lendDialogContent(dvdId: Long)
+POST        /lendDvd/:dvdId                                 controllers.DashboardController.lendDvd(dvdId: Long)
+GET         /unLendDvd/:dvdId                               controllers.DashboardController.unLendDialogContent(dvdId: Long)
+POST        /unLendDvd/:dvdId                               controllers.DashboardController.unlendDvd(dvdId: Long)
 
 # Barcode Scanning
 GET         /barcodescanner                                 controllers.BarcodeController.displayBarcodeScaner()
@@ -77,8 +77,8 @@ GET         /dvd/searchattr                                 controllers.DvdContr
 
 
 # DELETE DVD
-GET         /dvd/delete/:dvdId                              controllers.Dashboard.deleteDialogContent(dvdId:Long)
-POST        /dvd/delete/:dvdId                              controllers.Dashboard.deleteDvd(dvdId:Long)
+GET         /dvd/delete/:dvdId                              controllers.DashboardController.deleteDialogContent(dvdId:Long)
+POST        /dvd/delete/:dvdId                              controllers.DashboardController.deleteDvd(dvdId:Long)
 
 # MOVIE ROUTES
 POST        /movie/addMovieByGrabber/:mode                  controllers.MovieController.addMovieByGrabberId(mode: String, grabberType: String)
@@ -136,7 +136,7 @@ GET         /export                                         controllers.ExportMo
 GET         /export/xbmc                                    controllers.ExportMoviesController.exportXbmc()
 
 # Javascript routing
-GET         /assets/javascripts/routes                      controllers.Application.jsRoutes()
+GET         /assets/javascripts/routes                      controllers.ApplicationController.jsRoutes()
 
 
 # Map static resources from the /public folder to the /assets URL path

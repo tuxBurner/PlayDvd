@@ -57,7 +57,7 @@
   @if(dvd.movieForm.hasBackdrop != null && dvd.movieForm.hasBackdrop == true) {
     <style type="text/css">
       body {
-        background-image: url('@routes.Dashboard.streamImage(dvd.movieForm.movieId,"BACKDROP","BACKCKDROP_POPUP_SIZE")') !important;
+        background-image: url('@routes.DashboardController.streamImage(dvd.movieForm.movieId,"BACKDROP","BACKCKDROP_POPUP_SIZE")') !important;
       }
     </style>
   }
@@ -71,7 +71,7 @@
      <div class="well row">
        <div class="span6">
          @if(prevNext.prev != null) {
-           <a href="@routes.Dashboard.displayCopyOnPage(prevNext.prev.id)">
+           <a href="@routes.DashboardController.displayCopyOnPage(prevNext.prev.id)">
              @general.displayposter(prevNext.prev.movieId,prevNext.prev.hasPoster,EImageSize.TINY)
              @prevNext.prev.title
            </a>
@@ -79,7 +79,7 @@
        </div>
        <div class="span5">
          @if(prevNext.next != null) {
-           <a class="pull-right" href="@routes.Dashboard.displayCopyOnPage(prevNext.next.id)">
+           <a class="pull-right" href="@routes.DashboardController.displayCopyOnPage(prevNext.next.id)">
              @general.displayposter(prevNext.next.movieId,prevNext.next.hasPoster,EImageSize.TINY)
              @prevNext.next.title
            </a>
@@ -101,14 +101,14 @@
           <dt>@Messages.apply("lbl.owner"):</dt>
           <dd>
             <a href="@routes.ListDvdsController.listByUser(dvd.dvdForm.ownerName)">
-              <img class="img-rounded"  src="@routes.Dashboard.gravatar(25,dvd.dvdForm.ownerName)" width="25" height="25" /> @dvd.dvdForm.ownerName
+              <img class="img-rounded"  src="@routes.DashboardController.gravatar(25,dvd.dvdForm.ownerName)" width="25" height="25" /> @dvd.dvdForm.ownerName
             </a>
           </dd>
 
           @if(dvd.borrowedBy != null) {
             <dt>@Messages.apply("lbl.lentTo"):</dt>
             <dd>
-              <img class="img-rounded" src="@routes.Dashboard.gravatar(25,dvd.borrowedBy)" width="25" height="25" />
+              <img class="img-rounded" src="@routes.DashboardController.gravatar(25,dvd.borrowedBy)" width="25" height="25" />
               @dvd.borrowedBy
               (@dvd.borrowedOn.format(Messages.apply("dateFormat")))
             </dd>
