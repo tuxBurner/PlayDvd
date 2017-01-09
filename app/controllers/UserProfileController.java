@@ -5,6 +5,7 @@ import models.User;
 import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 import play.data.Form;
+import play.data.FormFactory;
 import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -12,6 +13,7 @@ import play.mvc.Results;
 import play.mvc.Security;
 import views.html.user.userprofile;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
@@ -20,6 +22,13 @@ import javax.inject.Singleton;
 @Security.Authenticated(Secured.class)
 @Singleton
 public class UserProfileController extends Controller {
+
+  private final FormFactory formFactory;
+
+  @Inject
+  UserProfileController(final FormFactory formFactory) {
+    this.formFactory = formFactory;
+  }
 
   /**
    * Displays the user profile mask
@@ -46,12 +55,11 @@ public class UserProfileController extends Controller {
     userProfileForm.email = currentUser.email;
     userProfileForm.rssAuthKey = currentUser.rssAuthKey;
 
-    return ok(userprofile.render(Form.form(UserProfileForm.class).fill(userProfileForm)));
+    return ok(userprofile.render(formFactory.form(UserProfileForm.class).fill(userProfileForm)));
   }
 
   public Result updateProfile() {
-
-    final Form<UserProfileForm> form = Form.form(UserProfileForm.class).bindFromRequest();
+    final Form<UserProfileForm> form = formFactory.form(UserProfileForm.class).bindFromRequest();
     if(form.hasErrors()) {
       return Results.badRequest(userprofile.render(form));
     }

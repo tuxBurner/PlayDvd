@@ -166,7 +166,7 @@ public class CopyController extends Controller {
     @JSRoute
     public Result addMovieByGrabber(final String grabberType) {
         try {
-            final Form<GrabberInfoForm> grabberInfoForm = Form.form(GrabberInfoForm.class).bindFromRequest();
+            final Form<GrabberInfoForm> grabberInfoForm = formFactory.form(GrabberInfoForm.class).bindFromRequest();
 
             final IInfoGrabber grabber = InfoGrabberController.getGrabber(EGrabberType.valueOf(grabberType));
 
@@ -225,7 +225,7 @@ public class CopyController extends Controller {
             copy = Dvd.getDvdForUser(copyId, Secured.getUsername());
         }
 
-        final Form<DvdForm> form = Form.form(DvdForm.class);
+        final Form<DvdForm> form = formFactory.form(DvdForm.class);
         final DvdForm dvdForm = DvdForm.amazonAndMovieToDvdForm(amazonResult, movieId, copy);
 
         return Results.ok(dvdform.render(form.fill(dvdForm), mode));
@@ -255,7 +255,7 @@ public class CopyController extends Controller {
 
         final AmazonResult amazonResult = AmazonMovieLookuper.lookUp(code);
         String mode = DVD_FORM_ADD_MODE;
-        final Form<DvdForm> form = Form.form(DvdForm.class);
+        final Form<DvdForm> form = formFactory.form(DvdForm.class);
         final DvdForm dvdForm = DvdForm.amazonAndCopyToForm(copy, amazonResult);
         form.fill(dvdForm);
 

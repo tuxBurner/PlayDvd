@@ -27,6 +27,7 @@ import objects.shoppingcart.CacheShoppingCart;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.Form;
+import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
@@ -39,6 +40,7 @@ import views.html.dashboard.lendform;
 import views.html.dashboard.unlendform;
 
 import javax.imageio.ImageIO;
+import javax.inject.Inject;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -53,6 +55,14 @@ import java.util.Set;
 @Security.Authenticated(Secured.class)
 @Singleton
 public class DashboardController extends Controller {
+
+
+  private final FormFactory formFactory;
+
+  @Inject
+  DashboardController(final FormFactory formFactory) {
+    this.formFactory = formFactory;
+  }
 
   /**
    * Display the dvd and its informations in a popup
@@ -128,7 +138,7 @@ public class DashboardController extends Controller {
     final List<Dvd> dvdForUserInSameHull = Dvd.getDvdUnBorrowedSameHull(dvdForUser);
     final Map<String, String> reservationsForCopy = CopyReservation.getReservationsForCopy(dvdId);
 
-    final Form<LendForm> form = Form.form(LendForm.class);
+    final Form<LendForm> form = formFactory.form(LendForm.class);
     return Results.ok(lendform.render(form, dvdForUser, dvdForUserInSameHull, reservationsForCopy, User.getOtherUserNames()));
   }
 
@@ -155,7 +165,7 @@ public class DashboardController extends Controller {
 
     final List<Dvd> dvdBorrowedSameHull = Dvd.getDvdBorrowedSameHull(dvdForUser);
 
-    return Results.ok(unlendform.render(Form.form(UnLendForm.class), dvdForUser, dvdBorrowedSameHull));
+    return Results.ok(unlendform.render(formFactory.form(UnLendForm.class), dvdForUser, dvdBorrowedSameHull));
 
   }
 
@@ -168,7 +178,7 @@ public class DashboardController extends Controller {
   @JSRoute
   public Result lendDvd(final Long dvdId) {
 
-    final Form<LendForm> form = Form.form(LendForm.class).bindFromRequest();
+    final Form<LendForm> form = formFactory.form(LendForm.class).bindFromRequest();
 
     // check if the form is okay
     final LendForm lendForm = form.get();
@@ -204,7 +214,7 @@ public class DashboardController extends Controller {
   @JSRoute
   public Result unlendDvd(final Long dvdId) {
 
-    final Form<UnLendForm> form = Form.form(UnLendForm.class).bindFromRequest();
+    final Form<UnLendForm> form = formFactory.form(UnLendForm.class).bindFromRequest();
 
     // check if the form is okay
     final UnLendForm unlendForm = form.get();
@@ -307,7 +317,7 @@ public class DashboardController extends Controller {
    * @return
    */
   public Result streamExternalImage() {
-    final Form<ExternalImageForm> form = Form.form(ExternalImageForm.class).bindFromRequest();
+    final Form<ExternalImageForm> form = formFactory.form(ExternalImageForm.class).bindFromRequest();
 
     if (form.hasErrors()) {
       return Results.badRequest("Failure");

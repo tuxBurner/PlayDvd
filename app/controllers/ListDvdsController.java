@@ -11,20 +11,21 @@ import objects.shoppingcart.CacheShoppingCart;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.Form;
+import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
 import views.html.dashboard.listdvds;
 
-import javax.inject.Singleton;
+import javax.inject.Inject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.Map;
 import java.util.Set;
 
 @Security.Authenticated(Secured.class)
-@Singleton
+
 public class ListDvdsController extends Controller {
 
   private final static Map<String, Integer> DVDS_PER_PAGE_CONFIG = ConfigurationHelper.createValMap("dvddb.dvds.perpage");
@@ -32,6 +33,14 @@ public class ListDvdsController extends Controller {
   private final static ECopyListView DEFAULT_VIEW = ECopyListView.valueOf(ConfigFactory.load().getString("dvddb.dvds.defaultview"));
 
   private final static String SESSION_VIEW_MODE = "_view_mode";
+
+  private final FormFactory formFactory;
+
+
+  @Inject
+  ListDvdsController(final FormFactory formFactory) {
+    this.formFactory = formFactory;
+  }
 
   /**
    * Lists all the dvds
@@ -179,7 +188,7 @@ public class ListDvdsController extends Controller {
    */
   public Result applySearchForm() {
 
-    final Form<DvdSearchFrom> form = Form.form(DvdSearchFrom.class).bindFromRequest();
+    final Form<DvdSearchFrom> form = formFactory.form(DvdSearchFrom.class).bindFromRequest();
 
     return ListDvdsController.returnList(form.get());
   }

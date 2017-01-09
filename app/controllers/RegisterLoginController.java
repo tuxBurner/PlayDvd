@@ -63,7 +63,7 @@ public class RegisterLoginController extends Controller {
    * Login page.
    */
   public Result showLogin() {
-    return Results.ok(login.render(Form.form(LoginForm.class)));
+    return Results.ok(login.render(formFactory.form(LoginForm.class)));
   }
 
   /**

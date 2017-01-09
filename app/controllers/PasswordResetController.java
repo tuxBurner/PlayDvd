@@ -7,6 +7,7 @@ import models.User;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.Form;
+import play.data.FormFactory;
 import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -14,6 +15,7 @@ import play.mvc.Results;
 import views.html.user.lostpassword;
 import views.html.user.passwordreset;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.UUID;
 
@@ -23,6 +25,14 @@ import java.util.UUID;
  */
 @Singleton
 public class PasswordResetController extends Controller {
+
+
+  private final FormFactory formFactory;
+
+  @Inject
+  PasswordResetController(final FormFactory formFactory) {
+    this.formFactory = formFactory;
+  }
 
   /**
    * Displays the user a simple form where he can insert his mail address
@@ -34,7 +44,7 @@ public class PasswordResetController extends Controller {
       return Controller.internalServerError("Cannot display this form.");
     }
 
-    return ok(lostpassword.render(Form.form(LostPasswordForm.class)));
+    return ok(lostpassword.render(formFactory.form(LostPasswordForm.class)));
   }
 
   /**
@@ -44,7 +54,7 @@ public class PasswordResetController extends Controller {
    */
   public Result sendPasswordForget() {
 
-    Form<LostPasswordForm> form = Form.form(LostPasswordForm.class).bindFromRequest();
+    Form<LostPasswordForm> form = formFactory.form(LostPasswordForm.class).bindFromRequest();
     if (form.hasErrors() == false && form.hasGlobalErrors() == false) {
 
 
@@ -87,7 +97,7 @@ public class PasswordResetController extends Controller {
       return redirect(routes.ApplicationController.index());
     }
 
-    return ok(passwordreset.render(Form.form(PasswordResetForm.class), token));
+    return ok(passwordreset.render(formFactory.form(PasswordResetForm.class), token));
   }
 
   /**
@@ -102,7 +112,7 @@ public class PasswordResetController extends Controller {
       return redirect(routes.ApplicationController.index());
     }
 
-    Form<PasswordResetForm> passwordResetForm = Form.form(PasswordResetForm.class).bindFromRequest();
+    Form<PasswordResetForm> passwordResetForm = formFactory.form(PasswordResetForm.class).bindFromRequest();
     if (passwordResetForm.hasErrors()) {
       return Results.badRequest(passwordreset.render(passwordResetForm, token));
     }

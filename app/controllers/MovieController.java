@@ -48,7 +48,7 @@ public class MovieController extends Controller {
    */
   @JSRoute
   public Result showAddMovieForm() {
-    final Form<MovieForm> form = Form.form(MovieForm.class);
+    final Form<MovieForm> form = formFactory.form(MovieForm.class);
     return Results.ok(movieform.render(form.fill(new MovieForm()), CopyController.DVD_FORM_ADD_MODE));
   }
 
@@ -68,7 +68,7 @@ public class MovieController extends Controller {
       return Results.badRequest(message);
     }
 
-    final Form<MovieForm> form = Form.form(MovieForm.class).fill(MovieForm.movieToForm(movie));
+    final Form<MovieForm> form = formFactory.form(MovieForm.class).fill(MovieForm.movieToForm(movie));
     return Results.ok(movieform.render(form, CopyController.DVD_FORM_EDIT_MODE));
   }
 
@@ -112,7 +112,7 @@ public class MovieController extends Controller {
 
     try {
 
-      final Form<GrabberInfoForm> grabberInfoForm = Form.form(GrabberInfoForm.class).bindFromRequest();
+      final Form<GrabberInfoForm> grabberInfoForm = formFactory.form(GrabberInfoForm.class).bindFromRequest();
 
       final IInfoGrabber grabber = InfoGrabberController.getGrabber(EGrabberType.valueOf(grabberType));
 
@@ -121,7 +121,7 @@ public class MovieController extends Controller {
       if (grabberInfoForm.get().movieToEditId != null) {
         movieForm.movieId = grabberInfoForm.get().movieToEditId;
       }
-      final Form<MovieForm> form = Form.form(MovieForm.class).fill(movieForm);
+      final Form<MovieForm> form = formFactory.form(MovieForm.class).fill(movieForm);
 
       return Results.ok(movieform.render(form, mode));
     } catch (final GrabberException e) {
