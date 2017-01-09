@@ -148,9 +148,9 @@ var addToDbAndFillDvdForm = function (grabberType, amazonCode, copyId, formParam
     copyId = null;
   }
 
-  pAjax(jsRoutes.controllers.DvdController.addMovieByGrabber(grabberType), formParams,
+  pAjax(jsRoutes.controllers.CopyController.addMovieByGrabber(grabberType), formParams,
     function (data) {
-      window.location = jsRoutes.controllers.DvdController.showDvdByAmazonAndMovie(amazonCode, data, copyId).absoluteURL(appIsInHttps);
+      window.location = jsRoutes.controllers.CopyController.showDvdByAmazonAndMovie(amazonCode, data, copyId).absoluteURL(appIsInHttps);
       closeWaitDiaLog();
     },
     function (err) {

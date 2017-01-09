@@ -4,7 +4,7 @@ $(function () {
   createSelect2DeselectCreate('#box', avaibleBoxes, "span6");
   createSelect2DeselectCreate('#collection', avaibleCollections, "span6");
 
-  createSelect2TagAjaxBox("#audioTypes", jsRoutes.controllers.DvdController.searchForCopyAttribute(), {attrType: "AUDIO_TYPE"});
+  createSelect2TagAjaxBox("#audioTypes", jsRoutes.controllers.CopyController.searchForCopyAttribute(), {attrType: "AUDIO_TYPE"});
   /**
    * searching for a movie
    */
@@ -89,7 +89,7 @@ var openSearchAmazonPopUp = function (code, copyId) {
   if (code !== null && code !== "" ) {
     showWaitDiaLog();
     displayAjaxDialog({
-      route: jsRoutes.controllers.DvdController.searchAmazonByCode(code, copyId),
+      route: jsRoutes.controllers.CopyController.searchAmazonByCode(code, copyId),
       ajaxParams: null,
       title: '<i class="icon-search"></i> ' + Messages('headline.amazonGrabber'),
       onOpen: function () {
@@ -110,7 +110,7 @@ var openSearchAmazonPopUp = function (code, copyId) {
 var openAmazonTitleSearchPopUp = function(title) {
   showWaitDiaLog();
   displayAjaxDialog({
-    route: jsRoutes.controllers.DvdController.searchAmazonByTitle(title),
+    route: jsRoutes.controllers.CopyController.searchAmazonByTitle(title),
     ajaxParams: null,
     title: '<i class="icon-search"></i> ' + Messages('headline.amazonSearchByTitle'),
     onOpen: function () {
@@ -150,7 +150,7 @@ var amazonPickExistingMovie = function (code, movieId) {
   if (code === null || movieId === null) {
     return;
   }
-  window.location = jsRoutes.controllers.DvdController.showDvdByAmazonAndMovie(code, movieId).absoluteURL(appIsInHttps);
+  window.location = jsRoutes.controllers.CopyController.showDvdByAmazonAndMovie(code, movieId).absoluteURL(appIsInHttps);
 };
 
 /**
