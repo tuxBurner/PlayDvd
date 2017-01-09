@@ -207,7 +207,7 @@ var movieFormatResult = function (movie) {
   var markup = "<table class='movie-result'><tr><td class='movie-image'>";
 
   if (movie.hasPoster === true) {
-    markup += "<img src='" + jsRoutes.controllers.Dashboard.streamImage(movie.id, 'POSTER', 'SELECT2').url + "'/>";
+    markup += "<img src='" + jsRoutes.controllers.DashboardController.streamImage(movie.id, 'POSTER', 'SELECT2').url + "'/>";
   } else {
     markup += '<img data-src="holder.js/60x80/#4D99E0:#fff/text:No Poster"/>';
   }
@@ -224,7 +224,7 @@ var movieFormatResult = function (movie) {
  */
 var movieFormatSelection = function (movie) {
   if (movie.hasPoster === true) {
-    return "<img class='flag' src='" + jsRoutes.controllers.Dashboard.streamImage(movie.id, 'POSTER', 'TINY').url + "'/>" + movie.title;
+    return "<img class='flag' src='" + jsRoutes.controllers.DashboardController.streamImage(movie.id, 'POSTER', 'TINY').url + "'/>" + movie.title;
   } else {
     return '<img class="flag" data-src="holder.js/25x25/#4D99E0:#fff/text:No Poster"/>' + movie.title;
   }

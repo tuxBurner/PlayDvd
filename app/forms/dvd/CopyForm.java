@@ -164,7 +164,7 @@ public class CopyForm {
       return gson.toJson(null);
     }
 
-    final Movie byId = Movie.finder.select("id, hasPoster,title").where().eq("id", movieId).findUnique();
+    final Movie byId = Movie.FINDER.select("id, hasPoster,title").where().eq("id", movieId).findUnique();
 
     return gson.toJson(new MovieSelect2Value(byId));
   }

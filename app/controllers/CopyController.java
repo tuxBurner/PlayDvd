@@ -207,7 +207,7 @@ public class CopyController extends Controller {
             return badRequest();
         }
 
-        Movie movie = Movie.finder.byId(movieId);
+        Movie movie = Movie.FINDER.byId(movieId);
         if (movie == null) {
             if (Logger.isDebugEnabled() == true) {
                 Logger.error("Error adding dvd with movie: " + movieId);

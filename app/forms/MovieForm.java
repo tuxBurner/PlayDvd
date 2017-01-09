@@ -87,7 +87,7 @@ public class MovieForm {
     final Set<String> genreSet = new HashSet<String>();
     final Set<String> actorSet = new HashSet<String>();
 
-    final Set<MovieAttribute> attributes = movie.attributes;
+    final List<MovieAttribute> attributes = movie.attributes;
     for (final MovieAttribute movieAttibute : attributes) {
       if (EMovieAttributeType.GENRE.equals(movieAttibute.attributeType)) {
         genreSet.add(movieAttibute.value.trim());
@@ -124,5 +124,141 @@ public class MovieForm {
    */
   public final static String getDvdFormAttributesAsString(final String values) {
     return StringUtils.replace(StringUtils.replaceChars(values, "[]", ""),", ",",");
+  }
+
+  public Long getMovieId() {
+    return movieId;
+  }
+
+  public void setMovieId(Long movieId) {
+    this.movieId = movieId;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public Integer getYear() {
+    return year;
+  }
+
+  public void setYear(Integer year) {
+    this.year = year;
+  }
+
+  public Integer getRuntime() {
+    return runtime;
+  }
+
+  public void setRuntime(Integer runtime) {
+    this.runtime = runtime;
+  }
+
+  public String getPlot() {
+    return plot;
+  }
+
+  public void setPlot(String plot) {
+    this.plot = plot;
+  }
+
+  public String getPosterUrl() {
+    return posterUrl;
+  }
+
+  public void setPosterUrl(String posterUrl) {
+    this.posterUrl = posterUrl;
+  }
+
+  public String getBackDropUrl() {
+    return backDropUrl;
+  }
+
+  public void setBackDropUrl(String backDropUrl) {
+    this.backDropUrl = backDropUrl;
+  }
+
+  public List<String> getGenres() {
+    return genres;
+  }
+
+  public void setGenres(List<String> genres) {
+    this.genres = genres;
+  }
+
+  public List<String> getActors() {
+    return actors;
+  }
+
+  public void setActors(List<String> actors) {
+    this.actors = actors;
+  }
+
+  public String getDirector() {
+    return director;
+  }
+
+  public void setDirector(String director) {
+    this.director = director;
+  }
+
+  public String getTrailerUrl() {
+    return trailerUrl;
+  }
+
+  public void setTrailerUrl(String trailerUrl) {
+    this.trailerUrl = trailerUrl;
+  }
+
+  public String getGrabberId() {
+    return grabberId;
+  }
+
+  public void setGrabberId(String grabberId) {
+    this.grabberId = grabberId;
+  }
+
+  public EGrabberType getGrabberType() {
+    return grabberType;
+  }
+
+  public void setGrabberType(EGrabberType grabberType) {
+    this.grabberType = grabberType;
+  }
+
+  public String getImdbId() {
+    return imdbId;
+  }
+
+  public void setImdbId(String imdbId) {
+    this.imdbId = imdbId;
+  }
+
+  public String getSeries() {
+    return series;
+  }
+
+  public void setSeries(String series) {
+    this.series = series;
+  }
+
+  public Boolean getHasBackdrop() {
+    return hasBackdrop;
+  }
+
+  public void setHasBackdrop(Boolean hasBackdrop) {
+    this.hasBackdrop = hasBackdrop;
+  }
+
+  public Boolean getHasPoster() {
+    return hasPoster;
+  }
+
+  public void setHasPoster(Boolean hasPoster) {
+    this.hasPoster = hasPoster;
   }
 }

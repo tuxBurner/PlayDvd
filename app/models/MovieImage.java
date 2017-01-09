@@ -40,7 +40,7 @@ public class MovieImage extends Model{
   public Movie movie;
 
   /**
-   * The finder for the database for searching in the database
+   * The FINDER for the database for searching in the database
    */
   public static Finder<Long, MovieImage> finder = new Finder<Long, MovieImage>(Long.class, MovieImage.class);
 
@@ -69,7 +69,7 @@ public class MovieImage extends Model{
    * @param type
    */
   public static void createMovieImage(final Long movieId, final EImageSize size, final EImageType type, final EImageStoreType storeType) {
-    final Movie movie = Movie.finder.byId(movieId);
+    final Movie movie = Movie.FINDER.byId(movieId);
     if(movie == null) {
       if(Logger.isErrorEnabled() == true) {
         Logger.error("Could not fing movie with id: "+movieId+" for creating a: "+MovieImage.class.getName());

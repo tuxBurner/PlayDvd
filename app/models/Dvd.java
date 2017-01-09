@@ -74,7 +74,7 @@ public class Dvd extends Model {
     public Movie movie;
 
     /**
-     * The finder for the database for searching in the database
+     * The FINDER for the database for searching in the database
      */
     public static Finder<Long, Dvd> find = new Finder<Long, Dvd>(Long.class, Dvd.class);
 
@@ -134,13 +134,13 @@ public class Dvd extends Model {
      * Creates or updates the given dvd
      *
      * @param copyForm
-     * @param dvd
+     * @param copy
      * @return
      * @throws Exception
      */
-    private static Dvd createOrUpdateFromForm(final CopyForm copyForm, final Dvd dvd) throws Exception {
+    private static Dvd createOrUpdateFromForm(final CopyForm copyForm, final Dvd copy) throws Exception {
 
-        final Movie movie = Movie.finder.byId(copyForm.movieId);
+        final Movie movie = Movie.FINDER.byId(copyForm.movieId);
 
         if (movie == null) {
             final String message = "No movie by the id: " + copyForm.movieId + " found.";
@@ -148,30 +148,30 @@ public class Dvd extends Model {
             throw new Exception(message);
         }
 
-        dvd.movie = movie;
-        dvd.hullNr = copyForm.hullNr;
-        dvd.eanNr = copyForm.eanNr;
-        dvd.asinNr = copyForm.asinNr;
-        dvd.additionalInfo = copyForm.additionalInfo;
+        copy.movie = movie;
+        copy.hullNr = copyForm.hullNr;
+        copy.eanNr = copyForm.eanNr;
+        copy.asinNr = copyForm.asinNr;
+        copy.additionalInfo = copyForm.additionalInfo;
 
-        if (dvd.id == null) {
-            dvd.createdDate = new Date().getTime();
-            Dvd.create(dvd);
+        if (copy.id == null) {
+            copy.createdDate = new Date().getTime();
+            Dvd.create(copy);
         } else {
-            Ebean.deleteManyToManyAssociations(dvd, "attributes");
-            dvd.update();
+            Ebean.deleteManyToManyAssociations(copy, "attributes");
+            copy.update();
         }
 
-        Dvd.addSingleAttribute(copyForm.box, EDvdAttributeType.BOX, dvd);
-        Dvd.addSingleAttribute(copyForm.collection, EDvdAttributeType.COLLECTION, dvd);
-        Dvd.addSingleAttribute(copyForm.ageRating, EDvdAttributeType.RATING, dvd);
-        Dvd.addSingleAttribute(copyForm.copyType, EDvdAttributeType.COPY_TYPE, dvd);
+        Dvd.addSingleAttribute(copyForm.box, EDvdAttributeType.BOX, copy);
+        Dvd.addSingleAttribute(copyForm.collection, EDvdAttributeType.COLLECTION, copy);
+        Dvd.addSingleAttribute(copyForm.ageRating, EDvdAttributeType.RATING, copy);
+        Dvd.addSingleAttribute(copyForm.copyType, EDvdAttributeType.COPY_TYPE, copy);
         final Set<DvdAttribute> audioTypes = DvdAttribute.gatherAndAddAttributes(new HashSet<String>(copyForm.audioTypes), EDvdAttributeType.AUDIO_TYPE);
-        dvd.attributes.addAll(audioTypes);
+        copy.attributes.addAll(audioTypes);
 
-        dvd.update();
+        copy.update();
 
-        return dvd;
+        return copy;
     }
 
     /**
@@ -179,19 +179,22 @@ public class Dvd extends Model {
      *
      * @param attrToAdd
      * @param attributeType
-     * @param dvd
+     * @param copy
      */
     // TODO: do we need this when we have the new EBEAN nand check also movie
     // and
     // attributes
-    public static void addSingleAttribute(final String attrToAdd, final EDvdAttributeType attributeType, final Dvd dvd) {
+    public static void addSingleAttribute(final String attrToAdd, final EDvdAttributeType attributeType, final Dvd copy) {
         if (StringUtils.isEmpty(attrToAdd) == true) {
             return;
         }
         final Set<String> attribute = new HashSet<String>();
         attribute.add(attrToAdd);
         final Set<DvdAttribute> dbAttrs = DvdAttribute.gatherAndAddAttributes(attribute, attributeType);
-        dvd.attributes.addAll(dbAttrs);
+        if(copy.attributes.isEmpty() == true) {
+            copy.attributes = new HashSet<>();
+        }
+        copy.attributes.addAll(dbAttrs);
     }
 
     /**

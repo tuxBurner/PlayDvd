@@ -58,7 +58,7 @@ public class User extends Model {
    */
   public String rssAuthKey;
 
-  public static Model.Finder<String, User> find = new Model.Finder<String, User>(String.class, User.class);
+  public static Model.Finder<Long, User> find = new Model.Finder(User.class);
 
   /**
    * Saves the user to the database
@@ -198,6 +198,9 @@ public class User extends Model {
       return null;
     }
     if(StringUtils.isEmpty(currentUser.rssAuthKey) == true) {
+      if(Logger.isDebugEnabled() == true) {
+        Logger.debug("No rssAuthKey found for the user. Generating a new one");
+      }
       final String key = UUID.randomUUID().toString();
       currentUser.rssAuthKey = key;
       currentUser.update();

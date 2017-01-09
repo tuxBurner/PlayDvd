@@ -1,4 +1,5 @@
-@(dvd: forms.dvd.objects.InfoDvd,username: String, prevNext: forms.dvd.objects.PrevNextCopies,shoppingCart: objects.shoppingcart.CacheShoppingCart, bookmarkedCopys: Set[Long], viewedCopy: List[ViewedCopy])
+@import forms.dvd.objects.CopyInfo
+@(dvd: CopyInfo,username: String, prevNext: forms.dvd.objects.PrevNextCopies,shoppingCart: objects.shoppingcart.CacheShoppingCart, bookmarkedCopys: Set[Long], viewedCopy: List[ViewedCopy])
 @import org.apache.commons.collections.CollectionUtils
 @import org.apache.commons.lang.StringUtils
 @import helpers.EImageSize

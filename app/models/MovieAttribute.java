@@ -33,7 +33,7 @@ import com.google.gson.GsonBuilder;
 public class MovieAttribute extends Model {
 
   /**
-   * Default finder for the {@link MovieAttribute}
+   * Default FINDER for the {@link MovieAttribute}
    */
   public static Finder<Long, MovieAttribute> finder = new Finder<Long, MovieAttribute>(Long.class, MovieAttribute.class);
 
@@ -46,7 +46,7 @@ public class MovieAttribute extends Model {
 
   public String value;
 
-  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @ManyToMany(cascade = CascadeType.ALL)
   public Set<Movie> movies;
 
   /**

@@ -3,7 +3,7 @@
  */
 $(document).on('click', '.lendDvdBtn', function (event) {
   displayAjaxDialog({
-    route: jsRoutes.controllers.Dashboard.lendDialogContent($(this).data('dvdId')),
+    route: jsRoutes.controllers.DashboardController.lendDialogContent($(this).data('dvdId')),
     title: Messages('headline.lendCopy'),
     cssClass: 'smallModal',
     closeButton: true,
@@ -37,7 +37,7 @@ $(document).on('click', '.lendDvdBtn', function (event) {
           if (userVal !== null && userVal !== "" && freeVal !== null && freeVal !== "" && reservationVal !== null && reservationVal !== "") {
             return;
           }
-          pAjax(jsRoutes.controllers.Dashboard.lendDvd(
+          pAjax(jsRoutes.controllers.DashboardController.lendDvd(
               $("#lendDvdId").val()),
             {
               "userName": userVal,
@@ -60,7 +60,7 @@ $(document).on('click', '.lendDvdBtn', function (event) {
 
 $(document).on('click', '.unlendDvdBtn', function (event) {
   displayAjaxDialog({
-    route: jsRoutes.controllers.Dashboard.unLendDialogContent($(this).data('dvdId')),
+    route: jsRoutes.controllers.DashboardController.unLendDialogContent($(this).data('dvdId')),
     title: Messages('headline.unlendCopy'),
     cssClass: 'smallModal',
     closeButton: true,
@@ -70,7 +70,7 @@ $(document).on('click', '.unlendDvdBtn', function (event) {
         cssClass: "btn-warning",
         callback: function () {
           var lendOtherInHull = $('#alsoOthersInHull').prop('checked');
-          pAjax(jsRoutes.controllers.Dashboard.unlendDvd($("#unlendDvdId").val()),
+          pAjax(jsRoutes.controllers.DashboardController.unlendDvd($("#unlendDvdId").val()),
             {"alsoOthersInHull": lendOtherInHull},
             function (data) {
               //TODO: make me load a route
@@ -93,7 +93,7 @@ $(document).on('click', '.unlendDvdBtn', function (event) {
  */
 $(document).on('click', '.deleteDvdBtn', function (event) {
   displayAjaxDialog({
-    route: jsRoutes.controllers.Dashboard.deleteDialogContent($(this).data('dvdId')),
+    route: jsRoutes.controllers.DashboardController.deleteDialogContent($(this).data('dvdId')),
     title: Messages('headline.deleteCopy'),
     cssClass: 'smallModal',
     closeButton: true,
@@ -103,7 +103,7 @@ $(document).on('click', '.deleteDvdBtn', function (event) {
         cssClass: "btn-danger",
         callback: function () {
           var deleteDvdId = $('#deleteDvdId').val();
-          pAjax(jsRoutes.controllers.Dashboard.deleteDvd(deleteDvdId), null,
+          pAjax(jsRoutes.controllers.DashboardController.deleteDvd(deleteDvdId), null,
             function (data) {
               closeDialog();
               window.location.reload();

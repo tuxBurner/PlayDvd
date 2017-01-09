@@ -5,6 +5,7 @@ import grabbers.EGrabberType;
 import helpers.EImageType;
 import helpers.ImageHelper;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -42,7 +43,6 @@ public class Movie extends Model {
   @Column(nullable = false)
   public Boolean hasToBeReviewed = false;
 
-  @Lob
   public String description;
 
   @Required
@@ -51,8 +51,8 @@ public class Movie extends Model {
 
   public Integer runtime;
 
-  @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "movies")
-  public Set<MovieAttribute> attributes;
+  @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "movies")
+  public List<MovieAttribute> attributes;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "movie")
   public Set<Dvd> dvds;
@@ -62,10 +62,6 @@ public class Movie extends Model {
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)
   public EGrabberType grabberType = EGrabberType.NONE;
-
-  //@OneToOne(fetch = FetchType.LAZY)
-  //@Column(nullable = false)
-  //public Commentable commentable;
 
 
   /**
@@ -79,9 +75,9 @@ public class Movie extends Model {
   public String grabberId;
 
   /**
-   * The finder for the database for searching in the database
+   * The FINDER for the database for searching in the database
    */
-  public static Finder<Long, Movie> finder = new Finder<Long, Movie>(Long.class, Movie.class);
+  public static Finder<Long, Movie> FINDER = new Finder<Long, Movie>(Movie.class);
 
   /**
    * This creates a movie from the information of the given {@link CopyForm}
@@ -95,7 +91,7 @@ public class Movie extends Model {
     Movie movie = null;
 
     if (movieForm.movieId != null) {
-      movie = Movie.finder.byId(movieForm.movieId);
+      movie = Movie.FINDER.byId(movieForm.movieId);
       if (movie == null) {
         final String message = "No Movie by the id: " + movieForm.movieId + " found !";
         Logger.error(message);
@@ -140,7 +136,7 @@ public class Movie extends Model {
       movie.hasBackdrop = newBackDrop;
     }
 
-    movie.attributes = new HashSet<MovieAttribute>();
+    movie.attributes = new ArrayList<>();
 
     // gather all the genres and add them to the dvd
     final Set<MovieAttribute> genres = MovieAttribute.gatherAndAddAttributes(new HashSet<String>(movieForm.genres), EMovieAttributeType.GENRE);
@@ -184,7 +180,7 @@ public class Movie extends Model {
    */
   @Transactional
   public static List<Movie> searchLike(final String term, final int numberOfResults) {
-    final Query<Movie> order = Movie.finder.where().ilike("title", "%" + term + "%").select("id ,title, hasPoster").order("title asc");
+    final Query<Movie> order = Movie.FINDER.where().ilike("title", "%" + term + "%").select("id ,title, hasPoster").order("title asc");
     if (numberOfResults <= 0) {
       return order.findList();
     } else {
@@ -231,7 +227,7 @@ public class Movie extends Model {
       return false;
     }
 
-    int rowCount = Movie.finder.where().eq("grabberId", grabberId).eq("grabberType", grabberType).findRowCount();
+    int rowCount = Movie.FINDER.where().eq("grabberId", grabberId).eq("grabberType", grabberType).findRowCount();
     return rowCount > 0;
   }
 

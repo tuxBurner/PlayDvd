@@ -38,7 +38,7 @@ public class DvdAttribute extends Model {
   private static final long serialVersionUID = -6491899975286773215L;
 
   /**
-   * Default finder for the {@link DvdAttribute}
+   * Default FINDER for the {@link DvdAttribute}
    */
   public static Finder<Long, DvdAttribute> finder = new Finder<Long, DvdAttribute>(DvdAttribute.class);
 

@@ -9,7 +9,7 @@ import forms.ExternalImageForm;
 import forms.LendForm;
 import forms.UnLendForm;
 import forms.dvd.DvdSearchFrom;
-import forms.dvd.objects.InfoDvd;
+import forms.dvd.objects.CopyInfo;
 import forms.dvd.objects.PrevNextCopies;
 import helpers.CacheHelper;
 import helpers.ECacheObjectName;
@@ -88,7 +88,7 @@ public class DashboardController extends Controller {
   }
 
   /**
-   * Gets the {@link InfoDvd} for the given id
+   * Gets the {@link CopyInfo} for the given id
    *
    * @param copyId
    * @return
@@ -104,7 +104,7 @@ public class DashboardController extends Controller {
     }
 
 
-    final InfoDvd infoDvd = new InfoDvd(copy);
+    final CopyInfo copyInfo = new CopyInfo(copy);
 
     final DvdSearchFrom currentSearchForm = DvdSearchFrom.getCurrentSearchForm();
     final PrevNextCopies nextAndPrev = Dvd.getNextAndPrev(copy, currentSearchForm);
@@ -115,9 +115,9 @@ public class DashboardController extends Controller {
 
 
     if (popup == true) {
-      return Results.ok(displaydvdPopup.render(infoDvd, Secured.getUsername()));
+      return Results.ok(displaydvdPopup.render(copyInfo, Secured.getUsername()));
     } else {
-      return Results.ok(displaydvd.render(infoDvd, Secured.getUsername(), nextAndPrev,shoppingCartFromCache,bookmarkedCopyIds,copyViewed));
+      return Results.ok(displaydvd.render(copyInfo, Secured.getUsername(), nextAndPrev,shoppingCartFromCache,bookmarkedCopyIds,copyViewed));
     }
   }
 
