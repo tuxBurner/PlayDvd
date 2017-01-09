@@ -2,17 +2,13 @@ package grabbers;
 
 public class GrabberException extends Exception {
 
-  public GrabberException(final Exception e) {
-    super(e);
-  }
+    private static final long serialVersionUID = 1394606310445614392L;
 
-  public GrabberException(final String message) {
-    super(message);
-  }
+    public GrabberException(final Exception e) {
+        super(e);
+    }
 
-  /**
-	 * 
-	 */
-  private static final long serialVersionUID = 1394606310445614392L;
-
+    public GrabberException(final String message) {
+        super(message);
+    }
 }

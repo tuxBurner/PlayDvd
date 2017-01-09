@@ -7,10 +7,7 @@ import controllers.Secured;
 import org.apache.commons.collections.CollectionUtils;
 import play.Logger;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,6 +20,7 @@ import java.util.Set;
  * Time: 3:43 PM
  */
 @Entity
+@Table(name="bookmark")
 public class Bookmark extends Model {
 
   @Id

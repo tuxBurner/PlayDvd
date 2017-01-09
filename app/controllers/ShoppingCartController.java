@@ -4,6 +4,7 @@ import helpers.CacheHelper;
 import helpers.ECacheObjectName;
 import com.github.tuxBurner.jsAnnotations.JSRoute;
 import models.CopyReservation;
+
 import models.Dvd;
 import objects.shoppingcart.CacheShoppingCart;
 import play.Logger;
@@ -29,7 +30,7 @@ import java.util.concurrent.Callable;
 public class ShoppingCartController extends Controller {
 
   /**
-   * Checks if the {@link models.Dvd} exists and if the user can borrow it or not at this moment
+   * Checks if the {@link Dvd} exists and if the user can borrow it or not at this moment
    * @param copyId
    * @return
    */
@@ -53,7 +54,7 @@ public class ShoppingCartController extends Controller {
   }
 
   /**
-   * Checks if the {@link models.Dvd} exists and if the user can borrow it or not at this moment
+   * Checks if the {@link Dvd} exists and if the user can borrow it or not at this moment
    * @param copyId
    * @return
    */

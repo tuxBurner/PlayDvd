@@ -101,7 +101,7 @@ public class ViewedCopy extends Model {
   }
 
   /**
-   * Gets all  {@link models.ViewedCopy} where the owner of the {@link models.Dvd} is the current {@link models.User}
+   * Gets all  {@link models.ViewedCopy} where the owner of the {@link Dvd} is the current {@link models.User}
    * @return
    */
   public static PagedList<ViewedCopy> getViewedCopiesForUser(final Integer page) {

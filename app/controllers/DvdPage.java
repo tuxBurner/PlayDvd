@@ -1,10 +1,10 @@
 package controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.avaje.ebean.PagedList;
 import models.Dvd;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DvdPage {
 

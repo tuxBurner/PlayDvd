@@ -1,4 +1,4 @@
-@(lendForm: Form[forms.LendForm], dvd: Dvd, inSameHull: List[Dvd], reservations: Map[String,String], otherUsers: List[String])
+@(lendForm: Form[forms.LendForm], copy: Dvd, inSameHull: List[Dvd], reservations: Map[String,String], otherUsers: List[String])
 @import org.apache.commons.collections.MapUtils
 
 @import helper._
@@ -7,9 +7,9 @@
 <form class="form-horizontal">
 
 <fieldset>
-  <legend>@Messages.apply("headline.lendCopy"): @general.displayposter(dvd.movie.id,dvd.movie.hasPoster,EImageSize.TINY) <i>@general.displayCopyTitle(dvd)</i></legend>
+  <legend>@Messages.apply("headline.lendCopy"): @general.displayposter(copy.movie.id,copy.movie.hasPoster,EImageSize.TINY) <i>@general.displayCopyTitle(copy)</i></legend>
 
-  <input type="hidden" id="lendDvdId" value="@dvd.id" />
+  <input type="hidden" id="lendDvdId" value="@copy.id" />
 
   @if(MapUtils.isEmpty(reservations) == false) {
     @select(lendForm("reservation"), options(reservations),'_label->Messages.apply("lbl.toReservation"),'class-> "span5", 'id -> "lendToReservation", 'placeholder -> Messages.apply("lbl.selectAReservation"))

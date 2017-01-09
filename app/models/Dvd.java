@@ -2,7 +2,7 @@ package models;
 
 import com.avaje.ebean.*;
 import com.avaje.ebean.Query;
-import forms.dvd.DvdForm;
+import forms.dvd.CopyForm;
 import forms.dvd.DvdSearchFrom;
 import forms.dvd.objects.EDvdListOrderBy;
 import forms.dvd.objects.EDvdListOrderHow;
@@ -17,12 +17,9 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
+@Table(name="dvd")
 public class Dvd extends Model {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -8607299241692950618L;
 
     public static final String HULL_NR_SEARCH = "hull:";
 
@@ -97,14 +94,14 @@ public class Dvd extends Model {
     }
 
     /**
-     * Creates a dvd from a {@link DvdForm)
+     * Creates a dvd from a {@link CopyForm )
      *
      * @param userName
      * @param dvdForm
      * @return
      * @throws Exception
      */
-    public static Dvd createFromForm(final String userName, final DvdForm dvdForm) throws Exception {
+    public static Dvd createFromForm(final String userName, final CopyForm copyForm) throws Exception {
 
         final User owner = User.getUserByName(userName);
         if (owner == null) {
@@ -114,48 +111,48 @@ public class Dvd extends Model {
         final Dvd dvd = new Dvd();
         dvd.owner = owner;
 
-        return Dvd.createOrUpdateFromForm(dvdForm, dvd);
+        return Dvd.createOrUpdateFromForm(copyForm, dvd);
     }
 
     /**
      * Edits a dvd from the informations from the form
      *
      * @param userName
-     * @param dvdForm
+     * @param copyForm
      * @throws Exception
      */
-    public static Dvd editFromForm(final String userName, final DvdForm dvdForm) throws Exception {
-        final Dvd dvdForUser = Dvd.getDvdForUser(dvdForm.dvdId, userName);
+    public static Dvd editFromForm(final String userName, final CopyForm copyForm) throws Exception {
+        final Dvd dvdForUser = Dvd.getDvdForUser(copyForm.dvdId, userName);
         if (dvdForUser == null) {
             throw new Exception("The dvd could not been edited !");
         }
 
-        return Dvd.createOrUpdateFromForm(dvdForm, dvdForUser);
+        return Dvd.createOrUpdateFromForm(copyForm, dvdForUser);
     }
 
     /**
      * Creates or updates the given dvd
      *
-     * @param dvdForm
+     * @param copyForm
      * @param dvd
      * @return
      * @throws Exception
      */
-    private static Dvd createOrUpdateFromForm(final DvdForm dvdForm, final Dvd dvd) throws Exception {
+    private static Dvd createOrUpdateFromForm(final CopyForm copyForm, final Dvd dvd) throws Exception {
 
-        final Movie movie = Movie.finder.byId(dvdForm.movieId);
+        final Movie movie = Movie.finder.byId(copyForm.movieId);
 
         if (movie == null) {
-            final String message = "No movie by the id: " + dvdForm.movieId + " found.";
+            final String message = "No movie by the id: " + copyForm.movieId + " found.";
             Logger.error(message);
             throw new Exception(message);
         }
 
         dvd.movie = movie;
-        dvd.hullNr = dvdForm.hullNr;
-        dvd.eanNr = dvdForm.eanNr;
-        dvd.asinNr = dvdForm.asinNr;
-        dvd.additionalInfo = dvdForm.additionalInfo;
+        dvd.hullNr = copyForm.hullNr;
+        dvd.eanNr = copyForm.eanNr;
+        dvd.asinNr = copyForm.asinNr;
+        dvd.additionalInfo = copyForm.additionalInfo;
 
         if (dvd.id == null) {
             dvd.createdDate = new Date().getTime();
@@ -165,11 +162,11 @@ public class Dvd extends Model {
             dvd.update();
         }
 
-        Dvd.addSingleAttribute(dvdForm.box, EDvdAttributeType.BOX, dvd);
-        Dvd.addSingleAttribute(dvdForm.collection, EDvdAttributeType.COLLECTION, dvd);
-        Dvd.addSingleAttribute(dvdForm.ageRating, EDvdAttributeType.RATING, dvd);
-        Dvd.addSingleAttribute(dvdForm.copyType, EDvdAttributeType.COPY_TYPE, dvd);
-        final Set<DvdAttribute> audioTypes = DvdAttribute.gatherAndAddAttributes(new HashSet<String>(dvdForm.audioTypes), EDvdAttributeType.AUDIO_TYPE);
+        Dvd.addSingleAttribute(copyForm.box, EDvdAttributeType.BOX, dvd);
+        Dvd.addSingleAttribute(copyForm.collection, EDvdAttributeType.COLLECTION, dvd);
+        Dvd.addSingleAttribute(copyForm.ageRating, EDvdAttributeType.RATING, dvd);
+        Dvd.addSingleAttribute(copyForm.copyType, EDvdAttributeType.COPY_TYPE, dvd);
+        final Set<DvdAttribute> audioTypes = DvdAttribute.gatherAndAddAttributes(new HashSet<String>(copyForm.audioTypes), EDvdAttributeType.AUDIO_TYPE);
         dvd.attributes.addAll(audioTypes);
 
         dvd.update();

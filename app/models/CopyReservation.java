@@ -6,10 +6,7 @@ import objects.shoppingcart.CacheShoppingCartItem;
 import org.apache.commons.collections.CollectionUtils;
 import play.Logger;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.*;
 
 /**
@@ -20,6 +17,7 @@ import java.util.*;
  * Time: 3:43 PM
  */
 @Entity
+@Table(name="copy_reservation")
 public class CopyReservation extends Model {
 
   @Id
@@ -121,7 +119,7 @@ public class CopyReservation extends Model {
   }
 
   /**
-   * Gets the amount of {@link CopyReservation} wher the current {@link User} is the one reserved the {@link Dvd}
+   * Gets the amount of {@link CopyReservation} wher the current {@link User} is the one reserved the {@link Copy}
    * @return
    */
   public static int getReservedCount() {

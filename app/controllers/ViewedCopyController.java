@@ -56,7 +56,7 @@ public class ViewedCopyController extends Controller {
 
 
   /**
-   * Marks the {@link models.Dvd} as viewed
+   * Marks the {@link Dvd} as viewed
    * @param copyId
    * @return
    */

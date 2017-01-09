@@ -1,2 +1,2 @@
-@(dvd: Dvd, username: String,shoppingCart: objects.shoppingcart.CacheShoppingCart, bookmarkedCopys: Set[Long])
-@general.copyButtons(dvd.id,(dvd.owner.userName == username),(dvd.borrower == null && dvd.borrowerName == null), (dvd.borrower != null  && dvd.borrower.userName == username),shoppingCart,bookmarkedCopys)
+@(copy: Dvd, username: String,shoppingCart: objects.shoppingcart.CacheShoppingCart, bookmarkedCopys: Set[Long])
+@general.copyButtons(copy.id,(copy.owner.userName == username),(copy.borrower == null && copy.borrowerName == null), (copy.borrower != null  && copy.borrower.userName == username),shoppingCart,bookmarkedCopys)

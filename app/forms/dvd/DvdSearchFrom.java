@@ -140,4 +140,99 @@ public class DvdSearchFrom {
     return new Gson().toJson(DvdInfoHelper.getCopyTypes());
   }
 
+  public String getSearchFor() {
+    return searchFor;
+  }
+
+  public void setSearchFor(String searchFor) {
+    this.searchFor = searchFor;
+  }
+
+  public int getCurrentPage() {
+    return currentPage;
+  }
+
+  public void setCurrentPage(int currentPage) {
+    this.currentPage = currentPage;
+  }
+
+  public String getGenre() {
+    return genre;
+  }
+
+  public void setGenre(String genre) {
+    this.genre = genre;
+  }
+
+  public String getActor() {
+    return actor;
+  }
+
+  public void setActor(String actor) {
+    this.actor = actor;
+  }
+
+  public String getDirector() {
+    return director;
+  }
+
+  public void setDirector(String director) {
+    this.director = director;
+  }
+
+  public String getUserName() {
+    return userName;
+  }
+
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
+
+  public boolean isLendDvd() {
+    return lendDvd;
+  }
+
+  public void setLendDvd(boolean lendDvd) {
+    this.lendDvd = lendDvd;
+  }
+
+  public boolean isMoviesToReview() {
+    return moviesToReview;
+  }
+
+  public void setMoviesToReview(boolean moviesToReview) {
+    this.moviesToReview = moviesToReview;
+  }
+
+  public String getAgeRating() {
+    return ageRating;
+  }
+
+  public void setAgeRating(String ageRating) {
+    this.ageRating = ageRating;
+  }
+
+  public EDvdListOrderBy getOrderBy() {
+    return orderBy;
+  }
+
+  public void setOrderBy(EDvdListOrderBy orderBy) {
+    this.orderBy = orderBy;
+  }
+
+  public EDvdListOrderHow getOrderHow() {
+    return orderHow;
+  }
+
+  public void setOrderHow(EDvdListOrderHow orderHow) {
+    this.orderHow = orderHow;
+  }
+
+  public String getCopyType() {
+    return copyType;
+  }
+
+  public void setCopyType(String copyType) {
+    this.copyType = copyType;
+  }
 }

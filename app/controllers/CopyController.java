@@ -1,20 +1,17 @@
 package controllers;
 
+import com.github.tuxBurner.jsAnnotations.JSRoute;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import forms.MovieForm;
-import forms.dvd.DvdForm;
+import forms.dvd.CopyForm;
 import forms.grabbers.GrabberInfoForm;
 import grabbers.EGrabberType;
 import grabbers.IInfoGrabber;
 import grabbers.amazon.AmazonMovieLookuper;
 import grabbers.amazon.AmazonResult;
 import helpers.RequestToCollectionHelper;
-import com.github.tuxBurner.jsAnnotations.JSRoute;
-import models.Dvd;
-import models.DvdAttribute;
-import models.EDvdAttributeType;
-import models.Movie;
+import models.*;
 import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 import play.data.Form;
@@ -31,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This {@link Controller} handles all the edit and add {@link Dvd} magic
+ * This {@link Controller} handles all the edit and add {@link Copy} magic
  *
  * @author tuxburner
  */
@@ -60,8 +57,8 @@ public class CopyController extends Controller {
      */
     public Result showAddDvd() {
 
-        final Form<DvdForm> form = formFactory.form(DvdForm.class);
-        return Results.ok(dvdform.render(form.fill(new DvdForm()), CopyController.DVD_FORM_ADD_MODE));
+        final Form<CopyForm> form = formFactory.form(CopyForm.class);
+        return Results.ok(dvdform.render(form.fill(new CopyForm()), CopyController.DVD_FORM_ADD_MODE));
     }
 
     /**
@@ -77,9 +74,9 @@ public class CopyController extends Controller {
             return Results.badRequest("U ARE NOT ALLOWED TO EDIT :) ");
         }
 
-        final Form<DvdForm> form = formFactory.form(DvdForm.class);
+        final Form<CopyForm> form = formFactory.form(CopyForm.class);
 
-        return Results.ok(dvdform.render(form.fill(DvdForm.dvdToDvdForm(dvdToEdit)), CopyController.DVD_FORM_EDIT_MODE));
+        return Results.ok(dvdform.render(form.fill(CopyForm.dvdToDvdForm(dvdToEdit)), CopyController.DVD_FORM_EDIT_MODE));
     }
 
     /**
@@ -90,7 +87,7 @@ public class CopyController extends Controller {
     public Result addDvd(final String mode) {
 
         final Map<String, String> map = RequestToCollectionHelper.requestToFormMap(Controller.request(), "audioTypes");
-        final Form<DvdForm> dvdForm = formFactory.form(DvdForm.class).bind(map);
+        final Form<CopyForm> dvdForm = formFactory.form(CopyForm.class).bind(map);
         if (dvdForm.hasErrors()) {
             return Results.badRequest(dvdform.render(dvdForm, mode));
         } else {
@@ -225,10 +222,10 @@ public class CopyController extends Controller {
             copy = Dvd.getDvdForUser(copyId, Secured.getUsername());
         }
 
-        final Form<DvdForm> form = formFactory.form(DvdForm.class);
-        final DvdForm dvdForm = DvdForm.amazonAndMovieToDvdForm(amazonResult, movieId, copy);
+        final Form<CopyForm> form = formFactory.form(CopyForm.class);
+        final CopyForm copyForm = CopyForm.amazonAndMovieToDvdForm(amazonResult, movieId, copy);
 
-        return Results.ok(dvdform.render(form.fill(dvdForm), mode));
+        return Results.ok(dvdform.render(form.fill(copyForm), mode));
     }
 
     /**
@@ -255,16 +252,16 @@ public class CopyController extends Controller {
 
         final AmazonResult amazonResult = AmazonMovieLookuper.lookUp(code);
         String mode = DVD_FORM_ADD_MODE;
-        final Form<DvdForm> form = formFactory.form(DvdForm.class);
-        final DvdForm dvdForm = DvdForm.amazonAndCopyToForm(copy, amazonResult);
-        form.fill(dvdForm);
+        final Form<CopyForm> form = formFactory.form(CopyForm.class);
+        final CopyForm copyForm = CopyForm.amazonAndCopyToForm(copy, amazonResult);
+        form.fill(copyForm);
 
 
         if (copy != null) {
             mode = DVD_FORM_EDIT_MODE;
         }
 
-        return Results.ok(dvdform.render(form.fill(dvdForm), mode));
+        return Results.ok(dvdform.render(form.fill(copyForm), mode));
     }
 
     /**

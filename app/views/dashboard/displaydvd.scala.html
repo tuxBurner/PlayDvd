@@ -100,8 +100,8 @@
 
           <dt>@Messages.apply("lbl.owner"):</dt>
           <dd>
-            <a href="@routes.ListDvdsController.listByUser(dvd.dvdForm.ownerName)">
-              <img class="img-rounded"  src="@routes.DashboardController.gravatar(25,dvd.dvdForm.ownerName)" width="25" height="25" /> @dvd.dvdForm.ownerName
+            <a href="@routes.ListDvdsController.listByUser(dvd.copyForm.ownerName)">
+              <img class="img-rounded"  src="@routes.DashboardController.gravatar(25,dvd.copyForm.ownerName)" width="25" height="25" /> @dvd.copyForm.ownerName
             </a>
           </dd>
 
@@ -114,9 +114,9 @@
             </dd>
           }
 
-          @if(dvd.dvdForm.hullNr != null) {
+          @if(dvd.copyForm.hullNr != null) {
             <dt class="span4">@Messages.apply("lbl.hullNr"):</dt>
-            <dd><a href="@routes.ListDvdsController.searchDvd?searchFor=@models.Dvd.HULL_NR_SEARCH @dvd.dvdForm.hullNr">@dvd.dvdForm.hullNr</a></dd>
+            <dd><a href="@routes.ListDvdsController.searchDvd?searchFor=@models.Dvd.HULL_NR_SEARCH @dvd.copyForm.hullNr">@dvd.copyForm.hullNr</a></dd>
           }
 
 
@@ -128,17 +128,17 @@
           }
 
           <dt>@Messages("lbl.actions")</dt>
-          <dd>@general.copyButtons(dvd.dvdForm.dvdId,(dvd.dvdForm.ownerName == username), (dvd.borrowedOn == null),(username == dvd.borrowedBy), shoppingCart, bookmarkedCopys)</dd>
+          <dd>@general.copyButtons(dvd.copyForm.dvdId,(dvd.copyForm.ownerName == username), (dvd.borrowedOn == null),(username == dvd.borrowedBy), shoppingCart, bookmarkedCopys)</dd>
 
 
 
         </dl>
 
-        @if(CollectionUtils.isEmpty(dvd.dvdForm.audioTypes ) == false) {
+        @if(CollectionUtils.isEmpty(dvd.copyForm.audioTypes ) == false) {
           <h5>@Messages.apply("lbl.audioformats"):</h5>
 
             <ul class="inline">
-            @for(audioType <- dvd.dvdForm.audioTypes) {
+            @for(audioType <- dvd.copyForm.audioTypes) {
               <li>@audioType</li>
             }
             </ul>
@@ -170,11 +170,11 @@
             <dd><a href="@routes.ListDvdsController.listByDirector(dvd.movieForm.director)">@dvd.movieForm.director</a></dd>
           }
 
-          @if(StringUtils.isEmpty(dvd.dvdForm.asinNr) == false || StringUtils.isEmpty(dvd.movieForm.imdbId) == false) {
+          @if(StringUtils.isEmpty(dvd.copyForm.asinNr) == false || StringUtils.isEmpty(dvd.movieForm.imdbId) == false) {
             <dt>@Messages.apply("lbl.informations"):</dt>
             <dd>
-              @if(StringUtils.isEmpty(dvd.dvdForm.asinNr) == false ) {
-                <a href="http://www.amazon.de/dp/@dvd.dvdForm.asinNr" target="_blank"><img src="@routes.Assets.versioned("images/amazon.jpg")" /></a>
+              @if(StringUtils.isEmpty(dvd.copyForm.asinNr) == false ) {
+                <a href="http://www.amazon.de/dp/@dvd.copyForm.asinNr" target="_blank"><img src="@routes.Assets.versioned("images/amazon.jpg")" /></a>
               }
               @if(StringUtils.isEmpty(dvd.movieForm.imdbId ) == false) {
                 <a href="http://www.imdb.com/title/@dvd.movieForm.imdbId" target="_blank"><img src="@routes.Assets.versioned("images/imdb.jpg")" /></a>
@@ -188,11 +188,11 @@
       <div class="span3 pull-right">
         <div class="coverlist_li">
           <div class="coverwrapper">
-            <em data-dvd-id="@dvd.dvdForm.dvdId" class="@dvd.dvdForm.copyType">
+            <em data-dvd-id="@dvd.copyForm.dvdId" class="@dvd.copyForm.copyType">
 
               <div class="well well-small dvdInfo">
               </div>
-              <div class="rateWrapper"><img  class="img-rounded" src="@routes.Assets.versioned("images/agerating/"+dvd.dvdForm.ageRating+".gif")" /></div>
+              <div class="rateWrapper"><img  class="img-rounded" src="@routes.Assets.versioned("images/agerating/"+dvd.copyForm.ageRating+".gif")" /></div>
             </em>
             <a>
             @general.displayposter(dvd.movieForm.movieId, dvd.movieForm.hasPoster, EImageSize.SMALL)
@@ -244,11 +244,11 @@
      </div>
    }
 
-  @dashboard.displaysubdvd(dvd.boxDvds, dvd, Messages.apply("lbl.box"),dvd.dvdForm.box,username)
+  @dashboard.displaysubdvd(dvd.boxDvds, dvd, Messages.apply("lbl.box"),dvd.copyForm.box,username)
     
-  @dashboard.displaysubdvd(dvd.collectionDvds, dvd, Messages.apply("lbl.collection"),dvd.dvdForm.collection,username)
+  @dashboard.displaysubdvd(dvd.collectionDvds, dvd, Messages.apply("lbl.collection"),dvd.copyForm.collection,username)
   
-  @dashboard.displaysubdvd(dvd.seriesDvd, dvd, Messages.apply("lbl.movieSeries")+" "+dvd.movieForm.series,dvd.dvdForm.collection,username)
+  @dashboard.displaysubdvd(dvd.seriesDvd, dvd, Messages.apply("lbl.movieSeries")+" "+dvd.movieForm.series,dvd.copyForm.collection,username)
   </div>
 </div>
 }

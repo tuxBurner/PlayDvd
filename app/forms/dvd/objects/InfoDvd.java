@@ -5,8 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import forms.MovieForm;
-import forms.dvd.DvdForm;
-import forms.dvd.objects.CollectionDvd;
+import forms.dvd.CopyForm;
 import models.Commentable;
 import models.Dvd;
 import models.EDvdAttributeType;
@@ -18,7 +17,7 @@ public class InfoDvd {
 
   public final Commentable commentable = null;
 
-  public DvdForm dvdForm;
+  public CopyForm copyForm;
 
   public List<CollectionDvd> boxDvds;
 
@@ -35,7 +34,7 @@ public class InfoDvd {
   public MovieForm movieForm;
 
   public InfoDvd(final Dvd dvd) {
-    dvdForm = DvdForm.dvdToDvdForm(dvd);
+    copyForm = CopyForm.dvdToDvdForm(dvd);
     movieForm = MovieForm.movieToForm(dvd.movie);
 
     if (dvd.borrower != null) {
@@ -58,8 +57,8 @@ public class InfoDvd {
     //commentable = dvd.movie.commentable;
 
     final List<Long> alreadyAdded = new ArrayList<Long>();
-    boxDvds = getDvdsByBoxOrCollection(dvd, EDvdAttributeType.BOX, dvdForm.box, alreadyAdded);
-    collectionDvds = getDvdsByBoxOrCollection(dvd, EDvdAttributeType.COLLECTION, dvdForm.collection, alreadyAdded);
+    boxDvds = getDvdsByBoxOrCollection(dvd, EDvdAttributeType.BOX, copyForm.box, alreadyAdded);
+    collectionDvds = getDvdsByBoxOrCollection(dvd, EDvdAttributeType.COLLECTION, copyForm.collection, alreadyAdded);
     seriesDvd = getDvdsByMovieSeries(dvd, movieForm.series, alreadyAdded);
   }
 

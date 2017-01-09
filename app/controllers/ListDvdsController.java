@@ -6,6 +6,7 @@ import forms.dvd.DvdSearchFrom;
 import helpers.ConfigurationHelper;
 import helpers.ECopyListView;
 import com.github.tuxBurner.jsAnnotations.JSRoute;
+
 import models.Dvd;
 import objects.shoppingcart.CacheShoppingCart;
 import org.apache.commons.lang.StringUtils;
@@ -132,7 +133,7 @@ public class ListDvdsController extends Controller {
   }
 
   /**
-   * Lists all {@link Dvd}s by the given director
+   * Lists all {@link Copy}s by the given director
    *
    * @param directorName
    * @return

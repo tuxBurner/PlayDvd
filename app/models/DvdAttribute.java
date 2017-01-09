@@ -40,7 +40,7 @@ public class DvdAttribute extends Model {
   /**
    * Default finder for the {@link DvdAttribute}
    */
-  public static Finder<Long, DvdAttribute> finder = new Finder<Long, DvdAttribute>(Long.class, DvdAttribute.class);
+  public static Finder<Long, DvdAttribute> finder = new Finder<Long, DvdAttribute>(DvdAttribute.class);
 
   @Id
   public Long id;
@@ -169,16 +169,16 @@ public class DvdAttribute extends Model {
     return attributes;
   }
 
-  public static String getAgeRatingAttribute(final Dvd dvd) {
-    return DvdAttribute.getSingleAttrFromDvd(dvd, EDvdAttributeType.RATING);
+  public static String getAgeRatingAttribute(final Dvd copy) {
+    return DvdAttribute.getSingleAttrFromDvd(copy, EDvdAttributeType.RATING);
   }
 
-  public static String getCopyTypeAttribute(final Dvd dvd) {
-    return DvdAttribute.getSingleAttrFromDvd(dvd, EDvdAttributeType.COPY_TYPE);
+  public static String getCopyTypeAttribute(final Dvd copy) {
+    return DvdAttribute.getSingleAttrFromDvd(copy, EDvdAttributeType.COPY_TYPE);
   }
 
-  public static String getSingleAttrFromDvd(final Dvd dvd, final EDvdAttributeType attrType) {
-    for (final DvdAttribute attribute : dvd.attributes) {
+  public static String getSingleAttrFromDvd(final Dvd copy, final EDvdAttributeType attrType) {
+    for (final DvdAttribute attribute : copy.attributes) {
       if (attribute.attributeType.equals(attrType)) {
         return attribute.value;
       }

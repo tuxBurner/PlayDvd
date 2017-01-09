@@ -16,8 +16,6 @@ import play.mvc.With;
 import javax.inject.Singleton;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
 import java.nio.charset.Charset;
 import java.util.HashSet;
 import java.util.List;

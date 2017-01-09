@@ -1,4 +1,5 @@
-@(dvdForm: Form[forms.dvd.DvdForm])(mode: String)
+@import forms.dvd.CopyForm
+@(dvdForm: Form[CopyForm])(mode: String)
 
 @import helper._
 
@@ -8,7 +9,7 @@
       <!--
       var avaibleBoxes = @Html(DvdAttribute.getAllByTypeAsJson(EDvdAttributeType.BOX));
       var avaibleCollections = @Html(DvdAttribute.getAllByTypeAsJson(EDvdAttributeType.COLLECTION));
-      var selectedMovie = @Html(forms.dvd.DvdForm.getSelectedMovieAsJson(dvdForm("movieId").value()));
+      var selectedMovie = @Html(forms.dvd.CopyForm.getSelectedMovieAsJson(dvdForm("movieId").value()));
       var avaibleSeries = @Html(models.MovieAttribute.getAvaibleAttributesAsJson(EMovieAttributeType.MOVIE_SERIES));
       //-->
   </script>

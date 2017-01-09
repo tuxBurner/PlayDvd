@@ -33,11 +33,6 @@ import com.google.gson.GsonBuilder;
 public class MovieAttribute extends Model {
 
   /**
-	 * 
-	 */
-  private static final long serialVersionUID = -6491899975286773215L;
-
-  /**
    * Default finder for the {@link MovieAttribute}
    */
   public static Finder<Long, MovieAttribute> finder = new Finder<Long, MovieAttribute>(Long.class, MovieAttribute.class);

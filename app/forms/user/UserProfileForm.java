@@ -69,4 +69,44 @@ public class UserProfileForm {
     userToUpdate.save();
     return null;
   }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public String getRePassword() {
+    return rePassword;
+  }
+
+  public void setRePassword(String rePassword) {
+    this.rePassword = rePassword;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public String getDefaultCopyType() {
+    return defaultCopyType;
+  }
+
+  public void setDefaultCopyType(String defaultCopyType) {
+    this.defaultCopyType = defaultCopyType;
+  }
+
+  public String getRssAuthKey() {
+    return rssAuthKey;
+  }
+
+  public void setRssAuthKey(String rssAuthKey) {
+    this.rssAuthKey = rssAuthKey;
+  }
 }

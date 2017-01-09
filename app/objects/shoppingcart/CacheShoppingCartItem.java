@@ -5,7 +5,7 @@ import models.Dvd;
 import java.util.Date;
 
 /**
- * This is hold in the cache when the user adds a {@link models.Dvd} to the shopping cart in the cache
+ * This is hold in the cache when the user adds a {@link Dvd} to the shopping cart in the cache
  * User: tuxburner
  * Date: 3/15/13
  * Time: 12:21 PM

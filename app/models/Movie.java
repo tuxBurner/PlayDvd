@@ -1,5 +1,6 @@
 package models;
 
+import forms.dvd.CopyForm;
 import grabbers.EGrabberType;
 import helpers.EImageType;
 import helpers.ImageHelper;
@@ -24,8 +25,6 @@ import forms.MovieForm;
 
 @Entity
 public class Movie extends Model {
-
-  private static final long serialVersionUID = -2107177668174396511L;
 
   @Id
   public Long id;
@@ -85,7 +84,7 @@ public class Movie extends Model {
   public static Finder<Long, Movie> finder = new Finder<Long, Movie>(Long.class, Movie.class);
 
   /**
-   * This creates a movie from the information of the given {@link forms.dvd.DvdForm}
+   * This creates a movie from the information of the given {@link CopyForm}
    * 
    * @param movieForm
    * @return
