@@ -20,7 +20,6 @@ import java.util.Set;
  * Time: 3:43 PM
  */
 @Entity
-@Table(name="bookmark")
 public class Bookmark extends Model {
 
   @Id
