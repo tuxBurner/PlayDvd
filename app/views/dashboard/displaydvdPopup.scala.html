@@ -24,7 +24,7 @@
     <div class="row-fluid">
       <label class="span4">Owner:</label>
       <span>
-        <a href="@routes.ListDvdsController.listByUser(dvd.copyForm.ownerName)">
+        <a href="@routes.ListCopiesController.listByUser(dvd.copyForm.ownerName)">
           <img class="img-rounded" src="@routes.DashboardController.gravatar(50,dvd.copyForm.ownerName)" />
           @dvd.copyForm.ownerName
         </a>
@@ -87,7 +87,7 @@
       <div class="row-fluid">
         <label class="span4">Hull Nr.:</label>
         <span>      
-          <a href="@routes.ListDvdsController.searchDvd?searchFor=@models.Dvd.HULL_NR_SEARCH @dvd.copyForm.hullNr">@dvd.copyForm.hullNr</a>
+          <a href="@routes.ListCopiesController.searchDvd?searchFor=@models.Dvd.HULL_NR_SEARCH @dvd.copyForm.hullNr">@dvd.copyForm.hullNr</a>
         </span>
       </div>
     }
@@ -118,7 +118,7 @@
     @if(StringUtils.isEmpty(dvd.movieForm.director) == false) {
       <div class="row-fluid">
         <label class="span4">Director:</label>
-        <span><a href="@routes.ListDvdsController.listByDirector(dvd.movieForm.director)">@dvd.movieForm.director</a></span>
+        <span><a href="@routes.ListCopiesController.listByDirector(dvd.movieForm.director)">@dvd.movieForm.director</a></span>
       </div>
     }
     
@@ -129,7 +129,7 @@
       <dl>
         <dt>Genres:</dt>
         @for(genre <- dvd.movieForm.genres) {
-          <dd><a href="@routes.ListDvdsController.listByGenre(genre)">@genre</a></dd>
+          <dd><a href="@routes.ListCopiesController.listByGenre(genre)">@genre</a></dd>
         }
       </dl>
     </div>
@@ -140,7 +140,7 @@
       <dt>Actors:</dt>
       <dl>
         @for(actor <- dvd.movieForm.actors) {
-          <dd><a href="@routes.ListDvdsController.listByActor(actor)">@actor<a></a></dd>
+          <dd><a href="@routes.ListCopiesController.listByActor(actor)">@actor<a></a></dd>
         }
       </dl>
     </div>

@@ -2,7 +2,7 @@ package controllers;
 
 import com.avaje.ebean.PagedList;
 import com.typesafe.config.ConfigFactory;
-import forms.dvd.DvdSearchFrom;
+import forms.dvd.CopySearchFrom;
 import helpers.ConfigurationHelper;
 import helpers.ECopyListView;
 import com.github.tuxBurner.jsAnnotations.JSRoute;
@@ -27,7 +27,7 @@ import java.util.Set;
 
 @Security.Authenticated(Secured.class)
 
-public class ListDvdsController extends Controller {
+public class ListCopiesController extends Controller {
 
   private final static Map<String, Integer> DVDS_PER_PAGE_CONFIG = ConfigurationHelper.createValMap("dvddb.dvds.perpage");
 
@@ -39,7 +39,7 @@ public class ListDvdsController extends Controller {
 
 
   @Inject
-  ListDvdsController(final FormFactory formFactory) {
+  ListCopiesController(final FormFactory formFactory) {
     this.formFactory = formFactory;
   }
 
@@ -48,12 +48,12 @@ public class ListDvdsController extends Controller {
    *
    * @return
    */
-  public Result listdvds(final Integer pageNr) {
-    final DvdSearchFrom currentSearchForm = DvdSearchFrom.getCurrentSearchForm();
+  public Result listCopies(final Integer pageNr) {
+    final CopySearchFrom currentSearchForm = CopySearchFrom.getCurrentSearchForm();
     if (pageNr != null) {
       currentSearchForm.currentPage = pageNr;
     }
-    return ListDvdsController.returnList(currentSearchForm);
+    return ListCopiesController.returnList(currentSearchForm);
   }
 
   /**
@@ -63,21 +63,21 @@ public class ListDvdsController extends Controller {
    */
   @JSRoute
   public Result listCopiesJS(final Integer pageNr) {
-    final DvdSearchFrom currentSearchForm = DvdSearchFrom.getCurrentSearchForm();
+    final CopySearchFrom currentSearchForm = CopySearchFrom.getCurrentSearchForm();
     if (pageNr != null) {
       currentSearchForm.currentPage = pageNr;
     }
-    return ListDvdsController.returnList(currentSearchForm,true);
+    return ListCopiesController.returnList(currentSearchForm,true);
   }
 
   /**
-   * list all dvds we have
+   * list all copies we have
    *
    * @return
    */
-  public Result listAlldvds() {
-    final DvdSearchFrom dvdSearchFrom = new DvdSearchFrom();
-    return ListDvdsController.returnList(dvdSearchFrom);
+  public Result listAllCopies() {
+    final CopySearchFrom copySearchFrom = new CopySearchFrom();
+    return ListCopiesController.returnList(copySearchFrom);
   }
 
   /**
@@ -91,10 +91,10 @@ public class ListDvdsController extends Controller {
       return Results.internalServerError("No Username given");
     }
 
-    final DvdSearchFrom dvdListFrom = new DvdSearchFrom();
+    final CopySearchFrom dvdListFrom = new CopySearchFrom();
     dvdListFrom.userName = fromUserName;
 
-    return ListDvdsController.returnList(dvdListFrom);
+    return ListCopiesController.returnList(dvdListFrom);
   }
 
   /**
@@ -108,10 +108,10 @@ public class ListDvdsController extends Controller {
       return Results.internalServerError("No Genrename given");
     }
 
-    final DvdSearchFrom dvdListFrom = new DvdSearchFrom();
+    final CopySearchFrom dvdListFrom = new CopySearchFrom();
     dvdListFrom.genre = urlDecodeString(genreName);
 
-    return ListDvdsController.returnList(dvdListFrom);
+    return ListCopiesController.returnList(dvdListFrom);
   }
 
   /**
@@ -125,11 +125,11 @@ public class ListDvdsController extends Controller {
       return Results.internalServerError("No actorname given");
     }
 
-    final DvdSearchFrom dvdListFrom = new DvdSearchFrom();
+    final CopySearchFrom dvdListFrom = new CopySearchFrom();
 
     dvdListFrom.actor = urlDecodeString(actorName);
 
-    return ListDvdsController.returnList(dvdListFrom);
+    return ListCopiesController.returnList(dvdListFrom);
   }
 
   /**
@@ -142,9 +142,9 @@ public class ListDvdsController extends Controller {
     if (StringUtils.isEmpty(directorName)) {
       return Results.internalServerError("No directorname given");
     }
-    final DvdSearchFrom dvdListFrom = new DvdSearchFrom();
+    final CopySearchFrom dvdListFrom = new CopySearchFrom();
     dvdListFrom.director = urlDecodeString(directorName);
-    return ListDvdsController.returnList(dvdListFrom);
+    return ListCopiesController.returnList(dvdListFrom);
   }
 
   /**
@@ -154,29 +154,29 @@ public class ListDvdsController extends Controller {
    */
   public Result listLendDvd() {
 
-    final DvdSearchFrom dvdListFrom = new DvdSearchFrom();
+    final CopySearchFrom dvdListFrom = new CopySearchFrom();
     dvdListFrom.lendDvd = true;
     dvdListFrom.userName = Secured.getUsername();
 
-    return ListDvdsController.returnList(dvdListFrom);
+    return ListCopiesController.returnList(dvdListFrom);
   }
 
   public Result listReviewMovies() {
-    final DvdSearchFrom dvdListFrom = new DvdSearchFrom();
+    final CopySearchFrom dvdListFrom = new CopySearchFrom();
     dvdListFrom.moviesToReview = true;
 
-    return ListDvdsController.returnList(dvdListFrom);
+    return ListCopiesController.returnList(dvdListFrom);
 
   }
 
   public Result searchDvd() {
     final String[] strings = Controller.request().queryString().get("searchFor");
     if (strings == null || strings.length != 1) {
-      return listAlldvds();
+      return listAllCopies();
     } else {
-      final DvdSearchFrom listFrom = new DvdSearchFrom();
+      final CopySearchFrom listFrom = new CopySearchFrom();
       listFrom.searchFor = strings[0];
-      return ListDvdsController.returnList(listFrom);
+      return ListCopiesController.returnList(listFrom);
     }
 
   }
@@ -189,40 +189,40 @@ public class ListDvdsController extends Controller {
    */
   public Result applySearchForm() {
 
-    final Form<DvdSearchFrom> form = formFactory.form(DvdSearchFrom.class).bindFromRequest();
+    final Form<CopySearchFrom> form = formFactory.form(CopySearchFrom.class).bindFromRequest();
 
-    return ListDvdsController.returnList(form.get());
+    return ListCopiesController.returnList(form.get());
   }
 
 
   /**
    * Returns the dvds for the template
-   * @param dvdSearchFrom
+   * @param copySearchFrom
    * @return
    */
-  private static Result returnList(final DvdSearchFrom dvdSearchFrom) {
-    return returnList(dvdSearchFrom,false);
+  private static Result returnList(final CopySearchFrom copySearchFrom) {
+    return returnList(copySearchFrom,false);
   }
 
   /**
    * Returns the dvds for the template
    *
-   * @param dvdSearchFrom
+   * @param copySearchFrom
    * @return
    */
-  private static Result returnList(final DvdSearchFrom dvdSearchFrom, final boolean jsMode) {
+  private static Result returnList(final CopySearchFrom copySearchFrom, final boolean jsMode) {
 
     final String username = Secured.getUsername();
-    DvdSearchFrom.setCurrentSearchForm(dvdSearchFrom);
+    CopySearchFrom.setCurrentSearchForm(copySearchFrom);
     final ECopyListView currentViewMode = getCurrentViewMode();
     final Integer itemsPerPage = DVDS_PER_PAGE_CONFIG.get(currentViewMode.name());
-    final PagedList<Dvd> dvdsByForm = Dvd.getDvdsBySearchForm(dvdSearchFrom, itemsPerPage);
+    final PagedList<Dvd> dvdsByForm = Dvd.getDvdsBySearchForm(copySearchFrom, itemsPerPage);
     final DvdPage dvdPage = new DvdPage(dvdsByForm);
     final CacheShoppingCart shoppingCartFromCache = ShoppingCartController.getShoppingCartFromCache();
     final Set<Long> bookmarkedCopyIds = BookmarksController.getBookmarkedCopyIds();
     if(jsMode == false) {
-      final Form<DvdSearchFrom> form = Form.form(DvdSearchFrom.class);
-      return Results.ok(listdvds.render(dvdPage, form.fill(dvdSearchFrom), username, shoppingCartFromCache,currentViewMode,bookmarkedCopyIds));
+      final Form<CopySearchFrom> form = Form.form(CopySearchFrom.class);
+      return Results.ok(listdvds.render(dvdPage, form.fill(copySearchFrom), username, shoppingCartFromCache,currentViewMode,bookmarkedCopyIds));
     } else {
       return Results.ok(views.html.dashboard.listviews.listviewsWrapper.render(dvdPage,username,shoppingCartFromCache,bookmarkedCopyIds,currentViewMode));
     }
@@ -236,7 +236,7 @@ public class ListDvdsController extends Controller {
   public Result changeViewMode(final String viewMode) {
     session().put(SESSION_VIEW_MODE,viewMode);
 
-    return redirect(routes.ListDvdsController.listAlldvds());
+    return redirect(routes.ListCopiesController.listAllCopies());
   }
 
   /**

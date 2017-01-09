@@ -42,7 +42,7 @@ public class ViewedCopyController extends Controller {
   @JSRoute
   public Result markCopyAsViewedDialog(final Long copyId) {
 
-    final Dvd copy = Dvd.find.byId(copyId);
+    final Dvd copy = Dvd.FINDER.byId(copyId);
     if(copy == null) {
       return internalServerError();
     }

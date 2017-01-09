@@ -63,7 +63,7 @@ public class ViewedCopy extends Model {
     }
 
 
-    Dvd copy = Dvd.find.byId(copyId);
+    Dvd copy = Dvd.FINDER.byId(copyId);
     if(copy == null) {
       if(Logger.isErrorEnabled() == true) {
         Logger.error("Could not find copy with id: "+copyId+" for marking as viewed.");

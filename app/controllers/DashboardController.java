@@ -8,7 +8,7 @@ import com.timgroup.jgravatar.GravatarRating;
 import forms.ExternalImageForm;
 import forms.LendForm;
 import forms.UnLendForm;
-import forms.dvd.DvdSearchFrom;
+import forms.dvd.CopySearchFrom;
 import forms.dvd.objects.CopyInfo;
 import forms.dvd.objects.PrevNextCopies;
 import helpers.CacheHelper;
@@ -77,7 +77,7 @@ public class DashboardController extends Controller {
 
 
   /**
-   * Display the dvd and its informations on a pag
+   * Display the dvd and its informations on a page
    *
    * @param dvdId
    * @return
@@ -94,7 +94,8 @@ public class DashboardController extends Controller {
    * @return
    */
   private static Result getInfoDvd(final Long copyId, final boolean popup) {
-    final Dvd copy = Dvd.find.byId(copyId);
+
+    final Dvd copy = Dvd.FINDER.fetch("movie","*").where().eq("id",copyId).findUnique();
 
     if (copy == null) {
       if (Logger.isErrorEnabled() == true) {
@@ -106,7 +107,7 @@ public class DashboardController extends Controller {
 
     final CopyInfo copyInfo = new CopyInfo(copy);
 
-    final DvdSearchFrom currentSearchForm = DvdSearchFrom.getCurrentSearchForm();
+    final CopySearchFrom currentSearchForm = CopySearchFrom.getCurrentSearchForm();
     final PrevNextCopies nextAndPrev = Dvd.getNextAndPrev(copy, currentSearchForm);
 
     final CacheShoppingCart shoppingCartFromCache = ShoppingCartController.getShoppingCartFromCache();

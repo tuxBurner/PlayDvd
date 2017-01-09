@@ -1,28 +1,24 @@
 package models;
 
+import com.avaje.ebean.Ebean;
+import com.avaje.ebean.Model;
+import com.avaje.ebean.Query;
+import com.avaje.ebean.Transaction;
+import forms.MovieForm;
 import forms.dvd.CopyForm;
 import grabbers.EGrabberType;
 import helpers.EImageType;
 import helpers.ImageHelper;
+import org.apache.commons.lang.StringUtils;
+import play.Logger;
+import play.data.validation.Constraints.Required;
+import play.db.ebean.Transactional;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.persistence.*;
-
-import org.apache.commons.lang.StringUtils;
-
-import play.Logger;
-import play.data.validation.Constraints.Required;
-import com.avaje.ebean.Model;
-import play.db.ebean.Transactional;
-
-import com.avaje.ebean.Ebean;
-import com.avaje.ebean.Query;
-
-import forms.MovieForm;
 
 @Entity
 public class Movie extends Model {
@@ -54,8 +50,8 @@ public class Movie extends Model {
   @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "movies")
   public List<MovieAttribute> attributes;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "movie")
-  public Set<Dvd> dvds;
+  @OneToMany(mappedBy = "movie")
+  public List<Dvd> dvds;
 
   public String trailerUrl;
 
@@ -70,7 +66,7 @@ public class Movie extends Model {
   public String imdbId;
 
   /**
-   * If the EGrabberType is not null this is the id which is to use to find the movie via the grabber
+   * If the EGrabberType is not null this is the id which is to use to FINDER the movie via the grabber
    */
   public String grabberId;
 
@@ -87,6 +83,8 @@ public class Movie extends Model {
    * @throws Exception
    */
   public static Movie editOrAddFromForm(final MovieForm movieForm) throws Exception {
+
+
 
     Movie movie = null;
 
@@ -139,10 +137,10 @@ public class Movie extends Model {
     movie.attributes = new ArrayList<>();
 
     // gather all the genres and add them to the dvd
-    final Set<MovieAttribute> genres = MovieAttribute.gatherAndAddAttributes(new HashSet<String>(movieForm.genres), EMovieAttributeType.GENRE);
+    final Set<MovieAttribute> genres = MovieAttribute.gatherAndAddAttributes(new HashSet<>(movieForm.genres), EMovieAttributeType.GENRE);
     movie.attributes.addAll(genres);
 
-    final Set<MovieAttribute> actors = MovieAttribute.gatherAndAddAttributes(new HashSet<String>(movieForm.actors), EMovieAttributeType.ACTOR);
+    final Set<MovieAttribute> actors = MovieAttribute.gatherAndAddAttributes(new HashSet<>(movieForm.actors), EMovieAttributeType.ACTOR);
     movie.attributes.addAll(actors);
 
     Movie.addSingleAttribute(movieForm.series, EMovieAttributeType.MOVIE_SERIES, movie);
@@ -197,7 +195,7 @@ public class Movie extends Model {
   public static List<Movie> searchLikeAndAmazoneCode(final String term, final String eanNr) {
     final List<Movie> movies = searchLike(term, 0);
 
-    final List<Dvd> dvds = Dvd.find.where().eq("eanNr", eanNr).findList();
+    final List<Dvd> dvds = Dvd.FINDER.where().eq("eanNr", eanNr).findList();
     for (Dvd dvd : dvds) {
       final Long movieId = dvd.movie.id;
       boolean foundMovie = false;
@@ -238,10 +236,10 @@ public class Movie extends Model {
    */
   public static Commentable addComment(final Long movieId, final String commentText) {
 
-   /* final Movie movie = find.byId(movieId);
+   /* final Movie movie = FINDER.byId(movieId);
     if(movie == null) {
       if(Logger.isErrorEnabled() == true) {
-        Logger.error("Could not find movie with the id: "+movieId);
+        Logger.error("Could not FINDER movie with the id: "+movieId);
       }
     }
 

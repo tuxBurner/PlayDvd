@@ -194,7 +194,7 @@ public class ImageHelper {
         final File origFile = ImageHelper.createFile(movieId, imageType, EImageSize.ORIGINAL);
         if (origFile.exists() == false) {
           if (Logger.isErrorEnabled() == true) {
-            Logger.error("Could not find original Image: " + origFile.getAbsolutePath());
+            Logger.error("Could not FINDER original Image: " + origFile.getAbsolutePath());
           }
           return null;
         }
@@ -227,7 +227,7 @@ public class ImageHelper {
         if (imageExists == false && imageSize.equals(EImageSize.ORIGINAL) == false) {
 
           if (Logger.isDebugEnabled() == true) {
-            Logger.debug("Could not find: " + imageFileName + " from s3 bucket: " + S3Plugin.s3Bucket + " creating one from the original one.");
+            Logger.debug("Could not FINDER: " + imageFileName + " from s3 bucket: " + S3Plugin.s3Bucket + " creating one from the original one.");
           }
 
           // get the original image from the bucket
@@ -235,7 +235,7 @@ public class ImageHelper {
           final S3Object origImage = S3Plugin.amazonS3.getObject(S3Plugin.s3Bucket, origImgName);
           if (origImage == null) {
             if (Logger.isErrorEnabled() == true) {
-              Logger.error("Could not find original image: " + origImgName + " from the s3 bucket: " + S3Plugin.s3Bucket);
+              Logger.error("Could not FINDER original image: " + origImgName + " from the s3 bucket: " + S3Plugin.s3Bucket);
             }
             return null;
           }

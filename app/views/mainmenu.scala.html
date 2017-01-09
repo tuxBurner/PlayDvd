@@ -6,10 +6,10 @@
 @menuContent = {
   <div class="pull-right">
 
-    @defining(ListDvdsController.getCurrentViewMode) { viewMode =>
+    @defining(ListCopiesController.getCurrentViewMode) { viewMode =>
       <div class="btn-group">
         @for(viewType <- ECopyListView.values()) {
-          <a class="btn btn-small @if(viewMode == viewType){active}" href="@routes.ListDvdsController.changeViewMode(viewType.name())"><i class="@viewType.icon"></i></a>
+          <a class="btn btn-small @if(viewMode == viewType){active}" href="@routes.ListCopiesController.changeViewMode(viewType.name())"><i class="@viewType.icon"></i></a>
         }
       </div>
     }
@@ -43,8 +43,8 @@
       <li class="dropdown" id="listMenu">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#listMenu"> @Messages("lbl.list")<b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-toggle" href="@routes.ListDvdsController.listAlldvds()"><i class="icon-list-alt"></i> @Messages("lbl.listAll")</a></li>
-          <li><a class="dropdown-toggle" href="@routes.ListDvdsController.listByUser(Secured.getUsername)"><i class="icon-user"></i> @Messages("lbl.listOwn")</a></li>
+          <li><a class="dropdown-toggle" href="@routes.ListCopiesController.listAllCopies()"><i class="icon-list-alt"></i> @Messages("lbl.listAll")</a></li>
+          <li><a class="dropdown-toggle" href="@routes.ListCopiesController.listByUser(Secured.getUsername)"><i class="icon-user"></i> @Messages("lbl.listOwn")</a></li>
           @*<li><a class="dropdown-toggle" href="@routes.ListDvdsController.listLendDvd()"><i class="icon-user"></i>List Lend</a></li>*@
           @*<li><a class="dropdown-toggle" href="@routes.ListDvdsController.listReviewMovies()"><i class="icon-user"></i>Movies to review</a></li>*@
         </ul>

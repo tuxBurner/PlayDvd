@@ -51,8 +51,8 @@ public class DvdAttribute extends Model {
 
   public String value;
 
-  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  public Set<Dvd> dvds;
+  @ManyToMany(cascade = CascadeType.ALL)
+  public List<Dvd> dvds;
 
   /**
    * finds all {@link DvdAttribute} by the given values and the given

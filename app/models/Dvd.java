@@ -3,7 +3,7 @@ package models;
 import com.avaje.ebean.*;
 import com.avaje.ebean.Query;
 import forms.dvd.CopyForm;
-import forms.dvd.DvdSearchFrom;
+import forms.dvd.CopySearchFrom;
 import forms.dvd.objects.EDvdListOrderBy;
 import forms.dvd.objects.EDvdListOrderHow;
 import forms.dvd.objects.PrevNextCopies;
@@ -34,8 +34,8 @@ public class Dvd extends Model {
     @OneToOne
     public User borrower;
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "dvds")
-    public Set<DvdAttribute> attributes;
+    @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "dvds")
+    public List<DvdAttribute> attributes;
 
     public Long borrowDate;
 
@@ -69,14 +69,14 @@ public class Dvd extends Model {
     /**
      * The movie which is on the dvd
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @Column(nullable = false)
     public Movie movie;
 
     /**
      * The FINDER for the database for searching in the database
      */
-    public static Finder<Long, Dvd> find = new Finder<Long, Dvd>(Long.class, Dvd.class);
+    public static Finder<Long, Dvd> FINDER = new Finder(Dvd.class);
 
     @Required
     @Column(nullable = false)
@@ -188,11 +188,11 @@ public class Dvd extends Model {
         if (StringUtils.isEmpty(attrToAdd) == true) {
             return;
         }
-        final Set<String> attribute = new HashSet<String>();
+        final Set<String> attribute = new HashSet<>();
         attribute.add(attrToAdd);
         final Set<DvdAttribute> dbAttrs = DvdAttribute.gatherAndAddAttributes(attribute, attributeType);
         if(copy.attributes.isEmpty() == true) {
-            copy.attributes = new HashSet<>();
+            copy.attributes = new ArrayList<>();
         }
         copy.attributes.addAll(dbAttrs);
     }
@@ -205,33 +205,31 @@ public class Dvd extends Model {
      * @return
      */
     public static List<Dvd> getDvdByBoxOrCollection(final EDvdAttributeType attrType, final String attrValue, final Dvd dvd) {
-        final List<Dvd> findList = Dvd.find.where().eq("attributes.attributeType", attrType).eq("attributes.value", attrValue).eq("owner.id", dvd.owner.id).ne("id", dvd.id).orderBy("movie.year asc").findList();
+        final List<Dvd> findList = Dvd.FINDER.where().eq("attributes.attributeType", attrType).eq("attributes.value", attrValue).eq("owner.id", dvd.owner.id).ne("id", dvd.id).orderBy("movie.year asc").findList();
         return findList;
     }
 
     /**
-     * Gets all dvds which fit into the Filter int the {@link forms.dvd.DvdSearchFrom}
+     * Gets all dvds which fit into the Filter int the {@link CopySearchFrom}
      *
      * @param searchFrom
      * @param itemsPerPage
      * @return
      */
-    public static PagedList<Dvd> getDvdsBySearchForm(final DvdSearchFrom searchFrom, Integer itemsPerPage) {
+    public static PagedList<Dvd> getDvdsBySearchForm(final CopySearchFrom searchFrom, Integer itemsPerPage) {
 
         final ExpressionList<Dvd> where = buildExpressionFromSearchFrom(searchFrom);
-
-
         return Dvd.getByDefaultPaging(where, searchFrom.currentPage, searchFrom.orderBy, searchFrom.orderHow, itemsPerPage);
     }
 
     /**
-     * Creates the {@link ExpressionList} from the given {@link DvdSearchFrom}
+     * Creates the {@link ExpressionList} from the given {@link CopySearchFrom}
      *
      * @param searchFrom
      * @return
      */
-    private final static ExpressionList<Dvd> buildExpressionFromSearchFrom(final DvdSearchFrom searchFrom) {
-        final ExpressionList<Dvd> where = Dvd.find.where();
+    private final static ExpressionList<Dvd> buildExpressionFromSearchFrom(final CopySearchFrom searchFrom) {
+        final ExpressionList<Dvd> where = Dvd.FINDER.where();
 
         if (StringUtils.isEmpty(searchFrom.searchFor) == false) {
 
@@ -295,7 +293,7 @@ public class Dvd extends Model {
      * @param searchFrom
      * @return
      */
-    public static PrevNextCopies getNextAndPrev(final Dvd dvd, final DvdSearchFrom searchFrom) {
+    public static PrevNextCopies getNextAndPrev(final Dvd dvd, final CopySearchFrom searchFrom) {
 
         final EDvdListOrderBy orderBy = searchFrom.orderBy;
 
@@ -325,13 +323,13 @@ public class Dvd extends Model {
     }
 
     /**
-     * Gets the previous {@link Dvd} according to the current {@link DvdSearchFrom}
+     * Gets the previous {@link Dvd} according to the current {@link CopySearchFrom}
      *
      * @param searchFrom
      * @param orderDvdVal
      * @return
      */
-    private static Dvd getPrev(final DvdSearchFrom searchFrom, final Object orderDvdVal) {
+    private static Dvd getPrev(final CopySearchFrom searchFrom, final Object orderDvdVal) {
         final EDvdListOrderBy orderBy = searchFrom.orderBy;
         final EDvdListOrderHow orderHow = searchFrom.orderHow;
 
@@ -359,13 +357,13 @@ public class Dvd extends Model {
     }
 
     /**
-     * Gets the next {@link Dvd} according to the current {@link DvdSearchFrom}
+     * Gets the next {@link Dvd} according to the current {@link CopySearchFrom}
      *
      * @param searchFrom
      * @param orderDvdVal
      * @return
      */
-    private static Dvd getNext(final DvdSearchFrom searchFrom, final Object orderDvdVal) {
+    private static Dvd getNext(final CopySearchFrom searchFrom, final Object orderDvdVal) {
 
         final EDvdListOrderBy orderBy = searchFrom.orderBy;
         final EDvdListOrderHow orderHow = searchFrom.orderHow;
@@ -407,7 +405,7 @@ public class Dvd extends Model {
      * @return
      */
     public static Dvd getDvdForUser(final Long id, final String username, final boolean fetchBorrower) {
-        Query<Dvd> dvdQuery = Dvd.find.fetch("movie");
+        Query<Dvd> dvdQuery = Dvd.FINDER.fetch("movie");
         if (fetchBorrower == true) {
             dvdQuery.fetch("borrower");
         }
@@ -423,7 +421,7 @@ public class Dvd extends Model {
      * @return
      */
     public static List<Dvd> getAllCopiesForUserForExport(final String username) {
-        return Dvd.find.fetch("movie", "title").where().ieq("owner.userName", username).findList();
+        return Dvd.FINDER.fetch("movie", "title").where().ieq("owner.userName", username).findList();
     }
 
     /**
@@ -439,7 +437,7 @@ public class Dvd extends Model {
             return null;
         }
 
-        final List<Dvd> findList = Dvd.find.fetch("movie").where().eq("owner", dvd.owner).eq("hullNr", dvd.hullNr).ne("id", dvd.id).isNull("borrowDate").orderBy("movie.title").findList();
+        final List<Dvd> findList = Dvd.FINDER.fetch("movie").where().eq("owner", dvd.owner).eq("hullNr", dvd.hullNr).ne("id", dvd.id).isNull("borrowDate").orderBy("movie.title").findList();
 
         if (CollectionUtils.isEmpty(findList) == true) {
             return null;
@@ -462,7 +460,7 @@ public class Dvd extends Model {
             return null;
         }
 
-        final ExpressionList<Dvd> notNull = Dvd.find.fetch("movie").where().eq("owner", dvd.owner).eq("hullNr", dvd.hullNr).ne("id", dvd.id).isNotNull("borrowDate");
+        final ExpressionList<Dvd> notNull = Dvd.FINDER.fetch("movie").where().eq("owner", dvd.owner).eq("hullNr", dvd.hullNr).ne("id", dvd.id).isNotNull("borrowDate");
 
         Dvd.borrowerOrBorrowed(dvd, notNull);
 
@@ -498,7 +496,7 @@ public class Dvd extends Model {
         final User currentUser = User.getCurrentUser();
 
         final Map<String, List<Dvd>> result = new TreeMap<String, List<Dvd>>();
-        final List<Dvd> list = find.where().eq("owner", currentUser).isNotNull("borrowDate").order("borrowDate ASC").findList();
+        final List<Dvd> list = FINDER.where().eq("owner", currentUser).isNotNull("borrowDate").order("borrowDate ASC").findList();
         if (CollectionUtils.isEmpty(list) == false) {
             for (final Dvd dvd : list) {
                 final String borrower = (dvd.borrower != null) ? dvd.borrower.userName : dvd.borrowerName;
@@ -518,7 +516,7 @@ public class Dvd extends Model {
      */
     public static int getLentDvdsCount() {
         final User currentUser = User.getCurrentUser();
-        return find.where().eq("owner", currentUser).isNotNull("borrowDate").order("borrowDate ASC").findRowCount();
+        return FINDER.where().eq("owner", currentUser).isNotNull("borrowDate").order("borrowDate ASC").findRowCount();
     }
 
     /**
@@ -528,7 +526,7 @@ public class Dvd extends Model {
      */
     public static List<Dvd> getBorrowedDvds() {
         final User currentUser = User.getCurrentUser();
-        return find.where().isNotNull("borrower").eq("borrower", currentUser).order("borrowDate ASC").findList();
+        return FINDER.where().isNotNull("borrower").eq("borrower", currentUser).order("borrowDate ASC").findList();
     }
 
     /**
@@ -538,7 +536,7 @@ public class Dvd extends Model {
      */
     public static int getBorrowedDvdsCount() {
         final User currentUser = User.getCurrentUser();
-        return find.where().isNotNull("borrower").eq("borrower", currentUser).order("borrowDate ASC").findRowCount();
+        return FINDER.where().isNotNull("borrower").eq("borrower", currentUser).order("borrowDate ASC").findRowCount();
     }
 
     /**
@@ -559,7 +557,7 @@ public class Dvd extends Model {
         PagedList<Dvd> pagedList = expressionList.orderBy(orderBy.dbField + " " + orderHow.dbOrder)
                 .fetch("owner", "userName")
                 .fetch("borrower", "userName")
-                .fetch("movie")
+                .fetch("movie","*")
                 .findPagedList(pageNr, itemsPerPage);
 
         return pagedList;
@@ -583,7 +581,7 @@ public class Dvd extends Model {
 
             // user also wants to lend dvds in the same hull
             if (alsoOthersInHull == true && dvdToLend.hullNr != null) {
-                final Set<Dvd> findSet = Dvd.find.where().eq("hullNr", dvdToLend.hullNr).ne("id", dvdToLend.id).isNull("borrowDate").eq("owner", dvdToLend.owner).findSet();
+                final Set<Dvd> findSet = Dvd.FINDER.where().eq("hullNr", dvdToLend.hullNr).ne("id", dvdToLend.id).isNull("borrowDate").eq("owner", dvdToLend.owner).findSet();
                 dvdsToLend.addAll(findSet);
             }
 
@@ -616,7 +614,7 @@ public class Dvd extends Model {
             return;
         }
 
-        Logger.error("Could not find dvd: " + dvdId + " for owner: " + ownerName);
+        Logger.error("Could not FINDER dvd: " + dvdId + " for owner: " + ownerName);
     }
 
     /**
@@ -640,7 +638,7 @@ public class Dvd extends Model {
             // user also wants to lend dvds in the same hull
             if (alsoOthersInHull == true && dvdToUnlend.hullNr != null) {
 
-                final ExpressionList<Dvd> expression = Dvd.find.where().eq("hullNr", dvdToUnlend.hullNr).ne("id", dvdToUnlend.id).eq("owner", dvdToUnlend.owner).isNotNull("borrowDate");
+                final ExpressionList<Dvd> expression = Dvd.FINDER.where().eq("hullNr", dvdToUnlend.hullNr).ne("id", dvdToUnlend.id).eq("owner", dvdToUnlend.owner).isNotNull("borrowDate");
                 Dvd.borrowerOrBorrowed(dvdToUnlend, expression);
 
                 dvdsToUnlend.addAll(expression.findSet());
@@ -662,7 +660,7 @@ public class Dvd extends Model {
 
         }
 
-        Logger.error("Could not find dvd: " + dvdId + " for owner: " + ownerName);
+        Logger.error("Could not FINDER dvd: " + dvdId + " for owner: " + ownerName);
 
         return unlendIds;
     }
@@ -678,7 +676,7 @@ public class Dvd extends Model {
             return null;
         }
 
-        return Dvd.find.where().idEq(dvdId).ne("owner.userName", userName).findUnique();
+        return Dvd.FINDER.where().idEq(dvdId).ne("owner.userName", userName).findUnique();
     }
 
     /**
@@ -690,7 +688,7 @@ public class Dvd extends Model {
      */
     public static List<Dvd> getbyMovieSeries(final String attrValue, final Dvd dvd) {
 
-        final List<Dvd> findList = Dvd.find.where().eq("movie.attributes.attributeType", EMovieAttributeType.MOVIE_SERIES).eq("movie.attributes.value", attrValue).eq("owner.id", dvd.owner.id).ne(
+        final List<Dvd> findList = Dvd.FINDER.where().eq("movie.attributes.attributeType", EMovieAttributeType.MOVIE_SERIES).eq("movie.attributes.value", attrValue).eq("owner.id", dvd.owner.id).ne(
                 "id",
                 dvd.id).findList();
 

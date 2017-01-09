@@ -19,7 +19,7 @@ import controllers.Secured;
  * @author tuxburner
  * 
  */
-public class DvdSearchFrom {
+public class CopySearchFrom {
 
   /**
    * If the user searched for a dvd
@@ -85,7 +85,7 @@ public class DvdSearchFrom {
    * Checks if the searchForm should be displayed in the advanced mode
    */
   public static boolean displayAdvancedForm() {
-    final DvdSearchFrom form = DvdSearchFrom.getCurrentSearchForm();
+    final CopySearchFrom form = CopySearchFrom.getCurrentSearchForm();
     return (StringUtils.isEmpty(form.copyType) == false || form.lendDvd == true);
   }
 
@@ -95,7 +95,7 @@ public class DvdSearchFrom {
    * 
    * @return
    */
-  public static DvdSearchFrom getCurrentSearchForm() {
+  public static CopySearchFrom getCurrentSearchForm() {
 
     final Context ctx = Controller.ctx();
 
@@ -104,31 +104,31 @@ public class DvdSearchFrom {
     }
     //TODO: make a simple cache controll mechanism we also have one at the shopping cart
     final Object object = Cache.get(ctx.session().get(Secured.AUTH_SESSION) + ".dvdlistform");
-    DvdSearchFrom returnVal = null;
-    if (object == null || object instanceof DvdSearchFrom == false) {
-      returnVal = new DvdSearchFrom();
+    CopySearchFrom returnVal = null;
+    if (object == null || object instanceof CopySearchFrom == false) {
+      returnVal = new CopySearchFrom();
       Cache.set(ctx.session().get(Secured.AUTH_SESSION) + ".dvdlistform", returnVal);
     } else {
-      returnVal = (DvdSearchFrom) object;
+      returnVal = (CopySearchFrom) object;
     }
 
     return returnVal;
   }
 
   /**
-   * Write the {@link DvdSearchFrom} to the cache for the user
+   * Write the {@link CopySearchFrom} to the cache for the user
    *
-   * @param dvdSearchFrom
+   * @param copySearchFrom
    */
-  public static void setCurrentSearchForm(final DvdSearchFrom dvdSearchFrom) {
+  public static void setCurrentSearchForm(final CopySearchFrom copySearchFrom) {
 
     // make sure when set to lend and no username is given set it to the current
     // user
-    if (dvdSearchFrom.lendDvd == true && StringUtils.isEmpty(dvdSearchFrom.userName) == true) {
-      dvdSearchFrom.userName = Controller.request().username();
+    if (copySearchFrom.lendDvd == true && StringUtils.isEmpty(copySearchFrom.userName) == true) {
+      copySearchFrom.userName = Controller.request().username();
     }
 
-    Cache.set(Controller.ctx().session().get(Secured.AUTH_SESSION) + ".dvdlistform", dvdSearchFrom);
+    Cache.set(Controller.ctx().session().get(Secured.AUTH_SESSION) + ".dvdlistform", copySearchFrom);
   }
 
   public static String getAgeRatingsAsJson() {

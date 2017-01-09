@@ -73,7 +73,7 @@ public class MovieController extends Controller {
   }
 
   /**
-   * This is called when the user submits the add Dvd Form
+   * This is called when the user submits the add Movie Form
    *
    * @return
    */

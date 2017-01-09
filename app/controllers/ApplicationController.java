@@ -6,9 +6,6 @@ import jsmessages.JsMessages;
 import jsmessages.JsMessagesFactory;
 import jsmessages.japi.Helper;
 import org.apache.commons.lang.ArrayUtils;
-import play.Play;
-import play.api.i18n.DefaultMessagesApi;
-import play.api.i18n.Messages;
 import play.libs.Scala;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -49,7 +46,7 @@ public class ApplicationController extends Controller {
 
 
     public Result index() {
-        return redirect(routes.ListDvdsController.listAlldvds());
+        return redirect(routes.ListCopiesController.listAllCopies());
     }
 
     /**

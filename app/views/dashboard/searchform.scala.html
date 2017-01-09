@@ -1,4 +1,5 @@
-@(dvdSearchForm: Form[forms.dvd.DvdSearchFrom])
+@import forms.dvd.CopySearchFrom
+@(dvdSearchForm: Form[CopySearchFrom])
 
 @import helper._
 
@@ -7,10 +8,10 @@
 <!--
   var avaibleGenres = @Html(MovieAttribute.getAvaibleAttributesAsJson(EMovieAttributeType.GENRE));
   var avaibleUsers = @Html(User.getUserNamesAsJson());
-  var avaibleAgeRatings = @Html(forms.dvd.DvdSearchFrom.getAgeRatingsAsJson());
-  var avaibleCopyTypes = @Html(forms.dvd.DvdSearchFrom.getCopyTypesJson());
+  var avaibleAgeRatings = @Html(forms.dvd.CopySearchFrom.getAgeRatingsAsJson());
+  var avaibleCopyTypes = @Html(forms.dvd.CopySearchFrom.getCopyTypesJson());
   var listOrderBy = @Html(forms.dvd.objects.EDvdListOrderBy.getAsJson());
-  var displayAdvancedOrder = @forms.dvd.DvdSearchFrom.displayAdvancedForm();
+  var displayAdvancedOrder = @forms.dvd.CopySearchFrom.displayAdvancedForm();
 //-->
 </script>
 
@@ -18,7 +19,7 @@
 <div class="row searchFormRow">
   <div class="span12">
 
-     @form(routes.ListDvdsController.applySearchForm(), 'class -> "form-inline well  searchFormWrapper") {
+     @form(routes.ListCopiesController.applySearchForm(), 'class -> "form-inline well  searchFormWrapper") {
 
       <div>     
        <label for="searchFor"><i class="icon-search"></i></label>
