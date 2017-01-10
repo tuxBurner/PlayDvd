@@ -95,7 +95,7 @@ public class DashboardController extends Controller {
    */
   private static Result getInfoDvd(final Long copyId, final boolean popup) {
 
-    final Dvd copy = Dvd.FINDER.fetch("movie","*").where().eq("id",copyId).findUnique();
+    final Dvd copy = Dvd.FINDER.byId(copyId);
 
     if (copy == null) {
       if (Logger.isErrorEnabled() == true) {
