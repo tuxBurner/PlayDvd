@@ -87,7 +87,7 @@ public class MovieForm {
     final Set<String> genreSet = new HashSet<String>();
     final Set<String> actorSet = new HashSet<String>();
 
-    final List<MovieAttribute> attributes = movie.attributes;
+    final Set<MovieAttribute> attributes = movie.attributes;
     for (final MovieAttribute movieAttibute : attributes) {
       if (EMovieAttributeType.GENRE.equals(movieAttibute.attributeType)) {
         genreSet.add(movieAttibute.value.trim());

@@ -121,7 +121,7 @@ public class CopyForm {
     copyForm.additionalInfo = copy.additionalInfo;
 
 
-    final List<DvdAttribute> dvdAttrs = copy.attributes;
+    final Set<DvdAttribute> dvdAttrs = copy.attributes;
     for (final DvdAttribute dvdAttribute : dvdAttrs) {
 
       switch (dvdAttribute.attributeType) {

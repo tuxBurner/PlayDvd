@@ -15,6 +15,8 @@ public class TmdbGrabberTest {
       tmdbGrabber.searchForMovie("Batman");
     } catch (final GrabberException e) {
       Assert.fail(e.getMessage());
+    } catch (MovieDbException e) {
+      Assert.fail(e.getMessage());
     }
 
   }

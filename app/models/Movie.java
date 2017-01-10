@@ -48,10 +48,10 @@ public class Movie extends Model {
   public Integer runtime;
 
   @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "movies")
-  public List<MovieAttribute> attributes;
+  public Set<MovieAttribute> attributes;
 
   @OneToMany(mappedBy = "movie")
-  public List<Dvd> dvds;
+  public Set<Dvd> dvds;
 
   public String trailerUrl;
 
@@ -134,7 +134,7 @@ public class Movie extends Model {
       movie.hasBackdrop = newBackDrop;
     }
 
-    movie.attributes = new ArrayList<>();
+    movie.attributes = new HashSet<>();
 
     // gather all the genres and add them to the dvd
     final Set<MovieAttribute> genres = MovieAttribute.gatherAndAddAttributes(new HashSet<>(movieForm.genres), EMovieAttributeType.GENRE);
