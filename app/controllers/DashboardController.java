@@ -11,12 +11,7 @@ import forms.UnLendForm;
 import forms.dvd.CopySearchFrom;
 import forms.dvd.objects.CopyInfo;
 import forms.dvd.objects.PrevNextCopies;
-import helpers.CacheHelper;
-import helpers.ECacheObjectName;
-import helpers.EImageSize;
-import helpers.EImageType;
-import helpers.ETagHelper;
-import helpers.ImageHelper;
+import helpers.*;
 import com.github.tuxBurner.jsAnnotations.JSRoute;
 import models.CopyReservation;
 import models.Dvd;
@@ -302,9 +297,8 @@ public class DashboardController extends Controller {
       }
 
       response().setHeader(ETAG, etag);
-      response().setContentType("image/png");
       response().setHeader("Content-Length", String.valueOf(file.length()));
-      return Results.ok(file);
+      return Results.ok(file).as("image/png");
 
 
     } else {
@@ -333,8 +327,8 @@ public class DashboardController extends Controller {
       ImageIO.write(asBufferedImage, "png", os);
       final InputStream is = new ByteArrayInputStream(os.toByteArray());
 
-      Controller.response().setContentType("image/png");
-      return Results.ok(is);
+
+      return Results.ok(is).as("image/png");
     } catch (final IOException e) {
       Logger.error("Failure while creating external image:", e);
       return Results.badRequest("Failure");
@@ -362,19 +356,14 @@ public class DashboardController extends Controller {
 
     byte[] gravatarBytes = CacheHelper.getObject(ECacheObjectName.GRAVATAR_IMAGES, gravatarEmail + size);
     if (gravatarBytes == null) {
-      final Gravatar gravatar = new Gravatar();
-      gravatar.setSize(size);
-      gravatar.setRating(GravatarRating.GENERAL_AUDIENCES);
-      gravatar.setDefaultImage(GravatarDefaultImage.GRAVATAR_ICON);
-      gravatarBytes = gravatar.download(gravatarEmail);
+      gravatarBytes = GravatarHelper.getGravatarBytes(gravatarEmail, size);
       CacheHelper.setObject(ECacheObjectName.GRAVATAR_IMAGES, gravatarEmail + size, gravatarBytes);
       ETagHelper.removeEtag(ECacheObjectName.GRAVATAR_IMAGES + gravatarEmail + size);
       ETagHelper.createEtag(ECacheObjectName.GRAVATAR_IMAGES + gravatarEmail + size, gravatarBytes);
     }
 
     response().setHeader(ETAG, ETagHelper.getEtag(ECacheObjectName.GRAVATAR_IMAGES + gravatarEmail + size));
-    Controller.response().setContentType("image/png");
-    return Results.ok(gravatarBytes);
+    return Results.ok(gravatarBytes).as("image/png");
 
   }
 

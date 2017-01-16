@@ -15,11 +15,25 @@ import play.mvc.Http.Context;
  */
 public class Secured extends Security.Authenticator {
 
+  /**
+   * Key of the attribute of the user in the session.
+   */
   public static final String AUTH_SESSION = "email";
 
+  /**
+   * Key of the attribute if the user has a gravatar or not.
+   */
+  public static final String AUTH_HAS_GRAVATAR = "has_gravatar";
+
+  /**
+   * Gets the name of the user in the session.
+   * @return the name of the user
+   */
   public static String getUsername() {
-    return Controller.ctx().session().get(Secured.AUTH_SESSION);
+    return Controller.session(Secured.AUTH_SESSION);
   }
+
+
 
   /**
    * Sets the user to the session
@@ -34,7 +48,7 @@ public class Secured extends Security.Authenticator {
 
   @Override
   public String getUsername(final Context ctx) {
-    final String username = ctx.session().get(Secured.AUTH_SESSION);
+    final String username = Secured.getUsername();
 
     if (username != null) {
       final boolean checkIfUserExsists = User.checkIfUserExsists(username);

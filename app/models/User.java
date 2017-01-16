@@ -42,6 +42,12 @@ public class User extends Model {
   @Formats.NonEmpty
   public String email;
 
+
+  /**
+   * If true this means the user has a gravatar url to display.
+   */
+  public boolean hasGravatar;
+
   /**
    * If set this will be taken when the user adds a new copy to his collection as defaultold Type.
    * Like BluRay etc ...
@@ -58,7 +64,10 @@ public class User extends Model {
    */
   public String rssAuthKey;
 
-  public static Model.Finder<Long, User> find = new Model.Finder(User.class);
+  /**
+   * The Finder
+   */
+  public static Model.Finder<Long, User> FINDER = new Model.Finder(User.class);
 
   /**
    * Saves the user to the database
@@ -91,7 +100,7 @@ public class User extends Model {
   public static User authenticate(final String username, final String password) {
     try {
       final String cryptPassword = User.cryptPassword(password);
-      return User.find.where().ieq("userName", username).eq("password", cryptPassword).findUnique();
+      return User.FINDER.where().ieq("userName", username).eq("password", cryptPassword).findUnique();
     } catch (final Exception e) {
       Logger.error("Error while creating the password.", e);
     }
@@ -125,7 +134,7 @@ public class User extends Model {
    * @return
    */
   public static User getUserByName(final String username) {
-    return User.find.where().ieq("userName", username).findUnique();
+    return User.FINDER.where().ieq("userName", username).findUnique();
   }
 
   /**
@@ -135,7 +144,7 @@ public class User extends Model {
    * @return
    */
   public static User getUserByResetToken(final String passwordResetToken) {
-    return User.find.where().ieq("passwordResetToken", passwordResetToken).findUnique();
+    return User.FINDER.where().ieq("passwordResetToken", passwordResetToken).findUnique();
   }
 
   /**
@@ -144,7 +153,7 @@ public class User extends Model {
    * @return
    */
   public static String getUserNamesAsJson() {
-    final List<User> users = User.find.select("userName").orderBy("userName asc").findList();
+    final List<User> users = User.FINDER.select("userName").orderBy("userName asc").findList();
 
     final List<String> result = new ArrayList<String>();
 
@@ -162,7 +171,7 @@ public class User extends Model {
    * @return
    */
   public static List<String> getOtherUserNames() {
-    final List<User> findList = User.find.select("userName").where().ne("userName", Secured.getUsername()).orderBy("userName asc").findList();
+    final List<User> findList = User.FINDER.select("userName").where().ne("userName", Secured.getUsername()).orderBy("userName asc").findList();
 
     List<String> list = null;
     if (CollectionUtils.isEmpty(findList) == false) {
@@ -185,7 +194,7 @@ public class User extends Model {
       return null;
     }
 
-    return User.find.where().eq("rssAuthKey",rssAuthKey).findUnique();
+    return User.FINDER.where().eq("rssAuthKey",rssAuthKey).findUnique();
   }
 
   /**

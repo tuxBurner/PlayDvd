@@ -1,5 +1,6 @@
 package forms.user;
 
+import helpers.GravatarHelper;
 import models.User;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
@@ -25,10 +26,17 @@ public class LoginForm {
       if(Logger.isDebugEnabled() == true) {
         Logger.debug("User: "+username+" has a password reset token set setting it to empty.");
       }
-
       user.passwordResetToken = null;
-      user.update();
     }
+
+    byte[] gravatarBytes = GravatarHelper.getGravatarBytes(user.email, 16);
+    user.hasGravatar = (gravatarBytes != null);
+
+
+    user.update();
+
+
+
     return null;
   }
 
