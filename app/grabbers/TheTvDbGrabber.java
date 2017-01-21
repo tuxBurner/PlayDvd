@@ -8,6 +8,7 @@ import com.omertron.thetvdbapi.model.Episode;
 import com.omertron.thetvdbapi.model.Series;
 import forms.MovieForm;
 import forms.grabbers.GrabberInfoForm;
+import models.Movie;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
@@ -218,7 +219,7 @@ public class TheTvDbGrabber implements IInfoGrabber {
      */
     private String getImageURL(final List<Banner> banners, final String idStr) {
 
-        if (StringUtils.isEmpty(idStr) == true || CollectionUtils.isEmpty(banners) == true) {
+        if (StringUtils.isBlank(idStr) == true || CollectionUtils.isEmpty(banners) == true) {
             return null;
         }
         final Integer id = Integer.valueOf(idStr);

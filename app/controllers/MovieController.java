@@ -7,6 +7,7 @@ import forms.MovieForm;
 import forms.grabbers.GrabberInfoForm;
 import grabbers.EGrabberType;
 import grabbers.GrabberException;
+import grabbers.GrabberHelper;
 import grabbers.IInfoGrabber;
 import helpers.RequestToCollectionHelper;
 import com.github.tuxBurner.jsAnnotations.JSRoute;
@@ -114,7 +115,7 @@ public class MovieController extends Controller {
 
       final Form<GrabberInfoForm> grabberInfoForm = formFactory.form(GrabberInfoForm.class).bindFromRequest();
 
-      final IInfoGrabber grabber = InfoGrabberController.getGrabber(EGrabberType.valueOf(grabberType));
+      final IInfoGrabber grabber = GrabberHelper.getGrabber(EGrabberType.valueOf(grabberType));
 
       final MovieForm movieForm = grabber.fillInfoToMovieForm(grabberInfoForm.get());
 

@@ -177,16 +177,16 @@ public class TmdbGrabber implements IInfoGrabber {
       }
 
       final String tmdbBackDrop = grabberInfoForm.grabberBackDropId;
-      if (StringUtils.isEmpty(tmdbBackDrop) == false) {
+      if (StringUtils.isBlank(tmdbBackDrop) == false) {
         movieForm.backDropUrl = buildImageUrl(configuration.getBackdropSizes().get(configuration.getBackdropSizes().size() - 1), tmdbBackDrop);
       }
 
       final String tmdbPoster = grabberInfoForm.grabberPosterId;
-      if (StringUtils.isEmpty(tmdbPoster) == false) {
+      if (StringUtils.isBlank(tmdbPoster) == false) {
         movieForm.posterUrl = buildImageUrl(configuration.getPosterSizes().get(configuration.getPosterSizes().size() - 1), tmdbPoster);
       }
 
-      if (StringUtils.isEmpty(grabberInfoForm.grabberTrailerUrl) == false) {
+      if (StringUtils.isBlank(grabberInfoForm.grabberTrailerUrl) == false) {
         movieForm.trailerUrl = grabberInfoForm.grabberTrailerUrl;
       }
 

@@ -1,9 +1,7 @@
 package models;
 
-import com.avaje.ebean.Ebean;
-import com.avaje.ebean.Model;
+import com.avaje.ebean.*;
 import com.avaje.ebean.Query;
-import com.avaje.ebean.Transaction;
 import forms.MovieForm;
 import forms.dvd.CopyForm;
 import grabbers.EGrabberType;
@@ -13,8 +11,10 @@ import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Transactional;
+import scala.concurrent.duration.FiniteDuration;
 
 import javax.persistence.*;
+import java.time.Duration;
 import java.util.*;
 
 @Entity
@@ -84,9 +84,6 @@ public class Movie extends Model {
    * @throws Exception
    */
   public static Movie editOrAddFromForm(final MovieForm movieForm) throws Exception {
-
-
-
     Movie movie = null;
 
     if (movieForm.movieId != null) {
@@ -233,33 +230,30 @@ public class Movie extends Model {
   }
 
   /**
+   * Finds all the movies which are older than the given Duration
+   *
+   * @return
+   */
+  public static List<Movie> findMoviesToUpdate(final FiniteDuration duration, final int amount) {
+
+    final Long olderThan = new Date().getTime() - duration.toMillis();
+
+    List<Movie> list = Movie.FINDER
+            .where()
+            .or(Expr.lt("updatedDate", olderThan), Expr.isNull("updatedDate"))
+            .isNotNull("grabberType")
+            .isNotNull("grabberId")
+            .findPagedList(0, amount).getList();
+
+    return list;
+  }
+
+  /**
    * Adds a  {@link Comment} to the {@link Movie} with the given id
    * @param movieId
    * @param commentText
    */
   public static Commentable addComment(final Long movieId, final String commentText) {
-
-   /* final Movie movie = FINDER.byId(movieId);
-    if(movie == null) {
-      if(Logger.isErrorEnabled() == true) {
-        Logger.error("Could not FINDER movie with the id: "+movieId);
-      }
-    }
-
-    if(movie.commentable == null) {
-      movie.commentable = new Commentable();
-      movie.commentable.save();
-    }
-
-    final Comment  comment = new Comment();
-    comment.comment = commentText;
-    comment.user = User.getCurrentUser();
-    movie.commentable.addNewComment(comment);
-
-    movie.save();
-
-    return movie.commentable;*/
-
     return null;
 
   }

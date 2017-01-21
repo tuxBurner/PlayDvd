@@ -7,6 +7,7 @@ import forms.MovieForm;
 import forms.dvd.CopyForm;
 import forms.grabbers.GrabberInfoForm;
 import grabbers.EGrabberType;
+import grabbers.GrabberHelper;
 import grabbers.IInfoGrabber;
 import grabbers.amazon.AmazonMovieLookuper;
 import grabbers.amazon.AmazonResult;
@@ -163,7 +164,7 @@ public class CopyController extends Controller {
         try {
             final Form<GrabberInfoForm> grabberInfoForm = formFactory.form(GrabberInfoForm.class).bindFromRequest();
 
-            final IInfoGrabber grabber = InfoGrabberController.getGrabber(EGrabberType.valueOf(grabberType));
+            final IInfoGrabber grabber = GrabberHelper.getGrabber(EGrabberType.valueOf(grabberType));
 
             final MovieForm movieForm = grabber.fillInfoToMovieForm(grabberInfoForm.get());
             final Movie movie = Movie.editOrAddFromForm(movieForm);
