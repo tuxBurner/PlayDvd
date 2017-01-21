@@ -15,10 +15,7 @@ import play.data.validation.Constraints.Required;
 import play.db.ebean.Transactional;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Movie extends Model {
@@ -59,6 +56,10 @@ public class Movie extends Model {
   @Enumerated(EnumType.STRING)
   public EGrabberType grabberType = EGrabberType.NONE;
 
+  /**
+   * Marks the date when the movie was las update/created
+   */
+  public Long updatedDate;
 
   /**
    * Id to the imdb
@@ -146,6 +147,8 @@ public class Movie extends Model {
     Movie.addSingleAttribute(movieForm.series, EMovieAttributeType.MOVIE_SERIES, movie);
 
     Movie.addSingleAttribute(movieForm.director, EMovieAttributeType.DIRECTOR, movie);
+
+    movie.updatedDate = new Date().getTime();
 
     movie.update();
 

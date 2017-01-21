@@ -20,15 +20,13 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
-import views.html.dvd.dvdAmazonPopUp;
-import views.html.dvd.dvdform;
-import views.html.dvd.searchAmazonByTitlePopUp;
+
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * This {@link Controller} handles all the edit and add {@link Copy} magic
+ * This {@link Controller} handles all the edit and add {@link Dvd} magic
  *
  * @author tuxburner
  */
@@ -58,7 +56,7 @@ public class CopyController extends Controller {
     public Result showAddDvd() {
 
         final Form<CopyForm> form = formFactory.form(CopyForm.class);
-        return Results.ok(dvdform.render(form.fill(new CopyForm()), CopyController.DVD_FORM_ADD_MODE));
+        return Results.ok(views.html.dvd.dvdform.render(form.fill(new CopyForm()), CopyController.DVD_FORM_ADD_MODE));
     }
 
     /**
@@ -76,7 +74,7 @@ public class CopyController extends Controller {
 
         final Form<CopyForm> form = formFactory.form(CopyForm.class);
 
-        return Results.ok(dvdform.render(form.fill(CopyForm.dvdToDvdForm(dvdToEdit)), CopyController.DVD_FORM_EDIT_MODE));
+        return Results.ok(views.html.dvd.dvdform.render(form.fill(CopyForm.dvdToDvdForm(dvdToEdit)), CopyController.DVD_FORM_EDIT_MODE));
     }
 
     /**
@@ -89,7 +87,7 @@ public class CopyController extends Controller {
         final Map<String, String> map = RequestToCollectionHelper.requestToFormMap(Controller.request(), "audioTypes");
         final Form<CopyForm> dvdForm = formFactory.form(CopyForm.class).bind(map);
         if (dvdForm.hasErrors()) {
-            return Results.badRequest(dvdform.render(dvdForm, mode));
+            return Results.badRequest(views.html.dvd.dvdform.render(dvdForm, mode));
         } else {
 
             try {
@@ -108,7 +106,7 @@ public class CopyController extends Controller {
 
             } catch (final Exception e) {
                 e.printStackTrace();
-                return Results.badRequest(dvdform.render(dvdForm, mode));
+                return Results.badRequest(views.html.dvd.dvdform.render(dvdForm, mode));
             }
 
             return Results.redirect(routes.ListCopiesController.listCopies(null));
@@ -133,7 +131,7 @@ public class CopyController extends Controller {
             }
         }
 
-        return ok(dvdAmazonPopUp.render(result, code, copyId, movies));
+        return ok(views.html.dvd.dvdAmazonPopUp.render(result, code, copyId, movies));
     }
 
     /**
@@ -151,7 +149,7 @@ public class CopyController extends Controller {
             amazonResults = AmazonMovieLookuper.findByName(title);
         }
 
-        return ok(searchAmazonByTitlePopUp.render(amazonResults, title));
+        return ok(views.html.dvd.searchAmazonByTitlePopUp.render(amazonResults, title));
     }
 
     /**
@@ -225,7 +223,7 @@ public class CopyController extends Controller {
         final Form<CopyForm> form = formFactory.form(CopyForm.class);
         final CopyForm copyForm = CopyForm.amazonAndMovieToDvdForm(amazonResult, movieId, copy);
 
-        return Results.ok(dvdform.render(form.fill(copyForm), mode));
+        return Results.ok(views.html.dvd.dvdform.render(form.fill(copyForm), mode));
     }
 
     /**
@@ -261,7 +259,7 @@ public class CopyController extends Controller {
             mode = DVD_FORM_EDIT_MODE;
         }
 
-        return Results.ok(dvdform.render(form.fill(copyForm), mode));
+        return Results.ok(views.html.dvd.dvdform.render(form.fill(copyForm), mode));
     }
 
     /**

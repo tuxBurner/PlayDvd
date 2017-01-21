@@ -1,5 +1,6 @@
 package plugins.jobs;
 
+import akka.actor.ActorSystem;
 import play.Logger;
 import play.libs.Akka;
 import play.libs.Time.CronExpression;
@@ -10,13 +11,27 @@ import java.lang.annotation.Annotation;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-public abstract class AbstractJob implements Runnable {
+public abstract class AbstractAkkaJob implements Runnable {
 
+  /**
+   * The Cronexpression of this job.
+   */
   private final CronExpression cronExpression;
 
+  /**
+   * The play actorsystem to use for the job handling.
+   */
+  private final ActorSystem actorSystem;
+
+  /**
+   * Restart this job when it failed ?
+   */
   private boolean restartOnFail = true;
 
-  public AbstractJob() throws Exception {
+  public AbstractAkkaJob(final ActorSystem actorSystem) throws Exception {
+
+    this.actorSystem = actorSystem;
+
     final Annotation annotation = this.getClass().getAnnotation(AkkaJob.class);
     final AkkaJob akkaJob = (AkkaJob) annotation;
 
@@ -25,7 +40,7 @@ public abstract class AbstractJob implements Runnable {
     final boolean validExpression = CronExpression.isValidExpression(annoCronExpression);
     if (validExpression == false) {
       final String message = "The annotated cronExpression: " + annoCronExpression + " is not a valid CronExpression in class: " + this.getClass().getName();
-      Logger.error(message);
+      JobModule.LOGGER.error(message);
       throw new Exception(message);
     }
     cronExpression = new CronExpression(annoCronExpression);
@@ -38,7 +53,7 @@ public abstract class AbstractJob implements Runnable {
   private void scheduleJob() {
     final long nextInterval = cronExpression.getNextInterval(new Date());
     final FiniteDuration duration = Duration.create(nextInterval, TimeUnit.MILLISECONDS);
-    Akka.system().scheduler().scheduleOnce(duration,this, Akka.system().dispatcher());
+    actorSystem.scheduler().scheduleOnce(duration,this,actorSystem.dispatcher());
   }
 
   @Override
@@ -47,10 +62,10 @@ public abstract class AbstractJob implements Runnable {
       // TODO: stopwatching how long the job is running
       runInternal();
     } catch (final Exception e) {
-      Logger.error("An error happend in the internal implementation of the job: " + this.getClass().getCanonicalName(), e);
+      JobModule.LOGGER.error("An error happend in the internal implementation of the job: " + this.getClass().getCanonicalName(), e);
       if (restartOnFail == false) {
-        if (Logger.isDebugEnabled() == true) {
-          Logger.debug("Will not restart the job: " + this.getClass().getCanonicalName());
+        if (JobModule.LOGGER.isDebugEnabled() == true) {
+          JobModule.LOGGER.debug("Will not restart the job: " + this.getClass().getCanonicalName());
         }
         return;
       }

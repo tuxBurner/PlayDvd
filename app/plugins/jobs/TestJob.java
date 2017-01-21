@@ -1,12 +1,14 @@
 package plugins.jobs;
 
+import akka.actor.ActorSystem;
+
 import java.util.Date;
 
-//@AkkaJob(cronExpression = "* 0/5 * * * ?")
-public class TestJob extends AbstractJob {
+@AkkaJob(cronExpression = "0/5 * * * * ?")
+public class TestJob extends AbstractAkkaJob {
 
-  public TestJob() throws Exception {
-    super();
+  public TestJob(ActorSystem actorSystem) throws Exception {
+    super(actorSystem);
     setRestartOnFail(false);
   }
 

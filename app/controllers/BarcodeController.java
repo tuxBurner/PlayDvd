@@ -1,5 +1,6 @@
 package controllers;
 
+import com.github.tuxBurner.jsAnnotations.JSRoute;
 import com.google.inject.Singleton;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.FormatException;
@@ -8,13 +9,10 @@ import com.google.zxing.NotFoundException;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.oned.EAN13Reader;
 import helpers.BufferedImageLuminanceSource;
-import com.github.tuxBurner.jsAnnotations.JSRoute;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 import play.Logger;
-import play.libs.F;
 import play.mvc.*;
-import views.html.barcode.barcodescanner;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -38,7 +36,7 @@ public class BarcodeController extends Controller {
    */
   @JSRoute
   public Result displayBarcodeScaner() {
-    return ok(barcodescanner.render());
+    return ok(views.html.barcode.barcodescanner.render());
   }
 
   @JSRoute
