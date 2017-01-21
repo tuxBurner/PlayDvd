@@ -25,7 +25,7 @@
       <label class="span4">Owner:</label>
       <span>
         <a href="@routes.ListCopiesController.listByUser(dvd.copyForm.ownerName)">
-          <img class="img-rounded" src="@routes.DashboardController.gravatar(50,dvd.copyForm.ownerName)" />
+          @views.html.dashboard.userImage(dvd.copyForm.ownerName,dvd.copyForm.ownerHasGravatar,50)
           @dvd.copyForm.ownerName
         </a>
       </span>
@@ -35,7 +35,7 @@
       <div class="row-fluid">
         <label class="span4">Borrowed by:</label>
         <span>
-          <img class="img-rounded" src="@routes.DashboardController.gravatar(50,dvd.borrowedBy)" />
+          @views.html.dashboard.userImage(dvd.copyForm.ownerName,dvd.copyForm.ownerHasGravatar,50)
           @dvd.borrowedBy 
           (@dvd.borrowedOn)
         </span>

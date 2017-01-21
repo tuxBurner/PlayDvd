@@ -22,7 +22,9 @@
             <ul class="nav nav-tabs">
               @for((borrower,reservations) <- reservations) {
                 <li>
-                  <a href="#resTab@borrower.id" data-toggle="tab"><img src="@routes.DashboardController.gravatar(16,borrower.userName)" width="16" height="16" /> @borrower.userName (@reservations.size)</a>
+                  <a href="#resTab@borrower.id" data-toggle="tab">
+                    @views.html.dashboard.userImage(borrower.userName,borrower.hasGravatar,16) @borrower.userName (@reservations.size)
+                  </a>
                 </li>
               }
             </ul>

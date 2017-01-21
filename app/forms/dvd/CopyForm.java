@@ -43,6 +43,11 @@ public class CopyForm {
 
   public String ownerName;
 
+  /**
+   * Boolean if the owner has a gravatar or not.
+   */
+  public Boolean ownerHasGravatar;
+
   public String ageRating;
 
   public String copyType;
@@ -119,6 +124,7 @@ public class CopyForm {
     copyForm.eanNr = copy.eanNr;
     copyForm.asinNr = copy.asinNr;
     copyForm.additionalInfo = copy.additionalInfo;
+    copyForm.ownerHasGravatar = copy.owner.hasGravatar;
 
 
     final Set<DvdAttribute> dvdAttrs = copy.attributes;

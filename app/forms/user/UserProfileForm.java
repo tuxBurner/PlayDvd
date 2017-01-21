@@ -2,6 +2,7 @@ package forms.user;
 
 import controllers.Secured;
 import helpers.DvdInfoHelper;
+import helpers.GravatarHelper;
 import models.User;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
@@ -41,8 +42,6 @@ public class UserProfileForm {
       return Messages.get("msg.error");
     }
 
-
-
     if(StringUtils.isEmpty(password) == false && StringUtils.isEmpty(rePassword) == false) {
       Logger.debug("User: "+Secured.getUsername()+" wants to change the password.");
       if(StringUtils.equals(password,rePassword) == false) {
@@ -66,7 +65,14 @@ public class UserProfileForm {
     }
 
     userToUpdate.email = email;
+
+    byte[] gravatarBytes = GravatarHelper.getGravatarBytes(userToUpdate.email, 16);
+    userToUpdate.hasGravatar = (gravatarBytes != null);
+
     userToUpdate.save();
+
+    Secured.updateHasGravatar(userToUpdate.hasGravatar);
+
     return null;
   }
 

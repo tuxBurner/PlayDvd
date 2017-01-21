@@ -27,6 +27,8 @@ public class CopyInfo {
 
   public String borrowedBy;
 
+  public Boolean borrowerHasGravatar = false;
+
   public String title;
 
   public Date borrowedOn;
@@ -39,6 +41,7 @@ public class CopyInfo {
 
     if (copy.borrower != null) {
       borrowedBy = copy.borrower.userName;
+      borrowerHasGravatar = copy.borrower.hasGravatar;
     }
 
     if (copy.borrowerName != null) {

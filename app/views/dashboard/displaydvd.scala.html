@@ -102,15 +102,15 @@
           <dt>@Messages.apply("lbl.owner"):</dt>
           <dd>
             <a href="@routes.ListCopiesController.listByUser(dvd.copyForm.ownerName)">
-              <img class="img-rounded"  src="@routes.DashboardController.gravatar(25,dvd.copyForm.ownerName)" width="25" height="25" /> @dvd.copyForm.ownerName
+              @views.html.dashboard.userImage(dvd.copyForm.ownerName,dvd.copyForm.ownerHasGravatar)
+              @dvd.copyForm.ownerName
             </a>
           </dd>
 
           @if(dvd.borrowedBy != null) {
             <dt>@Messages.apply("lbl.lentTo"):</dt>
             <dd>
-              <img class="img-rounded" src="@routes.DashboardController.gravatar(25,dvd.borrowedBy)" width="25" height="25" />
-              @dvd.borrowedBy
+              @views.html.dashboard.userImage(dvd.borrowedBy,dvd.borrowerHasGravatar) @dvd.borrowedBy
               (@dvd.borrowedOn.format(Messages.apply("dateFormat")))
             </dd>
           }
