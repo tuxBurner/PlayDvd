@@ -114,12 +114,16 @@ var openAmazonTitleSearchPopUp = function(title) {
     ajaxParams: null,
     title: '<i class="icon-search"></i> ' + Messages('headline.amazonSearchByTitle'),
     onOpen: function () {
+      $('#amazon_title_input').on('keydown',function(e) {
+        if(e.keyCode === 13) {
+            openAmazonTitleSearchPopUp($('#amazon_title_input').val());
+            return false;
+        }
+      });
+
+      // when the user selects one of the result entries.
       $('a.pickAmazonEntry').on('click',function() {
         var asin = $(this).data('asin');
-        /*closeDialog();
-        window.timeout(function() {
-          openSearchAmazonPopUp(asin,"");
-        },2000);*/
         openAmazonLookUp(asin);
       });
       closeWaitDiaLog();
