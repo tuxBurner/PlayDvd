@@ -62,6 +62,9 @@ public abstract class AbstractAkkaJob implements Runnable {
     final FiniteDuration duration = Duration.create(nextInterval, TimeUnit.MILLISECONDS);
     runState = EJobRunState.SCHEDULED;
     actorSystem.scheduler().scheduleOnce(duration,this,actorSystem.dispatcher());
+    if(LOGGER.isDebugEnabled() == true) {
+      LOGGER.debug(this.getClass().getName()+" Job is running again in: "+duration.toString());
+    }
   }
 
   @Override
@@ -69,22 +72,27 @@ public abstract class AbstractAkkaJob implements Runnable {
 
     // check if the state is not running
     if(EJobRunState.RUNNING.equals(runState) == true) {
-      LOGGER.warn("Job not started because it is still in run mode.");
+      LOGGER.warn(this.getClass().getName()+" Job not started because it is still in run mode.");
       scheduleJob();
       return;
     }
+
+    if(LOGGER.isDebugEnabled() == true) {
+      LOGGER.debug(this.getClass().getName()+" Job is going to run.");
+    }
+
 
     try {
       runState = EJobRunState.RUNNING;
       runInternal();
       runState = EJobRunState.STOPPED;
     } catch (final Exception e) {
-      LOGGER.error("An error happend in the internal implementation of the job: " + this.getClass().getCanonicalName(), e);
+      LOGGER.error("An error happend in the internal implementation of the job: " + this.getClass().getName(), e);
       runState = EJobRunState.ERROR;
       if (restartOnFail == false) {
         runState = EJobRunState.KILLED;
         if (LOGGER.isDebugEnabled() == true) {
-          LOGGER.debug("Will not restart the job: " + this.getClass().getCanonicalName());
+          LOGGER.debug("Will not restart the job: " + this.getClass().getName());
         }
         return;
       }
