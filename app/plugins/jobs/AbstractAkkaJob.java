@@ -1,8 +1,6 @@
 package plugins.jobs;
 
 import akka.actor.ActorSystem;
-import play.Logger;
-import play.libs.Akka;
 import play.libs.Time.CronExpression;
 import scala.concurrent.duration.Duration;
 import scala.concurrent.duration.FiniteDuration;
@@ -11,10 +9,12 @@ import java.lang.annotation.Annotation;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import static plugins.jobs.JobModule.LOGGER;
+
 public abstract class AbstractAkkaJob implements Runnable {
 
   /**
-   * The Cronexpression of this job.
+   * The Cron-Expression of this job.
    */
   private final CronExpression cronExpression;
 
@@ -24,11 +24,18 @@ public abstract class AbstractAkkaJob implements Runnable {
   private final ActorSystem actorSystem;
 
   /**
+   * The current state of the job
+   */
+  private EJobRunState runState;
+
+  /**
    * Restart this job when it failed ?
    */
   private boolean restartOnFail = true;
 
   public AbstractAkkaJob(final ActorSystem actorSystem) throws Exception {
+
+    runState = EJobRunState.STOPPED;
 
     this.actorSystem = actorSystem;
 
@@ -40,7 +47,7 @@ public abstract class AbstractAkkaJob implements Runnable {
     final boolean validExpression = CronExpression.isValidExpression(annoCronExpression);
     if (validExpression == false) {
       final String message = "The annotated cronExpression: " + annoCronExpression + " is not a valid CronExpression in class: " + this.getClass().getName();
-      JobModule.LOGGER.error(message);
+      LOGGER.error(message);
       throw new Exception(message);
     }
     cronExpression = new CronExpression(annoCronExpression);
@@ -53,19 +60,31 @@ public abstract class AbstractAkkaJob implements Runnable {
   private void scheduleJob() {
     final long nextInterval = cronExpression.getNextInterval(new Date());
     final FiniteDuration duration = Duration.create(nextInterval, TimeUnit.MILLISECONDS);
+    runState = EJobRunState.SCHEDULED;
     actorSystem.scheduler().scheduleOnce(duration,this,actorSystem.dispatcher());
   }
 
   @Override
   public void run() {
+
+    // check if the state is not running
+    if(EJobRunState.RUNNING.equals(runState) == true) {
+      LOGGER.warn("Job not started because it is still in run mode.");
+      scheduleJob();
+      return;
+    }
+
     try {
-      // TODO: stopwatching how long the job is running
+      runState = EJobRunState.RUNNING;
       runInternal();
+      runState = EJobRunState.STOPPED;
     } catch (final Exception e) {
-      JobModule.LOGGER.error("An error happend in the internal implementation of the job: " + this.getClass().getCanonicalName(), e);
+      LOGGER.error("An error happend in the internal implementation of the job: " + this.getClass().getCanonicalName(), e);
+      runState = EJobRunState.ERROR;
       if (restartOnFail == false) {
-        if (JobModule.LOGGER.isDebugEnabled() == true) {
-          JobModule.LOGGER.debug("Will not restart the job: " + this.getClass().getCanonicalName());
+        runState = EJobRunState.KILLED;
+        if (LOGGER.isDebugEnabled() == true) {
+          LOGGER.debug("Will not restart the job: " + this.getClass().getCanonicalName());
         }
         return;
       }
@@ -83,4 +102,15 @@ public abstract class AbstractAkkaJob implements Runnable {
    */
   public abstract void runInternal();
 
+  public CronExpression getCronExpression() {
+    return cronExpression;
+  }
+
+  public EJobRunState getRunState() {
+    return runState;
+  }
+
+  public boolean isRestartOnFail() {
+    return restartOnFail;
+  }
 }

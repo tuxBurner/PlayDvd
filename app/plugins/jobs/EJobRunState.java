@@ -7,7 +7,9 @@ package plugins.jobs;
  * 
  */
 public enum EJobRunState {
-  SUCCESS,
-  FAILED,
-  ABORTED
+  RUNNING,
+  SCHEDULED,
+  STOPPED,
+  KILLED,
+  ERROR
 }
