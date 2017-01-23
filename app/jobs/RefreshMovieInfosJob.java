@@ -45,7 +45,7 @@ public class RefreshMovieInfosJob extends AbstractAkkaJob {
             try {
                 MovieForm movieForm = grabber.fillInfoToMovieForm(infoForm);
                 movieForm.movieId = movie.id;
-                Movie.editOrAddFromForm(movieForm);
+                Movie.editOrAddFromForm(movieForm,false);
             } catch (Exception e) {
                 Logger.error("An error happened while getting movieinformations for movie: "+movie.id+" with grabber: "+movie.grabberType+" ("+movie.grabberId+")",e);
             }

@@ -3,7 +3,10 @@ package helpers;
 import com.typesafe.config.ConfigFactory;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
+import play.api.libs.mailer.MailerClient;
 import play.data.validation.Constraints;
+
+import javax.inject.Inject;
 
 
 /**
@@ -16,6 +19,8 @@ import play.data.validation.Constraints;
  */
 public class MailerHelper {
 
+  @Inject
+  MailerClient mailerClient;
 
   /**
    * Sends an email

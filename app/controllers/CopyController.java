@@ -167,7 +167,7 @@ public class CopyController extends Controller {
             final IInfoGrabber grabber = GrabberHelper.getGrabber(EGrabberType.valueOf(grabberType));
 
             final MovieForm movieForm = grabber.fillInfoToMovieForm(grabberInfoForm.get());
-            final Movie movie = Movie.editOrAddFromForm(movieForm);
+            final Movie movie = Movie.editOrAddFromForm(movieForm,true);
 
             if (movie == null) {
                 return Results.badRequest("An error happend while creating the new movie");

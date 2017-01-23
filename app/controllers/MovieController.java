@@ -88,7 +88,7 @@ public class MovieController extends Controller {
       return Results.badRequest(movieform.render(movieForm, mode));
     } else {
       try {
-        final Movie editOrAddFromForm = Movie.editOrAddFromForm(movieForm.get());
+        final Movie editOrAddFromForm = Movie.editOrAddFromForm(movieForm.get(),true);
         final ObjectNode result = Json.newObject();
         result.put("id", editOrAddFromForm.id);
         result.put("title", editOrAddFromForm.title);

@@ -43,16 +43,16 @@ public class JobClassLoader {
                 new ConfigurationBuilder().setUrls(
                         ClasspathHelper.forClassLoader()).setScanners(
                         new TypeAnnotationsScanner(), new SubTypesScanner()));
-        Set<Class<?>> classes = reflections.getTypesAnnotatedWith(AkkaJob.class);
+        Set<Class<? extends AbstractAkkaJob>> classes = reflections.getSubTypesOf(AbstractAkkaJob.class);
 
         if(JobModule.LOGGER.isInfoEnabled() == true) {
-            JobModule.LOGGER.info("Found: "+classes.size()+" annotated job classes.");
+            JobModule.LOGGER.info("Found: "+classes.size()+" of the type: "+AbstractAkkaJob.class+".");
         }
 
         for (final Class clazz : classes) {
             JobModule.LOGGER.debug("Trying to load class: " + clazz.getCanonicalName());
             try {
-                final Class<AbstractAkkaJob> abstractJobClass = (Class<AbstractAkkaJob>) clazz;
+                final Class<AbstractAkkaJob> abstractJobClass =  clazz;
                 final Constructor<AbstractAkkaJob> constructor = abstractJobClass.getConstructor(ActorSystem.class);
                 if(constructor == null) {
                     continue;
