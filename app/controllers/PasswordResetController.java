@@ -12,8 +12,6 @@ import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
-import views.html.user.lostpassword;
-import views.html.user.passwordreset;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -54,7 +52,7 @@ public class PasswordResetController extends Controller {
       return Controller.internalServerError("Cannot display this form.");
     }
 
-    return ok(lostpassword.render(formFactory.form(LostPasswordForm.class)));
+    return ok(views.html.user.lostpassword.render(formFactory.form(LostPasswordForm.class)));
   }
 
   /**
@@ -107,7 +105,7 @@ public class PasswordResetController extends Controller {
       return redirect(routes.ApplicationController.index());
     }
 
-    return ok(passwordreset.render(formFactory.form(PasswordResetForm.class), token));
+    return ok(views.html.user.passwordreset.render(formFactory.form(PasswordResetForm.class), token));
   }
 
   /**
@@ -124,7 +122,7 @@ public class PasswordResetController extends Controller {
 
     Form<PasswordResetForm> passwordResetForm = formFactory.form(PasswordResetForm.class).bindFromRequest();
     if (passwordResetForm.hasErrors()) {
-      return Results.badRequest(passwordreset.render(passwordResetForm, token));
+      return Results.badRequest(views.html.user.passwordreset.render(passwordResetForm, token));
     }
 
     User userByResetToken = User.getUserByResetToken(token);

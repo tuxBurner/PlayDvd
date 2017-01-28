@@ -1,6 +1,8 @@
 package modules.jobs;
 
 import akka.actor.ActorSystem;
+import akka.actor.Cancellable;
+import org.apache.commons.lang3.time.DateUtils;
 import play.libs.Time.CronExpression;
 import scala.concurrent.duration.Duration;
 import scala.concurrent.duration.FiniteDuration;
@@ -25,12 +27,17 @@ public abstract class AbstractAkkaJob implements Runnable {
   /**
    * The current state of the job
    */
-  protected EJobRunState runState;
+  private EJobRunState runState;
 
   /**
    * Restart this job when it failed ?
    */
   private boolean restartOnFail = true;
+
+  /**
+   * The date when the job will be next fired
+   */
+  private Date nextFireDate;
 
   public AbstractAkkaJob(final ActorSystem actorSystem) throws JobException {
 
@@ -54,12 +61,18 @@ public abstract class AbstractAkkaJob implements Runnable {
       return;
     }
 
-    final long nextInterval = cronExpression.getNextInterval(new Date());
+    Date now = new Date();
+    final long nextInterval = cronExpression.getNextInterval(now);
+
+    nextFireDate = DateUtils.addMilliseconds(now, (int) nextInterval);
+
+
     final FiniteDuration duration = Duration.create(nextInterval, TimeUnit.MILLISECONDS);
     runState = EJobRunState.SCHEDULED;
-    actorSystem.scheduler().scheduleOnce(duration,this,actorSystem.dispatcher());
+    actorSystem.scheduler().scheduleOnce(duration, this, actorSystem.dispatcher());
+
     if(LOGGER.isDebugEnabled() == true) {
-      LOGGER.debug(this.getClass().getName()+" Job is running again in: "+duration.toString());
+      LOGGER.debug(this.getClass().getName()+" job is running again in: "+duration.toString()+" @ "+nextFireDate);
     }
   }
 
@@ -74,7 +87,7 @@ public abstract class AbstractAkkaJob implements Runnable {
     }
 
     if(LOGGER.isDebugEnabled() == true) {
-      LOGGER.debug(this.getClass().getName()+" Job is going to run.");
+      LOGGER.debug(this.getClass().getName()+" job is going to run.");
     }
 
 
@@ -116,5 +129,25 @@ public abstract class AbstractAkkaJob implements Runnable {
 
   public boolean isRestartOnFail() {
     return restartOnFail;
+  }
+
+  public void setCronExpression(CronExpression cronExpression) {
+    this.cronExpression = cronExpression;
+  }
+
+  public ActorSystem getActorSystem() {
+    return actorSystem;
+  }
+
+  public void setRunState(EJobRunState runState) {
+    this.runState = runState;
+  }
+
+  public Date getNextFireDate() {
+    return nextFireDate;
+  }
+
+  public void setNextFireDate(Date nextFireDate) {
+    this.nextFireDate = nextFireDate;
   }
 }

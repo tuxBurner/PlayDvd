@@ -33,7 +33,7 @@ public abstract class AbstractConfigurationJob extends AbstractAkkaJob {
       Config config = ConfigFactory.load().getConfig("jobs." + this.getClass().getName());
       boolean enabled = config.getBoolean("enabled");
       if (enabled == false) {
-        this.runState = EJobRunState.DISABLED;
+        setRunState(EJobRunState.DISABLED);
       }
 
       String cronExpression = config.getString("cronExpression");
