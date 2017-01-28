@@ -5,7 +5,6 @@ import play.libs.Time.CronExpression;
 import scala.concurrent.duration.Duration;
 import scala.concurrent.duration.FiniteDuration;
 
-import java.lang.annotation.Annotation;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -16,7 +15,7 @@ public abstract class AbstractAkkaJob implements Runnable {
   /**
    * The Cron-Expression of this job.
    */
-  private final CronExpression cronExpression;
+  protected CronExpression cronExpression;
 
   /**
    * The play actorsystem to use for the job handling.
@@ -26,38 +25,35 @@ public abstract class AbstractAkkaJob implements Runnable {
   /**
    * The current state of the job
    */
-  private EJobRunState runState;
+  protected EJobRunState runState;
 
   /**
    * Restart this job when it failed ?
    */
   private boolean restartOnFail = true;
 
-  public AbstractAkkaJob(final ActorSystem actorSystem) throws Exception {
+  public AbstractAkkaJob(final ActorSystem actorSystem) throws JobException {
 
     runState = EJobRunState.STOPPED;
 
     this.actorSystem = actorSystem;
-
-    final Annotation annotation = this.getClass().getAnnotation(AkkaJob.class);
-    final AkkaJob akkaJob = (AkkaJob) annotation;
-
-    final String annoCronExpression = akkaJob.cronExpression().trim();
-
-    final boolean validExpression = CronExpression.isValidExpression(annoCronExpression);
-    if (validExpression == false) {
-      final String message = "The annotated cronExpression: " + annoCronExpression + " is not a valid CronExpression in class: " + this.getClass().getName();
-      LOGGER.error(message);
-      throw new Exception(message);
-    }
-    cronExpression = new CronExpression(annoCronExpression);
-    scheduleJob();
   }
 
   /**
    * Schedules the job
    */
-  private void scheduleJob() {
+  public void scheduleJob() {
+
+    if(EJobRunState.DISABLED.equals(runState) == true) {
+      LOGGER.info("Runstate for the job: "+this.getClass().getName()+" is "+EJobRunState.DISABLED+" not going to run");
+      return;
+    }
+
+    if(cronExpression == null) {
+      LOGGER.error("No Cronexpression set at: "+this.getClass().getName());
+      return;
+    }
+
     final long nextInterval = cronExpression.getNextInterval(new Date());
     final FiniteDuration duration = Duration.create(nextInterval, TimeUnit.MILLISECONDS);
     runState = EJobRunState.SCHEDULED;

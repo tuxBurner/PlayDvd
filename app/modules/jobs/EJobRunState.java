@@ -7,6 +7,7 @@ package modules.jobs;
  * 
  */
 public enum EJobRunState {
+  DISABLED,
   RUNNING,
   SCHEDULED,
   STOPPED,
