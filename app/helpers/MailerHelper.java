@@ -1,26 +1,36 @@
 package helpers;
 
+import com.google.inject.Singleton;
 import com.typesafe.config.ConfigFactory;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
-import play.api.libs.mailer.MailerClient;
 import play.data.validation.Constraints;
+import play.libs.mailer.Email;
+import play.libs.mailer.MailerClient;
 
 import javax.inject.Inject;
 
 
 /**
- * Simple helper for sending mails
+ * Simple helper for sending mails.
  * configure it in the mail config block in the application.config
+ * See conf/email.conf
  *
- * User: tuxburner
- * Date: 2/3/13
- * Time: 10:49 PM
  */
+@Singleton
 public class MailerHelper {
 
+
+  /**
+   * The mailer client to use in this Application
+   */
+  final MailerClient mailerClient;
+
   @Inject
-  MailerClient mailerClient;
+  public MailerHelper(final MailerClient mailerClient) {
+    this.mailerClient = mailerClient;
+  }
+
 
   /**
    * Sends an email
@@ -29,7 +39,7 @@ public class MailerHelper {
    * @param content
    * @param htmlContent
    */
-  public static void sendMail(final String subject, final String receiver, final String content, final boolean htmlContent) {
+  public void sendMail(final String subject, final String receiver, final String content, final boolean htmlContent) {
 
     if(mailerActive() == false) {
       return;
@@ -76,24 +86,24 @@ public class MailerHelper {
       return;
     }
 
+    Email email = new Email()
+        .setSubject(subject)
+        .addTo(receiver)
+        .setFrom(mailFrom);
 
-    // TODO SHARDT PLAY24
-    /*MailerAPI mail = play.Play.application().plugin(MailerPlugin.class).email();
-    mail.setSubject(subject);
-    mail.setRecipient(receiver);
-    mail.setFrom(mailFrom);
     if(htmlContent == true) {
-      mail.sendHtml(content);
+      email.setBodyHtml(content);
     } else {
-      mail.send(content);
-    } */
+      email.setBodyText(content);
+    }
+    mailerClient.send(email);
   }
 
   /**
    * Checks if the mailer is active
-   * @return
+   * @return true when the mailer is active or false when not.
    */
-  public static boolean mailerActive() {
+  public  boolean mailerActive() {
     // check the configs
     boolean mailerActive = ConfigFactory.load().getBoolean("dvddb.mailer.active");
     if(mailerActive == false) {

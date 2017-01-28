@@ -1,4 +1,4 @@
-package plugins.jobs;
+package modules.jobs;
 
 import akka.actor.ActorSystem;
 import play.libs.Time.CronExpression;
@@ -9,7 +9,7 @@ import java.lang.annotation.Annotation;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import static plugins.jobs.JobModule.LOGGER;
+import static modules.jobs.JobModule.LOGGER;
 
 public abstract class AbstractAkkaJob implements Runnable {
 

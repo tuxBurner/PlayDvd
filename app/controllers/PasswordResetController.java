@@ -27,11 +27,21 @@ import java.util.UUID;
 public class PasswordResetController extends Controller {
 
 
+  /**
+   * Factory handling forms.
+   */
   private final FormFactory formFactory;
 
+  /**
+   * Helper for sending emails.
+   */
+  private final MailerHelper mailerHelper;
+
   @Inject
-  PasswordResetController(final FormFactory formFactory) {
+  PasswordResetController(final FormFactory formFactory, final MailerHelper mailerHelper) {
     this.formFactory = formFactory;
+
+    this.mailerHelper = mailerHelper;
   }
 
   /**
@@ -40,7 +50,7 @@ public class PasswordResetController extends Controller {
    * @return
    */
   public Result showPasswordForget() {
-    if (MailerHelper.mailerActive() == false) {
+    if (mailerHelper.mailerActive() == false) {
       return Controller.internalServerError("Cannot display this form.");
     }
 
@@ -78,7 +88,7 @@ public class PasswordResetController extends Controller {
         Logger.debug("Email send to: " + userByName.email + " with activation code: " + activationUrl);
       }
 
-      MailerHelper.sendMail(Messages.get("email.passwordreset.subject"), userByName.email, content, false);
+      mailerHelper.sendMail(Messages.get("email.passwordreset.subject"), userByName.email, content, false);
 
       flash("success", Messages.get("msg.success.passwordMailSend"));
     }

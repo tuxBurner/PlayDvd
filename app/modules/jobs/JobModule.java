@@ -1,4 +1,4 @@
-package plugins.jobs;
+package modules.jobs;
 
 import akka.actor.Scheduler;
 import com.google.inject.AbstractModule;
@@ -13,6 +13,11 @@ import play.Logger;
  */
 public class JobModule extends AbstractModule {
 
+  /**
+   * The Logger for this Module.
+   * Can be configured in your conf/logback.xml
+   * <logger name="modules.jobs.JobModule" level="Debug" />
+   */
   public static Logger.ALogger LOGGER = Logger.of(JobModule.class);
 
 

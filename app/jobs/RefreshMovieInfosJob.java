@@ -3,14 +3,12 @@ package jobs;
 import akka.actor.ActorSystem;
 import forms.MovieForm;
 import forms.grabbers.GrabberInfoForm;
-import grabbers.GrabberDisplayMovie;
-import grabbers.GrabberException;
 import grabbers.GrabberHelper;
 import grabbers.IInfoGrabber;
 import models.Movie;
 import play.Logger;
-import plugins.jobs.AbstractAkkaJob;
-import plugins.jobs.AkkaJob;
+import modules.jobs.AbstractAkkaJob;
+import modules.jobs.AkkaJob;
 import scala.concurrent.duration.Duration;
 import scala.concurrent.duration.FiniteDuration;
 
@@ -21,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  * This job handles refreshing the movie informations in the database.
  * Created by tuxburner on 21.01.17.
  */
-@AkkaJob(cronExpression = "0/5 * * * * ?")
+//@AkkaJob(cronExpression = "0/5 * * * * ?")
 public class RefreshMovieInfosJob extends AbstractAkkaJob {
 
     public RefreshMovieInfosJob(ActorSystem actorSystem) throws Exception {

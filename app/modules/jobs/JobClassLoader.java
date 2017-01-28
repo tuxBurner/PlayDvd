@@ -1,4 +1,4 @@
-package plugins.jobs;
+package modules.jobs;
 
 import akka.actor.ActorSystem;
 import com.google.inject.Singleton;

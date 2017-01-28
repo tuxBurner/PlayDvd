@@ -2,9 +2,6 @@ package controllers;
 
 import com.avaje.ebean.Ebean;
 import com.google.inject.Singleton;
-import com.timgroup.jgravatar.Gravatar;
-import com.timgroup.jgravatar.GravatarDefaultImage;
-import com.timgroup.jgravatar.GravatarRating;
 import forms.ExternalImageForm;
 import forms.LendForm;
 import forms.UnLendForm;
@@ -27,7 +24,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
-import plugins.s3.S3Plugin;
+import modules.s3.S3Plugin;
 import views.html.dashboard.deletedvd;
 import views.html.dashboard.displaydvd;
 import views.html.dashboard.displaydvdPopup;

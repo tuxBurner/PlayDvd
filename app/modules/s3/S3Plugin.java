@@ -1,4 +1,4 @@
-package plugins.s3;
+package modules.s3;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;

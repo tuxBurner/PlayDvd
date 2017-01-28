@@ -25,7 +25,7 @@ libraryDependencies ++= Seq(
   // barcode stuff
   "com.google.zxing" % "core" % "3.1.0",
   // mail
-  "com.typesafe.play" %% "play-mailer" % "3.0.1",
+  "com.typesafe.play" %% "play-mailer" % "5.0.0",
   // webjars
   "org.webjars" %% "webjars-play" % "2.5.0",
   "org.webjars" % "bootstrap" % "2.3.2",

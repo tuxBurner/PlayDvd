@@ -1,4 +1,4 @@
-package plugins.jobs;
+package modules.jobs;
 
 /**
  * This is the state of the job the job had on its run
