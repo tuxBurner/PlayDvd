@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * This job handles refreshing the movie informations in the database.
  * configuration is under jobs.jobs.RefreshMovieInfosJob
- *
+ * <p>
  * Created by tuxburner on 21.01.17.
  */
 public class RefreshMovieInfosJob extends AbstractConfigurationJob {
@@ -29,9 +29,15 @@ public class RefreshMovieInfosJob extends AbstractConfigurationJob {
   @Override
   public void runInternal() {
     Logger.debug("Job for refreshing movie informations started");
-    FiniteDuration finiteDuration = Duration.create(5, TimeUnit.MINUTES);
 
-    List<Movie> moviesToUpdate = Movie.findMoviesToUpdate(finiteDuration, 2);
+    int movieAmount = getConfiguration().getInt("movieAmount");
+    int movieAge = getConfiguration().getInt("movieAge");
+
+
+    FiniteDuration finiteDuration = Duration.create(movieAge, TimeUnit.DAYS);
+
+
+    List<Movie> moviesToUpdate = Movie.findMoviesToUpdate(finiteDuration, movieAmount);
     Logger.info("Found: " + moviesToUpdate.size() + " to update the informations for.");
 
     for (Movie movie : moviesToUpdate) {
