@@ -1,15 +1,13 @@
 package jobs;
 
 import akka.actor.ActorSystem;
+import com.github.tuxBurner.jobs.AbstractConfigurationJob;
 import forms.MovieForm;
 import forms.grabbers.GrabberInfoForm;
 import grabbers.GrabberHelper;
 import grabbers.IInfoGrabber;
 import models.Movie;
-import modules.jobs.AbstractConfigurationJob;
 import play.Logger;
-import modules.jobs.AbstractAkkaJob;
-import modules.jobs.AkkaJob;
 import scala.concurrent.duration.Duration;
 import scala.concurrent.duration.FiniteDuration;
 
@@ -18,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * This job handles refreshing the movie informations in the database.
- * configuration is under jobs.RefreshMovieInfosJob
+ * configuration is under jobs.jobs.RefreshMovieInfosJob
  *
  * Created by tuxburner on 21.01.17.
  */
