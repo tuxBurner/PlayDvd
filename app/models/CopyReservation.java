@@ -47,9 +47,10 @@ public class CopyReservation extends Model {
 
   /**
    * Creates the reservation items
-   * @param cart
+   * @param cart the shoppingcart
+   * @return a set of the {@link User} owners of the movies
    */
-  public static void createFromShoppingCart(final CacheShoppingCart cart) {
+  public static Set<User> createFromShoppingCart(final CacheShoppingCart cart) {
     if(cart != null && CollectionUtils.isEmpty(cart.getItems()) == false) {
 
       final long time = new Date().getTime();
@@ -59,8 +60,10 @@ public class CopyReservation extends Model {
         if(Logger.isErrorEnabled()) {
           Logger.error("No current user found while persisting "+CacheShoppingCart.class.getCanonicalName());
         }
-        return;
+        return null;
       }
+
+      final Set<User> movieOwners = new HashSet<>();
 
       for(final CacheShoppingCartItem item : cart.getItems()) {
         CopyReservation reservation = new CopyReservation();
@@ -68,9 +71,16 @@ public class CopyReservation extends Model {
         reservation.copy = item.copyItem;
         reservation.date = time;
 
+        movieOwners.add(item.copyItem.owner);
+
         reservation.save();
       }
+
+      return movieOwners;
     }
+
+
+    return new HashSet<>();
   }
 
   /**

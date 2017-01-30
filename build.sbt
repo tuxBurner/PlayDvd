@@ -48,8 +48,7 @@ libraryDependencies ++= Seq(
 )
 
 resolvers ++= Seq(
-  //"tuxburner.github.io" at "http://tuxburner.github.io/repo",
-  "tuxburner" at "https://raw.githubusercontent.com/tuxBurner/tuxBurner.github.io/master/repo",
+  "tuxburner.github.io" at "http://tuxburner.github.io/repo",
   "Local Maven Repository" at "file://" + Path.userHome.absolutePath + "/.m2/repository",
   "Neo4j" at "http://m2.neo4j.org/content/repositories/releases/",
   Resolver.sonatypeRepo("snapshots")

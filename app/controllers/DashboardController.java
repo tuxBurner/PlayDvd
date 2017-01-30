@@ -25,11 +25,6 @@ import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
 import modules.s3.S3Plugin;
-import views.html.dashboard.deletedvd;
-import views.html.dashboard.displaydvd;
-import views.html.dashboard.displaydvdPopup;
-import views.html.dashboard.lendform;
-import views.html.dashboard.unlendform;
 
 import javax.imageio.ImageIO;
 import javax.inject.Inject;
@@ -108,9 +103,9 @@ public class DashboardController extends Controller {
 
 
     if (popup == true) {
-      return Results.ok(displaydvdPopup.render(copyInfo, Secured.getUsername()));
+      return Results.ok(views.html.dashboard.displaydvdPopup.render(copyInfo, Secured.getUsername()));
     } else {
-      return Results.ok(displaydvd.render(copyInfo, Secured.getUsername(), nextAndPrev,shoppingCartFromCache,bookmarkedCopyIds,copyViewed));
+      return Results.ok(views.html.dashboard.displaydvd.render(copyInfo, Secured.getUsername(), nextAndPrev,shoppingCartFromCache,bookmarkedCopyIds,copyViewed));
     }
   }
 
@@ -132,7 +127,7 @@ public class DashboardController extends Controller {
     final Map<String, String> reservationsForCopy = CopyReservation.getReservationsForCopy(dvdId);
 
     final Form<LendForm> form = formFactory.form(LendForm.class);
-    return Results.ok(lendform.render(form, dvdForUser, dvdForUserInSameHull, reservationsForCopy, User.getOtherUserNames()));
+    return Results.ok(views.html.dashboard.lendform.render(form, dvdForUser, dvdForUserInSameHull, reservationsForCopy, User.getOtherUserNames()));
   }
 
   /**
@@ -158,7 +153,7 @@ public class DashboardController extends Controller {
 
     final List<Dvd> dvdBorrowedSameHull = Dvd.getDvdBorrowedSameHull(dvdForUser);
 
-    return Results.ok(unlendform.render(formFactory.form(UnLendForm.class), dvdForUser, dvdBorrowedSameHull));
+    return Results.ok(views.html.dashboard.unlendform.render(formFactory.form(UnLendForm.class), dvdForUser, dvdBorrowedSameHull));
 
   }
 
@@ -233,7 +228,7 @@ public class DashboardController extends Controller {
       return Results.forbidden();
     }
 
-    return Results.ok(deletedvd.render(dvdForUser));
+    return Results.ok(views.html.dashboard.deletedvd.render(dvdForUser));
   }
 
   /**

@@ -3,19 +3,25 @@ package controllers;
 import helpers.CacheHelper;
 import helpers.ECacheObjectName;
 import com.github.tuxBurner.jsAnnotations.JSRoute;
+import helpers.MailerHelper;
 import models.CopyReservation;
 
 import models.Dvd;
+import models.User;
 import objects.shoppingcart.CacheShoppingCart;
 import play.Logger;
 import play.cache.Cache;
+import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
 import play.twirl.api.Html;
+import play.twirl.api.Txt;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.Set;
 import java.util.concurrent.Callable;
 
 /**
@@ -28,6 +34,18 @@ import java.util.concurrent.Callable;
 @Security.Authenticated(Secured.class)
 @Singleton
 public class ShoppingCartController extends Controller {
+
+
+  /**
+   * Helper for sending mails
+   */
+  private final MailerHelper mailerHelper;
+
+  @Inject
+  public ShoppingCartController(final MailerHelper mailerHelper) {
+
+    this.mailerHelper = mailerHelper;
+  }
 
   /**
    * Checks if the {@link Dvd} exists and if the user can borrow it or not at this moment
@@ -91,9 +109,16 @@ public class ShoppingCartController extends Controller {
   public Result checkoutShoppingCart() {
     final CacheShoppingCart shoppingCart = getShoppingCartFromCache();
     if(shoppingCart != null) {
-      CopyReservation.createFromShoppingCart(shoppingCart);
+      Set<User> owners = CopyReservation.createFromShoppingCart(shoppingCart);
+
+      for (User owner : owners) {
+        Txt emailTxt = views.txt.email.checkout.render(owner,User.getCurrentUser());
+        mailerHelper.sendMail(Messages.get("email.shoppincart.subject"),owner.email,emailTxt.body(),false);
+      }
+
       CacheHelper.removeSessionObj(ECacheObjectName.SHOPPINGCART);
     }
+
 
     return ok(views.html.shoppingcart.showshoppingcart.render(getShoppingCartFromCache()));
   }
