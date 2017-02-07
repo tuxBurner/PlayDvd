@@ -36,7 +36,6 @@ public class RefreshMovieInfosJob extends AbstractConfigurationJob {
 
     FiniteDuration finiteDuration = Duration.create(movieAge, TimeUnit.DAYS);
 
-
     List<Movie> moviesToUpdate = Movie.findMoviesToUpdate(finiteDuration, movieAmount);
     Logger.info("Found: " + moviesToUpdate.size() + " to update the informations for.");
 
@@ -55,5 +54,14 @@ public class RefreshMovieInfosJob extends AbstractConfigurationJob {
       }
 
     }
+  }
+
+  /**
+   * We want the job to start when the application is starting.
+   * @return
+   */
+  @Override
+  public boolean isSubmittedImmediately() {
+    return true;
   }
 }

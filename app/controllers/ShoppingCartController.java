@@ -114,6 +114,7 @@ public class ShoppingCartController extends Controller {
       for (User owner : owners) {
         Txt emailTxt = views.txt.email.checkout.render(owner,User.getCurrentUser());
         mailerHelper.sendMail(Messages.get("email.shoppincart.subject"),owner.email,emailTxt.body(),false);
+        
       }
 
       CacheHelper.removeSessionObj(ECacheObjectName.SHOPPINGCART);
