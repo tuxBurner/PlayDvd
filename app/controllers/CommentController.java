@@ -12,8 +12,6 @@ import play.mvc.Security;
 
 import javax.inject.Inject;
 
-import static play.data.Form.form;
-
 /**
  * Controller for handling {@link models.Comment}
  * User: tuxburner *

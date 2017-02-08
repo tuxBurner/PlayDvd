@@ -1,27 +1,16 @@
 package models;
 
+import com.avaje.ebean.Model;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import helpers.SelectAjaxContainer;
+import org.apache.commons.lang.StringUtils;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-
-import org.apache.commons.lang.StringUtils;
-
-import com.avaje.ebean.Model;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 /**
  * This is the {@link Entity} holding certain attributes

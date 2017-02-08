@@ -1,7 +1,6 @@
 package grabbers;
 
 import com.omertron.themoviedbapi.MovieDbException;
-import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 
 /**

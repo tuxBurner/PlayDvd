@@ -1,7 +1,6 @@
 package forms.user;
 
 import play.data.validation.Constraints;
-import play.data.validation.Constraints.MaxLength;
 import play.data.validation.Constraints.MinLength;
 import play.i18n.Messages;
 

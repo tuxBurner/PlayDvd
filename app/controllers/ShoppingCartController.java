@@ -1,17 +1,15 @@
 package controllers;
 
+import com.github.tuxBurner.jsAnnotations.JSRoute;
 import helpers.CacheHelper;
 import helpers.ECacheObjectName;
-import com.github.tuxBurner.jsAnnotations.JSRoute;
 import helpers.MailerHelper;
 import models.CopyReservation;
-
 import models.Dvd;
 import models.User;
 import objects.shoppingcart.CacheShoppingCart;
 import play.Logger;
 import play.cache.Cache;
-import play.i18n.Messages;
 import play.i18n.MessagesApi;
 import play.mvc.Controller;
 import play.mvc.Result;

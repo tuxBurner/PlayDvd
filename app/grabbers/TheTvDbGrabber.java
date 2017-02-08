@@ -8,7 +8,6 @@ import com.omertron.thetvdbapi.model.Episode;
 import com.omertron.thetvdbapi.model.Series;
 import forms.MovieForm;
 import forms.grabbers.GrabberInfoForm;
-import models.Movie;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;

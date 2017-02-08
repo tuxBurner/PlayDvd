@@ -1,6 +1,8 @@
 package models;
 
-import com.avaje.ebean.*;
+import com.avaje.ebean.Ebean;
+import com.avaje.ebean.Expr;
+import com.avaje.ebean.Model;
 import com.avaje.ebean.Query;
 import forms.MovieForm;
 import forms.dvd.CopyForm;
@@ -14,8 +16,10 @@ import play.db.ebean.Transactional;
 import scala.concurrent.duration.FiniteDuration;
 
 import javax.persistence.*;
-import java.time.Duration;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Movie extends Model {

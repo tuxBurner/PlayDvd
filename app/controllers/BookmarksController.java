@@ -5,7 +5,6 @@ import com.google.inject.Singleton;
 import helpers.CacheHelper;
 import helpers.ECacheObjectName;
 import models.Bookmark;
-import play.i18n.Messages;
 import play.i18n.MessagesApi;
 import play.mvc.Controller;
 import play.mvc.Result;

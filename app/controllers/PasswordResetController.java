@@ -8,7 +8,6 @@ import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.Form;
 import play.data.FormFactory;
-import play.i18n.Messages;
 import play.i18n.MessagesApi;
 import play.mvc.Controller;
 import play.mvc.Result;

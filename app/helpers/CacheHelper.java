@@ -8,10 +8,7 @@ import play.mvc.Controller;
 import java.util.concurrent.Callable;
 
 /**
- *
- * User: tuxburner
- * Date: 5/9/13
- * Time: 1:33 PM
+ * Helper for the cache stuff
  */
 public class CacheHelper {
 
