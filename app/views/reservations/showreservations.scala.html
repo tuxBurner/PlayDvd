@@ -35,7 +35,7 @@
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th><input type="checkbox" class="reservationsCheckAll" data-borrower="@borrower.id"/></th>
+                        <th><input title="checkAll" type="checkbox" class="reservationsCheckAll" data-borrower="@borrower.id"/></th>
                         <th>@Messages("lbl.copy")</th>
                         <th>@Messages("lbl.date")</th>
                       </tr>
@@ -45,7 +45,7 @@
                         <tr>
                           <td>
                             @if(reservation.copy.borrowDate == null) {
-                              <input type="checkbox" class="reservationsCopyCheckBox" data-borrower="@borrower.id" data-resid="@reservation.id" />
+                              <input title="checkAll" type="checkbox" class="reservationsCopyCheckBox" data-borrower="@borrower.id" data-resid="@reservation.id" />
                             }
                           </td>
                           <td>@general.displayitem(reservation.copy,true)</td>

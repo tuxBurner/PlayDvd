@@ -4,7 +4,7 @@
 @import org.apache.commons.collections.CollectionUtils
 
 <form method="GET" >
-  <label>@Messages("lbl.searchAmazonByTitle"):</label>
+  <label for="amazon_title_input">@Messages("lbl.searchAmazonByTitle"):</label>
   <div class="input-append">
     <input type="text" name="title_input" id="amazon_title_input" value="@title"/>
     <button type="button" id="amazon_search_button" class="btn" onclick="openAmazonTitleSearchPopUp($('#amazon_title_input').val());"><i class="icon-search"></i></button>

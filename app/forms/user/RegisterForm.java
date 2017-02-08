@@ -6,7 +6,6 @@ import org.apache.commons.lang3.StringUtils;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.data.validation.ValidationError;
-import play.i18n.Messages;
 
 import java.util.Arrays;
 import java.util.List;

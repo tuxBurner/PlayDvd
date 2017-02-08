@@ -11,8 +11,6 @@ import play.mvc.Result;
 import play.mvc.Security;
 
 import javax.inject.Inject;
-import java.util.Set;
-import java.util.concurrent.Callable;
 
 /**
  * Controller which handles the bookmarks.

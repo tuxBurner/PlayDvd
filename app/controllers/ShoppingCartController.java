@@ -9,19 +9,16 @@ import models.Dvd;
 import models.User;
 import objects.shoppingcart.CacheShoppingCart;
 import play.Logger;
-import play.cache.Cache;
 import play.i18n.MessagesApi;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
-import play.twirl.api.Html;
 import play.twirl.api.Txt;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.Set;
-import java.util.concurrent.Callable;
 
 /**
  *

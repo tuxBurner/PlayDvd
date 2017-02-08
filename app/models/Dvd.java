@@ -11,7 +11,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.validation.Constraints.Required;
-import com.avaje.ebean.Model;
 
 import javax.persistence.*;
 import java.util.*;

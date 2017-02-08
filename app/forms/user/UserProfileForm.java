@@ -8,7 +8,6 @@ import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.validation.Constraints;
 import play.data.validation.Constraints.MaxLength;
-import play.i18n.Messages;
 
 import java.util.List;
 
