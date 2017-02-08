@@ -1,6 +1,7 @@
 package controllers;
 
 import com.avaje.ebean.PagedList;
+import com.google.inject.Singleton;
 import com.typesafe.config.ConfigFactory;
 import forms.dvd.CopySearchFrom;
 import helpers.ConfigurationHelper;
@@ -26,7 +27,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Security.Authenticated(Secured.class)
-
+@Singleton
 public class ListCopiesController extends Controller {
 
   private final static Map<String, Integer> DVDS_PER_PAGE_CONFIG = ConfigurationHelper.createValMap("dvddb.dvds.perpage");
@@ -53,7 +54,7 @@ public class ListCopiesController extends Controller {
     if (pageNr != null) {
       currentSearchForm.currentPage = pageNr;
     }
-    return ListCopiesController.returnList(currentSearchForm);
+    return returnList(currentSearchForm);
   }
 
   /**
@@ -67,7 +68,7 @@ public class ListCopiesController extends Controller {
     if (pageNr != null) {
       currentSearchForm.currentPage = pageNr;
     }
-    return ListCopiesController.returnList(currentSearchForm,true);
+    return returnList(currentSearchForm,true);
   }
 
   /**
@@ -77,7 +78,7 @@ public class ListCopiesController extends Controller {
    */
   public Result listAllCopies() {
     final CopySearchFrom copySearchFrom = new CopySearchFrom();
-    return ListCopiesController.returnList(copySearchFrom);
+    return returnList(copySearchFrom);
   }
 
   /**
@@ -94,7 +95,7 @@ public class ListCopiesController extends Controller {
     final CopySearchFrom dvdListFrom = new CopySearchFrom();
     dvdListFrom.userName = fromUserName;
 
-    return ListCopiesController.returnList(dvdListFrom);
+    return returnList(dvdListFrom);
   }
 
   /**
@@ -111,7 +112,7 @@ public class ListCopiesController extends Controller {
     final CopySearchFrom dvdListFrom = new CopySearchFrom();
     dvdListFrom.genre = urlDecodeString(genreName);
 
-    return ListCopiesController.returnList(dvdListFrom);
+    return returnList(dvdListFrom);
   }
 
   /**
@@ -129,11 +130,11 @@ public class ListCopiesController extends Controller {
 
     dvdListFrom.actor = urlDecodeString(actorName);
 
-    return ListCopiesController.returnList(dvdListFrom);
+    return returnList(dvdListFrom);
   }
 
   /**
-   * Lists all {@link Copy}s by the given director
+   * Lists all {@link models.Dvd}s by the given director
    *
    * @param directorName
    * @return
@@ -144,7 +145,7 @@ public class ListCopiesController extends Controller {
     }
     final CopySearchFrom dvdListFrom = new CopySearchFrom();
     dvdListFrom.director = urlDecodeString(directorName);
-    return ListCopiesController.returnList(dvdListFrom);
+    return returnList(dvdListFrom);
   }
 
   /**
@@ -158,14 +159,14 @@ public class ListCopiesController extends Controller {
     dvdListFrom.lendDvd = true;
     dvdListFrom.userName = Secured.getUsername();
 
-    return ListCopiesController.returnList(dvdListFrom);
+    return returnList(dvdListFrom);
   }
 
   public Result listReviewMovies() {
     final CopySearchFrom dvdListFrom = new CopySearchFrom();
     dvdListFrom.moviesToReview = true;
 
-    return ListCopiesController.returnList(dvdListFrom);
+    return returnList(dvdListFrom);
 
   }
 
@@ -176,7 +177,7 @@ public class ListCopiesController extends Controller {
     } else {
       final CopySearchFrom listFrom = new CopySearchFrom();
       listFrom.searchFor = strings[0];
-      return ListCopiesController.returnList(listFrom);
+      return returnList(listFrom);
     }
 
   }
@@ -191,7 +192,7 @@ public class ListCopiesController extends Controller {
 
     final Form<CopySearchFrom> form = formFactory.form(CopySearchFrom.class).bindFromRequest();
 
-    return ListCopiesController.returnList(form.get());
+    return returnList(form.get());
   }
 
 
@@ -200,7 +201,7 @@ public class ListCopiesController extends Controller {
    * @param copySearchFrom
    * @return
    */
-  private static Result returnList(final CopySearchFrom copySearchFrom) {
+  private Result returnList(final CopySearchFrom copySearchFrom) {
     return returnList(copySearchFrom,false);
   }
 
@@ -210,7 +211,7 @@ public class ListCopiesController extends Controller {
    * @param copySearchFrom
    * @return
    */
-  private static Result returnList(final CopySearchFrom copySearchFrom, final boolean jsMode) {
+  private  Result returnList(final CopySearchFrom copySearchFrom, final boolean jsMode) {
 
     final String username = Secured.getUsername();
     CopySearchFrom.setCurrentSearchForm(copySearchFrom);
@@ -245,7 +246,7 @@ public class ListCopiesController extends Controller {
    * @param string
    * @return
    */
-  private static String urlDecodeString(final String string) {
+  private  String urlDecodeString(final String string) {
     try {
       return URLDecoder.decode(string, "UTF-8");
     } catch (UnsupportedEncodingException e) {

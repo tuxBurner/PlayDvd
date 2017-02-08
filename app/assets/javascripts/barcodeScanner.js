@@ -55,8 +55,9 @@ var sendNativeBC = function () {
  */
 ws.onmessage = function (e) {
     if (e.data == "error") {
-        jQuery("#barcodeStatus").text(Messages('msg.error.barcodeNotFound'));
-        jQuery("#barcodeStatus").text(Messages('msg.info.barcodeWait'));
+        var barcodeStatus = jQuery("#barcodeStatus");
+        barcodeStatus.text(Messages('msg.error.barcodeNotFound'));
+        barcodeStatus.text(Messages('msg.info.barcodeWait'));
         window.setTimeout(sendNativeBC, 1000);
     } else {
         if (searchAfterScan === true) {

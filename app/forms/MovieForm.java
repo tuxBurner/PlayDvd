@@ -122,7 +122,7 @@ public class MovieForm {
    * @param values
    * @return
    */
-  public final static String getDvdFormAttributesAsString(final String values) {
+  public static String getDvdFormAttributesAsString(final String values) {
     return StringUtils.replace(StringUtils.replaceChars(values, "[]", ""),", ",",");
   }
 

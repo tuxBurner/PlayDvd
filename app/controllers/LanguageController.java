@@ -1,10 +1,14 @@
 package controllers;
 
 import com.typesafe.config.ConfigFactory;
+import play.Application;
+import play.Environment;
 import play.i18n.Lang;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import javax.inject.Inject;
+import javax.inject.Provider;
 import javax.inject.Singleton;
 import java.util.HashMap;
 import java.util.List;
@@ -24,18 +28,26 @@ public class LanguageController extends Controller {
    * Names of the languages
    */
   private static HashMap<String, String> languages;
+  
+  private final Provider<Application> applicationProvider;
+
+
+  @Inject
+  public LanguageController(final Provider<Application> applicationProvider) {
+    this.applicationProvider = applicationProvider;
+  }
 
   /**
    * Tries to determine default language based on users accept-languages
    *
    * @return Integer: Number of language allowed in application's conf
    */
-  public static Lang getDefaultLang() {
-    final List<Lang> availables = Lang.availables();
+  private Lang getDefaultLang() {
+    List<Lang> available = Lang.availables(applicationProvider.get());
     List<Lang> accepted = request().acceptLanguages();
 
     for (Lang testLang : accepted) {
-      if (availables.contains(testLang)) {
+      if (available.contains(testLang)) {
         return testLang;
       }
     }
@@ -53,7 +65,7 @@ public class LanguageController extends Controller {
 
     play.api.i18n.Lang lang = Lang.apply(code);
 
-    final List<Lang> availables = Lang.availables();
+    final List<Lang> availables = Lang.availables(applicationProvider.get());
 
     if (availables.contains(lang) == false) {
       lang = getDefaultLang();
@@ -70,7 +82,7 @@ public class LanguageController extends Controller {
    * @param i
    * @return
    */
-  private static String getLanguageName(int i) {
+  private  static String getLanguageName(int i) {
     String[] languageNames = ConfigFactory.load().getString("application.languageNames").split(",");
     String languageName = Lang.availables().get(i).code();
     if (languageNames[i] != null) {
@@ -85,7 +97,7 @@ public class LanguageController extends Controller {
    * @param i
    * @return
    */
-  private static String getLanguageFlagName(int i) {
+  private  static String getLanguageFlagName(int i) {
     String[] languageNames = ConfigFactory.load().getString("application.languageFlags").split(",");
     String languageName = Lang.availables().get(i).code();
     if (languageNames[i] != null) {
@@ -99,7 +111,7 @@ public class LanguageController extends Controller {
    *
    * @return
    */
-  public static Map<String, String> getLanguageFlags() {
+  public static  Map<String, String> getLanguageFlags() {
     if (languageFlags == null) {
       languageFlags = new HashMap<String, String>();
       final List<Lang> availables = Lang.availables();

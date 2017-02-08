@@ -228,7 +228,7 @@ public class Dvd extends Model {
      * @param searchFrom
      * @return
      */
-    private final static ExpressionList<Dvd> buildExpressionFromSearchFrom(final CopySearchFrom searchFrom) {
+    private static ExpressionList<Dvd> buildExpressionFromSearchFrom(final CopySearchFrom searchFrom) {
         final ExpressionList<Dvd> where = Dvd.FINDER.where();
 
         if (StringUtils.isEmpty(searchFrom.searchFor) == false) {

@@ -39,7 +39,7 @@ public class Bookmark extends Model {
   @Column(nullable = false)
   public Long date;
 
-  private static Finder<Long, Bookmark> finder = new Finder<Long, Bookmark>(Long.class, Bookmark.class);
+  private static Find<Long, Bookmark> finder = new Find<Long, Bookmark>() {};
 
   /**
    * Creates the

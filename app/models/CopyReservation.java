@@ -43,7 +43,7 @@ public class CopyReservation extends Model {
   @Column(nullable = false)
   public Long date;
 
-  private static Finder<Long,CopyReservation> finder = new Finder<Long, CopyReservation>(Long.class,CopyReservation.class);
+  private static Find<Long,CopyReservation> finder = new Find<Long, CopyReservation>() {};
 
   /**
    * Creates the reservation items

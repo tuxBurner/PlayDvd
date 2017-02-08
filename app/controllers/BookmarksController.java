@@ -6,11 +6,12 @@ import helpers.CacheHelper;
 import helpers.ECacheObjectName;
 import models.Bookmark;
 import play.i18n.Messages;
+import play.i18n.MessagesApi;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-import views.html.bookmarks.bookmarklist;
 
+import javax.inject.Inject;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
@@ -22,6 +23,18 @@ import java.util.concurrent.Callable;
 @Singleton
 public class BookmarksController extends Controller {
 
+
+  /**
+   * The messages api
+   */
+  private final MessagesApi messagesApi;
+
+  @Inject
+  public BookmarksController(final MessagesApi messagesApi) {
+
+    this.messagesApi = messagesApi;
+  }
+
   /**
    * Lists all the {@models.Bookmarks} which the current user created
    * @return
@@ -29,7 +42,7 @@ public class BookmarksController extends Controller {
   public Result listBookmarks(final Integer page) {
     PagedList<Bookmark> listForUser = Bookmark.getBookmarksForUser(page);
 
-    return ok(bookmarklist.render(listForUser,page));
+    return ok(views.html.bookmarks.bookmarklist.render(listForUser,page));
   }
 
   /**
@@ -44,7 +57,7 @@ public class BookmarksController extends Controller {
       return badRequest();
     }
 
-    final String msg = Messages.get("msg.success.bookmarkAdded",bookmark.copy.movie.title);
+    String msg = messagesApi.preferred(request()).at("msg.success.bookmarkAdded",bookmark.copy.movie.title);
     Controller.flash("success",msg);
 
     CacheHelper.removeSessionObj(ECacheObjectName.BOOKMARKS);
@@ -61,7 +74,7 @@ public class BookmarksController extends Controller {
 
     String title = Bookmark.removeBookmark(bookmarkId);
 
-    final String msg = Messages.get("msg.success.bookmarkRemoved",title);
+    String msg = messagesApi.preferred(request()).at("msg.success.bookmarkRemoved",title);
     Controller.flash("success",msg);
 
     CacheHelper.removeSessionObj(ECacheObjectName.BOOKMARKS);
@@ -83,5 +96,5 @@ public class BookmarksController extends Controller {
 
     return CacheHelper.getSessionObjectOrElse(ECacheObjectName.BOOKMARKS,callable);
   }
-
+  
 }
