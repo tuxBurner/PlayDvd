@@ -177,7 +177,6 @@ public class TheTvDbGrabber implements IInfoGrabber {
             movieForm.imdbId = series.getImdbId();
             movieForm.grabberType = TheTvDbGrabber.TYPE;
             movieForm.grabberId = grabberInfoForm.grabberMovieId;
-
             movieForm.runtime = Integer.valueOf(series.getRuntime());
 
             final String firstAired = series.getFirstAired();

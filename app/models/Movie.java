@@ -7,6 +7,7 @@ import com.avaje.ebean.Query;
 import forms.MovieForm;
 import forms.dvd.CopyForm;
 import grabbers.EGrabberType;
+import grabbers.ImdbRatingGrabber;
 import helpers.EImageType;
 import helpers.ImageHelper;
 import org.apache.commons.lang.StringUtils;
@@ -71,6 +72,11 @@ public class Movie extends Model {
     public String imdbId;
 
     /**
+     * Rating of imdb for this movie
+     */
+    public String imdbRating;
+
+    /**
      * If the EGrabberType is not null this is the id which is to use to FINDER the movie via the grabber
      */
     public String grabberId;
@@ -89,6 +95,10 @@ public class Movie extends Model {
      * @throws Exception when an error happened
      */
     public static Movie editOrAddFromForm(final MovieForm movieForm, final boolean updateImages) throws Exception {
+
+        ImdbRatingGrabber imdbRatingGrabber = new ImdbRatingGrabber();
+        imdbRatingGrabber.grabImdbRating(movieForm);
+
         Movie movie = null;
 
         if (movieForm.movieId != null) {
@@ -116,6 +126,7 @@ public class Movie extends Model {
 
         movie.hasToBeReviewed = false;
         movie.imdbId = movieForm.imdbId;
+        movie.imdbRating = movieForm.imdbRating;
         if (movieForm.grabberType != null && movieForm.grabberType != EGrabberType.NONE && StringUtils.isEmpty(movieForm.grabberId) == false) {
             movie.grabberType = movieForm.grabberType;
             movie.grabberId = movieForm.grabberId;

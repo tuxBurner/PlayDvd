@@ -49,6 +49,8 @@ public class MovieForm {
 
   public String imdbId;
 
+  public String imdbRating;
+
   /**
    * This describes in which series the movie is for example Alien, Terminator,
    * Indiana Jones are Series of movies
@@ -79,6 +81,7 @@ public class MovieForm {
     movieForm.hasBackdrop = movie.hasBackdrop;
     movieForm.hasPoster = movie.hasPoster;
     movieForm.imdbId = movie.imdbId;
+    movieForm.imdbRating = movie.imdbRating;
     if(EGrabberType.NONE.equals(movie.grabberType) == false && StringUtils.isEmpty(movie.grabberId) == false) {
       movieForm.grabberType = movie.grabberType;
       movieForm.grabberId = movie.grabberId;

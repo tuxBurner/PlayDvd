@@ -96,6 +96,7 @@ lbl.runtime=Runtime
 lbl.year=Year
 lbl.director=Director
 lbl.informations=Informations
+lbl.imdbRating=IMDB Rating
 lbl.plot=Plot
 lbl.trailer=Trailer
 lbl.actors=Actors

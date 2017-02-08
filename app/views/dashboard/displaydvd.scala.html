@@ -157,6 +157,11 @@
             <dd><a href="@routes.ListCopiesController.listByDirector(dvd.movieForm.director)">@dvd.movieForm.director</a></dd>
           }
 
+          @if(StringUtils.isBlank(dvd.movieForm.imdbRating) == false) {
+            <dt>@Messages.apply("lbl.imdbRating"):</dt>
+            <dd>@dvd.movieForm.imdbRating/10</dd>
+          }
+
           @if(StringUtils.isEmpty(dvd.copyForm.asinNr) == false || StringUtils.isEmpty(dvd.movieForm.imdbId) == false) {
             <dt>@Messages.apply("lbl.informations"):</dt>
             <dd>
