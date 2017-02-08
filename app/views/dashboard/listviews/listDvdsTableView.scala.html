@@ -1,3 +1,4 @@
+@import org.apache.commons.lang3.StringUtils
 @(dvdPage: DvdPage, username: String, shoppingCart: objects.shoppingcart.CacheShoppingCart, bookmarkedCopys: Set[Long])
 @import helpers.EImageSize
 <table class="table table-condensed well">
@@ -6,6 +7,7 @@
       <th></th>
       <th>@Messages.apply("lbl.title")</th>
       <th>@Messages.apply("lbl.info")</th>
+      <th>@Messages.apply("lbl.imdbRating")</th>
       <th>@Messages.apply("lbl.owner")</th>
       <th>@Messages.apply("lbl.lent")</th>
       <th></th>
@@ -18,12 +20,16 @@
       <td><a href="#" class="displayCopy" data-dvd-id="@dvd.id">@general.displayposter(dvd.movie.id, dvd.movie.hasPoster, EImageSize.TINY)</a></td>
       <td><a href="#" class="displayCopy" data-dvd-id="@dvd.id">@dvd.movie.title</a></td>
       <td>
-
         @if(DvdAttribute.getCopyTypeAttribute(dvd) != null) {
           <span><img class="img-rounded" alt="@DvdAttribute.getCopyTypeAttribute(dvd)" src="@routes.Assets.versioned("images/copy_type/" + DvdAttribute.getCopyTypeAttribute(dvd) + ".png")" /></span>
         }
         @if(DvdAttribute.getAgeRatingAttribute(dvd) != null) {
           <span><img class="img-rounded" alt="@DvdAttribute.getAgeRatingAttribute(dvd)" src="@routes.Assets.versioned("images/agerating/" + DvdAttribute.getAgeRatingAttribute(dvd) + ".gif")" /></span>
+        }
+      </td>
+      <td>
+        @if(StringUtils.isBlank(dvd.movie.imdbRating) == false) {
+          <span>@dvd.movie.imdbRating/10</span>
         }
       </td>
       <td>@dvd.owner.userName</td>
