@@ -53,7 +53,7 @@
             
       <li><a href="@routes.CopyController.showAddDvd"><i class="icon-plus"></i> @Messages("lbl.addCopy")</a></li>
 
-      @ShoppingCartController.getShoppingCartMenuContent
+      <li  id="shoppingCartMenu"></li>
 
       <li><a href="@routes.BookmarksController.listBookmarks()"><i class="icon-bookmark"></i>(@Bookmark.getBookmarkCopyIdsForUser.size())</a></li>
       <li><a href="@routes.ViewedCopyController.getViewedCopiesForCurrentUser()"><i class="icon-eye-open"> (@ViewedCopy.getCopiesViewedCount())</i></a></li>

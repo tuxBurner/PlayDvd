@@ -186,4 +186,4 @@ msg.info.noRssAuthKey=Du hast noch keinen Rss Authentifizierung Schlüssel bitte
 
 email.passwordreset.content=Hallo {0}\nfür PlayDvd kannst Du das Passwort zurücksetzen, wenn Du folgenden Link aufrufst:\n\n {1}
 email.passwordreset.subject=Passwort zurücksetzen für PlayDvd
-email.shoppincart.subject=Jemand möchte sich Filme von dir ausleihen
+email.shoppingcart.subject=Jemand möchte sich Filme von dir ausleihen

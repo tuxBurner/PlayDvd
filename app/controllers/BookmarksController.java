@@ -27,11 +27,12 @@ public class BookmarksController extends Controller {
    * The messages api
    */
   private final MessagesApi messagesApi;
+  private final CacheHelper cacheHelper;
 
   @Inject
-  public BookmarksController(final MessagesApi messagesApi) {
-
+  public BookmarksController(final MessagesApi messagesApi, final CacheHelper cacheHelper) {
     this.messagesApi = messagesApi;
+    this.cacheHelper = cacheHelper;
   }
 
   /**
@@ -59,7 +60,7 @@ public class BookmarksController extends Controller {
     String msg = messagesApi.preferred(request()).at("msg.success.bookmarkAdded",bookmark.copy.movie.title);
     Controller.flash("success",msg);
 
-    CacheHelper.removeSessionObj(ECacheObjectName.BOOKMARKS);
+    cacheHelper.removeSessionObj(ECacheObjectName.BOOKMARKS);
 
     return redirect(routes.BookmarksController.listBookmarks(0));
   }
@@ -76,24 +77,11 @@ public class BookmarksController extends Controller {
     String msg = messagesApi.preferred(request()).at("msg.success.bookmarkRemoved",title);
     Controller.flash("success",msg);
 
-    CacheHelper.removeSessionObj(ECacheObjectName.BOOKMARKS);
+    cacheHelper.removeSessionObj(ECacheObjectName.BOOKMARKS);
 
     return redirect(routes.BookmarksController.listBookmarks(0));
   }
 
-  /**
-   * Gets all {@Dvd#id} which the user bookedmarked
-   * @return
-   */
-  public static Set<Long> getBookmarkedCopyIds() {
-    final Callable<Set<Long>> callable = new Callable<Set<Long>>() {
-      @Override
-      public Set<Long> call() throws Exception {
-        return Bookmark.getBookmarkCopyIdsForUser();
-      }
-    };
-
-    return CacheHelper.getSessionObjectOrElse(ECacheObjectName.BOOKMARKS,callable);
-  }
+  
   
 }

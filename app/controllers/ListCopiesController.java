@@ -4,6 +4,7 @@ import com.avaje.ebean.PagedList;
 import com.google.inject.Singleton;
 import com.typesafe.config.ConfigFactory;
 import forms.dvd.CopySearchFrom;
+import helpers.CacheHelper;
 import helpers.ConfigurationHelper;
 import helpers.ECopyListView;
 import com.github.tuxBurner.jsAnnotations.JSRoute;
@@ -38,10 +39,13 @@ public class ListCopiesController extends Controller {
 
   private final FormFactory formFactory;
 
+  private final CacheHelper cacheHelper;
+
 
   @Inject
-  ListCopiesController(final FormFactory formFactory) {
+  ListCopiesController(final FormFactory formFactory, final CacheHelper cacheHelper) {
     this.formFactory = formFactory;
+    this.cacheHelper = cacheHelper;
   }
 
   /**
@@ -219,8 +223,8 @@ public class ListCopiesController extends Controller {
     final Integer itemsPerPage = DVDS_PER_PAGE_CONFIG.get(currentViewMode.name());
     final PagedList<Dvd> dvdsByForm = Dvd.getDvdsBySearchForm(copySearchFrom, itemsPerPage);
     final DvdPage dvdPage = new DvdPage(dvdsByForm);
-    final CacheShoppingCart shoppingCartFromCache = ShoppingCartController.getShoppingCartFromCache();
-    final Set<Long> bookmarkedCopyIds = BookmarksController.getBookmarkedCopyIds();
+    final CacheShoppingCart shoppingCartFromCache = cacheHelper.getShoppingCartFromCache();
+    final Set<Long> bookmarkedCopyIds = cacheHelper.getBookmarkedCopyIds();
     if(jsMode == false) {
       final Form<CopySearchFrom> form =  formFactory.form(CopySearchFrom.class);
       return Results.ok(listdvds.render(dvdPage, form.fill(copySearchFrom), username, shoppingCartFromCache,currentViewMode,bookmarkedCopyIds));

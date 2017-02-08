@@ -13,6 +13,7 @@ import play.mvc.Result;
 import play.mvc.Security;
 import views.html.viewedcopy.markAsViewed;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.List;
 
@@ -23,6 +24,13 @@ import java.util.List;
 @Security.Authenticated(Secured.class)
 @Singleton
 public class ViewedCopyController extends Controller {
+
+  private final CacheHelper cacheHelper;
+
+  @Inject
+  public ViewedCopyController(CacheHelper cacheHelper) {
+    this.cacheHelper = cacheHelper;
+  }
 
   /**
    * Lists all {@link models.Dvd}s the current user has marked as viewed
@@ -70,7 +78,7 @@ public class ViewedCopyController extends Controller {
 
     if(BooleanUtils.isTrue(remBookMark)) {
       Bookmark.deletAllBookmarksForCopy(viewedCopy.copy);
-      CacheHelper.removeSessionObj(ECacheObjectName.BOOKMARKS);
+      cacheHelper.removeSessionObj(ECacheObjectName.BOOKMARKS);
     }
 
     return ok();

@@ -129,7 +129,7 @@ public class CopyReservation extends Model {
   }
 
   /**
-   * Gets the amount of {@link CopyReservation} wher the current {@link User} is the one reserved the {@link Copy}
+   * Gets the amount of {@link CopyReservation} wher the current {@link User} is the one reserved the {@link Dvd}
    * @return
    */
   public static int getReservedCount() {

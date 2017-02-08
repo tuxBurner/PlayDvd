@@ -41,13 +41,19 @@ public class ShoppingCartController extends Controller {
   private final MailerHelper mailerHelper;
 
   /**
+   * Helper for cached objects
+   */
+  private final CacheHelper cacheHelper;
+
+  /**
    * The messages api
    */
   private final MessagesApi messagesApi;
 
   @Inject
-  public ShoppingCartController(final MailerHelper mailerHelper, final MessagesApi messagesApi) {
+  public ShoppingCartController(final MailerHelper mailerHelper, final CacheHelper cacheHelper, final MessagesApi messagesApi) {
     this.mailerHelper = mailerHelper;
+    this.cacheHelper = cacheHelper;
     this.messagesApi = messagesApi;
   }
 
@@ -68,9 +74,9 @@ public class ShoppingCartController extends Controller {
     }
 
 
-    CacheShoppingCart shoppingCartFromCache = getShoppingCartFromCache();
+    CacheShoppingCart shoppingCartFromCache = cacheHelper.getShoppingCartFromCache();
     final Boolean addedToCart = shoppingCartFromCache.addItem(copyToBorrow);
-    CacheHelper.setSessionObject(ECacheObjectName.SHOPPINGCART, shoppingCartFromCache);
+    cacheHelper.setSessionObject(ECacheObjectName.SHOPPINGCART, shoppingCartFromCache);
 
     return Results.ok(addedToCart.toString());
   }
@@ -82,9 +88,9 @@ public class ShoppingCartController extends Controller {
    */
   @JSRoute
   public Result remCopyFromCart(final Long copyId) {
-    final CacheShoppingCart shoppingCartFromCache = getShoppingCartFromCache();
+    final CacheShoppingCart shoppingCartFromCache = cacheHelper.getShoppingCartFromCache();
     final Boolean removedFromCart = shoppingCartFromCache.removeItem(copyId);
-    CacheHelper.setSessionObject(ECacheObjectName.SHOPPINGCART, shoppingCartFromCache);
+    cacheHelper.setSessionObject(ECacheObjectName.SHOPPINGCART, shoppingCartFromCache);
 
     return Results.ok(removedFromCart.toString());
   }
@@ -95,7 +101,7 @@ public class ShoppingCartController extends Controller {
    */
   @JSRoute
   public Result getShoppingCartMenu() {
-    return ok(getShoppingCartMenuContent());
+    return getShoppingCartMenuContent();
   }
 
   /**
@@ -103,7 +109,7 @@ public class ShoppingCartController extends Controller {
    * @return
    */
   public Result showShoppingCart() {
-    return ok(views.html.shoppingcart.showshoppingcart.render(getShoppingCartFromCache()));
+    return ok(views.html.shoppingcart.showshoppingcart.render(cacheHelper.getShoppingCartFromCache()));
   }
 
   /**
@@ -111,47 +117,31 @@ public class ShoppingCartController extends Controller {
    * @return
    */
   public Result checkoutShoppingCart() {
-    final CacheShoppingCart shoppingCart = getShoppingCartFromCache();
+    final CacheShoppingCart shoppingCart = cacheHelper.getShoppingCartFromCache();
     if(shoppingCart != null) {
       Set<User> owners = CopyReservation.createFromShoppingCart(shoppingCart);
 
       for (User owner : owners) {
         Txt emailTxt = views.txt.email.checkout.render(owner,User.getCurrentUser());
-        mailerHelper.sendMail(messagesApi.preferred(request()).at("email.shoppincart.subject"),owner.email,emailTxt.body(),false);
+        mailerHelper.sendMail(messagesApi.preferred(request()).at("email.shoppingcart.subject"),owner.email,emailTxt.body(),false);
         
       }
 
-      CacheHelper.removeSessionObj(ECacheObjectName.SHOPPINGCART);
+      cacheHelper.removeSessionObj(ECacheObjectName.SHOPPINGCART);
     }
 
 
-    return ok(views.html.shoppingcart.showshoppingcart.render(getShoppingCartFromCache()));
+    return ok(views.html.shoppingcart.showshoppingcart.render(cacheHelper.getShoppingCartFromCache()));
   }
 
   /**
    * Gets the {@link CacheShoppingCart} from the cache and renders the content for the mainmenu
    * @return
    */
-  public static Html getShoppingCartMenuContent() {
-    final CacheShoppingCart shoppingCartFromCache = getShoppingCartFromCache();
-    return views.html.shoppingcart.shoppingcartmenu.render(shoppingCartFromCache);
+  public Result getShoppingCartMenuContent() {
+    final CacheShoppingCart shoppingCartFromCache = cacheHelper.getShoppingCartFromCache();
+    return ok(views.html.shoppingcart.shoppingcartmenu.render(shoppingCartFromCache));
   }
-
-  /**
-   * Gets the {@link CacheShoppingCart} from the {@link Cache} if it is null a new instance is created
-   * @return
-   */
-  public static CacheShoppingCart  getShoppingCartFromCache(){
-
-    return CacheHelper.getSessionObjectOrElse(ECacheObjectName.SHOPPINGCART,callable);
-  }
-
-  private static  final Callable<CacheShoppingCart> callable = new Callable<CacheShoppingCart>() {
-    @Override
-    public CacheShoppingCart call() throws Exception {
-      return new CacheShoppingCart();
-    }
-  };
 
 
 }

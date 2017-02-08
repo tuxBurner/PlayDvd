@@ -45,10 +45,13 @@ public class DashboardController extends Controller {
 
 
   private final FormFactory formFactory;
+  
+  private final CacheHelper cacheHelper;
 
   @Inject
-  DashboardController(final FormFactory formFactory) {
+  DashboardController(final FormFactory formFactory, final CacheHelper cacheHelper) {
     this.formFactory = formFactory;
+    this.cacheHelper = cacheHelper;
   }
 
   /**
@@ -80,7 +83,7 @@ public class DashboardController extends Controller {
    * @param copyId
    * @return
    */
-  private static Result getInfoDvd(final Long copyId, final boolean popup) {
+  private  Result getInfoDvd(final Long copyId, final boolean popup) {
 
     final Dvd copy = Dvd.FINDER.byId(copyId);
 
@@ -97,8 +100,8 @@ public class DashboardController extends Controller {
     final CopySearchFrom currentSearchForm = CopySearchFrom.getCurrentSearchForm();
     final PrevNextCopies nextAndPrev = Dvd.getNextAndPrev(copy, currentSearchForm);
 
-    final CacheShoppingCart shoppingCartFromCache = ShoppingCartController.getShoppingCartFromCache();
-    final Set<Long> bookmarkedCopyIds = BookmarksController.getBookmarkedCopyIds();
+    final CacheShoppingCart shoppingCartFromCache = cacheHelper.getShoppingCartFromCache();
+    final Set<Long> bookmarkedCopyIds = cacheHelper.getBookmarkedCopyIds();
     final List<ViewedCopy> copyViewed = ViewedCopy.getCopyViewed(copy);
 
 
@@ -346,10 +349,10 @@ public class DashboardController extends Controller {
       return status(304);
     }
 
-    byte[] gravatarBytes = CacheHelper.getObject(ECacheObjectName.GRAVATAR_IMAGES, gravatarEmail + size);
+    byte[] gravatarBytes = cacheHelper.getObject(ECacheObjectName.GRAVATAR_IMAGES, gravatarEmail + size);
     if (gravatarBytes == null) {
       gravatarBytes = GravatarHelper.getGravatarBytes(gravatarEmail, size);
-      CacheHelper.setObject(ECacheObjectName.GRAVATAR_IMAGES, gravatarEmail + size, gravatarBytes);
+      cacheHelper.setObject(ECacheObjectName.GRAVATAR_IMAGES, gravatarEmail + size, gravatarBytes);
       ETagHelper.removeEtag(ECacheObjectName.GRAVATAR_IMAGES + gravatarEmail + size);
       ETagHelper.createEtag(ECacheObjectName.GRAVATAR_IMAGES + gravatarEmail + size, gravatarBytes);
     }

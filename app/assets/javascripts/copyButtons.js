@@ -131,8 +131,9 @@ $(document).on('click', '.addToCartBtn', function (event) {
       if (data == "true" || data === true) {
         pAjax(jsRoutes.controllers.ShoppingCartController.getShoppingCartMenu(), null,
           function (data) {
-            $("#shoppingCartMenu").replaceWith(data);
-            $('#shoppingCartMenu').addClass('animated flash');
+            var shoppingCartMenu = $("#shoppingCartMenu");
+            shoppingCartMenu.replaceWith(data);
+            shoppingCartMenu.addClass('animated flash');
             $(button).hide();
             Holder.run();
             $(delButton).show();

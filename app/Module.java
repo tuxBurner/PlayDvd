@@ -27,6 +27,7 @@ public class Module extends AbstractModule {
 
     // bind the MailerHelper to an Instance
     bind(MailerHelper.class).asEagerSingleton();
+    bind(CacheHelper.class).asEagerSingleton();
   }
 
   /**
