@@ -55,7 +55,7 @@ public class ListCopiesController extends Controller {
    */
   public Result listCopies(final Integer pageNr) {
     final CopySearchFrom currentSearchForm = CopySearchFrom.getCurrentSearchForm();
-    if (pageNr != null) {
+    if (pageNr != null && currentSearchForm != null) {
       currentSearchForm.currentPage = pageNr;
     }
     return returnList(currentSearchForm);
@@ -69,7 +69,7 @@ public class ListCopiesController extends Controller {
   @JSRoute
   public Result listCopiesJS(final Integer pageNr) {
     final CopySearchFrom currentSearchForm = CopySearchFrom.getCurrentSearchForm();
-    if (pageNr != null) {
+    if (pageNr != null && currentSearchForm != null) {
       currentSearchForm.currentPage = pageNr;
     }
     return returnList(currentSearchForm,true);

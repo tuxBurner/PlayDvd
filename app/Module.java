@@ -36,7 +36,10 @@ public class Module extends AbstractModule {
   private void startUp() {
     if (ImageHelper.IMAGE_ROOT.exists() == false) {
       Logger.info("The folder: " + ImageHelper.IMAGE_ROOT.getAbsolutePath() + " does not exists, creating it.");
-      ImageHelper.IMAGE_ROOT.mkdirs();
+      boolean mkdirs = ImageHelper.IMAGE_ROOT.mkdirs();
+      if(mkdirs == false) {
+        Logger.error("An error happened while generating the root image folder: "+ImageHelper.IMAGE_ROOT.getAbsolutePath());
+      }
     }
 
 

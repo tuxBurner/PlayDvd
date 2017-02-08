@@ -60,7 +60,7 @@ public class CopyReservation extends Model {
         if(Logger.isErrorEnabled()) {
           Logger.error("No current user found while persisting "+CacheShoppingCart.class.getCanonicalName());
         }
-        return null;
+        return new HashSet<>();
       }
 
       final Set<User> movieOwners = new HashSet<>();

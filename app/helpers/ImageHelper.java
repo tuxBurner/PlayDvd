@@ -59,7 +59,7 @@ public class ImageHelper {
       return false;
     }
 
-    boolean success = false;
+    boolean success;
 
     if (S3Plugin.pluginEnabled() == false) {
       success = createOrigImageLocal(movieId, imageType, EImageSize.ORIGINAL, is);

@@ -41,6 +41,6 @@ public class GrabberHelper {
             }
         }
 
-        return null;
+        throw new RuntimeException("No Grabber was found for: "+grabberType.name());
     }
 }

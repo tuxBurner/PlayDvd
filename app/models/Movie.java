@@ -134,12 +134,12 @@ public class Movie extends Model {
         // add the images if we have some :)
         if (updateImages == true) {
             final Boolean newPoster = ImageHelper.createFileFromUrl(movie.id, movieForm.posterUrl, EImageType.POSTER);
-            if (movie.hasPoster == false || movie.hasPoster == null) {
+            if (movie.hasPoster == null || movie.hasPoster == false) {
                 movie.hasPoster = newPoster;
             }
 
             final Boolean newBackDrop = ImageHelper.createFileFromUrl(movie.id, movieForm.backDropUrl, EImageType.BACKDROP);
-            if (movie.hasBackdrop == false || movie.hasBackdrop == null) {
+            if (movie.hasBackdrop == null || movie.hasBackdrop == false) {
                 movie.hasBackdrop = newBackDrop;
             }
         }

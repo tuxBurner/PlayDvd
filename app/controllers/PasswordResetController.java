@@ -75,8 +75,8 @@ public class PasswordResetController extends Controller {
       if (userByName == null) {
         if (Logger.isErrorEnabled() == true) {
           Logger.error("A user tries to reset his password with an username (" + form.get().username + ") which does not exists.");
-          return redirect(routes.PasswordResetController.showPasswordForget());
         }
+        return redirect(routes.PasswordResetController.showPasswordForget());
       }
 
 

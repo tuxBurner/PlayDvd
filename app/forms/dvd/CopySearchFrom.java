@@ -86,7 +86,7 @@ public class CopySearchFrom {
    */
   public static boolean displayAdvancedForm() {
     final CopySearchFrom form = CopySearchFrom.getCurrentSearchForm();
-    return (StringUtils.isEmpty(form.copyType) == false || form.lendDvd == true);
+    return (form != null && (StringUtils.isEmpty(form.copyType) == false || form.lendDvd == true));
   }
 
   /**
@@ -104,7 +104,7 @@ public class CopySearchFrom {
     }
     //TODO: make a simple cache controll mechanism we also have one at the shopping cart
     final Object object = Cache.get(ctx.session().get(Secured.AUTH_SESSION) + ".dvdlistform");
-    CopySearchFrom returnVal = null;
+    CopySearchFrom returnVal;
     if (object == null || object instanceof CopySearchFrom == false) {
       returnVal = new CopySearchFrom();
       Cache.set(ctx.session().get(Secured.AUTH_SESSION) + ".dvdlistform", returnVal);

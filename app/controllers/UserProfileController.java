@@ -44,8 +44,8 @@ public class UserProfileController extends Controller {
     if(currentUser == null) {
       if(Logger.isErrorEnabled()) {
         Logger.error("No user was found by the username: "+Secured.getUsername());
-        return internalServerError();
       }
+      return internalServerError();
     }
 
     if(StringUtils.isEmpty(currentUser.rssAuthKey) == true) {
