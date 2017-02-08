@@ -7,6 +7,7 @@ import play.Logger;
 import play.data.Form;
 import play.data.FormFactory;
 import play.i18n.Messages;
+import play.i18n.MessagesApi;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
@@ -25,9 +26,12 @@ public class UserProfileController extends Controller {
 
   private final FormFactory formFactory;
 
+  private final MessagesApi messagesApi;
+
   @Inject
-  UserProfileController(final FormFactory formFactory) {
+  UserProfileController(final FormFactory formFactory, MessagesApi messagesApi) {
     this.formFactory = formFactory;
+    this.messagesApi = messagesApi;
   }
 
   /**
@@ -64,7 +68,7 @@ public class UserProfileController extends Controller {
       return Results.badRequest(userprofile.render(form));
     }
 
-    Controller.flash("success", Messages.get("msg.success.profileUpdated"));
+    Controller.flash("success", messagesApi.preferred(request()).at("msg.success.profileUpdated"));
     // redirect so the form gets empty and no passwords are written to the form
     return redirect(routes.UserProfileController.showProfile());
   }

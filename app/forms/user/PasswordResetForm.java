@@ -19,13 +19,9 @@ public class PasswordResetForm {
    * @return
    */
   public String validate() {
-
-
     if (password.equals(rePassword) == false) {
-      return Messages.get("msg.error.passwordsNoMatch");
+      return "msg.error.passwordsNoMatch";
     }
-
-
     return null;
   }
 }

@@ -38,14 +38,14 @@ public class UserProfileForm {
     final User userToUpdate = User.getCurrentUser();
     if (userToUpdate == null) {
       Logger.error("No user found by the name: " + Secured.getUsername());
-      return Messages.get("msg.error");
+      return "msg.error";
     }
 
     if(StringUtils.isEmpty(password) == false && StringUtils.isEmpty(rePassword) == false) {
       Logger.debug("User: "+Secured.getUsername()+" wants to change the password.");
       if(StringUtils.equals(password,rePassword) == false) {
         Logger.error(Secured.getUsername()+" did not entered matched passwords.");
-        return Messages.get("msg.error.passwordsNoMatch");
+        return "msg.error.passwordsNoMatch";
       }
 
 
