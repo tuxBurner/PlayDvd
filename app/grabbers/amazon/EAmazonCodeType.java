@@ -10,5 +10,5 @@ package grabbers.amazon;
 public enum EAmazonCodeType {
 
   EAN,
-  ASIN;
+  ASIN
 }

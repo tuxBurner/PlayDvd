@@ -10,7 +10,7 @@ public enum EDvdListOrderHow {
    */
   public String dbOrder;
 
-  private EDvdListOrderHow(final String dbField) {
+  EDvdListOrderHow(final String dbField) {
     this.dbOrder = dbField;
   }
 

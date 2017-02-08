@@ -28,7 +28,7 @@ public enum EImageSize {
     return whString;
   }
 
-  private EImageSize(final int width, final int height) {
+  EImageSize(final int width, final int height) {
     this.width = width;
     this.height = height;
     this.whString = width+"x"+height;

@@ -12,6 +12,7 @@ import objects.shoppingcart.CacheShoppingCart;
 import play.Logger;
 import play.cache.Cache;
 import play.i18n.Messages;
+import play.i18n.MessagesApi;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
@@ -41,10 +42,15 @@ public class ShoppingCartController extends Controller {
    */
   private final MailerHelper mailerHelper;
 
-  @Inject
-  public ShoppingCartController(final MailerHelper mailerHelper) {
+  /**
+   * The messages api
+   */
+  private final MessagesApi messagesApi;
 
+  @Inject
+  public ShoppingCartController(final MailerHelper mailerHelper, final MessagesApi messagesApi) {
     this.mailerHelper = mailerHelper;
+    this.messagesApi = messagesApi;
   }
 
   /**
@@ -113,7 +119,7 @@ public class ShoppingCartController extends Controller {
 
       for (User owner : owners) {
         Txt emailTxt = views.txt.email.checkout.render(owner,User.getCurrentUser());
-        mailerHelper.sendMail(Messages.get("email.shoppincart.subject"),owner.email,emailTxt.body(),false);
+        mailerHelper.sendMail(messagesApi.preferred(request()).at("email.shoppincart.subject"),owner.email,emailTxt.body(),false);
         
       }
 

@@ -19,7 +19,7 @@ public enum EDvdListOrderBy {
    */
   public String dbField;
 
-  private EDvdListOrderBy(final String dbField) {
+  EDvdListOrderBy(final String dbField) {
     this.dbField = dbField;
   }
 

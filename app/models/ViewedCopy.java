@@ -47,7 +47,7 @@ public class ViewedCopy extends Model {
   @Column(nullable = false)
   public Long date;
 
-  private static Finder<Long, ViewedCopy> finder = new Finder<Long, ViewedCopy>(Long.class, ViewedCopy.class);
+  private static Find<Long, ViewedCopy> finder = new Find<Long, ViewedCopy>() {};
 
   /**
    * Creates the
