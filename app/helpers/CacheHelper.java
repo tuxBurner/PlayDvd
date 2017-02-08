@@ -4,7 +4,6 @@ import models.Bookmark;
 import objects.shoppingcart.CacheShoppingCart;
 import org.apache.commons.lang3.StringUtils;
 import play.Logger;
-import play.cache.Cache;
 import play.cache.CacheApi;
 import play.mvc.Controller;
 
@@ -47,31 +46,20 @@ public class CacheHelper {
   }
 
   /**
-   * Removes an {@link Object} from the {@link Cache}
+   * Removes an {@link Object} from the {@link CacheApi}
    * @param objectName
    */
   public  void removeObj(final ECacheObjectName objectName,final String postFix) {
     cache.remove(createCacheKey(objectName,postFix));
   }
 
-  /**
-   * Gets an {@link Object} from the {@link Cache} for the current session
-   *
-   * @param  objectName
-   *
-   * @return
-   */
-  /*public static <T> T getSessionObject(final ECacheObjectName objectName) {
-    final String uuid = createCacheUUID();
-    return getObject(objectName,uuid);
-  } */
 
   public <T> T getSessionObjectOrElse(final ECacheObjectName objectName,final Callable<T> block) {
      return getObjectOrElse(objectName,createCacheUUID(),block);
   }
 
   /**
-   * Writes an {@link Object} to the {@link Cache} for the current session
+   * Writes an {@link Object} to the {@link CacheApi} for the current session
    * @param objectName
    * @param  obj
    *
@@ -82,7 +70,7 @@ public class CacheHelper {
   }
 
   /**
-   * Removes an {@link Object} from the {@link Cache} for the current session
+   * Removes an {@link Object} from the {@link CacheApi} for the current session
    * @param objectName
    */
   public  void removeSessionObj(final ECacheObjectName objectName) {
@@ -101,7 +89,7 @@ public class CacheHelper {
   }
 
   /**
-   * Checks if the user session has a uuid and if not it creates one for the {@link Cache}
+   * Checks if the user session has a uuid and if not it creates one for the {@link CacheApi}
    * @return
    */
   private  String createCacheUUID() {
@@ -124,7 +112,7 @@ public class CacheHelper {
   }
 
   /**
-   * Gets the {@link CacheShoppingCart} from the {@link Cache} if it is null a new instance is created
+   * Gets the {@link CacheShoppingCart} from the {@link CacheApi} if it is null a new instance is created
    * @return
    */
   public  CacheShoppingCart  getShoppingCartFromCache(){

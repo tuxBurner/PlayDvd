@@ -4,14 +4,15 @@ import helpers.GravatarHelper;
 import models.User;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
-import play.i18n.Messages;
 
 /**
  * User: tuxburner
  * Date: 2/3/13
  * Time: 2:21 PM
  */
+
 public class LoginForm {
+  
   public String username;
 
   public String password;
@@ -19,7 +20,7 @@ public class LoginForm {
   public String validate() {
     final User user = User.authenticate(username, password);
     if (user == null) {
-      return Messages.get("msg.error.login");
+      return "msg.error.login";
     }
 
     if(StringUtils.isEmpty(user.passwordResetToken) == false) {
@@ -38,7 +39,7 @@ public class LoginForm {
 
 
     return null;
-  }
+  } 
 
   public String getUsername() {
     return username;

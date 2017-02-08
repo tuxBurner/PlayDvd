@@ -10,8 +10,7 @@ import play.i18n.MessagesApi;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
-import views.html.user.login;
-import views.html.user.register;
+
 
 /**
  * Controller which manages the register process for the application.
@@ -40,7 +39,7 @@ public class RegisterLoginController extends Controller {
    */
   public Result showRegister() {
     Form<RegisterForm> form = formFactory.form(RegisterForm.class);
-    return Results.ok(register.render(form));
+    return Results.ok(views.html.user.register.render(form));
   }
 
   /**
@@ -51,7 +50,7 @@ public class RegisterLoginController extends Controller {
   public Result register() {
     final Form<RegisterForm> registerForm = formFactory.form(RegisterForm.class).bindFromRequest();
     if (registerForm.hasErrors()) {
-      return Results.badRequest(register.render(registerForm));
+      return Results.badRequest(views.html.user.register.render(registerForm));
     } else {
 
       final String message = messagesApi.preferred(request()).at("msg.success.login", registerForm.get().username);
@@ -65,7 +64,7 @@ public class RegisterLoginController extends Controller {
    * Login page.
    */
   public Result showLogin() {
-    return Results.ok(login.render(formFactory.form(LoginForm.class)));
+    return Results.ok(views.html.user.login.render(formFactory.form(LoginForm.class)));
   }
 
   /**
@@ -76,7 +75,7 @@ public class RegisterLoginController extends Controller {
   public Result login() {
     final Form<LoginForm> loginForm = formFactory.form(LoginForm.class).bindFromRequest();
     if (loginForm.hasErrors()) {
-      return Results.badRequest(login.render(loginForm));
+      return Results.badRequest(views.html.user.login.render(loginForm));
     } else {
       Secured.writeUserToSession(loginForm.get().username);
       final String msg = messagesApi.preferred(request()).at("msg.success.login", loginForm.get().username);
