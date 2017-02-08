@@ -35,7 +35,7 @@ public class MovieAttribute extends Model {
   /**
    * Default FINDER for the {@link MovieAttribute}
    */
-  public static Finder<Long, MovieAttribute> finder = new Finder<Long, MovieAttribute>(Long.class, MovieAttribute.class);
+  public static Find<Long, MovieAttribute> finder = new Find<Long, MovieAttribute>() {};
 
   @Id
   public Long pk;

@@ -7,6 +7,7 @@ import forms.user.RegisterForm;
 import play.data.Form;
 import play.data.FormFactory;
 import play.i18n.Messages;
+import play.i18n.MessagesApi;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
@@ -25,10 +26,12 @@ public class RegisterLoginController extends Controller {
 
   private final FormFactory formFactory;
 
-  @Inject
-  public RegisterLoginController(final FormFactory formFactory) {
+  private final MessagesApi messagesApi;
 
+  @Inject
+  public RegisterLoginController(final FormFactory formFactory, final MessagesApi messagesApi) {
     this.formFactory = formFactory;
+    this.messagesApi = messagesApi;
   }
 
   /**
@@ -52,7 +55,7 @@ public class RegisterLoginController extends Controller {
       return Results.badRequest(register.render(registerForm));
     } else {
 
-      final String message = Messages.get("msg.success.login", registerForm.get().username);
+      final String message = messagesApi.preferred(request()).at("msg.success.login", registerForm.get().username);
       Controller.flash("success", message);
       Controller.session(Secured.AUTH_SESSION, "" + registerForm.get().username);
       return Results.redirect(routes.ApplicationController.index());
@@ -77,7 +80,7 @@ public class RegisterLoginController extends Controller {
       return Results.badRequest(login.render(loginForm));
     } else {
       Secured.writeUserToSession(loginForm.get().username);
-      final String msg = Messages.get("msg.success.login", loginForm.get().username);
+      final String msg = messagesApi.preferred(request()).at("msg.success.login", loginForm.get().username);
       Controller.flash("success", msg);
       return Results.redirect(routes.ApplicationController.index());
     }
@@ -86,7 +89,7 @@ public class RegisterLoginController extends Controller {
 
   public Result logout() {
     Controller.session().clear();
-    Controller.flash("success", Messages.get("msg.success.logout"));
+    Controller.flash("success", messagesApi.preferred(request()).at("msg.success.logout"));
     return Results.redirect(routes.RegisterLoginController.login());
   }
 

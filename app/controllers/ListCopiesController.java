@@ -222,7 +222,7 @@ public class ListCopiesController extends Controller {
     final CacheShoppingCart shoppingCartFromCache = ShoppingCartController.getShoppingCartFromCache();
     final Set<Long> bookmarkedCopyIds = BookmarksController.getBookmarkedCopyIds();
     if(jsMode == false) {
-      final Form<CopySearchFrom> form = Form.form(CopySearchFrom.class);
+      final Form<CopySearchFrom> form =  formFactory.form(CopySearchFrom.class);
       return Results.ok(listdvds.render(dvdPage, form.fill(copySearchFrom), username, shoppingCartFromCache,currentViewMode,bookmarkedCopyIds));
     } else {
       return Results.ok(views.html.dashboard.listviews.listviewsWrapper.render(dvdPage,username,shoppingCartFromCache,bookmarkedCopyIds,currentViewMode));

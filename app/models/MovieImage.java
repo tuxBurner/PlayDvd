@@ -42,7 +42,7 @@ public class MovieImage extends Model{
   /**
    * The FINDER for the database for searching in the database
    */
-  public static Finder<Long, MovieImage> finder = new Finder<Long, MovieImage>(Long.class, MovieImage.class);
+  public static Find<Long, MovieImage> finder = new Find<Long, MovieImage>() {};
 
 
   /**

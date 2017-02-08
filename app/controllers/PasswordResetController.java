@@ -9,6 +9,7 @@ import play.Logger;
 import play.data.Form;
 import play.data.FormFactory;
 import play.i18n.Messages;
+import play.i18n.MessagesApi;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
@@ -35,11 +36,16 @@ public class PasswordResetController extends Controller {
    */
   private final MailerHelper mailerHelper;
 
-  @Inject
-  PasswordResetController(final FormFactory formFactory, final MailerHelper mailerHelper) {
-    this.formFactory = formFactory;
+  /**
+   * Handles messages
+   */
+  private final MessagesApi messagesApi;
 
+  @Inject
+  PasswordResetController(final FormFactory formFactory, final MailerHelper mailerHelper, final MessagesApi messagesApi) {
+    this.formFactory = formFactory;
     this.mailerHelper = mailerHelper;
+    this.messagesApi = messagesApi;
   }
 
   /**
@@ -80,15 +86,15 @@ public class PasswordResetController extends Controller {
 
       final String activationUrl = routes.PasswordResetController.showPasswordReset(userByName.passwordResetToken).absoluteURL(request());
 
-      final String content = Messages.get("email.passwordreset.content",userByName.userName,activationUrl);
+      final String content = messagesApi.preferred(request()).at("email.passwordreset.content",userByName.userName,activationUrl);
 
       if (Logger.isDebugEnabled() == true) {
         Logger.debug("Email send to: " + userByName.email + " with activation code: " + activationUrl);
       }
 
-      mailerHelper.sendMail(Messages.get("email.passwordreset.subject"), userByName.email, content, false);
+      mailerHelper.sendMail(messagesApi.preferred(request()).at("email.passwordreset.subject"), userByName.email, content, false);
 
-      flash("success", Messages.get("msg.success.passwordMailSend"));
+      flash("success", messagesApi.preferred(request()).at("msg.success.passwordMailSend"));
     }
 
     return redirect(routes.PasswordResetController.showPasswordForget());
@@ -131,7 +137,7 @@ public class PasswordResetController extends Controller {
       userByResetToken.update();
     }
 
-    flash("success", Messages.get("msg.success.passwordChanged"));
+    flash("success", messagesApi.preferred(request()).at("msg.success.passwordChanged"));
     return redirect(routes.RegisterLoginController.login());
   }
 }
