@@ -30,7 +30,7 @@ public class DvdAttribute extends Model {
   /**
    * Default FINDER for the {@link DvdAttribute}
    */
-  public static Finder<Long, DvdAttribute> finder = new Finder<Long, DvdAttribute>(DvdAttribute.class);
+  public static Finder<Long, DvdAttribute> FINDER = new Finder<Long, DvdAttribute>(DvdAttribute.class);
 
   @Id
   public Long id;
@@ -51,7 +51,7 @@ public class DvdAttribute extends Model {
    * @return
    */
   public static Set<DvdAttribute> findAttributesByName(final Set<String> values, final EDvdAttributeType type) {
-    final Set<DvdAttribute> findSet = DvdAttribute.finder.where().in("value", values).eq("attributeType", type).findSet();
+    final Set<DvdAttribute> findSet = FINDER.where().in("value", values).eq("attributeType", type).findSet();
     return findSet;
   }
 
@@ -62,7 +62,7 @@ public class DvdAttribute extends Model {
    * @return
    */
   public static List<DvdAttribute> getAllByType(final EDvdAttributeType type) {
-    final List<DvdAttribute> findList = DvdAttribute.finder.where().eq("attributeType", type).order("value ASC").findList();
+    final List<DvdAttribute> findList = FINDER.where().eq("attributeType", type).order("value ASC").findList();
     return findList;
   }
 
@@ -191,7 +191,7 @@ public class DvdAttribute extends Model {
       return StringUtils.EMPTY;
     }
 
-    final List<DvdAttribute> attributes = DvdAttribute.finder.where().eq("attributeType", attributeType).istartsWith("value", searchTerm).order("value ASC").findList();
+    final List<DvdAttribute> attributes = FINDER.where().eq("attributeType", attributeType).istartsWith("value", searchTerm).order("value ASC").findList();
     final List<SelectAjaxContainer> retVal = new ArrayList<SelectAjaxContainer>();
     retVal.add(new SelectAjaxContainer(searchTerm, searchTerm));
 

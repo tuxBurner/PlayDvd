@@ -42,7 +42,7 @@ public class MovieImage extends Model{
   /**
    * The FINDER for the database for searching in the database
    */
-  public static Find<Long, MovieImage> finder = new Find<Long, MovieImage>() {};
+  public static Find<Long, MovieImage> FINDER = new Find<Long, MovieImage>() {};
 
 
   /**
@@ -53,12 +53,12 @@ public class MovieImage extends Model{
    * @return
    */
   public static boolean checkForImage(final Long movieId, final EImageSize size, final EImageType type) {
-    final int rowCount = finder.where().eq("movie.id", movieId).eq("size", size).eq("type", type).findRowCount();
+    final int rowCount = FINDER.where().eq("movie.id", movieId).eq("size", size).eq("type", type).findRowCount();
     return (rowCount > 0);
   }
 
   public static MovieImage getForMovie(final Long movieId, final EImageSize size, final EImageType type) {
-    final MovieImage movieImage = finder.where().eq("movie.id", movieId).eq("size", size).eq("type", type).findUnique();
+    final MovieImage movieImage = FINDER.where().eq("movie.id", movieId).eq("size", size).eq("type", type).findUnique();
     return movieImage;
   }
 
@@ -91,7 +91,7 @@ public class MovieImage extends Model{
    * @param movieId
    */
   public static  void deleteForMovie(final Long movieId) {
-    final Set<MovieImage> set = MovieImage.finder.where().eq("movie.id", movieId).findSet();
+    final Set<MovieImage> set = FINDER.where().eq("movie.id", movieId).findSet();
     if(CollectionUtils.isEmpty(set) == false) {
       for(final MovieImage image : set) {
         image.delete();

@@ -3,6 +3,7 @@ package controllers;
 import com.typesafe.config.ConfigFactory;
 import play.Application;
 import play.i18n.Lang;
+import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Result;
 

@@ -43,7 +43,7 @@ public class CopyReservation extends Model {
   @Column(nullable = false)
   public Long date;
 
-  private static Find<Long,CopyReservation> finder = new Find<Long, CopyReservation>() {};
+  private static Find<Long,CopyReservation> FINDER = new Find<Long, CopyReservation>() {};
 
   /**
    * Creates the reservation items
@@ -89,7 +89,7 @@ public class CopyReservation extends Model {
    */
   public static Map<User, List<CopyReservation>> getReservations() {
     final User currentUser = User.getCurrentUser();
-    final List<CopyReservation> list = finder.where().eq("copy.owner", currentUser).order("borrower").findList();
+    final List<CopyReservation> list = FINDER.where().eq("copy.owner", currentUser).order("borrower").findList();
     final Map<User,List<CopyReservation>> result = new HashMap<User, List<CopyReservation>>();
 
     if(CollectionUtils.isEmpty(list) == false) {
@@ -114,7 +114,7 @@ public class CopyReservation extends Model {
    */
   public static List<CopyReservation> getOwnReservations() {
     final User currentUser = User.getCurrentUser();
-    final List<CopyReservation> list = finder.where().eq("borrower", currentUser).order("date DESC").findList();
+    final List<CopyReservation> list = FINDER.where().eq("borrower", currentUser).order("date DESC").findList();
 
     return list;
   }
@@ -125,7 +125,7 @@ public class CopyReservation extends Model {
    */
   public static int getReservationsCount() {
     final User currentUser = User.getCurrentUser();
-    return finder.where().eq("copy.owner", currentUser).findRowCount();
+    return FINDER.where().eq("copy.owner", currentUser).findRowCount();
   }
 
   /**
@@ -134,7 +134,7 @@ public class CopyReservation extends Model {
    */
   public static int getReservedCount() {
     final User currentUser = User.getCurrentUser();
-    return finder.where().eq("borrower", currentUser).findRowCount();
+    return FINDER.where().eq("borrower", currentUser).findRowCount();
   }
 
   /**
@@ -143,7 +143,7 @@ public class CopyReservation extends Model {
    */
   public static void deleteReserved(Long reservationId) {
     final User currentUser = User.getCurrentUser();
-    final CopyReservation reservation = finder.where().eq("borrower", currentUser).eq("id", reservationId).findUnique();
+    final CopyReservation reservation = FINDER.where().eq("borrower", currentUser).eq("id", reservationId).findUnique();
     if(reservation == null) {
       if(Logger.isErrorEnabled() == true) {
         Logger.error("Could not find "+CopyReservation.class.getName()+": "+reservationId+" where the owner is: "+currentUser.userName);
@@ -160,7 +160,7 @@ public class CopyReservation extends Model {
    * @param currentUser
    */
   public static void deleteReservation(Long reservationId, final User currentUser) {
-    final CopyReservation reservation = finder.where().eq("copy.owner", currentUser).eq("id", reservationId).findUnique();
+    final CopyReservation reservation = FINDER.where().eq("copy.owner", currentUser).eq("id", reservationId).findUnique();
     if(reservation == null) {
       if(Logger.isErrorEnabled() == true) {
         Logger.error("Could not find "+CopyReservation.class.getName()+": "+reservationId+" where the copy.owner is: "+currentUser.userName);
@@ -177,7 +177,7 @@ public class CopyReservation extends Model {
    * @return
    */
   public static Map<String,String> getReservationsForCopy(final Long copyId) {
-    final List<CopyReservation> list = finder.fetch("borrower", "userName").where().eq("copy.id", copyId).findList();
+    final List<CopyReservation> list = FINDER.fetch("borrower", "userName").where().eq("copy.id", copyId).findList();
     final Map<String,String> result = new HashMap<String, String>();
     if(CollectionUtils.isEmpty(list) == false) {
       result.put("","");
@@ -189,7 +189,7 @@ public class CopyReservation extends Model {
   }
 
   public static String getReservationBorrowerName(final Long reservationId) {
-    final CopyReservation copyReservation = finder.fetch("borrower", "userName").where().eq("id", reservationId).findUnique();
+    final CopyReservation copyReservation = FINDER.fetch("borrower", "userName").where().eq("id", reservationId).findUnique();
     if(copyReservation == null) {
       return null;
     }
@@ -203,7 +203,7 @@ public class CopyReservation extends Model {
    * @param currentUser
    */
   public static void borrowReservation(Long reservationId, User currentUser) {
-    final CopyReservation copyReservation = finder.where().eq("id", reservationId).eq("copy.owner", currentUser).findUnique();
+    final CopyReservation copyReservation = FINDER.where().eq("id", reservationId).eq("copy.owner", currentUser).findUnique();
     if(copyReservation == null) {
       return;
     }

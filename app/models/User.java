@@ -67,7 +67,7 @@ public class User extends Model {
   /**
    * The Finder
    */
-  public static Model.Finder<Long, User> FINDER = new Model.Finder(User.class);
+  public static Find<Long, User> FINDER = new Find<Long,User>(){};
 
   /**
    * Saves the user to the database

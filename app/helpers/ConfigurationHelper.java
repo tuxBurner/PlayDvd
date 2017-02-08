@@ -26,7 +26,7 @@ public class ConfigurationHelper {
       return null;
     }
 
-    final Map<String,T> map = new HashMap<String, T>();
+    final Map<String,T> map = new HashMap<>();
     for (Map.Entry<String, Object> entry : configObject.unwrapped().entrySet()) {
       final Object value = entry.getValue();
       map.put(entry.getKey(), (T) value);

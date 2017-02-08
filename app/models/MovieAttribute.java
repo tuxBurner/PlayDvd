@@ -24,7 +24,7 @@ public class MovieAttribute extends Model {
   /**
    * Default FINDER for the {@link MovieAttribute}
    */
-  public static Find<Long, MovieAttribute> finder = new Find<Long, MovieAttribute>() {};
+  public static Find<Long, MovieAttribute> FINDER = new Find<Long, MovieAttribute>() {};
 
   @Id
   public Long pk;
@@ -45,7 +45,7 @@ public class MovieAttribute extends Model {
    * @return
    */
   public static Set<MovieAttribute> findAttributesByName(final Set<String> values, final EMovieAttributeType type) {
-    final Set<MovieAttribute> findSet = MovieAttribute.finder.where().in("value", values).eq("attributeType", type).findSet();
+    final Set<MovieAttribute> findSet = MovieAttribute.FINDER.where().in("value", values).eq("attributeType", type).findSet();
     return findSet;
   }
 
@@ -56,7 +56,7 @@ public class MovieAttribute extends Model {
    * @return
    */
   public static List<MovieAttribute> getAllByType(final EMovieAttributeType type) {
-    final List<MovieAttribute> findList = MovieAttribute.finder.where().eq("attributeType", type).order("value ASC").findList();
+    final List<MovieAttribute> findList = MovieAttribute.FINDER.where().eq("attributeType", type).order("value ASC").findList();
     return findList;
   }
 
@@ -166,7 +166,7 @@ public class MovieAttribute extends Model {
       return StringUtils.EMPTY;
     }
 
-    final List<MovieAttribute> attributes = MovieAttribute.finder.where().eq("attributeType", attributeType).istartsWith("value", searchTerm).order("value ASC").findList();
+    final List<MovieAttribute> attributes = FINDER.where().eq("attributeType", attributeType).istartsWith("value", searchTerm).order("value ASC").findList();
     final List<SelectAjaxContainer> retVal = new ArrayList<SelectAjaxContainer>();
     retVal.add(new SelectAjaxContainer(searchTerm, searchTerm));
 

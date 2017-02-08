@@ -26,8 +26,8 @@ public class CacheHelper {
   }
 
 
-  public  <T> T getObject(final ECacheObjectName objectName, final String postFix) {
-    return (T) cache.get(createCacheKey(objectName,postFix)); //Cache.get(createCacheKey(objectName,postFix));
+  public <T> T getObject(final ECacheObjectName objectName, final String postFix) {
+    return cache.get(createCacheKey(objectName,postFix));
   }
 
   public  <T> T getObjectOrElse(final ECacheObjectName objectName,final String postFix,final Callable<T> block) {

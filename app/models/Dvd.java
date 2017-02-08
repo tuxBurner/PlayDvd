@@ -76,7 +76,7 @@ public class Dvd extends Model {
     /**
      * The FINDER for the database for searching in the database
      */
-    public static Finder<Long, Dvd> FINDER = new Finder(Dvd.class);
+    public static Find<Long,Dvd> FINDER = new Find<Long, Dvd>() {};
 
     @Required
     @Column(nullable = false)
