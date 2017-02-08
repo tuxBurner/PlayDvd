@@ -614,7 +614,7 @@ public class Dvd extends Model {
       return;
     }
 
-    Logger.error("Could not FINDER dvd: " + dvdId + " for owner: " + ownerName);
+    Logger.error("Could not find dvd: " + dvdId + " for owner: " + ownerName);
   }
 
   /**
@@ -660,7 +660,7 @@ public class Dvd extends Model {
 
     }
 
-    Logger.error("Could not FINDER dvd: " + dvdId + " for owner: " + ownerName);
+    Logger.error("Could not find dvd: " + dvdId + " for owner: " + ownerName);
 
     return unlendIds;
   }

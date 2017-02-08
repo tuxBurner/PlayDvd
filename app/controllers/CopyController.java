@@ -243,7 +243,7 @@ public class CopyController extends Controller {
             copy = Dvd.getDvdForUser(copyId, Controller.request().username());
             if (copy == null) {
                 if (Logger.isDebugEnabled() == true) {
-                    Logger.debug("Could not FINDER copy with id: " + copyId + " for user: " + Controller.request().username());
+                    Logger.debug("Could not find copy with id: " + copyId + " for user: " + Controller.request().username());
                 }
                 return badRequest();
             }

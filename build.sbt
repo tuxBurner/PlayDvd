@@ -10,7 +10,7 @@ libraryDependencies ++= Seq(
   cache,
   javaWs,
   "mysql" % "mysql-connector-java" % "5.1.18",
-  "net.coobird" % "thumbnailator" % "0.4.4",
+  "net.coobird" % "thumbnailator" % "0.4.8",
   "commons-io" % "commons-io" % "2.0.1",
   "commons-collections" % "commons-collections" % "3.2.1",
   "commons-lang" % "commons-lang" % "2.6",
@@ -19,11 +19,11 @@ libraryDependencies ++= Seq(
   // RSS FEEDS
   "rome" % "rome" % "1.0",
   // grabbers
-  "com.omertron" % "thetvdbapi" % "1.8",
-  "com.omertron" % "themoviedbapi" % "4.1",
+  "com.omertron" % "thetvdbapi" % "1.9",
+  "com.omertron" % "themoviedbapi" % "4.3",
   "com.omertron" % "traileraddictapi" % "1.5",
   // barcode stuff
-  "com.google.zxing" % "core" % "3.1.0",
+  "com.google.zxing" % "core" % "3.3.0",
   // mail
   "com.typesafe.play" %% "play-mailer" % "5.0.0",
   // webjars
