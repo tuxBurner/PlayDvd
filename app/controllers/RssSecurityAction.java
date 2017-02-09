@@ -15,7 +15,7 @@ import java.util.concurrent.CompletionStage;
  * Date: 6/9/13
  * Time: 10:58 PM
  */
-public class RssSecurityAction extends Action.Simple {
+public class RssSecurityAction extends play.mvc.Action.Simple {
 
     public static String RSS_FEED_AUTH_PARAM = "authKey";
 
@@ -45,8 +45,7 @@ public class RssSecurityAction extends Action.Simple {
             return CompletableFuture.completedFuture(unauthorized("Auth was no success"));
         }
 
-        ctx.request().withUsername(userByRssAuthKey.userName);
-
-        return delegate.call(ctx);
+        Http.Context context = new Http.Context(ctx.request().withUsername(userByRssAuthKey.userName));
+        return delegate.call(context);
     }
 }
