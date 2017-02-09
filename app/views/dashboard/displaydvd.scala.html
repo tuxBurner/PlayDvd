@@ -15,12 +15,12 @@
       hammerDoc.get('swipe').set({ direction: Hammer.DIRECTION_HORIZONTAL });
       @if(prevNext.next != null) {    
           hammerDoc.on('swipeleft', function(ev) {
-            window.location = jsRoutes.controllers.Dashboard.displayCopyOnPage(@prevNext.next.id).absoluteURL(appIsInHttps); 
+            window.location = jsRoutes.controllers.DashboardController.displayCopyOnPage(@prevNext.next.id).absoluteURL(appIsInHttps);
           });
       }
       @if(prevNext.prev != null) {
         hammerDoc.on('swiperight', function(ev) {
-       	  window.location = jsRoutes.controllers.Dashboard.displayCopyOnPage(@prevNext.prev.id).absoluteURL(appIsInHttps);
+       	  window.location = jsRoutes.controllers.DashboardController.displayCopyOnPage(@prevNext.prev.id).absoluteURL(appIsInHttps);
         });
       }
     </script>
@@ -33,8 +33,7 @@
       $(document).on('click','.coverwrapper em, .coverwrapper_small em, a.displayCopy',function(event){
         var copyId = $(this).data('dvdId');
 
-        // testing style
-        window.location = jsRoutes.controllers.Dashboard.displayCopyOnPage(copyId).absoluteURL(appIsInHttps);
+        window.location = jsRoutes.controllers.DashboardController.displayCopyOnPage(copyId).absoluteURL(appIsInHttps);
       });
     });
   </script>

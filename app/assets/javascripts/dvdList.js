@@ -79,7 +79,7 @@ var addComment = function (movieId) {
  */
 var navToPage = function (idx) {
   pAjax(
-    jsRoutes.controllers.ListDvdsController.listCopiesJS(),
+    jsRoutes.controllers.ListCopiesController.listCopiesJS(),
     {"pageNr": idx},
     function (data) {
       $('#copyListContainer').html(data);
