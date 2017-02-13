@@ -1,19 +1,16 @@
 @(form: Form[forms.user.LoginForm])
 @main(Messages.apply("headline.login")) {
 
-  <div class="row-fluid">
-    <div class="span4"></div>
-    <div class="span4">
-    @helper.form(routes.RegisterLoginController.login(), 'class -> "well") {
 
+    @twbs.formhelper.html.form(routes.RegisterLoginController.login(),'class -> "well form-signin") {
+      <h2>@Messages.apply("headline.login")</h2>
 
-      <h4>@Messages.apply("headline.login")</h4>
       <hr />
 
       @if(form.hasGlobalErrors) {
-        <p class="alert alert-error">
+        <div class="alert alert-danger">
         @Messages(form.globalError.message)
-        </p>
+        </div>
       }
 
       @if(flash.contains("success")) {
@@ -22,24 +19,14 @@
         </p>
       }
 
+      <input name="username" class="form-control" type="text" placeholder="@Messages.apply("lbl.username") ..." class="tooltip-top" title="Enter username" autofocus required/>
+      <input name="password" class="form-control" type="password" placeholder="@Messages.apply("lbl.password") ..." class="tooltip-top" title="Enter password" required/>
 
+      <button type="submit" clasS="btn btn-primary btn-lg btn-block"><i class="fa fa-sign-in"></i> @Messages.apply("btn.login")</button>
 
-      <input name="username" type="text" placeholder="@Messages.apply("lbl.username") ..." class="tooltip-top" title="Enter username"/>
-      <input name="password" type="password" placeholder="@Messages.apply("lbl.password") ..." class="tooltip-top" title="Enter password"/>
+      <hr />
 
-
-      <div class="form-actions">
-        <button type="submit" clasS="btn btn-primary btn-block"><i class="icon-signin"></i> @Messages.apply("btn.login")</button>
-      </div>
-
-      <div class="form-actions">
-        <a class="btn btn-info" href="@routes.RegisterLoginController.register"><i class="icon-user"></i> @Messages.apply("btn.register")</a>
-        <a class="btn btn-warning" href="@routes.PasswordResetController.showPasswordForget"><i class="icon-bolt"></i> @Messages.apply("btn.password")</a>
-      </div>
-
-
+      <a class="btn btn-block btn-info" href="@routes.RegisterLoginController.register"><i class="fa fa-user"></i> @Messages.apply("btn.register")</a>
+      <a class="btn btn-block btn-warning" href="@routes.PasswordResetController.showPasswordForget"><i class="fa fa-bolt"></i> @Messages.apply("btn.password")</a>
     }
-    </div>
-    <div class="span4"></div>
-  </div>
 }
