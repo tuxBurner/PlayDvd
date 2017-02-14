@@ -1,14 +1,18 @@
 @(reservations: Integer, reserved: Integer, lentCopies: Integer, borrowedCopies: Integer)
-<div class="btn-group">
-<a class="btn dropdown-toggle @if(reservations != 0 || reserved != 0) { btn-danger }" data-toggle="dropdown" href="#">
-  <i class="icon-list"></i> (@reservations / @reserved)
-  <span class="caret"></span>
-</a>
-<ul class="dropdown-menu">
-  <li><a href="@routes.ReservationsController.showReservations">@Messages("lbl.reservations") (@reservations)</a></li>
-  <li><a href="@routes.ReservationsController.showReserved">@Messages("lbl.reservedCopies") (@reserved)</a></li>
-  <li><a href="@routes.ReservationsController.showLentCopies">@Messages("lbl.lentCopies") (@lentCopies)</a></li>
-  <li><a href="@routes.ReservationsController.showBorrowedCopies">@Messages("lbl.borrowedCopies") (@borrowedCopies)</a></li>
-</ul>
-</div>
+<li>
+
+    <a class="btn dropdown-toggle @if(reservations != 0 || reserved != 0) { btn-danger }" data-toggle="dropdown" href="#">
+      <i class="fa fa-list"></i> (@reservations / @reserved)
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+      <li><a href="@routes.ReservationsController.showReservations">@Messages("lbl.reservations") (@reservations)</a></li>
+      <li><a href="@routes.ReservationsController.showReserved">@Messages("lbl.reservedCopies") (@reserved)</a></li>
+      <li><a href="@routes.ReservationsController.showLentCopies">@Messages("lbl.lentCopies") (@lentCopies)</a></li>
+      <li><a href="@routes.ReservationsController.showBorrowedCopies">@Messages("lbl.borrowedCopies")
+        (@borrowedCopies)</a>
+      </li>
+    </ul>
+  
+</li>
 

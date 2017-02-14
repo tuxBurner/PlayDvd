@@ -1,69 +1,79 @@
-@(title: String,scripts: Html = Html(""),styles: Html = Html(""))(content: Html)
+@(title: String, scripts: Html = Html(""), styles: Html = Html(""))(content: Html)
 @import helpers.ECopyListView
 
 @import helper._
 
 @menuContent = {
-  <div class="pull-right">
+  <div class="collapse navbar-collapse">
+    @* LEFT NAVBAR *@
+    <ul class="nav navbar-nav">
 
-    @defining(ListCopiesController.getCurrentViewMode) { viewMode =>
-      <div class="btn-group">
-        @for(viewType <- ECopyListView.values()) {
-          <a class="btn btn-small @if(viewMode == viewType){active}" href="@routes.ListCopiesController.changeViewMode(viewType.name())"><i class="@viewType.icon"></i></a>
-        }
-      </div>
-    }
-
-    @reservations.menureservationbtn(CopyReservation.getReservationsCount,CopyReservation.getReservedCount,Dvd.getLentDvdsCount,Dvd.getBorrowedDvdsCount)
-
-    <div class="btn-group">
-    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-      @views.html.dashboard.userImage(Secured.getUsername,Secured.getUserHasGravatar,16)
-      @Secured.getUsername
-      <span class="caret"></span>
-    </a>
-    <ul class="dropdown-menu">
-      <li><a href="@routes.UserProfileController.showProfile()"><i class="icon-user"></i> @Messages("lbl.profile")</a></li>
-      <li class="divider"></li>
-      @for((langCode,langName) <- LanguageController.getLanguages) {
-        <li><a href="@routes.LanguageController.changeLanguage(langCode)"><img src="@routes.Assets.versioned("lib/famfamfam-flags/png/"+LanguageController.getLanguageFlags.get(langCode)+".png")" alt="@langCode"/> @langName</a></li>
-      }
-      <li class="divider"></li>
-      <li><a href="@routes.ExportMoviesController.displayExportOptions"><i class="icon-download-alt"></i> @Messages("lbl.export")</a></li>
-      <li class="divider"></li>
-      <li><a href="@routes.RegisterLoginController.logout"><i class="icon-signout"></i> @Messages("lbl.logout")</a></li>
-    </ul>
-    </div>
-  </div>
-          
-  <div class="nav-collapse">
-    <ul class="nav">
-            
-      <!--    DVD LIST MENU --> 
+      @* DVD LIST DROP DOWN *@
       <li class="dropdown" id="listMenu">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#listMenu"> @Messages("lbl.list")<b class="caret"></b></a>
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#listMenu"> @Messages("lbl.list") <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-toggle" href="@routes.ListCopiesController.listAllCopies()"><i class="icon-list-alt"></i> @Messages("lbl.listAll")</a></li>
-          <li><a class="dropdown-toggle" href="@routes.ListCopiesController.listByUser(Secured.getUsername)"><i class="icon-user"></i> @Messages("lbl.listOwn")</a></li>
+          <li><a class="dropdown-toggle" href="@routes.ListCopiesController.listAllCopies()"><i class="fa fa-list-alt"></i> @Messages("lbl.listAll")</a></li>
+          <li><a class="dropdown-toggle" href="@routes.ListCopiesController.listByUser(Secured.getUsername)"><i class="fa fa-user"></i> @Messages("lbl.listOwn")</a></li>
           @*<li><a class="dropdown-toggle" href="@routes.ListDvdsController.listLendDvd()"><i class="icon-user"></i>List Lend</a></li>*@
           @*<li><a class="dropdown-toggle" href="@routes.ListDvdsController.listReviewMovies()"><i class="icon-user"></i>Movies to review</a></li>*@
         </ul>
       </li>
-      
-            
-      <li><a href="@routes.CopyController.showAddDvd"><i class="icon-plus"></i> @Messages("lbl.addCopy")</a></li>
+      @* EO DVD LIST DROP DOWN *@
 
-      <li  id="shoppingCartMenu"></li>
+      <li><a href="@routes.CopyController.showAddDvd"><i class="fa fa-plus"></i> @Messages("lbl.addCopy")</a></li>
+      <li id="shoppingCartMenu"></li>
+      <li><a href="@routes.BookmarksController.listBookmarks()"><i class="fa fa-bookmark"></i>(@Bookmark.getBookmarkCopyIdsForUser.size())</a></li>
+      <li><a href="@routes.ViewedCopyController.getViewedCopiesForCurrentUser()"><i class="fa fa-eye-open">(@ViewedCopy.getCopiesViewedCount())</i></a></li>
+      <li><a href="@routes.RssFeedsController.displayRssFeedLinks()"><i class="fa fa-rss-sign"></i></a></li>
+    </ul>
+    @* EO LEFT NAVBAR *@
 
-      <li><a href="@routes.BookmarksController.listBookmarks()"><i class="icon-bookmark"></i>(@Bookmark.getBookmarkCopyIdsForUser.size())</a></li>
-      <li><a href="@routes.ViewedCopyController.getViewedCopiesForCurrentUser()"><i class="icon-eye-open"> (@ViewedCopy.getCopiesViewedCount())</i></a></li>
-      <li><a href="@routes.RssFeedsController.displayRssFeedLinks()"><i class="icon-rss-sign"></i></a></li>
+    @* RIGHT NAVBAR *@
+    <ul class="nav navbar-nav navbar-right">
+      @* VIEW MODES *@
+      @defining(ListCopiesController.getCurrentViewMode) { viewMode =>
+        <li>
+          <div class="btn-group" role="group">
+            @for(viewType <- ECopyListView.values()) {
+               <a class="btn btn-small @if(viewMode == viewType){active}" href="@routes.ListCopiesController.changeViewMode(viewType.name())"><i class="fa @viewType.icon"></i></a>
+            }
+          </div>
+        </li>
+      }
+      @* EO VIEW MODES *@
+
+      @reservations.menureservationbtn(CopyReservation.getReservationsCount,CopyReservation.getReservedCount,Dvd.getLentDvdsCount,Dvd.getBorrowedDvdsCount)#
+
+      <li>
+        <div class="btn-group">
+          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            @views.html.dashboard.userImage(Secured.getUsername,Secured.getUserHasGravatar,16)
+            @Secured.getUsername
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="@routes.UserProfileController.showProfile()"><i class="fa fa-user"></i> @Messages("lbl.profile")</a></li>
+            <li class="divider"></li>
+            @for((langCode,langName) <- LanguageController.getLanguages) {
+              <li><a href="@routes.LanguageController.changeLanguage(langCode)"><img src="@routes.Assets.versioned("lib/famfamfam-flags/png/"+LanguageController.getLanguageFlags.get(langCode)+".png")" alt="@langCode"/> @langName</a></li>
+            }
+            <li class="divider"></li>
+            <li><a href="@routes.ExportMoviesController.displayExportOptions"><i class="fa fa-download-alt"></i> @Messages("lbl.export")</a></li>
+            <li class="divider"></li>
+            <li><a href="@routes.RegisterLoginController.logout"><i class="fa fa-signout"></i> @Messages("lbl.logout")</a></li>
+          </ul>
+        </div>
+      </li>
 
     </ul>
+    @* EO RIGHT NAVBAR *@
+
   </div>
+
+
 }
 
-@main(title,menuContent,scripts,styles) {
+@main(title, menuContent, scripts, styles) {
 
   @if(flash.contains("success")) {
     <div class="alert alert-success">

@@ -8,9 +8,9 @@ package helpers;
  * To change this template use File | Settings | File Templates.
  */
 public enum ECopyListView {
-  COVERVIEW("icon-th-large"),
-  SMALLCOVERVIEW("icon-th"),
-  TABLEVIEW("icon-table");
+  COVERVIEW("fa-th-large"),
+  SMALLCOVERVIEW("fa-th"),
+  TABLEVIEW("fa-table");
 
   public final String icon;
 
