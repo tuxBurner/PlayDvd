@@ -41,7 +41,7 @@ public class RefreshMovieInfosJob extends AbstractConfigurationJob {
     Logger.info("Found: " + moviesToUpdate.size() + " to update the informations for.");
 
     for (Movie movie : moviesToUpdate) {
-      Logger.info("Going to fetch data for movie: " + movie.id + " with grabber: " + movie.grabberType + " (" + movie.grabberId + ")");
+      Logger.info("Going to fetch data for movie "+movie.title+" (" + movie.id + ") with grabber: " + movie.grabberType + " (" + movie.grabberId + ")");
       IInfoGrabber grabber = GrabberHelper.getGrabber(movie.grabberType);
       GrabberInfoForm infoForm = new GrabberInfoForm();
       infoForm.grabberMovieId = movie.grabberId;
