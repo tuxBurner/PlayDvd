@@ -51,7 +51,7 @@ public class RefreshMovieInfosJob extends AbstractConfigurationJob {
         movieForm.movieId = movie.id;
         Movie.editOrAddFromForm(movieForm, false);
       } catch (Exception e) {
-        Logger.error("An error happened while getting movieinformations for movie: " + movie.id + " with grabber: " + movie.grabberType + " (" + movie.grabberId + ")", e);
+        Logger.error("An error happened while getting movieinformations for movie: "+movie.title+" (" + movie.id + ") with grabber: " + movie.grabberType + " (" + movie.grabberId + ")", e);
         movie.updatedDate = new Date().getTime();
         movie.update();
       }
