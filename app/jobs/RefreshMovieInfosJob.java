@@ -11,6 +11,7 @@ import play.Logger;
 import scala.concurrent.duration.Duration;
 import scala.concurrent.duration.FiniteDuration;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -51,6 +52,8 @@ public class RefreshMovieInfosJob extends AbstractConfigurationJob {
         Movie.editOrAddFromForm(movieForm, false);
       } catch (Exception e) {
         Logger.error("An error happened while getting movieinformations for movie: " + movie.id + " with grabber: " + movie.grabberType + " (" + movie.grabberId + ")", e);
+        movie.updatedDate = new Date().getTime();
+        movie.update();
       }
 
     }
