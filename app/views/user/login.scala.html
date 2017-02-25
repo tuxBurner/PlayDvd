@@ -2,31 +2,29 @@
 @main(Messages.apply("headline.login")) {
 
 
-    @twbs.formhelper.html.form(routes.RegisterLoginController.login(),'class -> "well form-signin") {
-      <h2>@Messages.apply("headline.login")</h2>
+  @twbs.formhelper.html.form(routes.RegisterLoginController.login(), 'class -> "well form-signin") {
+    <h2 class="text-center">@Messages.apply("headline.login")</h2>
+    <hr />
 
-      <hr />
-
-      @if(form.hasGlobalErrors) {
-        <div class="alert alert-danger">
-        @Messages(form.globalError.message)
-        </div>
-      }
-
-      @if(flash.contains("success")) {
-        <p class="alert alert-success">
-        @flash.get("success")
-        </p>
-      }
-
-      <input name="username" class="form-control" type="text" placeholder="@Messages.apply("lbl.username") ..." class="tooltip-top" title="Enter username" autofocus required/>
-      <input name="password" class="form-control" type="password" placeholder="@Messages.apply("lbl.password") ..." class="tooltip-top" title="Enter password" required/>
-
-      <button type="submit" clasS="btn btn-primary btn-lg btn-block"><i class="fa fa-sign-in"></i> @Messages.apply("btn.login")</button>
-
-      <hr />
-
-      <a class="btn btn-block btn-info" href="@routes.RegisterLoginController.register"><i class="fa fa-user"></i> @Messages.apply("btn.register")</a>
-      <a class="btn btn-block btn-warning" href="@routes.PasswordResetController.showPasswordForget"><i class="fa fa-bolt"></i> @Messages.apply("btn.password")</a>
+    @if(form.hasGlobalErrors) {
+      <div class="alert alert-danger">
+      @Messages(form.globalError.message)
+      </div>
     }
+    @if(flash.contains("success")) {
+      <p class="alert alert-success">
+      @flash.get("success")
+      </p>
+    }
+
+    <input name="username" class="form-control" type="text" placeholder="@Messages.apply("lbl.username") ..." class="tooltip-top" title="Enter username" autofocus required/>
+    <input name="password" class="form-control" type="password" placeholder="@Messages.apply("lbl.password") ..." class="tooltip-top" title="Enter password" required/>
+
+    <button type="submit" clasS="btn btn-primary btn-lg btn-block"><i class="fa fa-sign-in"></i> @Messages.apply("btn.login")</button>
+
+    <hr />
+
+    <a class="btn btn-block btn-info" href="@routes.RegisterLoginController.register"><i class="fa fa-user"></i> @Messages.apply("btn.register")</a>
+    <a class="btn btn-block btn-warning" href="@routes.PasswordResetController.showPasswordForget"><i class="fa fa-bolt"></i> @Messages.apply("btn.password")</a>
+  }
 }
