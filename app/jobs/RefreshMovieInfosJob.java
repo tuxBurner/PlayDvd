@@ -11,6 +11,7 @@ import play.Logger;
 import scala.concurrent.duration.Duration;
 import scala.concurrent.duration.FiniteDuration;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -40,7 +41,7 @@ public class RefreshMovieInfosJob extends AbstractConfigurationJob {
     Logger.info("Found: " + moviesToUpdate.size() + " to update the informations for.");
 
     for (Movie movie : moviesToUpdate) {
-      Logger.info("Going to fetch data for movie: " + movie.id + " with grabber: " + movie.grabberType + " (" + movie.grabberId + ")");
+      Logger.info("Going to fetch data for movie "+movie.title+" (" + movie.id + ") with grabber: " + movie.grabberType + " (" + movie.grabberId + ")");
       IInfoGrabber grabber = GrabberHelper.getGrabber(movie.grabberType);
       GrabberInfoForm infoForm = new GrabberInfoForm();
       infoForm.grabberMovieId = movie.grabberId;
@@ -50,7 +51,9 @@ public class RefreshMovieInfosJob extends AbstractConfigurationJob {
         movieForm.movieId = movie.id;
         Movie.editOrAddFromForm(movieForm, false);
       } catch (Exception e) {
-        Logger.error("An error happened while getting movieinformations for movie: " + movie.id + " with grabber: " + movie.grabberType + " (" + movie.grabberId + ")", e);
+        Logger.error("An error happened while getting movieinformations for movie: "+movie.title+" (" + movie.id + ") with grabber: " + movie.grabberType + " (" + movie.grabberId + ")", e);
+        movie.updatedDate = new Date().getTime();
+        movie.update();
       }
 
     }
