@@ -22,8 +22,10 @@
 
       <li><a href="@routes.CopyController.showAddDvd"><i class="fa fa-plus"></i> @Messages("lbl.addCopy")</a></li>
       <li id="shoppingCartMenu"></li>
-      <li><a href="@routes.BookmarksController.listBookmarks()"><i class="fa fa-bookmark"></i>(@Bookmark.getBookmarkCopyIdsForUser.size())</a></li>
-      <li><a href="@routes.ViewedCopyController.getViewedCopiesForCurrentUser()"><i class="fa fa-eye-open">(@ViewedCopy.getCopiesViewedCount())</i></a></li>
+      <li><a href="@routes.BookmarksController.listBookmarks()"><i class="fa fa-bookmark"></i>
+        (@Bookmark.getBookmarkCopyIdsForUser.size())</a></li>
+      <li><a href="@routes.ViewedCopyController.getViewedCopiesForCurrentUser()"><i class="fa fa-eye-open">
+        (@ViewedCopy.getCopiesViewedCount())</i></a></li>
       <li><a href="@routes.RssFeedsController.displayRssFeedLinks()"><i class="fa fa-rss-sign"></i></a></li>
     </ul>
     @* EO LEFT NAVBAR *@
@@ -35,27 +37,29 @@
         <li>
           <div class="btn-group" role="group">
             @for(viewType <- ECopyListView.values()) {
-               <a class="btn btn-small @if(viewMode == viewType){active}" href="@routes.ListCopiesController.changeViewMode(viewType.name())"><i class="fa @viewType.icon"></i></a>
+              <a class="btn btn-small @if(viewMode == viewType) {active}" href="@routes.ListCopiesController.changeViewMode(viewType.name())"><i class="fa @viewType.icon"></i></a>
             }
           </div>
         </li>
       }
       @* EO VIEW MODES *@
 
-      @reservations.menureservationbtn(CopyReservation.getReservationsCount,CopyReservation.getReservedCount,Dvd.getLentDvdsCount,Dvd.getBorrowedDvdsCount)#
+      @reservations.menureservationbtn(CopyReservation.getReservationsCount, CopyReservation.getReservedCount, Dvd.getLentDvdsCount, Dvd.getBorrowedDvdsCount)
 
       <li>
         <div class="btn-group">
           <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-            @views.html.dashboard.userImage(Secured.getUsername,Secured.getUserHasGravatar,16)
+            @views.html.dashboard.userImage(Secured.getUsername, Secured.getUserHasGravatar, 16)
             @Secured.getUsername
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
             <li><a href="@routes.UserProfileController.showProfile()"><i class="fa fa-user"></i> @Messages("lbl.profile")</a></li>
             <li class="divider"></li>
-            @for((langCode,langName) <- LanguageController.getLanguages) {
-              <li><a href="@routes.LanguageController.changeLanguage(langCode)"><img src="@routes.Assets.versioned("lib/famfamfam-flags/png/"+LanguageController.getLanguageFlags.get(langCode)+".png")" alt="@langCode"/> @langName</a></li>
+            @for((langCode, langName) <- LanguageController.getLanguages) {
+              <li><a href="@routes.LanguageController.changeLanguage(langCode)"><img src="@routes.Assets.versioned("lib/famfamfam-flags/png/" + LanguageController.getLanguageFlags.get(langCode) + ".png")" alt="@langCode"/>
+                @langName</a>
+              </li>
             }
             <li class="divider"></li>
             <li><a href="@routes.ExportMoviesController.displayExportOptions"><i class="fa fa-download-alt"></i> @Messages("lbl.export")</a></li>
@@ -76,9 +80,9 @@
 @main(title, menuContent, scripts, styles) {
 
   @if(flash.contains("success")) {
-    <div class="alert alert-success">
+    <p class="alert alert-success">
     @flash.get("success")
-    </div>
+    </p>
   }
 
   @content

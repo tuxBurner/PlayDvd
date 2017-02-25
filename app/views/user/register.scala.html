@@ -1,64 +1,51 @@
 @(regForm: Form[forms.user.RegisterForm])
 @import helpers.DvdInfoHelper
 
-@import helper._
 
 @main(Messages.apply("headline.register")) {
-   
-   
-   <div class="row-fluid">
-   
-   
-     <div class="span2"></div>
-     <div class="span8">
-   
-     @form(routes.RegisterLoginController.register(),'class -> "well") {
-   
-       <h4>@Messages.apply("headline.register")</h4>
-       <hr />  
-   
-       @if(regForm.hasGlobalErrors) { 
-         <p class="alert alert-error">
-           @Messages(regForm.globalError.message)
-         </p>
-       }
-            
-       @if(flash.contains("success")) {
-         <p class="alert alert-success">
-           @flash.get("success")
-         </p>
-       }
-       
-       
-       @inputText(regForm("username"),'_label -> Messages.apply("lbl.username"), '_showConstraints -> true, 'size -> 10)
-       
 
-       <hr  />       
-       @inputPassword(regForm("password"),'_label -> Messages.apply("lbl.password"), '_showConstraints -> true)
-       @inputPassword(regForm("repassword"),'_label -> Messages.apply("lbl.repassword"), '_showConstraints -> true)
-       <hr  />       
-       
-       @inputText(regForm("email"),'_label -> Messages.apply("lbl.email"))
-       <hr />
+  @twbs.formhelper.html.form(routes.RegisterLoginController.register(), 'class -> "well form-signin") {
 
-       <label for="defaultCopyType">@Messages.apply("lbl.defaultCopyType")</label>
-       @for((copyType,index) <- DvdInfoHelper.getCopyTypes.zipWithIndex) {
-         <input type="radio" id="defaultCopyType" name="defaultCopyType" value="@copyType" @if(copyType == regForm("defaultCopyType").value() || index == 0 ){ checked="checked" } /><span><img alt="@copyType" src="@routes.Assets.versioned("images/copy_type/"+copyType+".png")" /></span>
-       }
-       <hr />
-       
-       
-       <div class="form-actions">
-         <button type="submit" class="btn btn-primary"><i class="icon-user"></i> @Messages.apply("btn.register")</button>
-         <a class="btn" href="@routes.ApplicationController.index">@Messages.apply("btn.back")</a>
-       </div>
-   
-  
+    <h2 class="text-center">@Messages.apply("headline.register")</h2>
+    <hr />
+
+    @if(regForm.hasGlobalErrors) {
+      <div class="alert alert-danger">
+      @Messages(regForm.globalError.message)
+      </div>
     }
-    </div>
-  
-    <div class="span2"></div>
-  
-  </div>
-  
+    @if(flash.contains("success")) {
+      <p class="alert alert-success">
+      @flash.get("success")
+      </p>
+    }
+
+    @twbs.formhelper.html.inputText(regForm("username"), '_label -> Messages.apply("lbl.username"), '_showConstraints -> true, 'size -> 10)
+    @twbs.formhelper.html.inputText(regForm("email"), '_label -> Messages.apply("lbl.email"))
+
+
+    <hr  />
+    @twbs.formhelper.html.inputPassword(regForm("password"), '_label -> Messages.apply("lbl.password"), '_showConstraints -> true)
+    @twbs.formhelper.html.inputPassword(regForm("repassword"), '_label -> Messages.apply("lbl.repassword"), '_showConstraints -> true)
+    <hr  />
+
+
+    <label for="defaultCopyType">@Messages.apply("lbl.defaultCopyType")</label>
+
+    @for((copyType, index) <- DvdInfoHelper.getCopyTypes.zipWithIndex) {
+      <div class="radio">
+        <label>
+          <input type="radio" id="defaultCopyType" name="defaultCopyType" value="@copyType" @if(copyType == regForm("defaultCopyType").value() || index == 0) {checked="checked"} ^/>
+          <span><img class="img-circle" alt="@copyType" src="@routes.Assets.versioned("images/copy_type/" + copyType + ".png")" /></span>
+        </label>
+      </div>
+    }
+    <hr />
+
+
+    <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-user"></i> @Messages.apply("btn.register")</button>
+    <a class="btn btn-default btn-block" href="@routes.ApplicationController.index"><i class="fa fa-angle-double-left"></i> @Messages.apply("btn.back")</a>
+
+
+  }
 }
