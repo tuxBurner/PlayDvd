@@ -33,7 +33,7 @@ public class RegisterForm {
   @Constraints.Email(message = "msg.error.invalidEmail")
   public String email;
 
-  public String defaultCopyType;
+
 
   public List<ValidationError> validate() {
 
@@ -47,21 +47,12 @@ public class RegisterForm {
       return Arrays.asList(new ValidationError(StringUtils.EMPTY,"msg.error.userNameExists"));
     }
 
-    // TODO: make this not in the register form it is irritating
-    if (StringUtils.isEmpty(defaultCopyType) == true) {
-      return Arrays.asList(new ValidationError(StringUtils.EMPTY,"No default copytype selected."));
-    }
-    final List<String> copyTypes = DvdInfoHelper.getCopyTypes();
-    if (copyTypes.contains(defaultCopyType) == false) {
-      return Arrays.asList(new ValidationError(StringUtils.EMPTY,"The selected copytype: " + defaultCopyType + " does not exists."));
-    }
-
 
     final User user = new User();
     user.email = email;
     user.userName = username;
     user.password = password;
-    user.defaultCopyType = defaultCopyType;
+    user.defaultCopyType = DvdInfoHelper.getCopyTypes().get(0);
 
     User.create(user);
 
@@ -98,13 +89,5 @@ public class RegisterForm {
 
   public void setEmail(String email) {
     this.email = email;
-  }
-
-  public String getDefaultCopyType() {
-    return defaultCopyType;
-  }
-
-  public void setDefaultCopyType(String defaultCopyType) {
-    this.defaultCopyType = defaultCopyType;
   }
 }
