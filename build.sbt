@@ -42,7 +42,7 @@ libraryDependencies ++= Seq(
   // tuxburners helpers :)
   "com.github.tuxBurner" %% "play-jsannotations" % "2.5.0",
   "com.github.tuxBurner" %% "play-twbs3" % "2.4.0",
-  "com.github.tuxBurner" %% "play-akkajobs" % "1.0.1",
+  "com.github.tuxBurner" %% "play-akkajobs" % "1.0.2",
   // amazon stuff
   "com.amazonaws" % "aws-java-sdk" % "1.6.10"
 )
