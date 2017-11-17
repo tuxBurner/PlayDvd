@@ -1,6 +1,4 @@
 @(regForm: Form[forms.user.RegisterForm])
-@import helpers.DvdInfoHelper
-
 
 @main(Messages.apply("headline.register")) {
 
@@ -31,6 +29,6 @@
     <hr  />
 
     <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-user"></i> @Messages.apply("btn.register")</button>
-    <a class="btn btn-default btn-block" href="@routes.ApplicationController.index"><i class="fa fa-angle-double-left"></i> @Messages.apply("btn.back")</a>
+    @views.html.general.backButton()
   }
 }

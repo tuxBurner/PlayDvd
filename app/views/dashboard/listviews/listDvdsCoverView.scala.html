@@ -3,7 +3,7 @@
 
 <ul class="coverlist_ul">
   @for(dvd <- dvdPage.list) {
-    <li class="span3 coverlist_li">
+    <li class="col-md-3 coverlist_li">
       <div class="coverwrapper">
         <em data-dvd-id="@dvd.id" class="@DvdAttribute.getCopyTypeAttribute(dvd)">
           @if(dvd.borrower != null || dvd.borrowerName != null){

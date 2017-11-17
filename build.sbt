@@ -47,6 +47,8 @@ libraryDependencies ++= Seq(
   "com.amazonaws" % "aws-java-sdk" % "1.6.10"
 )
 
+TwirlKeys.templateImports += "twbs.formhelper.html._"
+
 resolvers ++= Seq(
   "tuxburner.github.io" at "http://tuxburner.github.io/repo",
   "Local Maven Repository" at "file://" + Path.userHome.absolutePath + "/.m2/repository",

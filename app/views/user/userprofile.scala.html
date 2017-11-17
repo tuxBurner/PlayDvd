@@ -1,15 +1,8 @@
 @(profileForm: Form[forms.user.UserProfileForm])
 @import helpers.DvdInfoHelper
 
-@import helper._
-
 
 @mainmenu(Messages.apply("headline.userProfile",Secured.getUsername),Html(""),Html("")) {
-  <div class="row-fluid">
-
-
-    <div class="span2"></div>
-    <div class="span8">
 
     @form(routes.UserProfileController.updateProfile,'class -> "well") {
 
@@ -22,13 +15,8 @@
         </p>
       }
 
-      @if(flash.contains("success")) {
-        <p class="alert alert-success">
-        @flash.get("success")
-        </p>
-      }
-
       @inputText(profileForm("email"),'_label -> Messages.apply("lbl.email"))
+
       <hr />
 
 
@@ -40,23 +28,16 @@
       @for((copyType,index) <- DvdInfoHelper.getCopyTypes.zipWithIndex) {
         <input type="radio" id="defaultCopyType" name="defaultCopyType" value="@copyType" @if((copyType.equals(profileForm("defaultCopyType").value)) || index == 0 ){ checked="checked" } /><span><img alt="@copyType" src="@routes.Assets.versioned("images/copy_type/"+copyType+".png")" /></span>
       }
-      <hr />
 
+      <hr />
 
       <label for="rssAuthKey"><i class="icon-rss-sign"></i>@Messages("lbl.rssAuthKey")</label>
       <p>@profileForm("rssAuthKey").value</p>
 
-
       <hr />
 
-      <div class="form-actions">
-        <button type="submit" class="btn btn-warning"><i class="icon-user"></i> @Messages.apply("btn.update")</button>
-        <a class="btn" href="@routes.ApplicationController.index">@Messages.apply("btn.back")</a>
-      </div>
+      <button type="submit" class="btn btn-warning"><i class="fa fa-user"></i> @Messages.apply("btn.update")</button>
+      @views.html.general.backButton(false)
+
     }
-    </div>
-
-    <div class="span2"></div>
-
-  </div>
 }

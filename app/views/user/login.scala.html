@@ -2,7 +2,7 @@
 @main(Messages.apply("headline.login")) {
 
 
-  @twbs.formhelper.html.form(routes.RegisterLoginController.login(), 'class -> "well form-signin") {
+  @form(routes.RegisterLoginController.login(), 'class -> "well form-signin") {
     <h2 class="text-center">@Messages.apply("headline.login")</h2>
     <hr />
 
