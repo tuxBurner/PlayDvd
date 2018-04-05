@@ -34,9 +34,9 @@ $(document).on('click', '.lendDvdBtn', function (event) {
           }
 
           // all off them set ?
-          if (userVal !== null && userVal !== "" && freeVal !== null && freeVal !== "" && reservationVal !== null && reservationVal !== "") {
+          /*if (((userVal !== null && userVal !== "") || (freeVal !== null && freeVal !== "")) && reservationVal !== null && reservationVal !== "") {
             return;
-          }
+          } */
           pAjax(jsRoutes.controllers.Dashboard.lendDvd(
               $("#lendDvdId").val()),
             {

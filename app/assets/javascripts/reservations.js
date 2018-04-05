@@ -41,7 +41,7 @@ $(function () {
    */
   $('input.lentCopiesCheckAll').change(function () {
     var isChecked = $(this).is(":checked");
-    var borrowerId = $(this).data('borrower');
+    var borrowerId = $(this).data('borrower').replace(/ /g,'_');
     // get all sub and check or uncheck them
     $('#lentTab' + borrowerId + ' tbody input:checkbox').prop('checked', isChecked);
 
@@ -52,7 +52,7 @@ $(function () {
    * changing a copy checkbox
    */
   $('input.lentCopyCheckBox').change(function () {
-    var borrowerId = $(this).data('borrower');
+    var borrowerId = $(this).data('borrower').replace(/ /g,'_');
     var checkedLenght = $('#lentTab' + borrowerId + ' tbody input:checkbox:checked').length;
     var totalLenght = $('#lentTab' + borrowerId + ' tbody input:checkbox').length;
 
@@ -162,7 +162,7 @@ var borrowReservations = function (borrowerId) {
  * @param borrowerId
  */
 var unlentCopies = function (borrowerId) {
-  var ids = getIdsAsCommaString(borrowerId, 'lentTab');
+  var ids = getIdsAsCommaString(borrowerId.replace(/ /g,'_'), 'lentTab');
 
   if (ids === null || ids === "") {
     return;
