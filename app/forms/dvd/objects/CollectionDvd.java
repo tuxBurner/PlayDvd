@@ -1,8 +1,8 @@
 package forms.dvd.objects;
 
+import models.Dvd;
 import org.apache.commons.lang.StringUtils;
 
-import models.Dvd;
 import models.DvdAttribute;
 
 /**
@@ -23,21 +23,21 @@ public class CollectionDvd {
   public String ageRating;
   public Integer hullNr;
 
-  public CollectionDvd(final Dvd dvd) {
-    hasPoster = dvd.movie.hasPoster;
-    title = dvd.movie.title;
-    movieId = dvd.movie.id;
-    id = dvd.id;
-    hullNr = dvd.hullNr;
+  public CollectionDvd(final Dvd copy) {
+    hasPoster = copy.movie.hasPoster;
+    title = copy.movie.title;
+    movieId = copy.movie.id;
+    id = copy.id;
+    hullNr = copy.hullNr;
 
-    copyTypeAttribute = DvdAttribute.getCopyTypeAttribute(dvd);
-    ageRating = DvdAttribute.getAgeRatingAttribute(dvd);
+    copyTypeAttribute = DvdAttribute.getCopyTypeAttribute(copy);
+    ageRating = DvdAttribute.getAgeRatingAttribute(copy);
 
-    if (dvd.borrowDate != null && dvd.borrower != null) {
-      borrowerName = dvd.borrower.userName;
+    if (copy.borrowDate != null && copy.borrower != null) {
+      borrowerName = copy.borrower.userName;
     }
-    if (dvd.borrowDate != null && StringUtils.isEmpty(dvd.borrowerName) == false) {
-      borrowerName = dvd.borrowerName;
+    if (copy.borrowDate != null && StringUtils.isEmpty(copy.borrowerName) == false) {
+      borrowerName = copy.borrowerName;
     }
   }
 

@@ -1,4 +1,0 @@
-#1000:jsAnnotations.JSRoutesPlugin
-#1500:com.typesafe.plugin.CommonsMailerPlugin
-#1600:plugins.s3.S3Plugin
-#5000:plugins.jobs.JobPlugin

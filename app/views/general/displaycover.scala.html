@@ -1,10 +1,10 @@
 @(copy: Dvd)
 @import _root_.helpers.EImageSize
-<a href="@routes.Dashboard.displayCopyOnPage(copy.id)">
+<a href="@routes.DashboardController.displayCopyOnPage(copy.id)">
   <div class="coverwrapper_small_li">
     <div class="coverwrapper_small">
       <em data-dvd-id="@copy.id" class="@DvdAttribute.getCopyTypeAttribute(copy)">
-        <div class="rateWrapper"><img  class="img-rounded" src="@routes.Assets.at("images/agerating/"+DvdAttribute.getAgeRatingAttribute(copy)+".gif")" /></div>
+        <div class="rateWrapper"><img  class="img-rounded" src="@routes.Assets.versioned("images/agerating/"+DvdAttribute.getAgeRatingAttribute(copy)+".gif")" /></div>
       </em>
       <a>
       @general.displayposter(copy.movie.id,copy.movie.hasPoster,EImageSize.SMALL_LIST_VIEW)

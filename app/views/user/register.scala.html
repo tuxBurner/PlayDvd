@@ -19,7 +19,7 @@
    
        @if(regForm.hasGlobalErrors) { 
          <p class="alert alert-error">
-           @regForm.globalError.message
+           @Messages(regForm.globalError.message)
          </p>
        }
             
@@ -43,14 +43,14 @@
 
        <label for="defaultCopyType">@Messages.apply("lbl.defaultCopyType")</label>
        @for((copyType,index) <- DvdInfoHelper.getCopyTypes.zipWithIndex) {
-         <input type="radio" id="defaultCopyType" name="defaultCopyType" value="@copyType" @if(copyType == regForm("defaultCopyType").value() || index == 0 ){ checked="checked" } /><span><img alt="@copyType" src="@routes.Assets.at("images/copy_type/"+copyType+".png")" /></span>
+         <input type="radio" id="defaultCopyType" name="defaultCopyType" value="@copyType" @if(copyType == regForm("defaultCopyType").value() || index == 0 ){ checked="checked" } /><span><img alt="@copyType" src="@routes.Assets.versioned("images/copy_type/"+copyType+".png")" /></span>
        }
        <hr />
        
        
        <div class="form-actions">
          <button type="submit" class="btn btn-primary"><i class="icon-user"></i> @Messages.apply("btn.register")</button>
-         <a class="btn" href="@routes.Application.index">@Messages.apply("btn.back")</a>
+         <a class="btn" href="@routes.ApplicationController.index">@Messages.apply("btn.back")</a>
        </div>
    
   

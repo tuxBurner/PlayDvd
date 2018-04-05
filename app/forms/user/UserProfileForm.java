@@ -2,13 +2,12 @@ package forms.user;
 
 import controllers.Secured;
 import helpers.DvdInfoHelper;
+import helpers.GravatarHelper;
 import models.User;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.validation.Constraints;
 import play.data.validation.Constraints.MaxLength;
-import play.data.validation.Constraints.MinLength;
-import play.i18n.Messages;
 
 import java.util.List;
 
@@ -38,16 +37,14 @@ public class UserProfileForm {
     final User userToUpdate = User.getCurrentUser();
     if (userToUpdate == null) {
       Logger.error("No user found by the name: " + Secured.getUsername());
-      return Messages.get("msg.error");
+      return "msg.error";
     }
-
-
 
     if(StringUtils.isEmpty(password) == false && StringUtils.isEmpty(rePassword) == false) {
       Logger.debug("User: "+Secured.getUsername()+" wants to change the password.");
       if(StringUtils.equals(password,rePassword) == false) {
         Logger.error(Secured.getUsername()+" did not entered matched passwords.");
-        return Messages.get("msg.error.passwordsNoMatch");
+        return "msg.error.passwordsNoMatch";
       }
 
 
@@ -66,7 +63,54 @@ public class UserProfileForm {
     }
 
     userToUpdate.email = email;
+
+    byte[] gravatarBytes = GravatarHelper.getGravatarBytes(userToUpdate.email, 16);
+    userToUpdate.hasGravatar = (gravatarBytes != null);
+
     userToUpdate.save();
+
+    Secured.updateHasGravatar(userToUpdate.hasGravatar);
+
     return null;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public String getRePassword() {
+    return rePassword;
+  }
+
+  public void setRePassword(String rePassword) {
+    this.rePassword = rePassword;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public String getDefaultCopyType() {
+    return defaultCopyType;
+  }
+
+  public void setDefaultCopyType(String defaultCopyType) {
+    this.defaultCopyType = defaultCopyType;
+  }
+
+  public String getRssAuthKey() {
+    return rssAuthKey;
+  }
+
+  public void setRssAuthKey(String rssAuthKey) {
+    this.rssAuthKey = rssAuthKey;
   }
 }

@@ -11,7 +11,7 @@ import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.io.filefilter.PrefixFileFilter;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
-import plugins.s3.S3Plugin;
+import modules.s3.S3Plugin;
 
 import java.io.File;
 import java.io.IOException;
@@ -59,7 +59,7 @@ public class ImageHelper {
       return false;
     }
 
-    boolean success = false;
+    boolean success;
 
     if (S3Plugin.pluginEnabled() == false) {
       success = createOrigImageLocal(movieId, imageType, EImageSize.ORIGINAL, is);

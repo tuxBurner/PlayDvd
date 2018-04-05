@@ -12,6 +12,7 @@ import javax.persistence.*;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
+@Table(name="comment")
 public class Comment extends Model {
 
   @Id

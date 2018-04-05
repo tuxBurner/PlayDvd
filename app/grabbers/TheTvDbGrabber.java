@@ -177,7 +177,6 @@ public class TheTvDbGrabber implements IInfoGrabber {
             movieForm.imdbId = series.getImdbId();
             movieForm.grabberType = TheTvDbGrabber.TYPE;
             movieForm.grabberId = grabberInfoForm.grabberMovieId;
-
             movieForm.runtime = Integer.valueOf(series.getRuntime());
 
             final String firstAired = series.getFirstAired();
@@ -218,7 +217,7 @@ public class TheTvDbGrabber implements IInfoGrabber {
      */
     private String getImageURL(final List<Banner> banners, final String idStr) {
 
-        if (StringUtils.isEmpty(idStr) == true || CollectionUtils.isEmpty(banners) == true) {
+        if (StringUtils.isBlank(idStr) == true || CollectionUtils.isEmpty(banners) == true) {
             return null;
         }
         final Integer id = Integer.valueOf(idStr);

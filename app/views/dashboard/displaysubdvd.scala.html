@@ -1,4 +1,5 @@
-@(subDvds : List[forms.dvd.objects.CollectionDvd], dvd: forms.dvd.objects.InfoDvd, title: String, subTitle: String, username:String)
+@import forms.dvd.objects.CopyInfo
+@(subDvds : List[forms.dvd.objects.CollectionDvd], dvd: CopyInfo, title: String, subTitle: String, username:String)
 
 @import helpers.EImageSize
 
@@ -15,7 +16,7 @@
               @if(dvd.borrowerName != null){
                 <div class="coverborrowed  @if(dvd.borrowerName == username) {selfBorrowed}"></div>
               }
-            <div class="rateWrapper"><img  src="@routes.Assets.at("images/agerating/"+dvd.ageRating+".gif")" /></div>
+            <div class="rateWrapper"><img  src="@routes.Assets.versioned("images/agerating/"+dvd.ageRating+".gif")" /></div>
             </em>
             <a>
             @general.displayposter(dvd.movieId,dvd.hasPoster,EImageSize.SMALL_LIST_VIEW)

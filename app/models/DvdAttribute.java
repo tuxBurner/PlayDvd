@@ -1,27 +1,17 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-
+import com.avaje.ebean.Model;
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import helpers.SelectAjaxContainer;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
-import com.avaje.ebean.Model;
-
-import com.google.gson.Gson;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * This is the {@link Entity} holding certain attributes
@@ -38,9 +28,9 @@ public class DvdAttribute extends Model {
   private static final long serialVersionUID = -6491899975286773215L;
 
   /**
-   * Default finder for the {@link DvdAttribute}
+   * Default FINDER for the {@link DvdAttribute}
    */
-  public static Finder<Long, DvdAttribute> finder = new Finder<Long, DvdAttribute>(Long.class, DvdAttribute.class);
+  public static Finder<Long, DvdAttribute> FINDER = new Finder<Long, DvdAttribute>(DvdAttribute.class);
 
   @Id
   public Long id;
@@ -51,8 +41,8 @@ public class DvdAttribute extends Model {
 
   public String value;
 
-  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  public Set<Dvd> dvds;
+  @ManyToMany(cascade = CascadeType.ALL)
+  public List<Dvd> dvds;
 
   /**
    * finds all {@link DvdAttribute} by the given values and the given
@@ -61,7 +51,7 @@ public class DvdAttribute extends Model {
    * @return
    */
   public static Set<DvdAttribute> findAttributesByName(final Set<String> values, final EDvdAttributeType type) {
-    final Set<DvdAttribute> findSet = DvdAttribute.finder.where().in("value", values).eq("attributeType", type).findSet();
+    final Set<DvdAttribute> findSet = FINDER.where().in("value", values).eq("attributeType", type).findSet();
     return findSet;
   }
 
@@ -72,7 +62,7 @@ public class DvdAttribute extends Model {
    * @return
    */
   public static List<DvdAttribute> getAllByType(final EDvdAttributeType type) {
-    final List<DvdAttribute> findList = DvdAttribute.finder.where().eq("attributeType", type).order("value ASC").findList();
+    final List<DvdAttribute> findList = FINDER.where().eq("attributeType", type).order("value ASC").findList();
     return findList;
   }
 
@@ -169,16 +159,16 @@ public class DvdAttribute extends Model {
     return attributes;
   }
 
-  public static String getAgeRatingAttribute(final Dvd dvd) {
-    return DvdAttribute.getSingleAttrFromDvd(dvd, EDvdAttributeType.RATING);
+  public static String getAgeRatingAttribute(final Dvd copy) {
+    return DvdAttribute.getSingleAttrFromDvd(copy, EDvdAttributeType.RATING);
   }
 
-  public static String getCopyTypeAttribute(final Dvd dvd) {
-    return DvdAttribute.getSingleAttrFromDvd(dvd, EDvdAttributeType.COPY_TYPE);
+  public static String getCopyTypeAttribute(final Dvd copy) {
+    return DvdAttribute.getSingleAttrFromDvd(copy, EDvdAttributeType.COPY_TYPE);
   }
 
-  public static String getSingleAttrFromDvd(final Dvd dvd, final EDvdAttributeType attrType) {
-    for (final DvdAttribute attribute : dvd.attributes) {
+  public static String getSingleAttrFromDvd(final Dvd copy, final EDvdAttributeType attrType) {
+    for (final DvdAttribute attribute : copy.attributes) {
       if (attribute.attributeType.equals(attrType)) {
         return attribute.value;
       }
@@ -201,7 +191,7 @@ public class DvdAttribute extends Model {
       return StringUtils.EMPTY;
     }
 
-    final List<DvdAttribute> attributes = DvdAttribute.finder.where().eq("attributeType", attributeType).istartsWith("value", searchTerm).order("value ASC").findList();
+    final List<DvdAttribute> attributes = FINDER.where().eq("attributeType", attributeType).istartsWith("value", searchTerm).order("value ASC").findList();
     final List<SelectAjaxContainer> retVal = new ArrayList<SelectAjaxContainer>();
     retVal.add(new SelectAjaxContainer(searchTerm, searchTerm));
 

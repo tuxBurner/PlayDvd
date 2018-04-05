@@ -40,9 +40,9 @@ public class MovieImage extends Model{
   public Movie movie;
 
   /**
-   * The finder for the database for searching in the database
+   * The FINDER for the database for searching in the database
    */
-  public static Finder<Long, MovieImage> finder = new Finder<Long, MovieImage>(Long.class, MovieImage.class);
+  public static Find<Long, MovieImage> FINDER = new Find<Long, MovieImage>() {};
 
 
   /**
@@ -53,12 +53,12 @@ public class MovieImage extends Model{
    * @return
    */
   public static boolean checkForImage(final Long movieId, final EImageSize size, final EImageType type) {
-    final int rowCount = finder.where().eq("movie.id", movieId).eq("size", size).eq("type", type).findRowCount();
+    final int rowCount = FINDER.where().eq("movie.id", movieId).eq("size", size).eq("type", type).findRowCount();
     return (rowCount > 0);
   }
 
   public static MovieImage getForMovie(final Long movieId, final EImageSize size, final EImageType type) {
-    final MovieImage movieImage = finder.where().eq("movie.id", movieId).eq("size", size).eq("type", type).findUnique();
+    final MovieImage movieImage = FINDER.where().eq("movie.id", movieId).eq("size", size).eq("type", type).findUnique();
     return movieImage;
   }
 
@@ -69,7 +69,7 @@ public class MovieImage extends Model{
    * @param type
    */
   public static void createMovieImage(final Long movieId, final EImageSize size, final EImageType type, final EImageStoreType storeType) {
-    final Movie movie = Movie.finder.byId(movieId);
+    final Movie movie = Movie.FINDER.byId(movieId);
     if(movie == null) {
       if(Logger.isErrorEnabled() == true) {
         Logger.error("Could not fing movie with id: "+movieId+" for creating a: "+MovieImage.class.getName());
@@ -91,7 +91,7 @@ public class MovieImage extends Model{
    * @param movieId
    */
   public static  void deleteForMovie(final Long movieId) {
-    final Set<MovieImage> set = MovieImage.finder.where().eq("movie.id", movieId).findSet();
+    final Set<MovieImage> set = FINDER.where().eq("movie.id", movieId).findSet();
     if(CollectionUtils.isEmpty(set) == false) {
       for(final MovieImage image : set) {
         image.delete();

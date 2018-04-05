@@ -1,0 +1,6 @@
+@(owner: models.User, rentUser: models.User)
+  Hello @owner.userName,
+
+    @rentUser.userName wants to rent some Copies.
+
+    Go to: @routes.ReservationsController.showReservations().absoluteURL(request())

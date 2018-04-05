@@ -1,9 +1,7 @@
 package forms.user;
 
 import play.data.validation.Constraints;
-import play.data.validation.Constraints.MaxLength;
 import play.data.validation.Constraints.MinLength;
-import play.i18n.Messages;
 
 public class PasswordResetForm {
 
@@ -20,13 +18,9 @@ public class PasswordResetForm {
    * @return
    */
   public String validate() {
-
-
     if (password.equals(rePassword) == false) {
-      return Messages.get("msg.error.passwordsNoMatch");
+      return "msg.error.passwordsNoMatch";
     }
-
-
     return null;
   }
 }

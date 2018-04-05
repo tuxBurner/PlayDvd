@@ -1,4 +1,4 @@
-package plugins.s3;
+package modules.s3;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -8,14 +8,14 @@ import com.amazonaws.services.s3.model.S3Object;
 import com.typesafe.config.ConfigFactory;
 import play.Application;
 import play.Logger;
-import play.Plugin;
 
 /**
  * Tooked from https://raw.github.com/heroku/devcenter-java-play-s3/master/app/plugins/S3Plugin.java
  * If this is enabled the posters and the backdrops will be managed in the amazon s3
  * this is needed when running on heroku
  */
-public class S3Plugin extends Plugin {
+//TODO: FIX ME TO A MODULE
+public class S3Plugin {
 
   public static final String AWS_S3_BUCKET = "dvddb.amazon.aws.bucketS3";
   public static final String AWS_ACCESS_KEY = "dvddb.amazon.aws.keyid";
@@ -32,12 +32,8 @@ public class S3Plugin extends Plugin {
     this.application = application;
   }
 
-   // only for intellij
-  public void $init$() {
 
-  }
 
-  @Override
   public void onStart() {
     String accessKey = application.configuration().getString(AWS_ACCESS_KEY);
     String secretKey = application.configuration().getString(AWS_SECRET_KEY);
@@ -62,7 +58,7 @@ public class S3Plugin extends Plugin {
     }
   }
 
-  @Override
+
   public boolean enabled() {
     return S3Plugin.pluginEnabled();
   }

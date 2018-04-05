@@ -4,5 +4,5 @@ public enum EGrabberType {
   TMDB,
   MOVIECOMBINED,
   THETVDB,
-  NONE;
+  NONE
 }

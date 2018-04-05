@@ -1,0 +1,9 @@
+@*
+* Displays the user image
+*@
+@(userName: String, hasGravatar: Boolean, size: Integer = 25)
+@if(hasGravatar) {
+    <img class="img-rounded" src="@routes.DashboardController.gravatar(size, userName)" width="@size" height="@size" />
+} else {
+    <i class="icon-user"></i>
+}

@@ -2,9 +2,6 @@ import helpers.EImageType;
 import helpers.ImageHelper;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static play.test.Helpers.fakeApplication;
 import static play.test.Helpers.running;
 
@@ -18,9 +15,6 @@ public class S3Test {
   @Test
   public void findById() {
 
-
-    final List<String> plugins = new ArrayList<String>();
-        plugins.add("plugins.s3.S3Plugin");
 
     running(fakeApplication(), new Runnable() {
       public void run() {

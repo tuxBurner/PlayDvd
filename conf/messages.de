@@ -96,6 +96,7 @@ lbl.runtime=Laufzeit
 lbl.year=Jahr
 lbl.director=Regisseur
 lbl.informations=Informationen
+lbl.imdbRating=IMDB Rating
 lbl.plot=Plot
 lbl.trailer=Trailer
 lbl.actors=Schauspieler
@@ -186,3 +187,4 @@ msg.info.noRssAuthKey=Du hast noch keinen Rss Authentifizierung Schlüssel bitte
 
 email.passwordreset.content=Hallo {0}\nfür PlayDvd kannst Du das Passwort zurücksetzen, wenn Du folgenden Link aufrufst:\n\n {1}
 email.passwordreset.subject=Passwort zurücksetzen für PlayDvd
+email.shoppingcart.subject=Jemand möchte sich Filme von dir ausleihen

@@ -10,12 +10,15 @@ import play.mvc.Result;
 import play.mvc.Security;
 import views.html.reservations.showborrowed;
 
+import javax.inject.Singleton;
+
 /**
  * User: tuxburner
  * Date: 3/20/13
  * Time: 5:21 PM
  */
 @Security.Authenticated(Secured.class)
+@Singleton
 public class ReservationsController extends Controller {
 
   /**
@@ -63,7 +66,7 @@ public class ReservationsController extends Controller {
   }
 
   /**
-   * Method for deleting  {@link CopyReservation}s where the owner of the {@link models.Dvd} current {@link models.User}
+   * Method for deleting  {@link CopyReservation}s where the owner of the {@link Dvd} current {@link models.User}
    * @param reservationIds
    * @return
    */
@@ -84,7 +87,7 @@ public class ReservationsController extends Controller {
 
 
   /**
-   * Method for borrowing {@link models.Dvd}s from the {@link CopyReservation} from the given ids
+   * Method for borrowing {@link Dvd}s from the {@link CopyReservation} from the given ids
    * @param reservationIds
    * @return
    */
@@ -104,8 +107,8 @@ public class ReservationsController extends Controller {
   }
 
   /**
-   * Method for unlenting {@link models.Dvd}s
-   * @param reservationIds
+   * Method for unlenting {@link Dvd}s
+   * @param copyIds
    * @return
    */
   @JSRoute

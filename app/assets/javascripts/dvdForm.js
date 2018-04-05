@@ -4,7 +4,7 @@ $(function () {
   createSelect2DeselectCreate('#box', avaibleBoxes, "span6");
   createSelect2DeselectCreate('#collection', avaibleCollections, "span6");
 
-  createSelect2TagAjaxBox("#audioTypes", jsRoutes.controllers.DvdController.searchForCopyAttribute(), {attrType: "AUDIO_TYPE"});
+  createSelect2TagAjaxBox("#audioTypes", jsRoutes.controllers.CopyController.searchForCopyAttribute(), {attrType: "AUDIO_TYPE"});
   /**
    * searching for a movie
    */
@@ -89,7 +89,7 @@ var openSearchAmazonPopUp = function (code, copyId) {
   if (code !== null && code !== "" ) {
     showWaitDiaLog();
     displayAjaxDialog({
-      route: jsRoutes.controllers.DvdController.searchAmazonByCode(code, copyId),
+      route: jsRoutes.controllers.CopyController.searchAmazonByCode(code, copyId),
       ajaxParams: null,
       title: '<i class="icon-search"></i> ' + Messages('headline.amazonGrabber'),
       onOpen: function () {
@@ -110,16 +110,20 @@ var openSearchAmazonPopUp = function (code, copyId) {
 var openAmazonTitleSearchPopUp = function(title) {
   showWaitDiaLog();
   displayAjaxDialog({
-    route: jsRoutes.controllers.DvdController.searchAmazonByTitle(title),
+    route: jsRoutes.controllers.CopyController.searchAmazonByTitle(title),
     ajaxParams: null,
     title: '<i class="icon-search"></i> ' + Messages('headline.amazonSearchByTitle'),
     onOpen: function () {
+      $('#amazon_title_input').on('keydown',function(e) {
+        if(e.keyCode === 13) {
+            openAmazonTitleSearchPopUp($('#amazon_title_input').val());
+            return false;
+        }
+      });
+
+      // when the user selects one of the result entries.
       $('a.pickAmazonEntry').on('click',function() {
         var asin = $(this).data('asin');
-        /*closeDialog();
-        window.timeout(function() {
-          openSearchAmazonPopUp(asin,"");
-        },2000);*/
         openAmazonLookUp(asin);
       });
       closeWaitDiaLog();
@@ -150,7 +154,7 @@ var amazonPickExistingMovie = function (code, movieId) {
   if (code === null || movieId === null) {
     return;
   }
-  window.location = jsRoutes.controllers.DvdController.showDvdByAmazonAndMovie(code, movieId).absoluteURL(appIsInHttps);
+  window.location = jsRoutes.controllers.CopyController.showDvdByAmazonAndMovie(code, movieId).absoluteURL(appIsInHttps);
 };
 
 /**
@@ -207,7 +211,7 @@ var movieFormatResult = function (movie) {
   var markup = "<table class='movie-result'><tr><td class='movie-image'>";
 
   if (movie.hasPoster === true) {
-    markup += "<img src='" + jsRoutes.controllers.Dashboard.streamImage(movie.id, 'POSTER', 'SELECT2').url + "'/>";
+    markup += "<img src='" + jsRoutes.controllers.DashboardController.streamImage(movie.id, 'POSTER', 'SELECT2').url + "'/>";
   } else {
     markup += '<img data-src="holder.js/60x80/#4D99E0:#fff/text:No Poster"/>';
   }
@@ -224,7 +228,7 @@ var movieFormatResult = function (movie) {
  */
 var movieFormatSelection = function (movie) {
   if (movie.hasPoster === true) {
-    return "<img class='flag' src='" + jsRoutes.controllers.Dashboard.streamImage(movie.id, 'POSTER', 'TINY').url + "'/>" + movie.title;
+    return "<img class='flag' src='" + jsRoutes.controllers.DashboardController.streamImage(movie.id, 'POSTER', 'TINY').url + "'/>" + movie.title;
   } else {
     return '<img class="flag" data-src="holder.js/25x25/#4D99E0:#fff/text:No Poster"/>' + movie.title;
   }

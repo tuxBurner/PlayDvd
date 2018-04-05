@@ -1,28 +1,20 @@
 package controllers;
 
-import com.omertron.themoviedbapi.MovieDbException;
-import grabbers.EGrabberType;
-import grabbers.GrabberDisplayMovie;
-import grabbers.GrabberException;
-import grabbers.GrabberSearchMovie;
-import grabbers.IInfoGrabber;
-import grabbers.MovieCombined;
-import grabbers.TheTvDbGrabber;
-import grabbers.TmdbGrabber;
 import com.github.tuxBurner.jsAnnotations.JSRoute;
+import grabbers.*;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
-import views.html.grabber.displaymovie;
-import views.html.grabber.search;
 
+import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.List;
 
 @Security.Authenticated(Secured.class)
+@Singleton
 public class InfoGrabberController extends Controller {
 
   public final static String MOVIE_TO_EDIT_ID = "movieToEditId";
@@ -48,13 +40,13 @@ public class InfoGrabberController extends Controller {
       List<GrabberSearchMovie> searchResults = new ArrayList<GrabberSearchMovie>();
 
       if (StringUtils.isEmpty(searchTerm) == false) {
-        final IInfoGrabber grabber = InfoGrabberController.getGrabber(EGrabberType.valueOf(grabberType));
+        final IInfoGrabber grabber = GrabberHelper.getGrabber(EGrabberType.valueOf(grabberType));
         if (grabber != null) {
           searchResults = grabber.searchForMovie(searchTerm);
         }
       }
 
-      return Results.ok(search.render(searchTerm, grabberType, searchResults, movieToEditId,amazonCode,copyId));
+      return Results.ok(views.html.grabber.search.render(searchTerm, grabberType, searchResults, movieToEditId,amazonCode,copyId));
 
     } catch (final GrabberException e) {
       if (Logger.isErrorEnabled()) {
@@ -64,40 +56,7 @@ public class InfoGrabberController extends Controller {
     }
   }
 
-  /**
-   * Gets the grabber for the given type
-   *
-   * @param grabberType
-   * @return
-   */
-  public static IInfoGrabber getGrabber(final EGrabberType grabberType) {
 
-    if (EGrabberType.TMDB.equals(grabberType)) {
-      try {
-        return new TmdbGrabber();
-      } catch (MovieDbException e) {
-        if(Logger.isErrorEnabled() == true) {
-         Logger.error("An error happened while loading the: "+TmdbGrabber.class.getName(),e);
-        }
-      }
-    }
-
-    if (EGrabberType.THETVDB.equals(grabberType)) {
-      return new TheTvDbGrabber();
-    }
-
-    if (EGrabberType.MOVIECOMBINED.equals(grabberType)) {
-      try {
-        return new MovieCombined();
-      } catch (MovieDbException e) {
-        if(Logger.isErrorEnabled() == true) {
-          Logger.error("An error happened while loading the: "+TmdbGrabber.class.getName(),e);
-        }
-      }
-    }
-
-    return null;
-  }
 
   /**
    * This gets the dvdToEdit from the Request
@@ -134,12 +93,12 @@ public class InfoGrabberController extends Controller {
       final String amazonCode = Controller.request().getQueryString(AMAZON_CODE);
       final Long copyId = getCopyId();
 
-      final IInfoGrabber grabber = InfoGrabberController.getGrabber(EGrabberType.valueOf(grabberType));
+      final IInfoGrabber grabber = GrabberHelper.getGrabber(EGrabberType.valueOf(grabberType));
       final GrabberDisplayMovie displayMovie = grabber.getDisplayMovie(grabberId);
 
-      final String mode = (movieToEditId == null) ? DvdController.DVD_FORM_ADD_MODE : DvdController.DVD_FORM_EDIT_MODE;
+      final String mode = (movieToEditId == null) ? CopyController.DVD_FORM_ADD_MODE : CopyController.DVD_FORM_EDIT_MODE;
 
-      return Results.ok(displaymovie.render(displayMovie, grabberType, movieToEditId, mode,amazonCode,copyId));
+      return Results.ok(views.html.grabber.displaymovie.render(displayMovie, grabberType, movieToEditId, mode,amazonCode,copyId));
 
     } catch (final GrabberException e) {
       if (Logger.isErrorEnabled()) {

@@ -1,9 +1,10 @@
 package forms.dvd.objects;
 
+
 import models.Dvd;
 
 /**
- * Simply holds the next and the prev {@link models.Dvd}'s for the currently viewed {@link models.Dvd}
+ * Simply holds the next and the prev {@link Dvd}'s for the currently viewed {@link Dvd}
  *
  * User: tuxburner
  * Date: 5/12/13

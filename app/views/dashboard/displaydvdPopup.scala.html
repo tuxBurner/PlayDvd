@@ -1,4 +1,5 @@
-@(dvd: forms.dvd.objects.InfoDvd)(username: String)
+@import forms.dvd.objects.CopyInfo
+@(dvd: CopyInfo)(username: String)
 @import org.apache.commons.collections.CollectionUtils
 @import org.apache.commons.lang.StringUtils
 
@@ -23,9 +24,9 @@
     <div class="row-fluid">
       <label class="span4">Owner:</label>
       <span>
-        <a href="@routes.ListDvdsController.listByUser(dvd.dvdForm.ownerName)">
-          <img class="img-rounded" src="@routes.Dashboard.gravatar(50,dvd.dvdForm.ownerName)" />
-          @dvd.dvdForm.ownerName
+        <a href="@routes.ListCopiesController.listByUser(dvd.copyForm.ownerName)">
+          @views.html.dashboard.userImage(dvd.copyForm.ownerName,dvd.copyForm.ownerHasGravatar,50)
+          @dvd.copyForm.ownerName
         </a>
       </span>
     </div>
@@ -34,7 +35,7 @@
       <div class="row-fluid">
         <label class="span4">Borrowed by:</label>
         <span>
-          <img class="img-rounded" src="@routes.Dashboard.gravatar(50,dvd.borrowedBy)" />
+          @views.html.dashboard.userImage(dvd.copyForm.ownerName,dvd.copyForm.ownerHasGravatar,50)
           @dvd.borrowedBy 
           (@dvd.borrowedOn)
         </span>
@@ -46,57 +47,57 @@
       <span>@dvd.movieForm.series</span>
     </div>
 
-    @if(StringUtils.isEmpty(dvd.dvdForm.additionalInfo) == false) {
+    @if(StringUtils.isEmpty(dvd.copyForm.additionalInfo) == false) {
       <div class="row-fluid">
         <label class="span4">Additional copy info:</label>
-        <span>@dvd.dvdForm.additionalInfo</span>
+        <span>@dvd.copyForm.additionalInfo</span>
       </div>
     }
 
-    @if(StringUtils.isEmpty(dvd.dvdForm.asinNr) == false || StringUtils.isEmpty(dvd.movieForm.imdbId) == false) {
+    @if(StringUtils.isEmpty(dvd.copyForm.asinNr) == false || StringUtils.isEmpty(dvd.movieForm.imdbId) == false) {
       <div class="row-fluid">
         <label class="span4">Informations:</label>
         <span>
-          @if(StringUtils.isEmpty(dvd.dvdForm.asinNr) == false ) {
-            <a href="http://www.amazon.de/dp/@dvd.dvdForm.asinNr" target="_blank"><img src="@routes.Assets.at("images/amazon.jpg")" /></a>
+          @if(StringUtils.isEmpty(dvd.copyForm.asinNr) == false ) {
+            <a href="http://www.amazon.de/dp/@dvd.copyForm.asinNr" target="_blank"><img src="@routes.Assets.versioned("images/amazon.jpg")" /></a>
           }
           @if(StringUtils.isEmpty(dvd.movieForm.imdbId ) == false) {
-            <a href="http://www.imdb.com/title/@dvd.movieForm.imdbId" target="_blank"><img src="@routes.Assets.at("images/imdb.jpg")" /></a>
+            <a href="http://www.imdb.com/title/@dvd.movieForm.imdbId" target="_blank"><img src="@routes.Assets.versioned("images/imdb.jpg")" /></a>
           }
         </span>
       </div>
     }
 
     
-    @if(dvd.dvdForm.copyType != null) {
+    @if(dvd.copyForm.copyType != null) {
       <div class="row-fluid">
         <label class="span4">Type:</label>
-        <span><img class="img-rounded" alt="@dvd.dvdForm.copyType" src="@routes.Assets.at("images/copy_type/"+dvd.dvdForm.copyType+".png")" /> @dvd.dvdForm.copyType</span>
+        <span><img class="img-rounded" alt="@dvd.copyForm.copyType" src="@routes.Assets.versioned("images/copy_type/"+dvd.copyForm.copyType+".png")" /> @dvd.copyForm.copyType</span>
       </div>
     }
     
-    @if(dvd.dvdForm.ageRating != null) {
+    @if(dvd.copyForm.ageRating != null) {
       <div class="row-fluid">
         <label class="span4">Age Rating:</label>
-        <span><img  class="img-rounded" alt="@dvd.dvdForm.ageRating" src="@routes.Assets.at("images/agerating/"+dvd.dvdForm.ageRating+".gif")" /> @dvd.dvdForm.ageRating</span>
+        <span><img  class="img-rounded" alt="@dvd.copyForm.ageRating" src="@routes.Assets.versioned("images/agerating/"+dvd.copyForm.ageRating+".gif")" /> @dvd.copyForm.ageRating</span>
       </div>
     }
     
-    @if(dvd.dvdForm.hullNr != null) {
+    @if(dvd.copyForm.hullNr != null) {
       <div class="row-fluid">
         <label class="span4">Hull Nr.:</label>
         <span>      
-          <a href="@routes.ListDvdsController.searchDvd?searchFor=@models.Dvd.HULL_NR_SEARCH @dvd.dvdForm.hullNr">@dvd.dvdForm.hullNr</a>
+          <a href="@routes.ListCopiesController.searchDvd?searchFor=@models.Dvd.HULL_NR_SEARCH @dvd.copyForm.hullNr">@dvd.copyForm.hullNr</a>
         </span>
       </div>
     }
 
-    @if(CollectionUtils.isEmpty(dvd.dvdForm.audioTypes ) == false) {
+    @if(CollectionUtils.isEmpty(dvd.copyForm.audioTypes ) == false) {
       <div class="row-fluid">
         <label class="span4">Audio:</label>
         <span>
           <ul class="unstyled">
-            @for(audioType <- dvd.dvdForm.audioTypes) {
+            @for(audioType <- dvd.copyForm.audioTypes) {
               <li>@audioType</li>
             }
           </ul>
@@ -117,7 +118,7 @@
     @if(StringUtils.isEmpty(dvd.movieForm.director) == false) {
       <div class="row-fluid">
         <label class="span4">Director:</label>
-        <span><a href="@routes.ListDvdsController.listByDirector(dvd.movieForm.director)">@dvd.movieForm.director</a></span>
+        <span><a href="@routes.ListCopiesController.listByDirector(dvd.movieForm.director)">@dvd.movieForm.director</a></span>
       </div>
     }
     
@@ -128,7 +129,7 @@
       <dl>
         <dt>Genres:</dt>
         @for(genre <- dvd.movieForm.genres) {
-          <dd><a href="@routes.ListDvdsController.listByGenre(genre)">@genre</a></dd>
+          <dd><a href="@routes.ListCopiesController.listByGenre(genre)">@genre</a></dd>
         }
       </dl>
     </div>
@@ -139,7 +140,7 @@
       <dt>Actors:</dt>
       <dl>
         @for(actor <- dvd.movieForm.actors) {
-          <dd><a href="@routes.ListDvdsController.listByActor(actor)">@actor<a></a></dd>
+          <dd><a href="@routes.ListCopiesController.listByActor(actor)">@actor<a></a></dd>
         }
       </dl>
     </div>
@@ -159,11 +160,11 @@
    }
     
   
-  @displaysubdvd(dvd.boxDvds, dvd, "box",dvd.dvdForm.box,username)
+  @displaysubdvd(dvd.boxDvds, dvd, "box",dvd.copyForm.box,username)
     
-  @displaysubdvd(dvd.collectionDvds, dvd, "collection",dvd.dvdForm.collection,username)
+  @displaysubdvd(dvd.collectionDvds, dvd, "collection",dvd.copyForm.collection,username)
   
-  @displaysubdvd(dvd.seriesDvd, dvd, "movie series "+dvd.movieForm.series,dvd.dvdForm.collection,username)
+  @displaysubdvd(dvd.seriesDvd, dvd, "movie series "+dvd.movieForm.series,dvd.copyForm.collection,username)
 
 </div>
 </div>
@@ -172,7 +173,7 @@
 $(function() {
   $('#modalLabel').html("@dvd.title");
   @if(dvd.movieForm.hasBackdrop != null && dvd.movieForm.hasBackdrop == true) {
-    $('#modal.dvdInfoModal .modal-body').css('background-image',"url('@routes.Dashboard.streamImage(dvd.movieForm.movieId,"BACKDROP","BACKCKDROP_POPUP_SIZE")')");
+    $('#modal.dvdInfoModal .modal-body').css('background-image',"url('@routes.DashboardController.streamImage(dvd.movieForm.movieId,"BACKDROP","BACKCKDROP_POPUP_SIZE")')");
   }
   });
 </script>

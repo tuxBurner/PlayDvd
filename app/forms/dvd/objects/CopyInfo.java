@@ -5,8 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import forms.MovieForm;
-import forms.dvd.DvdForm;
-import forms.dvd.objects.CollectionDvd;
+import forms.dvd.CopyForm;
 import models.Commentable;
 import models.Dvd;
 import models.EDvdAttributeType;
@@ -14,11 +13,11 @@ import models.EDvdAttributeType;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
-public class InfoDvd {
+public class CopyInfo {
 
   public final Commentable commentable = null;
 
-  public DvdForm dvdForm;
+  public CopyForm copyForm;
 
   public List<CollectionDvd> boxDvds;
 
@@ -28,39 +27,42 @@ public class InfoDvd {
 
   public String borrowedBy;
 
+  public Boolean borrowerHasGravatar = false;
+
   public String title;
 
   public Date borrowedOn;
 
   public MovieForm movieForm;
 
-  public InfoDvd(final Dvd dvd) {
-    dvdForm = DvdForm.dvdToDvdForm(dvd);
-    movieForm = MovieForm.movieToForm(dvd.movie);
+  public CopyInfo(final Dvd copy) {
+    copyForm = CopyForm.dvdToDvdForm(copy);
+    movieForm = MovieForm.movieToForm(copy.movie);
 
-    if (dvd.borrower != null) {
-      borrowedBy = dvd.borrower.userName;
+    if (copy.borrower != null) {
+      borrowedBy = copy.borrower.userName;
+      borrowerHasGravatar = copy.borrower.hasGravatar;
     }
 
-    if (dvd.borrowerName != null) {
-      borrowedBy = dvd.borrowerName;
+    if (copy.borrowerName != null) {
+      borrowedBy = copy.borrowerName;
     }
 
-    if (dvd.borrowDate != null) {
-      borrowedOn = new Date(dvd.borrowDate);
+    if (copy.borrowDate != null) {
+      borrowedOn = new Date(copy.borrowDate);
     }
 
-    title = dvd.movie.title;
-    if(StringUtils.isEmpty(dvd.additionalInfo) == false) {
-      title += " ["+dvd.additionalInfo+"]";
+    title = copy.movie.title;
+    if(StringUtils.isEmpty(copy.additionalInfo) == false) {
+      title += " ["+copy.additionalInfo+"]";
     }
 
     //commentable = dvd.movie.commentable;
 
     final List<Long> alreadyAdded = new ArrayList<Long>();
-    boxDvds = getDvdsByBoxOrCollection(dvd, EDvdAttributeType.BOX, dvdForm.box, alreadyAdded);
-    collectionDvds = getDvdsByBoxOrCollection(dvd, EDvdAttributeType.COLLECTION, dvdForm.collection, alreadyAdded);
-    seriesDvd = getDvdsByMovieSeries(dvd, movieForm.series, alreadyAdded);
+    boxDvds = getDvdsByBoxOrCollection(copy, EDvdAttributeType.BOX, copyForm.box, alreadyAdded);
+    collectionDvds = getDvdsByBoxOrCollection(copy, EDvdAttributeType.COLLECTION, copyForm.collection, alreadyAdded);
+    seriesDvd = getDvdsByMovieSeries(copy, movieForm.series, alreadyAdded);
   }
 
   /**

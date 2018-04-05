@@ -21,9 +21,16 @@ $(function () {
     }
 
     checkDialogCloseFunction();
-
     $("html").css("overflow", "auto");
   });
+
+  pAjax(jsRoutes.controllers.ShoppingCartController.getShoppingCartMenu(), null,
+    function (data) {
+      var shoppingCartMenu = $("#shoppingCartMenu");
+      shoppingCartMenu.replaceWith(data);
+    }
+  );
+
 
 });
 

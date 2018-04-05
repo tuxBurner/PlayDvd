@@ -1,5 +1,7 @@
 package controllers;
 
+import com.github.tuxBurner.jsAnnotations.JSRoute;
+import com.google.inject.Singleton;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.FormatException;
 import com.google.zxing.LuminanceSource;
@@ -7,16 +9,10 @@ import com.google.zxing.NotFoundException;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.oned.EAN13Reader;
 import helpers.BufferedImageLuminanceSource;
-import com.github.tuxBurner.jsAnnotations.JSRoute;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 import play.Logger;
-import play.libs.F;
-import play.mvc.Controller;
-import play.mvc.Result;
-import play.mvc.Security;
-import play.mvc.WebSocket;
-import views.html.barcode.barcodescanner;
+import play.mvc.*;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -31,6 +27,7 @@ import java.io.InputStream;
  * Time: 8:19 PM
  */
 @Security.Authenticated(Secured.class)
+@Singleton
 public class BarcodeController extends Controller {
 
   /**
@@ -39,78 +36,56 @@ public class BarcodeController extends Controller {
    */
   @JSRoute
   public Result displayBarcodeScaner() {
-    return ok(barcodescanner.render());
+    return ok(views.html.barcode.barcodescanner.render());
   }
 
   @JSRoute
-  public WebSocket<String> scanBarcode() {
-    return new WebSocket<String>() {
+  public LegacyWebSocket<String> scanBarcode() {
 
-      // Called when the Websocket Handshake is done.
-      public void onReady(WebSocket.In<String> in, final WebSocket.Out<String> out) {
+    // For each event received on the socket,
+    String code = null;
 
-        // For each event received on the socket,
-        String code = null;
-        in.onMessage(new F.Callback<String>() {
-          public void invoke(String event) {
+    return WebSocket.whenReady((in,out) -> {
 
+      // For each event received on the socket,
+      in.onMessage((event) -> {
+        if(StringUtils.startsWith(event,"data:image/jpeg;base64,")) {
+          Logger.debug("Got an image. Trying to parse it.");
 
-            if(StringUtils.startsWith(event,"data:image/jpeg;base64,")) {
-               Logger.debug("Got an image. Trying to parse it.");
-
-              try {
-                byte decoded[] = Base64.decodeBase64(StringUtils.removeStart(event, "data:image/jpeg;base64,"));
-                InputStream in = new ByteArrayInputStream(decoded);
-                BufferedImage bufferedImage = ImageIO.read(in);
-                LuminanceSource source = new BufferedImageLuminanceSource(bufferedImage);
-                BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
-                EAN13Reader reader = new EAN13Reader();
-                com.google.zxing.Result decode = reader.decode(bitmap);
-                String decodeText = decode.getText();
-                if(Logger.isDebugEnabled()) {
-                  Logger.debug("Got EAN code: "+decodeText+" from image.");
-                }
-
-                out.write(decodeText);
-
-              } catch (IOException e) {
-                if(Logger.isErrorEnabled() == true) {
-                  Logger.error("An error happend while reading the image.",e);
-                }
-                out.write("error");
-              } catch (NotFoundException e) {
-                if(Logger.isErrorEnabled() == true) {
-                  Logger.error("Could not extract barcode from image.", e);
-                  out.write("error");
-                }
-              } catch (FormatException e) {
-                Logger.error("An error happend while reading the image.", e);
-                out.write("error");
-              }
+          try {
+            byte decoded[] = Base64.decodeBase64(StringUtils.removeStart(event, "data:image/jpeg;base64,"));
+            InputStream inputStream = new ByteArrayInputStream(decoded);
+            BufferedImage bufferedImage = ImageIO.read(inputStream);
+            LuminanceSource source = new BufferedImageLuminanceSource(bufferedImage);
+            BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+            EAN13Reader reader = new EAN13Reader();
+            com.google.zxing.Result decode = reader.decode(bitmap);
+            String decodeText = decode.getText();
+            if(Logger.isDebugEnabled()) {
+              Logger.debug("Got EAN code: "+decodeText+" from image.");
             }
+
+            out.write(decodeText);
+
+          } catch (IOException e) {
+            if(Logger.isErrorEnabled() == true) {
+              Logger.error("An error happend while reading the image.",e);
+            }
+            out.write("error");
+          } catch (NotFoundException e) {
+            if(Logger.isErrorEnabled() == true) {
+              Logger.error("Could not extract barcode from image.", e);
+              out.write("error");
+            }
+          } catch (FormatException e) {
+            Logger.error("An error happend while reading the image.", e);
+            out.write("error");
           }
-        });
+        }
+      });
 
-
-
-        // When the socket is closed.
-        in.onClose(new F.Callback0() {
-          public void invoke() {
-
-
-
-          }
-        });
-
-      }
-
-    };
+      // When the socket is closed.
+      in.onClose(() -> Logger.debug("Websocket disconnected"));
+    });
   }
-
-  /*public Result scanBarcode(final String type, final String data) {
-
-    DynamicForm requestData = form().bindFromRequest();
-
-    return ok();
-  } */
 }

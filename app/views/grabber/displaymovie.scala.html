@@ -53,13 +53,13 @@
         @if(CollectionUtils.isEmpty(displayMovie.posterUrls) == false) {
           <div class="span5">
             <h5>@Messages("lbl.selectedPoster")</h5>
-            <img id="grabberSelectedPoster" class="img-rounded" src="@routes.Dashboard.streamExternalImage()?url=@displayMovie.posterUrls.get(0).url&imgSize=GRABBER_POSTER_SMALL"/>
+            <img id="grabberSelectedPoster" class="img-rounded" src="@routes.DashboardController.streamExternalImage()?url=@displayMovie.posterUrls.get(0).url&imgSize=GRABBER_POSTER_SMALL"/>
           </div>
         }
         @if(CollectionUtils.isEmpty(displayMovie.backDropUrls) == false) {
           <div class="span5">
             <h5>@Messages("lbl.selectedBackdrop")</h5>
-            <img id="grabberSelectedBackdrop" class="img-rounded" src="@routes.Dashboard.streamExternalImage()?url=@displayMovie.backDropUrls.get(0).url&imgSize=GRABBER_BACKDROP_SMALL" />
+            <img id="grabberSelectedBackdrop" class="img-rounded" src="@routes.DashboardController.streamExternalImage()?url=@displayMovie.backDropUrls.get(0).url&imgSize=GRABBER_BACKDROP_SMALL" />
           </div>
         }
       </div>
@@ -73,7 +73,7 @@
           <li class="span3" style="height: 160px;">
             <div class="thumbnail" style="height: 160px;">
               <label>
-                <img id="grabberPoster@index" class="img-rounded" src="@routes.Dashboard.streamExternalImage()?url=@poster.url&imgSize=GRABBER_POSTER_SMALL"/>
+                <img id="grabberPoster@index" class="img-rounded" src="@routes.DashboardController.streamExternalImage()?url=@poster.url&imgSize=GRABBER_POSTER_SMALL"/>
                 <div class="caption">
                   <input @if(index == 0){checked="checked"} type="radio" name="grabberPosterId" data-index="@index" value="@poster.id"/>
                 </div>
@@ -93,7 +93,7 @@
           <li class="span4" style="height: 190px;">
             <div class="thumbnail" style="height: 190px;">
               <label>
-                <img id="grabberBackdrop@index" class="img-rounded" src="@routes.Dashboard.streamExternalImage()?url=@backdrop.url&imgSize=GRABBER_BACKDROP_SMALL" />
+                <img id="grabberBackdrop@index" class="img-rounded" src="@routes.DashboardController.streamExternalImage()?url=@backdrop.url&imgSize=GRABBER_BACKDROP_SMALL" />
                 <div class="caption">
                   <input @if(index == 0){checked="checked"} type="radio" data-index="@index" name="grabberBackDropId" value="@backdrop.id"/>
                 </div>
@@ -116,7 +116,7 @@
 
             <iframe width="289" height="163"  src="http://www.youtube.com/embed/@trailerUrl" frameborder="0" allowfullscreen></iframe>
               <div class="caption">
-                <input @if(index == 0){checked="checked"} type="radio" name="grabberTrailerUrl" value="@trailerUrl"/>
+                <input title="@trailerUrl" @if(index == 0){checked="checked"} type="radio" name="grabberTrailerUrl" value="@trailerUrl"/>
               </div>
             </div>
           </li>

@@ -22,7 +22,7 @@ public interface IInfoGrabber {
    * @return
    * @throws grabbers.GrabberException
    */
-  public List<GrabberSearchMovie> searchForMovie(final String searchTerm) throws GrabberException;
+  List<GrabberSearchMovie> searchForMovie(final String searchTerm) throws GrabberException;
 
   /**
    * This displays the movie the user picked from the search result and displays
@@ -32,7 +32,7 @@ public interface IInfoGrabber {
    * @return
    * @throws GrabberException
    */
-  public GrabberDisplayMovie getDisplayMovie(final String id) throws GrabberException;
+  GrabberDisplayMovie getDisplayMovie(final String id) throws GrabberException;
 
   /**
    * This fills the information from the movie to the {@link MovieForm} which is
@@ -42,6 +42,6 @@ public interface IInfoGrabber {
    * @return
    * @throws GrabberException
    */
-  public MovieForm fillInfoToMovieForm(final GrabberInfoForm grabberInfoForm) throws GrabberException;
+  MovieForm fillInfoToMovieForm(final GrabberInfoForm grabberInfoForm) throws GrabberException;
 
 }

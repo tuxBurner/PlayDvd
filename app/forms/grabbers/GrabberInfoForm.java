@@ -34,4 +34,43 @@ public class GrabberInfoForm {
    */
   public Long movieToEditId;
 
+  public String getGrabberMovieId() {
+    return grabberMovieId;
+  }
+
+  public void setGrabberMovieId(String grabberMovieId) {
+    this.grabberMovieId = grabberMovieId;
+  }
+
+  public String getGrabberBackDropId() {
+    return grabberBackDropId;
+  }
+
+  public void setGrabberBackDropId(String grabberBackDropId) {
+    this.grabberBackDropId = grabberBackDropId;
+  }
+
+  public String getGrabberTrailerUrl() {
+    return grabberTrailerUrl;
+  }
+
+  public void setGrabberTrailerUrl(String grabberTrailerUrl) {
+    this.grabberTrailerUrl = grabberTrailerUrl;
+  }
+
+  public String getGrabberPosterId() {
+    return grabberPosterId;
+  }
+
+  public void setGrabberPosterId(String grabberPosterId) {
+    this.grabberPosterId = grabberPosterId;
+  }
+
+  public Long getMovieToEditId() {
+    return movieToEditId;
+  }
+
+  public void setMovieToEditId(Long movieToEditId) {
+    this.movieToEditId = movieToEditId;
+  }
 }

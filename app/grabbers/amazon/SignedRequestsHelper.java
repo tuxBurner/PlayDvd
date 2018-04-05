@@ -178,7 +178,7 @@ public class SignedRequestsHelper {
    * @return base64-encoded hmac value.
    */
   private String hmac(String stringToSign) {
-    String signature = null;
+    String signature;
     byte[] data;
     byte[] rawHmac;
     try {
@@ -198,7 +198,7 @@ public class SignedRequestsHelper {
    * @return ISO-8601 format timestamp.
    */
   private String timestamp() {
-    String timestamp = null;
+    String timestamp;
     Calendar cal = Calendar.getInstance();
     DateFormat dfm = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
     dfm.setTimeZone(TimeZone.getTimeZone("GMT"));

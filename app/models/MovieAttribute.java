@@ -1,27 +1,16 @@
 package models;
 
+import com.avaje.ebean.Model;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import helpers.SelectAjaxContainer;
+import org.apache.commons.lang.StringUtils;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-
-import org.apache.commons.lang.StringUtils;
-
-import com.avaje.ebean.Model;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 /**
  * This is the {@link Entity} holding certain attributes
@@ -33,14 +22,9 @@ import com.google.gson.GsonBuilder;
 public class MovieAttribute extends Model {
 
   /**
-	 * 
-	 */
-  private static final long serialVersionUID = -6491899975286773215L;
-
-  /**
-   * Default finder for the {@link MovieAttribute}
+   * Default FINDER for the {@link MovieAttribute}
    */
-  public static Finder<Long, MovieAttribute> finder = new Finder<Long, MovieAttribute>(Long.class, MovieAttribute.class);
+  public static Find<Long, MovieAttribute> FINDER = new Find<Long, MovieAttribute>() {};
 
   @Id
   public Long pk;
@@ -51,7 +35,7 @@ public class MovieAttribute extends Model {
 
   public String value;
 
-  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @ManyToMany(cascade = CascadeType.ALL)
   public Set<Movie> movies;
 
   /**
@@ -61,7 +45,7 @@ public class MovieAttribute extends Model {
    * @return
    */
   public static Set<MovieAttribute> findAttributesByName(final Set<String> values, final EMovieAttributeType type) {
-    final Set<MovieAttribute> findSet = MovieAttribute.finder.where().in("value", values).eq("attributeType", type).findSet();
+    final Set<MovieAttribute> findSet = MovieAttribute.FINDER.where().in("value", values).eq("attributeType", type).findSet();
     return findSet;
   }
 
@@ -72,7 +56,7 @@ public class MovieAttribute extends Model {
    * @return
    */
   public static List<MovieAttribute> getAllByType(final EMovieAttributeType type) {
-    final List<MovieAttribute> findList = MovieAttribute.finder.where().eq("attributeType", type).order("value ASC").findList();
+    final List<MovieAttribute> findList = MovieAttribute.FINDER.where().eq("attributeType", type).order("value ASC").findList();
     return findList;
   }
 
@@ -182,7 +166,7 @@ public class MovieAttribute extends Model {
       return StringUtils.EMPTY;
     }
 
-    final List<MovieAttribute> attributes = MovieAttribute.finder.where().eq("attributeType", attributeType).istartsWith("value", searchTerm).order("value ASC").findList();
+    final List<MovieAttribute> attributes = FINDER.where().eq("attributeType", attributeType).istartsWith("value", searchTerm).order("value ASC").findList();
     final List<SelectAjaxContainer> retVal = new ArrayList<SelectAjaxContainer>();
     retVal.add(new SelectAjaxContainer(searchTerm, searchTerm));
 

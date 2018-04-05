@@ -11,7 +11,8 @@ import com.google.gson.Gson;
 public enum EDvdListOrderBy {
 
   MOVIE_TITLE("movie.title"),
-  DATE("createdDate");
+  DATE("createdDate"),
+  IMDB("movie.imdbRating");
   //BORROW_DATE("borrowDate");
 
   /**
@@ -19,7 +20,7 @@ public enum EDvdListOrderBy {
    */
   public String dbField;
 
-  private EDvdListOrderBy(final String dbField) {
+  EDvdListOrderBy(final String dbField) {
     this.dbField = dbField;
   }
 

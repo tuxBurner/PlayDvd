@@ -2,10 +2,12 @@ package controllers;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.gson.Gson;
+import com.google.inject.Inject;
 import forms.MovieForm;
 import forms.grabbers.GrabberInfoForm;
 import grabbers.EGrabberType;
 import grabbers.GrabberException;
+import grabbers.GrabberHelper;
 import grabbers.IInfoGrabber;
 import helpers.RequestToCollectionHelper;
 import com.github.tuxBurner.jsAnnotations.JSRoute;
@@ -15,6 +17,7 @@ import models.MovieAttribute;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.Form;
+import play.data.FormFactory;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -22,6 +25,7 @@ import play.mvc.Results;
 import play.mvc.Security;
 import views.html.movie.movieform;
 
+import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +36,11 @@ import java.util.Map;
  * @author tuxburner
  */
 @Security.Authenticated(Secured.class)
+@Singleton
 public class MovieController extends Controller {
+
+  @Inject
+  FormFactory formFactory;
 
   /**
    * Displays the {@link MovieForm} to the user in the add mode
@@ -41,8 +49,8 @@ public class MovieController extends Controller {
    */
   @JSRoute
   public Result showAddMovieForm() {
-    final Form<MovieForm> form = Form.form(MovieForm.class);
-    return Results.ok(movieform.render(form.fill(new MovieForm()), DvdController.DVD_FORM_ADD_MODE));
+    final Form<MovieForm> form = formFactory.form(MovieForm.class);
+    return Results.ok(movieform.render(form.fill(new MovieForm()), CopyController.DVD_FORM_ADD_MODE));
   }
 
   /**
@@ -53,7 +61,7 @@ public class MovieController extends Controller {
   @JSRoute
   public Result showEditMovieForm(final Long movieId) {
 
-    final Movie movie = Movie.finder.byId(movieId);
+    final Movie movie = Movie.FINDER.byId(movieId);
 
     if (movie == null) {
       final String message = "No Movie found to edit under the id: " + movieId;
@@ -61,12 +69,12 @@ public class MovieController extends Controller {
       return Results.badRequest(message);
     }
 
-    final Form<MovieForm> form = Form.form(MovieForm.class).fill(MovieForm.movieToForm(movie));
-    return Results.ok(movieform.render(form, DvdController.DVD_FORM_EDIT_MODE));
+    final Form<MovieForm> form = formFactory.form(MovieForm.class).fill(MovieForm.movieToForm(movie));
+    return Results.ok(movieform.render(form, CopyController.DVD_FORM_EDIT_MODE));
   }
 
   /**
-   * This is called when the user submits the add Dvd Form
+   * This is called when the user submits the add Movie Form
    *
    * @return
    */
@@ -74,13 +82,13 @@ public class MovieController extends Controller {
   public Result addOrEditMovie(final String mode) {
 
     final Map<String, String> map = RequestToCollectionHelper.requestToFormMap(Controller.request(), "actors", "genres");
-    final Form<MovieForm> movieForm = new Form<MovieForm>(MovieForm.class).bind(map);
+    final Form<MovieForm> movieForm = formFactory.form(MovieForm.class).bind(map);
 
     if (movieForm.hasErrors()) {
       return Results.badRequest(movieform.render(movieForm, mode));
     } else {
       try {
-        final Movie editOrAddFromForm = Movie.editOrAddFromForm(movieForm.get());
+        final Movie editOrAddFromForm = Movie.editOrAddFromForm(movieForm.get(),true);
         final ObjectNode result = Json.newObject();
         result.put("id", editOrAddFromForm.id);
         result.put("title", editOrAddFromForm.title);
@@ -105,16 +113,15 @@ public class MovieController extends Controller {
 
     try {
 
-      final Form<GrabberInfoForm> grabberInfoForm = Form.form(GrabberInfoForm.class).bindFromRequest();
+      final Form<GrabberInfoForm> grabberInfoForm = formFactory.form(GrabberInfoForm.class).bindFromRequest();
 
-      final IInfoGrabber grabber = InfoGrabberController.getGrabber(EGrabberType.valueOf(grabberType));
-
+      final IInfoGrabber grabber = GrabberHelper.getGrabber(EGrabberType.valueOf(grabberType));
       final MovieForm movieForm = grabber.fillInfoToMovieForm(grabberInfoForm.get());
 
       if (grabberInfoForm.get().movieToEditId != null) {
         movieForm.movieId = grabberInfoForm.get().movieToEditId;
       }
-      final Form<MovieForm> form = Form.form(MovieForm.class).fill(movieForm);
+      final Form<MovieForm> form = formFactory.form(MovieForm.class).fill(movieForm);
 
       return Results.ok(movieform.render(form, mode));
     } catch (final GrabberException e) {

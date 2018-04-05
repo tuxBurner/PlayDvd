@@ -5,7 +5,7 @@
 @scripts = {
 
   @general.jsI18n("btn.delete","headline.removeReservations","lbl.removeReservations", "lbl.lendSelectedReservations","headline.lendReservations","btn.lend");
-  <script src="@routes.Assets.at("javascripts/reservations.js")" type="text/javascript"></script>
+  <script src="@routes.Assets.versioned("javascripts/reservations.js")" type="text/javascript"></script>
 }
 
 @mainmenu(Messages("lbl.reservations"),scripts) {
@@ -22,7 +22,9 @@
             <ul class="nav nav-tabs">
               @for((borrower,reservations) <- reservations) {
                 <li>
-                  <a href="#resTab@borrower.id" data-toggle="tab"><img src="@routes.Dashboard.gravatar(16,borrower.userName)" width="16" height="16" /> @borrower.userName (@reservations.size)</a>
+                  <a href="#resTab@borrower.id" data-toggle="tab">
+                    @views.html.dashboard.userImage(borrower.userName,borrower.hasGravatar,16) @borrower.userName (@reservations.size)
+                  </a>
                 </li>
               }
             </ul>
@@ -33,7 +35,7 @@
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th><input type="checkbox" class="reservationsCheckAll" data-borrower="@borrower.id"/></th>
+                        <th><input title="checkAll" type="checkbox" class="reservationsCheckAll" data-borrower="@borrower.id"/></th>
                         <th>@Messages("lbl.copy")</th>
                         <th>@Messages("lbl.date")</th>
                       </tr>
@@ -43,7 +45,7 @@
                         <tr>
                           <td>
                             @if(reservation.copy.borrowDate == null) {
-                              <input type="checkbox" class="reservationsCopyCheckBox" data-borrower="@borrower.id" data-resid="@reservation.id" />
+                              <input title="checkAll" type="checkbox" class="reservationsCopyCheckBox" data-borrower="@borrower.id" data-resid="@reservation.id" />
                             }
                           </td>
                           <td>@general.displayitem(reservation.copy,true)</td>

@@ -1,21 +1,14 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
-import com.timgroup.jgravatar.Gravatar;
-import com.timgroup.jgravatar.GravatarDefaultImage;
-import com.timgroup.jgravatar.GravatarRating;
+import com.google.inject.Singleton;
 import forms.ExternalImageForm;
 import forms.LendForm;
 import forms.UnLendForm;
-import forms.dvd.DvdSearchFrom;
-import forms.dvd.objects.InfoDvd;
+import forms.dvd.CopySearchFrom;
+import forms.dvd.objects.CopyInfo;
 import forms.dvd.objects.PrevNextCopies;
-import helpers.CacheHelper;
-import helpers.ECacheObjectName;
-import helpers.EImageSize;
-import helpers.EImageType;
-import helpers.ETagHelper;
-import helpers.ImageHelper;
+import helpers.*;
 import com.github.tuxBurner.jsAnnotations.JSRoute;
 import models.CopyReservation;
 import models.Dvd;
@@ -26,18 +19,15 @@ import objects.shoppingcart.CacheShoppingCart;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.Form;
+import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
-import plugins.s3.S3Plugin;
-import views.html.dashboard.deletedvd;
-import views.html.dashboard.displaydvd;
-import views.html.dashboard.displaydvdPopup;
-import views.html.dashboard.lendform;
-import views.html.dashboard.unlendform;
+import modules.s3.S3Plugin;
 
 import javax.imageio.ImageIO;
+import javax.inject.Inject;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -50,7 +40,19 @@ import java.util.Map;
 import java.util.Set;
 
 @Security.Authenticated(Secured.class)
-public class Dashboard extends Controller {
+@Singleton
+public class DashboardController extends Controller {
+
+
+  private final FormFactory formFactory;
+  
+  private final CacheHelper cacheHelper;
+
+  @Inject
+  DashboardController(final FormFactory formFactory, final CacheHelper cacheHelper) {
+    this.formFactory = formFactory;
+    this.cacheHelper = cacheHelper;
+  }
 
   /**
    * Display the dvd and its informations in a popup
@@ -65,7 +67,7 @@ public class Dashboard extends Controller {
 
 
   /**
-   * Display the dvd and its informations on a pag
+   * Display the dvd and its informations on a page
    *
    * @param dvdId
    * @return
@@ -76,13 +78,14 @@ public class Dashboard extends Controller {
   }
 
   /**
-   * Gets the {@link InfoDvd} for the given id
+   * Gets the {@link CopyInfo} for the given id
    *
    * @param copyId
    * @return
    */
-  private static Status getInfoDvd(final Long copyId, final boolean popup) {
-    final Dvd copy = Dvd.find.byId(copyId);
+  private  Result getInfoDvd(final Long copyId, final boolean popup) {
+
+    final Dvd copy = Dvd.FINDER.byId(copyId);
 
     if (copy == null) {
       if (Logger.isErrorEnabled() == true) {
@@ -92,20 +95,20 @@ public class Dashboard extends Controller {
     }
 
 
-    final InfoDvd infoDvd = new InfoDvd(copy);
+    final CopyInfo copyInfo = new CopyInfo(copy);
 
-    final DvdSearchFrom currentSearchForm = DvdSearchFrom.getCurrentSearchForm();
+    final CopySearchFrom currentSearchForm = CopySearchFrom.getCurrentSearchForm();
     final PrevNextCopies nextAndPrev = Dvd.getNextAndPrev(copy, currentSearchForm);
 
-    final CacheShoppingCart shoppingCartFromCache = ShoppingCartController.getShoppingCartFromCache();
-    final Set<Long> bookmarkedCopyIds = BookmarksController.getBookmarkedCopyIds();
+    final CacheShoppingCart shoppingCartFromCache = cacheHelper.getShoppingCartFromCache();
+    final Set<Long> bookmarkedCopyIds = cacheHelper.getBookmarkedCopyIds();
     final List<ViewedCopy> copyViewed = ViewedCopy.getCopyViewed(copy);
 
 
     if (popup == true) {
-      return Results.ok(displaydvdPopup.render(infoDvd, Secured.getUsername()));
+      return Results.ok(views.html.dashboard.displaydvdPopup.render(copyInfo, Secured.getUsername()));
     } else {
-      return Results.ok(displaydvd.render(infoDvd, Secured.getUsername(), nextAndPrev,shoppingCartFromCache,bookmarkedCopyIds,copyViewed));
+      return Results.ok(views.html.dashboard.displaydvd.render(copyInfo, Secured.getUsername(), nextAndPrev,shoppingCartFromCache,bookmarkedCopyIds,copyViewed));
     }
   }
 
@@ -126,8 +129,8 @@ public class Dashboard extends Controller {
     final List<Dvd> dvdForUserInSameHull = Dvd.getDvdUnBorrowedSameHull(dvdForUser);
     final Map<String, String> reservationsForCopy = CopyReservation.getReservationsForCopy(dvdId);
 
-    final Form<LendForm> form = Form.form(LendForm.class);
-    return Results.ok(lendform.render(form, dvdForUser, dvdForUserInSameHull, reservationsForCopy, User.getOtherUserNames()));
+    final Form<LendForm> form = formFactory.form(LendForm.class);
+    return Results.ok(views.html.dashboard.lendform.render(form, dvdForUser, dvdForUserInSameHull, reservationsForCopy, User.getOtherUserNames()));
   }
 
   /**
@@ -153,7 +156,7 @@ public class Dashboard extends Controller {
 
     final List<Dvd> dvdBorrowedSameHull = Dvd.getDvdBorrowedSameHull(dvdForUser);
 
-    return Results.ok(unlendform.render(Form.form(UnLendForm.class), dvdForUser, dvdBorrowedSameHull));
+    return Results.ok(views.html.dashboard.unlendform.render(formFactory.form(UnLendForm.class), dvdForUser, dvdBorrowedSameHull));
 
   }
 
@@ -166,7 +169,7 @@ public class Dashboard extends Controller {
   @JSRoute
   public Result lendDvd(final Long dvdId) {
 
-    final Form<LendForm> form = Form.form(LendForm.class).bindFromRequest();
+    final Form<LendForm> form = formFactory.form(LendForm.class).bindFromRequest();
 
     // check if the form is okay
     final LendForm lendForm = form.get();
@@ -202,7 +205,7 @@ public class Dashboard extends Controller {
   @JSRoute
   public Result unlendDvd(final Long dvdId) {
 
-    final Form<UnLendForm> form = Form.form(UnLendForm.class).bindFromRequest();
+    final Form<UnLendForm> form = formFactory.form(UnLendForm.class).bindFromRequest();
 
     // check if the form is okay
     final UnLendForm unlendForm = form.get();
@@ -228,7 +231,7 @@ public class Dashboard extends Controller {
       return Results.forbidden();
     }
 
-    return Results.ok(deletedvd.render(dvdForUser));
+    return Results.ok(views.html.dashboard.deletedvd.render(dvdForUser));
   }
 
   /**
@@ -289,9 +292,8 @@ public class Dashboard extends Controller {
       }
 
       response().setHeader(ETAG, etag);
-      response().setContentType("image/png");
       response().setHeader("Content-Length", String.valueOf(file.length()));
-      return Results.ok(file);
+      return Results.ok(file).as("image/png");
 
 
     } else {
@@ -305,7 +307,7 @@ public class Dashboard extends Controller {
    * @return
    */
   public Result streamExternalImage() {
-    final Form<ExternalImageForm> form = Form.form(ExternalImageForm.class).bindFromRequest();
+    final Form<ExternalImageForm> form = formFactory.form(ExternalImageForm.class).bindFromRequest();
 
     if (form.hasErrors()) {
       return Results.badRequest("Failure");
@@ -320,8 +322,8 @@ public class Dashboard extends Controller {
       ImageIO.write(asBufferedImage, "png", os);
       final InputStream is = new ByteArrayInputStream(os.toByteArray());
 
-      Controller.response().setContentType("image/png");
-      return Results.ok(is);
+
+      return Results.ok(is).as("image/png");
     } catch (final IOException e) {
       Logger.error("Failure while creating external image:", e);
       return Results.badRequest("Failure");
@@ -347,21 +349,16 @@ public class Dashboard extends Controller {
       return status(304);
     }
 
-    byte[] gravatarBytes = CacheHelper.getObject(ECacheObjectName.GRAVATAR_IMAGES, gravatarEmail + size);
+    byte[] gravatarBytes = cacheHelper.getObject(ECacheObjectName.GRAVATAR_IMAGES, gravatarEmail + size);
     if (gravatarBytes == null) {
-      final Gravatar gravatar = new Gravatar();
-      gravatar.setSize(size);
-      gravatar.setRating(GravatarRating.GENERAL_AUDIENCES);
-      gravatar.setDefaultImage(GravatarDefaultImage.GRAVATAR_ICON);
-      gravatarBytes = gravatar.download(gravatarEmail);
-      CacheHelper.setObject(ECacheObjectName.GRAVATAR_IMAGES, gravatarEmail + size, gravatarBytes);
+      gravatarBytes = GravatarHelper.getGravatarBytes(gravatarEmail, size);
+      cacheHelper.setObject(ECacheObjectName.GRAVATAR_IMAGES, gravatarEmail + size, gravatarBytes);
       ETagHelper.removeEtag(ECacheObjectName.GRAVATAR_IMAGES + gravatarEmail + size);
       ETagHelper.createEtag(ECacheObjectName.GRAVATAR_IMAGES + gravatarEmail + size, gravatarBytes);
     }
 
     response().setHeader(ETAG, ETagHelper.getEtag(ECacheObjectName.GRAVATAR_IMAGES + gravatarEmail + size));
-    Controller.response().setContentType("image/png");
-    return Results.ok(gravatarBytes);
+    return Results.ok(gravatarBytes).as("image/png");
 
   }
 

@@ -15,10 +15,10 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 import play.mvc.With;
-import scala.collection.mutable.StringBuilder;
 
 import play.twirl.api.Html;
 
+import javax.inject.Singleton;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -28,9 +28,8 @@ import java.util.List;
 
 /**
  * User: tuxburner
- * Date: 6/9/13
- * Time: 10:55 PM
  */
+@Singleton
 public class RssFeedsController extends Controller {
 
   /**
@@ -55,7 +54,7 @@ public class RssFeedsController extends Controller {
    */
   @With(RssSecurityAction.class)
   public Result getLastAddedCopies() {
-    final List<Dvd> copies = Dvd.find.orderBy("createdDate DESC").findPagedList(0,10).getList();
+    final List<Dvd> copies = Dvd.FINDER.orderBy("createdDate DESC").findPagedList(0,10).getList();
     return createFeedContentForList(copies,"Last 10 added copies","The last 10 added copies in the database");
   }
 
@@ -71,7 +70,7 @@ public class RssFeedsController extends Controller {
     cal.add(Calendar.DATE,-7);
     final long sqlTime = cal.getTime().getTime();
 
-    final List<Dvd> copies = Dvd.find.where().gt("createdDate",sqlTime).orderBy("createdDate DESC").findList();
+    final List<Dvd> copies = Dvd.FINDER.where().gt("createdDate",sqlTime).orderBy("createdDate DESC").findList();
     return createFeedContentForList(copies,"Last 7 days added copies","The last 7 days added copies in the database");
   }
 
@@ -83,7 +82,7 @@ public class RssFeedsController extends Controller {
    */
   @With(RssSecurityAction.class)
   public Result getPosterImage(final Long copyId) {
-    return Dashboard.getStreamImage(copyId, EImageType.POSTER.name(), EImageSize.SMALL.name());
+    return DashboardController.getStreamImage(copyId, EImageType.POSTER.name(), EImageSize.SMALL.name());
   }
 
 
@@ -99,7 +98,7 @@ public class RssFeedsController extends Controller {
       SyndFeed feed = new SyndFeedImpl();
       feed.setFeedType("atom_1.0");
       feed.setTitle(feedTitle);
-      feed.setLink(routes.Application.index().absoluteURL(request()));
+      feed.setLink(routes.ApplicationController.index().absoluteURL(request()));
       if(StringUtils.isEmpty(feedSubTitle) == false) {
         feed.setDescription(feedSubTitle);
       }
@@ -157,7 +156,7 @@ public class RssFeedsController extends Controller {
     }
 
     entry.setTitle(title);
-    entry.setLink(routes.Dashboard.displayCopyOnPage(copy.id).absoluteURL(request()));
+    entry.setLink(routes.DashboardController.displayCopyOnPage(copy.id).absoluteURL(request()));
     entry.setPublishedDate(new Date(copy.createdDate));
     entry.setAuthor(copy.owner.userName);
 

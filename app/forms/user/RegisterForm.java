@@ -5,8 +5,9 @@ import models.User;
 import org.apache.commons.lang3.StringUtils;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
-import play.i18n.Messages;
+import play.data.validation.ValidationError;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -34,25 +35,25 @@ public class RegisterForm {
 
   public String defaultCopyType;
 
-  public String validate() {
+  public List<ValidationError> validate() {
 
     if (password.equals(repassword) == false) {
-      return Messages.get("msg.error.passwordsNoMatch");
+      return Arrays.asList(new ValidationError(StringUtils.EMPTY,"msg.error.passwordsNoMatch"));
     }
 
     // check if the username is unique
     final boolean checkIfUserExsists = User.checkIfUserExsists(username);
     if (checkIfUserExsists == true) {
-      return Messages.get("msg.error.userNameExists",username);
+      return Arrays.asList(new ValidationError(StringUtils.EMPTY,"msg.error.userNameExists"));
     }
 
     // TODO: make this not in the register form it is irritating
     if (StringUtils.isEmpty(defaultCopyType) == true) {
-      return "No default copytype selected.";
+      return Arrays.asList(new ValidationError(StringUtils.EMPTY,"No default copytype selected."));
     }
     final List<String> copyTypes = DvdInfoHelper.getCopyTypes();
     if (copyTypes.contains(defaultCopyType) == false) {
-      return "The selected copytype: " + defaultCopyType + " does not exists.";
+      return Arrays.asList(new ValidationError(StringUtils.EMPTY,"The selected copytype: " + defaultCopyType + " does not exists."));
     }
 
 
@@ -65,5 +66,45 @@ public class RegisterForm {
     User.create(user);
 
     return null;
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public String getRepassword() {
+    return repassword;
+  }
+
+  public void setRepassword(String repassword) {
+    this.repassword = repassword;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public String getDefaultCopyType() {
+    return defaultCopyType;
+  }
+
+  public void setDefaultCopyType(String defaultCopyType) {
+    this.defaultCopyType = defaultCopyType;
   }
 }

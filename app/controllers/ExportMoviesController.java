@@ -13,10 +13,9 @@ import play.mvc.Result;
 import play.mvc.Security;
 import play.mvc.With;
 
+import javax.inject.Singleton;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
 import java.nio.charset.Charset;
 import java.util.HashSet;
 import java.util.List;
@@ -30,6 +29,7 @@ import java.util.zip.ZipOutputStream;
  * Date: 7/13/13
  * Time: 3:43 PM
  */
+@Singleton
 public class ExportMoviesController extends Controller {
 
   @Security.Authenticated(Secured.class)
@@ -49,8 +49,8 @@ public class ExportMoviesController extends Controller {
    * @throws InterruptedException
    */
   @With(RssSecurityAction.class)
-  public Result exportXbmc()  {
-       List<Dvd> dvds = Dvd.getAllCopiesForUserForExport(request().username());
+  public Result exportXbmc() {
+    List<Dvd> dvds = Dvd.getAllCopiesForUserForExport(request().username());
     if (CollectionUtils.isEmpty(dvds) == false) {
 
       try {
@@ -73,7 +73,7 @@ public class ExportMoviesController extends Controller {
 
           final String entryNameStr = entryName.toString();
 
-          if(alreadyAdded.contains(entryNameStr) == true) {
+          if (alreadyAdded.contains(entryNameStr) == true) {
             continue;
           }
 
@@ -94,12 +94,9 @@ public class ExportMoviesController extends Controller {
 
         ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
 
-       response().setContentType("application/zip");
-       response().setHeader("Content-Disposition", "attachment; filename=xbmc_stub.zip");
+        response().setHeader("Content-Disposition", "attachment; filename=xbmc_stub.zip");
 
-
-
-        return ok(bais);
+        return ok(bais).as("application/zip");
       } catch (Exception e) {
         if (Logger.isErrorEnabled() == true) {
           Logger.error("An error happend while creating zip file", e);

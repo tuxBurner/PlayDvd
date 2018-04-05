@@ -1,10 +1,10 @@
-@( dvd: Dvd)
+@( copy: Dvd)
 @import _root_.helpers.EImageSize
 
 
 <form class="form-horizontal">
   <fieldset>
-    <legend>@Messages("headline.deleteCopy"): @general.displayposter(dvd.movie.id,dvd.movie.hasPoster,EImageSize.TINY) <i>@general.displayCopyTitle(dvd)</i></legend>
-    <input type="hidden" id="deleteDvdId" value="@dvd.id" />  
+    <legend>@Messages("headline.deleteCopy"): @general.displayposter(copy.movie.id,copy.movie.hasPoster,EImageSize.TINY) <i>@general.displayCopyTitle(copy)</i></legend>
+    <input type="hidden" id="deleteDvdId" value="@copy.id" />
   </fieldset>
 </form>

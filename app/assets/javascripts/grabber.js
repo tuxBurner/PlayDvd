@@ -148,9 +148,9 @@ var addToDbAndFillDvdForm = function (grabberType, amazonCode, copyId, formParam
     copyId = null;
   }
 
-  pAjax(jsRoutes.controllers.DvdController.addMovieByGrabber(grabberType), formParams,
+  pAjax(jsRoutes.controllers.CopyController.addMovieByGrabber(grabberType), formParams,
     function (data) {
-      window.location = jsRoutes.controllers.DvdController.showDvdByAmazonAndMovie(amazonCode, data, copyId).absoluteURL(appIsInHttps);
+      window.location = jsRoutes.controllers.CopyController.showDvdByAmazonAndMovie(amazonCode, data, copyId).absoluteURL(appIsInHttps);
       closeWaitDiaLog();
     },
     function (err) {
@@ -166,9 +166,10 @@ var addToDbAndFillDvdForm = function (grabberType, amazonCode, copyId, formParam
  */
 var fillMovieFormWithInfoFromGrabber = function () {
   showWaitDiaLog();
-  var formParams = $('#grabberMovieForm').formParams();
-  var movieFormMode = $('#grabberMovieForm').attr('mode');
-  var grabberType = $('#grabberMovieForm').attr('grabberType');
+  var movieForm = $('#grabberMovieForm');
+  var formParams = movieForm.formParams();
+  var movieFormMode = movieForm.attr('mode');
+  var grabberType = movieForm.attr('grabberType');
   $('#newMovieFormWrapper').html('').hide();
   pAjax(jsRoutes.controllers.MovieController.addMovieByGrabberId(movieFormMode, grabberType), formParams,
     function (data) {

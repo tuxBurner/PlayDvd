@@ -24,7 +24,7 @@ $(function () {
   $(document).on('click', '.coverwrapper em, .coverwrapper_small em, a.displayCopy', function (event) {
     var copyId = $(this).data('dvdId');
     // testing style
-    window.location = jsRoutes.controllers.Dashboard.displayCopyOnPage(copyId).absoluteURL(appIsInHttps);
+    window.location = jsRoutes.controllers.DashboardController.displayCopyOnPage(copyId).absoluteURL(appIsInHttps);
   });
   /**
    * EO INFO DIALOG
@@ -79,7 +79,7 @@ var addComment = function (movieId) {
  */
 var navToPage = function (idx) {
   pAjax(
-    jsRoutes.controllers.ListDvdsController.listCopiesJS(),
+    jsRoutes.controllers.ListCopiesController.listCopiesJS(),
     {"pageNr": idx},
     function (data) {
       $('#copyListContainer').html(data);

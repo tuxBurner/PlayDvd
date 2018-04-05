@@ -1,6 +1,7 @@
 package grabbers;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.jetbrains.annotations.NotNull;
 
 public class GrabberSearchMovie implements Comparable<GrabberSearchMovie> {
 
@@ -33,7 +34,7 @@ public class GrabberSearchMovie implements Comparable<GrabberSearchMovie> {
   }
 
   @Override
-  public int compareTo(final GrabberSearchMovie o) {
+  public int compareTo(@NotNull final GrabberSearchMovie o) {
     return movieTitle.compareTo(o.movieTitle);
   }
 

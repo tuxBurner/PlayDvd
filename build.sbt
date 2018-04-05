@@ -1,17 +1,16 @@
 name := """dvdDataBase"""
 
-version := "1.8-SNAPSHOT"
+version := "1.9-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayJava,PlayEbean)
 
-scalaVersion := "2.11.6"
+scalaVersion := "2.11.7"
 
 libraryDependencies ++= Seq(
-  javaJdbc,
   cache,
   javaWs,
   "mysql" % "mysql-connector-java" % "5.1.18",
-  "net.coobird" % "thumbnailator" % "0.4.4",
+  "net.coobird" % "thumbnailator" % "0.4.8",
   "commons-io" % "commons-io" % "2.0.1",
   "commons-collections" % "commons-collections" % "3.2.1",
   "commons-lang" % "commons-lang" % "2.6",
@@ -20,15 +19,15 @@ libraryDependencies ++= Seq(
   // RSS FEEDS
   "rome" % "rome" % "1.0",
   // grabbers
-  "com.omertron" % "thetvdbapi" % "1.8",
-  "com.omertron" % "themoviedbapi" % "4.1",
+  "com.omertron" % "thetvdbapi" % "1.9",
+  "com.omertron" % "themoviedbapi" % "4.3",
   "com.omertron" % "traileraddictapi" % "1.5",
   // barcode stuff
-  "com.google.zxing" % "core" % "3.1.0",
+  "com.google.zxing" % "core" % "3.3.0",
   // mail
-  "com.typesafe.play" %% "play-mailer" % "3.0.1",
+  "com.typesafe.play" %% "play-mailer" % "5.0.0",
   // webjars
-  "org.webjars" %% "webjars-play" % "2.4.0-1",
+  "org.webjars" %% "webjars-play" % "2.5.0",
   "org.webjars" % "bootstrap" % "2.3.2",
   "org.webjars" % "jquery" % "1.11.2",
   "org.webjars" % "jquerypp" % "1.0b2",
@@ -41,8 +40,9 @@ libraryDependencies ++= Seq(
   // js i18n stuff
   "org.julienrf" %% "play-jsmessages" % "2.0.0",
   // tuxburners helpers :)
-  "com.github.tuxBurner" %% "play-jsannotations" % "2.4.0",
+  "com.github.tuxBurner" %% "play-jsannotations" % "2.5.0",
   "com.github.tuxBurner" %% "play-twbs3" % "2.4.0",
+  "com.github.tuxBurner" %% "play-akkajobs" % "1.0.2",
   // amazon stuff
   "com.amazonaws" % "aws-java-sdk" % "1.6.10"
 )
@@ -53,8 +53,3 @@ resolvers ++= Seq(
   "Neo4j" at "http://m2.neo4j.org/content/repositories/releases/",
   Resolver.sonatypeRepo("snapshots")
 )
-
-// Play provides two styles of routers, one expects its actions to be injected, the
-// other, legacy style, accesses its actions statically.
-routesGenerator := InjectedRoutesGenerator
-

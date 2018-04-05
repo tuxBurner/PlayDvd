@@ -1,20 +1,24 @@
 package controllers;
 
+import com.github.tuxBurner.jsAnnotations.JSRoute;
 import helpers.CacheHelper;
 import helpers.ECacheObjectName;
-import com.github.tuxBurner.jsAnnotations.JSRoute;
+import helpers.MailerHelper;
 import models.CopyReservation;
 import models.Dvd;
+import models.User;
 import objects.shoppingcart.CacheShoppingCart;
 import play.Logger;
-import play.cache.Cache;
+import play.i18n.MessagesApi;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
-import play.twirl.api.Html;
+import play.twirl.api.Txt;
 
-import java.util.concurrent.Callable;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.util.Set;
 
 /**
  *
@@ -22,14 +26,36 @@ import java.util.concurrent.Callable;
  * and if he wants to send the owners a mail which movies he wants to borrow
  *
  * User: tuxburner
- * Date: 2/9/13
- * Time: 12:21 PM
  */
 @Security.Authenticated(Secured.class)
+@Singleton
 public class ShoppingCartController extends Controller {
 
+
   /**
-   * Checks if the {@link models.Dvd} exists and if the user can borrow it or not at this moment
+   * Helper for sending mails
+   */
+  private final MailerHelper mailerHelper;
+
+  /**
+   * Helper for cached objects
+   */
+  private final CacheHelper cacheHelper;
+
+  /**
+   * The messages api
+   */
+  private final MessagesApi messagesApi;
+
+  @Inject
+  public ShoppingCartController(final MailerHelper mailerHelper, final CacheHelper cacheHelper, final MessagesApi messagesApi) {
+    this.mailerHelper = mailerHelper;
+    this.cacheHelper = cacheHelper;
+    this.messagesApi = messagesApi;
+  }
+
+  /**
+   * Checks if the {@link Dvd} exists and if the user can borrow it or not at this moment
    * @param copyId
    * @return
    */
@@ -45,23 +71,23 @@ public class ShoppingCartController extends Controller {
     }
 
 
-    CacheShoppingCart shoppingCartFromCache = getShoppingCartFromCache();
+    CacheShoppingCart shoppingCartFromCache = cacheHelper.getShoppingCartFromCache();
     final Boolean addedToCart = shoppingCartFromCache.addItem(copyToBorrow);
-    CacheHelper.setSessionObject(ECacheObjectName.SHOPPINGCART, shoppingCartFromCache);
+    cacheHelper.setSessionObject(ECacheObjectName.SHOPPINGCART, shoppingCartFromCache);
 
     return Results.ok(addedToCart.toString());
   }
 
   /**
-   * Checks if the {@link models.Dvd} exists and if the user can borrow it or not at this moment
+   * Checks if the {@link Dvd} exists and if the user can borrow it or not at this moment
    * @param copyId
    * @return
    */
   @JSRoute
   public Result remCopyFromCart(final Long copyId) {
-    final CacheShoppingCart shoppingCartFromCache = getShoppingCartFromCache();
+    final CacheShoppingCart shoppingCartFromCache = cacheHelper.getShoppingCartFromCache();
     final Boolean removedFromCart = shoppingCartFromCache.removeItem(copyId);
-    CacheHelper.setSessionObject(ECacheObjectName.SHOPPINGCART, shoppingCartFromCache);
+    cacheHelper.setSessionObject(ECacheObjectName.SHOPPINGCART, shoppingCartFromCache);
 
     return Results.ok(removedFromCart.toString());
   }
@@ -72,7 +98,7 @@ public class ShoppingCartController extends Controller {
    */
   @JSRoute
   public Result getShoppingCartMenu() {
-    return ok(getShoppingCartMenuContent());
+    return getShoppingCartMenuContent();
   }
 
   /**
@@ -80,7 +106,7 @@ public class ShoppingCartController extends Controller {
    * @return
    */
   public Result showShoppingCart() {
-    return ok(views.html.shoppingcart.showshoppingcart.render(getShoppingCartFromCache()));
+    return ok(views.html.shoppingcart.showshoppingcart.render(cacheHelper.getShoppingCartFromCache()));
   }
 
   /**
@@ -88,39 +114,31 @@ public class ShoppingCartController extends Controller {
    * @return
    */
   public Result checkoutShoppingCart() {
-    final CacheShoppingCart shoppingCart = getShoppingCartFromCache();
+    final CacheShoppingCart shoppingCart = cacheHelper.getShoppingCartFromCache();
     if(shoppingCart != null) {
-      CopyReservation.createFromShoppingCart(shoppingCart);
-      CacheHelper.removeSessionObj(ECacheObjectName.SHOPPINGCART);
+      Set<User> owners = CopyReservation.createFromShoppingCart(shoppingCart);
+
+      for (User owner : owners) {
+        Txt emailTxt = views.txt.email.checkout.render(owner,User.getCurrentUser());
+        mailerHelper.sendMail(messagesApi.preferred(request()).at("email.shoppingcart.subject"),owner.email,emailTxt.body(),false);
+        
+      }
+
+      cacheHelper.removeSessionObj(ECacheObjectName.SHOPPINGCART);
     }
 
-    return ok(views.html.shoppingcart.showshoppingcart.render(getShoppingCartFromCache()));
+
+    return ok(views.html.shoppingcart.showshoppingcart.render(cacheHelper.getShoppingCartFromCache()));
   }
 
   /**
    * Gets the {@link CacheShoppingCart} from the cache and renders the content for the mainmenu
    * @return
    */
-  public static Html getShoppingCartMenuContent() {
-    final CacheShoppingCart shoppingCartFromCache = getShoppingCartFromCache();
-    return views.html.shoppingcart.shoppingcartmenu.render(shoppingCartFromCache);
+  public Result getShoppingCartMenuContent() {
+    final CacheShoppingCart shoppingCartFromCache = cacheHelper.getShoppingCartFromCache();
+    return ok(views.html.shoppingcart.shoppingcartmenu.render(shoppingCartFromCache));
   }
-
-  /**
-   * Gets the {@link CacheShoppingCart} from the {@link Cache} if it is null a new instance is created
-   * @return
-   */
-  public static CacheShoppingCart  getShoppingCartFromCache(){
-
-    return CacheHelper.getSessionObjectOrElse(ECacheObjectName.SHOPPINGCART,callable);
-  }
-
-  private static  final Callable<CacheShoppingCart> callable = new Callable<CacheShoppingCart>() {
-    @Override
-    public CacheShoppingCart call() throws Exception {
-      return new CacheShoppingCart();
-    }
-  };
 
 
 }

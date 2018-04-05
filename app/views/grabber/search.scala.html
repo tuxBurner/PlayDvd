@@ -5,8 +5,8 @@
   <input type="hidden" name="grabberCopyId" id="grabberCopyId" value="@copyId"/>
 
   <div class="input-append">
-    <input type="text" name="searchTerm" id="grabber_search_input" value="@searchTerm"/>
-    <select name="grabberType" id="grabberType" >
+    <input title="searchTerm" type="text" name="searchTerm" id="grabber_search_input" value="@searchTerm"/>
+    <select title="grabberType" name="grabberType" id="grabberType" >
       <option value="@grabbers.EGrabberType.TMDB.name()">TMDB</option>
       <option @if(grabbers.EGrabberType.THETVDB.name() == grabberType) {
         selected="selected"
@@ -28,7 +28,7 @@
     <li class="span3" style="height: 260px ;">
       <div class="thumbnail" style="height: 260px ;">
         @if(res.posterUrl != null) {
-          <img class="img-rounded" src="@routes.Dashboard.streamExternalImage()?url=@res.posterUrl&imgSize=GRABBER_POSTER_SMALL" />
+          <img class="img-rounded" src="@routes.DashboardController.streamExternalImage()?url=@res.posterUrl&imgSize=GRABBER_POSTER_SMALL" />
         }
 
       <div class="caption">

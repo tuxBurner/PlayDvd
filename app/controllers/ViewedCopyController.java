@@ -13,17 +13,24 @@ import play.mvc.Result;
 import play.mvc.Security;
 import views.html.viewedcopy.markAsViewed;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
+ * Controller for handling viewed copies.
  * User: tuxburner
- * Date: 6/7/13
- * Time: 4:45 PM
- * To change this template use File | Settings | File Templates.
  */
 @Security.Authenticated(Secured.class)
+@Singleton
 public class ViewedCopyController extends Controller {
+
+  private final CacheHelper cacheHelper;
+
+  @Inject
+  public ViewedCopyController(CacheHelper cacheHelper) {
+    this.cacheHelper = cacheHelper;
+  }
 
   /**
    * Lists all {@link models.Dvd}s the current user has marked as viewed
@@ -43,7 +50,7 @@ public class ViewedCopyController extends Controller {
   @JSRoute
   public Result markCopyAsViewedDialog(final Long copyId) {
 
-    final Dvd copy = Dvd.find.byId(copyId);
+    final Dvd copy = Dvd.FINDER.byId(copyId);
     if(copy == null) {
       return internalServerError();
     }
@@ -57,7 +64,7 @@ public class ViewedCopyController extends Controller {
 
 
   /**
-   * Marks the {@link models.Dvd} as viewed
+   * Marks the {@link Dvd} as viewed
    * @param copyId
    * @return
    */
@@ -71,7 +78,7 @@ public class ViewedCopyController extends Controller {
 
     if(BooleanUtils.isTrue(remBookMark)) {
       Bookmark.deletAllBookmarksForCopy(viewedCopy.copy);
-      CacheHelper.removeSessionObj(ECacheObjectName.BOOKMARKS);
+      cacheHelper.removeSessionObj(ECacheObjectName.BOOKMARKS);
     }
 
     return ok();

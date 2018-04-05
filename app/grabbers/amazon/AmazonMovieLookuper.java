@@ -103,7 +103,7 @@ public class AmazonMovieLookuper {
    * @return
    */
   private static AmazonResult lookupByAsin(final String asinNr) {
-    return searchById(asinNr,null);
+    return searchById(asinNr,new HashMap<>());
   }
 
 
@@ -143,10 +143,6 @@ public class AmazonMovieLookuper {
    * @return the result
      */
   private static AmazonResult searchById(final String id, Map<String,String> params) {
-
-    if(params == null) {
-      params = new HashedMap();
-    }
 
     params.put("Operation", "ItemLookup");
     params.put("ItemId", id);

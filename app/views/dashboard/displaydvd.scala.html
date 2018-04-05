@@ -1,25 +1,26 @@
-@(dvd: forms.dvd.objects.InfoDvd,username: String, prevNext: forms.dvd.objects.PrevNextCopies,shoppingCart: objects.shoppingcart.CacheShoppingCart, bookmarkedCopys: Set[Long], viewedCopy: List[ViewedCopy])
+@import forms.dvd.objects.CopyInfo
+@(dvd: CopyInfo,username: String, prevNext: forms.dvd.objects.PrevNextCopies,shoppingCart: objects.shoppingcart.CacheShoppingCart, bookmarkedCopys: Set[Long], viewedCopy: List[ViewedCopy])
 @import org.apache.commons.collections.CollectionUtils
 @import org.apache.commons.lang.StringUtils
 @import helpers.EImageSize
 
 @scripts = {
   @general.jsI18n("headline.lendCopy","btn.lend","headline.unlendCopy","btn.unlend","headline.deleteCopy","btn.delete","headline.markAsViewed","btn.ok")
-  <script src="@routes.Assets.at("javascripts/copyButtons.js")" type="text/javascript"></script>
+  <script src="@routes.Assets.versioned("javascripts/copyButtons.js")" type="text/javascript"></script>
 
   @if(prevNext.next != null || prevNext.prev != null) {
-    <script type='text/javascript' src="@routes.WebJarAssets.at(WebJarAssets.locate("hammer.js"))"></script>
+    <script type='text/javascript' src="@routes.Assets.versioned("lib/hammerjs/hammer.js")"></script>
     <script type="text/javascript">
       var hammerDoc = new Hammer(document.getElementById('displayCopyWrapper'));
       hammerDoc.get('swipe').set({ direction: Hammer.DIRECTION_HORIZONTAL });
       @if(prevNext.next != null) {    
           hammerDoc.on('swipeleft', function(ev) {
-            window.location = jsRoutes.controllers.Dashboard.displayCopyOnPage(@prevNext.next.id).absoluteURL(appIsInHttps); 
+            window.location = jsRoutes.controllers.DashboardController.displayCopyOnPage(@prevNext.next.id).absoluteURL(appIsInHttps);
           });
       }
       @if(prevNext.prev != null) {
         hammerDoc.on('swiperight', function(ev) {
-       	  window.location = jsRoutes.controllers.Dashboard.displayCopyOnPage(@prevNext.prev.id).absoluteURL(appIsInHttps);
+       	  window.location = jsRoutes.controllers.DashboardController.displayCopyOnPage(@prevNext.prev.id).absoluteURL(appIsInHttps);
         });
       }
     </script>
@@ -32,22 +33,7 @@
       $(document).on('click','.coverwrapper em, .coverwrapper_small em, a.displayCopy',function(event){
         var copyId = $(this).data('dvdId');
 
-        // testing style
-        window.location = jsRoutes.controllers.Dashboard.displayCopyOnPage(copyId).absoluteURL(appIsInHttps);
-        return;
-
-        /*displayAjaxDialog({
-          route: jsRoutes.controllers.Dashboard.displayDvd(copyId),
-          title: 'Is set from the displaydvdSacla',
-          cssClass:	'dvdInfoModal',
-          onClose: function() {
-            $('#modal .modal-body').css('background-image', 'none');
-          },
-          onOpen: function() {
-            $('.dvdInfoModal .tooltipo').tooltip().on('show', function(e) {e.stopPropagation();}).on('hide', function(e) {e.stopPropagation();});
-          }
-        });
-        return false;*/
+        window.location = jsRoutes.controllers.DashboardController.displayCopyOnPage(copyId).absoluteURL(appIsInHttps);
       });
     });
   </script>
@@ -57,7 +43,7 @@
   @if(dvd.movieForm.hasBackdrop != null && dvd.movieForm.hasBackdrop == true) {
     <style type="text/css">
       body {
-        background-image: url('@routes.Dashboard.streamImage(dvd.movieForm.movieId,"BACKDROP","BACKCKDROP_POPUP_SIZE")') !important;
+        background-image: url('@routes.DashboardController.streamImage(dvd.movieForm.movieId,"BACKDROP","BACKCKDROP_POPUP_SIZE")') !important;
       }
     </style>
   }
@@ -71,7 +57,7 @@
      <div class="well row">
        <div class="span6">
          @if(prevNext.prev != null) {
-           <a href="@routes.Dashboard.displayCopyOnPage(prevNext.prev.id)">
+           <a href="@routes.DashboardController.displayCopyOnPage(prevNext.prev.id)">
              @general.displayposter(prevNext.prev.movieId,prevNext.prev.hasPoster,EImageSize.TINY)
              @prevNext.prev.title
            </a>
@@ -79,7 +65,7 @@
        </div>
        <div class="span5">
          @if(prevNext.next != null) {
-           <a class="pull-right" href="@routes.Dashboard.displayCopyOnPage(prevNext.next.id)">
+           <a class="pull-right" href="@routes.DashboardController.displayCopyOnPage(prevNext.next.id)">
              @general.displayposter(prevNext.next.movieId,prevNext.next.hasPoster,EImageSize.TINY)
              @prevNext.next.title
            </a>
@@ -100,23 +86,23 @@
 
           <dt>@Messages.apply("lbl.owner"):</dt>
           <dd>
-            <a href="@routes.ListDvdsController.listByUser(dvd.dvdForm.ownerName)">
-              <img class="img-rounded"  src="@routes.Dashboard.gravatar(25,dvd.dvdForm.ownerName)" width="25" height="25" /> @dvd.dvdForm.ownerName
+            <a href="@routes.ListCopiesController.listByUser(dvd.copyForm.ownerName)">
+              @views.html.dashboard.userImage(dvd.copyForm.ownerName,dvd.copyForm.ownerHasGravatar)
+              @dvd.copyForm.ownerName
             </a>
           </dd>
 
           @if(dvd.borrowedBy != null) {
             <dt>@Messages.apply("lbl.lentTo"):</dt>
             <dd>
-              <img class="img-rounded" src="@routes.Dashboard.gravatar(25,dvd.borrowedBy)" width="25" height="25" />
-              @dvd.borrowedBy
+              @views.html.dashboard.userImage(dvd.borrowedBy,dvd.borrowerHasGravatar) @dvd.borrowedBy
               (@dvd.borrowedOn.format(Messages.apply("dateFormat")))
             </dd>
           }
 
-          @if(dvd.dvdForm.hullNr != null) {
+          @if(dvd.copyForm.hullNr != null) {
             <dt class="span4">@Messages.apply("lbl.hullNr"):</dt>
-            <dd><a href="@routes.ListDvdsController.searchDvd?searchFor=@models.Dvd.HULL_NR_SEARCH @dvd.dvdForm.hullNr">@dvd.dvdForm.hullNr</a></dd>
+            <dd><a href="@routes.ListCopiesController.searchDvd?searchFor=@models.Dvd.HULL_NR_SEARCH @dvd.copyForm.hullNr">@dvd.copyForm.hullNr</a></dd>
           }
 
 
@@ -128,17 +114,17 @@
           }
 
           <dt>@Messages("lbl.actions")</dt>
-          <dd>@general.copyButtons(dvd.dvdForm.dvdId,(dvd.dvdForm.ownerName == username), (dvd.borrowedOn == null),(username == dvd.borrowedBy), shoppingCart, bookmarkedCopys)</dd>
+          <dd>@general.copyButtons(dvd.copyForm.dvdId,(dvd.copyForm.ownerName == username), (dvd.borrowedOn == null),(username == dvd.borrowedBy), shoppingCart, bookmarkedCopys)</dd>
 
 
 
         </dl>
 
-        @if(CollectionUtils.isEmpty(dvd.dvdForm.audioTypes ) == false) {
+        @if(CollectionUtils.isEmpty(dvd.copyForm.audioTypes ) == false) {
           <h5>@Messages.apply("lbl.audioformats"):</h5>
 
             <ul class="inline">
-            @for(audioType <- dvd.dvdForm.audioTypes) {
+            @for(audioType <- dvd.copyForm.audioTypes) {
               <li>@audioType</li>
             }
             </ul>
@@ -167,17 +153,22 @@
 
           @if(StringUtils.isEmpty(dvd.movieForm.director) == false) {
             <dt>@Messages.apply("lbl.director"):</dt>
-            <dd><a href="@routes.ListDvdsController.listByDirector(dvd.movieForm.director)">@dvd.movieForm.director</a></dd>
+            <dd><a href="@routes.ListCopiesController.listByDirector(dvd.movieForm.director)">@dvd.movieForm.director</a></dd>
           }
 
-          @if(StringUtils.isEmpty(dvd.dvdForm.asinNr) == false || StringUtils.isEmpty(dvd.movieForm.imdbId) == false) {
+          @if(StringUtils.isBlank(dvd.movieForm.imdbRating) == false) {
+            <dt>@Messages.apply("lbl.imdbRating"):</dt>
+            <dd>@dvd.movieForm.imdbRating/10</dd>
+          }
+
+          @if(StringUtils.isEmpty(dvd.copyForm.asinNr) == false || StringUtils.isEmpty(dvd.movieForm.imdbId) == false) {
             <dt>@Messages.apply("lbl.informations"):</dt>
             <dd>
-              @if(StringUtils.isEmpty(dvd.dvdForm.asinNr) == false ) {
-                <a href="http://www.amazon.de/dp/@dvd.dvdForm.asinNr" target="_blank"><img src="@routes.Assets.at("images/amazon.jpg")" /></a>
+              @if(StringUtils.isEmpty(dvd.copyForm.asinNr) == false ) {
+                <a href="http://www.amazon.de/dp/@dvd.copyForm.asinNr" target="_blank"><img src="@routes.Assets.versioned("images/amazon.jpg")" /></a>
               }
               @if(StringUtils.isEmpty(dvd.movieForm.imdbId ) == false) {
-                <a href="http://www.imdb.com/title/@dvd.movieForm.imdbId" target="_blank"><img src="@routes.Assets.at("images/imdb.jpg")" /></a>
+                <a href="http://www.imdb.com/title/@dvd.movieForm.imdbId" target="_blank"><img src="@routes.Assets.versioned("images/imdb.jpg")" /></a>
               }
             </dd>
           }
@@ -188,11 +179,10 @@
       <div class="span3 pull-right">
         <div class="coverlist_li">
           <div class="coverwrapper">
-            <em data-dvd-id="@dvd.dvdForm.dvdId" class="@dvd.dvdForm.copyType">
-
+            <em data-dvd-id="@dvd.copyForm.dvdId" class="@dvd.copyForm.copyType">
               <div class="well well-small dvdInfo">
               </div>
-              <div class="rateWrapper"><img  class="img-rounded" src="@routes.Assets.at("images/agerating/"+dvd.dvdForm.ageRating+".gif")" /></div>
+              <div class="rateWrapper"><img  class="img-rounded" src="@routes.Assets.versioned("images/agerating/"+dvd.copyForm.ageRating+".gif")" /></div>
             </em>
             <a>
             @general.displayposter(dvd.movieForm.movieId, dvd.movieForm.hasPoster, EImageSize.SMALL)
@@ -228,7 +218,7 @@
          <h5>@Messages.apply("lbl.genres"):</h5>
          <ul class="inline">
          @for(genre <- dvd.movieForm.genres) {
-           <li><a href="@routes.ListDvdsController.listByGenre(genre)">@genre</a></li>
+           <li><a href="@routes.ListCopiesController.listByGenre(genre)">@genre</a></li>
          }
         </ul>
        </div>
@@ -237,18 +227,18 @@
          <h5>@Messages.apply("lbl.actors"):</h5>
          <ul class="inline">
            @for(actor <- dvd.movieForm.actors) {
-             <li><a href="@routes.ListDvdsController.listByActor(actor)">@actor</a></li>
+             <li><a href="@routes.ListCopiesController.listByActor(actor)">@actor</a></li>
            }
          </ul>
        </div>
      </div>
    }
 
-  @dashboard.displaysubdvd(dvd.boxDvds, dvd, Messages.apply("lbl.box"),dvd.dvdForm.box,username)
+  @dashboard.displaysubdvd(dvd.boxDvds, dvd, Messages.apply("lbl.box"),dvd.copyForm.box,username)
     
-  @dashboard.displaysubdvd(dvd.collectionDvds, dvd, Messages.apply("lbl.collection"),dvd.dvdForm.collection,username)
+  @dashboard.displaysubdvd(dvd.collectionDvds, dvd, Messages.apply("lbl.collection"),dvd.copyForm.collection,username)
   
-  @dashboard.displaysubdvd(dvd.seriesDvd, dvd, Messages.apply("lbl.movieSeries")+" "+dvd.movieForm.series,dvd.dvdForm.collection,username)
+  @dashboard.displaysubdvd(dvd.seriesDvd, dvd, Messages.apply("lbl.movieSeries")+" "+dvd.movieForm.series,dvd.copyForm.collection,username)
   </div>
 </div>
 }

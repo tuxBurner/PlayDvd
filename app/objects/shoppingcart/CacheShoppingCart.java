@@ -1,9 +1,6 @@
 package objects.shoppingcart;
 
 import models.Dvd;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.ListUtils;
-import org.apache.commons.collections.MapUtils;
 import play.Logger;
 
 import java.util.*;

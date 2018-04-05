@@ -13,12 +13,12 @@
 
     @form(routes.UserProfileController.updateProfile,'class -> "well") {
 
-      <h4>@Messages.apply("headline.userProfile",Secured.getUsername) <img src="@routes.Dashboard.gravatar(16,Controller.ctx().session().get(Secured.AUTH_SESSION))" width="16" height="16" /></h4>
+      <h4>@Messages.apply("headline.userProfile",Secured.getUsername) @views.html.dashboard.userImage(Secured.getUsername,Secured.getUserHasGravatar,16) </h4>
       <hr />
 
       @if(profileForm.hasGlobalErrors) {
         <p class="alert alert-error">
-        @profileForm.globalError.message
+        @Messages(profileForm.globalError.message)
         </p>
       }
 
@@ -38,7 +38,7 @@
 
       <label for="defaultCopyType">@Messages.apply("lbl.defaultCopyType")</label>
       @for((copyType,index) <- DvdInfoHelper.getCopyTypes.zipWithIndex) {
-        <input type="radio" id="defaultCopyType" name="defaultCopyType" value="@copyType" @if((copyType.equals(profileForm("defaultCopyType").value)) || index == 0 ){ checked="checked" } /><span><img alt="@copyType" src="@routes.Assets.at("images/copy_type/"+copyType+".png")" /></span>
+        <input type="radio" id="defaultCopyType" name="defaultCopyType" value="@copyType" @if((copyType.equals(profileForm("defaultCopyType").value)) || index == 0 ){ checked="checked" } /><span><img alt="@copyType" src="@routes.Assets.versioned("images/copy_type/"+copyType+".png")" /></span>
       }
       <hr />
 
@@ -51,7 +51,7 @@
 
       <div class="form-actions">
         <button type="submit" class="btn btn-warning"><i class="icon-user"></i> @Messages.apply("btn.update")</button>
-        <a class="btn" href="@routes.Application.index">@Messages.apply("btn.back")</a>
+        <a class="btn" href="@routes.ApplicationController.index">@Messages.apply("btn.back")</a>
       </div>
     }
     </div>

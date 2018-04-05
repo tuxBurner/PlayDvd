@@ -1,4 +1,4 @@
-@(lendForm: Form[forms.UnLendForm], dvd: Dvd, inSameHull: List[Dvd])
+@(lendForm: Form[forms.UnLendForm], copy: Dvd, inSameHull: List[Dvd])
 @import _root_.helpers.EImageSize
 
 @import helper._
@@ -8,14 +8,14 @@
 <fieldset>
   <legend>
     @Messages("headline.unlendCopy"):
-    @general.displayposter(dvd.movie.id,dvd.movie.hasPoster,EImageSize.TINY)
-    <i>@general.displayCopyTitle(dvd)</i>
+    @general.displayposter(copy.movie.id,copy.movie.hasPoster,EImageSize.TINY)
+    <i>@general.displayCopyTitle(copy)</i>
     <br />
     @Messages("lbl.unlendFrom") :
-    <i>@if(dvd.borrower != null) { @dvd.borrower.userName} else { @dvd.borrowerName }</i>
+    <i>@if(copy.borrower != null) { @copy.borrower.userName} else { @copy.borrowerName }</i>
   </legend>
 
-  <input type="hidden" id="unlendDvdId" value="@dvd.id" />
+  <input type="hidden" id="unlendDvdId" value="@copy.id" />
   
    @if(inSameHull != null) {
     @checkbox(field = lendForm("alsoOthersInHull"), '_label -> "Others in Hull to")

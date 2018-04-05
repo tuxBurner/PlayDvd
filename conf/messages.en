@@ -96,6 +96,7 @@ lbl.runtime=Runtime
 lbl.year=Year
 lbl.director=Director
 lbl.informations=Informations
+lbl.imdbRating=IMDB Rating
 lbl.plot=Plot
 lbl.trailer=Trailer
 lbl.actors=Actors
@@ -186,3 +187,4 @@ msg.info.noRssAuthKey=You don't have generated a rss auth key please go to {0} t
 
 email.passwordreset.content=Hello {0}\nYou requested to reset the password for the PlayDvd database please click the link to reset the password:\n\n {1}
 email.passwordreset.subject=Password reset for PlayDvd
+email.shoppingcart.subject=Somebody wants to lent a Copy

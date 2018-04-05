@@ -5,20 +5,33 @@ import models.User;
 import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 import play.data.Form;
-import play.i18n.Messages;
+import play.data.FormFactory;
+import play.i18n.MessagesApi;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
 import views.html.user.userprofile;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 /**
  * User: tuxburner
- * Date: 2/3/13
- * Time: 4:24 PM
  */
 @Security.Authenticated(Secured.class)
+@Singleton
 public class UserProfileController extends Controller {
+
+  private final FormFactory formFactory;
+
+  private final MessagesApi messagesApi;
+
+  @Inject
+  UserProfileController(final FormFactory formFactory, MessagesApi messagesApi) {
+    this.formFactory = formFactory;
+    this.messagesApi = messagesApi;
+  }
 
   /**
    * Displays the user profile mask
@@ -31,8 +44,8 @@ public class UserProfileController extends Controller {
     if(currentUser == null) {
       if(Logger.isErrorEnabled()) {
         Logger.error("No user was found by the username: "+Secured.getUsername());
-        return internalServerError();
       }
+      return internalServerError();
     }
 
     if(StringUtils.isEmpty(currentUser.rssAuthKey) == true) {
@@ -45,17 +58,16 @@ public class UserProfileController extends Controller {
     userProfileForm.email = currentUser.email;
     userProfileForm.rssAuthKey = currentUser.rssAuthKey;
 
-    return ok(userprofile.render(Form.form(UserProfileForm.class).fill(userProfileForm)));
+    return ok(userprofile.render(formFactory.form(UserProfileForm.class).fill(userProfileForm)));
   }
 
   public Result updateProfile() {
-
-    final Form<UserProfileForm> form = Form.form(UserProfileForm.class).bindFromRequest();
+    final Form<UserProfileForm> form = formFactory.form(UserProfileForm.class).bindFromRequest();
     if(form.hasErrors()) {
       return Results.badRequest(userprofile.render(form));
     }
 
-    Controller.flash("success", Messages.get("msg.success.profileUpdated"));
+    Controller.flash("success", messagesApi.preferred(request()).at("msg.success.profileUpdated"));
     // redirect so the form gets empty and no passwords are written to the form
     return redirect(routes.UserProfileController.showProfile());
   }

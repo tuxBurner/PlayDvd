@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET         /                                               controllers.Application.index()
+GET         /                                               controllers.ApplicationController.index()
 
 # Authentication
 GET         /login                                          controllers.RegisterLoginController.showLogin()
@@ -25,38 +25,38 @@ GET         /register                                       controllers.Register
 POST        /register                                       controllers.RegisterLoginController.register()
 
 # DVD Lists
-GET         /dvds                                           controllers.ListDvdsController.listdvds(pageNr: java.lang.Integer ?= null)
-GET         /dvds/forJS                                     controllers.ListDvdsController.listCopiesJS(pageNr: java.lang.Integer ?= null)
-GET         /dvds/all                                       controllers.ListDvdsController.listAlldvds()
-GET         /dvds/by/genre/:genreName                       controllers.ListDvdsController.listByGenre(genreName: String)
-GET         /dvds/by/actor/:actorName                       controllers.ListDvdsController.listByActor(actorName: String)
-GET         /dvds/by/director/:directorName                 controllers.ListDvdsController.listByDirector(directorName: String)
-GET         /dvds/by/user/:userName                         controllers.ListDvdsController.listByUser(userName: String)
-GET         /dvds/lend                                      controllers.ListDvdsController.listLendDvd()
-GET         /movies/toReview                                controllers.ListDvdsController.listReviewMovies()
-GET         /dvds/search                                    controllers.ListDvdsController.searchDvd()
-POST        /dvds                                           controllers.ListDvdsController.applySearchForm()
-GET         /dvds/changeViewMode/:viewMode                  controllers.ListDvdsController.changeViewMode(viewMode :String)
+GET         /copies                                           controllers.ListCopiesController.listCopies(pageNr: java.lang.Integer ?= null)
+GET         /copies/forJS                                     controllers.ListCopiesController.listCopiesJS(pageNr: java.lang.Integer ?= null)
+GET         /copies/all                                       controllers.ListCopiesController.listAllCopies()
+GET         /copies/by/genre/:genreName                       controllers.ListCopiesController.listByGenre(genreName: String)
+GET         /copies/by/actor/:actorName                       controllers.ListCopiesController.listByActor(actorName: String)
+GET         /copies/by/director/:directorName                 controllers.ListCopiesController.listByDirector(directorName: String)
+GET         /copies/by/user/:userName                         controllers.ListCopiesController.listByUser(userName: String)
+GET         /copies/lend                                      controllers.ListCopiesController.listLendDvd()
+GET         /movies/toReview                                controllers.ListCopiesController.listReviewMovies()
+GET         /copies/search                                    controllers.ListCopiesController.searchDvd()
+POST        /copies                                           controllers.ListCopiesController.applySearchForm()
+GET         /copies/changeViewMode/:viewMode                  controllers.ListCopiesController.changeViewMode(viewMode :String)
 
 # Comment
 POST        /movie/:movieId/comment                         controllers.CommentController.addComment(movieId: Long)
 
 
 # stuff
-GET         /image/:dvdId/:imgType/:imgSize                 controllers.Dashboard.streamImage(dvdId: Long, imgType: String, imgSize: String)
-GET         /extimage                                       controllers.Dashboard.streamExternalImage()
-GET         /gravatar/:userName                             controllers.Dashboard.gravatar(size: java.lang.Integer, userName: String)
+GET         /image/:dvdId/:imgType/:imgSize                 controllers.DashboardController.streamImage(dvdId: Long, imgType: String, imgSize: String)
+GET         /extimage                                       controllers.DashboardController.streamExternalImage()
+GET         /gravatar/:userName                             controllers.DashboardController.gravatar(size: java.lang.Integer, userName: String)
 
 
 # Display the Dvd
-GET         /showdvdPopup/:dvdId                            controllers.Dashboard.displayDvd(dvdId: Long)
-GET         /showdvd/:dvdId                                 controllers.Dashboard.displayCopyOnPage(dvdId: Long)
+GET         /showdvdPopup/:dvdId                            controllers.DashboardController.displayDvd(dvdId: Long)
+GET         /showdvd/:dvdId                                 controllers.DashboardController.displayCopyOnPage(dvdId: Long)
 
 # Lend DVD
-GET         /lendDvd/:dvdId                                 controllers.Dashboard.lendDialogContent(dvdId: Long)
-POST        /lendDvd/:dvdId                                 controllers.Dashboard.lendDvd(dvdId: Long)
-GET         /unLendDvd/:dvdId                               controllers.Dashboard.unLendDialogContent(dvdId: Long)
-POST        /unLendDvd/:dvdId                               controllers.Dashboard.unlendDvd(dvdId: Long)
+GET         /copy/:dvdId/lend                               controllers.DashboardController.lendDialogContent(dvdId: Long)
+POST        /copy/:dvdId/lend                               controllers.DashboardController.lendDvd(dvdId: Long)
+GET         /copy/:dvdId/unlend                             controllers.DashboardController.unLendDialogContent(dvdId: Long)
+POST        /copy/:dvdId/unlend                             controllers.DashboardController.unlendDvd(dvdId: Long)
 
 # Barcode Scanning
 GET         /barcodescanner                                 controllers.BarcodeController.displayBarcodeScaner()
@@ -64,21 +64,21 @@ GET         /barcodescannerws                               controllers.BarcodeC
 
 
 # ADD edit DVD
-GET         /dvd/add                                        controllers.DvdController.showAddDvd()
-POST        /dvd/:mode                                      controllers.DvdController.addDvd(mode: String)
-GET         /dvd/edit/:dvdId                                controllers.DvdController.showEditDvd(dvdId: Long)
-GET         /dvd/amazon/search/byCode/:code                 controllers.DvdController.searchAmazonByCode(code: String, copyId: Long ?= -1)
-GET         /dvd/amazon/search/byTitle/                     controllers.DvdController.searchAmazonByTitle(title = "")
-GET         /dvd/amazon/search/byTitle/:title               controllers.DvdController.searchAmazonByTitle(title: String)
-GET         /dvd/amazon/form/:code/:movieId                 controllers.DvdController.showDvdByAmazonAndMovie(code: String, movieId: Long,copyId: Long ?= -1)
-GET         /dvd/amazon/formfill/:code                      controllers.DvdController.showCopyFormWithAmazonInfo(code: String, copyId: Long ?= -1)
-POST        /dvd/addMovieByGrabber/                         controllers.DvdController.addMovieByGrabber(grabberType : String)
-GET         /dvd/searchattr                                 controllers.DvdController.searchForCopyAttribute(term: String, attrType:String)
+GET         /copy/add                                       controllers.CopyController.showAddDvd()
+POST        /copy/:mode                                     controllers.CopyController.addDvd(mode: String)
+GET         /copy/edit/:dvdId                               controllers.CopyController.showEditDvd(dvdId: Long)
+GET         /copy/amazon/search/byCode/:code                controllers.CopyController.searchAmazonByCode(code: String, copyId: Long ?= -1)
+GET         /copy/amazon/search/byTitle/                    controllers.CopyController.searchAmazonByTitle(title = "")
+GET         /copy/amazon/search/byTitle/:title              controllers.CopyController.searchAmazonByTitle(title: String)
+GET         /copy/amazon/form/:code/:movieId                controllers.CopyController.showDvdByAmazonAndMovie(code: String, movieId: Long,copyId: Long ?= -1)
+GET         /copy/amazon/formfill/:code                     controllers.CopyController.showCopyFormWithAmazonInfo(code: String, copyId: Long ?= -1)
+POST        /copy/addMovieByGrabber/                        controllers.CopyController.addMovieByGrabber(grabberType : String)
+GET         /copy/searchattr                                controllers.CopyController.searchForCopyAttribute(term: String, attrType:String)
 
 
 # DELETE DVD
-GET         /dvd/delete/:dvdId                              controllers.Dashboard.deleteDialogContent(dvdId:Long)
-POST        /dvd/delete/:dvdId                              controllers.Dashboard.deleteDvd(dvdId:Long)
+GET         /copy/delete/:dvdId                              controllers.DashboardController.deleteDialogContent(dvdId:Long)
+POST        /copy/delete/:dvdId                              controllers.DashboardController.deleteDvd(dvdId:Long)
 
 # MOVIE ROUTES
 POST        /movie/addMovieByGrabber/:mode                  controllers.MovieController.addMovieByGrabberId(mode: String, grabberType: String)
@@ -136,12 +136,8 @@ GET         /export                                         controllers.ExportMo
 GET         /export/xbmc                                    controllers.ExportMoviesController.exportXbmc()
 
 # Javascript routing
-GET         /assets/javascripts/routes                      controllers.Application.jsRoutes()
+GET         /assets/javascripts/routes                      controllers.ApplicationController.jsRoutes()
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                                   controllers.Assets.at(path="/public", file)
-
-
-# webjars
-GET         /webjars/*file                                  controllers.WebJarAssets.at(file)
+GET         /assets/*file                                   controllers.Assets.versioned(path="/public", file: Asset)
