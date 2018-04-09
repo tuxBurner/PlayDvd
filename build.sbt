@@ -1,3 +1,5 @@
+import com.typesafe.sbt.packager.docker.ExecCmd
+
 name := """dvdDataBase"""
 
 version := "1.9-SNAPSHOT"
@@ -66,3 +68,18 @@ resolvers ++= Seq(
   "Neo4j" at "http://m2.neo4j.org/content/repositories/releases/",
   Resolver.sonatypeRepo("snapshots")
 )
+
+// http://www.scala-sbt.org/sbt-native-packager/formats/docker.html
+// docker infos go here
+maintainer in Docker := "Sebastian Hardt"
+packageName in Docker := "tuxburner/playdvd"
+dockerExposedPorts in Docker := Seq(9000)
+dockerExposedVolumes in Docker := Seq("/data")
+
+// add the command to use deadzone roster conf
+dockerCommands ++= Seq(
+  ExecCmd("CMD", "-Dconfig.file=/data/playdvd.conf")
+)
+
+
+dockerUpdateLatest in Docker := true
