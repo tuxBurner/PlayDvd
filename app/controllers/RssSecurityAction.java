@@ -3,9 +3,9 @@ package controllers;
 import models.User;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
-import play.mvc.Action;
 import play.mvc.Http;
 import play.mvc.Result;
+import play.mvc.Security;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -45,7 +45,8 @@ public class RssSecurityAction extends play.mvc.Action.Simple {
             return CompletableFuture.completedFuture(unauthorized("Auth was no success"));
         }
 
-        Http.Context context = new Http.Context(ctx.request().withUsername(userByRssAuthKey.userName));
+        final Http.Request request = ctx.request().withAttrs(ctx.request().attrs().put(Security.USERNAME, userByRssAuthKey.userName));
+        final Http.Context context = ctx.withRequest(request);
         return delegate.call(context);
     }
 }
