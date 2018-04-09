@@ -30,13 +30,11 @@ public class LanguageController extends Controller {
   
   private final Provider<Application> applicationProvider;
 
-  private final Application app;
 
 
   @Inject
-  public LanguageController(final Provider<Application> applicationProvider, final Application app) {
+  public LanguageController(final Provider<Application> applicationProvider) {
     this.applicationProvider = applicationProvider;
-    this.app = app;
   }
 
   /**

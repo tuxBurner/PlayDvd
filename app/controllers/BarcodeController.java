@@ -3,6 +3,7 @@ package controllers;
 import akka.actor.ActorSystem;
 import akka.stream.Materializer;
 import com.github.tuxBurner.jsAnnotations.JSRoute;
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import play.libs.streams.ActorFlow;
 import play.mvc.Controller;
@@ -24,9 +25,9 @@ public class BarcodeController extends Controller
   private final ActorSystem actorSystem;
   private final Materializer materializer;
 
+  @Inject
   public BarcodeController(final ActorSystem actorSystem, final Materializer materializer)
   {
-
     this.actorSystem = actorSystem;
     this.materializer = materializer;
   }
