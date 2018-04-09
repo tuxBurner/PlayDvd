@@ -78,7 +78,7 @@ dockerExposedVolumes in Docker := Seq("/data")
 
 // add the command to use deadzone roster conf
 dockerCommands ++= Seq(
-  ExecCmd("CMD", "-Dconfig.file=/data/playdvd.conf")
+  ExecCmd("CMD", "-Dconfig.file=/config/playdvd.conf")
 )
 
 
