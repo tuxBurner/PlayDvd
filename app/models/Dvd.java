@@ -180,7 +180,8 @@ public class Dvd extends Model
       copy.createdDate = new Date().getTime();
       Dvd.create(copy);
     } else {
-      Ebean.deleteManyToManyAssociations(copy, "attributes");
+      //Ebean.deleteManyToManyAssociations(copy, "attributes");
+      copy.attributes.clear();
       copy.update();
     }
 
@@ -414,7 +415,10 @@ public class Dvd extends Model
       next.lt(orderBy.dbField, orderDvdVal);
     }
 
-    final PagedList<Dvd> nextPage = next.orderBy(orderBy.dbField + " " + orderHow.dbOrder).findPagedList(0, 1);
+    final PagedList<Dvd> nextPage = next.orderBy(orderBy.dbField + " " + orderHow.dbOrder)
+      .setFirstRow(0)
+      .setMaxRows(1)
+      .findPagedList();
     final List<Dvd> nextList = nextPage.getList();
     final Dvd nextCopy = (nextList.size() == 1) ? nextList.get(0) : null;
 

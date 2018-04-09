@@ -5,6 +5,7 @@ import objects.shoppingcart.CacheShoppingCart;
 import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 import play.cache.CacheApi;
+import play.cache.SyncCacheApi;
 import play.mvc.Controller;
 
 import javax.inject.Inject;
@@ -18,10 +19,10 @@ import java.util.concurrent.Callable;
 @Singleton
 public class CacheHelper {
 
-  private final CacheApi cache;
+  private final SyncCacheApi cache;
 
   @Inject
-  public CacheHelper(final CacheApi cache) {
+  public CacheHelper(final SyncCacheApi cache) {
     this.cache = cache;
   }
 
@@ -32,7 +33,7 @@ public class CacheHelper {
 
   public  <T> T getObjectOrElse(final ECacheObjectName objectName,final String postFix,final Callable<T> block) {
     try {
-      return cache.getOrElse(createCacheKey(objectName,postFix),block,objectName.cacheTime);
+      return cache.getOrElseUpdate(createCacheKey(objectName,postFix),block,objectName.cacheTime);
     } catch (Exception e) {
       if(Logger.isErrorEnabled()){
         Logger.error("An error happend while getting the object via key: "+createCacheKey(objectName,postFix),e);

@@ -1,5 +1,6 @@
 @import forms.dvd.CopySearchFrom
-@(dvdPage: DvdPage)(dvdListForm: Form[CopySearchFrom])(username: String)(shoppingCart: objects.shoppingcart.CacheShoppingCart)(viewMode: helpers.ECopyListView)(bookmarkedCopys: Set[Long])
+@import helpers.CacheHelper
+@(dvdPage: DvdPage)(dvdListForm: Form[CopySearchFrom], cacheHelper: CacheHelper)(username: String)(shoppingCart: objects.shoppingcart.CacheShoppingCart)(viewMode: helpers.ECopyListView)(bookmarkedCopys: Set[Long])
 
 @scripts = {
   @general.jsI18n("headline.lendCopy","btn.lend","headline.unlendCopy","btn.unlend","headline.deleteCopy","btn.delete","headline.markAsViewed","btn.ok")
@@ -32,7 +33,7 @@
 
 @mainmenu(Messages("headline.listCopies"),scripts) {
 
-  @dashboard.searchform(dvdListForm)
+  @dashboard.searchform(dvdListForm, cacheHelper)
 
   @if(dvdPage.page.getTotalCount == 0) {
     <div class="alert alert-info">@Messages("msg.info.noCopiesFound")</div>

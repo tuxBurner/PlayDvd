@@ -1,7 +1,8 @@
 package grabbers;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.jetbrains.annotations.NotNull;
+
+import javax.validation.constraints.NotNull;
 
 public class GrabberSearchMovie implements Comparable<GrabberSearchMovie> {
 

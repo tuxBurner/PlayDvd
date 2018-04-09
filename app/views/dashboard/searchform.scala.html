@@ -1,5 +1,6 @@
 @import forms.dvd.CopySearchFrom
-@(dvdSearchForm: Form[CopySearchFrom])
+@import helpers.CacheHelper
+@(dvdSearchForm: Form[CopySearchFrom], cacheHelper: CacheHelper)
 
 @import helper._
 
@@ -11,7 +12,7 @@
   var avaibleAgeRatings = @Html(forms.dvd.CopySearchFrom.getAgeRatingsAsJson());
   var avaibleCopyTypes = @Html(forms.dvd.CopySearchFrom.getCopyTypesJson());
   var listOrderBy = @Html(forms.dvd.objects.EDvdListOrderBy.getAsJson());
-  var displayAdvancedOrder = @forms.dvd.CopySearchFrom.displayAdvancedForm();
+  var displayAdvancedOrder = @forms.dvd.CopySearchFrom.displayAdvancedForm(cacheHelper);
 //-->
 </script>
 

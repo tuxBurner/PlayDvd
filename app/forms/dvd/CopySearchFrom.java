@@ -1,17 +1,14 @@
 package forms.dvd;
 
+import com.google.gson.Gson;
 import forms.dvd.objects.EDvdListOrderBy;
 import forms.dvd.objects.EDvdListOrderHow;
+import helpers.CacheHelper;
 import helpers.DvdInfoHelper;
+import helpers.ECacheObjectName;
 import org.apache.commons.lang.StringUtils;
-
-import play.cache.Cache;
 import play.mvc.Controller;
 import play.mvc.Http.Context;
-
-import com.google.gson.Gson;
-
-import controllers.Secured;
 
 /**
  * This holds the filter for listing the dvd
@@ -84,8 +81,8 @@ public class CopySearchFrom {
   /**
    * Checks if the searchForm should be displayed in the advanced mode
    */
-  public static boolean displayAdvancedForm() {
-    final CopySearchFrom form = CopySearchFrom.getCurrentSearchForm();
+  public static boolean displayAdvancedForm(final CacheHelper cacheHelper) {
+    final CopySearchFrom form = CopySearchFrom.getCurrentSearchForm(cacheHelper);
     return (form != null && (StringUtils.isEmpty(form.copyType) == false || form.lendDvd == true));
   }
 
@@ -95,22 +92,19 @@ public class CopySearchFrom {
    * 
    * @return
    */
-  public static CopySearchFrom getCurrentSearchForm() {
+  public static CopySearchFrom getCurrentSearchForm(final CacheHelper cacheHelper) {
 
     final Context ctx = Controller.ctx();
 
     if (ctx == null) {
       return null;
     }
-    //TODO: make a simple cache controll mechanism we also have one at the shopping cart
-    final Object object = Cache.get(ctx.session().get(Secured.AUTH_SESSION) + ".dvdlistform");
-    CopySearchFrom returnVal;
-    if (object == null || object instanceof CopySearchFrom == false) {
-      returnVal = new CopySearchFrom();
-      Cache.set(ctx.session().get(Secured.AUTH_SESSION) + ".dvdlistform", returnVal);
-    } else {
-      returnVal = (CopySearchFrom) object;
-    }
+
+    final CopySearchFrom returnVal = cacheHelper.getSessionObjectOrElse(ECacheObjectName.SEARCHFORM, () -> {
+      final CopySearchFrom value = new CopySearchFrom();
+      cacheHelper.setSessionObject(ECacheObjectName.SEARCHFORM, value);
+      return value;
+    });
 
     return returnVal;
   }
@@ -120,7 +114,7 @@ public class CopySearchFrom {
    *
    * @param copySearchFrom
    */
-  public static void setCurrentSearchForm(final CopySearchFrom copySearchFrom) {
+  public static void setCurrentSearchForm(final CopySearchFrom copySearchFrom, final CacheHelper cacheHelper) {
 
     // make sure when set to lend and no username is given set it to the current
     // user
@@ -128,7 +122,7 @@ public class CopySearchFrom {
       copySearchFrom.userName = Controller.request().username();
     }
 
-    Cache.set(Controller.ctx().session().get(Secured.AUTH_SESSION) + ".dvdlistform", copySearchFrom);
+    cacheHelper.setSessionObject(ECacheObjectName.SEARCHFORM, copySearchFrom);
   }
 
   public static String getAgeRatingsAsJson() {

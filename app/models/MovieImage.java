@@ -3,11 +3,17 @@ package models;
 import helpers.EImageSize;
 import helpers.EImageStoreType;
 import helpers.EImageType;
+import io.ebean.Finder;
+import io.ebean.Model;
 import org.apache.commons.collections.CollectionUtils;
 import play.Logger;
-import com.avaje.ebean.Model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Set;
 
 /**
@@ -19,7 +25,8 @@ import java.util.Set;
  * Time: 1:10 PM
  */
 @Entity
-public class MovieImage extends Model{
+public class MovieImage extends Model
+{
 
   @Id
   public Long id;
@@ -42,7 +49,7 @@ public class MovieImage extends Model{
   /**
    * The FINDER for the database for searching in the database
    */
-  public static Find<Long, MovieImage> FINDER = new Find<Long, MovieImage>() {};
+  public static Finder<Long, MovieImage> FINDER = new Finder<>(MovieImage.class);
 
 
   /**
@@ -53,12 +60,21 @@ public class MovieImage extends Model{
    * @return
    */
   public static boolean checkForImage(final Long movieId, final EImageSize size, final EImageType type) {
-    final int rowCount = FINDER.where().eq("movie.id", movieId).eq("size", size).eq("type", type).findRowCount();
+    final int rowCount = FINDER.query()
+      .where()
+      .eq("movie.id", movieId)
+      .eq("size", size).eq("type", type)
+      .findCount();
     return (rowCount > 0);
   }
 
   public static MovieImage getForMovie(final Long movieId, final EImageSize size, final EImageType type) {
-    final MovieImage movieImage = FINDER.where().eq("movie.id", movieId).eq("size", size).eq("type", type).findUnique();
+    final MovieImage movieImage = FINDER.query()
+      .where()
+      .eq("movie.id", movieId)
+      .eq("size", size)
+      .eq("type", type)
+      .findOne();
     return movieImage;
   }
 
@@ -91,7 +107,10 @@ public class MovieImage extends Model{
    * @param movieId
    */
   public static  void deleteForMovie(final Long movieId) {
-    final Set<MovieImage> set = FINDER.where().eq("movie.id", movieId).findSet();
+    final Set<MovieImage> set = FINDER.query()
+      .where()
+      .eq("movie.id", movieId)
+      .findSet();
     if(CollectionUtils.isEmpty(set) == false) {
       for(final MovieImage image : set) {
         image.delete();

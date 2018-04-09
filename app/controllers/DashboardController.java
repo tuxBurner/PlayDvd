@@ -1,6 +1,6 @@
 package controllers;
 
-import com.avaje.ebean.Ebean;
+import com.github.tuxBurner.jsAnnotations.JSRoute;
 import com.google.inject.Singleton;
 import forms.ExternalImageForm;
 import forms.LendForm;
@@ -8,12 +8,19 @@ import forms.UnLendForm;
 import forms.dvd.CopySearchFrom;
 import forms.dvd.objects.CopyInfo;
 import forms.dvd.objects.PrevNextCopies;
-import helpers.*;
-import com.github.tuxBurner.jsAnnotations.JSRoute;
+import helpers.CacheHelper;
+import helpers.ECacheObjectName;
+import helpers.EImageSize;
+import helpers.EImageType;
+import helpers.ETagHelper;
+import helpers.GravatarHelper;
+import helpers.ImageHelper;
+import io.ebean.Ebean;
 import models.CopyReservation;
 import models.Dvd;
 import models.User;
 import models.ViewedCopy;
+import modules.s3.S3Plugin;
 import net.coobird.thumbnailator.Thumbnails;
 import objects.shoppingcart.CacheShoppingCart;
 import org.apache.commons.lang.StringUtils;
@@ -24,7 +31,6 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
-import modules.s3.S3Plugin;
 
 import javax.imageio.ImageIO;
 import javax.inject.Inject;
@@ -97,7 +103,7 @@ public class DashboardController extends Controller {
 
     final CopyInfo copyInfo = new CopyInfo(copy);
 
-    final CopySearchFrom currentSearchForm = CopySearchFrom.getCurrentSearchForm();
+    final CopySearchFrom currentSearchForm = CopySearchFrom.getCurrentSearchForm(cacheHelper);
     final PrevNextCopies nextAndPrev = Dvd.getNextAndPrev(copy, currentSearchForm);
 
     final CacheShoppingCart shoppingCartFromCache = cacheHelper.getShoppingCartFromCache();
@@ -248,7 +254,9 @@ public class DashboardController extends Controller {
       return Results.forbidden();
     }
 
-    Ebean.deleteManyToManyAssociations(dvdForUser, "attributes");
+    //Ebean.deleteManyToManyAssociations(dvdForUser, "attributes");
+    dvdForUser.attributes.clear();
+    Ebean.save(dvdForUser);
     dvdForUser.delete();
 
     return Results.ok();

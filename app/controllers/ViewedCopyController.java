@@ -1,9 +1,9 @@
 package controllers;
 
-import com.avaje.ebean.PagedList;
+import com.github.tuxBurner.jsAnnotations.JSRoute;
 import helpers.CacheHelper;
 import helpers.ECacheObjectName;
-import com.github.tuxBurner.jsAnnotations.JSRoute;
+import io.ebean.PagedList;
 import models.Bookmark;
 import models.Dvd;
 import models.ViewedCopy;

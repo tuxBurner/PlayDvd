@@ -1,14 +1,13 @@
 package controllers;
 
-import com.avaje.ebean.PagedList;
+import com.github.tuxBurner.jsAnnotations.JSRoute;
 import com.google.inject.Singleton;
 import com.typesafe.config.ConfigFactory;
 import forms.dvd.CopySearchFrom;
 import helpers.CacheHelper;
 import helpers.ConfigurationHelper;
 import helpers.ECopyListView;
-import com.github.tuxBurner.jsAnnotations.JSRoute;
-
+import io.ebean.PagedList;
 import models.Dvd;
 import objects.shoppingcart.CacheShoppingCart;
 import org.apache.commons.lang.StringUtils;
@@ -54,7 +53,7 @@ public class ListCopiesController extends Controller {
    * @return
    */
   public Result listCopies(final Integer pageNr) {
-    final CopySearchFrom currentSearchForm = CopySearchFrom.getCurrentSearchForm();
+    final CopySearchFrom currentSearchForm = CopySearchFrom.getCurrentSearchForm(cacheHelper);
     if (pageNr != null && currentSearchForm != null) {
       currentSearchForm.currentPage = pageNr;
     }
@@ -68,7 +67,7 @@ public class ListCopiesController extends Controller {
    */
   @JSRoute
   public Result listCopiesJS(final Integer pageNr) {
-    final CopySearchFrom currentSearchForm = CopySearchFrom.getCurrentSearchForm();
+    final CopySearchFrom currentSearchForm = CopySearchFrom.getCurrentSearchForm(cacheHelper);
     if (pageNr != null && currentSearchForm != null) {
       currentSearchForm.currentPage = pageNr;
     }
@@ -218,7 +217,7 @@ public class ListCopiesController extends Controller {
   private  Result returnList(final CopySearchFrom copySearchFrom, final boolean jsMode) {
 
     final String username = Secured.getUsername();
-    CopySearchFrom.setCurrentSearchForm(copySearchFrom);
+    CopySearchFrom.setCurrentSearchForm(copySearchFrom,cacheHelper);
     final ECopyListView currentViewMode = getCurrentViewMode();
     final Integer itemsPerPage = DVDS_PER_PAGE_CONFIG.get(currentViewMode.name());
     final PagedList<Dvd> dvdsByForm = Dvd.getDvdsBySearchForm(copySearchFrom, itemsPerPage);
@@ -227,7 +226,7 @@ public class ListCopiesController extends Controller {
     final Set<Long> bookmarkedCopyIds = cacheHelper.getBookmarkedCopyIds();
     if(jsMode == false) {
       final Form<CopySearchFrom> form =  formFactory.form(CopySearchFrom.class);
-      return Results.ok(listdvds.render(dvdPage, form.fill(copySearchFrom), username, shoppingCartFromCache,currentViewMode,bookmarkedCopyIds));
+      return Results.ok(listdvds.render(dvdPage, form.fill(copySearchFrom),cacheHelper, username, shoppingCartFromCache,currentViewMode,bookmarkedCopyIds));
     } else {
       return Results.ok(views.html.dashboard.listviews.listviewsWrapper.render(dvdPage,username,shoppingCartFromCache,bookmarkedCopyIds,currentViewMode));
     }

@@ -30,10 +30,13 @@ public class LanguageController extends Controller {
   
   private final Provider<Application> applicationProvider;
 
+  private final Application app;
+
 
   @Inject
-  public LanguageController(final Provider<Application> applicationProvider) {
+  public LanguageController(final Provider<Application> applicationProvider, final Application app) {
     this.applicationProvider = applicationProvider;
+    this.app = app;
   }
 
   /**
@@ -83,7 +86,9 @@ public class LanguageController extends Controller {
    */
   private  static String getLanguageName(int i) {
     String[] languageNames = ConfigFactory.load().getString("application.languageNames").split(",");
-    String languageName = Lang.availables().get(i).code();
+    //TODO: this is shitty
+    String languageName = "";
+    //String languageName = Lang.availables(app).get(i).code();
     if (languageNames[i] != null) {
       languageName = languageNames[i];
     }
@@ -98,7 +103,7 @@ public class LanguageController extends Controller {
    */
   private  static String getLanguageFlagName(int i) {
     String[] languageNames = ConfigFactory.load().getString("application.languageFlags").split(",");
-    String languageName = Lang.availables().get(i).code();
+    String languageName = "";//Lang.availables().get(i).code();
     if (languageNames[i] != null) {
       languageName = languageNames[i];
     }
@@ -113,10 +118,10 @@ public class LanguageController extends Controller {
   public static  Map<String, String> getLanguageFlags() {
     if (languageFlags == null) {
       languageFlags = new HashMap<String, String>();
-      final List<Lang> availables = Lang.availables();
+      /*final List<Lang> availables = Lang.availables();
       for (int i = 0; i < availables.size(); i++) {
         languageFlags.put(availables.get(i).code(), getLanguageFlagName(i));
-      }
+      } */
     }
     return languageFlags;
   }
@@ -130,10 +135,10 @@ public class LanguageController extends Controller {
   public static Map<String, String> getLanguages() {
     if (languages == null) {
       languages = new HashMap<String, String>();
-      final List<Lang> availables = Lang.availables();
+      /*final List<Lang> availables = Lang.availables();
       for (int i = 0; i < availables.size(); i++) {
         languages.put(availables.get(i).code(), getLanguageName(i));
-      }
+      } */
     }
     return languages;
   }

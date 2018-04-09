@@ -54,7 +54,12 @@ public class RssFeedsController extends Controller {
    */
   @With(RssSecurityAction.class)
   public Result getLastAddedCopies() {
-    final List<Dvd> copies = Dvd.FINDER.orderBy("createdDate DESC").findPagedList(0,10).getList();
+    final List<Dvd> copies = Dvd.FINDER.query()
+      .orderBy("createdDate DESC")
+      .setFirstRow(0)
+      .setMaxRows(10)
+      .findPagedList()
+      .getList();
     return createFeedContentForList(copies,"Last 10 added copies","The last 10 added copies in the database");
   }
 
@@ -70,7 +75,11 @@ public class RssFeedsController extends Controller {
     cal.add(Calendar.DATE,-7);
     final long sqlTime = cal.getTime().getTime();
 
-    final List<Dvd> copies = Dvd.FINDER.where().gt("createdDate",sqlTime).orderBy("createdDate DESC").findList();
+    final List<Dvd> copies = Dvd.FINDER.query()
+      .where()
+      .gt("createdDate",sqlTime)
+      .orderBy("createdDate DESC")
+      .findList();
     return createFeedContentForList(copies,"Last 7 days added copies","The last 7 days added copies in the database");
   }
 
