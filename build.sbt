@@ -31,10 +31,11 @@ libraryDependencies ++= Seq(
   "com.omertron" % "traileraddictapi" % "1.5",
 
   // barcode stuff
-  "com.google.zxing" % "core" % "3.3.0",
+  "com.google.zxing" % "core" % "3.3.2",
 
   // mail
-  "com.typesafe.play" %% "play-mailer" % "5.0.0",
+  "com.typesafe.play" %% "play-mailer" % "6.0.1",
+  "com.typesafe.play" %% "play-mailer-guice" % "6.0.1",
 
   // webjars
   "org.webjars" %% "webjars-play" % "2.6.3",
@@ -49,14 +50,14 @@ libraryDependencies ++= Seq(
   "org.webjars" % "animate.css" % "3.2.0",
 
   // js i18n stuff
-  "org.julienrf" %% "play-jsmessages" % "2.0.0",
+  "org.julienrf" %% "play-jsmessages" % "3.0.0",
 
   // tuxburners helpers :)
   "com.github.tuxBurner" %% "play-jsannotations" % "2.6.0",
-  "com.github.tuxBurner" %% "play-twbs3" % "2.4.0",
+  //,."com.github.tuxBurner" %% "play-twbs3" % "2.4.0",
   "com.github.tuxBurner" %% "play-akkajobs" % "2.6.1",
   // amazon stuff
-  "com.amazonaws" % "aws-java-sdk" % "1.6.10"
+  "com.amazonaws" % "aws-java-sdk" % "1.11.311"
 )
 
 resolvers ++= Seq(
