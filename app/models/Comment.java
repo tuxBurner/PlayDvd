@@ -1,8 +1,11 @@
 package models;
 
-import com.avaje.ebean.Model;
+import io.ebean.Model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,7 +16,8 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="comment")
-public class Comment extends Model {
+public class Comment extends Model
+{
 
   @Id
   public Long id;

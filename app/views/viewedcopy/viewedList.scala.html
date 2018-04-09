@@ -1,7 +1,8 @@
-@(viewedCopyPage: com.avaje.ebean.PagedList[ViewedCopy], currentPage: Integer = 0)
+@import io.ebean.PagedList
+@(viewedCopyPage: PagedList[ViewedCopy], currentPage: Integer = 0)
 @import org.apache.commons.collections.CollectionUtils
 
-@navigation(viewedCopyPage: com.avaje.ebean.PagedList[ViewedCopy]) = {
+@navigation(viewedCopyPage: PagedList[ViewedCopy]) = {
   @if(viewedCopyPage.getTotalPageCount > 1) {
     <div class="row">
       <div class="span12">

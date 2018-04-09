@@ -1,9 +1,9 @@
 package controllers;
 
-import com.avaje.ebean.PagedList;
 import com.google.inject.Singleton;
 import helpers.CacheHelper;
 import helpers.ECacheObjectName;
+import io.ebean.PagedList;
 import models.Bookmark;
 import play.i18n.MessagesApi;
 import play.mvc.Controller;

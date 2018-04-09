@@ -1,13 +1,20 @@
 package models;
 
-import com.avaje.ebean.Model;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import helpers.SelectAjaxContainer;
+import io.ebean.Finder;
+import io.ebean.Model;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -20,17 +27,13 @@ import java.util.Set;
  * 
  */
 @Entity
-public class DvdAttribute extends Model {
-
-  /**
-	 * 
-	 */
-  private static final long serialVersionUID = -6491899975286773215L;
+public class DvdAttribute extends Model
+{
 
   /**
    * Default FINDER for the {@link DvdAttribute}
    */
-  public static Finder<Long, DvdAttribute> FINDER = new Finder<Long, DvdAttribute>(DvdAttribute.class);
+  public static Finder<Long, DvdAttribute> FINDER = new Finder<>(DvdAttribute.class);
 
   @Id
   public Long id;
@@ -51,7 +54,11 @@ public class DvdAttribute extends Model {
    * @return
    */
   public static Set<DvdAttribute> findAttributesByName(final Set<String> values, final EDvdAttributeType type) {
-    final Set<DvdAttribute> findSet = FINDER.where().in("value", values).eq("attributeType", type).findSet();
+    final Set<DvdAttribute> findSet = FINDER.query()
+      .where()
+      .in("value", values)
+      .eq("attributeType", type)
+      .findSet();
     return findSet;
   }
 
@@ -62,7 +69,11 @@ public class DvdAttribute extends Model {
    * @return
    */
   public static List<DvdAttribute> getAllByType(final EDvdAttributeType type) {
-    final List<DvdAttribute> findList = FINDER.where().eq("attributeType", type).order("value ASC").findList();
+    final List<DvdAttribute> findList = FINDER.query()
+      .where()
+      .eq("attributeType", type)
+      .order("value ASC")
+      .findList();
     return findList;
   }
 
@@ -191,8 +202,13 @@ public class DvdAttribute extends Model {
       return StringUtils.EMPTY;
     }
 
-    final List<DvdAttribute> attributes = FINDER.where().eq("attributeType", attributeType).istartsWith("value", searchTerm).order("value ASC").findList();
-    final List<SelectAjaxContainer> retVal = new ArrayList<SelectAjaxContainer>();
+    final List<DvdAttribute> attributes = FINDER.query()
+      .where()
+      .eq("attributeType", attributeType)
+      .istartsWith("value", searchTerm)
+      .order("value ASC")
+      .findList();
+    final List<SelectAjaxContainer> retVal = new ArrayList<>();
     retVal.add(new SelectAjaxContainer(searchTerm, searchTerm));
 
     for (final DvdAttribute dvdAttribute : attributes) {

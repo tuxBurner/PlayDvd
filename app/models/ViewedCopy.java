@@ -1,9 +1,10 @@
 package models;
 
-import com.avaje.ebean.PagedList;
 import controllers.Secured;
+import io.ebean.Finder;
+import io.ebean.Model;
+import io.ebean.PagedList;
 import play.Logger;
-import com.avaje.ebean.Model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +21,8 @@ import java.util.List;
  * Time: 3:43 PM
  */
 @Entity
-public class ViewedCopy extends Model {
+public class ViewedCopy extends Model
+{
 
   @Id
   public Long id;
@@ -47,7 +49,7 @@ public class ViewedCopy extends Model {
   @Column(nullable = false)
   public Long date;
 
-  private static Find<Long, ViewedCopy> FINDER = new Find<Long, ViewedCopy>() {};
+  private static Finder<Long, ViewedCopy> FINDER = new Finder<>(ViewedCopy.class);
 
   /**
    * Creates the
@@ -97,7 +99,12 @@ public class ViewedCopy extends Model {
    */
   public static List<ViewedCopy> getCopyViewed(final Dvd copy) {
     String username = Secured.getUsername();
-    return FINDER.where().ieq("user.userName", username).eq("copy", copy).orderBy("date DESC").findList();
+    return FINDER.query()
+      .where()
+      .ieq("user.userName", username)
+      .eq("copy", copy)
+      .orderBy("date DESC")
+      .findList();
   }
 
   /**
@@ -106,7 +113,13 @@ public class ViewedCopy extends Model {
    */
   public static PagedList<ViewedCopy> getViewedCopiesForUser(final Integer page) {
     String username = Secured.getUsername();
-    return FINDER.where().ieq("user.userName", username).orderBy("date DESC").findPagedList(page,10);
+    return FINDER.query()
+      .where()
+      .ieq("user.userName", username)
+      .orderBy("date DESC")
+      .setFirstRow(page)
+      .setMaxRows(10)
+      .findPagedList();
   }
 
   /**
@@ -115,7 +128,10 @@ public class ViewedCopy extends Model {
    */
   public static int getCopiesViewedCount() {
     String username = Secured.getUsername();
-    return FINDER.where().ieq("user.userName", username).findRowCount();
+    return FINDER.query()
+      .where()
+      .ieq("user.userName", username)
+      .findCount();
   }
 
 }

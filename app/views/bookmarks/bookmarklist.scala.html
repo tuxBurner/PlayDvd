@@ -1,7 +1,9 @@
-@(bookmarkPage: com.avaje.ebean.PagedList[Bookmark], currentPage: Integer = 0)
+@import io.ebean.PagedList
 @import org.apache.commons.collections.CollectionUtils
+@(bookmarkPage: PagedList[Bookmark], currentPage: Integer = 0)
 
-@navigation(bookmarkPage: com.avaje.ebean.PagedList[Bookmark]) = {
+
+@navigation(bookmarkPage: PagedList[Bookmark]) = {
   @if(bookmarkPage.getTotalPageCount > 1) {
     <div class="row">
       <div class="span12">

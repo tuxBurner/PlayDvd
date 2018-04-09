@@ -3,13 +3,14 @@ package models;
 import com.google.gson.Gson;
 import com.typesafe.config.ConfigFactory;
 import controllers.Secured;
+import io.ebean.Finder;
+import io.ebean.Model;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 import play.data.format.Formats;
 import play.data.validation.Constraints.Required;
-import com.avaje.ebean.Model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +24,8 @@ import java.util.UUID;
 
 @Entity
 @Table(name="user")
-public class User extends Model {
+public class User extends Model
+{
 
 
   @Id
@@ -67,7 +69,7 @@ public class User extends Model {
   /**
    * The Finder
    */
-  public static Find<Long, User> FINDER = new Find<Long,User>(){};
+  public static Finder<Long, User> FINDER = new Finder<>(User.class);
 
   /**
    * Saves the user to the database
@@ -100,7 +102,11 @@ public class User extends Model {
   public static User authenticate(final String username, final String password) {
     try {
       final String cryptPassword = User.cryptPassword(password);
-      return User.FINDER.where().ieq("userName", username).eq("password", cryptPassword).findUnique();
+      return User.FINDER.query()
+        .where()
+        .ieq("userName", username)
+        .eq("password", cryptPassword)
+        .findOne();
     } catch (final Exception e) {
       Logger.error("Error while creating the password.", e);
     }
@@ -134,7 +140,10 @@ public class User extends Model {
    * @return
    */
   public static User getUserByName(final String username) {
-    return User.FINDER.where().ieq("userName", username).findUnique();
+    return User.FINDER.query()
+      .where()
+      .ieq("userName", username)
+      .findOne();
   }
 
   /**
@@ -144,7 +153,10 @@ public class User extends Model {
    * @return
    */
   public static User getUserByResetToken(final String passwordResetToken) {
-    return User.FINDER.where().ieq("passwordResetToken", passwordResetToken).findUnique();
+    return User.FINDER.query()
+      .where()
+      .ieq("passwordResetToken", passwordResetToken)
+      .findOne();
   }
 
   /**
@@ -153,7 +165,10 @@ public class User extends Model {
    * @return
    */
   public static String getUserNamesAsJson() {
-    final List<User> users = User.FINDER.select("userName").orderBy("userName asc").findList();
+    final List<User> users = User.FINDER.query()
+      .select("userName")
+      .orderBy("userName asc")
+      .findList();
 
     final List<String> result = new ArrayList<String>();
 
@@ -171,7 +186,12 @@ public class User extends Model {
    * @return
    */
   public static List<String> getOtherUserNames() {
-    final List<User> findList = User.FINDER.select("userName").where().ne("userName", Secured.getUsername()).orderBy("userName asc").findList();
+    final List<User> findList = User.FINDER.query()
+      .select("userName")
+      .where()
+      .ne("userName", Secured.getUsername())
+      .orderBy("userName asc")
+      .findList();
 
     List<String> list = null;
     if (CollectionUtils.isEmpty(findList) == false) {
@@ -194,7 +214,10 @@ public class User extends Model {
       return null;
     }
 
-    return User.FINDER.where().eq("rssAuthKey",rssAuthKey).findUnique();
+    return User.FINDER.query()
+      .where()
+      .eq("rssAuthKey",rssAuthKey)
+      .findOne();
   }
 
   /**

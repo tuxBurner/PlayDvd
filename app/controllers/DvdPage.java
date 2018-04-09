@@ -1,6 +1,6 @@
 package controllers;
 
-import com.avaje.ebean.PagedList;
+import io.ebean.PagedList;
 import models.Dvd;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class DvdPage {
 
     final int totalPageCount = page.getTotalPageCount();
 
-    nav = new ArrayList<DvdPageNav>();
+    nav = new ArrayList<>();
 
     if (totalPageCount < 10) {
       for (int i = 0; i < totalPageCount; i++) {

@@ -1,13 +1,18 @@
 package models;
 
-import com.avaje.ebean.Ebean;
-import com.avaje.ebean.Model;
-import com.avaje.ebean.PagedList;
+
 import controllers.Secured;
+import io.ebean.Ebean;
+import io.ebean.Finder;
+import io.ebean.Model;
+import io.ebean.PagedList;
 import org.apache.commons.collections.CollectionUtils;
 import play.Logger;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +25,8 @@ import java.util.Set;
  * Time: 3:43 PM
  */
 @Entity
-public class Bookmark extends Model {
+public class Bookmark extends Model
+{
 
   @Id
   public Long id;
@@ -39,17 +45,18 @@ public class Bookmark extends Model {
   @Column(nullable = false)
   public Long date;
 
-  private static Find<Long, Bookmark> FINDER = new Find<Long, Bookmark>() {};
+  private static Finder<Long, Bookmark> FINDER = new Finder<>(Bookmark.class);
 
   /**
    * Creates the
+   *
    * @param copyId
    */
-  public static Bookmark bookmarkCopy(Long copyId) {
+  public static Bookmark bookmarkCopy(Long copyId)
+  {
 
-
-    if(copyId == null) {
-      if(Logger.isErrorEnabled() == true) {
+    if (copyId == null) {
+      if (Logger.isErrorEnabled() == true) {
         Logger.error("No copyId given to mark to view in future");
       }
       return null;
@@ -58,9 +65,14 @@ public class Bookmark extends Model {
     String username = Secured.getUsername();
 
     // check if the user already marked the copy as to view
-    Bookmark bookmarkCheck = FINDER.where().eq("copy.owner.userName", username).eq("copy.id", copyId).findUnique();
-    if(bookmarkCheck != null) {
-      if(Logger.isInfoEnabled() == true) {
+    Bookmark bookmarkCheck = FINDER.query()
+      .where()
+      .eq("copy.owner.userName", username)
+      .eq("copy.id", copyId)
+      .findOne();
+
+    if (bookmarkCheck != null) {
+      if (Logger.isInfoEnabled() == true) {
         Logger.info("Copy: " + copyId + " already marked by the user to view in the future, setting current date.");
       }
 
@@ -70,8 +82,8 @@ public class Bookmark extends Model {
     }
 
     Dvd copy = Dvd.getDvdForUser(copyId, username);
-    if(copy == null) {
-      if(Logger.isErrorEnabled() == true) {
+    if (copy == null) {
+      if (Logger.isErrorEnabled() == true) {
         Logger.error("Could not find copy for mark to view");
       }
       return null;
@@ -89,29 +101,42 @@ public class Bookmark extends Model {
 
   /**
    * Gets all  {@link Bookmark} where the owner of the {@link Dvd} is the current {@link User}
+   *
    * @return
    */
-  public static PagedList<Bookmark> getBookmarksForUser(final Integer page) {
+  public static PagedList<Bookmark> getBookmarksForUser(final Integer page)
+  {
     String username = Secured.getUsername();
-    return FINDER.where().eq("copy.owner.userName", username).orderBy("date DESC")
-            .findPagedList(page,10);
+    return FINDER.query().where()
+      .eq("copy.owner.userName", username)
+      .orderBy("date DESC")
+      .setFirstRow(page)
+      .setMaxRows(10)
+      .findPagedList();
+
   }
 
   /**
    * Gets all {@link Dvd#id} where the owner of the {@link Dvd} is the current {@link User}
+   *
    * @return
    */
-  public static Set<Long> getBookmarkCopyIdsForUser() {
+  public static Set<Long> getBookmarkCopyIdsForUser()
+  {
     final String username = Secured.getUsername();
-    final Set<Bookmark> set = FINDER.fetch("copy", "id").where().eq("copy.owner.userName", username).findSet();
+    final Set<Bookmark> set = FINDER.query()
+      .fetch("copy", "id")
+      .where()
+      .eq("copy.owner.userName", username)
+      .findSet();
 
     final Set<Long> copyIds = new HashSet<Long>();
 
-    if(CollectionUtils.isEmpty(set)) {
+    if (CollectionUtils.isEmpty(set)) {
       return copyIds;
     }
 
-    for(final Bookmark bookmark : set) {
+    for (final Bookmark bookmark : set) {
       copyIds.add(bookmark.copy.id);
     }
 
@@ -121,32 +146,47 @@ public class Bookmark extends Model {
 
   /**
    * Gets the amount of {@link Bookmark} the current {@link User} has
+   *
    * @return
    */
-  public static int getBookmarkCount() {
+  public static int getBookmarkCount()
+  {
     String username = Secured.getUsername();
-    return FINDER.where().eq("copy.owner.userName", username).findRowCount();
+    return FINDER.query().where()
+      .eq("copy.owner.userName", username)
+      .findCount();
   }
 
   /**
    * Check if the current {@link User} has bookmarked the {@link Dvd}
+   *
    * @return
    */
-  public static boolean isCopyBookmarkedByUser(final Dvd copy) {
+  public static boolean isCopyBookmarkedByUser(final Dvd copy)
+  {
     String username = Secured.getUsername();
-    return (FINDER.where().eq("copy.owner.userName", username).eq("copy",copy).findRowCount() != 0);
+    final int count = FINDER.query().where()
+      .eq("copy.owner.userName", username)
+      .eq("copy", copy)
+      .findCount();
+    return (count != 0);
   }
 
   /**
    * Removes the {@link Bookmark} from the list
+   *
    * @param id
    */
-  public static String removeBookmark(final Long id) {
+  public static String removeBookmark(final Long id)
+  {
     String username = Secured.getUsername();
-    Bookmark bookmarkToDelete = FINDER.where().eq("copy.owner.userName", username).eq("id", id).findUnique();
-    if(bookmarkToDelete == null) {
-      if(Logger.isErrorEnabled() == true) {
-        Logger.error("Could not find "+ Bookmark.class.getName()+" with id: "+id+" for user: "+username);
+    Bookmark bookmarkToDelete = FINDER.query().where()
+      .eq("copy.owner.userName", username)
+      .eq("id", id)
+      .findOne();
+    if (bookmarkToDelete == null) {
+      if (Logger.isErrorEnabled() == true) {
+        Logger.error("Could not find " + Bookmark.class.getName() + " with id: " + id + " for user: " + username);
       }
       return "";
     }
@@ -160,12 +200,17 @@ public class Bookmark extends Model {
 
   /**
    * Deletes all the bookmarks for the {@link Dvd} where the owner is the current {@link User}
+   *
    * @param copy
    */
-  public static void deletAllBookmarksForCopy(final Dvd copy) {
+  public static void deletAllBookmarksForCopy(final Dvd copy)
+  {
     String username = Secured.getUsername();
-    final Set<Bookmark> bookmarks = FINDER.where().eq("copy.owner.userName", username).eq("copy", copy).findSet();
-    if(CollectionUtils.isEmpty(bookmarks) == false) {
+    final Set<Bookmark> bookmarks = FINDER.query().where()
+      .eq("copy.owner.userName", username)
+      .eq("copy", copy)
+      .findSet();
+    if (CollectionUtils.isEmpty(bookmarks) == false) {
       Ebean.delete(bookmarks);
     }
   }

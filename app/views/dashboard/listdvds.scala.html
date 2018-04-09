@@ -6,7 +6,7 @@
   <script src="@routes.Assets.versioned("javascripts/dvdList.js")" type="text/javascript"></script>
   <script src="@routes.Assets.versioned("javascripts/copyButtons.js")" type="text/javascript"></script>
 
-  @if(dvdPage.page.getTotalRowCount > 0) {
+  @if(dvdPage.page.getTotalCount > 0) {
     <script type='text/javascript' src="@routes.Assets.versioned("lib/hammerjs/hammer.js")"></script>
     <script type="text/javascript">
        var hammerDoc = new Hammer(document.getElementById('copyListContainer'));
@@ -34,7 +34,7 @@
 
   @dashboard.searchform(dvdListForm)
 
-  @if(dvdPage.page.getTotalRowCount == 0) {
+  @if(dvdPage.page.getTotalCount == 0) {
     <div class="alert alert-info">@Messages("msg.info.noCopiesFound")</div>
   } else {
   <div class="row">

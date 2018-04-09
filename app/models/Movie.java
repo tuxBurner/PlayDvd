@@ -1,29 +1,39 @@
 package models;
 
-import com.avaje.ebean.Ebean;
-import com.avaje.ebean.Expr;
-import com.avaje.ebean.Model;
-import com.avaje.ebean.Query;
+
 import forms.MovieForm;
 import forms.dvd.CopyForm;
 import grabbers.EGrabberType;
 import grabbers.ImdbRatingGrabber;
 import helpers.EImageType;
 import helpers.ImageHelper;
+import io.ebean.Ebean;
+import io.ebean.Expr;
+import io.ebean.Finder;
+import io.ebean.Model;
+import io.ebean.Query;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Transactional;
 import scala.concurrent.duration.FiniteDuration;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Entity
-public class Movie extends Model {
+public class Movie extends Model
+{
 
     @Id
     public Long id;
@@ -84,7 +94,7 @@ public class Movie extends Model {
     /**
      * The FINDER for the database for searching in the database
      */
-    public static Finder<Long, Movie> FINDER = new Finder<Long, Movie>(Movie.class);
+    public static Finder<Long, Movie> FINDER = new Finder<>(Movie.class);
 
     /**
      * This creates a movie from the information of the given {@link CopyForm}
@@ -139,7 +149,7 @@ public class Movie extends Model {
             movie.hasBackdrop = false;
             movie.save();
         } else {
-            Ebean.deleteManyToManyAssociations(movie, "attributes");
+            Ebean.dedeleteManyToManyAssociations(movie, "attributes");
         }
 
         // add the images if we have some :)
@@ -201,11 +211,17 @@ public class Movie extends Model {
      */
     @Transactional
     public static List<Movie> searchLike(final String term, final int numberOfResults) {
-        final Query<Movie> order = Movie.FINDER.where().ilike("title", "%" + term + "%").select("id ,title, hasPoster").order("title asc");
+        final Query<Movie> order = Movie.FINDER.query().where()
+          .ilike("title", "%" + term + "%").select("id ,title, hasPoster")
+          .order("title asc");
         if (numberOfResults <= 0) {
             return order.findList();
         } else {
-            return order.findPagedList(0, numberOfResults).getList();
+            return order
+              .setFirstRow(0)
+              .setMaxRows(numberOfResults)
+              .findPagedList()
+              .getList();
         }
     }
 
@@ -219,7 +235,9 @@ public class Movie extends Model {
     public static List<Movie> searchLikeAndAmazoneCode(final String term, final String eanNr) {
         final List<Movie> movies = searchLike(term, 0);
 
-        final List<Dvd> dvds = Dvd.FINDER.where().eq("eanNr", eanNr).findList();
+        final List<Dvd> dvds = Dvd.FINDER.query().where()
+          .eq("eanNr", eanNr)
+          .findList();
         for (Dvd dvd : dvds) {
             final Long movieId = dvd.movie.id;
             boolean foundMovie = false;
@@ -250,7 +268,10 @@ public class Movie extends Model {
             return false;
         }
 
-        int rowCount = Movie.FINDER.where().eq("grabberId", grabberId).eq("grabberType", grabberType).findRowCount();
+        int rowCount = Movie.FINDER.query().where()
+          .eq("grabberId", grabberId)
+          .eq("grabberType", grabberType)
+          .findCount();
         return rowCount > 0;
     }
 

@@ -1,9 +1,14 @@
 package models;
 
+import io.ebean.Model;
 import play.Logger;
-import com.avaje.ebean.Model;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +20,8 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-public class Commentable extends Model{
+public class Commentable extends Model
+{
 
   @Id
   public Long id;
