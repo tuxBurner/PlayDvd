@@ -4,30 +4,40 @@ version := "1.9-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayJava,PlayEbean)
 
-scalaVersion := "2.11.7"
+scalaVersion := "2.12.4"
 
 libraryDependencies ++= Seq(
-  cache,
+  guice,
+  ehcache,
   javaWs,
   "mysql" % "mysql-connector-java" % "5.1.18",
+
   "net.coobird" % "thumbnailator" % "0.4.8",
+
   "commons-io" % "commons-io" % "2.0.1",
   "commons-collections" % "commons-collections" % "3.2.1",
   "commons-lang" % "commons-lang" % "2.6",
+
   "com.google.code.gson" % "gson" % "2.2.4",
+
   "com.timgroup" % "jgravatar" % "1.0",
+
   // RSS FEEDS
   "rome" % "rome" % "1.0",
+
   // grabbers
   "com.omertron" % "thetvdbapi" % "1.9",
   "com.omertron" % "themoviedbapi" % "4.3",
   "com.omertron" % "traileraddictapi" % "1.5",
+
   // barcode stuff
   "com.google.zxing" % "core" % "3.3.0",
+
   // mail
   "com.typesafe.play" %% "play-mailer" % "5.0.0",
+
   // webjars
-  "org.webjars" %% "webjars-play" % "2.5.0",
+  "org.webjars" %% "webjars-play" % "2.6.3",
   "org.webjars" % "bootstrap" % "2.3.2",
   "org.webjars" % "jquery" % "1.11.2",
   "org.webjars" % "jquerypp" % "1.0b2",
@@ -37,12 +47,14 @@ libraryDependencies ++= Seq(
   "org.webjars" % "holderjs" % "2.4.0",
   "org.webjars" % "hammerjs" % "2.0.3-1",
   "org.webjars" % "animate.css" % "3.2.0",
+
   // js i18n stuff
   "org.julienrf" %% "play-jsmessages" % "2.0.0",
+
   // tuxburners helpers :)
-  "com.github.tuxBurner" %% "play-jsannotations" % "2.5.0",
+  "com.github.tuxBurner" %% "play-jsannotations" % "2.6.0",
   "com.github.tuxBurner" %% "play-twbs3" % "2.4.0",
-  "com.github.tuxBurner" %% "play-akkajobs" % "1.0.2",
+  "com.github.tuxBurner" %% "play-akkajobs" % "2.6.1",
   // amazon stuff
   "com.amazonaws" % "aws-java-sdk" % "1.6.10"
 )
