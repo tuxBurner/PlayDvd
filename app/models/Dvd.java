@@ -6,17 +6,18 @@ import forms.dvd.CopySearchFrom;
 import forms.dvd.objects.EDvdListOrderBy;
 import forms.dvd.objects.EDvdListOrderHow;
 import forms.dvd.objects.PrevNextCopies;
-import io.ebean.Ebean;
 import io.ebean.ExpressionList;
 import io.ebean.Finder;
 import io.ebean.Model;
 import io.ebean.PagedList;
 import io.ebean.Query;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
-import play.Logger;
-import play.data.validation.Constraints.Required;
-
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,13 +26,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
+import play.Logger;
+import play.data.validation.Constraints.Required;
 
 @Entity
 @Table(name = "dvd")
@@ -280,7 +278,7 @@ public class Dvd extends Model
         }
 
       } else {
-        where.like("movie.title", "%" + searchFrom.searchFor + "%");
+        where.ilike("movie.title", "%" + searchFrom.searchFor + "%");
       }
     }
 
