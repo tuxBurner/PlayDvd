@@ -11,6 +11,7 @@ import grabbers.GrabberHelper;
 import grabbers.IInfoGrabber;
 import grabbers.amazon.AmazonMovieLookuper;
 import grabbers.amazon.AmazonResult;
+import grabbers.amazonwebcrawler.AmazonMovieWebCrawler;
 import helpers.RequestToCollectionHelper;
 import models.*;
 import org.apache.commons.lang3.StringUtils;
@@ -147,7 +148,8 @@ public class CopyController extends Controller {
         List<AmazonResult> amazonResults = null;
 
         if (StringUtils.isBlank(title) == false) {
-            amazonResults = AmazonMovieLookuper.findByName(title);
+            //amazonResults = AmazonMovieLookuper.findByName(title);
+            amazonResults = AmazonMovieWebCrawler.findByName(title);
         }
 
         return ok(views.html.dvd.searchAmazonByTitlePopUp.render(amazonResults, title));
