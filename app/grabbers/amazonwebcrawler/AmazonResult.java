@@ -17,8 +17,8 @@ public class AmazonResult {
   public final String title;
   public final String rating;
   public final String copyType;
-  public final String asin;
-  public final String ean;
+  public String asin;
+  public String ean;
   public final List<String> audioTypes;
   public final String imageUrl;
   private final String userRating;
@@ -33,5 +33,13 @@ public class AmazonResult {
     this.audioTypes = new ArrayList<String>(audioTypes);
     this.imageUrl = imageUrl;
     this.userRating = userRating;
+  }
+
+  public void setAsin(String asin) {
+    this.asin = asin;
+  }
+
+  public void setEan(String ean) {
+    this.ean = ean;
   }
 }

@@ -20,8 +20,7 @@ import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 
 /**
- * Crawls the amazon web page. Normally we used the {@link grabbers.amazon.AmazonMovieLookuper} but there are now
- * restriction how to use the partnernet api
+ * Crawls the amazon web page.
  */
 public class AmazonMovieWebCrawler {
 
@@ -130,8 +129,7 @@ public class AmazonMovieWebCrawler {
     }
 
     if (StringUtils.isNumeric(code) == true && code.length() == 13) {
-      //return lookUpByEanNR(code);
-      return Optional.empty();
+      return lookupByEanCode(code);
     } else {
       return lookupByAsin(code);
     }
@@ -171,6 +169,56 @@ public class AmazonMovieWebCrawler {
     return result;
   }
 
+
+  /**
+   * Looks up if we can find the eannr on bookbuttler.de and if we see the asin for it
+   * @param eanNr the eannr
+   * @return the result
+   */
+  private static Optional<AmazonResult> lookupByEanCode(final String eanNr) {
+    final Jerry doc =  searchBookButtler(eanNr);
+    final String asinNr = doc.$("td[asin]").attr("asin");
+    if(StringUtils.isBlank(asinNr)) {
+      return Optional.empty();
+    }
+
+    final Optional<AmazonResult> amazonResult = lookupByAsin(asinNr);
+    if(amazonResult.isPresent()) {
+      amazonResult.get().setEan(eanNr);
+    }
+
+    return amazonResult;
+  }
+
+  /**
+   * Converts the given asin nr to an ean nr by searching on bookbuttler
+   * @param asinNr the asinr to look for
+   * @return "" when nothing found or the ean nr
+   */
+  private static String asinToEanNr(final String asinNr) {
+    final Jerry doc = searchBookButtler(asinNr);
+    return doc.$("img[alt^='EAN']").attr("alt").replace("EAN ","");
+  }
+
+  /**
+   * Searches bookButtler for the given code and returns the html response
+   * @param code the code to search for ean or asin
+   * @return the doc as Jerry
+   */
+  private static Jerry searchBookButtler(final String code) {
+    final String url = "http://www.bookbutler.de/movie/search";
+    final HttpBrowser browser = new HttpBrowser();
+    final HttpRequest request = HttpRequest.get(url)
+        .charset(StandardCharsets.UTF_8.name()).query("keyword",code);
+    final HttpResponse httpResponse = browser.sendRequest(request);
+    httpResponse.charset(StandardCharsets.UTF_8.name());
+
+    final String bodyText = httpResponse.bodyText();
+    final Jerry doc = Jerry.jerry(bodyText);
+
+    return doc;
+  }
+
   /**
    * Looks up the {@link AmazonResult} by the given asin nr
    *
@@ -206,8 +254,9 @@ public class AmazonMovieWebCrawler {
     final String languageInformations = doc.$("#productDetailsTable b:contains('Sprache:')").parent().text().replace("Sprache:","");
     final String[] languageSplit = StringUtils.split(languageInformations, ',');
     final Set<String> audioFormats = new HashSet<>(Arrays.asList(languageSplit));
+    final String eanNr = asinToEanNr(asinNr);
     
-    return Optional.of(new AmazonResult(title, ageRating, rating, copyType, asinNr, "", audioFormats, ""));
+    return Optional.of(new AmazonResult(title, ageRating, rating, copyType, asinNr, eanNr, audioFormats, ""));
   }
 
   /**
