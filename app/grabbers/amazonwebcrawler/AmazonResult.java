@@ -1,5 +1,6 @@
-package grabbers.amazon;
+package grabbers.amazonwebcrawler;
 
+import grabbers.amazon.AmazonMovieLookuper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -20,8 +21,9 @@ public class AmazonResult {
   public final String ean;
   public final List<String> audioTypes;
   public final String imageUrl;
+  private final String userRating;
 
-  public AmazonResult(String title, String rating, String copyType, String asin, String ean, Set<String> audioTypes, String imageUrl) {
+  public AmazonResult(String title, String rating, String userRating,String copyType, String asin, String ean, Set<String> audioTypes, String imageUrl) {
 
     this.title = title;
     this.rating = rating;
@@ -30,5 +32,6 @@ public class AmazonResult {
     this.ean = ean;
     this.audioTypes = new ArrayList<String>(audioTypes);
     this.imageUrl = imageUrl;
+    this.userRating = userRating;
   }
 }

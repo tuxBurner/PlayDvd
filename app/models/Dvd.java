@@ -213,7 +213,7 @@ public class Dvd extends Model
     final Set<String> attribute = new HashSet<>();
     attribute.add(attrToAdd);
     final Set<DvdAttribute> dbAttrs = DvdAttribute.gatherAndAddAttributes(attribute, attributeType);
-    if (copy.attributes.isEmpty() == true) {
+    if (copy.attributes == null) {
       copy.attributes = new HashSet<>();
     }
     copy.attributes.addAll(dbAttrs);

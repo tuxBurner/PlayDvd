@@ -10,9 +10,10 @@ import grabbers.EGrabberType;
 import grabbers.GrabberHelper;
 import grabbers.IInfoGrabber;
 import grabbers.amazon.AmazonMovieLookuper;
-import grabbers.amazon.AmazonResult;
+import grabbers.amazonwebcrawler.AmazonResult;
 import grabbers.amazonwebcrawler.AmazonMovieWebCrawler;
 import helpers.RequestToCollectionHelper;
+import java.util.Optional;
 import models.*;
 import org.apache.commons.lang3.StringUtils;
 import play.Logger;
@@ -124,16 +125,16 @@ public class CopyController extends Controller {
      */
     @JSRoute
     public Result searchAmazonByCode(final String code, final Long copyId) {
-        AmazonResult result = null;
+        Optional<AmazonResult> result = null;
         List<Movie> movies = null;
         if (StringUtils.isEmpty(code) == false) {
-            result = AmazonMovieLookuper.lookUp(code);
-            if (result != null && StringUtils.isEmpty(result.title) == false) {
-                movies = Movie.searchLikeAndAmazoneCode(result.title, result.ean);
+            result = AmazonMovieWebCrawler.lookUpByCode(code);
+            if (result .isPresent() && StringUtils.isEmpty(result.get().title) == false) {
+                movies = Movie.searchLikeAndAmazoneCode(result.get().title, result.get().ean);
             }
         }
 
-        return ok(views.html.dvd.dvdAmazonPopUp.render(result, code, copyId, movies));
+        return ok(views.html.dvd.dvdAmazonPopUp.render(result.orElseGet(null), code, copyId, movies));
     }
 
     /**
@@ -200,7 +201,7 @@ public class CopyController extends Controller {
             return badRequest();
         }
 
-        AmazonResult amazonResult = AmazonMovieLookuper.lookUp(code);
+        Optional<AmazonResult> amazonResult = AmazonMovieWebCrawler.lookUpByCode(code);
         if (amazonResult == null) {
             if (Logger.isDebugEnabled() == true) {
                 Logger.error("Error adding dvd with amazonecode: " + code);
@@ -224,7 +225,7 @@ public class CopyController extends Controller {
         }
 
         final Form<CopyForm> form = formFactory.form(CopyForm.class);
-        final CopyForm copyForm = CopyForm.amazonAndMovieToDvdForm(amazonResult, movieId, copy);
+        final CopyForm copyForm = CopyForm.amazonAndMovieToDvdForm(amazonResult.orElseGet(null), movieId, copy);
 
         return Results.ok(views.html.dvd.dvdform.render(form.fill(copyForm), mode));
     }
@@ -251,10 +252,10 @@ public class CopyController extends Controller {
             }
         }
 
-        final AmazonResult amazonResult = AmazonMovieLookuper.lookUp(code);
+        final Optional<AmazonResult> amazonResult = AmazonMovieWebCrawler.lookUpByCode(code);
         String mode = DVD_FORM_ADD_MODE;
         final Form<CopyForm> form = formFactory.form(CopyForm.class);
-        final CopyForm copyForm = CopyForm.amazonAndCopyToForm(copy, amazonResult);
+        final CopyForm copyForm = CopyForm.amazonAndCopyToForm(copy, amazonResult.orElse(null));
         form.fill(copyForm);
 
 
