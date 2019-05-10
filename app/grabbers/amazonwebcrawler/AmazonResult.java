@@ -1,12 +1,12 @@
 package grabbers.amazonwebcrawler;
 
-import grabbers.amazon.AmazonMovieLookuper;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 /**
- * This holds the data of the {@link AmazonMovieLookuper}
+ * This holds the data of the amazon
  * User: tuxburner
  * Date: 2/18/13
  * Time: 8:27 PM

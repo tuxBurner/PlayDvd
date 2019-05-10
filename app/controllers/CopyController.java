@@ -9,12 +9,16 @@ import forms.grabbers.GrabberInfoForm;
 import grabbers.EGrabberType;
 import grabbers.GrabberHelper;
 import grabbers.IInfoGrabber;
-import grabbers.amazon.AmazonMovieLookuper;
-import grabbers.amazonwebcrawler.AmazonResult;
 import grabbers.amazonwebcrawler.AmazonMovieWebCrawler;
+import grabbers.amazonwebcrawler.AmazonResult;
 import helpers.RequestToCollectionHelper;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import models.*;
+import models.Dvd;
+import models.DvdAttribute;
+import models.EDvdAttributeType;
+import models.Movie;
 import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 import play.data.Form;
@@ -23,10 +27,6 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
-
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * This {@link Controller} handles all the edit and add {@link Dvd} magic
