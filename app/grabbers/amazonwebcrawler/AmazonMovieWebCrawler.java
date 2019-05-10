@@ -3,13 +3,17 @@ package grabbers.amazonwebcrawler;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.typesafe.config.ConfigFactory;
 import grabbers.amazon.AmazonResult;
+import jodd.http.HttpBrowser;
+import jodd.http.HttpRequest;
+import jodd.http.HttpResponse;
+import jodd.jerry.Jerry;
 import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 import play.api.Play;
 import play.libs.ws.*;
 
 import javax.inject.Inject;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
@@ -57,18 +61,55 @@ public class AmazonMovieWebCrawler  {
    */
   public static List<AmazonResult> findByName(final String name) {
 
-    WSClient ws = Play.current().injector().instanceOf(WSClient.class);
-
     final String url = AMAZON_ENDPOINT_URL + "/s";
-    final WSRequest wsRequest = ws.url(url)
-      .addQueryParameter("k", name)
-      .addQueryParameter("i", AMAZON_CATEGOTY);
+    HttpBrowser browser = new HttpBrowser();
+    final Map<String,String> params = new HashMap<>();
+    params.put("k",name);
+    params.put("i",AMAZON_CATEGOTY);
+    HttpRequest request = HttpRequest.get(url)
+      .query(params);
+    final HttpResponse httpResponse = browser.sendRequest(request);
 
-    final CompletionStage<String> completionStage = wsRequest.get().thenApply(WSResponse::getBody);
-    CompletableFuture<String> completableFuture = completionStage .toCompletableFuture();
-    final String bytes = completableFuture.join();
+    final List<AmazonResult> amazonResults = extractResultsFromSearchPage(httpResponse.body());
+
+    return amazonResults;
+  }
+
+  /**
+   * Extracts the results from the search page
+   * @param pageContent the html content of the search page
+   * @return the results
+   */
+  private static List<AmazonResult> extractResultsFromSearchPage(final String pageContent) {
+
+    //Logger.debug(pageContent);
+
+    final Jerry doc = Jerry.jerry(pageContent);
+
+    final Jerry children = doc.$("[data-component-type='s-search-results'] .s-result-list").children();
+
+    final List<AmazonResult> result = new ArrayList<>();
+
+    for (Jerry child : children) {
+
+      final String asin = child.attr("data-asin");
+      final String imageUrl = child.$("[data-component-type='s-product-image'] img").attr("src");
+      final String title = child.$("h2 span").text();
 
 
-    return null;
+      // DVD Blu-ray lookup
+
+      Logger.info("---------------------------------------------------------");
+      Logger.info(asin);
+      Logger.info(imageUrl);
+      Logger.info("---------------------------------------------------------");
+
+      result.add(new AmazonResult(title,"4711","Type",asin,"Ean",new HashSet<>(),imageUrl));
+
+    }
+
+
+
+    return result;
   }
 }
