@@ -16,6 +16,18 @@ import helpers.ETagHelper;
 import helpers.GravatarHelper;
 import helpers.ImageHelper;
 import io.ebean.Ebean;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import javax.imageio.ImageIO;
+import javax.inject.Inject;
 import models.CopyReservation;
 import models.Dvd;
 import models.User;
@@ -31,19 +43,6 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
-
-import javax.imageio.ImageIO;
-import javax.inject.Inject;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 @Security.Authenticated(Secured.class)
 @Singleton
@@ -324,7 +323,8 @@ public class DashboardController extends Controller {
     final EImageSize imageSize = EImageSize.valueOf(form.get().imgSize);
 
     try {
-      final BufferedImage asBufferedImage = Thumbnails.of(new URL(form.get().url)).size(imageSize.getWidth(), imageSize.getHeight()).asBufferedImage();
+      final String urlFixed = StringUtils.replace(form.get().url," ", "%20");
+      final BufferedImage asBufferedImage = Thumbnails.of(new URL(urlFixed)).size(imageSize.getWidth(), imageSize.getHeight()).asBufferedImage();
 
       final ByteArrayOutputStream os = new ByteArrayOutputStream();
       ImageIO.write(asBufferedImage, "png", os);

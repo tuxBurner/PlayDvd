@@ -2,7 +2,7 @@ package forms.dvd;
 
 import com.google.gson.Gson;
 import controllers.MovieSelect2Value;
-import grabbers.amazon.AmazonResult;
+import grabbers.amazonwebcrawler.AmazonResult;
 import models.Dvd;
 import models.DvdAttribute;
 import models.Movie;

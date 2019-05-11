@@ -2,7 +2,7 @@ import com.typesafe.sbt.packager.docker.ExecCmd
 
 name := """dvdDataBase"""
 
-version := "1.10-SNAPSHOT"
+version := "1.11-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayJava,PlayEbean)
 
@@ -59,7 +59,12 @@ libraryDependencies ++= Seq(
   //,."com.github.tuxBurner" %% "play-twbs3" % "2.4.0",
   "com.github.tuxBurner" %% "play-akkajobs" % "2.6.1",
   // amazon stuff
-  "com.amazonaws" % "aws-java-sdk" % "1.11.311"
+  "com.amazonaws" % "aws-java-sdk" % "1.11.311",
+
+  // for nice and smooth html parsing
+  "org.jodd" % "jodd-http" % "5.0.12",
+  "org.jodd" % "jodd-lagarto" % "5.0.12"
+
 )
 
 resolvers ++= Seq(
