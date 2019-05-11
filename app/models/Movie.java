@@ -4,6 +4,7 @@ package models;
 import forms.MovieForm;
 import forms.dvd.CopyForm;
 import grabbers.EGrabberType;
+import grabbers.ImdbRatingGrabber;
 import helpers.EImageType;
 import helpers.ImageHelper;
 import io.ebean.Expr;
@@ -105,9 +106,9 @@ public class Movie extends Model
   public static Movie editOrAddFromForm(final MovieForm movieForm, final boolean updateImages) throws Exception
   {
 
-    //TODO: is broken right now find out why ?
-    /*ImdbRatingGrabber imdbRatingGrabber = new ImdbRatingGrabber();
-    imdbRatingGrabber.grabImdbRating(movieForm);*/
+
+    final ImdbRatingGrabber imdbRatingGrabber = new ImdbRatingGrabber();
+    imdbRatingGrabber.grabImdbRating(movieForm);
 
     Movie movie = null;
 

@@ -1,23 +1,14 @@
 package grabbers.amazonwebcrawler;
 
 import com.typesafe.config.ConfigFactory;
+import grabbers.HttpBrowserHelper;
 import helpers.ConfigurationHelper;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import jodd.http.HttpBrowser;
-import jodd.http.HttpRequest;
-import jodd.http.HttpResponse;
 import jodd.jerry.Jerry;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import play.Logger;
+
+import java.util.*;
 
 /**
  * Crawls the amazon web page.
@@ -41,19 +32,19 @@ public class AmazonMovieWebCrawler {
    * Map which contains the amazon copy type string -> internal copytype
    */
   private final static Map<String, String> AMAZON_COPY_TYPE_MAP = ConfigurationHelper
-      .createValMap("dvdb.amazon.grabber.matchCopyType");
+    .createValMap("dvdb.amazon.grabber.matchCopyType");
 
   /**
    * Map which contauns the amazon age rating -> internal age rating
    */
   private final static Map<String, String> AMAZON_AGE_RATING_MAP = ConfigurationHelper
-      .createValMap("dvdb.amazon.grabber.matchAgeRating");
+    .createValMap("dvdb.amazon.grabber.matchAgeRating");
 
   /**
    * List of strings which are to remove from the title
    */
   private static List<String> AMAZON_REMOVE_FROM_TITLE = ConfigFactory.load()
-      .getStringList("dvdb.amazon.grabber.removeFromTitle");
+    .getStringList("dvdb.amazon.grabber.removeFromTitle");
 
   static {
     AMAZON_ENDPOINT_URL = ConfigFactory.load().getString("dvddb.amazon.webEndPoint");
@@ -80,17 +71,15 @@ public class AmazonMovieWebCrawler {
    */
   public static List<AmazonResult> findByName(final String name) {
 
+    Logger.info("Searching for movie: " + name + " on amazon");
+
     final String url = AMAZON_ENDPOINT_URL + "/s";
-    final HttpBrowser browser = new HttpBrowser();
     final Map<String, String> params = new HashMap<>();
     params.put("k", name);
     params.put("i", AMAZON_CATEGORY);
-    final HttpRequest request = HttpRequest.get(url)
-        .query(params)
-        .charset(StandardCharsets.UTF_8.name());
-    final HttpResponse httpResponse = browser.sendRequest(request);
-    httpResponse.charset(StandardCharsets.UTF_8.name());
-    final List<AmazonResult> amazonResults = extractResultsFromSearchPage(httpResponse.bodyText());
+    final Jerry urlAsJerryDoc = HttpBrowserHelper.getUrlAsJerryDoc(url, params);
+
+    final List<AmazonResult> amazonResults = extractResultsFromSearchPage(urlAsJerryDoc);
 
     return amazonResults;
   }
@@ -98,16 +87,14 @@ public class AmazonMovieWebCrawler {
   /**
    * Extracts the results from the search page
    *
-   * @param pageContent the html content of the search page
+   * @param document the html content of the search page
    * @return the results
    */
-  private static List<AmazonResult> extractResultsFromSearchPage(final String pageContent) {
+  private static List<AmazonResult> extractResultsFromSearchPage(final Jerry document) {
 
     final List<AmazonResult> result = new ArrayList<>();
 
-    final Jerry doc = Jerry.jerry(pageContent);
-
-    final Jerry children = doc.$("[data-component-type='s-search-results'] .s-result-list").children();
+    final Jerry children = document.$("[data-component-type='s-search-results'] .s-result-list").children();
 
     for (final Jerry copyInfosChild : children) {
       final List<AmazonResult> amazonResults = parseInfosFromSearchHtmlPart(copyInfosChild);
@@ -148,7 +135,7 @@ public class AmazonMovieWebCrawler {
     final String title = cleanTitle(copyInfosChild.$("h2 span").text());
 
     if (StringUtils
-        .contains(copyInfosChild.html(), "<span class=\"a-size-base a-color-secondary\">Gesponsert</span>")) {
+      .contains(copyInfosChild.html(), "<span class=\"a-size-base a-color-secondary\">Gesponsert</span>")) {
       Logger.info("Skipping: " + title + " for search it is an affiliated content.");
       return result;
     }
@@ -172,18 +159,22 @@ public class AmazonMovieWebCrawler {
 
   /**
    * Looks up if we can find the eannr on bookbuttler.de and if we see the asin for it
+   *
    * @param eanNr the eannr
    * @return the result
    */
   private static Optional<AmazonResult> lookupByEanCode(final String eanNr) {
-    final Jerry doc =  searchBookButtler(eanNr);
+    final Jerry doc = searchBookButtler(eanNr);
     final String asinNr = doc.$("td[asin]").attr("asin");
-    if(StringUtils.isBlank(asinNr)) {
+
+    Logger.info("Found asin: " + asinNr + " for ean: " + eanNr + " on bookbuttler");
+
+    if (StringUtils.isBlank(asinNr)) {
       return Optional.empty();
     }
 
     final Optional<AmazonResult> amazonResult = lookupByAsin(asinNr);
-    if(amazonResult.isPresent()) {
+    if (amazonResult.isPresent()) {
       amazonResult.get().setEan(eanNr);
     }
 
@@ -192,30 +183,27 @@ public class AmazonMovieWebCrawler {
 
   /**
    * Converts the given asin nr to an ean nr by searching on bookbuttler
+   *
    * @param asinNr the asinr to look for
    * @return "" when nothing found or the ean nr
    */
   private static String asinToEanNr(final String asinNr) {
     final Jerry doc = searchBookButtler(asinNr);
-    return doc.$("img[alt^='EAN']").attr("alt").replace("EAN ","");
+    final String eanNr = doc.$("img[alt^='EAN']").attr("alt").replace("EAN ", "");
+    Logger.info("Found ean: " + eanNr + " for asin: " + asinNr + " on bookbuttler");
+    return eanNr;
   }
 
   /**
    * Searches bookButtler for the given code and returns the html response
+   *
    * @param code the code to search for ean or asin
    * @return the doc as Jerry
    */
   private static Jerry searchBookButtler(final String code) {
     final String url = "http://www.bookbutler.de/movie/search";
-    final HttpBrowser browser = new HttpBrowser();
-    final HttpRequest request = HttpRequest.get(url)
-        .charset(StandardCharsets.UTF_8.name()).query("keyword",code);
-    final HttpResponse httpResponse = browser.sendRequest(request);
-    httpResponse.charset(StandardCharsets.UTF_8.name());
-
-    final String bodyText = httpResponse.bodyText();
-    final Jerry doc = Jerry.jerry(bodyText);
-
+    Logger.info("Searching for code: " + code + " on bookbuttler");
+    final Jerry doc = HttpBrowserHelper.getUrlAsJerryDoc(url, "keyword", code);
     return doc;
   }
 
@@ -227,15 +215,9 @@ public class AmazonMovieWebCrawler {
    */
   private static Optional<AmazonResult> lookupByAsin(final String asinNr) {
     final String url = AMAZON_ENDPOINT_URL + "/dp/" + asinNr;
-    final HttpBrowser browser = new HttpBrowser();
-    final HttpRequest request = HttpRequest.get(url)
-        .charset(StandardCharsets.UTF_8.name());
-    final HttpResponse httpResponse = browser.sendRequest(request);
-    httpResponse.charset(StandardCharsets.UTF_8.name());
 
-    final String bodyText = httpResponse.bodyText();
+    final Jerry doc = HttpBrowserHelper.getUrlAsJerryDoc(url);
 
-    final Jerry doc = Jerry.jerry(bodyText);
     final String title = cleanTitle(doc.$("#dp-container #title").text());
     final String rating = extractRating("a-icon-star", doc.$("#dp-container"));
 
@@ -243,19 +225,19 @@ public class AmazonMovieWebCrawler {
     final String copyType = getCopyTypeFromAmazonText(typeString);
 
     final String amazonAgeRating = doc.$("#dp-container #bylineInfo_feature_div span:contains('Alterseinstufung: ')")
-        .next().text();
+      .next().text();
     String ageRating = "";
     if (AMAZON_AGE_RATING_MAP.containsKey(amazonAgeRating) == false) {
-      Logger.error("No agerating matching configured for amazon rating: " + amazonAgeRating);
+      Logger.error("No age rating matching configured for amazon rating: " + amazonAgeRating);
     } else {
       ageRating = AMAZON_AGE_RATING_MAP.get(amazonAgeRating);
     }
 
-    final String languageInformations = doc.$("#productDetailsTable b:contains('Sprache:')").parent().text().replace("Sprache:","");
+    final String languageInformations = doc.$("#productDetailsTable b:contains('Sprache:')").parent().text().replace("Sprache:", "");
     final String[] languageSplit = StringUtils.split(languageInformations, ',');
     final Set<String> audioFormats = new HashSet<>(Arrays.asList(languageSplit));
     final String eanNr = asinToEanNr(asinNr);
-    
+
     return Optional.of(new AmazonResult(title, ageRating, rating, copyType, asinNr, eanNr, audioFormats, ""));
   }
 
@@ -263,7 +245,7 @@ public class AmazonMovieWebCrawler {
    * Gets the rating from the parent content
    *
    * @param parentClass the parent class which contains the rating
-   * @param parent the parent content containing the raiting
+   * @param parent      the parent content containing the raiting
    */
   private static String extractRating(final String parentClass, final Jerry parent) {
     final String ratingText = parent.$("." + parentClass + " .a-icon-alt").text();
