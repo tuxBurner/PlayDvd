@@ -110,7 +110,7 @@ public class Bookmark extends Model
     return FINDER.query().where()
       .eq("copy.owner.userName", username)
       .orderBy("date DESC")
-      .setFirstRow(page)
+      .setFirstRow(page*10)
       .setMaxRows(10)
       .findPagedList();
 

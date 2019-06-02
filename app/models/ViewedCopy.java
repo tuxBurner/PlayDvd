@@ -117,7 +117,7 @@ public class ViewedCopy extends Model
       .where()
       .ieq("user.userName", username)
       .orderBy("date DESC")
-      .setFirstRow(page)
+      .setFirstRow(page*10)
       .setMaxRows(10)
       .findPagedList();
   }
