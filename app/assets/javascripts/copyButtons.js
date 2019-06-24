@@ -37,7 +37,7 @@ $(document).on('click', '.lendDvdBtn', function (event) {
           if (userVal !== null && userVal !== "" && freeVal !== null && freeVal !== "" && reservationVal !== null && reservationVal !== "") {
             return;
           }
-          pAjax(jsRoutes.controllers.Dashboard.lendDvd(
+          pAjax(jsRoutes.controllers.DashboardController.lendDvd(
               $("#lendDvdId").val()),
             {
               "userName": userVal,
