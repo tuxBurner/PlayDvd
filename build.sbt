@@ -2,7 +2,7 @@ import com.typesafe.sbt.packager.docker.ExecCmd
 
 name := """dvdDataBase"""
 
-version := "1.13"
+version := "1.14-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayJava,PlayEbean)
 
