@@ -6,6 +6,7 @@ import jodd.http.HttpBrowser;
 import jodd.http.HttpRequest;
 import jodd.http.HttpResponse;
 import jodd.jerry.Jerry;
+import jodd.net.MimeTypes;
 import play.Logger;
 
 import java.nio.charset.StandardCharsets;
@@ -32,7 +33,10 @@ public class HttpBrowserHelper {
     final HttpBrowser browser = new HttpBrowser();
             
     HttpRequest request = HttpRequest.get(url)
-      .charset(StandardCharsets.UTF_8.name());
+      .charset(StandardCharsets.UTF_8.name())
+      .contentType(MimeTypes.MIME_TEXT_HTML)
+      .connectionKeepAlive(true)
+      .followRedirects(true);
 
 
     if (queryParameters != null && queryParameters.isEmpty() == false) {
