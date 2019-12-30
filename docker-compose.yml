@@ -1,0 +1,11 @@
+version: '3'
+services:
+  mysql:
+    image: mysql/mysql-server:5.7
+    environment:
+      - MYSQL_PASSWORD=avdb
+      - MYSQL_USER=avdb
+      - MYSQL_DATABASE=avdb
+      - MYSQL_ROOT_PASSWORD=mypw
+    ports:
+    - "6606:3306"

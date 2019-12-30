@@ -38,6 +38,8 @@ public class HttpBrowserHelper {
 
     final String bodyText = httpResponse.bodyText();
 
+    Logger.debug("Response is: "+bodyText);
+
     return bodyText;
   }
 
