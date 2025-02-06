@@ -1,8 +1,8 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.github.tuxBurner.jsAnnotations.JSRoute;
 import com.google.gson.Gson;
-import com.google.inject.Inject;
 import forms.MovieForm;
 import forms.grabbers.GrabberInfoForm;
 import grabbers.EGrabberType;
@@ -10,21 +10,20 @@ import grabbers.GrabberException;
 import grabbers.GrabberHelper;
 import grabbers.IInfoGrabber;
 import helpers.RequestToCollectionHelper;
-import com.github.tuxBurner.jsAnnotations.JSRoute;
 import models.EMovieAttributeType;
 import models.Movie;
 import models.MovieAttribute;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 import play.data.Form;
 import play.data.FormFactory;
+import play.i18n.Messages;
+import play.i18n.MessagesApi;
 import play.libs.Json;
-import play.mvc.Controller;
-import play.mvc.Result;
-import play.mvc.Results;
-import play.mvc.Security;
+import play.mvc.*;
 import views.html.movie.movieform;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,8 +38,14 @@ import java.util.Map;
 @Singleton
 public class MovieController extends Controller {
 
-  @Inject
+  private final MessagesApi messagesApi;
   FormFactory formFactory;
+
+  @Inject
+  MovieController(final FormFactory formFactory, final MessagesApi messagesApi) {
+    this.formFactory = formFactory;
+    this.messagesApi = messagesApi;
+  }
 
   /**
    * Displays the {@link MovieForm} to the user in the add mode
@@ -48,9 +53,10 @@ public class MovieController extends Controller {
    * @return
    */
   @JSRoute
-  public Result showAddMovieForm() {
+  public Result showAddMovieForm(final Http.Request request) {
+    final Messages messages = this.messagesApi.preferred(request);
     final Form<MovieForm> form = formFactory.form(MovieForm.class);
-    return Results.ok(movieform.render(form.fill(new MovieForm()), CopyController.DVD_FORM_ADD_MODE));
+    return Results.ok(movieform.render(form.fill(new MovieForm()), CopyController.DVD_FORM_ADD_MODE, request, messages));
   }
 
   /**
@@ -59,7 +65,7 @@ public class MovieController extends Controller {
    * @return
    */
   @JSRoute
-  public Result showEditMovieForm(final Long movieId) {
+  public Result showEditMovieForm(final Long movieId, final Http.Request request) {
 
     final Movie movie = Movie.FINDER.byId(movieId);
 
@@ -69,8 +75,9 @@ public class MovieController extends Controller {
       return Results.badRequest(message);
     }
 
+    final Messages messages = this.messagesApi.preferred(request);
     final Form<MovieForm> form = formFactory.form(MovieForm.class).fill(MovieForm.movieToForm(movie));
-    return Results.ok(movieform.render(form, CopyController.DVD_FORM_EDIT_MODE));
+    return Results.ok(movieform.render(form, CopyController.DVD_FORM_EDIT_MODE, request, messages));
   }
 
   /**
@@ -79,16 +86,19 @@ public class MovieController extends Controller {
    * @return
    */
   @JSRoute
-  public Result addOrEditMovie(final String mode) {
+  public Result addOrEditMovie(final String mode, final Http.Request request) {
 
-    final Map<String, String> map = RequestToCollectionHelper.requestToFormMap(Controller.request(), "actors", "genres");
-    final Form<MovieForm> movieForm = formFactory.form(MovieForm.class).bind(map);
+    final Map<String, String> map = RequestToCollectionHelper.requestToFormMap(request, "actors", "genres");
+    //TODO: LIFT check why bind is so special implemented here
+    final Form<MovieForm> movieForm = formFactory.form(MovieForm.class).bindFromRequest(request);//  bind(map);
+
+    final Messages messages = this.messagesApi.preferred(request);
 
     if (movieForm.hasErrors()) {
-      return Results.badRequest(movieform.render(movieForm, mode));
+      return Results.badRequest(movieform.render(movieForm, mode, request, messages));
     } else {
       try {
-        final Movie editOrAddFromForm = Movie.editOrAddFromForm(movieForm.get(),true);
+        final Movie editOrAddFromForm = Movie.editOrAddFromForm(movieForm.get(), true);
         final ObjectNode result = Json.newObject();
         result.put("id", editOrAddFromForm.id);
         result.put("title", editOrAddFromForm.title);
@@ -96,7 +106,7 @@ public class MovieController extends Controller {
         return Results.ok(result);
       } catch (final Exception e) {
         e.printStackTrace();
-        return Results.badRequest(movieform.render(movieForm, mode));
+        return Results.badRequest(movieform.render(movieForm, mode, request, messages));
       }
     }
   }
@@ -109,11 +119,11 @@ public class MovieController extends Controller {
    * @return
    */
   @JSRoute
-  public Result addMovieByGrabberId(final String mode, final String grabberType) {
+  public Result addMovieByGrabberId(final String mode, final String grabberType, final Http.Request request) {
 
     try {
 
-      final Form<GrabberInfoForm> grabberInfoForm = formFactory.form(GrabberInfoForm.class).bindFromRequest();
+      final Form<GrabberInfoForm> grabberInfoForm = formFactory.form(GrabberInfoForm.class).bindFromRequest(request);
 
       final IInfoGrabber grabber = GrabberHelper.getGrabber(EGrabberType.valueOf(grabberType));
       final MovieForm movieForm = grabber.fillInfoToMovieForm(grabberInfoForm.get());
@@ -123,7 +133,9 @@ public class MovieController extends Controller {
       }
       final Form<MovieForm> form = formFactory.form(MovieForm.class).fill(movieForm);
 
-      return Results.ok(movieform.render(form, mode));
+      final Messages messages = this.messagesApi.preferred(request);
+
+      return Results.ok(movieform.render(form, mode, request, messages));
     } catch (final GrabberException e) {
       if (Logger.isErrorEnabled()) {
         Logger.error("Internal Error happened", e);

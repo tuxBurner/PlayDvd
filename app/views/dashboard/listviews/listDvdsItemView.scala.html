@@ -1,4 +1,4 @@
-@(dvdPage: DvdPage,username: String,shoppingCart: objects.shoppingcart.CacheShoppingCart, bookmarkedCopys: Set[Long])
+@(dvdPage: DvdPage,username: String,shoppingCart: objects.shoppingcart.CacheShoppingCart, bookmarkedCopys: Set[Long])(implicit request: Http.Request, messages: play.i18n.Messages)
 @import helpers.EImageSize
 <ul class="copyItemList">
   @for(dvd <- dvdPage.list) {

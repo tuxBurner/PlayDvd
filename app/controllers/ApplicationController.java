@@ -4,10 +4,11 @@ package controllers;
 import com.github.tuxBurner.jsAnnotations.JsRoutesComponent;
 import jsmessages.JsMessages;
 import jsmessages.JsMessagesFactory;
-import jsmessages.japi.Helper;
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import play.i18n.MessagesApi;
 import play.libs.Scala;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 import play.twirl.api.JavaScript;
@@ -19,6 +20,8 @@ import javax.inject.Singleton;
 @Singleton
 public class ApplicationController extends Controller {
 
+
+    private static MessagesApi messagesApi;
 
     JsRoutesComponent jsRoutesComponent;
 
@@ -39,9 +42,10 @@ public class ApplicationController extends Controller {
      * @param jsRoutesComponent the component for the javascript routes
      */
     @Inject
-    public ApplicationController(JsMessagesFactory jsMessagesFactory, JsRoutesComponent jsRoutesComponent) {
+    public ApplicationController(final JsMessagesFactory jsMessagesFactory, final JsRoutesComponent jsRoutesComponent, final MessagesApi messagesApi) {
         this.jsMessagesFactory = jsMessagesFactory;
         this.jsRoutesComponent = jsRoutesComponent;
+        this.messagesApi = messagesApi;
     }
 
 
@@ -55,21 +59,20 @@ public class ApplicationController extends Controller {
      *
      * @return
      */
-    public Result jsRoutes() {
-        return jsRoutesComponent.getJsRoutesResult();
+    public Result jsRoutes(Http.Request request) {
+        return jsRoutesComponent.getJsRoutesResult(request);
     }
 
     /**
      * Gets the i18n text for the given keys and adds general keys
-     *
-     * @param namespace
+     *     *
      * @param keys
      * @return
      */
-    public static String getJsI8N(final String namespace, final String... keys) {
+    public static String getJsI8N(final Http.Request request, final String... keys) {
         final String[] allKeys = (String[]) ArrayUtils.addAll(GENERAL_I18N_JS_KEYS, keys);
         final JsMessages jsMessages = jsMessagesFactory.subset(Scala.varargs(allKeys));
-        final JavaScript jsScript = jsMessages.apply(Scala.Option("window.Messages"), Helper.messagesFromCurrentHttpContext());
-        return jsScript.text();
+        //final JavaScript jsScript = jsMessages.apply(Scala.Option("window.Messages"), this.messagesApi.preferred(request));
+        return "TODO: LIFT";//jsScript.text();
     }
 }

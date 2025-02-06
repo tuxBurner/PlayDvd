@@ -1,6 +1,7 @@
 @import io.ebean.PagedList
 @import org.apache.commons.collections.CollectionUtils
-@(bookmarkPage: PagedList[Bookmark], currentPage: Integer = 0)
+@(bookmarkPage: PagedList[Bookmark], currentPage: Integer = 0)(implicit request: Http.Request, messages: play.i18n.Messages)
+
 
 
 @navigation(bookmarkPage: PagedList[Bookmark]) = {
@@ -9,14 +10,14 @@
       <div class="span12">
         <div class="pagination pagination-small pull-right">
           <ul>
-            <li  @if(bookmarkPage.hasPrev == false) { class="disabled" }><a @if(bookmarkPage.hasPrev == true) { href="@routes.BookmarksController.listBookmarks(bookmarkPage.getPageIndex-1)"  }>@Messages.apply("lbl.prev")</a></li>
+            <li  @if(bookmarkPage.hasPrev == false) { class="disabled" }><a @if(bookmarkPage.hasPrev == true) { href="@routes.BookmarksController.listBookmarks(bookmarkPage.getPageIndex-1)"  }>@messages("lbl.prev")</a></li>
 
             @for(idx <- 0 to bookmarkPage.getTotalPageCount-1) {
               <li @if((idx) == currentPage){class="active"}>
               <a href="@routes.BookmarksController.listBookmarks(idx)">@(idx+1)</a>
               </li>
             }
-            <li @if(bookmarkPage.hasNext == false) { class="disabled" }><a @if(bookmarkPage.hasNext == true) { href="@routes.BookmarksController.listBookmarks(bookmarkPage.getPageIndex+1)"}>@Messages.apply("lbl.next")</a></li>
+            <li @if(bookmarkPage.hasNext == false) { class="disabled" }><a @if(bookmarkPage.hasNext == true) { href="@routes.BookmarksController.listBookmarks(bookmarkPage.getPageIndex+1)"}>@messages("lbl.next")</a></li>
           </ul>
         </div>
       </div>
@@ -24,22 +25,22 @@
   }
 }
 
-@mainmenu(Messages("headline.bookmars")) {
+@mainmenu(messages("headline.bookmars")) {
 
   @navigation(bookmarkPage)
 
   @general.displayList("headline.bookmars","icon-bookmark") {
     @if(CollectionUtils.isEmpty(bookmarkPage.getList) == true) {
       <div class="alert alert-info">
-        @Messages("msg.info.noBookmarks")
+        @messages("msg.info.noBookmarks")
       </div>
     } else {
 
      <table class="table table-hover">
         <thead>
           <tr>
-            <th>@Messages("lbl.copy")</th>
-            <th>@Messages("lbl.date")</th>
+            <th>@messages("lbl.copy")</th>
+            <th>@messages("lbl.date")</th>
             <th></th>
           </tr>
         </thead>
@@ -47,7 +48,7 @@
           @for(bookmark <-bookmarkPage.getList) {
             <tr>
               <td>@general.displayitem(bookmark.copy,true)</td>
-              <td>@{new Date(bookmark.date).format(Messages("dateFormatHour"))}</td>
+              <td>@{new Date(bookmark.date).format(messages("dateFormatHour"))}</td>
               <td><a href="@routes.BookmarksController.removeBookmark(bookmark.id)" class="btn btn-danger" ><i class="icon-trash"></i></a></td>
             </tr>
           }

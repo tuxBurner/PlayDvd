@@ -1,11 +1,12 @@
 @import grabbers.amazonwebcrawler.AmazonResult
-@(amazonResult:  AmazonResult, code: String, copyId: Long,movies : List[Movie])
+@(amazonResult:  AmazonResult, code: String, copyId: Long,movies : List[Movie])(implicit request: Http.Request, messages: play.i18n.Messages)
+
 @import helpers.EImageType
 @import helpers.EImageSize
 @import org.apache.commons.collections.CollectionUtils
 
 <form method="GET" >
-  <label for="code_input">@Messages("lbl.searchAmazon"):</label>
+  <label for="code_input">@messages("lbl.searchAmazon"):</label>
   <div class="input-append">
     <input  type="text" name="code_input" id="code_input" value="@code"/>
     <button type="button" id="amazon_search_button" class="btn" onclick="openSearchAmazonPopUp($('#code_input').val(),@copyId);"><i class="icon-search"></i></button>
@@ -14,22 +15,22 @@
   <hr />
 
   @if(amazonResult == null) {
-    <div class="alert alert-error">@Messages("msg.error.noCopyInfoFound")</div>
+    <div class="alert alert-error">@messages("msg.error.noCopyInfoFound")</div>
   } else {
     <div class="col_12">
       <div class="alert alert-success">
-        @Messages("lbl.foundCopyInfo"): <strong>@amazonResult.title</strong>
+        @messages("lbl.foundCopyInfo"): <strong>@amazonResult.title</strong>
         <img alt="@amazonResult.copyType" src="@routes.Assets.versioned("images/copy_type/"+amazonResult.copyType+".png")" />
         <img alt="@amazonResult.rating" src="@routes.Assets.versioned("images/agerating/"+amazonResult.rating+".gif")" />
-        @Messages("lbl.asinNr"): <a href="http://www.amazon.de/dp/@amazonResult.asin" target="_blank">@amazonResult.asin</a>
-        @Messages("lbl.eanNr"): @amazonResult.ean
+        @messages("lbl.asinNr"): <a href="http://www.amazon.de/dp/@amazonResult.asin" target="_blank">@amazonResult.asin</a>
+        @messages("lbl.eanNr"): @amazonResult.ean
         <a href="@routes.CopyController.showCopyFormWithAmazonInfo(code,copyId)"  class="btn btn-primary"><i class="icon-reply"></i></a>
       </div>
     </div>
 
 
       <div class="input-append">
-        <label for="codeMovieGrabberTitle">@Messages("btn.lookupWithGrabber"): </label>
+        <label for="codeMovieGrabberTitle">@messages("btn.lookupWithGrabber"): </label>
         <input type="text" name="amazonMovieGrabberTitle" id="amazonMovieGrabberTitle" value="@amazonResult.title" placeholder="Enter title" class="span6" />
         <button type="button" class="btn btn-info" onclick="amazonStartOnlineGrabber('@code',$('#amazonMovieGrabberTitle').val(),@copyId);"><i class="icon-search"></i></button>
       </div>
@@ -37,7 +38,7 @@
 
       @if(CollectionUtils.isEmpty(movies) == false) {
         <hr />
-        <label>@Messages("lbl.moviesMatching"):</label>
+        <label>@messages("lbl.moviesMatching"):</label>
         <ul class="unstyled">
           @for(movie <- movies) {
             <li>
@@ -53,7 +54,7 @@
 
       <hr />
 
-      <label for="amazonPickMovie">@Messages("lbl.pickMovie"): </label>
+      <label for="amazonPickMovie">@messages("lbl.pickMovie"): </label>
       <input type="text" name="amazonPickMovie" id="amazonPickMovie"  class="span6" />
       <button type="button" class="btn btn-primary" onclick="amazonPickExistingMovie('@code',$('#amazonPickMovie').val());"><i class="icon-reply"></i></button>
 

@@ -1,4 +1,5 @@
-@(keys: String*)
+@(keys: String*)(implicit request: Http.Request, messages: play.i18n.Messages)
+
 <script type="text/javascript">
-  @Html(ApplicationController.getJsI8N("window.Messages",keys.toArray:_*))
+  @Html(ApplicationController.getJsI8N(request,keys.toArray:_*))
 </script>

@@ -1,15 +1,15 @@
 @import org.apache.commons.lang3.StringUtils
-@(dvdPage: DvdPage, username: String, shoppingCart: objects.shoppingcart.CacheShoppingCart, bookmarkedCopys: Set[Long])
+@(dvdPage: DvdPage, username: String, shoppingCart: objects.shoppingcart.CacheShoppingCart, bookmarkedCopys: Set[Long])(implicit request: Http.Request, messages: play.i18n.Messages)
 @import helpers.EImageSize
 <table class="table table-condensed well">
   <thead>
     <tr>
       <th></th>
-      <th>@Messages.apply("lbl.title")</th>
-      <th>@Messages.apply("lbl.info")</th>
-      <th>@Messages.apply("lbl.imdbRating")</th>
-      <th>@Messages.apply("lbl.owner")</th>
-      <th>@Messages.apply("lbl.lent")</th>
+      <th>@messages("lbl.title")</th>
+      <th>@messages("lbl.info")</th>
+      <th>@messages("lbl.imdbRating")</th>
+      <th>@messages("lbl.owner")</th>
+      <th>@messages("lbl.lent")</th>
       <th></th>
     </tr>
   </thead>

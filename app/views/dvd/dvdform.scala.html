@@ -1,5 +1,6 @@
 @import forms.dvd.CopyForm
-@(dvdForm: Form[CopyForm])(mode: String)
+@(dvdForm: Form[CopyForm])(mode: String)(implicit request: Http.Request, messages: play.i18n.Messages)
+
 
 @import helper._
 
@@ -9,7 +10,7 @@
       <!--
       var avaibleBoxes = @Html(DvdAttribute.getAllByTypeAsJson(EDvdAttributeType.BOX));
       var avaibleCollections = @Html(DvdAttribute.getAllByTypeAsJson(EDvdAttributeType.COLLECTION));
-      var selectedMovie = @Html(forms.dvd.CopyForm.getSelectedMovieAsJson(dvdForm("movieId").value()));
+      var selectedMovie = @Html(forms.dvd.CopyForm.getSelectedMovieAsJson(dvdForm("movieId").value().get()));
       var avaibleSeries = @Html(models.MovieAttribute.getAvaibleAttributesAsJson(EMovieAttributeType.MOVIE_SERIES));
       //-->
   </script>
@@ -31,7 +32,7 @@
   <script src="@routes.Assets.versioned("javascripts/movieForm.js")" type="text/javascript"></script>
 }
 
-@mainmenu(Messages("headline." + mode + "Copy"), scripts, Html("")) {
+@mainmenu(messages("headline." + mode + "Copy"), scripts, Html("")) {
 
   <div class="row" id="dvdFormWrapper">
     <div class="span12">
@@ -42,9 +43,9 @@
         <div class="span5 well">
 
           <h4>@if(mode == CopyController.DVD_FORM_EDIT_MODE) {
-            <i class="icon-edit"></i> @Messages("headline.editCopy")
+            <i class="icon-edit"></i> @messages("headline.editCopy")
           } else {
-            <i class="icon-plus"></i> @Messages("headline.addCopy")
+            <i class="icon-plus"></i> @messages("headline.addCopy")
           } </h4>
 
           @if(mode == CopyController.DVD_FORM_EDIT_MODE) {
@@ -52,12 +53,12 @@
           }
 
           <div>
-            <button type="button" class="btn" onclick="openAmazonTitleSearchPopUp('');"><i class="icon-search">@Messages("btn.amazonSearch")</i></button>
+            <button type="button" class="btn" onclick="openAmazonTitleSearchPopUp('');"><i class="icon-search">@messages("btn.amazonSearch")</i></button>
           </div>
           <br/>
 
           <div class="input-append">
-            <label for="eanNr">@Messages("lbl.eanNr"):</label>
+            <label for="eanNr">@messages("lbl.eanNr"):</label>
             <input type="text" name="eanNr" id="eanNr" class="span2" value="@dvdForm("eanNr").value"/>
             <button type="button" class="btn" onclick="openBarcodePopUp();"><i class="icon-barcode"></i></button>
             <button type="button" class="btn" onclick="openAmazonLookUp($('#eanNr').val());"><i class="icon-search"></i></button>
@@ -65,64 +66,64 @@
           <br />
 
           <div class="input-append">
-            <label for="asinNr">@Messages("lbl.asinNr"):</label>
+            <label for="asinNr">@messages("lbl.asinNr"):</label>
             <input type="text" name="asinNr" id="asinNr" class="span2" value="@dvdForm("asinNr").value"/>
             <button type="button" class="btn" onclick="openAmazonLookUp($('#asinNr').val());"><i class="icon-search"></i></button>
           </div>
 
-          @inputText(dvdForm("additionalInfo"), '_label -> Messages("lbl.additionalInfos"), 'class -> "span4")
+          @inputText(dvdForm("additionalInfo"), '_label -> messages("lbl.additionalInfos"), 'class -> "span4")
 
 
-          <label for="copyType">@Messages("lbl.copyType"):</label>
+          <label for="copyType">@messages("lbl.copyType"):</label>
           @for((copyType, index) <- helpers.DvdInfoHelper.getCopyTypes.zipWithIndex) {
-            <input type="radio" id="copyType" name="copyType" value="@copyType" @if(mode == CopyController.DVD_FORM_EDIT_MODE && copyType == dvdForm("copyType").value() || mode == CopyController.DVD_FORM_ADD_MODE && dvdForm("copyType").value() == null && (index == 0 || copyType.equals(User.getCurrentUser().defaultCopyType)) || mode == CopyController.DVD_FORM_ADD_MODE && dvdForm("copyType").value() != null && copyType == dvdForm("copyType").value()) {
+            <input type="radio" id="copyType" name="copyType" value="@copyType" @if(mode == CopyController.DVD_FORM_EDIT_MODE && copyType == dvdForm("copyType").value() || mode == CopyController.DVD_FORM_ADD_MODE && dvdForm("copyType").value() == null && (index == 0 || copyType.equals(User.getCurrentUser(request).defaultCopyType)) || mode == CopyController.DVD_FORM_ADD_MODE && dvdForm("copyType").value() != null && copyType == dvdForm("copyType").value()) {
               checked="checked"
           } /><span><img class="img-rounded" alt="@copyType" src="@routes.Assets.versioned("images/copy_type/" + copyType + ".png")" /></span>
           }
 
 
-          <label for="ageRating">@Messages("lbl.agerating"):</label>
+          <label for="ageRating">@messages("lbl.agerating"):</label>
           @for((rating, index) <- helpers.DvdInfoHelper.getAgeRatings.zipWithIndex) {
             <input type="radio" id="ageRating" name="ageRating" value="@rating" @if(mode == CopyController.DVD_FORM_EDIT_MODE && rating == dvdForm("ageRating").value() || mode == CopyController.DVD_FORM_ADD_MODE && (rating == dvdForm("ageRating").value() || index == 0)) {
               checked="checked"
           } /><span><img class="img-rounded" alt="@rating" src="@routes.Assets.versioned("images/agerating/" + rating + ".gif")" /></span>
           }
 
-          <label for="series">@Messages("lbl.audioformats"):</label>
-          <input type="hidden" name="audioTypes" id="audioTypes" class="span5" value="@forms.MovieForm.getDvdFormAttributesAsString(dvdForm("audioTypes").value)" data-placeholder="@Messages("lbl.selectAudioTypes")"/>
+          <label for="series">@messages("lbl.audioformats"):</label>
+          <input type="hidden" name="audioTypes" id="audioTypes" class="span5" value="@forms.MovieForm.getDvdFormAttributesAsString(dvdForm("audioTypes").value.get())" data-placeholder="@messages("lbl.selectAudioTypes")"/>
 
-          @inputText(dvdForm("hullNr"), '_label -> Messages("lbl.hullNr"), 'class -> "span2")
+          @inputText(dvdForm("hullNr"), '_label -> messages("lbl.hullNr"), 'class -> "span2")
 
           <div class="clearfix">
-            <label for="box">@Messages("lbl.box"):</label>
+            <label for="box">@messages("lbl.box"):</label>
             <div class="input">
-              <input type="hidden" name="box" id="box" value="@dvdForm("box").value" class="span5" data-placeholder="@Messages("lbl.selectBox")"/>
+              <input type="hidden" name="box" id="box" value="@dvdForm("box").value" class="span5" data-placeholder="@messages("lbl.selectBox")"/>
             </div>
           </div>
 
           <div class="clearfix">
-            <label for="collection">@Messages("lbl.collection"):</label>
+            <label for="collection">@messages("lbl.collection"):</label>
             <div class="input">
-              <input type="hidden" name="collection" id="collection" value="@dvdForm("collection").value" class="span5" data-placeholder="@Messages("lbl.selectCollection")"/>
+              <input type="hidden" name="collection" id="collection" value="@dvdForm("collection").value" class="span5" data-placeholder="@messages("lbl.selectCollection")"/>
             </div>
           </div>
 
           <div class="form-actions">
             @if(mode == CopyController.DVD_FORM_EDIT_MODE) {
-              <button type="submit" class="btn btn-primary"><i class="icon-edit"></i> @Messages("btn.editCopy")</button>
+              <button type="submit" class="btn btn-primary"><i class="icon-edit"></i> @messages("btn.editCopy")</button>
             } else {
-              <button type="submit" class="btn  btn-primary"><i class="icon-plus"></i> @Messages("btn.addCopy")</button>
+              <button type="submit" class="btn  btn-primary"><i class="icon-plus"></i> @messages("btn.addCopy")</button>
             }
-            <a class="btn" href="@routes.ListCopiesController.listCopies(null)"><i class="icon-arrow-left"></i> @Messages("btn.back")</a>
+            <a class="btn" href="@routes.ListCopiesController.listCopies(null)"><i class="icon-arrow-left"></i> @messages("btn.back")</a>
           </div>
 
 
         </div>
         <div class="span6 well">
-          <h4>@Messages("lbl.pickMovie")</h4>
-          @inputText(dvdForm("movieId"), '_label -> Messages("lbl.existingMovie"), '_showConstraints -> true, 'class -> "span6", 'placeholder -> Messages("lbl.enterMovieName"))
-          <button class="btn btn-inverse" id="newMovieInfos" type="button"><i class="icon-film"></i> @Messages("btn.newMovie")</button>
-          <button class="btn btn-info" id="editMovieInfos" style="display: none ;" type="button"><i class="icon-edit"></i> @Messages("btn.editMovie")</button>
+          <h4>@messages("lbl.pickMovie")</h4>
+          @inputText(dvdForm("movieId"), '_label -> messages("lbl.existingMovie"), '_showConstraints -> true, 'class -> "span6", 'placeholder -> messages("lbl.enterMovieName"))
+          <button class="btn btn-inverse" id="newMovieInfos" type="button"><i class="icon-film"></i> @messages("btn.newMovie")</button>
+          <button class="btn btn-info" id="editMovieInfos" style="display: none ;" type="button"><i class="icon-edit"></i> @messages("btn.editMovie")</button>
         </div>
 
       </div>

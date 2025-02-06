@@ -1,9 +1,10 @@
-@(regForm: Form[forms.user.RegisterForm])
+@(regForm: Form[forms.user.RegisterForm])(implicit request: Http.Request, messages: play.i18n.Messages)
+
 @import helpers.DvdInfoHelper
 
 @import helper._
 
-@main(Messages.apply("headline.register")) {
+@main(messages("headline.register")) {
    
    
    <div class="row-fluid">
@@ -14,34 +15,36 @@
    
      @form(routes.RegisterLoginController.register(),'class -> "well") {
    
-       <h4>@Messages.apply("headline.register")</h4>
+       <h4>@messages("headline.register")</h4>
        <hr />  
    
-       @if(regForm.hasGlobalErrors) { 
-         <p class="alert alert-error">
-           @Messages(regForm.globalError.message)
-         </p>
+       @if(regForm.hasGlobalErrors) {
+         @for(error <- regForm.globalErrors) {
+           <p class="alert alert-error">
+           @error.format(messages)
+           </p>
+         }
        }
             
-       @if(flash.contains("success")) {
+       @if(request.flash.get("success").isPresent) {
          <p class="alert alert-success">
-           @flash.get("success")
+           @request.flash.get("success").get()
          </p>
        }
        
        
-       @inputText(regForm("username"),'_label -> Messages.apply("lbl.username"), '_showConstraints -> true, 'size -> 10)
+       @inputText(regForm("username"),Symbol("_label") -> messages("lbl.username"), Symbol("_showConstraints") -> true, Symbol("size") -> 10)
        
 
        <hr  />       
-       @inputPassword(regForm("password"),'_label -> Messages.apply("lbl.password"), '_showConstraints -> true)
-       @inputPassword(regForm("repassword"),'_label -> Messages.apply("lbl.repassword"), '_showConstraints -> true)
+       @inputPassword(regForm("password"),Symbol("_label") -> messages("lbl.password"), Symbol("_showConstraints") -> true)
+       @inputPassword(regForm("repassword"),Symbol("_label") -> messages("lbl.repassword"), Symbol("_showConstraints") -> true)
        <hr  />       
        
-       @inputText(regForm("email"),'_label -> Messages.apply("lbl.email"))
+       @inputText(regForm("email"),Symbol("_label") -> messages("lbl.email"))
        <hr />
 
-       <label for="defaultCopyType">@Messages.apply("lbl.defaultCopyType")</label>
+       <label for="defaultCopyType">@messages("lbl.defaultCopyType")</label>
        @for((copyType,index) <- DvdInfoHelper.getCopyTypes.zipWithIndex) {
          <input type="radio" id="defaultCopyType" name="defaultCopyType" value="@copyType" @if(copyType == regForm("defaultCopyType").value() || index == 0 ){ checked="checked" } /><span><img alt="@copyType" src="@routes.Assets.versioned("images/copy_type/"+copyType+".png")" /></span>
        }
@@ -49,8 +52,8 @@
        
        
        <div class="form-actions">
-         <button type="submit" class="btn btn-primary"><i class="icon-user"></i> @Messages.apply("btn.register")</button>
-         <a class="btn" href="@routes.ApplicationController.index">@Messages.apply("btn.back")</a>
+         <button type="submit" class="btn btn-primary"><i class="icon-user"></i> @messages("btn.register")</button>
+         <a class="btn" href="@routes.ApplicationController.index">@messages("btn.back")</a>
        </div>
    
   

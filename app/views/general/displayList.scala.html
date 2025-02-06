@@ -1,8 +1,9 @@
-@(headlineKey: String, headlineIcon: String)(content: Html)
+@(headlineKey: String, headlineIcon: String)(content: Html)(implicit request: Http.Request, messages: play.i18n.Messages)
+
 <div class="row">
   <div class="span12">
     <div class="well">
-      <h4><i class="@headlineIcon"></i> @Messages(headlineKey)</h4>
+      <h4><i class="@headlineIcon"></i> @messages(headlineKey)</h4>
 
       @content
     </div>

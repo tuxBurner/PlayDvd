@@ -11,7 +11,7 @@ import models.Dvd;
 import models.EDvdAttributeType;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class CopyInfo {
 

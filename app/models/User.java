@@ -12,10 +12,12 @@ import play.Logger;
 import play.data.format.Formats;
 import play.data.validation.Constraints.Required;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import play.mvc.Http;
+
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -129,8 +131,8 @@ public class User extends Model
    *
    * @return
    */
-  public static User getCurrentUser() {
-    return getUserByName(Secured.getUsername());
+  public static User getCurrentUser(final Http.Request request) {
+    return getUserByName(Secured.getUsernameStatic(request));
   }
 
   /**
@@ -185,11 +187,11 @@ public class User extends Model
    *
    * @return
    */
-  public static List<String> getOtherUserNames() {
+  public static List<String> getOtherUserNames(final Http.Request request) {
     final List<User> findList = User.FINDER.query()
       .select("userName")
       .where()
-      .ne("userName", Secured.getUsername())
+      .ne("userName", Secured.getUsernameStatic(request))
       .orderBy("userName asc")
       .findList();
 
@@ -224,8 +226,8 @@ public class User extends Model
    * Creates a rss auth key for the current user
    * @return
    */
-  public static String createUserRssAuthKey() {
-    final User currentUser = getCurrentUser();
+  public static String createUserRssAuthKey(final Http.Request request) {
+    final User currentUser = getCurrentUser(request);
     if(currentUser == null) {
       return null;
     }

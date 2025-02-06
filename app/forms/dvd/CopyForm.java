@@ -6,7 +6,7 @@ import grabbers.amazonwebcrawler.AmazonResult;
 import models.Dvd;
 import models.DvdAttribute;
 import models.Movie;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import play.data.validation.Constraints;
 import play.data.validation.Constraints.Required;
 

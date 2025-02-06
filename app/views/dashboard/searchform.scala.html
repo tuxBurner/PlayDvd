@@ -1,6 +1,7 @@
 @import forms.dvd.CopySearchFrom
 @import helpers.CacheHelper
-@(dvdSearchForm: Form[CopySearchFrom], cacheHelper: CacheHelper)
+@(dvdSearchForm: Form[CopySearchFrom], cacheHelper: CacheHelper)(implicit request: Http.Request, messages: play.i18n.Messages)
+
 
 @import helper._
 
@@ -12,7 +13,7 @@
   var avaibleAgeRatings = @Html(forms.dvd.CopySearchFrom.getAgeRatingsAsJson());
   var avaibleCopyTypes = @Html(forms.dvd.CopySearchFrom.getCopyTypesJson());
   var listOrderBy = @Html(forms.dvd.objects.EDvdListOrderBy.getAsJson());
-  var displayAdvancedOrder = @forms.dvd.CopySearchFrom.displayAdvancedForm(cacheHelper);
+  var displayAdvancedOrder = @forms.dvd.CopySearchFrom.displayAdvancedForm(cacheHelper, request);
 //-->
 </script>
 
@@ -27,12 +28,12 @@
        <input type="text" class="input-medium search-query" name="searchFor" id="searchFor" value="@dvdSearchForm("searchFor").value" />
        
        <label for="searchGenre"><i class="icon-tag"></i></label>
-       <input type="hidden" name="genre" id="searchGenre" value="@dvdSearchForm("genre").value" class="input-medium" data-placeholder="@Messages.apply("lbl.genre")"/>
+       <input type="hidden" name="genre" id="searchGenre" value="@dvdSearchForm("genre").value" class="input-medium" data-placeholder="@messages("lbl.genre")"/>
        
        <label for="searchOwner"><i class="icon-user"></i></label>
-       <input type="hidden" name="userName" id="searchOwner" value="@dvdSearchForm("userName").value"  class="input-medium" data-placeholder="@Messages.apply("lbl.owner")"/>
+       <input type="hidden" name="userName" id="searchOwner" value="@dvdSearchForm("userName").value"  class="input-medium" data-placeholder="@messages("lbl.owner")"/>
        
-       <input type="hidden" name="ageRating" id="searchAgeRating" value="@dvdSearchForm("ageRating").value" class="input-mini"  data-placeholder="@Messages.apply("lbl.agerating")"/>
+       <input type="hidden" name="ageRating" id="searchAgeRating" value="@dvdSearchForm("ageRating").value" class="input-mini"  data-placeholder="@messages("lbl.agerating")"/>
 
        <label for="searchOrderBy"><i class="icon-list"></i></label>
        <input type="hidden" name="orderBy" id="searchOrderBy" value="@dvdSearchForm("orderBy").value"  class="input-medium" data-placeholder="Order by"/>
@@ -54,7 +55,7 @@
       
       <div id="advancedSearchForm">
         <label for="searchCopyType"><i class="icon-facetime-video"></i></label>
-       <input type="hidden" name="copyType" id="searchCopyType" value="@dvdSearchForm("copyType").value"  class="input-medium" data-placeholder="@Messages.apply("lbl.copyType")"/>
+       <input type="hidden" name="copyType" id="searchCopyType" value="@dvdSearchForm("copyType").value"  class="input-medium" data-placeholder="@messages("lbl.copyType")"/>
 
         @*
        <label for="searchCopyLend" class="checkbox">

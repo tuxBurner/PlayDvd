@@ -6,137 +6,137 @@
 GET         /                                               controllers.ApplicationController.index()
 
 # Authentication
-GET         /login                                          controllers.RegisterLoginController.showLogin()
-POST        /login                                          controllers.RegisterLoginController.login()
-GET         /logout                                         controllers.RegisterLoginController.logout()
+GET         /login                                          controllers.RegisterLoginController.showLogin(request: Request)
+POST        /login                                          controllers.RegisterLoginController.login(request: Request)
+GET         /logout                                         controllers.RegisterLoginController.logout(request: Request)
 
 # Profile
-GET         /profile                                        controllers.UserProfileController.showProfile()
-POST        /profile                                        controllers.UserProfileController.updateProfile()
+GET         /profile                                        controllers.UserProfileController.showProfile(request: Request)
+POST        /profile                                        controllers.UserProfileController.updateProfile(request: Request)
 
 # lost password
-GET         /lostpassword                                   controllers.PasswordResetController.showPasswordForget()
-POST        /lostpassword                                   controllers.PasswordResetController.sendPasswordForget()
-GET         /lostpassword/:token                            controllers.PasswordResetController.showPasswordReset(token: java.lang.String)
-POST        /lostpassword/:token                            controllers.PasswordResetController.passwordReset(token: java.lang.String)
+GET         /lostpassword                                   controllers.PasswordResetController.showPasswordForget(request: Request)
+POST        /lostpassword                                   controllers.PasswordResetController.sendPasswordForget(request: Request)
+GET         /lostpassword/:token                            controllers.PasswordResetController.showPasswordReset(token: java.lang.String, request: Request)
+POST        /lostpassword/:token                            controllers.PasswordResetController.passwordReset(token: java.lang.String, request: Request)
 
 # Register
-GET         /register                                       controllers.RegisterLoginController.showRegister()
-POST        /register                                       controllers.RegisterLoginController.register()
+GET         /register                                       controllers.RegisterLoginController.showRegister(request: Request)
+POST        /register                                       controllers.RegisterLoginController.register(request: Request)
 
 # DVD Lists
-GET         /copies                                           controllers.ListCopiesController.listCopies(pageNr: java.lang.Integer ?= null)
-GET         /copies/forJS                                     controllers.ListCopiesController.listCopiesJS(pageNr: java.lang.Integer ?= null)
-GET         /copies/all                                       controllers.ListCopiesController.listAllCopies()
-GET         /copies/by/genre/:genreName                       controllers.ListCopiesController.listByGenre(genreName: String)
-GET         /copies/by/actor/:actorName                       controllers.ListCopiesController.listByActor(actorName: String)
-GET         /copies/by/director/:directorName                 controllers.ListCopiesController.listByDirector(directorName: String)
-GET         /copies/by/user/:userName                         controllers.ListCopiesController.listByUser(userName: String)
-GET         /copies/lend                                      controllers.ListCopiesController.listLendDvd()
-GET         /movies/toReview                                controllers.ListCopiesController.listReviewMovies()
-GET         /copies/search                                    controllers.ListCopiesController.searchDvd()
-POST        /copies                                           controllers.ListCopiesController.applySearchForm()
-GET         /copies/changeViewMode/:viewMode                  controllers.ListCopiesController.changeViewMode(viewMode :String)
+GET         /copies                                         controllers.ListCopiesController.listCopies(pageNr: java.lang.Integer ?= null, request: Request)
+GET         /copies/forJS                                   controllers.ListCopiesController.listCopiesJS(pageNr: java.lang.Integer ?= null, request: Request)
+GET         /copies/all                                     controllers.ListCopiesController.listAllCopies(request: Request)
+GET         /copies/by/genre/:genreName                     controllers.ListCopiesController.listByGenre(genreName: String, request: Request)
+GET         /copies/by/actor/:actorName                     controllers.ListCopiesController.listByActor(actorName: String, request: Request)
+GET         /copies/by/director/:directorName               controllers.ListCopiesController.listByDirector(directorName: String, request: Request)
+GET         /copies/by/user/:userName                       controllers.ListCopiesController.listByUser(userName: String, request: Request)
+GET         /copies/lend                                    controllers.ListCopiesController.listLendDvd(request: Request)
+GET         /movies/toReview                                controllers.ListCopiesController.listReviewMovies(request: Request)
+GET         /copies/search                                  controllers.ListCopiesController.searchDvd(request: Request)
+POST        /copies                                         controllers.ListCopiesController.applySearchForm(request: Request)
+GET         /copies/changeViewMode/:viewMode                controllers.ListCopiesController.changeViewMode(viewMode :String, request: Request)
 
 # Comment
-POST        /movie/:movieId/comment                         controllers.CommentController.addComment(movieId: Long)
+POST        /movie/:movieId/comment                         controllers.CommentController.addComment(movieId: Long, request: Request)
 
 
 # stuff
-GET         /image/:dvdId/:imgType/:imgSize                 controllers.DashboardController.streamImage(dvdId: Long, imgType: String, imgSize: String)
-GET         /extimage                                       controllers.DashboardController.streamExternalImage()
-GET         /gravatar/:userName                             controllers.DashboardController.gravatar(size: java.lang.Integer, userName: String)
+GET         /image/:dvdId/:imgType/:imgSize                 controllers.DashboardController.streamImage(dvdId: Long, imgType: String, imgSize: String, request: Request)
+GET         /extimage                                       controllers.DashboardController.streamExternalImage(request: Request)
+GET         /gravatar/:userName                             controllers.DashboardController.gravatar(size: java.lang.Integer, userName: String, request: Request)
 
 
 # Display the Dvd
-GET         /showdvdPopup/:dvdId                            controllers.DashboardController.displayDvd(dvdId: Long)
-GET         /showdvd/:dvdId                                 controllers.DashboardController.displayCopyOnPage(dvdId: Long)
+GET         /showdvdPopup/:dvdId                            controllers.DashboardController.displayDvd(dvdId: Long, request: Request)
+GET         /showdvd/:dvdId                                 controllers.DashboardController.displayCopyOnPage(dvdId: Long, request: Request)
 
 # Lend DVD
-GET         /copy/:dvdId/lend                               controllers.DashboardController.lendDialogContent(dvdId: Long)
-POST        /copy/:dvdId/lend                               controllers.DashboardController.lendDvd(dvdId: Long)
-GET         /copy/:dvdId/unlend                             controllers.DashboardController.unLendDialogContent(dvdId: Long)
-POST        /copy/:dvdId/unlend                             controllers.DashboardController.unlendDvd(dvdId: Long)
+GET         /copy/:dvdId/lend                               controllers.DashboardController.lendDialogContent(dvdId: Long, request: Request)
+POST        /copy/:dvdId/lend                               controllers.DashboardController.lendDvd(dvdId: Long, request: Request)
+GET         /copy/:dvdId/unlend                             controllers.DashboardController.unLendDialogContent(dvdId: Long, request: Request)
+POST        /copy/:dvdId/unlend                             controllers.DashboardController.unlendDvd(dvdId: Long, request: Request)
 
 # Barcode Scanning
-GET         /barcodescanner                                 controllers.BarcodeController.displayBarcodeScaner()
+GET         /barcodescanner                                 controllers.BarcodeController.displayBarcodeScaner(request: Request)
 GET         /barcodescannerws                               controllers.BarcodeController.scanBarcode()
 
 
 # ADD edit DVD
-GET         /copy/add                                       controllers.CopyController.showAddDvd()
-POST        /copy/:mode                                     controllers.CopyController.addDvd(mode: String)
-GET         /copy/edit/:dvdId                               controllers.CopyController.showEditDvd(dvdId: Long)
-GET         /copy/amazon/search/byCode/:code                controllers.CopyController.searchAmazonByCode(code: String, copyId: Long ?= -1)
-GET         /copy/amazon/search/byTitle/                    controllers.CopyController.searchAmazonByTitle(title = "")
-GET         /copy/amazon/search/byTitle/:title              controllers.CopyController.searchAmazonByTitle(title: String)
-GET         /copy/amazon/form/:code/:movieId                controllers.CopyController.showDvdByAmazonAndMovie(code: String, movieId: Long,copyId: Long ?= -1)
-GET         /copy/amazon/formfill/:code                     controllers.CopyController.showCopyFormWithAmazonInfo(code: String, copyId: Long ?= -1)
-POST        /copy/addMovieByGrabber/                        controllers.CopyController.addMovieByGrabber(grabberType : String)
+GET         /copy/add                                       controllers.CopyController.showAddDvd(request: Request)
+POST        /copy/:mode                                     controllers.CopyController.addDvd(mode: String, request: Request)
+GET         /copy/edit/:dvdId                               controllers.CopyController.showEditDvd(dvdId: Long, request: Request)
+GET         /copy/amazon/search/byCode/:code                controllers.CopyController.searchAmazonByCode(code: String, copyId: Long ?= -1, request: Request)
+GET         /copy/amazon/search/byTitle/                    controllers.CopyController.searchAmazonByTitle(title = "", request: Request)
+GET         /copy/amazon/search/byTitle/:title              controllers.CopyController.searchAmazonByTitle(title: String,  request: Request)
+GET         /copy/amazon/form/:code/:movieId                controllers.CopyController.showDvdByAmazonAndMovie(code: String, movieId: Long,copyId: Long ?= -1, request: Request)
+GET         /copy/amazon/formfill/:code                     controllers.CopyController.showCopyFormWithAmazonInfo(code: String, copyId: Long ?= -1, request: Request)
+POST        /copy/addMovieByGrabber/                        controllers.CopyController.addMovieByGrabber(grabberType : String, request: Request)
 GET         /copy/searchattr                                controllers.CopyController.searchForCopyAttribute(term: String, attrType:String)
 
 
 # DELETE DVD
-GET         /copy/delete/:dvdId                              controllers.DashboardController.deleteDialogContent(dvdId:Long)
-POST        /copy/delete/:dvdId                              controllers.DashboardController.deleteDvd(dvdId:Long)
+GET         /copy/delete/:dvdId                             controllers.DashboardController.deleteDialogContent(dvdId:Long, request: Request)
+POST        /copy/delete/:dvdId                             controllers.DashboardController.deleteDvd(dvdId:Long, request: Request)
 
 # MOVIE ROUTES
-POST        /movie/addMovieByGrabber/:mode                  controllers.MovieController.addMovieByGrabberId(mode: String, grabberType: String)
-GET         /movie/add                                      controllers.MovieController.showAddMovieForm()
-GET         /movie/edit/:movieId                            controllers.MovieController.showEditMovieForm(movieId: Long)
+POST        /movie/addMovieByGrabber/:mode                  controllers.MovieController.addMovieByGrabberId(mode: String, grabberType: String, request: Request)
+GET         /movie/add                                      controllers.MovieController.showAddMovieForm(request: Request)
+GET         /movie/edit/:movieId                            controllers.MovieController.showEditMovieForm(movieId: Long, request: Request)
 GET         /movie/check/:grabberId/:grabberType            controllers.MovieController.checkIfMovieAlreadyExists(grabberId: String, grabberType: String)
-POST        /movie/:mode                                    controllers.MovieController.addOrEditMovie(mode: String)
+POST        /movie/:mode                                    controllers.MovieController.addOrEditMovie(mode: String, request: Request)
 GET         /movies/forselect                               controllers.MovieController.searchMoviesForDvdSelect(term: String)
 GET         /movies/searchattr                              controllers.MovieController.searchForMovieAttribute(term: String, attrType:String)
 
 # Shopping cart
-GET         /shoppingcart                                   controllers.ShoppingCartController.showShoppingCart()
-GET         /shoppingcart/add/:copyId                       controllers.ShoppingCartController.addCopyToCart(copyId: Long)
-GET         /shoppingcart/remove/:copyId                    controllers.ShoppingCartController.remCopyFromCart(copyId: Long)
-GET         /shoppingcart/menue                             controllers.ShoppingCartController.getShoppingCartMenu()
-POST        /shoppincart/checkout                           controllers.ShoppingCartController.checkoutShoppingCart()
+GET         /shoppingcart                                   controllers.ShoppingCartController.showShoppingCart(request: Request)
+GET         /shoppingcart/add/:copyId                       controllers.ShoppingCartController.addCopyToCart(copyId: Long, request: Request)
+GET         /shoppingcart/remove/:copyId                    controllers.ShoppingCartController.remCopyFromCart(copyId: Long, request: Request)
+GET         /shoppingcart/menue                             controllers.ShoppingCartController.getShoppingCartMenu(request: Request)
+POST        /shoppincart/checkout                           controllers.ShoppingCartController.checkoutShoppingCart(request: Request)
 
 # Reservations
-GET         /reservations                                   controllers.ReservationsController.showReservations()
-GET         /reservations/delete/:reservationIds            controllers.ReservationsController.deleteReservations(reservationIds: String)
-GET         /reservations/borrow/:reservationIds            controllers.ReservationsController.borrowReservations(reservationIds: String)
-GET         /reserved                                       controllers.ReservationsController.showReserved()
-GET         /reserved/delete/:reservationId                 controllers.ReservationsController.deleteReserved(reservationId: Long)
-GET         /lentcopies                                     controllers.ReservationsController.showLentCopies()
-GET         /lentcopies/unlent/:copyIds                     controllers.ReservationsController.unlentCopies(copyIds: String)
-GET         /borrowedcopies                                 controllers.ReservationsController.showBorrowedCopies()
+GET         /reservations                                   controllers.ReservationsController.showReservations(request: Request)
+GET         /reservations/delete/:reservationIds            controllers.ReservationsController.deleteReservations(reservationIds: String, request: Request)
+GET         /reservations/borrow/:reservationIds            controllers.ReservationsController.borrowReservations(reservationIds: String, request: Request)
+GET         /reserved                                       controllers.ReservationsController.showReserved(request: Request)
+GET         /reserved/delete/:reservationId                 controllers.ReservationsController.deleteReserved(reservationId: Long, request: Request)
+GET         /lentcopies                                     controllers.ReservationsController.showLentCopies(request: Request)
+GET         /lentcopies/unlent/:copyIds                     controllers.ReservationsController.unlentCopies(copyIds: String, request: Request)
+GET         /borrowedcopies                                 controllers.ReservationsController.showBorrowedCopies(request: Request)
 
 #Bookmark
-GET         /bookmark/add/:copyId                           controllers.BookmarksController.bookmarkCopy(copyId: Long)
-GET         /bookmark                                       controllers.BookmarksController.listBookmarks(page: Integer ?= 0)
-GET         /bookmark/delete/:bookmarkId                    controllers.BookmarksController.removeBookmark(bookmarkId: Long)
+GET         /bookmark/add/:copyId                           controllers.BookmarksController.bookmarkCopy(copyId: Long, request: Request)
+GET         /bookmark                                       controllers.BookmarksController.listBookmarks(page: Integer ?= 0, request: Request)
+GET         /bookmark/delete/:bookmarkId                    controllers.BookmarksController.removeBookmark(bookmarkId: Long, request: Request)
 
 #MarkAsViewed
-GET         /viewedcopies/list                              controllers.ViewedCopyController.getViewedCopiesForCurrentUser(page: Integer ?= 0)
-GET         /viewedcopies/mark/:copyId                      controllers.ViewedCopyController.markCopyAsViewedDialog(copyId: Long)
-POST        /viewedcopies/mark/:copyId                      controllers.ViewedCopyController.doMarkCopyAsViewed(copyId: Long, remBookMark: Boolean)
+GET         /viewedcopies/list                              controllers.ViewedCopyController.getViewedCopiesForCurrentUser(page: Integer ?= 0, request: Request)
+GET         /viewedcopies/mark/:copyId                      controllers.ViewedCopyController.markCopyAsViewedDialog(copyId: Long, request: Request)
+POST        /viewedcopies/mark/:copyId                      controllers.ViewedCopyController.doMarkCopyAsViewed(copyId: Long, remBookMark: Boolean, request: Request)
 
 # language
-GET         /language/:code                                 controllers.LanguageController.changeLanguage(code: String)
+GET         /language/:code                                 controllers.LanguageController.changeLanguage(code: String, request: Request)
 
 
 # Grabbers
-GET         /grabber/search                                 controllers.InfoGrabberController.searchGrabber(searchTerm = "", grabberType =  "TMDB")
-GET         /grabber/:grabberType/search/:searchTerm        controllers.InfoGrabberController.searchGrabber(searchTerm: String, grabberType:  String)
-GET         /grabber/:grabberType/:grabberId                controllers.InfoGrabberController.getMovieById(grabberId: String, grabberType:  String)
+GET         /grabber/search                                 controllers.InfoGrabberController.searchGrabber(searchTerm = "", grabberType =  "TMDB", request: Request)
+GET         /grabber/:grabberType/search/:searchTerm        controllers.InfoGrabberController.searchGrabber(searchTerm: String, grabberType:  String, request: Request)
+GET         /grabber/:grabberType/:grabberId                controllers.InfoGrabberController.getMovieById(grabberId: String, grabberType:  String, request: Request)
 
 #RSS
-GET         /rssFeeds/displayList                           controllers.RssFeedsController.displayRssFeedLinks
-GET         /rssFeeds/lastAddedCopies                       controllers.RssFeedsController.getLastAddedCopies
-GET         /rssFeeds/lastWeekAddedCopies                   controllers.RssFeedsController.getLastAddedWeekCopies
-GET         /rssFeeds/copyPoster/:copyId                    controllers.RssFeedsController.getPosterImage(copyId: Long)
+GET         /rssFeeds/displayList                           controllers.RssFeedsController.displayRssFeedLinks(request: Request)
+GET         /rssFeeds/lastAddedCopies                       controllers.RssFeedsController.getLastAddedCopies(request: Request)
+GET         /rssFeeds/lastWeekAddedCopies                   controllers.RssFeedsController.getLastAddedWeekCopies(request: Request)
+GET         /rssFeeds/copyPoster/:copyId                    controllers.RssFeedsController.getPosterImage(copyId: Long, request: Request)
 
 # EXPORT
-GET         /export                                         controllers.ExportMoviesController.displayExportOptions()
-GET         /export/xbmc                                    controllers.ExportMoviesController.exportXbmc()
+GET         /export                                         controllers.ExportMoviesController.displayExportOptions(request: Request)
+GET         /export/xbmc                                    controllers.ExportMoviesController.exportXbmc(request: Request)
 
 # Javascript routing
-GET         /assets/javascripts/routes                      controllers.ApplicationController.jsRoutes()
+GET         /assets/javascripts/routes                      controllers.ApplicationController.jsRoutes(request: Request)
 
 
 # Map static resources from the /public folder to the /assets URL path

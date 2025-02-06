@@ -1,17 +1,14 @@
 package helpers;
 
-import com.amazonaws.services.s3.model.*;
 import com.typesafe.config.ConfigFactory;
 import models.MovieImage;
 import net.coobird.thumbnailator.Thumbnails;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.io.filefilter.PrefixFileFilter;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import play.Logger;
-import modules.s3.S3Plugin;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +16,6 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Iterator;
-import java.util.List;
 
 public class ImageHelper {
 
@@ -61,69 +57,14 @@ public class ImageHelper {
 
     boolean success;
 
-    if (S3Plugin.pluginEnabled() == false) {
-      success = createOrigImageLocal(movieId, imageType, EImageSize.ORIGINAL, is);
-    } else {
-      success = createOrigImageOnS3(movieId, imageType, EImageSize.ORIGINAL, is);
-    }
+
+    success = createOrigImageLocal(movieId, imageType, EImageSize.ORIGINAL, is);
+
 
     IOUtils.closeQuietly(is);
     return success;
   }
 
-  /**
-   * Creates a file on the s3 bucket
-   *
-   * @param movieId
-   * @param imageType
-   * @param imageSize
-   * @param is
-   * @return
-   */
-  private static boolean createOrigImageOnS3(final Long movieId, final EImageType imageType, final EImageSize imageSize, final InputStream is) {
-
-    final String imageFileName = createImageFileName(movieId, imageType, imageSize);
-    if (Logger.isDebugEnabled() == true) {
-      Logger.debug("Creating file " + imageFileName + " on s3 bucket:" + S3Plugin.s3Bucket);
-    }
-
-    File tempFile = null;
-    try {
-
-      final ObjectListing s3Objects = S3Plugin.amazonS3.listObjects(S3Plugin.s3Bucket, buildSubImagesPrefix(movieId, imageType));
-      final List<S3ObjectSummary> objectSummaries = s3Objects.getObjectSummaries();
-      if (CollectionUtils.isEmpty(objectSummaries) == false) {
-        for (S3ObjectSummary s3ObjectSummary : objectSummaries) {
-          if (Logger.isDebugEnabled() == true) {
-            Logger.debug("Deleting image: " + s3ObjectSummary.getKey() + " from s3 bucket: " + S3Plugin.s3Bucket);
-          }
-          S3Plugin.amazonS3.deleteObject(S3Plugin.s3Bucket, s3ObjectSummary.getKey());
-        }
-
-        MovieImage.deleteForMovie(movieId);
-      }
-
-      tempFile = File.createTempFile("play", "tmp");
-      FileUtils.copyInputStreamToFile(is,tempFile);
-
-
-      PutObjectRequest putObjectRequest = new PutObjectRequest(S3Plugin.s3Bucket, imageFileName, tempFile);
-      putObjectRequest.withCannedAcl(CannedAccessControlList.Private); // original is private
-      S3Plugin.amazonS3.putObject(putObjectRequest);
-
-      FileUtils.deleteQuietly(tempFile);
-
-      MovieImage.createMovieImage(movieId,imageSize,imageType,EImageStoreType.S3);
-
-      return true;
-    } catch (Exception e) {
-      if (Logger.isErrorEnabled() == true) {
-        Logger.error("Could not create file on S3 bucket: " + S3Plugin.s3Bucket, e);
-      }
-      FileUtils.deleteQuietly(tempFile);
-      return false;
-    }
-  }
 
   /**
    * Creates file in the local file system
@@ -162,8 +103,8 @@ public class ImageHelper {
         MovieImage.deleteForMovie(movieId);
       }
 
-      FileUtils.copyInputStreamToFile(is,file);
-      MovieImage.createMovieImage(movieId,imageSize,imageType,EImageStoreType.LOCAL);
+      FileUtils.copyInputStreamToFile(is, file);
+      MovieImage.createMovieImage(movieId, imageSize, imageType, EImageStoreType.LOCAL);
 
 
       return true;
@@ -178,7 +119,6 @@ public class ImageHelper {
   /**
    * Gets the file for an image
    *
-   *
    * @param movieId
    * @param imageType
    * @param imageSize
@@ -186,88 +126,37 @@ public class ImageHelper {
    */
   public static String getImageFile(final Long movieId, final EImageType imageType, final EImageSize imageSize) {
 
-    if (S3Plugin.pluginEnabled() == false) {
-      final File file = ImageHelper.createFile(movieId, imageType, imageSize);
-      // if this is not the original one we will creat one :)
-      if (file.exists() == false && imageSize.equals(EImageSize.ORIGINAL) == false) {
-        // first we load the original one
-        final File origFile = ImageHelper.createFile(movieId, imageType, EImageSize.ORIGINAL);
-        if (origFile.exists() == false) {
-          if (Logger.isErrorEnabled() == true) {
-            Logger.error("Could not find original Image: " + origFile.getAbsolutePath());
-          }
-          return null;
+    final File file = ImageHelper.createFile(movieId, imageType, imageSize);
+    // if this is not the original one we will creat one :)
+    if (file.exists() == false && imageSize.equals(EImageSize.ORIGINAL) == false) {
+      // first we load the original one
+      final File origFile = ImageHelper.createFile(movieId, imageType, EImageSize.ORIGINAL);
+      if (origFile.exists() == false) {
+        if (Logger.isErrorEnabled() == true) {
+          Logger.error("Could not find original Image: " + origFile.getAbsolutePath());
         }
-        final File tmpFile = ImageHelper.resizeImage(origFile, imageSize);
-        if (tmpFile == null) {
-          return null;
-        }
-        try {
-          FileUtils.copyFile(tmpFile, file);
-        } catch (IOException e) {
-          if (Logger.isErrorEnabled() == true) {
-            Logger.error("Could not copy file: " + tmpFile.getAbsolutePath() + " to: " + file.getAbsolutePath());
-          }
-        }
-        FileUtils.deleteQuietly(tmpFile);
-        MovieImage.createMovieImage(movieId,imageSize,imageType,EImageStoreType.LOCAL);
-      }
-
-      if (file.exists() == true) {
-        return file.getAbsolutePath();
-      } else {
         return null;
       }
-    } else {
+      final File tmpFile = ImageHelper.resizeImage(origFile, imageSize);
+      if (tmpFile == null) {
+        return null;
+      }
       try {
-        // check if the file exists
-        final String imageFileName = createImageFileName(movieId, imageType, imageSize);
-        final boolean imageExists = MovieImage.checkForImage(movieId, imageSize, imageType);
-
-        if (imageExists == false && imageSize.equals(EImageSize.ORIGINAL) == false) {
-
-          if (Logger.isDebugEnabled() == true) {
-            Logger.debug("Could not find: " + imageFileName + " from s3 bucket: " + S3Plugin.s3Bucket + " creating one from the original one.");
-          }
-
-          // get the original image from the bucket
-          final String origImgName = createImageFileName(movieId, imageType, EImageSize.ORIGINAL);
-          final S3Object origImage = S3Plugin.amazonS3.getObject(S3Plugin.s3Bucket, origImgName);
-          if (origImage == null) {
-            if (Logger.isErrorEnabled() == true) {
-              Logger.error("Could not find original image: " + origImgName + " from the s3 bucket: " + S3Plugin.s3Bucket);
-            }
-            return null;
-          }
-
-          final S3ObjectInputStream origImgContent = origImage.getObjectContent();
-          final File origTempFile = File.createTempFile("play", "temp");
-          FileUtils.copyInputStreamToFile(origImgContent, origTempFile);
-          IOUtils.closeQuietly(origImgContent);
-          final File resizedImage = resizeImage(origTempFile, imageSize);
-          FileUtils.deleteQuietly(origTempFile);
-          if(resizedImage == null) {
-            return null;
-          }
-
-          PutObjectRequest putObjectRequest = new PutObjectRequest(S3Plugin.s3Bucket, imageFileName, resizedImage);
-          putObjectRequest.withCannedAcl(CannedAccessControlList.PublicRead); // original is private
-          S3Plugin.amazonS3.putObject(putObjectRequest);
-          FileUtils.deleteQuietly(resizedImage);
-          MovieImage.createMovieImage(movieId,imageSize,imageType,EImageStoreType.S3);
-        }
-
-        return S3Plugin.buildUrl(imageFileName);
-      } catch (Exception e) {
+        FileUtils.copyFile(tmpFile, file);
+      } catch (IOException e) {
         if (Logger.isErrorEnabled() == true) {
-          Logger.error("An error happened while getting the image from s3 bucket:" + S3Plugin.s3Bucket, e);
+          Logger.error("Could not copy file: " + tmpFile.getAbsolutePath() + " to: " + file.getAbsolutePath());
         }
       }
-
-      return null;
+      FileUtils.deleteQuietly(tmpFile);
+      MovieImage.createMovieImage(movieId, imageSize, imageType, EImageStoreType.LOCAL);
     }
 
-
+    if (file.exists() == true) {
+      return file.getAbsolutePath();
+    } else {
+      return null;
+    }
   }
 
   /**

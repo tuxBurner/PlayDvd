@@ -1,16 +1,16 @@
-@(dvdPage: DvdPage,username: String,shoppingCart: objects.shoppingcart.CacheShoppingCart,bookmarkedCopys: Set[Long],viewMode: helpers.ECopyListView)
+@(dvdPage: DvdPage,username: String,shoppingCart: objects.shoppingcart.CacheShoppingCart,bookmarkedCopys: Set[Long],viewMode: helpers.ECopyListView)(implicit request: Http.Request, messages: play.i18n.Messages)
 @import helpers.ECopyListView
 
 <div class="row">
   <div class="span12">
     <div class="alert alert-info">
-      @Messages.apply("lbl.displayFromTo",dvdPage.page.getDisplayXtoYofZ(" "+Messages.apply("lbl.to")+" "," "+Messages.apply("lbl.of")+" "))
+      @messages("lbl.displayFromTo",dvdPage.page.getDisplayXtoYofZ(" "+messages("lbl.to")+" "," "+messages("lbl.of")+" "))
     </div>
   </div>
 </div>
 
 
-@dashboard.dvdlistnav(dvdPage)
+@dashboard.dvdlistnav(dvdPage)(request, messages)
 
 <div class="row">
   <div class="span12" id="navInfos" data-hasnext="@dvdPage.page.hasNext" data-hasprev="@dvdPage.page.hasPrev" data-curridx="@dvdPage.page.getPageIndex">
@@ -28,4 +28,4 @@
   </div>
 </div>
 
-@dashboard.dvdlistnav(dvdPage)
+@dashboard.dvdlistnav(dvdPage)(request, messages)

@@ -1,4 +1,4 @@
-@(searchTerm: String, grabberType: String, results: List[grabbers.GrabberSearchMovie], dbMovieId: Long, amazoneCode: String, copyId: Long)
+@(searchTerm: String, grabberType: String, results: List[grabbers.GrabberSearchMovie], dbMovieId: Long, amazoneCode: String, copyId: Long)(implicit request: Http.Request, messages: play.i18n.Messages)
 <form method="GET" class="form-search">
   <input type="hidden" name="movieToEditId" id="movieToEditId" value="@dbMovieId"/>
   <input type="hidden" name="grabberAmazonCode" id="grabberAmazonCode" value="@amazoneCode"/>
@@ -12,13 +12,13 @@
         selected="selected"
       } value="@grabbers.EGrabberType.THETVDB.name()">TheTvDb</option>
     </select>
-    <button href="#" id="grabber_search_button" class="btn"><i class="icon-search"></i> @Messages("btn.search")</button>
+    <button href="#" id="grabber_search_button" class="btn"><i class="icon-search"></i> @messages("btn.search")</button>
   </div>
 
 </form>
 
 @if(results.isEmpty()) {
-  <div class="alert alert-error">@Messages("msg.error.grabberNoMovieFound")</div>
+  <div class="alert alert-error">@messages("msg.error.grabberNoMovieFound")</div>
 } else {
 
   <ul class="thumbnails">
@@ -33,7 +33,7 @@
 
       <div class="caption">
         <h5>@res.movieTitle</h5>
-        <p><a class="btn btn-primary pickGrabberEntry" data-grabber-id="@res.systemId" data-grabber-type="@grabberType"><i class="icon-ok-sign icon-white"></i> @Messages("btn.pick")</a></p>
+        <p><a class="btn btn-primary pickGrabberEntry" data-grabber-id="@res.systemId" data-grabber-type="@grabberType"><i class="icon-ok-sign icon-white"></i> @messages("btn.pick")</a></p>
       </div>
       </div>
     </li>

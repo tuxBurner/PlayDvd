@@ -1,6 +1,6 @@
-@(owner: models.User, rentUser: models.User)
+@(owner: models.User, rentUser: models.User)(implicit request: Http.Request, messages: play.i18n.Messages)
   Hello @owner.userName,
 
     @rentUser.userName wants to rent some Copies.
 
-    Go to: @routes.ReservationsController.showReservations().absoluteURL(request())
+    Go to: @routes.ReservationsController.showReservations().absoluteURL(request)

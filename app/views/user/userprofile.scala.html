@@ -1,42 +1,44 @@
-@(profileForm: Form[forms.user.UserProfileForm])
+@(profileForm: Form[forms.user.UserProfileForm])(implicit request: Http.Request, messages: play.i18n.Messages)
 @import helpers.DvdInfoHelper
 
 @import helper._
 
 
-@mainmenu(Messages.apply("headline.userProfile",Secured.getUsername),Html(""),Html("")) {
+@mainmenu(messages("headline.userProfile",Secured.getUsernameStatic(request)),Html(""),Html("")) {
   <div class="row-fluid">
 
 
     <div class="span2"></div>
     <div class="span8">
 
-    @form(routes.UserProfileController.updateProfile,'class -> "well") {
+    @form(routes.UserProfileController.updateProfile,Symbol("class") -> "well") {
 
-      <h4>@Messages.apply("headline.userProfile",Secured.getUsername) @views.html.dashboard.userImage(Secured.getUsername,Secured.getUserHasGravatar,16) </h4>
+      <h4>@messages("headline.userProfile",Secured.getUsernameStatic(request)) @views.html.dashboard.userImage(Secured.getUsernameStatic(request),Secured.getUserHasGravatar(request),16) </h4>
       <hr />
 
       @if(profileForm.hasGlobalErrors) {
-        <p class="alert alert-error">
-        @Messages(profileForm.globalError.message)
-        </p>
+        @for(error <- profileForm.globalErrors) {
+          <p class="alert alert-error">
+          @error.format(messages)
+          </p>
+        }
       }
 
-      @if(flash.contains("success")) {
+      @if(request.flash.get("success").isDefined) {
         <p class="alert alert-success">
-        @flash.get("success")
+        @request.flash.get("success").get()
         </p>
       }
 
-      @inputText(profileForm("email"),'_label -> Messages.apply("lbl.email"))
+      @inputText(profileForm("email"),Symbol("_label") -> messages("lbl.email"))
       <hr />
 
 
-      @inputPassword(profileForm("password"),'_label -> Messages.apply("lbl.password"), '_showConstraints -> true)
-      @inputPassword(profileForm("rePassword"),'_label -> Messages.apply("lbl.repassword"), '_showConstraints -> true)
+      @inputPassword(profileForm("password"),Symbol("_label") -> messages("lbl.password"), Symbol("_showConstraints") -> true)
+      @inputPassword(profileForm("rePassword"),Symbol("_label") -> messages("lbl.repassword"), Symbol("_showConstraints") -> true)
       <hr  />
 
-      <label for="defaultCopyType">@Messages.apply("lbl.defaultCopyType")</label>
+      <label for="defaultCopyType">@messages("lbl.defaultCopyType")</label>
       @for((copyType,index) <- DvdInfoHelper.getCopyTypes.zipWithIndex) {
         <input type="radio" id="defaultCopyType" name="defaultCopyType" value="@copyType" @if((copyType.equals(profileForm("defaultCopyType").value)) || index == 0 ){ checked="checked" } /><span><img alt="@copyType" src="@routes.Assets.versioned("images/copy_type/"+copyType+".png")" /></span>
       }
@@ -50,8 +52,8 @@
       <hr />
 
       <div class="form-actions">
-        <button type="submit" class="btn btn-warning"><i class="icon-user"></i> @Messages.apply("btn.update")</button>
-        <a class="btn" href="@routes.ApplicationController.index">@Messages.apply("btn.back")</a>
+        <button type="submit" class="btn btn-warning"><i class="icon-user"></i> @messages("btn.update")</button>
+        <a class="btn" href="@routes.ApplicationController.index">@messages("btn.back")</a>
       </div>
     }
     </div>

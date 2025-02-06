@@ -10,14 +10,13 @@ import helpers.ECopyListView;
 import io.ebean.PagedList;
 import models.Dvd;
 import objects.shoppingcart.CacheShoppingCart;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 import play.data.Form;
 import play.data.FormFactory;
-import play.mvc.Controller;
-import play.mvc.Result;
-import play.mvc.Results;
-import play.mvc.Security;
+import play.i18n.Messages;
+import play.i18n.MessagesApi;
+import play.mvc.*;
 import views.html.dashboard.listdvds;
 
 import javax.inject.Inject;
@@ -40,11 +39,14 @@ public class ListCopiesController extends Controller {
 
   private final CacheHelper cacheHelper;
 
+  private final MessagesApi messagesApi;
+
 
   @Inject
-  ListCopiesController(final FormFactory formFactory, final CacheHelper cacheHelper) {
+  ListCopiesController(final FormFactory formFactory, final CacheHelper cacheHelper, final MessagesApi messagesApi) {
     this.formFactory = formFactory;
     this.cacheHelper = cacheHelper;
+    this.messagesApi = messagesApi;
   }
 
   /**
@@ -52,12 +54,12 @@ public class ListCopiesController extends Controller {
    *
    * @return
    */
-  public Result listCopies(final Integer pageNr) {
-    final CopySearchFrom currentSearchForm = CopySearchFrom.getCurrentSearchForm(cacheHelper);
+  public Result listCopies(final Integer pageNr, final Http.Request request) {
+    final CopySearchFrom currentSearchForm = CopySearchFrom.getCurrentSearchForm(cacheHelper, request);
     if (pageNr != null && currentSearchForm != null) {
       currentSearchForm.currentPage = pageNr;
     }
-    return returnList(currentSearchForm);
+    return returnList(currentSearchForm, request);
   }
 
   /**
@@ -66,12 +68,12 @@ public class ListCopiesController extends Controller {
    * @return
    */
   @JSRoute
-  public Result listCopiesJS(final Integer pageNr) {
-    final CopySearchFrom currentSearchForm = CopySearchFrom.getCurrentSearchForm(cacheHelper);
+  public Result listCopiesJS(final Integer pageNr, final Http.Request request) {
+    final CopySearchFrom currentSearchForm = CopySearchFrom.getCurrentSearchForm(cacheHelper, request);
     if (pageNr != null && currentSearchForm != null) {
       currentSearchForm.currentPage = pageNr;
     }
-    return returnList(currentSearchForm,true);
+    return returnList(currentSearchForm, true, request);
   }
 
   /**
@@ -79,9 +81,9 @@ public class ListCopiesController extends Controller {
    *
    * @return
    */
-  public Result listAllCopies() {
+  public Result listAllCopies(final Http.Request request) {
     final CopySearchFrom copySearchFrom = new CopySearchFrom();
-    return returnList(copySearchFrom);
+    return returnList(copySearchFrom, request);
   }
 
   /**
@@ -90,7 +92,7 @@ public class ListCopiesController extends Controller {
    * @param fromUserName
    * @return
    */
-  public Result listByUser(final String fromUserName) {
+  public Result listByUser(final String fromUserName, final Http.Request request) {
     if (StringUtils.isEmpty(fromUserName)) {
       return Results.internalServerError("No Username given");
     }
@@ -98,7 +100,7 @@ public class ListCopiesController extends Controller {
     final CopySearchFrom dvdListFrom = new CopySearchFrom();
     dvdListFrom.userName = fromUserName;
 
-    return returnList(dvdListFrom);
+    return returnList(dvdListFrom, request);
   }
 
   /**
@@ -107,7 +109,7 @@ public class ListCopiesController extends Controller {
    * @param genreName
    * @return
    */
-  public Result listByGenre(final String genreName) {
+  public Result listByGenre(final String genreName, final Http.Request request) {
     if (StringUtils.isEmpty(genreName)) {
       return Results.internalServerError("No Genrename given");
     }
@@ -115,7 +117,7 @@ public class ListCopiesController extends Controller {
     final CopySearchFrom dvdListFrom = new CopySearchFrom();
     dvdListFrom.genre = urlDecodeString(genreName);
 
-    return returnList(dvdListFrom);
+    return returnList(dvdListFrom, request);
   }
 
   /**
@@ -124,7 +126,7 @@ public class ListCopiesController extends Controller {
    * @param actorName
    * @return
    */
-  public Result listByActor(final String actorName) {
+  public Result listByActor(final String actorName, final Http.Request request) {
     if (StringUtils.isEmpty(actorName)) {
       return Results.internalServerError("No actorname given");
     }
@@ -133,7 +135,7 @@ public class ListCopiesController extends Controller {
 
     dvdListFrom.actor = urlDecodeString(actorName);
 
-    return returnList(dvdListFrom);
+    return returnList(dvdListFrom, request);
   }
 
   /**
@@ -142,13 +144,13 @@ public class ListCopiesController extends Controller {
    * @param directorName
    * @return
    */
-  public Result listByDirector(final String directorName) {
+  public Result listByDirector(final String directorName, final Http.Request request) {
     if (StringUtils.isEmpty(directorName)) {
       return Results.internalServerError("No directorname given");
     }
     final CopySearchFrom dvdListFrom = new CopySearchFrom();
     dvdListFrom.director = urlDecodeString(directorName);
-    return returnList(dvdListFrom);
+    return returnList(dvdListFrom, request);
   }
 
   /**
@@ -156,31 +158,31 @@ public class ListCopiesController extends Controller {
    *
    * @return
    */
-  public Result listLendDvd() {
+  public Result listLendDvd(final Http.Request request) {
 
     final CopySearchFrom dvdListFrom = new CopySearchFrom();
     dvdListFrom.lendDvd = true;
-    dvdListFrom.userName = Secured.getUsername();
+    dvdListFrom.userName = Secured.getUsernameStatic(request);
 
-    return returnList(dvdListFrom);
+    return returnList(dvdListFrom, request);
   }
 
-  public Result listReviewMovies() {
+  public Result listReviewMovies(final Http.Request request) {
     final CopySearchFrom dvdListFrom = new CopySearchFrom();
     dvdListFrom.moviesToReview = true;
 
-    return returnList(dvdListFrom);
+    return returnList(dvdListFrom, request);
 
   }
 
-  public Result searchDvd() {
-    final String[] strings = Controller.request().queryString().get("searchFor");
+  public Result searchDvd(final Http.Request request) {
+    final String[] strings = request.queryString().get("searchFor");
     if (strings == null || strings.length != 1) {
-      return listAllCopies();
+      return listAllCopies(request);
     } else {
       final CopySearchFrom listFrom = new CopySearchFrom();
       listFrom.searchFor = strings[0];
-      return returnList(listFrom);
+      return returnList(listFrom, request);
     }
 
   }
@@ -191,21 +193,22 @@ public class ListCopiesController extends Controller {
    *
    * @return
    */
-  public Result applySearchForm() {
+  public Result applySearchForm(final Http.Request request) {
 
-    final Form<CopySearchFrom> form = formFactory.form(CopySearchFrom.class).bindFromRequest();
+    final Form<CopySearchFrom> form = formFactory.form(CopySearchFrom.class).bindFromRequest(request);
 
-    return returnList(form.get());
+    return returnList(form.get(), request);
   }
 
 
   /**
    * Returns the dvds for the template
+   *
    * @param copySearchFrom
    * @return
    */
-  private Result returnList(final CopySearchFrom copySearchFrom) {
-    return returnList(copySearchFrom,false);
+  private Result returnList(final CopySearchFrom copySearchFrom, final Http.Request request) {
+    return returnList(copySearchFrom, false, request);
   }
 
   /**
@@ -214,42 +217,44 @@ public class ListCopiesController extends Controller {
    * @param copySearchFrom
    * @return
    */
-  private  Result returnList(final CopySearchFrom copySearchFrom, final boolean jsMode) {
+  private Result returnList(final CopySearchFrom copySearchFrom, final boolean jsMode, final Http.Request request) {
 
-    final String username = Secured.getUsername();
-    CopySearchFrom.setCurrentSearchForm(copySearchFrom,cacheHelper);
-    final ECopyListView currentViewMode = getCurrentViewMode();
+    final String username = Secured.getUsernameStatic(request);
+    CopySearchFrom.setCurrentSearchForm(copySearchFrom, cacheHelper, request);
+    final ECopyListView currentViewMode = getCurrentViewMode(request);
     final Integer itemsPerPage = DVDS_PER_PAGE_CONFIG.get(currentViewMode.name());
     final PagedList<Dvd> dvdsByForm = Dvd.getDvdsBySearchForm(copySearchFrom, itemsPerPage);
     final DvdPage dvdPage = new DvdPage(dvdsByForm);
-    final CacheShoppingCart shoppingCartFromCache = cacheHelper.getShoppingCartFromCache();
-    final Set<Long> bookmarkedCopyIds = cacheHelper.getBookmarkedCopyIds();
-    if(jsMode == false) {
-      final Form<CopySearchFrom> form =  formFactory.form(CopySearchFrom.class);
-      return Results.ok(listdvds.render(dvdPage, form.fill(copySearchFrom),cacheHelper, username, shoppingCartFromCache,currentViewMode,bookmarkedCopyIds));
+    final CacheShoppingCart shoppingCartFromCache = cacheHelper.getShoppingCartFromCache(request);
+    final Set<Long> bookmarkedCopyIds = cacheHelper.getBookmarkedCopyIds(request);
+
+    final Messages messages = this.messagesApi.preferred(request);
+
+    if (jsMode == false) {
+      final Form<CopySearchFrom> form = formFactory.form(CopySearchFrom.class);
+      return Results.ok(listdvds.render(dvdPage, form.fill(copySearchFrom), cacheHelper, username, shoppingCartFromCache, currentViewMode, bookmarkedCopyIds, request, messages));
     } else {
-      return Results.ok(views.html.dashboard.listviews.listviewsWrapper.render(dvdPage,username,shoppingCartFromCache,bookmarkedCopyIds,currentViewMode));
+      return Results.ok(views.html.dashboard.listviews.listviewsWrapper.render(dvdPage, username, shoppingCartFromCache, bookmarkedCopyIds, currentViewMode, request, messages));
     }
   }
 
   /**
    * Sets the view mode for the dvd view
+   *
    * @param viewMode
    * @return
    */
-  public Result changeViewMode(final String viewMode) {
-    session().put(SESSION_VIEW_MODE,viewMode);
+  public Result changeViewMode(final String viewMode, final Http.Request request) {
+    request.session().adding(SESSION_VIEW_MODE, viewMode);
 
     return redirect(routes.ListCopiesController.listAllCopies());
   }
 
   /**
-   * Decodes a string from an url
-   *
    * @param string
    * @return
    */
-  private  String urlDecodeString(final String string) {
+  private String urlDecodeString(final String string) {
     try {
       return URLDecoder.decode(string, "UTF-8");
     } catch (UnsupportedEncodingException e) {
@@ -263,13 +268,14 @@ public class ListCopiesController extends Controller {
 
   /**
    * Reads the current {@ECopyListView} from the session
+   *
    * @return
    */
-  public static ECopyListView getCurrentViewMode() {
-    String viewMode = session().get(SESSION_VIEW_MODE);
-    if(viewMode == null) {
+  public static ECopyListView getCurrentViewMode(final Http.Request request) {
+    String viewMode = request.session().get(SESSION_VIEW_MODE).get();
+    if (viewMode == null) {
       viewMode = DEFAULT_VIEW.name();
-      session().put(SESSION_VIEW_MODE,viewMode);
+      request.session().adding(SESSION_VIEW_MODE, viewMode);
     }
 
     return ECopyListView.valueOf(viewMode);

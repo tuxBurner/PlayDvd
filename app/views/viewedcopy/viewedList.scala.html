@@ -1,5 +1,5 @@
 @import io.ebean.PagedList
-@(viewedCopyPage: PagedList[ViewedCopy], currentPage: Integer = 0)
+@(viewedCopyPage: PagedList[ViewedCopy], currentPage: Integer = 0)(implicit request: Http.Request, messages: play.i18n.Messages)
 @import org.apache.commons.collections.CollectionUtils
 
 @navigation(viewedCopyPage: PagedList[ViewedCopy]) = {
@@ -23,7 +23,7 @@
   }
 }
 
-@mainmenu(Messages("headline.viewedCopies")) {
+@mainmenu(messages("headline.viewedCopies")) {
 
   @navigation(viewedCopyPage)
 
@@ -31,21 +31,21 @@
 
     @if(CollectionUtils.isEmpty(viewedCopyPage.getList) == true) {
       <div class="alert alert-info">
-        @Messages("msg.info.noViewedCopies")
+        @messages("msg.info.noViewedCopies")
       </div>
     } else {
       <table class="table table-hover">
         <thead>
           <tr>
-            <th>@Messages("lbl.copy")</th>
-            <th>@Messages("lbl.date")</th>
+            <th>@messages("lbl.copy")</th>
+            <th>@messages("lbl.date")</th>
           </tr>
         </thead>
         <tbody>
           @for(viewedCopy <-viewedCopyPage.getList) {
             <tr>
               <td>@general.displayitem(viewedCopy.copy,true)</td>
-              <td>@{new Date(viewedCopy.date).format(Messages("dateFormatHour"))}</td>
+              <td>@{new Date(viewedCopy.date).format(messages("dateFormatHour"))}</td>
             </tr>
           }
         </tbody>

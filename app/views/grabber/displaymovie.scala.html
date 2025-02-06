@@ -1,6 +1,7 @@
-@(displayMovie : grabbers.GrabberDisplayMovie,grabberType: String,movieToEditId: Long,mode: String, amazonCode: String, copyId: Long)
+@(displayMovie : grabbers.GrabberDisplayMovie,grabberType: String,movieToEditId: Long,mode: String, amazonCode: String, copyId: Long)(implicit request: Http.Request, messages: play.i18n.Messages)
+
 @import org.apache.commons.collections.CollectionUtils
-@import org.apache.commons.lang.StringUtils
+@import org.apache.commons.lang3.StringUtils
 
 @import helper._
 
@@ -9,7 +10,7 @@
 
 
 
-  @form(routes.MovieController.addMovieByGrabberId(mode,grabberType),'class -> "vertical",'id -> "grabberMovieForm", 'mode -> mode, 'grabberType -> grabberType) {
+  @form(routes.MovieController.addMovieByGrabberId(mode,grabberType),Symbol("class") -> "vertical",'id -> "grabberMovieForm", Symbol("mode") -> mode, Symbol("grabberType") -> grabberType) {
 
 
     <input type="hidden" name="grabberMovieId" id="grabberMovieId"  value="@displayMovie.systemId"/>
@@ -23,15 +24,15 @@
       <li class="active"><a href="#grabberDataOverview" data-toggle="tab">Overview</a></li>
 
       @if(CollectionUtils.isEmpty(displayMovie.posterUrls) == false) {
-        <li><a href="#grabberDataPosters" data-toggle="tab">@Messages("lbl.posters")</a></li>
+        <li><a href="#grabberDataPosters" data-toggle="tab">@messages("lbl.posters")</a></li>
       }
 
       @if(CollectionUtils.isEmpty(displayMovie.backDropUrls) == false) {
-        <li><a href="#grabberDataBackdrops" data-toggle="tab">@Messages("lbl.backdrops")</a></li>
+        <li><a href="#grabberDataBackdrops" data-toggle="tab">@messages("lbl.backdrops")</a></li>
       }
 
       @if(CollectionUtils.isEmpty(displayMovie.trailerUrls)  == false) {
-        <li><a href="#grabberDataTrailers" data-toggle="tab">@Messages("lbl.trailers")</a></li>
+        <li><a href="#grabberDataTrailers" data-toggle="tab">@messages("lbl.trailers")</a></li>
       }
     </ul>
 
@@ -39,26 +40,26 @@
     <div id="myTabContent" class="tab-content">
 
     <div class="tab-pane fade in active" id="grabberDataOverview">
-      <h3>@Messages("lbl.plot")</h3>
+      <h3>@messages("lbl.plot")</h3>
       <p>
         @displayMovie.plot
       </p>
       @if(StringUtils.isEmpty(displayMovie.imdbId) == false) {
         <p>
-          @Messages("lbl.imdbId"): <a href="http://www.imdb.com/title/@displayMovie.imdbId" target="_blank">@displayMovie.imdbId</a>
+          @messages("lbl.imdbId"): <a href="http://www.imdb.com/title/@displayMovie.imdbId" target="_blank">@displayMovie.imdbId</a>
         </p>
       }
 
       <div class="row">
         @if(CollectionUtils.isEmpty(displayMovie.posterUrls) == false) {
           <div class="span5">
-            <h5>@Messages("lbl.selectedPoster")</h5>
+            <h5>@messages("lbl.selectedPoster")</h5>
             <img id="grabberSelectedPoster" class="img-rounded" src="@routes.DashboardController.streamExternalImage()?url=@displayMovie.posterUrls.get(0).url&imgSize=GRABBER_POSTER_SMALL"/>
           </div>
         }
         @if(CollectionUtils.isEmpty(displayMovie.backDropUrls) == false) {
           <div class="span5">
-            <h5>@Messages("lbl.selectedBackdrop")</h5>
+            <h5>@messages("lbl.selectedBackdrop")</h5>
             <img id="grabberSelectedBackdrop" class="img-rounded" src="@routes.DashboardController.streamExternalImage()?url=@displayMovie.backDropUrls.get(0).url&imgSize=GRABBER_BACKDROP_SMALL" />
           </div>
         }

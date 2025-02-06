@@ -2,31 +2,30 @@ package models;
 
 
 import controllers.Secured;
-import io.ebean.Ebean;
 import io.ebean.Finder;
 import io.ebean.Model;
 import io.ebean.PagedList;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import org.apache.commons.collections.CollectionUtils;
 import play.Logger;
+import play.mvc.Http;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * This holds the infromation when a user marks an own copy to view in the future
- *
+ * <p>
  * User: tuxburner
  * Date: 3/17/13
  * Time: 3:43 PM
  */
 @Entity
-public class Bookmark extends Model
-{
+public class Bookmark extends Model {
 
   @Id
   public Long id;
@@ -52,8 +51,7 @@ public class Bookmark extends Model
    *
    * @param copyId
    */
-  public static Bookmark bookmarkCopy(Long copyId)
-  {
+  public static Bookmark bookmarkCopy(final Long copyId, final Http.Request request) {
 
     if (copyId == null) {
       if (Logger.isErrorEnabled() == true) {
@@ -62,14 +60,14 @@ public class Bookmark extends Model
       return null;
     }
 
-    String username = Secured.getUsername();
+    String username = Secured.getUsernameStatic(request);
 
     // check if the user already marked the copy as to view
     Bookmark bookmarkCheck = FINDER.query()
-      .where()
-      .eq("copy.owner.userName", username)
-      .eq("copy.id", copyId)
-      .findOne();
+        .where()
+        .eq("copy.owner.userName", username)
+        .eq("copy.id", copyId)
+        .findOne();
 
     if (bookmarkCheck != null) {
       if (Logger.isInfoEnabled() == true) {
@@ -104,15 +102,14 @@ public class Bookmark extends Model
    *
    * @return
    */
-  public static PagedList<Bookmark> getBookmarksForUser(final Integer page)
-  {
-    String username = Secured.getUsername();
+  public static PagedList<Bookmark> getBookmarksForUser(final Integer page, final Http.Request request) {
+    String username = Secured.getUsernameStatic(request);
     return FINDER.query().where()
-      .eq("copy.owner.userName", username)
-      .orderBy("date DESC")
-      .setFirstRow(page*10)
-      .setMaxRows(10)
-      .findPagedList();
+        .eq("copy.owner.userName", username)
+        .orderBy("date DESC")
+        .setFirstRow(page * 10)
+        .setMaxRows(10)
+        .findPagedList();
 
   }
 
@@ -121,14 +118,13 @@ public class Bookmark extends Model
    *
    * @return
    */
-  public static Set<Long> getBookmarkCopyIdsForUser()
-  {
-    final String username = Secured.getUsername();
+  public static Set<Long> getBookmarkCopyIdsForUser(final Http.Request request) {
+    final String username = Secured.getUsernameStatic(request);
     final Set<Bookmark> set = FINDER.query()
-      .fetch("copy", "id")
-      .where()
-      .eq("copy.owner.userName", username)
-      .findSet();
+        .fetch("copy", "id")
+        .where()
+        .eq("copy.owner.userName", username)
+        .findSet();
 
     final Set<Long> copyIds = new HashSet<Long>();
 
@@ -149,12 +145,11 @@ public class Bookmark extends Model
    *
    * @return
    */
-  public static int getBookmarkCount()
-  {
-    String username = Secured.getUsername();
+  public static int getBookmarkCount(final Http.Request request) {
+    String username = Secured.getUsernameStatic(request);
     return FINDER.query().where()
-      .eq("copy.owner.userName", username)
-      .findCount();
+        .eq("copy.owner.userName", username)
+        .findCount();
   }
 
   /**
@@ -162,13 +157,12 @@ public class Bookmark extends Model
    *
    * @return
    */
-  public static boolean isCopyBookmarkedByUser(final Dvd copy)
-  {
-    String username = Secured.getUsername();
+  public static boolean isCopyBookmarkedByUser(final Dvd copy, final Http.Request request) {
+    String username = Secured.getUsernameStatic(request);
     final int count = FINDER.query().where()
-      .eq("copy.owner.userName", username)
-      .eq("copy", copy)
-      .findCount();
+        .eq("copy.owner.userName", username)
+        .eq("copy", copy)
+        .findCount();
     return (count != 0);
   }
 
@@ -177,13 +171,12 @@ public class Bookmark extends Model
    *
    * @param id
    */
-  public static String removeBookmark(final Long id)
-  {
-    String username = Secured.getUsername();
+  public static String removeBookmark(final Long id, final Http.Request request) {
+    String username = Secured.getUsernameStatic(request);
     Bookmark bookmarkToDelete = FINDER.query().where()
-      .eq("copy.owner.userName", username)
-      .eq("id", id)
-      .findOne();
+        .eq("copy.owner.userName", username)
+        .eq("id", id)
+        .findOne();
     if (bookmarkToDelete == null) {
       if (Logger.isErrorEnabled() == true) {
         Logger.error("Could not find " + Bookmark.class.getName() + " with id: " + id + " for user: " + username);
@@ -203,15 +196,16 @@ public class Bookmark extends Model
    *
    * @param copy
    */
-  public static void deletAllBookmarksForCopy(final Dvd copy)
-  {
-    String username = Secured.getUsername();
+  public static void deletAllBookmarksForCopy(final Dvd copy, final Http.Request request) {
+    String username = Secured.getUsernameStatic(request);
     final Set<Bookmark> bookmarks = FINDER.query().where()
-      .eq("copy.owner.userName", username)
-      .eq("copy", copy)
-      .findSet();
+        .eq("copy.owner.userName", username)
+        .eq("copy", copy)
+        .findSet();
     if (CollectionUtils.isEmpty(bookmarks) == false) {
-      Ebean.delete(bookmarks);
+      for (final Bookmark bookmark : bookmarks) {
+        bookmark.delete();
+      }
     }
   }
 

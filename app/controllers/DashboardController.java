@@ -8,41 +8,29 @@ import forms.UnLendForm;
 import forms.dvd.CopySearchFrom;
 import forms.dvd.objects.CopyInfo;
 import forms.dvd.objects.PrevNextCopies;
-import helpers.CacheHelper;
-import helpers.ECacheObjectName;
-import helpers.EImageSize;
-import helpers.EImageType;
-import helpers.ETagHelper;
-import helpers.GravatarHelper;
-import helpers.ImageHelper;
-import io.ebean.Ebean;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import javax.imageio.ImageIO;
-import javax.inject.Inject;
+import helpers.*;
 import models.CopyReservation;
 import models.Dvd;
 import models.User;
 import models.ViewedCopy;
-import modules.s3.S3Plugin;
 import net.coobird.thumbnailator.Thumbnails;
 import objects.shoppingcart.CacheShoppingCart;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 import play.data.Form;
 import play.data.FormFactory;
-import play.mvc.Controller;
-import play.mvc.Result;
-import play.mvc.Results;
-import play.mvc.Security;
+import play.i18n.Messages;
+import play.i18n.MessagesApi;
+import play.mvc.*;
+
+import javax.imageio.ImageIO;
+import javax.inject.Inject;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.URL;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Security.Authenticated(Secured.class)
 @Singleton
@@ -50,13 +38,16 @@ public class DashboardController extends Controller {
 
 
   private final FormFactory formFactory;
-  
+
   private final CacheHelper cacheHelper;
 
+  private final MessagesApi messagesApi;
+
   @Inject
-  DashboardController(final FormFactory formFactory, final CacheHelper cacheHelper) {
+  DashboardController(final FormFactory formFactory, final CacheHelper cacheHelper, final MessagesApi messagesApi) {
     this.formFactory = formFactory;
     this.cacheHelper = cacheHelper;
+    this.messagesApi = messagesApi;
   }
 
   /**
@@ -66,8 +57,8 @@ public class DashboardController extends Controller {
    * @return
    */
   @JSRoute
-  public Result displayDvd(final Long dvdId) {
-    return getInfoDvd(dvdId, true);
+  public Result displayDvd(final Long dvdId, final Http.Request request) {
+    return getInfoDvd(dvdId, true, request);
   }
 
 
@@ -78,8 +69,8 @@ public class DashboardController extends Controller {
    * @return
    */
   @JSRoute
-  public Result displayCopyOnPage(final Long dvdId) {
-    return getInfoDvd(dvdId, false);
+  public Result displayCopyOnPage(final Long dvdId, final Http.Request request) {
+    return getInfoDvd(dvdId, false, request);
   }
 
   /**
@@ -88,7 +79,7 @@ public class DashboardController extends Controller {
    * @param copyId
    * @return
    */
-  private  Result getInfoDvd(final Long copyId, final boolean popup) {
+  private Result getInfoDvd(final Long copyId, final boolean popup, final Http.Request request) {
 
     final Dvd copy = Dvd.FINDER.byId(copyId);
 
@@ -102,18 +93,19 @@ public class DashboardController extends Controller {
 
     final CopyInfo copyInfo = new CopyInfo(copy);
 
-    final CopySearchFrom currentSearchForm = CopySearchFrom.getCurrentSearchForm(cacheHelper);
+    final CopySearchFrom currentSearchForm = CopySearchFrom.getCurrentSearchForm(cacheHelper, request);
     final PrevNextCopies nextAndPrev = Dvd.getNextAndPrev(copy, currentSearchForm);
 
-    final CacheShoppingCart shoppingCartFromCache = cacheHelper.getShoppingCartFromCache();
-    final Set<Long> bookmarkedCopyIds = cacheHelper.getBookmarkedCopyIds();
-    final List<ViewedCopy> copyViewed = ViewedCopy.getCopyViewed(copy);
+    final CacheShoppingCart shoppingCartFromCache = cacheHelper.getShoppingCartFromCache(request);
+    final Set<Long> bookmarkedCopyIds = cacheHelper.getBookmarkedCopyIds(request);
+    final List<ViewedCopy> copyViewed = ViewedCopy.getCopyViewed(copy, request);
 
-
+    final Messages messages = this.messagesApi.preferred(request);
+    final var usernameStatic = Secured.getUsernameStatic(request);
     if (popup == true) {
-      return Results.ok(views.html.dashboard.displaydvdPopup.render(copyInfo, Secured.getUsername()));
+      return Results.ok(views.html.dashboard.displaydvdPopup.render(copyInfo, usernameStatic, request, messages));
     } else {
-      return Results.ok(views.html.dashboard.displaydvd.render(copyInfo, Secured.getUsername(), nextAndPrev,shoppingCartFromCache,bookmarkedCopyIds,copyViewed));
+      return Results.ok(views.html.dashboard.displaydvd.render(copyInfo, usernameStatic, nextAndPrev, shoppingCartFromCache, bookmarkedCopyIds, copyViewed, request, messages));
     }
   }
 
@@ -123,9 +115,9 @@ public class DashboardController extends Controller {
    * @return
    */
   @JSRoute
-  public Result lendDialogContent(final Long dvdId) {
+  public Result lendDialogContent(final Long dvdId, final Http.Request request) {
     // check if the user may see the dvd
-    final String userName = Secured.getUsername();
+    final String userName = Secured.getUsernameStatic(request);
     final Dvd dvdForUser = Dvd.getDvdForUser(dvdId, userName);
     if (dvdForUser == null) {
       return Results.forbidden();
@@ -135,7 +127,8 @@ public class DashboardController extends Controller {
     final Map<String, String> reservationsForCopy = CopyReservation.getReservationsForCopy(dvdId);
 
     final Form<LendForm> form = formFactory.form(LendForm.class);
-    return Results.ok(views.html.dashboard.lendform.render(form, dvdForUser, dvdForUserInSameHull, reservationsForCopy, User.getOtherUserNames()));
+    final Messages messages = this.messagesApi.preferred(request);
+    return Results.ok(views.html.dashboard.lendform.render(form, dvdForUser, dvdForUserInSameHull, reservationsForCopy, User.getOtherUserNames(request), request, messages));
   }
 
   /**
@@ -145,9 +138,9 @@ public class DashboardController extends Controller {
    * @return
    */
   @JSRoute
-  public Result unLendDialogContent(final Long dvdId) {
+  public Result unLendDialogContent(final Long dvdId, final Http.Request request) {
     // check if the user may see the dvd
-    final String userName = Secured.getUsername();
+    final String userName = Secured.getUsernameStatic(request);
     final Dvd dvdForUser = Dvd.getDvdForUser(dvdId, userName, true);
     if (dvdForUser == null) {
       return Results.forbidden();
@@ -160,8 +153,9 @@ public class DashboardController extends Controller {
     }
 
     final List<Dvd> dvdBorrowedSameHull = Dvd.getDvdBorrowedSameHull(dvdForUser);
+    final Messages messages = this.messagesApi.preferred(request);
 
-    return Results.ok(views.html.dashboard.unlendform.render(formFactory.form(UnLendForm.class), dvdForUser, dvdBorrowedSameHull));
+    return Results.ok(views.html.dashboard.unlendform.render(formFactory.form(UnLendForm.class), dvdForUser, dvdBorrowedSameHull, request, messages));
 
   }
 
@@ -172,9 +166,9 @@ public class DashboardController extends Controller {
    * @return
    */
   @JSRoute
-  public Result lendDvd(final Long dvdId) {
+  public Result lendDvd(final Long dvdId, final Http.Request request) {
 
-    final Form<LendForm> form = formFactory.form(LendForm.class).bindFromRequest();
+    final Form<LendForm> form = formFactory.form(LendForm.class).bindFromRequest(request);
 
     // check if the form is okay
     final LendForm lendForm = form.get();
@@ -195,7 +189,7 @@ public class DashboardController extends Controller {
       }
     }
 
-    final String ownerName = Controller.ctx().session().get(Secured.AUTH_SESSION);
+    final String ownerName = request.session().get(Secured.AUTH_SESSION).get();
     Dvd.lendDvdToUser(dvdId, ownerName, userName, freeName, lendForm.alsoOthersInHull);
 
     return Results.ok();
@@ -208,14 +202,14 @@ public class DashboardController extends Controller {
    * @return
    */
   @JSRoute
-  public Result unlendDvd(final Long dvdId) {
+  public Result unlendDvd(final Long dvdId, final Http.Request request) {
 
-    final Form<UnLendForm> form = formFactory.form(UnLendForm.class).bindFromRequest();
+    final Form<UnLendForm> form = formFactory.form(UnLendForm.class).bindFromRequest(request);
 
     // check if the form is okay
     final UnLendForm unlendForm = form.get();
 
-    final String ownerName = Controller.ctx().session().get(Secured.AUTH_SESSION);
+    final String ownerName = request.session().get(Secured.AUTH_SESSION).get();
     Dvd.unlendDvdToUser(dvdId, ownerName, unlendForm.alsoOthersInHull);
 
     return Results.ok();
@@ -228,15 +222,16 @@ public class DashboardController extends Controller {
    * @return
    */
   @JSRoute
-  public Result deleteDialogContent(final Long dvdId) {
+  public Result deleteDialogContent(final Long dvdId, final Http.Request request) {
 
-    final String userName = Secured.getUsername();
+    final String userName = Secured.getUsernameStatic(request);
     final Dvd dvdForUser = Dvd.getDvdForUser(dvdId, userName);
     if (dvdForUser == null) {
       return Results.forbidden();
     }
 
-    return Results.ok(views.html.dashboard.deletedvd.render(dvdForUser));
+    final Messages messages = this.messagesApi.preferred(request);
+    return Results.ok(views.html.dashboard.deletedvd.render(dvdForUser, request, messages));
   }
 
   /**
@@ -246,8 +241,8 @@ public class DashboardController extends Controller {
    * @return
    */
   @JSRoute
-  public Result deleteDvd(final Long dvdId) {
-    final String userName = Secured.getUsername();
+  public Result deleteDvd(final Long dvdId, final Http.Request request) {
+    final String userName = Secured.getUsernameStatic(request);
     final Dvd dvdForUser = Dvd.getDvdForUser(dvdId, userName);
     if (dvdForUser == null) {
       return Results.forbidden();
@@ -255,7 +250,8 @@ public class DashboardController extends Controller {
 
     //Ebean.deleteManyToManyAssociations(dvdForUser, "attributes");
     dvdForUser.attributes.clear();
-    Ebean.save(dvdForUser);
+    // TODO: LIFT
+    //Ebean.save(dvdForUser);
     dvdForUser.delete();
 
     return Results.ok();
@@ -270,42 +266,36 @@ public class DashboardController extends Controller {
    * @return
    */
   @JSRoute
-  public Result streamImage(final Long copyId, final String imgType, final String imgSize) {
-    return getStreamImage(copyId,imgType,imgSize);
+  public Result streamImage(final Long copyId, final String imgType, final String imgSize, final Http.Request request) {
+    return getStreamImage(copyId, imgType, imgSize, request);
   }
 
   /**
    * Static helper for getting the correct image.
+   *
    * @param copyId
    * @param imgType
    * @param imgSize
    * @return
    */
-  public static Result getStreamImage(final Long copyId, final String imgType, final String imgSize) {
+  public static Result getStreamImage(final Long copyId, final String imgType, final String imgSize, final Http.Request request) {
     final String url = ImageHelper.getImageFile(copyId, EImageType.valueOf(imgType), EImageSize.valueOf(imgSize));
     if (StringUtils.isEmpty(url) == true) {
       return Results.notFound();
     }
 
-    if (S3Plugin.pluginEnabled() == false) {
-
-      final File file = new File(url);
+    final File file = new File(url);
 
 
-      final String etag = ETagHelper.getEtag(file);
-      final String nonMatch = request().getHeader(IF_NONE_MATCH);
-      if (etag.equals(nonMatch) == true) {
-        return status(304);
-      }
-
-      response().setHeader(ETAG, etag);
-      response().setHeader("Content-Length", String.valueOf(file.length()));
-      return Results.ok(file).as("image/png");
-
-
-    } else {
-      return redirect(url);
+    final String etag = ETagHelper.getEtag(file);
+    final String nonMatch = request.header(IF_NONE_MATCH).get();
+    if (etag.equals(nonMatch) == true) {
+      return status(304);
     }
+
+    return Results.ok(file).as("image/png").withHeader(ETAG, etag).withHeader("Content-Length", String.valueOf(file.length()));
+
+
   }
 
   /**
@@ -313,8 +303,8 @@ public class DashboardController extends Controller {
    *
    * @return
    */
-  public Result streamExternalImage() {
-    final Form<ExternalImageForm> form = formFactory.form(ExternalImageForm.class).bindFromRequest();
+  public Result streamExternalImage(final Http.Request request) {
+    final Form<ExternalImageForm> form = formFactory.form(ExternalImageForm.class).bindFromRequest(request);
 
     if (form.hasErrors()) {
       return Results.badRequest("Failure");
@@ -323,7 +313,7 @@ public class DashboardController extends Controller {
     final EImageSize imageSize = EImageSize.valueOf(form.get().imgSize);
 
     try {
-      final String urlFixed = StringUtils.replace(form.get().url," ", "%20");
+      final String urlFixed = StringUtils.replace(form.get().url, " ", "%20");
       final BufferedImage asBufferedImage = Thumbnails.of(new URL(urlFixed)).size(imageSize.getWidth(), imageSize.getHeight()).asBufferedImage();
 
       final ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -344,15 +334,15 @@ public class DashboardController extends Controller {
    *
    * @return
    */
-  public Result gravatar(final Integer size, final String userName) {
+  public Result gravatar(final Integer size, final String userName, final Http.Request request) {
 
-    final String ownerName = (userName == null) ? Secured.getUsername() : userName;
+    final String ownerName = (userName == null) ? Secured.getUsernameStatic(request) : userName;
     final User userByName = User.getUserByName(ownerName);
 
     final String gravatarEmail = (userByName == null) ? "" : userByName.email;
 
     final String etag = ETagHelper.getEtag(ECacheObjectName.GRAVATAR_IMAGES + gravatarEmail + size);
-    final String nonMatch = request().getHeader(IF_NONE_MATCH);
+    final String nonMatch = request.header(IF_NONE_MATCH).get();
     if (etag != null && etag.equals(nonMatch) == true) {
       return status(304);
     }
@@ -365,8 +355,7 @@ public class DashboardController extends Controller {
       ETagHelper.createEtag(ECacheObjectName.GRAVATAR_IMAGES + gravatarEmail + size, gravatarBytes);
     }
 
-    response().setHeader(ETAG, ETagHelper.getEtag(ECacheObjectName.GRAVATAR_IMAGES + gravatarEmail + size));
-    return Results.ok(gravatarBytes).as("image/png");
+    return Results.ok(gravatarBytes).as("image/png").withHeader(ETAG, ETagHelper.getEtag(ECacheObjectName.GRAVATAR_IMAGES + gravatarEmail + size));
 
   }
 

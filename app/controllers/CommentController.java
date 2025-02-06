@@ -7,6 +7,7 @@ import models.Movie;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 
@@ -35,16 +36,16 @@ public class CommentController extends Controller {
   }
 
   @JSRoute
-  public Result addComment(final Long movieId) {
+  public Result addComment(final Long movieId, final Http.Request request) {
 
-    DynamicForm requestData = formFactory.form().bindFromRequest();
+    DynamicForm requestData = formFactory.form().bindFromRequest(request);
     final String commentText = requestData.get("commentText");
 
     final Commentable commentable = Movie.addComment(movieId, commentText);
 
-    flash(COMMENT_SUCCESS_FLASH,"Comment was added to movie.");
+    request.flash().adding(COMMENT_SUCCESS_FLASH, "Comment was added to movie.");
 
-    return ok(views.html.dashboard.comments.displayComments.render(commentable,movieId));
+    return ok(views.html.dashboard.comments.displayComments.render(commentable, movieId, request));
   }
 
 }

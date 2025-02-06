@@ -6,13 +6,13 @@ import models.DvdAttribute;
 import models.User;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import play.Logger;
-import play.mvc.Controller;
-import play.mvc.Result;
-import play.mvc.Security;
-import play.mvc.With;
+import play.i18n.Messages;
+import play.i18n.MessagesApi;
+import play.mvc.*;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -32,12 +32,21 @@ import java.util.zip.ZipOutputStream;
 @Singleton
 public class ExportMoviesController extends Controller {
 
+  private final MessagesApi messagesApi;
+
+  @Inject
+  ExportMoviesController(final MessagesApi messagesApi) {
+    this.messagesApi = messagesApi;
+  }
+
+
   @Security.Authenticated(Secured.class)
-  public Result displayExportOptions() {
+  public Result displayExportOptions(final Http.Request request) {
 
-    final User currentUser = User.getCurrentUser();
+    final User currentUser = User.getCurrentUser(request);
+    final Messages messages = this.messagesApi.preferred(request);
 
-    return ok(views.html.export.export.render(currentUser.rssAuthKey));
+    return ok(views.html.export.export.render(currentUser.rssAuthKey, request, messages));
   }
 
   /**
@@ -49,8 +58,11 @@ public class ExportMoviesController extends Controller {
    * @throws InterruptedException
    */
   @With(RssSecurityAction.class)
-  public Result exportXbmc() {
-    List<Dvd> dvds = Dvd.getAllCopiesForUserForExport(request().username());
+  public Result exportXbmc(final Http.Request request) {
+
+    final var username = Secured.getUsernameStatic(request);
+
+    List<Dvd> dvds = Dvd.getAllCopiesForUserForExport(username);
     if (CollectionUtils.isEmpty(dvds) == false) {
 
       try {
@@ -94,9 +106,8 @@ public class ExportMoviesController extends Controller {
 
         ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
 
-        response().setHeader("Content-Disposition", "attachment; filename=xbmc_stub.zip");
 
-        return ok(bais).as("application/zip");
+        return ok(bais).as("application/zip").withHeader("Content-Disposition", "attachment; filename=xbmc_stub.zip");
       } catch (Exception e) {
         if (Logger.isErrorEnabled() == true) {
           Logger.error("An error happend while creating zip file", e);

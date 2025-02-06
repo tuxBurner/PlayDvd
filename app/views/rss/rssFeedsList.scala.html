@@ -1,26 +1,26 @@
-@(rssAuthKey: String)
-@import org.apache.commons.lang.StringUtils
+@(rssAuthKey: String)(implicit request: Http.Request, messages: play.i18n.Messages)
+@import org.apache.commons.lang3.StringUtils
 
-@mainmenu(Messages("headline.rssFeedLinks")) {
+@mainmenu(messages("headline.rssFeedLinks")) {
   @general.displayList("headline.rssFeedLinks","icon-rss-sign") {
     @if(StringUtils.isEmpty(rssAuthKey) == false) {
       <dl class="dl-horizontal">
-        <dt>@Messages("lbl.rssLastAdded")</dt>
+        <dt>@messages("lbl.rssLastAdded")</dt>
         <dd>
-          <a href="@routes.RssFeedsController.getLastAddedCopies().absoluteURL()?@RssSecurityAction.RSS_FEED_AUTH_PARAM=@rssAuthKey" target="_blank">
-            @routes.RssFeedsController.getLastAddedCopies().absoluteURL()?@RssSecurityAction.RSS_FEED_AUTH_PARAM=@rssAuthKey
+          <a href="@routes.RssFeedsController.getLastAddedCopies.absoluteURL()?@RssSecurityAction.RSS_FEED_AUTH_PARAM=@rssAuthKey" target="_blank">
+            @routes.RssFeedsController.getLastAddedCopies.absoluteURL()?@RssSecurityAction.RSS_FEED_AUTH_PARAM=@rssAuthKey
           </a>
         </dd>
-        <dt>@Messages("lbl.rssLastWeekAdded")</dt>
+        <dt>@messages("lbl.rssLastWeekAdded")</dt>
         <dd>
-          <a href="@routes.RssFeedsController.getLastAddedWeekCopies().absoluteURL()?@RssSecurityAction.RSS_FEED_AUTH_PARAM=@rssAuthKey" target="_blank">
-            @routes.RssFeedsController.getLastAddedWeekCopies().absoluteURL()?@RssSecurityAction.RSS_FEED_AUTH_PARAM=@rssAuthKey
+          <a href="@routes.RssFeedsController.getLastAddedWeekCopies.absoluteURL()?@RssSecurityAction.RSS_FEED_AUTH_PARAM=@rssAuthKey" target="_blank">
+            @routes.RssFeedsController.getLastAddedWeekCopies.absoluteURL()?@RssSecurityAction.RSS_FEED_AUTH_PARAM=@rssAuthKey
           </a>
         </dd>
       </dl>
     } else {
       <div class="alert">
-        <strong>@Html(Messages.apply("msg.info.noRssAuthKey", "<a href="+routes.UserProfileController.showProfile()+">"+Messages("lbl.profile")+"</a>"))</strong>
+        <strong>@Html(messages("msg.info.noRssAuthKey", "<a href="+routes.UserProfileController.showProfile()+">"+messages("lbl.profile")+"</a>"))</strong>
       </div>
     }
   }

@@ -5,11 +5,10 @@ import akka.stream.Materializer;
 import com.github.tuxBurner.jsAnnotations.JSRoute;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import play.i18n.Messages;
+import play.i18n.MessagesApi;
 import play.libs.streams.ActorFlow;
-import play.mvc.Controller;
-import play.mvc.Result;
-import play.mvc.Security;
-import play.mvc.WebSocket;
+import play.mvc.*;
 
 /**
  * This {@link Controller} is handling barcode scanning with a webcam
@@ -24,12 +23,14 @@ public class BarcodeController extends Controller
 
   private final ActorSystem actorSystem;
   private final Materializer materializer;
+  private final MessagesApi messagesApi;
 
   @Inject
-  public BarcodeController(final ActorSystem actorSystem, final Materializer materializer)
+  public BarcodeController(final ActorSystem actorSystem, final Materializer materializer, MessagesApi messagesApi)
   {
     this.actorSystem = actorSystem;
     this.materializer = materializer;
+    this.messagesApi = messagesApi;
   }
 
   /**
@@ -38,9 +39,11 @@ public class BarcodeController extends Controller
    * @return
    */
   @JSRoute
-  public Result displayBarcodeScaner()
+  public Result displayBarcodeScaner(final Http.Request request)
   {
-    return ok(views.html.barcode.barcodescanner.render());
+    final Messages messages = this.messagesApi.preferred(request);
+
+    return ok(views.html.barcode.barcodescanner.render(messages));
   }
 
   @JSRoute

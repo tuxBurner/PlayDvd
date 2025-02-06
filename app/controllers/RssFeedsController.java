@@ -11,13 +11,12 @@ import models.User;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import play.Logger;
-import play.mvc.Controller;
-import play.mvc.Result;
-import play.mvc.Security;
-import play.mvc.With;
-
+import play.i18n.Messages;
+import play.i18n.MessagesApi;
+import play.mvc.*;
 import play.twirl.api.Html;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -32,55 +31,67 @@ import java.util.List;
 @Singleton
 public class RssFeedsController extends Controller {
 
+  private final MessagesApi messagesApi;
+
+
+  @Inject
+  RssFeedsController(final MessagesApi messagesApi) {
+    this.messagesApi = messagesApi;
+  }
+
   /**
    * Displays the links to the diffrent RSS Feeds
+   *
    * @return
    */
   @Security.Authenticated(Secured.class)
-  public Result displayRssFeedLinks() {
+  public Result displayRssFeedLinks(final Http.Request request) {
 
-    final User currentUser = User.getCurrentUser();
-    if(currentUser == null) {
+    final User currentUser = User.getCurrentUser(request);
+    if (currentUser == null) {
       return unauthorized();
     }
 
+    final Messages messages = this.messagesApi.preferred(request);
     final String rssAuthKey = currentUser.rssAuthKey;
-    return ok(views.html.rss.rssFeedsList.render(rssAuthKey));
+    return ok(views.html.rss.rssFeedsList.render(rssAuthKey, request, messages));
   }
 
   /**
    * Gets the last 10 {@Dvd}s
+   *
    * @return
    */
   @With(RssSecurityAction.class)
-  public Result getLastAddedCopies() {
+  public Result getLastAddedCopies(final Http.Request request) {
     final List<Dvd> copies = Dvd.FINDER.query()
-      .orderBy("createdDate DESC")
-      .setFirstRow(0)
-      .setMaxRows(10)
-      .findPagedList()
-      .getList();
-    return createFeedContentForList(copies,"Last 10 added copies","The last 10 added copies in the database");
+        .orderBy("createdDate DESC")
+        .setFirstRow(0)
+        .setMaxRows(10)
+        .findPagedList()
+        .getList();
+    return createFeedContentForList(copies, "Last 10 added copies", "The last 10 added copies in the database", request);
   }
 
   /**
    * Gets the last week added {@Dvd}s
+   *
    * @return
    */
   @With(RssSecurityAction.class)
-  public Result getLastAddedWeekCopies() {
+  public Result getLastAddedWeekCopies(final Http.Request request) {
     final Date now = new Date();
     final Calendar cal = Calendar.getInstance();
     cal.setTime(now);
-    cal.add(Calendar.DATE,-7);
+    cal.add(Calendar.DATE, -7);
     final long sqlTime = cal.getTime().getTime();
 
     final List<Dvd> copies = Dvd.FINDER.query()
-      .where()
-      .gt("createdDate",sqlTime)
-      .orderBy("createdDate DESC")
-      .findList();
-    return createFeedContentForList(copies,"Last 7 days added copies","The last 7 days added copies in the database");
+        .where()
+        .gt("createdDate", sqlTime)
+        .orderBy("createdDate DESC")
+        .findList();
+    return createFeedContentForList(copies, "Last 7 days added copies", "The last 7 days added copies in the database", request);
   }
 
   /**
@@ -90,30 +101,31 @@ public class RssFeedsController extends Controller {
    * @return
    */
   @With(RssSecurityAction.class)
-  public Result getPosterImage(final Long copyId) {
-    return DashboardController.getStreamImage(copyId, EImageType.POSTER.name(), EImageSize.SMALL.name());
+  public Result getPosterImage(final Long copyId, final Http.Request request) {
+    return DashboardController.getStreamImage(copyId, EImageType.POSTER.name(), EImageSize.SMALL.name(), request);
   }
 
 
   /**
    * Creates the {@link Result} as AtomFeed
+   *
    * @param copies
    * @param feedTitle
    * @param feedSubTitle
    * @return
    */
-  private Result createFeedContentForList(final List<Dvd> copies, final String feedTitle, final String feedSubTitle) {
+  private Result createFeedContentForList(final List<Dvd> copies, final String feedTitle, final String feedSubTitle, final Http.Request request) {
     try {
       SyndFeed feed = new SyndFeedImpl();
       feed.setFeedType("atom_1.0");
       feed.setTitle(feedTitle);
-      feed.setLink(routes.ApplicationController.index().absoluteURL(request()));
-      if(StringUtils.isEmpty(feedSubTitle) == false) {
+      feed.setLink(routes.ApplicationController.index().absoluteURL(request));
+      if (StringUtils.isEmpty(feedSubTitle) == false) {
         feed.setDescription(feedSubTitle);
       }
       feed.setEncoding("utf-8");
 
-      List<SyndEntry> entries = createFeedEntriesFromCopies(copies);
+      List<SyndEntry> entries = createFeedEntriesFromCopies(copies, request);
 
       feed.setEntries(entries);
 
@@ -139,11 +151,11 @@ public class RssFeedsController extends Controller {
    * @param copies
    * @return
    */
-  private List<SyndEntry> createFeedEntriesFromCopies(final List<Dvd> copies) {
+  private List<SyndEntry> createFeedEntriesFromCopies(final List<Dvd> copies, final Http.Request request) {
     List<SyndEntry> entries = new ArrayList<SyndEntry>();
     if (CollectionUtils.isEmpty(copies) == false) {
       for (final Dvd copy : copies) {
-        entries.add(convertCopyToFeedEntry(copy));
+        entries.add(convertCopyToFeedEntry(copy, request));
       }
     }
 
@@ -156,7 +168,7 @@ public class RssFeedsController extends Controller {
    * @param copy
    * @return
    */
-  private SyndEntry convertCopyToFeedEntry(final Dvd copy) {
+  private SyndEntry convertCopyToFeedEntry(final Dvd copy, final Http.Request request) {
     final SyndEntryImpl entry = new SyndEntryImpl();
 
     String title = copy.movie.title;
@@ -165,7 +177,7 @@ public class RssFeedsController extends Controller {
     }
 
     entry.setTitle(title);
-    entry.setLink(routes.DashboardController.displayCopyOnPage(copy.id).absoluteURL(request()));
+    entry.setLink(routes.DashboardController.displayCopyOnPage(copy.id).absoluteURL(request));
     entry.setPublishedDate(new Date(copy.createdDate));
     entry.setAuthor(copy.owner.userName);
 
@@ -182,7 +194,8 @@ public class RssFeedsController extends Controller {
 
     SyndContent description = new SyndContentImpl();
     description.setType("text/html");
-    description.setValue(views.html.rss.rssFeedItem.render(copy,request().getQueryString(RssSecurityAction.RSS_FEED_AUTH_PARAM)).toString());
+    final Messages messages = this.messagesApi.preferred(request);
+    description.setValue(views.html.rss.rssFeedItem.render(copy, request.getQueryString(RssSecurityAction.RSS_FEED_AUTH_PARAM), request, messages).toString());
     entry.setDescription(description);
 
     return entry;

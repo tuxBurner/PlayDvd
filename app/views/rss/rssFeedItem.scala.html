@@ -1,5 +1,5 @@
-@(copy: Dvd, rssAuthKey: String)
-@import org.apache.commons.lang.StringUtils
+@(copy: Dvd, rssAuthKey: String)(implicit request: Http.Request, messages: play.i18n.Messages)
+@import org.apache.commons.lang3.StringUtils
 <h1>@general.displayCopyTitle(copy)</h1>
 
 <div>

@@ -1,4 +1,4 @@
-@(commentable: Commentable, movieId: Long)
+@(commentable: Commentable, movieId: Long,  request: Http.Request)
 <fieldset class="well" id="comments">
   <h2>Comments</h2>
 
@@ -9,9 +9,9 @@
   } else {
     <div class="movieCommentsWrapper">
 
-      @if(flash.contains(CommentController.COMMENT_SUCCESS_FLASH)) {
+      @if(request.flash.get(CommentController.COMMENT_SUCCESS_FLASH).isDefined) {
         <div class="alert alert-success">
-        @flash.get(CommentController.COMMENT_SUCCESS_FLASH)
+        @request.flash.get(CommentController.COMMENT_SUCCESS_FLASH).get
         </div>
       }
 

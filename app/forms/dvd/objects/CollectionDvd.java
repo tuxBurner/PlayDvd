@@ -1,7 +1,7 @@
 package forms.dvd.objects;
 
 import models.Dvd;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import models.DvdAttribute;
 

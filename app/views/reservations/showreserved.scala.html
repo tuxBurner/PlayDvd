@@ -1,4 +1,4 @@
-@(reservedCopies: List[CopyReservation])
+@(reservedCopies: List[CopyReservation])(implicit request: Http.Request, messages: play.i18n.Messages)
 @import org.apache.commons.collections.CollectionUtils
 
 @scripts = {
@@ -6,20 +6,20 @@
   <script src="@routes.Assets.versioned("javascripts/reservations.js")" type="text/javascript"></script>
 }
 
-@mainmenu(Messages("lbl.reservedCopies"),scripts) {
+@mainmenu(messages("lbl.reservedCopies"),scripts) {
 
   @general.displayList("lbl.reservedCopies","icon-list") {
 
       @if(CollectionUtils.isEmpty(reservedCopies) == true) {
         <div class="alert alert-info">
-          @Messages("msg.info.noReserved")
+          @messages("msg.info.noReserved")
         </div>
       } else {
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>@Messages("lbl.copy")</th>
-              <th>@Messages("lbl.date")</th>
+              <th>@messages("lbl.copy")</th>
+              <th>@messages("lbl.date")</th>
               <th></th>
             </tr>
           </thead>
@@ -27,7 +27,7 @@
             @for(reservation <- reservedCopies) {
               <tr id="ownReservation@reservation.id">
               <td>@general.displayitem(reservation.copy,true)</td>
-              <td>@{new Date(reservation.date).format(Messages("dateFormatHour"))}</td>
+              <td>@{new Date(reservation.date).format(messages("dateFormatHour"))}</td>
               <td><button type="button" class="btn btn-danger" onclick="removeReserved(@reservation.id);"><i class="icon-trash"></i></button></td>
               </tr>
             }

@@ -1,6 +1,7 @@
-@(movieId: Long, hasPoster: Boolean, size: helpers.EImageSize)
+@(movieId: Long, hasPoster: Boolean, size: helpers.EImageSize)(implicit request: Http.Request, messages: play.i18n.Messages)
+
 @if(hasPoster != null && hasPoster == true) {
   <img class="img-rounded" src="@routes.DashboardController.streamImage(movieId,"POSTER",size.name())"/>
 } else {
-  <img class="img-rounded" data-src="holder.js/@size.getWHString()/#4D99E0:#fff/text:@Messages.apply("lbl.noPoster")" />
+  <img class="img-rounded" data-src="holder.js/@size.getWHString()/#4D99E0:#fff/text:@messages("lbl.noPoster")" />
 }

@@ -1,4 +1,4 @@
-@(title: String,menuContent: Html = Html(""),scripts: Html = Html(""),styles: Html = Html(""))(content: Html)
+@(title: String,menuContent: Html = Html(""),scripts: Html = Html(""),styles: Html = Html(""))(content: Html)(implicit request: Http.Request, messages: play.i18n.Messages)
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
   <head>
@@ -55,7 +55,7 @@
     <!-- WAIT DIALOG -->
     <div id="pleaseWaitDialog" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="pleaseWaitDialogLbl" aria-hidden="true">
       <div class="modal-header">
-        <h3 id="pleaseWaitDialogLbl">@Messages("headline.pleasWait")</h3>
+        <h3 id="pleaseWaitDialogLbl">@messages("headline.pleasWait")</h3>
       </div>
       <div class="modal-body">
         <p><i class="icon-spinner icon-spin icon-3x"></i></p>

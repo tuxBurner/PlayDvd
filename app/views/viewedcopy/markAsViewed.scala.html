@@ -1,27 +1,26 @@
-@(copy: Dvd, copyViewed: List[ViewedCopy],copyBookmarkedByUser: Boolean)
+@(copy: Dvd, copyViewed: List[ViewedCopy],copyBookmarkedByUser: Boolean)(implicit request: Http.Request, messages: play.i18n.Messages)
+
 @import org.apache.commons.collections.CollectionUtils
 
 
 @import helpers.EImageSize
-@Messages("headline.markAsViewed"): @general.displayposter(copy.movie.id,copy.movie.hasPoster,EImageSize.TINY) <i>@general.displayCopyTitle(copy)</i>
+@messages("headline.markAsViewed"): @general.displayposter(copy.movie.id,copy.movie.hasPoster,EImageSize.TINY) <i>@general.displayCopyTitle(copy)</i>
 
 <input type="hidden" id="copyId" value="@copy.id" />
 
 @if(copyBookmarkedByUser == true) {
   <label for="removeBookmarkForViewed">
-    @Messages("lbl.removeBookmarkForViewed")
+    @messages("lbl.removeBookmarkForViewed")
     <input name="removeBookmarkForViewed" type="checkbox" id="removeBookmarkForViewed" checked="checked"/>
   </label>
 
 }
 
-@import org.apache.commons.collections.CollectionUtils
-
 @if(CollectionUtils.isEmpty(copyViewed) == false) {
   <ul class="unstyled">
-    <li><strong>@Messages("lbl.copyAlreadyViewed",copyViewed.size)</strong></li>
+    <li><strong>@messages("lbl.copyAlreadyViewed",copyViewed.size)</strong></li>
     @for(copyView <-  copyViewed) {
-      <li>@{new Date(copyView.date).format(Messages("dateFormatHour"))}</li>
+      <li>@{new Date(copyView.date).format(messages("dateFormatHour"))}</li>
     }
   </ul>
 }

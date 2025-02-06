@@ -4,12 +4,14 @@ import forms.user.LostPasswordForm;
 import forms.user.PasswordResetForm;
 import helpers.MailerHelper;
 import models.User;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 import play.data.Form;
 import play.data.FormFactory;
+import play.i18n.Messages;
 import play.i18n.MessagesApi;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Results;
 
@@ -52,12 +54,14 @@ public class PasswordResetController extends Controller {
    *
    * @return
    */
-  public Result showPasswordForget() {
+  public Result showPasswordForget(final Http.Request request) {
     if (mailerHelper.mailerActive() == false) {
       return Controller.internalServerError("Cannot display this form.");
     }
 
-    return ok(views.html.user.lostpassword.render(formFactory.form(LostPasswordForm.class)));
+    final Messages messages = this.messagesApi.preferred(request);
+
+    return ok(views.html.user.lostpassword.render(formFactory.form(LostPasswordForm.class), request, messages));
   }
 
   /**
@@ -65,9 +69,9 @@ public class PasswordResetController extends Controller {
    *
    * @return
    */
-  public Result sendPasswordForget() {
+  public Result sendPasswordForget(final Http.Request request) {
 
-    Form<LostPasswordForm> form = formFactory.form(LostPasswordForm.class).bindFromRequest();
+    Form<LostPasswordForm> form = formFactory.form(LostPasswordForm.class).bindFromRequest(request);
     if (form.hasErrors() == false && form.hasGlobalErrors() == false) {
 
 
@@ -83,17 +87,17 @@ public class PasswordResetController extends Controller {
       userByName.passwordResetToken = UUID.randomUUID().toString();
       userByName.update();
 
-      final String activationUrl = routes.PasswordResetController.showPasswordReset(userByName.passwordResetToken).absoluteURL(request());
+      final String activationUrl = routes.PasswordResetController.showPasswordReset(userByName.passwordResetToken).absoluteURL(request);
 
-      final String content = messagesApi.preferred(request()).at("email.passwordreset.content",userByName.userName,activationUrl);
+      final String content = messagesApi.preferred(request).at("email.passwordreset.content",userByName.userName,activationUrl);
 
       if (Logger.isDebugEnabled() == true) {
         Logger.debug("Email send to: " + userByName.email + " with activation code: " + activationUrl);
       }
 
-      mailerHelper.sendMail(messagesApi.preferred(request()).at("email.passwordreset.subject"), userByName.email, content, false);
+      mailerHelper.sendMail(messagesApi.preferred(request).at("email.passwordreset.subject"), userByName.email, content, false);
 
-      flash("success", messagesApi.preferred(request()).at("msg.success.passwordMailSend"));
+      request.flash().adding("success", messagesApi.preferred(request).at("msg.success.passwordMailSend"));
     }
 
     return redirect(routes.PasswordResetController.showPasswordForget());
@@ -105,12 +109,14 @@ public class PasswordResetController extends Controller {
    * @param token
    * @return
    */
-  public Result showPasswordReset(final String token) {
+  public Result showPasswordReset(final String token, final Http.Request request) {
     if (StringUtils.isEmpty(token) == true) {
       return redirect(routes.ApplicationController.index());
     }
 
-    return ok(views.html.user.passwordreset.render(formFactory.form(PasswordResetForm.class), token));
+    final Messages messages = this.messagesApi.preferred(request);
+
+    return ok(views.html.user.passwordreset.render(formFactory.form(PasswordResetForm.class), token, request, messages));
   }
 
   /**
@@ -119,15 +125,18 @@ public class PasswordResetController extends Controller {
    * @param token
    * @return
    */
-  public Result passwordReset(final String token) {
+  public Result passwordReset(final String token, final Http.Request request) {
 
     if (StringUtils.isEmpty(token) == true) {
       return redirect(routes.ApplicationController.index());
     }
 
-    Form<PasswordResetForm> passwordResetForm = formFactory.form(PasswordResetForm.class).bindFromRequest();
+    Form<PasswordResetForm> passwordResetForm = formFactory.form(PasswordResetForm.class).bindFromRequest(request);
+
+    final Messages messages = this.messagesApi.preferred(request);
+
     if (passwordResetForm.hasErrors()) {
-      return Results.badRequest(views.html.user.passwordreset.render(passwordResetForm, token));
+      return Results.badRequest(views.html.user.passwordreset.render(passwordResetForm, token, request, messages));
     }
 
     User userByResetToken = User.getUserByResetToken(token);
@@ -136,7 +145,7 @@ public class PasswordResetController extends Controller {
       userByResetToken.update();
     }
 
-    flash("success", messagesApi.preferred(request()).at("msg.success.passwordChanged"));
-    return redirect(routes.RegisterLoginController.login());
+
+    return redirect(routes.RegisterLoginController.login()).flashing("success", messagesApi.preferred(request).at("msg.success.passwordChanged"));
   }
 }

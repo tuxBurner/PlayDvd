@@ -4,10 +4,11 @@ import controllers.Secured;
 import helpers.DvdInfoHelper;
 import helpers.GravatarHelper;
 import models.User;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 import play.data.validation.Constraints;
 import play.data.validation.Constraints.MaxLength;
+import play.mvc.Http;
 
 import java.util.List;
 
@@ -28,22 +29,22 @@ public class UserProfileForm {
 
   /**
    * Checks if the user change the password
-   * 
+   *
    * @return
    */
-  public String validate() {
+  public String validate(final Http.Request request) {
 
 
-    final User userToUpdate = User.getCurrentUser();
+    final User userToUpdate = User.getCurrentUser(request);
     if (userToUpdate == null) {
-      Logger.error("No user found by the name: " + Secured.getUsername());
+      Logger.error("No user found by the name: " + Secured.getUsernameStatic(request));
       return "msg.error";
     }
 
-    if(StringUtils.isEmpty(password) == false && StringUtils.isEmpty(rePassword) == false) {
-      Logger.debug("User: "+Secured.getUsername()+" wants to change the password.");
-      if(StringUtils.equals(password,rePassword) == false) {
-        Logger.error(Secured.getUsername()+" did not entered matched passwords.");
+    if (StringUtils.isEmpty(password) == false && StringUtils.isEmpty(rePassword) == false) {
+      Logger.debug("User: " + Secured.getUsernameStatic(request) + " wants to change the password.");
+      if (StringUtils.equals(password, rePassword) == false) {
+        Logger.error(Secured.getUsernameStatic(request) + " did not entered matched passwords.");
         return "msg.error.passwordsNoMatch";
       }
 
@@ -51,12 +52,12 @@ public class UserProfileForm {
       userToUpdate.password = User.cryptPassword(password);
     }
 
-    if(StringUtils.isEmpty(defaultCopyType) == false) {
-      Logger.debug(Secured.getUsername()+" sets defaultCopyType to: "+defaultCopyType);
+    if (StringUtils.isEmpty(defaultCopyType) == false) {
+      Logger.debug(Secured.getUsernameStatic(request) + " sets defaultCopyType to: " + defaultCopyType);
       List<String> copyTypes = DvdInfoHelper.getCopyTypes();
-      if(copyTypes.contains(defaultCopyType) == false) {
-        Logger.error("User: "+Secured.getUsername()+" selected a copyType: "+defaultCopyType+" which is not configured.");
-        return "The selected copytype: "+defaultCopyType+" does not exists.";
+      if (copyTypes.contains(defaultCopyType) == false) {
+        Logger.error("User: " + Secured.getUsernameStatic(request) + " selected a copyType: " + defaultCopyType + " which is not configured.");
+        return "The selected copytype: " + defaultCopyType + " does not exists.";
       }
 
       userToUpdate.defaultCopyType = defaultCopyType;
@@ -69,7 +70,7 @@ public class UserProfileForm {
 
     userToUpdate.save();
 
-    Secured.updateHasGravatar(userToUpdate.hasGravatar);
+    Secured.updateHasGravatar(userToUpdate.hasGravatar, request);
 
     return null;
   }

@@ -1,11 +1,11 @@
-@(dvdPage: DvdPage)
+@(dvdPage: DvdPage)(implicit request: Http.Request, messages: play.i18n.Messages)
 
 @if(dvdPage.page.getTotalPageCount > 1) {
   <div class="row">
     <div class="span12">
     <div class="pagination pagination-small pull-right">
       <ul>
-        <li  @if(dvdPage.page.hasPrev == false) { class="disabled" }><a @if(dvdPage.page.hasPrev == true) {class="copyNavLink" href="#" data-idx="@(dvdPage.page.getPageIndex-1)" }>@Messages.apply("lbl.prev")</a></li>
+        <li  @if(dvdPage.page.hasPrev == false) { class="disabled" }><a @if(dvdPage.page.hasPrev == true) {class="copyNavLink" href="#" data-idx="@(dvdPage.page.getPageIndex-1)" }>@messages("lbl.prev")</a></li>
           @for(nav <- dvdPage.nav) {
             <li @if((nav.idx) == dvdPage.page.getPageIndex){class="active"} @if(nav.idx == null) {class="disabled"}>
             @if(nav.idx == null) {
@@ -15,7 +15,7 @@
             }
             </li>
           }
-        <li @if(dvdPage.page.hasNext == false) { class="disabled" }><a @if(dvdPage.page.hasNext == true) { class="copyNavLink" href="#" data-idx="@(dvdPage.page.getPageIndex+1)"}>@Messages.apply("lbl.next")</a></li>
+        <li @if(dvdPage.page.hasNext == false) { class="disabled" }><a @if(dvdPage.page.hasNext == true) { class="copyNavLink" href="#" data-idx="@(dvdPage.page.getPageIndex+1)"}>@messages("lbl.next")</a></li>
       </ul>
     </div>
     </div>

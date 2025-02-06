@@ -1,11 +1,12 @@
 @import forms.dvd.objects.CopyInfo
-@(subDvds : List[forms.dvd.objects.CollectionDvd], dvd: CopyInfo, title: String, subTitle: String, username:String)
+@(subDvds : List[forms.dvd.objects.CollectionDvd], dvd: CopyInfo, title: String, subTitle: String, username:String)(implicit request: Http.Request, messages: play.i18n.Messages)
+
 
 @import helpers.EImageSize
 
 @if(subDvds != null && subDvds.size > 0) {
   <div class="well row">
-    <h5>@Messages.apply("headline.subCopies") @title <i>@subTitle</i>:</h5>
+    <h5>@messages("headline.subCopies") @title <i>@subTitle</i>:</h5>
     <div class="row">
 
       <ul class="copyItemList">

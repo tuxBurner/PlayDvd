@@ -1,4 +1,4 @@
-@(item: Dvd, displayBorrower: Boolean = false)
+@(item: Dvd, displayBorrower: Boolean = false)(implicit request: Http.Request, messages: play.i18n.Messages)
 <div class="media @if(item.borrowDate != null) {alert alert-error}">
   <span class="pull-left">
     @general.displaycover(item)

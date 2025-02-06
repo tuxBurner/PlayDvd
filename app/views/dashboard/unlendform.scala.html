@@ -1,4 +1,5 @@
-@(lendForm: Form[forms.UnLendForm], copy: Dvd, inSameHull: List[Dvd])
+@(lendForm: Form[forms.UnLendForm], copy: Dvd, inSameHull: List[Dvd])(implicit request: Http.Request, messages: play.i18n.Messages)
+
 @import _root_.helpers.EImageSize
 
 @import helper._
@@ -7,18 +8,18 @@
 
 <fieldset>
   <legend>
-    @Messages("headline.unlendCopy"):
+    @messages("headline.unlendCopy"):
     @general.displayposter(copy.movie.id,copy.movie.hasPoster,EImageSize.TINY)
     <i>@general.displayCopyTitle(copy)</i>
     <br />
-    @Messages("lbl.unlendFrom") :
+    @messages("lbl.unlendFrom") :
     <i>@if(copy.borrower != null) { @copy.borrower.userName} else { @copy.borrowerName }</i>
   </legend>
 
   <input type="hidden" id="unlendDvdId" value="@copy.id" />
   
    @if(inSameHull != null) {
-    @checkbox(field = lendForm("alsoOthersInHull"), '_label -> "Others in Hull to")
+    @checkbox(field = lendForm("alsoOthersInHull"), Symbol("_label") -> "Others in Hull to")
 
     @general.displaysubcopylist(inSameHull)
   }

@@ -1,7 +1,7 @@
 package controllers;
 
 import models.User;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 import play.mvc.Http;
 import play.mvc.Result;
@@ -20,12 +20,12 @@ public class RssSecurityAction extends play.mvc.Action.Simple {
     public static String RSS_FEED_AUTH_PARAM = "authKey";
 
     @Override
-    public CompletionStage<Result> call(Http.Context ctx) {
+    public CompletionStage<Result> call(Http.Request request) {
         if (Logger.isDebugEnabled() == true) {
             Logger.debug("Somebody is calling a Rss Feed checking it if allowed to.");
         }
 
-        final String rssAuthKey = ctx.request().getQueryString(RSS_FEED_AUTH_PARAM);
+        final String rssAuthKey = request.getQueryString(RSS_FEED_AUTH_PARAM);
         if (StringUtils.isEmpty(rssAuthKey) == true) {
             if (Logger.isErrorEnabled() == true) {
                 Logger.error("Could not find parameter: " + RSS_FEED_AUTH_PARAM + " in the query !");
@@ -45,8 +45,7 @@ public class RssSecurityAction extends play.mvc.Action.Simple {
             return CompletableFuture.completedFuture(unauthorized("Auth was no success"));
         }
 
-        final Http.Request request = ctx.request().withAttrs(ctx.request().attrs().put(Security.USERNAME, userByRssAuthKey.userName));
-        final Http.Context context = ctx.withRequest(request);
-        return delegate.call(context);
+        request = request.withAttrs(request.attrs().put(Security.USERNAME, userByRssAuthKey.userName));
+        return delegate.call(request);
     }
 }

@@ -2,7 +2,7 @@ package forms.user;
 
 import helpers.GravatarHelper;
 import models.User;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 
 /**

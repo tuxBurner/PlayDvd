@@ -1,4 +1,5 @@
-@(lendForm: Form[forms.LendForm], copy: Dvd, inSameHull: List[Dvd], reservations: Map[String,String], otherUsers: List[String])
+@(lendForm: Form[forms.LendForm], copy: Dvd, inSameHull: List[Dvd], reservations: Map[String,String], otherUsers: List[String])(implicit request: Http.Request, messages: play.i18n.Messages)
+
 @import org.apache.commons.collections.MapUtils
 
 @import helper._
@@ -7,24 +8,24 @@
 <form class="form-horizontal">
 
 <fieldset>
-  <legend>@Messages.apply("headline.lendCopy"): @general.displayposter(copy.movie.id,copy.movie.hasPoster,EImageSize.TINY) <i>@general.displayCopyTitle(copy)</i></legend>
+  <legend>@messages("headline.lendCopy"): @general.displayposter(copy.movie.id,copy.movie.hasPoster,EImageSize.TINY) <i>@general.displayCopyTitle(copy)</i></legend>
 
   <input type="hidden" id="lendDvdId" value="@copy.id" />
 
   @if(MapUtils.isEmpty(reservations) == false) {
-    @select(lendForm("reservation"), options(reservations),'_label->Messages.apply("lbl.toReservation"),'class-> "span5", 'id -> "lendToReservation", 'placeholder -> Messages.apply("lbl.selectAReservation"))
+    @select(lendForm("reservation"), options(reservations),Symbol("_label")->messages("lbl.toReservation"),Symbol("class")-> "span5", Symbol("id") -> "lendToReservation", Symbol("placeholder") -> messages("lbl.selectAReservation"))
   }
 
 
   @if(otherUsers != null) {
-    @select(lendForm("userName"), options(otherUsers),'_label->Messages.apply("lbl.toUser"),'class-> "span5", 'id -> "lendToUser", 'placeholder -> Messages.apply("lbl.selectAnUser"))
+    @select(lendForm("userName"), options(otherUsers),Symbol("_label") -> messages("lbl.toUser"),Symbol("class") -> "span5", Symbol("id") -> "lendToUser", Symbol("placeholder") -> messages("lbl.selectAnUser"))
   }
 
 
-  @inputText(lendForm("freeName"),'_label -> Messages.apply("lbl.toFreeName"), 'class -> "span5")
+  @inputText(lendForm("freeName"),Symbol("_label") -> messages("lbl.toFreeName"), Symbol("class") -> "span5")
   
   @if(inSameHull != null) {
-    @checkbox(field = lendForm("alsoOthersInHull"), '_label -> Messages.apply("lbl.othersInHullTo"))
+    @checkbox(field = lendForm("alsoOthersInHull"), Symbol("_label") -> messages("lbl.othersInHullTo"))
 
     @general.displaysubcopylist(inSameHull)
   }

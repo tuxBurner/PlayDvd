@@ -6,11 +6,9 @@ import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 import play.data.Form;
 import play.data.FormFactory;
+import play.i18n.Messages;
 import play.i18n.MessagesApi;
-import play.mvc.Controller;
-import play.mvc.Result;
-import play.mvc.Results;
-import play.mvc.Security;
+import play.mvc.*;
 import views.html.user.userprofile;
 
 import javax.inject.Inject;
@@ -28,7 +26,7 @@ public class UserProfileController extends Controller {
   private final MessagesApi messagesApi;
 
   @Inject
-  UserProfileController(final FormFactory formFactory, MessagesApi messagesApi) {
+  UserProfileController(final FormFactory formFactory, final MessagesApi messagesApi) {
     this.formFactory = formFactory;
     this.messagesApi = messagesApi;
   }
@@ -38,18 +36,18 @@ public class UserProfileController extends Controller {
    *
    * @return
    */
-  public Result showProfile() {
+  public Result showProfile(final Http.Request request) {
 
-    User currentUser = User.getCurrentUser();
+    User currentUser = User.getCurrentUser(request);
     if(currentUser == null) {
       if(Logger.isErrorEnabled()) {
-        Logger.error("No user was found by the username: "+Secured.getUsername());
+        Logger.error("No user was found by the username: "+Secured.getUsernameStatic(request));
       }
       return internalServerError();
     }
 
     if(StringUtils.isEmpty(currentUser.rssAuthKey) == true) {
-      final String userRssAuthKey = User.createUserRssAuthKey();
+      final String userRssAuthKey = User.createUserRssAuthKey(request);
       currentUser.rssAuthKey = userRssAuthKey;
     }
 
@@ -58,17 +56,22 @@ public class UserProfileController extends Controller {
     userProfileForm.email = currentUser.email;
     userProfileForm.rssAuthKey = currentUser.rssAuthKey;
 
-    return ok(userprofile.render(formFactory.form(UserProfileForm.class).fill(userProfileForm)));
+    final Messages messages = this.messagesApi.preferred(request);
+
+
+    return ok(userprofile.render(formFactory.form(UserProfileForm.class).fill(userProfileForm), request, messages));
   }
 
-  public Result updateProfile() {
-    final Form<UserProfileForm> form = formFactory.form(UserProfileForm.class).bindFromRequest();
+  public Result updateProfile(final Http.Request request) {
+    final Form<UserProfileForm> form = formFactory.form(UserProfileForm.class).bindFromRequest(request);
+
+    final Messages messages = this.messagesApi.preferred(request);
+
     if(form.hasErrors()) {
-      return Results.badRequest(userprofile.render(form));
+      return Results.badRequest(userprofile.render(form, request, messages));
     }
 
-    Controller.flash("success", messagesApi.preferred(request()).at("msg.success.profileUpdated"));
     // redirect so the form gets empty and no passwords are written to the form
-    return redirect(routes.UserProfileController.showProfile());
+    return redirect(routes.UserProfileController.showProfile()).flashing("success", messagesApi.preferred(request).at("msg.success.profileUpdated"));
   }
 }

@@ -6,8 +6,10 @@ import forms.user.LoginForm;
 import forms.user.RegisterForm;
 import play.data.Form;
 import play.data.FormFactory;
+import play.i18n.Messages;
 import play.i18n.MessagesApi;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Results;
 
@@ -37,9 +39,10 @@ public class RegisterLoginController extends Controller {
    *
    * @return
    */
-  public Result showRegister() {
+  public Result showRegister(final Http.Request request) {
     Form<RegisterForm> form = formFactory.form(RegisterForm.class);
-    return Results.ok(views.html.user.register.render(form));
+    final Messages messages = this.messagesApi.preferred(request);
+    return Results.ok(views.html.user.register.render(form, request, messages));
   }
 
   /**
@@ -47,15 +50,16 @@ public class RegisterLoginController extends Controller {
    *
    * @return
    */
-  public Result register() {
-    final Form<RegisterForm> registerForm = formFactory.form(RegisterForm.class).bindFromRequest();
+  public Result register(final Http.Request request) {
+    final Form<RegisterForm> registerForm = formFactory.form(RegisterForm.class).bindFromRequest(request);
     if (registerForm.hasErrors()) {
-      return Results.badRequest(views.html.user.register.render(registerForm));
+      final Messages messages = this.messagesApi.preferred(request);
+      return Results.badRequest(views.html.user.register.render(registerForm, request, messages));
     } else {
 
-      final String message = messagesApi.preferred(request()).at("msg.success.login", registerForm.get().username);
-      Controller.flash("success", message);
-      Controller.session(Secured.AUTH_SESSION, "" + registerForm.get().username);
+      final String message = messagesApi.preferred(request).at("msg.success.login", registerForm.get().username);
+      request.flash().adding("success", message);
+      request.session().adding(Secured.AUTH_SESSION, "" + registerForm.get().username);
       return Results.redirect(routes.ApplicationController.index());
     }
   }
@@ -63,8 +67,9 @@ public class RegisterLoginController extends Controller {
   /**
    * Login page.
    */
-  public Result showLogin() {
-    return Results.ok(views.html.user.login.render(formFactory.form(LoginForm.class)));
+  public Result showLogin(final Http.Request request) {
+    final Messages messages = this.messagesApi.preferred(request);
+    return Results.ok(views.html.user.login.render(formFactory.form(LoginForm.class), request, messages));
   }
 
   /**
@@ -72,23 +77,21 @@ public class RegisterLoginController extends Controller {
    *
    * @return
    */
-  public Result login() {
-    final Form<LoginForm> loginForm = formFactory.form(LoginForm.class).bindFromRequest();
+  public Result login(final Http.Request request) {
+    final Form<LoginForm> loginForm = formFactory.form(LoginForm.class).bindFromRequest(request);
+    final Messages messages = this.messagesApi.preferred(request);
     if (loginForm.hasErrors()) {
-      return Results.badRequest(views.html.user.login.render(loginForm));
+      return Results.badRequest(views.html.user.login.render(loginForm, request, messages));
     } else {
-      Secured.writeUserToSession(loginForm.get().username);
-      final String msg = messagesApi.preferred(request()).at("msg.success.login", loginForm.get().username);
-      Controller.flash("success", msg);
-      return Results.redirect(routes.ApplicationController.index());
+      Secured.writeUserToSession(loginForm.get().username, request);
+      final String msg = messagesApi.preferred(request).at("msg.success.login", loginForm.get().username);
+      return Results.redirect(routes.ApplicationController.index()).flashing("success", msg);
     }
   }
 
 
-  public Result logout() {
-    Controller.session().clear();
-    Controller.flash("success", messagesApi.preferred(request()).at("msg.success.logout"));
-    return Results.redirect(routes.RegisterLoginController.login());
+  public Result logout(final Http.Request request) {
+    return Results.redirect(routes.RegisterLoginController.login()).withNewSession().flashing("success", messagesApi.preferred(request).at("msg.success.logout"));
   }
 
 

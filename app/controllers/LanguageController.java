@@ -3,7 +3,9 @@ package controllers;
 import com.typesafe.config.ConfigFactory;
 import play.Application;
 import play.i18n.Lang;
+import play.i18n.MessagesApi;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 
 import javax.inject.Inject;
@@ -17,6 +19,7 @@ import java.util.Map;
 public class LanguageController extends Controller {
 
 
+  //TODO: LIFT check if we can replace the most with the: https://www.playframework.com/documentation/2.9.x/JavaI18N  and the MessagesApi
   /**
    * Flag name for the languages
    */
@@ -27,14 +30,16 @@ public class LanguageController extends Controller {
    * Names of the languages
    */
   private static HashMap<String, String> languages;
-  
+
   private final Provider<Application> applicationProvider;
 
+  private final MessagesApi messagesApi;
 
 
   @Inject
-  public LanguageController(final Provider<Application> applicationProvider) {
+  public LanguageController(final Provider<Application> applicationProvider, final MessagesApi messagesApi) {
     this.applicationProvider = applicationProvider;
+    this.messagesApi = messagesApi;
   }
 
   /**
@@ -42,16 +47,16 @@ public class LanguageController extends Controller {
    *
    * @return Integer: Number of language allowed in application's conf
    */
-  private Lang getDefaultLang() {
+  private Lang getDefaultLang(final Http.Request request) {
     List<Lang> available = Lang.availables(applicationProvider.get());
-    List<Lang> accepted = request().acceptLanguages();
+    List<Lang> accepted = request.acceptLanguages();
 
     for (Lang testLang : accepted) {
       if (available.contains(testLang)) {
         return testLang;
       }
     }
-    return ctx().lang();
+    return request.transientLang().get();
   }
 
 
@@ -61,19 +66,19 @@ public class LanguageController extends Controller {
    * @param code Language's code
    * @return Redirect to main page
    */
-  public Result changeLanguage(String code) {
+  public Result changeLanguage(String code, final Http.Request request) {
 
-    play.api.i18n.Lang lang = Lang.apply(code);
+    Lang lang = Lang.forCode(code);
 
     final List<Lang> availables = Lang.availables(applicationProvider.get());
 
     if (availables.contains(lang) == false) {
-      lang = getDefaultLang();
+      lang = getDefaultLang(request);
     }
 
-    ctx().changeLang(lang.code());
 
-    return redirect(routes.ApplicationController.index());
+
+    return redirect(routes.ApplicationController.index()).withLang(lang, this.messagesApi);
   }
 
   /**
@@ -82,7 +87,7 @@ public class LanguageController extends Controller {
    * @param i
    * @return
    */
-  private  static String getLanguageName(int i) {
+  private static String getLanguageName(int i) {
     String[] languageNames = ConfigFactory.load().getString("application.languageNames").split(",");
     //TODO: this is shitty
     String languageName = "";
@@ -99,7 +104,7 @@ public class LanguageController extends Controller {
    * @param i
    * @return
    */
-  private  static String getLanguageFlagName(int i) {
+  private static String getLanguageFlagName(int i) {
     String[] languageNames = ConfigFactory.load().getString("application.languageFlags").split(",");
     String languageName = "";//Lang.availables().get(i).code();
     if (languageNames[i] != null) {
@@ -113,7 +118,7 @@ public class LanguageController extends Controller {
    *
    * @return
    */
-  public static  Map<String, String> getLanguageFlags() {
+  public static Map<String, String> getLanguageFlags() {
     if (languageFlags == null) {
       languageFlags = new HashMap<String, String>();
       /*final List<Lang> availables = Lang.availables();

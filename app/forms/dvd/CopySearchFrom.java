@@ -6,9 +6,9 @@ import forms.dvd.objects.EDvdListOrderHow;
 import helpers.CacheHelper;
 import helpers.DvdInfoHelper;
 import helpers.ECacheObjectName;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import play.mvc.Controller;
-import play.mvc.Http.Context;
+import play.mvc.Http;
 
 /**
  * This holds the filter for listing the dvd
@@ -81,8 +81,8 @@ public class CopySearchFrom {
   /**
    * Checks if the searchForm should be displayed in the advanced mode
    */
-  public static boolean displayAdvancedForm(final CacheHelper cacheHelper) {
-    final CopySearchFrom form = CopySearchFrom.getCurrentSearchForm(cacheHelper);
+  public static boolean displayAdvancedForm(final CacheHelper cacheHelper, final Http.Request request) {
+    final CopySearchFrom form = CopySearchFrom.getCurrentSearchForm(cacheHelper, request);
     return (form != null && (StringUtils.isEmpty(form.copyType) == false || form.lendDvd == true));
   }
 
@@ -92,17 +92,17 @@ public class CopySearchFrom {
    * 
    * @return
    */
-  public static CopySearchFrom getCurrentSearchForm(final CacheHelper cacheHelper) {
+  public static CopySearchFrom getCurrentSearchForm(final CacheHelper cacheHelper, final Http.Request request) {
 
-    final Context ctx = Controller.ctx();
+    /*final Context ctx = Controller.ctx();
 
     if (ctx == null) {
       return null;
-    }
+    }*/
 
-    final CopySearchFrom returnVal = cacheHelper.getSessionObjectOrElse(ECacheObjectName.SEARCHFORM, () -> {
+    final CopySearchFrom returnVal = cacheHelper.getSessionObjectOrElse(ECacheObjectName.SEARCHFORM, request, () -> {
       final CopySearchFrom value = new CopySearchFrom();
-      cacheHelper.setSessionObject(ECacheObjectName.SEARCHFORM, value);
+      cacheHelper.setSessionObject(ECacheObjectName.SEARCHFORM, value, request);
       return value;
     });
 
@@ -114,15 +114,15 @@ public class CopySearchFrom {
    *
    * @param copySearchFrom
    */
-  public static void setCurrentSearchForm(final CopySearchFrom copySearchFrom, final CacheHelper cacheHelper) {
+  public static void setCurrentSearchForm(final CopySearchFrom copySearchFrom, final CacheHelper cacheHelper, final Http.Request request) {
 
     // make sure when set to lend and no username is given set it to the current
     // user
     if (copySearchFrom.lendDvd == true && StringUtils.isEmpty(copySearchFrom.userName) == true) {
-      copySearchFrom.userName = Controller.request().username();
+      copySearchFrom.userName = "TODO: FLIFT"; //Controller. .username();
     }
 
-    cacheHelper.setSessionObject(ECacheObjectName.SEARCHFORM, copySearchFrom);
+    cacheHelper.setSessionObject(ECacheObjectName.SEARCHFORM, copySearchFrom, request);
   }
 
   public static String getAgeRatingsAsJson() {

@@ -7,11 +7,13 @@ import objects.shoppingcart.CacheShoppingCartItem;
 import org.apache.commons.collections.CollectionUtils;
 import play.Logger;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import play.mvc.Http;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -62,11 +64,11 @@ public class CopyReservation extends Model
    * @param cart the shoppingcart
    * @return a set of the {@link User} owners of the movies
    */
-  public static Set<User> createFromShoppingCart(final CacheShoppingCart cart) {
+  public static Set<User> createFromShoppingCart(final CacheShoppingCart cart, final Http.Request request) {
     if(cart != null && CollectionUtils.isEmpty(cart.getItems()) == false) {
 
       final long time = new Date().getTime();
-      final User currentUser = User.getCurrentUser();
+      final User currentUser = User.getCurrentUser(request);
 
       if(currentUser == null) {
         if(Logger.isErrorEnabled()) {
@@ -99,12 +101,12 @@ public class CopyReservation extends Model
    * Gets the {@link CopyReservation}s where the owner for the {@link Dvd} is the current user
    * @return
    */
-  public static Map<User, List<CopyReservation>> getReservations() {
-    final User currentUser = User.getCurrentUser();
+  public static Map<User, List<CopyReservation>> getReservations(final Http.Request request) {
+    final User currentUser = User.getCurrentUser(request);
     final List<CopyReservation> list = FINDER.query()
       .where()
       .eq("copy.owner", currentUser)
-      .order("borrower")
+      .orderBy().asc("borrower")
       .findList();
     final Map<User,List<CopyReservation>> result = new HashMap<>();
 
@@ -128,11 +130,11 @@ public class CopyReservation extends Model
    * Gets the {@link CopyReservation}s where the owner for the {@link CopyReservation} is the current user
    * @return
    */
-  public static List<CopyReservation> getOwnReservations() {
-    final User currentUser = User.getCurrentUser();
+  public static List<CopyReservation> getOwnReservations(final Http.Request request) {
+    final User currentUser = User.getCurrentUser(request);
     final List<CopyReservation> list = FINDER.query().where()
       .eq("borrower", currentUser)
-      .order("date DESC")
+      .orderBy("date DESC")
       .findList();
 
     return list;
@@ -142,8 +144,8 @@ public class CopyReservation extends Model
    * Gets the amount of {@link CopyReservation} where the current {@link User} is the owner
    * @return
    */
-  public static int getReservationsCount() {
-    final User currentUser = User.getCurrentUser();
+  public static int getReservationsCount(final Http.Request request) {
+    final User currentUser = User.getCurrentUser(request);
     return FINDER.query()
       .where()
       .eq("copy.owner", currentUser)
@@ -154,8 +156,8 @@ public class CopyReservation extends Model
    * Gets the amount of {@link CopyReservation} wher the current {@link User} is the one reserved the {@link Dvd}
    * @return
    */
-  public static int getReservedCount() {
-    final User currentUser = User.getCurrentUser();
+  public static int getReservedCount(final Http.Request request) {
+    final User currentUser = User.getCurrentUser(request);
     return FINDER.query()
       .where()
       .eq("borrower", currentUser)
@@ -166,8 +168,8 @@ public class CopyReservation extends Model
    * Deletes a {@link CopyReservation} where the {@link CopyReservation#borrower} is the current {@link User}
    * @param reservationId
    */
-  public static void deleteReserved(Long reservationId) {
-    final User currentUser = User.getCurrentUser();
+  public static void deleteReserved(final Long reservationId, final Http.Request request) {
+    final User currentUser = User.getCurrentUser(request);
     final CopyReservation reservation = FINDER.query()
       .where()
       .eq("borrower", currentUser)

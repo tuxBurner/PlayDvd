@@ -2,7 +2,7 @@ package helpers;
 
 import com.google.inject.Singleton;
 import com.typesafe.config.ConfigFactory;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 import play.data.validation.Constraints;
 import play.libs.mailer.Email;

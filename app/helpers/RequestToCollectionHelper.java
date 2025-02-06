@@ -3,6 +3,7 @@ package helpers;
 import java.util.HashMap;
 import java.util.Map;
 
+import play.mvc.Http;
 import play.mvc.Http.Request;
 
 /**
@@ -13,20 +14,21 @@ import play.mvc.Http.Request;
  */
 public class RequestToCollectionHelper {
 
-	
-	public static Map<String, String> requestToFormMap(final Request req, final String ... multiParams) {
+
+	// TODO: LIFT still needed ?
+	public static Map<String, String> requestToFormMap(final Http.Request request, final String ... multiParams) {
 
 		Map<String, String> newData = new HashMap<String, String>();
 		
 		//MAPPING TOOKED FROM: Form.requestData
 		
 		Map<String,String[]> urlFormEncoded = new HashMap<String,String[]>();
-        if(play.mvc.Controller.request().body().asFormUrlEncoded() != null) {
-            urlFormEncoded = play.mvc.Controller.request().body().asFormUrlEncoded();
+        if(request.body().asFormUrlEncoded() != null) {
+            urlFormEncoded = request.body().asFormUrlEncoded();
         }
         
-        if(play.mvc.Controller.request().body().asMultipartFormData() != null) {
-        	urlFormEncoded = play.mvc.Controller.request().body().asMultipartFormData().asFormUrlEncoded();
+        if(request.body().asMultipartFormData() != null) {
+        	urlFormEncoded = request.body().asMultipartFormData().asFormUrlEncoded();
         }
         
 //        Map<String,String> jsonData = new HashMap<String,String>();

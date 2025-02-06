@@ -7,7 +7,7 @@ import models.EMovieAttributeType;
 import models.Movie;
 import models.MovieAttribute;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import play.data.validation.Constraints.Required;
 

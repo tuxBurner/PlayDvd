@@ -1,90 +1,73 @@
-import com.typesafe.sbt.packager.docker.ExecCmd
+lazy val root = (project in file("."))
+  .enablePlugins(PlayJava, PlayEbean)
+  .settings(
+    name := """dvdDataBase""",
+    version := "1.14-SNAPSHOT",
+    crossScalaVersions := Seq("2.13.15", "3.3.3"),
+    scalaVersion := crossScalaVersions.value.head,
+    libraryDependencies ++= Seq(
+      guice,
+      ehcache,
+      ws,
+      "mysql" % "mysql-connector-java" % "8.0.33",
 
-name := """dvdDataBase"""
+      "net.coobird" % "thumbnailator" % "0.4.20",
 
-version := "1.14-SNAPSHOT"
+      "commons-io" % "commons-io" % "2.18.0",
+      "commons-collections" % "commons-collections" % "3.2.2",
+      "org.apache.commons" % "commons-lang3" % "3.17.0",
 
-lazy val root = (project in file(".")).enablePlugins(PlayJava,PlayEbean)
+      "com.google.code.gson" % "gson" % "2.2.4",
 
-scalaVersion := "2.12.4"
+      "com.timgroup" % "jgravatar" % "1.2",
 
-libraryDependencies ++= Seq(
-  guice,
-  ehcache,
-  javaWs,
-  "mysql" % "mysql-connector-java" % "5.1.18",
+      // RSS FEEDS
+      // TODO: https://mvnrepository.com/artifact/com.rometools/rome
+      "rome" % "rome" % "1.0",
 
-  "net.coobird" % "thumbnailator" % "0.4.8",
+      // grabbers
+      "com.omertron" % "thetvdbapi" % "1.9",
+      "com.omertron" % "themoviedbapi" % "4.3",
+      "com.omertron" % "traileraddictapi" % "1.5",
 
-  "commons-io" % "commons-io" % "2.0.1",
-  "commons-collections" % "commons-collections" % "3.2.1",
-  "commons-lang" % "commons-lang" % "2.6",
+      // barcode stuff
+      "com.google.zxing" % "core" % "3.3.2",
 
-  "com.google.code.gson" % "gson" % "2.2.4",
+      // mail
+      "com.typesafe.play" %% "play-mailer" % "9.1.0",
+      "com.typesafe.play" %% "play-mailer-guice" % "9.1.0",
 
-  "com.timgroup" % "jgravatar" % "1.0",
+      // webjars
+      "org.webjars" %% "webjars-play" % "2.9.1",
+      "org.webjars" % "bootstrap" % "2.3.2",
+      "org.webjars" % "jquery" % "1.11.2",
+      "org.webjars" % "jquerypp" % "1.0b2",
+      "org.webjars" % "select2" % "3.5.2",
+      "org.webjars" % "font-awesome" % "3.2.1",
+      "org.webjars" % "famfamfam-flags" % "0.0",
+      "org.webjars" % "holderjs" % "2.4.0",
+      "org.webjars" % "hammerjs" % "2.0.3-1",
+      "org.webjars" % "animate.css" % "3.2.0",
 
-  // RSS FEEDS
-  "rome" % "rome" % "1.0",
+      // js i18n stuff
+      "org.julienrf" %% "play-jsmessages" % "6.0.0",
 
-  // grabbers
-  "com.omertron" % "thetvdbapi" % "1.9",
-  "com.omertron" % "themoviedbapi" % "4.3",
-  "com.omertron" % "traileraddictapi" % "1.5",
+      // tuxburners helpers :)
+      "com.github.tuxBurner" %% "play-jsannotations" % "2.9.0-SNAPSHOT",
+      //,."com.github.tuxBurner" %% "play-twbs3" % "2.4.0",
+      "com.github.tuxBurner" %% "play-akkajobs" % "2.9.0-SNAPSHOT",
+      // amazon stuff
+      "com.amazonaws" % "aws-java-sdk" % "1.11.311",
 
-  // barcode stuff
-  "com.google.zxing" % "core" % "3.3.2",
-
-  // mail
-  "com.typesafe.play" %% "play-mailer" % "6.0.1",
-  "com.typesafe.play" %% "play-mailer-guice" % "6.0.1",
-
-  // webjars
-  "org.webjars" %% "webjars-play" % "2.6.3",
-  "org.webjars" % "bootstrap" % "2.3.2",
-  "org.webjars" % "jquery" % "1.11.2",
-  "org.webjars" % "jquerypp" % "1.0b2",
-  "org.webjars" % "select2" % "3.5.2",
-  "org.webjars" % "font-awesome" % "3.2.1",
-  "org.webjars" % "famfamfam-flags" % "0.0",
-  "org.webjars" % "holderjs" % "2.4.0",
-  "org.webjars" % "hammerjs" % "2.0.3-1",
-  "org.webjars" % "animate.css" % "3.2.0",
-
-  // js i18n stuff
-  "org.julienrf" %% "play-jsmessages" % "3.0.0",
-
-  // tuxburners helpers :)
-  "com.github.tuxBurner" %% "play-jsannotations" % "2.6.0",
-  //,."com.github.tuxBurner" %% "play-twbs3" % "2.4.0",
-  "com.github.tuxBurner" %% "play-akkajobs" % "2.6.1",
-  // amazon stuff
-  "com.amazonaws" % "aws-java-sdk" % "1.11.311",
-
-  // for nice and smooth html parsing
-  "org.jodd" % "jodd-http" % "5.0.12",
-  "org.jodd" % "jodd-lagarto" % "5.0.12"
-
+      // for nice and smooth html parsing
+      "org.jodd" % "jodd-http" % "5.0.12",
+      "org.jodd" % "jodd-lagarto" % "5.0.12"
+    ),
+    javacOptions ++= Seq(
+      "-encoding", "UTF-8",
+      "-parameters",
+      "-Xlint:unchecked",
+      "-Xlint:deprecation"
+      //,"-Werror"
+    ),
 )
-
-resolvers ++= Seq(
-  "tuxburner.github.io" at "http://tuxburner.github.io/repo",
-  "Local Maven Repository" at "file://" + Path.userHome.absolutePath + "/.m2/repository",
-  "Neo4j" at "http://m2.neo4j.org/content/repositories/releases/",
-  Resolver.sonatypeRepo("snapshots")
-)
-
-// http://www.scala-sbt.org/sbt-native-packager/formats/docker.html
-// docker infos go here
-maintainer in Docker := "Sebastian Hardt"
-packageName in Docker := "tuxburner/playdvd"
-dockerExposedPorts in Docker := Seq(9000)
-dockerExposedVolumes in Docker := Seq("/data")
-
-// add the command to use deadzone roster conf
-dockerCommands ++= Seq(
-  ExecCmd("CMD", "-Dconfig.file=/config/playdvd.conf")
-)
-
-
-dockerUpdateLatest in Docker := true

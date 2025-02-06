@@ -1,8 +1,8 @@
-@(shoppingCart : objects.shoppingcart.CacheShoppingCart)
+@(shoppingCart : objects.shoppingcart.CacheShoppingCart)(implicit request: Http.Request, messages: play.i18n.Messages)
 
 @import helper._
 
-@mainmenu(Messages.apply("lbl.shoppingcart")) {
+@mainmenu(messages("lbl.shoppingcart")) {
 
   @general.displayList("lbl.shoppingcart","icon-shopping-cart") {
 
@@ -10,13 +10,13 @@
 
       @if(shoppingCart.getSize == 0) {
         <div class="alert alert-info">
-          <strong>@Messages.apply("msg.info.emptyShoppingcart")</strong>
+          <strong>@messages("msg.info.emptyShoppingcart")</strong>
         </div>
       } else {
         <dl>
           @for((username,items) <- shoppingCart.getItemsSortedByUser){
 
-            <dt>@Messages.apply("lbl.owner"): @username</dt>
+            <dt>@messages("lbl.owner"): @username</dt>
             @for(item <- items) {
               <dd>
                @general.displayitem(item.copyItem)
@@ -26,7 +26,7 @@
         </dl>
 
         <div class="form-actions">
-          <button type="submit" class="btn btn-primary"><i class="icon-ok-sign"></i> @Messages.apply("btn.checkout")</button>
+          <button type="submit" class="btn btn-primary"><i class="icon-ok-sign"></i> @messages("btn.checkout")</button>
         </div>
       }
 
