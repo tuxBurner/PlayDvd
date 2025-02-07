@@ -11,11 +11,9 @@
       <hr />
 
       @if(form.hasGlobalErrors) {
-        <p class="alert alert-error">
         @for(error <- form.globalErrors) {
-          <p>@error.format(messages)</p>
+          <p class="alert alert-error">@error.format(messages)</p>
         }
-        </p>
       }
 
       @if(request.flash.get("success").isDefined) {

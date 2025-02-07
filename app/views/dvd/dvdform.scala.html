@@ -10,7 +10,7 @@
       <!--
       var avaibleBoxes = @Html(DvdAttribute.getAllByTypeAsJson(EDvdAttributeType.BOX));
       var avaibleCollections = @Html(DvdAttribute.getAllByTypeAsJson(EDvdAttributeType.COLLECTION));
-      var selectedMovie = @Html(forms.dvd.CopyForm.getSelectedMovieAsJson(dvdForm("movieId").value().get()));
+      var selectedMovie = @Html(forms.dvd.CopyForm.getSelectedMovieAsJson(dvdForm("movieId").value().orElse("")));
       var avaibleSeries = @Html(models.MovieAttribute.getAvaibleAttributesAsJson(EMovieAttributeType.MOVIE_SERIES));
       //-->
   </script>

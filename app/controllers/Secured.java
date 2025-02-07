@@ -1,6 +1,5 @@
 package controllers;
 
-import models.User;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Results;
@@ -16,7 +15,7 @@ public class Secured extends Security.Authenticator {
   /**
    * Key of the attribute of the user in the session.
    */
-  public static final String AUTH_SESSION = "email";
+  public static final String AUTH_SESSION = "username";
 
   /**
    * Key of the attribute if the user has a gravatar or not. D
@@ -44,18 +43,6 @@ public class Secured extends Security.Authenticator {
 
 
   /**
-   * Sets the user to the session
-   *
-   * @param username
-   * @return
-   */
-  public static void writeUserToSession(final String username, final Http.Request request) {
-    final User userByName = User.getUserByName(username);
-    request.session().adding(Secured.AUTH_SESSION, userByName.userName);
-    request.session().adding(Secured.AUTH_HAS_GRAVATAR, String.valueOf(userByName.hasGravatar));
-  }
-
-  /**
    * Updates the state of the gravatar of the current user in its session.
    * Is used when the user changes his email address.
    *
@@ -65,20 +52,6 @@ public class Secured extends Security.Authenticator {
     request.session().adding(Secured.AUTH_HAS_GRAVATAR, String.valueOf(hasGravatar));
   }
 
-  /*@Override
-  public Optional<String> getUsername(final Http.Request req) {
-    final String username = Secured.getUsername(req);
-
-    if (username != null) {
-      final boolean checkIfUserExsists = User.checkIfUserExsists(username);
-      if (checkIfUserExsists == false) {
-        return null;
-        req.with.
-      }
-    }
-
-    return username;
-  }*/
 
   @Override
   public Result onUnauthorized(final Http.Request request) {

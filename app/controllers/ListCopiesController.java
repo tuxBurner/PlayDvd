@@ -272,7 +272,7 @@ public class ListCopiesController extends Controller {
    * @return
    */
   public static ECopyListView getCurrentViewMode(final Http.Request request) {
-    String viewMode = request.session().get(SESSION_VIEW_MODE).get();
+    String viewMode = request.session().get(SESSION_VIEW_MODE).orElse(null);
     if (viewMode == null) {
       viewMode = DEFAULT_VIEW.name();
       request.session().adding(SESSION_VIEW_MODE, viewMode);

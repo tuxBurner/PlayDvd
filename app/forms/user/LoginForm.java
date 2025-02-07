@@ -4,28 +4,31 @@ import helpers.GravatarHelper;
 import models.User;
 import org.apache.commons.lang3.StringUtils;
 import play.Logger;
+import play.data.validation.Constraints.Validatable;
+import play.data.validation.Constraints.Validate;
 
 /**
  * User: tuxburner
  * Date: 2/3/13
  * Time: 2:21 PM
  */
+@Validate
+public class LoginForm implements Validatable<String> {
 
-public class LoginForm {
-  
   public String username;
 
   public String password;
 
+  @Override
   public String validate() {
     final User user = User.authenticate(username, password);
     if (user == null) {
       return "msg.error.login";
     }
 
-    if(StringUtils.isEmpty(user.passwordResetToken) == false) {
-      if(Logger.isDebugEnabled() == true) {
-        Logger.debug("User: "+username+" has a password reset token set setting it to empty.");
+    if (StringUtils.isEmpty(user.passwordResetToken) == false) {
+      if (Logger.isDebugEnabled() == true) {
+        Logger.debug("User: " + username + " has a password reset token set setting it to empty.");
       }
       user.passwordResetToken = null;
     }
@@ -37,9 +40,8 @@ public class LoginForm {
     user.update();
 
 
-
     return null;
-  } 
+  }
 
   public String getUsername() {
     return username;

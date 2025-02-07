@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import forms.user.LoginForm;
 import forms.user.RegisterForm;
+import models.User;
 import play.data.Form;
 import play.data.FormFactory;
 import play.i18n.Messages;
@@ -12,6 +13,8 @@ import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Results;
+
+import static play.mvc.Security.USERNAME;
 
 
 /**
@@ -58,9 +61,7 @@ public class RegisterLoginController extends Controller {
     } else {
 
       final String message = messagesApi.preferred(request).at("msg.success.login", registerForm.get().username);
-      request.flash().adding("success", message);
-      request.session().adding(Secured.AUTH_SESSION, "" + registerForm.get().username);
-      return Results.redirect(routes.ApplicationController.index());
+      return Results.redirect(routes.ApplicationController.index()).addingToSession(request, Secured.AUTH_SESSION, registerForm.get().username).flashing("success", message);
     }
   }
 
@@ -83,9 +84,11 @@ public class RegisterLoginController extends Controller {
     if (loginForm.hasErrors()) {
       return Results.badRequest(views.html.user.login.render(loginForm, request, messages));
     } else {
-      Secured.writeUserToSession(loginForm.get().username, request);
+      final User userByName = User.getUserByName(loginForm.get().username);
       final String msg = messagesApi.preferred(request).at("msg.success.login", loginForm.get().username);
-      return Results.redirect(routes.ApplicationController.index()).flashing("success", msg);
+      return Results.redirect(routes.ApplicationController.index()).flashing("success", msg).withNewSession()
+          .addingToSession(request, Secured.AUTH_SESSION, loginForm.get().username)
+          .addingToSession(request, Secured.AUTH_HAS_GRAVATAR, String.valueOf(userByName.hasGravatar));
     }
   }
 

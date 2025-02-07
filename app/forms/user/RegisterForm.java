@@ -6,6 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.data.validation.ValidationError;
+import play.data.validation.Constraints.Validate;
+import play.data.validation.Constraints.Validatable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,7 +17,8 @@ import java.util.List;
  * Date: 2/3/13
  * Time: 2:19 PM
  */
-public class RegisterForm {
+@Validate
+public class RegisterForm implements Validatable<List<ValidationError>> {
   @Formats.NonEmpty
   @Constraints.Required(message = "msg.error.noUsername")
   @Constraints.MaxLength(value = 10)
@@ -35,6 +38,7 @@ public class RegisterForm {
 
   public String defaultCopyType;
 
+  @Override
   public List<ValidationError> validate() {
 
     if (password.equals(repassword) == false) {
@@ -44,7 +48,7 @@ public class RegisterForm {
     // check if the username is unique
     final boolean checkIfUserExsists = User.checkIfUserExsists(username);
     if (checkIfUserExsists == true) {
-      return Arrays.asList(new ValidationError(StringUtils.EMPTY,"msg.error.userNameExists"));
+      return Arrays.asList(new ValidationError(StringUtils.EMPTY,"msg.error.userNameExists", List.of(username)));
     }
 
     // TODO: make this not in the register form it is irritating
