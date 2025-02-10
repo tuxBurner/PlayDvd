@@ -245,9 +245,8 @@ public class ListCopiesController extends Controller {
    * @return
    */
   public Result changeViewMode(final String viewMode, final Http.Request request) {
-    request.session().adding(SESSION_VIEW_MODE, viewMode);
-
-    return redirect(routes.ListCopiesController.listAllCopies());
+    return redirect(routes.ListCopiesController.listAllCopies())
+        .addingToSession(request, SESSION_VIEW_MODE, viewMode);
   }
 
   /**
