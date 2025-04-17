@@ -95,7 +95,7 @@ public class CopyController extends Controller {
 
     final Map<String, String> map = RequestToCollectionHelper.requestToFormMap(request, "audioTypes");
     // TODO: LIFT bind(map) is not working
-    final Form<CopyForm> dvdForm = formFactory.form(CopyForm.class); //.bind(map);
+    final Form<CopyForm> dvdForm = formFactory.form(CopyForm.class).bindFromRequest(request);
     final Messages messages = this.messagesApi.preferred(request);
     if (dvdForm.hasErrors()) {
       return Results.badRequest(views.html.dvd.dvdform.render(dvdForm, mode, request, messages));
