@@ -2,6 +2,7 @@ package controllers;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import dao.UserDao;
 import forms.user.LoginForm;
 import forms.user.RegisterForm;
 import models.User;
@@ -13,8 +14,6 @@ import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Results;
-
-import static play.mvc.Security.USERNAME;
 
 
 /**
@@ -84,7 +83,7 @@ public class RegisterLoginController extends Controller {
     if (loginForm.hasErrors()) {
       return Results.badRequest(views.html.user.login.render(loginForm, request, messages));
     } else {
-      final User userByName = User.getUserByName(loginForm.get().username);
+      final User userByName = UserDao.findUserByName(loginForm.get().username);
       final String msg = messagesApi.preferred(request).at("msg.success.login", loginForm.get().username);
       return Results.redirect(routes.ApplicationController.index()).flashing("success", msg).withNewSession()
           .addingToSession(request, Secured.AUTH_SESSION, loginForm.get().username)

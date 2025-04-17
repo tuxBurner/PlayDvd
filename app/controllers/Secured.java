@@ -5,6 +5,8 @@ import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
 
+import java.util.Optional;
+
 /**
  * This handles the security stuff for the page
  *
@@ -38,7 +40,13 @@ public class Secured extends Security.Authenticator {
    * @return true when the user has a gravatar false when not.
    */
   public static boolean getUserHasGravatar(final Http.Request request) {
-    return Boolean.parseBoolean(request.session().get(Secured.AUTH_HAS_GRAVATAR).get());
+
+    final var gravatarString = request.session().get(Secured.AUTH_HAS_GRAVATAR);
+    if(gravatarString.isEmpty()) {
+      return false;
+    }
+
+    return Boolean.parseBoolean(gravatarString.get());
   }
 
 

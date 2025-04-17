@@ -1,13 +1,14 @@
 package models;
 
 
+import dao.UserDao;
 import forms.dvd.CopyForm;
 import forms.dvd.CopySearchFrom;
 import forms.dvd.objects.EDvdListOrderBy;
 import forms.dvd.objects.EDvdListOrderHow;
 import forms.dvd.objects.PrevNextCopies;
-import io.ebean.Query;
 import io.ebean.*;
+import io.ebean.Query;
 import jakarta.persistence.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -104,7 +105,7 @@ public class Dvd extends Model {
    */
   public static Dvd createFromForm(final String userName, final CopyForm copyForm) throws Exception {
 
-    final User owner = User.getUserByName(userName);
+    final User owner = UserDao.findUserByName(userName);
     if (owner == null) {
       throw new Exception("User does not exist in the Database");
     }
@@ -529,7 +530,7 @@ public class Dvd extends Model {
    * @return
    */
   public static Map<String, List<Dvd>> getLentDvds(final Http.Request request) {
-    final User currentUser = User.getCurrentUser(request);
+    final User currentUser = UserDao.findCurrentUser(request);
 
     final Map<String, List<Dvd>> result = new TreeMap<String, List<Dvd>>();
     final List<Dvd> list = FINDER.query()
@@ -556,7 +557,7 @@ public class Dvd extends Model {
    * @return
    */
   public static int getLentDvdsCount(final Http.Request request) {
-    final User currentUser = User.getCurrentUser(request);
+    final User currentUser = UserDao.findCurrentUser(request);
     return FINDER.query()
         .where()
         .eq("owner", currentUser)
@@ -571,7 +572,7 @@ public class Dvd extends Model {
    * @return
    */
   public static List<Dvd> getBorrowedDvds(final Http.Request request) {
-    final User currentUser = User.getCurrentUser(request);
+    final User currentUser = UserDao.findCurrentUser(request);
     return FINDER.query()
         .where()
         .isNotNull("borrower")
@@ -587,7 +588,7 @@ public class Dvd extends Model {
    * @return
    */
   public static int getBorrowedDvdsCount(final Http.Request request) {
-    final User currentUser = User.getCurrentUser(request);
+    final User currentUser = UserDao.findCurrentUser(request);
     return FINDER.query()
         .where()
         .isNotNull("borrower")
@@ -650,7 +651,7 @@ public class Dvd extends Model {
 
       User userByName = null;
       if (StringUtils.isEmpty(userName) == false) {
-        userByName = User.getUserByName(userName);
+        userByName = UserDao.findUserByName(userName);
       }
 
       for (final Dvd dvd : dvdsToLend) {

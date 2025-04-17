@@ -1,6 +1,7 @@
 package controllers;
 
 
+import dao.UserDao;
 import models.Dvd;
 import models.DvdAttribute;
 import models.User;
@@ -43,7 +44,7 @@ public class ExportMoviesController extends Controller {
   @Security.Authenticated(Secured.class)
   public Result displayExportOptions(final Http.Request request) {
 
-    final User currentUser = User.getCurrentUser(request);
+    final User currentUser = UserDao.findCurrentUser(request);
     final Messages messages = this.messagesApi.preferred(request);
 
     return ok(views.html.export.export.render(currentUser.rssAuthKey, request, messages));

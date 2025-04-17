@@ -1,5 +1,6 @@
 package forms.user;
 
+import dao.UserDao;
 import helpers.GravatarHelper;
 import models.User;
 import org.apache.commons.lang3.StringUtils;
@@ -21,7 +22,7 @@ public class LoginForm implements Validatable<String> {
 
   @Override
   public String validate() {
-    final User user = User.authenticate(username, password);
+    final User user = UserDao.authenticate(username, password);
     if (user == null) {
       return "msg.error.login";
     }

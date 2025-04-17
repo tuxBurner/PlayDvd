@@ -1,5 +1,6 @@
 package controllers;
 
+import dao.UserDao;
 import forms.user.UserProfileForm;
 import models.User;
 import org.apache.commons.lang3.StringUtils;
@@ -38,17 +39,16 @@ public class UserProfileController extends Controller {
    */
   public Result showProfile(final Http.Request request) {
 
-    User currentUser = User.getCurrentUser(request);
-    if(currentUser == null) {
-      if(Logger.isErrorEnabled()) {
-        Logger.error("No user was found by the username: "+Secured.getUsernameStatic(request));
+    User currentUser = UserDao.findCurrentUser(request);
+    if (currentUser == null) {
+      if (Logger.isErrorEnabled()) {
+        Logger.error("No user was found by the username: " + Secured.getUsernameStatic(request));
       }
       return internalServerError();
     }
 
-    if(StringUtils.isEmpty(currentUser.rssAuthKey) == true) {
-      final String userRssAuthKey = User.createUserRssAuthKey(request);
-      currentUser.rssAuthKey = userRssAuthKey;
+    if (StringUtils.isEmpty(currentUser.rssAuthKey) == true) {
+      currentUser = UserDao.createUserRssAuthKey(currentUser);
     }
 
     UserProfileForm userProfileForm = new UserProfileForm();
@@ -67,7 +67,7 @@ public class UserProfileController extends Controller {
 
     final Messages messages = this.messagesApi.preferred(request);
 
-    if(form.hasErrors()) {
+    if (form.hasErrors()) {
       return Results.badRequest(userprofile.render(form, request, messages));
     }
 

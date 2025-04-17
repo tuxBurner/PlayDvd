@@ -1,6 +1,6 @@
 package forms.user;
 
-import controllers.Secured;
+import dao.UserDao;
 import helpers.DvdInfoHelper;
 import helpers.GravatarHelper;
 import models.User;
@@ -8,11 +8,12 @@ import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 import play.data.validation.Constraints;
 import play.data.validation.Constraints.MaxLength;
-import play.mvc.Http;
+import play.mvc.Security;
 
 import java.util.List;
 
-public class UserProfileForm {
+@Constraints.ValidateWithPayload
+public class UserProfileForm implements Constraints.ValidatableWithPayload<String> {
 
   @MaxLength(value = 10)
   public String password;
@@ -32,45 +33,56 @@ public class UserProfileForm {
    *
    * @return
    */
-  public String validate(final Http.Request request) {
+  @Override
+  public String validate(Constraints.ValidationPayload payload) {
+    // just a marker to show that we are in the validate method
+    //RequestAttrKey.Session();
+
+    final var username = payload.getAttrs().get(Security.USERNAME);
+
+    if(StringUtils.isEmpty(username)) {
+      Logger.error("No username found in the session.");
+      return "msg.error";
+    }
 
 
-    final User userToUpdate = User.getCurrentUser(request);
+
+    final User userToUpdate = UserDao.findUserByName(username);
     if (userToUpdate == null) {
-      Logger.error("No user found by the name: " + Secured.getUsernameStatic(request));
+      Logger.error("No user found by the name: " + username);
       return "msg.error";
     }
 
     if (StringUtils.isEmpty(password) == false && StringUtils.isEmpty(rePassword) == false) {
-      Logger.debug("User: " + Secured.getUsernameStatic(request) + " wants to change the password.");
+      Logger.debug("User: " + username + " wants to change the password.");
       if (StringUtils.equals(password, rePassword) == false) {
-        Logger.error(Secured.getUsernameStatic(request) + " did not entered matched passwords.");
+        Logger.error(username + " did not entered matched passwords.");
         return "msg.error.passwordsNoMatch";
       }
 
-
-      userToUpdate.password = User.cryptPassword(password);
+      userToUpdate.setPassword(UserDao.cryptPassword(password));
     }
 
     if (StringUtils.isEmpty(defaultCopyType) == false) {
-      Logger.debug(Secured.getUsernameStatic(request) + " sets defaultCopyType to: " + defaultCopyType);
+      Logger.debug(username + " sets defaultCopyType to: " + defaultCopyType);
       List<String> copyTypes = DvdInfoHelper.getCopyTypes();
       if (copyTypes.contains(defaultCopyType) == false) {
-        Logger.error("User: " + Secured.getUsernameStatic(request) + " selected a copyType: " + defaultCopyType + " which is not configured.");
+        Logger.error("User: " + username + " selected a copyType: " + defaultCopyType + " which is not configured.");
         return "The selected copytype: " + defaultCopyType + " does not exists.";
       }
 
-      userToUpdate.defaultCopyType = defaultCopyType;
+      userToUpdate.setDefaultCopyType(defaultCopyType);
     }
 
-    userToUpdate.email = email;
+    userToUpdate.setEmail(email);
 
     byte[] gravatarBytes = GravatarHelper.getGravatarBytes(userToUpdate.email, 16);
     userToUpdate.hasGravatar = (gravatarBytes != null);
 
     userToUpdate.save();
 
-    Secured.updateHasGravatar(userToUpdate.hasGravatar, request);
+    // TODO: LIFT can we add it to the session here  or should we do it afterwards actually this is not a validate thing?
+    //Secured.updateHasGravatar(userToUpdate.hasGravatar, request);
 
     return null;
   }

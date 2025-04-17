@@ -2,6 +2,7 @@ package controllers;
 
 import com.github.tuxBurner.jsAnnotations.JSRoute;
 import com.google.inject.Singleton;
+import dao.UserDao;
 import forms.ExternalImageForm;
 import forms.LendForm;
 import forms.UnLendForm;
@@ -128,7 +129,7 @@ public class DashboardController extends Controller {
 
     final Form<LendForm> form = formFactory.form(LendForm.class);
     final Messages messages = this.messagesApi.preferred(request);
-    return Results.ok(views.html.dashboard.lendform.render(form, dvdForUser, dvdForUserInSameHull, reservationsForCopy, User.getOtherUserNames(request), request, messages));
+    return Results.ok(views.html.dashboard.lendform.render(form, dvdForUser, dvdForUserInSameHull, reservationsForCopy, UserDao.loadOtherUserNames(request), request, messages));
   }
 
   /**
@@ -148,6 +149,17 @@ public class DashboardController extends Controller {
 
     if (dvdForUser.borrowDate == null) {
       final String message = "The Dvd: " + dvdForUser + " is not borrowed to anybody !";
+      Logger.error(message);
+      Logger.error(message);
+      Logger.error(message);
+      Logger.error(message);
+      Logger.error(message);
+      Logger.error(message);
+      Logger.error(message);
+      Logger.error(message);
+      Logger.error(message);
+      Logger.error(message);
+      Logger.error(message);
       Logger.error(message);
       return Results.internalServerError(message);
     }
@@ -337,7 +349,7 @@ public class DashboardController extends Controller {
   public Result gravatar(final Integer size, final String userName, final Http.Request request) {
 
     final String ownerName = (userName == null) ? Secured.getUsernameStatic(request) : userName;
-    final User userByName = User.getUserByName(ownerName);
+    final User userByName = UserDao.findUserByName(ownerName);
 
     final String gravatarEmail = (userByName == null) ? "" : userByName.email;
 

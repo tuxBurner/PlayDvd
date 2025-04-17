@@ -1,5 +1,6 @@
 package controllers;
 
+import dao.UserDao;
 import forms.user.LostPasswordForm;
 import forms.user.PasswordResetForm;
 import helpers.MailerHelper;
@@ -75,7 +76,7 @@ public class PasswordResetController extends Controller {
     if (form.hasErrors() == false && form.hasGlobalErrors() == false) {
 
 
-      User userByName = User.getUserByName(form.get().username);
+      User userByName = UserDao.findUserByName(form.get().username);
       if (userByName == null) {
         if (Logger.isErrorEnabled() == true) {
           Logger.error("A user tries to reset his password with an username (" + form.get().username + ") which does not exists.");
@@ -89,7 +90,7 @@ public class PasswordResetController extends Controller {
 
       final String activationUrl = routes.PasswordResetController.showPasswordReset(userByName.passwordResetToken).absoluteURL(request);
 
-      final String content = messagesApi.preferred(request).at("email.passwordreset.content",userByName.userName,activationUrl);
+      final String content = messagesApi.preferred(request).at("email.passwordreset.content", userByName.userName, activationUrl);
 
       if (Logger.isDebugEnabled() == true) {
         Logger.debug("Email send to: " + userByName.email + " with activation code: " + activationUrl);
@@ -139,9 +140,9 @@ public class PasswordResetController extends Controller {
       return Results.badRequest(views.html.user.passwordreset.render(passwordResetForm, token, request, messages));
     }
 
-    User userByResetToken = User.getUserByResetToken(token);
+    User userByResetToken = UserDao.findUserByResetToken(token);
     if (userByResetToken != null) {
-      userByResetToken.password = User.cryptPassword(passwordResetForm.get().password);
+      userByResetToken.password = UserDao.cryptPassword(passwordResetForm.get().password);
       userByResetToken.update();
     }
 

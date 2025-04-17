@@ -1,6 +1,7 @@
 package controllers;
 
 import com.github.tuxBurner.jsAnnotations.JSRoute;
+import dao.UserDao;
 import helpers.CacheHelper;
 import helpers.ECacheObjectName;
 import helpers.MailerHelper;
@@ -124,7 +125,7 @@ public class ShoppingCartController extends Controller {
       Set<User> owners = CopyReservation.createFromShoppingCart(shoppingCart, request);
 
       for (User owner : owners) {
-        Txt emailTxt = views.txt.email.checkout.render(owner, User.getCurrentUser(request), request, messages);
+        Txt emailTxt = views.txt.email.checkout.render(owner, UserDao.findCurrentUser(request), request, messages);
         mailerHelper.sendMail(messagesApi.preferred(request).at("email.shoppingcart.subject"), owner.email, emailTxt.body(), false);
       }
 

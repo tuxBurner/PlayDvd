@@ -1,34 +1,22 @@
 package models;
 
-import com.google.gson.Gson;
-import com.typesafe.config.ConfigFactory;
-import controllers.Secured;
 import io.ebean.Finder;
 import io.ebean.Model;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
-import play.Logger;
-import play.data.format.Formats;
-import play.data.validation.Constraints.Required;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import play.mvc.Http;
-
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import play.data.format.Formats;
+import play.data.validation.Constraints.Required;
 
 @Entity
-@Table(name="user")
-public class User extends Model
-{
+@Table(name = "user")
+public class User extends Model {
 
+  /**
+   * The Finder
+   */
+  public static final Finder<Long, User> FINDER = new Finder<>(User.class);
 
   @Id
   public Long id;
@@ -68,179 +56,28 @@ public class User extends Model
    */
   public String rssAuthKey;
 
-  /**
-   * The Finder
-   */
-  public static Finder<Long, User> FINDER = new Finder<>(User.class);
 
-  /**
-   * Saves the user to the database
-   *
-   * @param user
-   */
-  public static void create(final User user) {
-
-    try {
-      user.password = User.cryptPassword(user.password);
-      user.save();
-    } catch (final Exception e) {
-      Logger.error("An error happend while creating the new user.", e);
-    }
+  public void setRssAuthKey(String rssAuthKey) {
+    this.rssAuthKey = rssAuthKey;
   }
 
-  /**
-   * No plain password please in the dataBase :)
-   *
-   * @param password
-   * @return
-   * @throws NoSuchAlgorithmException
-   * @throws UnsupportedEncodingException
-   */
-  public static String cryptPassword(final String password) {
-    final String md5Hex = DigestUtils.md5Hex(ConfigFactory.load().getString("play.http.secret.key") + password + ConfigFactory.load().getString("play.http.secret.key"));
-    return md5Hex;
+  public void setPassword(String password) {
+    this.password = password;
   }
 
-  public static User authenticate(final String username, final String password) {
-    try {
-      final String cryptPassword = User.cryptPassword(password);
-      return User.FINDER.query()
-        .where()
-        .ieq("userName", username)
-        .eq("password", cryptPassword)
-        .findOne();
-    } catch (final Exception e) {
-      Logger.error("Error while creating the password.", e);
-    }
-
-    return null;
+  public void setEmail(String email) {
+    this.email = email;
   }
 
-  /**
-   * Checks if a {@link User} wit the given username exists
-   *
-   * @param username
-   * @return
-   */
-  public static boolean checkIfUserExsists(final String username) {
-    return User.getUserByName(username) != null;
+  public void setHasGravatar(boolean hasGravatar) {
+    this.hasGravatar = hasGravatar;
   }
 
-  /**
-   * Gets the current loggedin user from the database
-   *
-   * @return
-   */
-  public static User getCurrentUser(final Http.Request request) {
-    return getUserByName(Secured.getUsernameStatic(request));
+  public void setDefaultCopyType(String defaultCopyType) {
+    this.defaultCopyType = defaultCopyType;
   }
 
-  /**
-   * Gets a {@link User} by the given username
-   *
-   * @param username
-   * @return
-   */
-  public static User getUserByName(final String username) {
-    return User.FINDER.query()
-      .where()
-      .ieq("userName", username)
-      .findOne();
+  public void setPasswordResetToken(String passwordResetToken) {
+    this.passwordResetToken = passwordResetToken;
   }
-
-  /**
-   * Gets a {@link User} by the given passwordResetToken
-   *
-   * @param passwordResetToken
-   * @return
-   */
-  public static User getUserByResetToken(final String passwordResetToken) {
-    return User.FINDER.query()
-      .where()
-      .ieq("passwordResetToken", passwordResetToken)
-      .findOne();
-  }
-
-  /**
-   * This is needed for the search form
-   *
-   * @return
-   */
-  public static String getUserNamesAsJson() {
-    final List<User> users = User.FINDER.query()
-      .select("userName")
-      .orderBy("userName asc")
-      .findList();
-
-    final List<String> result = new ArrayList<String>();
-
-    for (final User user : users) {
-      result.add(user.userName);
-    }
-
-    final Gson gson = new Gson();
-    return gson.toJson(result);
-  }
-
-  /**
-   * Gets all other usernames
-   *
-   * @return
-   */
-  public static List<String> getOtherUserNames(final Http.Request request) {
-    final List<User> findList = User.FINDER.query()
-      .select("userName")
-      .where()
-      .ne("userName", Secured.getUsernameStatic(request))
-      .orderBy("userName asc")
-      .findList();
-
-    List<String> list = null;
-    if (CollectionUtils.isEmpty(findList) == false) {
-      list = new ArrayList<String>();
-      list.add("");
-      for (final User user : findList) {
-        list.add(user.userName);
-      }
-    }
-    return list;
-  }
-
-  /**
-   * Gets a {@link User} by the rss auth key
-   * @param rssAuthKey
-   * @return
-   */
-  public static User getUserByRssAuthKey(final String rssAuthKey) {
-    if(StringUtils.isEmpty(rssAuthKey) == true) {
-      return null;
-    }
-
-    return User.FINDER.query()
-      .where()
-      .eq("rssAuthKey",rssAuthKey)
-      .findOne();
-  }
-
-  /**
-   * Creates a rss auth key for the current user
-   * @return
-   */
-  public static String createUserRssAuthKey(final Http.Request request) {
-    final User currentUser = getCurrentUser(request);
-    if(currentUser == null) {
-      return null;
-    }
-    if(StringUtils.isEmpty(currentUser.rssAuthKey) == true) {
-      if(Logger.isDebugEnabled() == true) {
-        Logger.debug("No rssAuthKey found for the user. Generating a new one");
-      }
-      final String key = UUID.randomUUID().toString();
-      currentUser.rssAuthKey = key;
-      currentUser.update();
-    }
-
-    return currentUser.rssAuthKey;
-  }
-
 }

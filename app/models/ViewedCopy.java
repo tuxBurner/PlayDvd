@@ -1,6 +1,7 @@
 package models;
 
 import controllers.Secured;
+import dao.UserDao;
 import io.ebean.Finder;
 import io.ebean.Model;
 import io.ebean.PagedList;
@@ -74,7 +75,7 @@ public class ViewedCopy extends Model {
       return null;
     }
 
-    final User currentUser = User.getCurrentUser(request);
+    final User currentUser = UserDao.findCurrentUser(request);
     if (currentUser == null) {
       if (Logger.isErrorEnabled() == true) {
         Logger.error("Could not find current user");

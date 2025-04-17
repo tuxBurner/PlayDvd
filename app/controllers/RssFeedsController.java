@@ -2,6 +2,7 @@ package controllers;
 
 import com.sun.syndication.feed.synd.*;
 import com.sun.syndication.io.SyndFeedOutput;
+import dao.UserDao;
 import helpers.EImageSize;
 import helpers.EImageType;
 import models.Dvd;
@@ -47,7 +48,7 @@ public class RssFeedsController extends Controller {
   @Security.Authenticated(Secured.class)
   public Result displayRssFeedLinks(final Http.Request request) {
 
-    final User currentUser = User.getCurrentUser(request);
+    final User currentUser = UserDao.findCurrentUser(request);
     if (currentUser == null) {
       return unauthorized();
     }

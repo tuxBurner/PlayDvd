@@ -15,5 +15,9 @@ It helps me to keep my BluRay/Dvd Movie collection together.
 
   
 ## Get it running 
+
+## Infos
+
+* https://github.com/playframework/play-ebean/blob/7.3.0/docs/manual/working/javaGuide/main/sql/JavaEbean.md
  
 

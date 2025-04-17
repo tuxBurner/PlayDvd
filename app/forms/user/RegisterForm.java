@@ -1,13 +1,14 @@
 package forms.user;
 
+import dao.UserDao;
 import helpers.DvdInfoHelper;
 import models.User;
 import org.apache.commons.lang3.StringUtils;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
-import play.data.validation.ValidationError;
-import play.data.validation.Constraints.Validate;
 import play.data.validation.Constraints.Validatable;
+import play.data.validation.Constraints.Validate;
+import play.data.validation.ValidationError;
 
 import java.util.Arrays;
 import java.util.List;
@@ -42,22 +43,22 @@ public class RegisterForm implements Validatable<List<ValidationError>> {
   public List<ValidationError> validate() {
 
     if (password.equals(repassword) == false) {
-      return Arrays.asList(new ValidationError(StringUtils.EMPTY,"msg.error.passwordsNoMatch"));
+      return Arrays.asList(new ValidationError(StringUtils.EMPTY, "msg.error.passwordsNoMatch"));
     }
 
     // check if the username is unique
-    final boolean checkIfUserExsists = User.checkIfUserExsists(username);
+    final boolean checkIfUserExsists = UserDao.checkIfUserExsists(username);
     if (checkIfUserExsists == true) {
-      return Arrays.asList(new ValidationError(StringUtils.EMPTY,"msg.error.userNameExists", List.of(username)));
+      return Arrays.asList(new ValidationError(StringUtils.EMPTY, "msg.error.userNameExists", List.of(username)));
     }
 
     // TODO: make this not in the register form it is irritating
     if (StringUtils.isEmpty(defaultCopyType) == true) {
-      return Arrays.asList(new ValidationError(StringUtils.EMPTY,"No default copytype selected."));
+      return Arrays.asList(new ValidationError(StringUtils.EMPTY, "No default copytype selected."));
     }
     final List<String> copyTypes = DvdInfoHelper.getCopyTypes();
     if (copyTypes.contains(defaultCopyType) == false) {
-      return Arrays.asList(new ValidationError(StringUtils.EMPTY,"The selected copytype: " + defaultCopyType + " does not exists."));
+      return Arrays.asList(new ValidationError(StringUtils.EMPTY, "The selected copytype: " + defaultCopyType + " does not exists."));
     }
 
 
@@ -67,7 +68,7 @@ public class RegisterForm implements Validatable<List<ValidationError>> {
     user.password = password;
     user.defaultCopyType = defaultCopyType;
 
-    User.create(user);
+    UserDao.create(user);
 
     return null;
   }

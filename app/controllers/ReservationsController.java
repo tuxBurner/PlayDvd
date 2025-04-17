@@ -1,6 +1,7 @@
 package controllers;
 
 import com.github.tuxBurner.jsAnnotations.JSRoute;
+import dao.UserDao;
 import models.CopyReservation;
 import models.Dvd;
 import models.User;
@@ -40,7 +41,7 @@ public class ReservationsController extends Controller {
    */
   public Result showReservations(final Http.Request request) {
     final Messages messages = this.messagesApi.preferred(request);
-    return ok(views.html.reservations.showreservations.render(CopyReservation.getReservations(request),request, messages));
+    return ok(views.html.reservations.showreservations.render(CopyReservation.getReservations(request), request, messages));
   }
 
 
@@ -96,7 +97,7 @@ public class ReservationsController extends Controller {
   public Result deleteReservations(final String reservationIds, final Http.Request request) {
     if (StringUtils.isEmpty(reservationIds) == false) {
       final String[] ids = extractIds(reservationIds);
-      final User currentUser = User.getCurrentUser(request);
+      final User currentUser = UserDao.findCurrentUser(request);
       for (final String id : ids) {
         if (StringUtils.isNumeric(id) == true) {
           CopyReservation.deleteReservation(Long.valueOf(id), currentUser);
@@ -118,7 +119,7 @@ public class ReservationsController extends Controller {
   public Result borrowReservations(final String reservationIds, final Http.Request request) {
     if (StringUtils.isEmpty(reservationIds) == false) {
       final String[] ids = extractIds(reservationIds);
-      final User currentUser = User.getCurrentUser(request);
+      final User currentUser = UserDao.findCurrentUser(request);
       for (final String id : ids) {
         if (StringUtils.isNumeric(id) == true) {
           CopyReservation.borrowReservation(Long.valueOf(id), currentUser);
@@ -139,7 +140,7 @@ public class ReservationsController extends Controller {
   public Result unlentCopies(final String copyIds, final Http.Request request) {
     if (StringUtils.isEmpty(copyIds) == false) {
       final String[] ids = extractIds(copyIds);
-      final User currentUser = User.getCurrentUser(request);
+      final User currentUser = UserDao.findCurrentUser(request);
       for (final String id : ids) {
         if (StringUtils.isNumeric(id) == true) {
           Dvd.unlendDvdToUser(Long.valueOf(id), Secured.getUsernameStatic(request), false);
