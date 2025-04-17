@@ -27,7 +27,7 @@
             @for(copy <- borrowedCopies) {
               <tr>
                 <td>@general.displayitem(copy,true)</td>
-                <td>@{new Date(copy.borrowDate).format(messages("dateFormatHour"))}</td>
+                <td>@{new Date(copy.getBorrowDate).format(messages("dateFormatHour"))}</td>
               </tr>
             }
           </tbody>

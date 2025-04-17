@@ -77,7 +77,7 @@
 
           <label for="copyType">@messages("lbl.copyType"):</label>
           @for((copyType, index) <- helpers.DvdInfoHelper.getCopyTypes.zipWithIndex) {
-            <input type="radio" id="copyType" name="copyType" value="@copyType" @if(mode == CopyController.DVD_FORM_EDIT_MODE && copyType == dvdForm("copyType").value() || mode == CopyController.DVD_FORM_ADD_MODE && dvdForm("copyType").value() == null && (index == 0 || copyType.equals(UserDao.findCurrentUser(request).defaultCopyType)) || mode == CopyController.DVD_FORM_ADD_MODE && dvdForm("copyType").value() != null && copyType == dvdForm("copyType").value()) {
+            <input type="radio" id="copyType" name="copyType" value="@copyType" @if(mode == CopyController.DVD_FORM_EDIT_MODE && copyType == dvdForm("copyType").value() || mode == CopyController.DVD_FORM_ADD_MODE && dvdForm("copyType").value() == null && (index == 0 || copyType.equals(UserDao.findCurrentUser(request).getDefaultCopyType)) || mode == CopyController.DVD_FORM_ADD_MODE && dvdForm("copyType").value() != null && copyType == dvdForm("copyType").value()) {
               checked="checked"
           } /><span><img class="img-rounded" alt="@copyType" src="@routes.Assets.versioned("images/copy_type/" + copyType + ".png")" /></span>
           }

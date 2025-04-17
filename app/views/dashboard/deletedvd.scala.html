@@ -1,11 +1,11 @@
-@( copy: Dvd)(implicit request: Http.Request, messages: play.i18n.Messages)
+@(copy: Dvd)(implicit request: Http.Request, messages: play.i18n.Messages)
 
 @import _root_.helpers.EImageSize
 
 
 <form class="form-horizontal">
   <fieldset>
-    <legend>@messages("headline.deleteCopy"): @general.displayposter(copy.movie.getId,copy.movie.getHasPoster,EImageSize.TINY) <i>@general.displayCopyTitle(copy)</i></legend>
-    <input type="hidden" id="deleteDvdId" value="@copy.id" />
+    <legend>@messages("headline.deleteCopy"): @general.displayposter(copy.getMovie.getId,copy.getMovie.getHasPoster,EImageSize.TINY) <i>@general.displayCopyTitle(copy)</i></legend>
+    <input type="hidden" id="deleteDvdId" value="@copy.getId" />
   </fieldset>
 </form>

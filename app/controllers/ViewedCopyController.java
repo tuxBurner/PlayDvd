@@ -87,7 +87,7 @@ public class ViewedCopyController extends Controller {
     }
 
     if (BooleanUtils.isTrue(remBookMark)) {
-      Bookmark.deletAllBookmarksForCopy(viewedCopy.copy, request);
+      Bookmark.deleteAllBookmarksForCopy(viewedCopy.copy, request);
       cacheHelper.removeSessionObj(ECacheObjectName.BOOKMARKS, request);
     }
 

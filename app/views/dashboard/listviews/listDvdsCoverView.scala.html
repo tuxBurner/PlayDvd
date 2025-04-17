@@ -7,17 +7,17 @@
   @for(dvd <- dvdPage.list) {
     <li class="span3 coverlist_li">
       <div class="coverwrapper">
-        <em data-dvd-id="@dvd.id" class="@DvdAttribute.getCopyTypeAttribute(dvd)">
-          @if(dvd.borrower != null || dvd.borrowerName != null){
-            <div class="coverborrowed  @if(dvd.borrower != null  && dvd.borrower.userName == username) {selfBorrowed}"></div>
+        <em data-dvd-id="@dvd.getId" class="@DvdAttribute.getCopyTypeAttribute(dvd)">
+          @if(dvd.getBorrower != null || dvd.getBorrowerName != null){
+            <div class="coverborrowed  @if(dvd.getBorrower != null  && dvd.getBorrower.getUserName == username) {selfBorrowed}"></div>
           }
 
-          <div class="well well-small dvdInfo @if(dvd.borrower != null || dvd.borrowerName != null){borrowed} @if(dvd.borrower != null  && dvd.borrower.userName == username) {selfBorrowed}">
-            <p> @general.displayCopyTitle(dvd) @if(dvd.hullNr != null) { (@dvd.hullNr) }</p>
+          <div class="well well-small dvdInfo @if(dvd.getBorrower != null || dvd.getBorrowerName != null){borrowed} @if(dvd.getBorrower != null  && dvd.getBorrower.getUserName == username) {selfBorrowed}">
+            <p> @general.displayCopyTitle(dvd) @if(dvd.getHullNr != null) { (@dvd.getHullNr) }</p>
             <span>
-              @dvd.owner.userName
-              @if(dvd.borrower != null || dvd.borrowerName != null){
-                -> @if(dvd.borrower != null){ @dvd.borrower.userName } else { @dvd.borrowerName }
+              @dvd.getOwner.getUserName
+              @if(dvd.getBorrower != null || dvd.getBorrowerName != null){
+                -> @if(dvd.getBorrower != null){ @dvd.getBorrower.getUserName } else { @dvd.getBorrowerName }
               }
             </span>
           </div>
@@ -26,7 +26,7 @@
 
         @dashboard.listviews.copyListBtnsWrapper(dvd,username,shoppingCart,bookmarkedCopys)
         <a>
-          @general.displayposter(dvd.movie.getId,dvd.movie.getHasPoster,EImageSize.SMALL)
+          @general.displayposter(dvd.getMovie.getId,dvd.getMovie.getHasPoster,EImageSize.SMALL)
         </a>
       </div>
     </li>

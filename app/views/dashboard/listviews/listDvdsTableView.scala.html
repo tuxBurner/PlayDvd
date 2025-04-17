@@ -16,9 +16,9 @@
   <tbody>
 
   @for(dvd <- dvdPage.list) {
-    <tr class="@if(dvd.borrower != null || dvd.borrowerName != null) {error} @if(dvd.borrower != null && dvd.borrower.userName == username) {warning}">
-      <td><a href="#" class="displayCopy" data-dvd-id="@dvd.id">@general.displayposter(dvd.movie.getId, dvd.movie.getHasPoster, EImageSize.TINY)</a></td>
-      <td><a href="#" class="displayCopy" data-dvd-id="@dvd.id">@dvd.movie.getTitle</a></td>
+    <tr class="@if(dvd.getBorrower != null || dvd.getBorrowerName != null) {error} @if(dvd.getBorrower != null && dvd.getBorrower.getUserName == username) {warning}">
+      <td><a href="#" class="displayCopy" data-dvd-id="@dvd.getId">@general.displayposter(dvd.getMovie.getId, dvd.getMovie.getHasPoster, EImageSize.TINY)</a></td>
+      <td><a href="#" class="displayCopy" data-dvd-id="@dvd.getId">@dvd.getMovie.getTitle</a></td>
       <td>
         @if(DvdAttribute.getCopyTypeAttribute(dvd) != null) {
           <span><img class="img-rounded" alt="@DvdAttribute.getCopyTypeAttribute(dvd)" src="@routes.Assets.versioned("images/copy_type/" + DvdAttribute.getCopyTypeAttribute(dvd) + ".png")" /></span>
@@ -28,17 +28,17 @@
         }
       </td>
       <td>
-        @if(StringUtils.isBlank(dvd.movie.getImdbRating) == false) {
-          <span>@dvd.movie.getImdbRating/10</span>
+        @if(StringUtils.isBlank(dvd.getMovie.getImdbRating) == false) {
+          <span>@dvd.getMovie.getImdbRating/10</span>
         }
       </td>
-      <td>@dvd.owner.userName</td>
+      <td>@dvd.getOwner.getUserName</td>
       <td>
-      @if(dvd.borrower != null || dvd.borrowerName != null) {
-        @if(dvd.borrower != null) {
-          @dvd.borrower.userName
+      @if(dvd.getBorrower != null || dvd.getBorrowerName != null) {
+        @if(dvd.getBorrower != null) {
+          @dvd.getBorrower.getUserName
         } else {
-          @dvd.borrowerName
+          @dvd.getBorrower
         }
       }
       </td>

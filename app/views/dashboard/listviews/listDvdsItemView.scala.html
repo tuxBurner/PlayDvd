@@ -4,14 +4,14 @@
   @for(dvd <- dvdPage.list) {
     <li class="span2 coverwrapper_small_li">
       <div class="coverwrapper_small">
-        <em data-dvd-id="@dvd.id" class="tooltipo @DvdAttribute.getCopyTypeAttribute(dvd)"  data-toggle="tooltip" data-original-title="@dvd.movie.getTitle (@dvd.owner.userName@if(dvd.borrower != null || dvd.borrowerName != null){-> @if(dvd.borrower != null){ @dvd.borrower.userName } else{ @dvd.borrowerName }}) @if(dvd.hullNr != null) { (@dvd.hullNr) }">
-          @if(dvd.borrower != null || dvd.borrowerName != null){
-            <div class="coverborrowed  @if(dvd.borrower != null  && dvd.borrower.userName == username) {selfBorrowed}"></div>
+        <em data-dvd-id="@dvd.getId" class="tooltipo @DvdAttribute.getCopyTypeAttribute(dvd)"  data-toggle="tooltip" data-original-title="@dvd.getMovie.getTitle (@dvd.getOwner.getUserName@if(dvd.getBorrower != null || dvd.getBorrowerName != null){-> @if(dvd.getBorrower != null){ @dvd.getBorrower.getUserName } else{ @dvd.getBorrowerName }}) @if(dvd.getHullNr != null) { (@dvd.getHullNr) }">
+          @if(dvd.getBorrower != null || dvd.getBorrowerName != null){
+            <div class="coverborrowed  @if(dvd.getBorrower != null  && dvd.getBorrower.getUserName == username) {selfBorrowed}"></div>
           }
           <div class="rateWrapper"><img  class="img-rounded" src="@routes.Assets.versioned("images/agerating/"+DvdAttribute.getAgeRatingAttribute(dvd)+".gif")" /></div>
         </em>
         <a>
-          @general.displayposter(dvd.movie.getId,dvd.movie.getHasPoster,EImageSize.SMALL_LIST_VIEW)
+          @general.displayposter(dvd.getMovie.getId,dvd.getMovie.getHasPoster,EImageSize.SMALL_LIST_VIEW)
         </a>
         <div class="row buttonWrapper">
           @dashboard.listviews.copyListBtnsWrapper(dvd,username,shoppingCart, bookmarkedCopys)

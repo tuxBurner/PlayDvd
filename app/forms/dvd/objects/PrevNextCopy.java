@@ -13,15 +13,15 @@ public class PrevNextCopy {
 
   public final Long movieId;
 
-  public  final String title;
+  public final String title;
 
   public final Boolean hasPoster;
 
-  public  PrevNextCopy(final Dvd copy) {
-    this.id = copy.id;
-    this.title = copy.movie.getTitle();
-    this.movieId = copy.movie.getId();
-    this.hasPoster = copy.movie.getHasPoster();
+  public PrevNextCopy(final Dvd copy) {
+    this.id = copy.getId();
+    this.title = copy.getMovie().getTitle();
+    this.movieId = copy.getMovie().getId();
+    this.hasPoster = copy.getMovie().getHasPoster();
   }
 
 }

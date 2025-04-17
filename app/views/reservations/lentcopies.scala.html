@@ -41,10 +41,10 @@
                       @for(copy <- copies) {
                         <tr>
                           <td>
-                            <input title="checkAll" type="checkbox" class="lentCopyCheckBox" data-borrower="@borrower" data-resid="@copy.id" />
+                            <input title="checkAll" type="checkbox" class="lentCopyCheckBox" data-borrower="@borrower" data-resid="@copy.getId" />
                           </td>
                           <td>@general.displayitem(copy,true)</td>
-                          <td>@{new Date(copy.borrowDate).format(messages("dateFormatHour"))}</td>
+                          <td>@{new Date(copy.getBorrowDate).format(messages("dateFormatHour"))}</td>
                         </tr>
                       }
                     </tbody>

@@ -47,14 +47,14 @@ public class UserProfileController extends Controller {
       return internalServerError();
     }
 
-    if (StringUtils.isEmpty(currentUser.rssAuthKey) == true) {
+    if (StringUtils.isEmpty(currentUser.getRssAuthKey()) == true) {
       currentUser = UserDao.createUserRssAuthKey(currentUser);
     }
 
     UserProfileForm userProfileForm = new UserProfileForm();
-    userProfileForm.defaultCopyType = currentUser.defaultCopyType;
-    userProfileForm.email = currentUser.email;
-    userProfileForm.rssAuthKey = currentUser.rssAuthKey;
+    userProfileForm.defaultCopyType = currentUser.getDefaultCopyType();
+    userProfileForm.email = currentUser.getEmail();
+    userProfileForm.rssAuthKey = currentUser.getRssAuthKey();
 
     final Messages messages = this.messagesApi.preferred(request);
 

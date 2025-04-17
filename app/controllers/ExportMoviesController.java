@@ -48,7 +48,7 @@ public class ExportMoviesController extends Controller {
     final User currentUser = UserDao.findCurrentUser(request);
     final Messages messages = this.messagesApi.preferred(request);
 
-    return ok(views.html.export.export.render(currentUser.rssAuthKey, request, messages));
+    return ok(views.html.export.export.render(currentUser.getRssAuthKey(), request, messages));
   }
 
   /**
@@ -76,10 +76,10 @@ public class ExportMoviesController extends Controller {
 
         for (final Dvd copy : dvds) {
           final String copyTypeAttribute = DvdAttribute.getCopyTypeAttribute(copy);
-          final StringBuilder entryName = new StringBuilder(copy.movie.getTitle());
-          if (StringUtils.isEmpty(copy.additionalInfo) == false) {
+          final StringBuilder entryName = new StringBuilder(copy.getMovie().getTitle());
+          if (StringUtils.isEmpty(copy.getAdditionalInfo()) == false) {
             entryName.append(" - ");
-            entryName.append(copy.additionalInfo);
+            entryName.append(copy.getAdditionalInfo());
           }
           entryName.append(".");
           entryName.append(copyTypeAttribute.toLowerCase());
@@ -131,9 +131,9 @@ public class ExportMoviesController extends Controller {
   private static String generateXBMCStubContent(final Dvd copy) {
 
     final StringBuilder content = new StringBuilder("<discstub>");
-    if (copy.hullNr != null) {
+    if (copy.getHullNr() != null) {
       content.append("<message> Please insert Copy with Nr:");
-      content.append(copy.hullNr.toString());
+      content.append(copy.getHullNr().toString());
       content.append("</message>");
     }
     content.append("</discstub>");

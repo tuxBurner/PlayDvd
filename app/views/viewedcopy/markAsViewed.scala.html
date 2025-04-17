@@ -4,9 +4,9 @@
 
 
 @import helpers.EImageSize
-@messages("headline.markAsViewed"): @general.displayposter(copy.movie.getId,copy.movie.getHasPoster,EImageSize.TINY) <i>@general.displayCopyTitle(copy)</i>
+@messages("headline.markAsViewed"): @general.displayposter(copy.getMovie.getId,copy.getMovie.getHasPoster,EImageSize.TINY) <i>@general.displayCopyTitle(copy)</i>
 
-<input type="hidden" id="copyId" value="@copy.id" />
+<input type="hidden" id="copyId" value="@copy.getId" />
 
 @if(copyBookmarkedByUser == true) {
   <label for="removeBookmarkForViewed">

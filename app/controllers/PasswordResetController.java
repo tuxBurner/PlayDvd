@@ -88,15 +88,15 @@ public class PasswordResetController extends Controller {
       userByName.setPasswordResetToken(UUID.randomUUID().toString());
       userByName.update();
 
-      final String activationUrl = routes.PasswordResetController.showPasswordReset(userByName.passwordResetToken).absoluteURL(request);
+      final String activationUrl = routes.PasswordResetController.showPasswordReset(userByName.getPasswordResetToken()).absoluteURL(request);
 
-      final String content = messagesApi.preferred(request).at("email.passwordreset.content", userByName.userName, activationUrl);
+      final String content = messagesApi.preferred(request).at("email.passwordreset.content", userByName.getUserName(), activationUrl);
 
       if (Logger.isDebugEnabled() == true) {
-        Logger.debug("Email send to: " + userByName.email + " with activation code: " + activationUrl);
+        Logger.debug("Email send to: " + userByName.getEmail() + " with activation code: " + activationUrl);
       }
 
-      mailerHelper.sendMail(messagesApi.preferred(request).at("email.passwordreset.subject"), userByName.email, content, false);
+      mailerHelper.sendMail(messagesApi.preferred(request).at("email.passwordreset.subject"), userByName.getEmail(), content, false);
 
       request.flash().adding("success", messagesApi.preferred(request).at("msg.success.passwordMailSend"));
     }

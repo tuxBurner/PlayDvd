@@ -46,7 +46,7 @@ public class RssSecurityAction extends play.mvc.Action.Simple {
       return CompletableFuture.completedFuture(unauthorized("Auth was no success"));
     }
 
-    request = request.withAttrs(request.attrs().put(Security.USERNAME, userByRssAuthKey.userName));
+    request = request.withAttrs(request.attrs().put(Security.USERNAME, userByRssAuthKey.getUserName()));
     return delegate.call(request);
   }
 }

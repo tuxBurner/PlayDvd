@@ -27,19 +27,17 @@ public class LoginForm implements Validatable<String> {
       return "msg.error.login";
     }
 
-    if (StringUtils.isEmpty(user.passwordResetToken) == false) {
+    if (StringUtils.isEmpty(user.getPasswordResetToken()) == false) {
       if (Logger.isDebugEnabled() == true) {
         Logger.debug("User: " + username + " has a password reset token set setting it to empty.");
       }
-      user.passwordResetToken = null;
+      user.setPasswordResetToken(null);
     }
 
-    byte[] gravatarBytes = GravatarHelper.getGravatarBytes(user.email, 16);
-    user.hasGravatar = (gravatarBytes != null);
-
+    byte[] gravatarBytes = GravatarHelper.getGravatarBytes(user.getEmail(), 16);
+    user.setHasGravatar((gravatarBytes != null));
 
     user.update();
-
 
     return null;
   }

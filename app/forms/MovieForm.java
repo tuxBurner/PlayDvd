@@ -1,21 +1,18 @@
 package forms;
 
-import java.util.*;
-
 import grabbers.EGrabberType;
 import models.EMovieAttributeType;
 import models.Movie;
 import models.MovieAttribute;
-
 import org.apache.commons.lang3.StringUtils;
-
 import play.data.validation.Constraints.Required;
+
+import java.util.*;
 
 /**
  * This is used when the user adds or edits a new movie
- * 
+ *
  * @author tuxburner
- * 
  */
 public class MovieForm {
 
@@ -64,7 +61,7 @@ public class MovieForm {
   /**
    * Transforms a {@link Movie} to a {@link MovieForm} for editing the dvd in
    * the frontend
-   * 
+   *
    * @param movie
    * @return
    */
@@ -82,7 +79,7 @@ public class MovieForm {
     movieForm.hasPoster = movie.getHasPoster();
     movieForm.imdbId = movie.getImdbId();
     movieForm.imdbRating = movie.getImdbRating();
-    if(EGrabberType.NONE.equals(movie.getGrabberType()) == false && StringUtils.isEmpty(movie.getGrabberId()) == false) {
+    if (EGrabberType.NONE.equals(movie.getGrabberType()) == false && StringUtils.isEmpty(movie.getGrabberId()) == false) {
       movieForm.grabberType = movie.getGrabberType();
       movieForm.grabberId = movie.getGrabberId();
     }
@@ -92,20 +89,20 @@ public class MovieForm {
 
     final Set<MovieAttribute> attributes = movie.getAttributes();
     for (final MovieAttribute movieAttibute : attributes) {
-      if (EMovieAttributeType.GENRE.equals(movieAttibute.attributeType)) {
-        genreSet.add(movieAttibute.value.trim());
+      if (EMovieAttributeType.GENRE.equals(movieAttibute.getAttributeType())) {
+        genreSet.add(movieAttibute.getValue().trim());
       }
 
-      if (EMovieAttributeType.ACTOR.equals(movieAttibute.attributeType)) {
-        actorSet .add(movieAttibute.value);
+      if (EMovieAttributeType.ACTOR.equals(movieAttibute.getAttributeType())) {
+        actorSet.add(movieAttibute.getValue());
       }
 
-      if (EMovieAttributeType.DIRECTOR.equals(movieAttibute.attributeType)) {
-        movieForm.director = movieAttibute.value;
+      if (EMovieAttributeType.DIRECTOR.equals(movieAttibute.getAttributeType())) {
+        movieForm.director = movieAttibute.getValue();
       }
 
-      if (EMovieAttributeType.MOVIE_SERIES.equals(movieAttibute.attributeType)) {
-        movieForm.series = movieAttibute.value;
+      if (EMovieAttributeType.MOVIE_SERIES.equals(movieAttibute.getAttributeType())) {
+        movieForm.series = movieAttibute.getValue();
       }
     }
 
@@ -121,15 +118,15 @@ public class MovieForm {
 
   /**
    * This returns the values as a , seperated string
-   * 
+   *
    * @param values
    * @return
    */
   public static String getDvdFormAttributesAsString(final Optional<String> values) {
-    if(values.isEmpty()) {
+    if (values.isEmpty()) {
       return "";
     }
-    return StringUtils.replace(StringUtils.replaceChars(values.get(), "[]", ""),", ",",");
+    return StringUtils.replace(StringUtils.replaceChars(values.get(), "[]", ""), ", ", ",");
   }
 
   public Long getMovieId() {

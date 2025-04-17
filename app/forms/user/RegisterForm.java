@@ -63,10 +63,10 @@ public class RegisterForm implements Validatable<List<ValidationError>> {
 
 
     final User user = new User();
-    user.email = email;
-    user.userName = username;
-    user.password = password;
-    user.defaultCopyType = defaultCopyType;
+    user.setEmail(email);
+    user.setUserName(username);
+    user.setPassword(password);
+    user.setDefaultCopyType(defaultCopyType);
 
     UserDao.create(user);
 

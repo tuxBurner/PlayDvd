@@ -9,14 +9,14 @@
 <fieldset>
   <legend>
     @messages("headline.unlendCopy"):
-    @general.displayposter(copy.movie.getId,copy.movie.getHasPoster,EImageSize.TINY)
+    @general.displayposter(copy.getMovie.getId,copy.getMovie.getHasPoster,EImageSize.TINY)
     <i>@general.displayCopyTitle(copy)</i>
     <br />
     @messages("lbl.unlendFrom") :
-    <i>@if(copy.borrower != null) { @copy.borrower.userName} else { @copy.borrowerName }</i>
+    <i>@if(copy.getBorrower != null) { @copy.getBorrower.getUserName} else { @copy.getBorrowerName }</i>
   </legend>
 
-  <input type="hidden" id="unlendDvdId" value="@copy.id" />
+  <input type="hidden" id="unlendDvdId" value="@copy.getId" />
   
    @if(inSameHull != null) {
     @checkbox(field = lendForm("alsoOthersInHull"), Symbol("_label") -> "Others in Hull to")

@@ -26,7 +26,6 @@ import play.i18n.MessagesApi;
 import play.mvc.*;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -104,12 +103,12 @@ public class CopyController extends Controller {
 
         if (CopyController.DVD_FORM_ADD_MODE.equals(mode) == true) {
           final Dvd createFromForm = DvdDao.createFromForm(userName, dvdForm.get());
-          request.flash().adding("success", "Dvd: " + createFromForm.movie.getTitle() + " added");
+          request.flash().adding("success", "Dvd: " + createFromForm.getMovie().getTitle() + " added");
         }
 
         if (CopyController.DVD_FORM_EDIT_MODE.equals(mode) == true) {
           final Dvd editFromForm = DvdDao.editFromForm(userName, dvdForm.get());
-          request.flash().adding("success", "Dvd: " + editFromForm.movie.getTitle() + " edited");
+          request.flash().adding("success", "Dvd: " + editFromForm.getMovie().getTitle() + " edited");
         }
 
       } catch (final Exception e) {

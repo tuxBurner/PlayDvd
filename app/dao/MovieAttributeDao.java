@@ -39,11 +39,10 @@ public class MovieAttributeDao {
     final List<MovieAttribute> findList = MovieAttribute.FINDER.query()
         .where()
         .eq("attributeType", type)
-        .order("value ASC")
+        .orderBy("value ASC")
         .findList();
     return findList;
   }
-
 
 
   /**
@@ -56,8 +55,8 @@ public class MovieAttributeDao {
    */
   public static MovieAttribute createAttribute(final EMovieAttributeType type, final String value) {
     final MovieAttribute dvdAttibute = new MovieAttribute();
-    dvdAttibute.attributeType = type;
-    dvdAttibute.value = value;
+    dvdAttibute.setAttributeType(type);
+    dvdAttibute.setValue(value);
 
     dvdAttibute.save();
 
@@ -92,7 +91,7 @@ public class MovieAttributeDao {
       MovieAttribute movieAttributeToAdd = null;
 
       for (final MovieAttribute dbAttribute : dbAttributes) {
-        if (dbAttribute.value.equals(trimedFormAttr) == true) {
+        if (dbAttribute.getValue().equals(trimedFormAttr) == true) {
           movieAttributeToAdd = dbAttribute;
           break;
         }
@@ -115,7 +114,7 @@ public class MovieAttributeDao {
    * @param attributeType
    * @return
    * @deprecated is way to slow in the frontend when having 1000 of those we
-   *             will use ajax here
+   * will use ajax here
    */
   @Deprecated
   public static String getAvaibleAttributesAsJson(final EMovieAttributeType attributeType) {
@@ -123,10 +122,10 @@ public class MovieAttributeDao {
     final List<MovieAttribute> attributes = MovieAttributeDao.getAllByType(attributeType);
     final List<String> attrMap = new ArrayList<>();
     for (final MovieAttribute dvdAttibute : attributes) {
-      if (StringUtils.isEmpty(dvdAttibute.value)) {
+      if (StringUtils.isEmpty(dvdAttibute.getValue())) {
         continue;
       }
-      attrMap.add(dvdAttibute.value);
+      attrMap.add(dvdAttibute.getValue());
     }
 
     final Gson gson = new GsonBuilder().create();
@@ -141,7 +140,6 @@ public class MovieAttributeDao {
    *
    * @param attributeType
    * @return
-   *
    */
   public static String searchAvaibleAttributesAsJson(final EMovieAttributeType attributeType, final String searchTerm) {
 
@@ -154,16 +152,16 @@ public class MovieAttributeDao {
         .where()
         .eq("attributeType", attributeType)
         .istartsWith("value", searchTerm)
-        .order("value ASC")
+        .orderBy("value ASC")
         .findList();
     final List<SelectAjaxContainer> retVal = new ArrayList<>();
     retVal.add(new SelectAjaxContainer(searchTerm, searchTerm));
 
     for (final MovieAttribute movieAttribute : attributes) {
-      if (StringUtils.isEmpty(movieAttribute.value) == true || searchTerm.equals(movieAttribute.value) == true) {
+      if (StringUtils.isEmpty(movieAttribute.getValue()) == true || searchTerm.equals(movieAttribute.getValue()) == true) {
         continue;
       }
-      retVal.add(new SelectAjaxContainer(movieAttribute.value, movieAttribute.value));
+      retVal.add(new SelectAjaxContainer(movieAttribute.getValue(), movieAttribute.getValue()));
     }
 
     final Gson gson = new GsonBuilder().create();

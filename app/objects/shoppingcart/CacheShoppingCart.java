@@ -14,7 +14,6 @@ import java.util.*;
 public class CacheShoppingCart {
 
 
-
   private final List<CacheShoppingCartItem> items = new ArrayList<CacheShoppingCartItem>();
 
   private final Set<Long> knownCopyIds = new HashSet<Long>();
@@ -22,13 +21,14 @@ public class CacheShoppingCart {
 
   /**
    * Adds a {@link Dvd} to the {@link CacheShoppingCart}
+   *
    * @param copyItem
    */
   public Boolean addItem(final Dvd copyItem) {
 
-    if(isInShoppingCart(copyItem.id) == true) {
-      if(Logger.isDebugEnabled() == true) {
-        Logger.debug("The shopping cart already contains: "+copyItem.id+" ("+copyItem.movie.getTitle()+")");
+    if (isInShoppingCart(copyItem.getId()) == true) {
+      if (Logger.isDebugEnabled() == true) {
+        Logger.debug("The shopping cart already contains: " + copyItem.getId() + " (" + copyItem.getMovie().getTitle() + ")");
       }
       return Boolean.FALSE;
     }
@@ -36,31 +36,32 @@ public class CacheShoppingCart {
     CacheShoppingCartItem item = new CacheShoppingCartItem(copyItem);
 
     items.add(item);
-    knownCopyIds.add(copyItem.id);
+    knownCopyIds.add(copyItem.getId());
 
     return Boolean.TRUE;
   }
 
   /**
    * Removes {@link CacheShoppingCartItem} from the {@link CacheShoppingCart}
+   *
    * @param copyId
    * @return
    */
   public Boolean removeItem(final Long copyId) {
-    if(isInShoppingCart(copyId) == false) {
-      if(Logger.isDebugEnabled() == true) {
-        Logger.debug("The shopping does not contain: "+copyId);
+    if (isInShoppingCart(copyId) == false) {
+      if (Logger.isDebugEnabled() == true) {
+        Logger.debug("The shopping does not contain: " + copyId);
       }
       return Boolean.FALSE;
     }
 
 
     CacheShoppingCartItem removeItem = null;
-    for(final CacheShoppingCartItem item : items) {
-       if(item.copyItem.id.equals(copyId) == true) {
-         removeItem = item;
-         break;
-       }
+    for (final CacheShoppingCartItem item : items) {
+      if (item.copyItem.getId().equals(copyId) == true) {
+        removeItem = item;
+        break;
+      }
     }
 
     items.remove(removeItem);
@@ -70,9 +71,9 @@ public class CacheShoppingCart {
   }
 
 
-
   /**
    * Checks if the {@link Dvd} is already in the shopping cart
+   *
    * @param copyId
    * @return
    */
@@ -82,19 +83,20 @@ public class CacheShoppingCart {
 
   /**
    * Retruns the last five @{link CacheShoppingCartItem} in the cart for the menu
+   *
    * @return
    */
   public List<CacheShoppingCartItem> getLastFiveItems() {
-    if(items.isEmpty() == true) {
+    if (items.isEmpty() == true) {
       return null;
     }
 
-    if(items.size() <= 5) {
+    if (items.size() <= 5) {
       return items;
     }
 
     final List<CacheShoppingCartItem> returnList = new ArrayList<CacheShoppingCartItem>();
-    for(int i = items.size() -1; i >= items.size() - 6; i--) {
+    for (int i = items.size() - 1; i >= items.size() - 6; i--) {
       returnList.add(items.get(i));
     }
 
@@ -103,15 +105,16 @@ public class CacheShoppingCart {
 
   /**
    * This creates a {@link Map} where the key is the name of the user owning the copy
+   *
    * @return
    */
-  public Map<String,List<CacheShoppingCartItem>> getItemsSortedByUser() {
-    final Map<String,List<CacheShoppingCartItem>> returnVal = new HashMap<String, List<CacheShoppingCartItem>>();
+  public Map<String, List<CacheShoppingCartItem>> getItemsSortedByUser() {
+    final Map<String, List<CacheShoppingCartItem>> returnVal = new HashMap<String, List<CacheShoppingCartItem>>();
 
-    for(final CacheShoppingCartItem item :  items) {
-      final String ownerName = item.copyItem.owner.userName;
-      if(returnVal.containsKey(ownerName) == false) {
-        returnVal.put(ownerName,new ArrayList<CacheShoppingCartItem>());
+    for (final CacheShoppingCartItem item : items) {
+      final String ownerName = item.copyItem.getOwner().getUserName();
+      if (returnVal.containsKey(ownerName) == false) {
+        returnVal.put(ownerName, new ArrayList<CacheShoppingCartItem>());
       }
 
       returnVal.get(ownerName).add(item);
@@ -122,6 +125,7 @@ public class CacheShoppingCart {
 
   /**
    * Returns the amount of {@link CacheShoppingCartItem} in the cart
+   *
    * @return
    */
   public int getSize() {

@@ -87,7 +87,7 @@ public class RegisterLoginController extends Controller {
       final String msg = messagesApi.preferred(request).at("msg.success.login", loginForm.get().username);
       return Results.redirect(routes.ApplicationController.index()).flashing("success", msg).withNewSession()
           .addingToSession(request, Secured.AUTH_SESSION, loginForm.get().username)
-          .addingToSession(request, Secured.AUTH_HAS_GRAVATAR, String.valueOf(userByName.hasGravatar));
+          .addingToSession(request, Secured.AUTH_HAS_GRAVATAR, String.valueOf(userByName.isHasGravatar()));
     }
   }
 

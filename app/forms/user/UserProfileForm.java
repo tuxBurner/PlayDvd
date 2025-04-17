@@ -40,11 +40,10 @@ public class UserProfileForm implements Constraints.ValidatableWithPayload<Strin
 
     final var username = payload.getAttrs().get(Security.USERNAME);
 
-    if(StringUtils.isEmpty(username)) {
+    if (StringUtils.isEmpty(username)) {
       Logger.error("No username found in the session.");
       return "msg.error";
     }
-
 
 
     final User userToUpdate = UserDao.findUserByName(username);
@@ -76,8 +75,8 @@ public class UserProfileForm implements Constraints.ValidatableWithPayload<Strin
 
     userToUpdate.setEmail(email);
 
-    byte[] gravatarBytes = GravatarHelper.getGravatarBytes(userToUpdate.email, 16);
-    userToUpdate.hasGravatar = (gravatarBytes != null);
+    byte[] gravatarBytes = GravatarHelper.getGravatarBytes(userToUpdate.getEmail(), 16);
+    userToUpdate.setHasGravatar(gravatarBytes != null);
 
     userToUpdate.save();
 

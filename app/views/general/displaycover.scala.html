@@ -1,13 +1,13 @@
 @(copy: Dvd)(implicit request: Http.Request, messages: play.i18n.Messages)
 @import _root_.helpers.EImageSize
-<a href="@routes.DashboardController.displayCopyOnPage(copy.id)">
+<a href="@routes.DashboardController.displayCopyOnPage(copy.getId)">
   <div class="coverwrapper_small_li">
     <div class="coverwrapper_small">
-      <em data-dvd-id="@copy.id" class="@DvdAttribute.getCopyTypeAttribute(copy)">
+      <em data-dvd-id="@copy.getId" class="@DvdAttribute.getCopyTypeAttribute(copy)">
         <div class="rateWrapper"><img  class="img-rounded" src="@routes.Assets.versioned("images/agerating/"+DvdAttribute.getAgeRatingAttribute(copy)+".gif")" /></div>
       </em>
       <a>
-      @general.displayposter(copy.movie.getId,copy.movie.getHasPoster,EImageSize.SMALL_LIST_VIEW)
+      @general.displayposter(copy.getMovie.getId,copy.getMovie.getHasPoster,EImageSize.SMALL_LIST_VIEW)
       </a>
 
     </div>

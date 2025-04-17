@@ -115,7 +115,7 @@ public class Bookmark extends Model {
   }
 
   /**
-   * Gets all {@link Dvd#id} where the owner of the {@link Dvd} is the current {@link User}
+   * Gets all {@link Dvd#getId()} where the owner of the {@link Dvd} is the current {@link User}
    *
    * @return
    */
@@ -134,7 +134,7 @@ public class Bookmark extends Model {
     }
 
     for (final Bookmark bookmark : set) {
-      copyIds.add(bookmark.copy.id);
+      copyIds.add(bookmark.copy.getId());
     }
 
     return copyIds;
@@ -185,7 +185,7 @@ public class Bookmark extends Model {
       return "";
     }
 
-    String title = bookmarkToDelete.copy.movie.getTitle();
+    String title = bookmarkToDelete.copy.getMovie().getTitle();
 
     bookmarkToDelete.delete();
 
@@ -197,7 +197,7 @@ public class Bookmark extends Model {
    *
    * @param copy
    */
-  public static void deletAllBookmarksForCopy(final Dvd copy, final Http.Request request) {
+  public static void deleteAllBookmarksForCopy(final Dvd copy, final Http.Request request) {
     String username = Secured.getUsernameStatic(request);
     final Set<Bookmark> bookmarks = FINDER.query().where()
         .eq("copy.owner.userName", username)

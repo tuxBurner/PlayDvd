@@ -127,7 +127,7 @@ public class ShoppingCartController extends Controller {
 
       for (User owner : owners) {
         Txt emailTxt = views.txt.email.checkout.render(owner, UserDao.findCurrentUser(request), request, messages);
-        mailerHelper.sendMail(messagesApi.preferred(request).at("email.shoppingcart.subject"), owner.email, emailTxt.body(), false);
+        mailerHelper.sendMail(messagesApi.preferred(request).at("email.shoppingcart.subject"), owner.getEmail(), emailTxt.body(), false);
       }
 
       cacheHelper.removeSessionObj(ECacheObjectName.SHOPPINGCART, request);

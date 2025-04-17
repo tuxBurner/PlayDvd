@@ -22,20 +22,20 @@
             <ul class="nav nav-tabs">
               @for((borrower,reservations) <- reservations) {
                 <li>
-                  <a href="#resTab@borrower.id" data-toggle="tab">
-                    @views.html.dashboard.userImage(borrower.userName,borrower.hasGravatar,16) @borrower.userName (@reservations.size)
+                  <a href="#resTab@borrower.getId" data-toggle="tab">
+                    @views.html.dashboard.userImage(borrower.getUserName,borrower.isHasGravatar,16) @borrower.getUserName (@reservations.size)
                   </a>
                 </li>
               }
             </ul>
             <div class="tab-content">
               @for((borrower,reservations) <- reservations) {
-                <div class="tab-pane" id="resTab@borrower.id">
+                <div class="tab-pane" id="resTab@borrower.getId">
 
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th><input title="checkAll" type="checkbox" class="reservationsCheckAll" data-borrower="@borrower.id"/></th>
+                        <th><input title="checkAll" type="checkbox" class="reservationsCheckAll" data-borrower="@borrower.getId"/></th>
                         <th>@messages("lbl.copy")</th>
                         <th>@messages("lbl.date")</th>
                       </tr>
@@ -44,8 +44,8 @@
                       @for(reservation <- reservations) {
                         <tr>
                           <td>
-                            @if(reservation.copy.borrowDate == null) {
-                              <input title="checkAll" type="checkbox" class="reservationsCopyCheckBox" data-borrower="@borrower.id" data-resid="@reservation.id" />
+                            @if(reservation.copy.getBorrowDate == null) {
+                              <input title="checkAll" type="checkbox" class="reservationsCopyCheckBox" data-borrower="@borrower.getId" data-resid="@reservation.id" />
                             }
                           </td>
                           <td>@general.displayitem(reservation.copy,true)</td>
@@ -57,8 +57,8 @@
                       <tr>
                         <th colspan="3">
                           <div  class="pull-right">
-                            <button type="button" class="btn btn-warning disabled" onclick="borrowReservations(@borrower.id);"><i class="icon-share"></i> @messages("btn.lend")</button>
-                            <button type="button" class="btn btn-danger disabled" onclick="deleteReservations(@borrower.id);"><i class="icon-trash"></i> @messages("btn.delete")</button>
+                            <button type="button" class="btn btn-warning disabled" onclick="borrowReservations(@borrower.getId);"><i class="icon-share"></i> @messages("btn.lend")</button>
+                            <button type="button" class="btn btn-danger disabled" onclick="deleteReservations(@borrower.getId);"><i class="icon-trash"></i> @messages("btn.delete")</button>
                           </div>
                         </th>
                       </tr>

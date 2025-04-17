@@ -5,16 +5,10 @@ import com.google.gson.GsonBuilder;
 import helpers.SelectAjaxContainer;
 import io.ebean.Finder;
 import io.ebean.Model;
+import jakarta.persistence.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -22,13 +16,11 @@ import java.util.Set;
 
 /**
  * This is the {@link Entity} holding certain attributes
- * 
+ *
  * @author tuxburner
- * 
  */
 @Entity
-public class DvdAttribute extends Model
-{
+public class DvdAttribute extends Model {
 
   /**
    * Default FINDER for the {@link DvdAttribute}
@@ -50,39 +42,37 @@ public class DvdAttribute extends Model
   /**
    * finds all {@link DvdAttribute} by the given values and the given
    * {@link EMovieAttributeType}
-   * 
+   *
    * @return
    */
   public static Set<DvdAttribute> findAttributesByName(final Set<String> values, final EDvdAttributeType type) {
     final Set<DvdAttribute> findSet = FINDER.query()
-      .where()
-      .in("value", values)
-      .eq("attributeType", type)
-      .findSet();
+        .where()
+        .in("value", values)
+        .eq("attributeType", type)
+        .findSet();
     return findSet;
   }
 
   /**
    * Gets all attributes of the given type ordered by the value ASC
-   * 
+   *
    * @param type
    * @return
    */
   public static List<DvdAttribute> getAllByType(final EDvdAttributeType type) {
     final List<DvdAttribute> findList = FINDER.query()
-      .where()
-      .eq("attributeType", type)
-      .order("value ASC")
-      .findList();
+        .where()
+        .eq("attributeType", type)
+        .orderBy("value ASC")
+        .findList();
     return findList;
   }
 
 
-
-
   /**
    * Returns all {@link MovieAttribute} as json string
-   * 
+   *
    * @param type
    * @return
    * @deprecated
@@ -110,7 +100,7 @@ public class DvdAttribute extends Model
   /**
    * Creates a {@link DvdAttribute} by the given {@link EMovieAttributeType} and
    * value
-   * 
+   *
    * @param type
    * @param value
    * @return
@@ -128,7 +118,7 @@ public class DvdAttribute extends Model
   /**
    * Gathers all {@link DvdAttribute} from the database and adds them if there
    * are not in the database
-   * 
+   *
    * @param attributeValues
    * @param type
    * @return
@@ -146,7 +136,7 @@ public class DvdAttribute extends Model
 
       final String trimedFormAttr = StringUtils.trim(formAttr);
 
-      if(StringUtils.isEmpty(trimedFormAttr) == true) {
+      if (StringUtils.isEmpty(trimedFormAttr) == true) {
         continue;
       }
 
@@ -179,7 +169,7 @@ public class DvdAttribute extends Model
   }
 
   public static String getSingleAttrFromDvd(final Dvd copy, final EDvdAttributeType attrType) {
-    for (final DvdAttribute attribute : copy.attributes) {
+    for (final DvdAttribute attribute : copy.getAttributes()) {
       if (attribute.attributeType.equals(attrType)) {
         return attribute.value;
       }
@@ -193,7 +183,6 @@ public class DvdAttribute extends Model
    *
    * @param attributeType
    * @return
-   *
    */
   public static String searchAvaibleAttributesAsJson(final EDvdAttributeType attributeType, final String searchTerm) {
 
@@ -203,11 +192,11 @@ public class DvdAttribute extends Model
     }
 
     final List<DvdAttribute> attributes = FINDER.query()
-      .where()
-      .eq("attributeType", attributeType)
-      .istartsWith("value", searchTerm)
-      .order("value ASC")
-      .findList();
+        .where()
+        .eq("attributeType", attributeType)
+        .istartsWith("value", searchTerm)
+        .orderBy("value ASC")
+        .findList();
     final List<SelectAjaxContainer> retVal = new ArrayList<>();
     retVal.add(new SelectAjaxContainer(searchTerm, searchTerm));
 

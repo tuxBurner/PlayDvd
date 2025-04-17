@@ -149,19 +149,8 @@ public class DashboardController extends Controller {
       return Results.forbidden();
     }
 
-    if (dvdForUser.borrowDate == null) {
+    if (dvdForUser.getBorrowDate() == null) {
       final String message = "The Dvd: " + dvdForUser + " is not borrowed to anybody !";
-      Logger.error(message);
-      Logger.error(message);
-      Logger.error(message);
-      Logger.error(message);
-      Logger.error(message);
-      Logger.error(message);
-      Logger.error(message);
-      Logger.error(message);
-      Logger.error(message);
-      Logger.error(message);
-      Logger.error(message);
       Logger.error(message);
       return Results.internalServerError(message);
     }
@@ -262,10 +251,7 @@ public class DashboardController extends Controller {
       return Results.forbidden();
     }
 
-    //Ebean.deleteManyToManyAssociations(dvdForUser, "attributes");
-    dvdForUser.attributes.clear();
-    // TODO: LIFT
-    //Ebean.save(dvdForUser);
+    dvdForUser.getAttributes().clear();
     dvdForUser.delete();
 
     return Results.ok();
@@ -353,7 +339,7 @@ public class DashboardController extends Controller {
     final String ownerName = (userName == null) ? Secured.getUsernameStatic(request) : userName;
     final User userByName = UserDao.findUserByName(ownerName);
 
-    final String gravatarEmail = (userByName == null) ? "" : userByName.email;
+    final String gravatarEmail = (userByName == null) ? "" : userByName.getEmail();
 
     final String etag = ETagHelper.getEtag(ECacheObjectName.GRAVATAR_IMAGES + gravatarEmail + size);
     final String nonMatch = request.header(IF_NONE_MATCH).get();

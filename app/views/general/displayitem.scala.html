@@ -1,5 +1,5 @@
 @(item: Dvd, displayBorrower: Boolean = false)(implicit request: Http.Request, messages: play.i18n.Messages)
-<div class="media @if(item.borrowDate != null) {alert alert-error}">
+<div class="media @if(item.getBorrowDate != null) {alert alert-error}">
   <span class="pull-left">
     @general.displaycover(item)
   </span>
@@ -8,14 +8,14 @@
       @general.displayCopyTitle(item)
     </h6>
     <span>
-      @item.owner.userName
-      @if(displayBorrower == true && item.borrowDate != null) {
+      @item.getOwner.getUserName
+      @if(displayBorrower == true && item.getBorrowDate != null) {
         <strong>
             ->
-          @if(item.borrower != null) {
-            @item.borrower.userName
+          @if(item.getBorrower != null) {
+            @item.getBorrower.getUserName
           } else {
-            @item.borrowerName
+            @item.getBorrowerName
           }
         </strong>
       }

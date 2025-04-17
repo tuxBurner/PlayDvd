@@ -37,27 +37,26 @@ public class CopyInfo {
 
   public CopyInfo(final Dvd copy) {
     copyForm = CopyForm.dvdToDvdForm(copy);
-    movieForm = MovieForm.movieToForm(copy.movie);
+    movieForm = MovieForm.movieToForm(copy.getMovie());
 
-    if (copy.borrower != null) {
-      borrowedBy = copy.borrower.userName;
-      borrowerHasGravatar = copy.borrower.hasGravatar;
+    if (copy.getBorrower() != null) {
+      borrowedBy = copy.getBorrower().getUserName();
+      borrowerHasGravatar = copy.getBorrower().isHasGravatar();
     }
 
-    if (copy.borrowerName != null) {
-      borrowedBy = copy.borrowerName;
+    if (copy.getBorrowerName() != null) {
+      borrowedBy = copy.getBorrowerName();
     }
 
-    if (copy.borrowDate != null) {
-      borrowedOn = new Date(copy.borrowDate);
+    if (copy.getBorrowDate() != null) {
+      borrowedOn = new Date(copy.getBorrowDate());
     }
 
-    title = copy.movie.getTitle();
-    if (StringUtils.isEmpty(copy.additionalInfo) == false) {
-      title += " [" + copy.additionalInfo + "]";
+    title = copy.getMovie().getTitle();
+    if (StringUtils.isEmpty(copy.getAdditionalInfo()) == false) {
+      title += " [" + copy.getAdditionalInfo() + "]";
     }
 
-    //commentable = dvd.movie.commentable;
 
     final List<Long> alreadyAdded = new ArrayList<Long>();
     boxDvds = getDvdsByBoxOrCollection(copy, EDvdAttributeType.BOX, copyForm.box, alreadyAdded);
@@ -85,9 +84,9 @@ public class CopyInfo {
     if (CollectionUtils.isEmpty(boxDbDvds) == false) {
       returnList = new ArrayList<CollectionDvd>();
       for (final Dvd boxDvd : boxDbDvds) {
-        if (alreadyAdded.contains(boxDvd.id) == false) {
+        if (alreadyAdded.contains(boxDvd.getId()) == false) {
           returnList.add(new CollectionDvd(boxDvd));
-          alreadyAdded.add(boxDvd.id);
+          alreadyAdded.add(boxDvd.getId());
         }
       }
     }
@@ -114,8 +113,8 @@ public class CopyInfo {
     if (CollectionUtils.isEmpty(boxDbDvds) == false) {
       returnList = new ArrayList<CollectionDvd>();
       for (final Dvd boxDvd : boxDbDvds) {
-        if (alreadyAdded.contains(boxDvd.id) == false) {
-          alreadyAdded.add(boxDvd.id);
+        if (alreadyAdded.contains(boxDvd.getId()) == false) {
+          alreadyAdded.add(boxDvd.getId());
           returnList.add(new CollectionDvd(boxDvd));
         }
       }

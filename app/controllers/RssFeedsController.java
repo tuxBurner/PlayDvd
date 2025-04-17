@@ -54,7 +54,7 @@ public class RssFeedsController extends Controller {
     }
 
     final Messages messages = this.messagesApi.preferred(request);
-    final String rssAuthKey = currentUser.rssAuthKey;
+    final String rssAuthKey = currentUser.getRssAuthKey();
     return ok(views.html.rss.rssFeedsList.render(rssAuthKey, request, messages));
   }
 
@@ -172,22 +172,22 @@ public class RssFeedsController extends Controller {
   private SyndEntry convertCopyToFeedEntry(final Dvd copy, final Http.Request request) {
     final SyndEntryImpl entry = new SyndEntryImpl();
 
-    String title = copy.movie.getTitle();
-    if (StringUtils.isEmpty(copy.additionalInfo) == false) {
-      title += "[" + copy.additionalInfo + "]";
+    String title = copy.getMovie().getTitle();
+    if (StringUtils.isEmpty(copy.getAdditionalInfo()) == false) {
+      title += "[" + copy.getAdditionalInfo() + "]";
     }
 
     entry.setTitle(title);
-    entry.setLink(routes.DashboardController.displayCopyOnPage(copy.id).absoluteURL(request));
-    entry.setPublishedDate(new Date(copy.createdDate));
-    entry.setAuthor(copy.owner.userName);
+    entry.setLink(routes.DashboardController.displayCopyOnPage(copy.getId()).absoluteURL(request));
+    entry.setPublishedDate(new Date(copy.getCreatedDate()));
+    entry.setAuthor(copy.getOwner().getUserName());
 
 
     List<SyndCategory> genres = new ArrayList<SyndCategory>();
-    for (MovieAttribute attr : copy.movie.getAttributes()) {
-      if (EMovieAttributeType.GENRE.equals(attr.attributeType) == true) {
+    for (MovieAttribute attr : copy.getMovie().getAttributes()) {
+      if (EMovieAttributeType.GENRE.equals(attr.getAttributeType()) == true) {
         SyndCategory cat = new SyndCategoryImpl();
-        cat.setName(attr.value);
+        cat.setName(attr.getValue());
         genres.add(cat);
       }
     }

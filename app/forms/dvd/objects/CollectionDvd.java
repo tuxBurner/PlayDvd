@@ -1,16 +1,14 @@
 package forms.dvd.objects;
 
 import models.Dvd;
-import org.apache.commons.lang3.StringUtils;
-
 import models.DvdAttribute;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Holds a dvd for displaying it in the info panel for viewing dvds in the same
  * box
- * 
+ *
  * @author tuxburner
- * 
  */
 public class CollectionDvd {
 
@@ -24,20 +22,20 @@ public class CollectionDvd {
   public Integer hullNr;
 
   public CollectionDvd(final Dvd copy) {
-    hasPoster = copy.movie.getHasPoster();
-    title = copy.movie.getTitle();
-    movieId = copy.movie.getId();
-    id = copy.id;
-    hullNr = copy.hullNr;
+    hasPoster = copy.getMovie().getHasPoster();
+    title = copy.getMovie().getTitle();
+    movieId = copy.getMovie().getId();
+    id = copy.getId();
+    hullNr = copy.getHullNr();
 
     copyTypeAttribute = DvdAttribute.getCopyTypeAttribute(copy);
     ageRating = DvdAttribute.getAgeRatingAttribute(copy);
 
-    if (copy.borrowDate != null && copy.borrower != null) {
-      borrowerName = copy.borrower.userName;
+    if (copy.getBorrowDate() != null && copy.getBorrower() != null) {
+      borrowerName = copy.getBorrower().getUserName();
     }
-    if (copy.borrowDate != null && StringUtils.isEmpty(copy.borrowerName) == false) {
-      borrowerName = copy.borrowerName;
+    if (copy.getBorrowDate() != null && StringUtils.isEmpty(copy.getBorrowerName()) == false) {
+      borrowerName = copy.getBorrowerName();
     }
   }
 

@@ -32,56 +32,150 @@ public class Dvd extends Model {
   public static final String EAN_NR_SEARCH = "ean:";
 
   @Id
-  public Long id;
+  private Long id;
 
   @ManyToOne
-  public User owner;
+  private User owner;
 
   @OneToOne
-  public User borrower;
+  private User borrower;
 
   @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "dvds")
-  public Set<DvdAttribute> attributes;
+  private Set<DvdAttribute> attributes;
 
-  public Long borrowDate;
+  private Long borrowDate;
 
 
   /**
    * If this is set the user entered a free name which does not exists in the
    * database
    */
-  public String borrowerName;
+  private String borrowerName;
 
   /**
    * The number off the hull off the dvd
    */
-  public Integer hullNr;
+  private Integer hullNr;
 
   /**
    * Ean Number of the dvd so we can find it again
    */
-  public String eanNr;
+  private String eanNr;
 
   /**
    * The Amazon asin nr of the copy
    */
-  public String asinNr;
+  private String asinNr;
 
   /**
    * Additional info off the copy like directors cut
    */
-  public String additionalInfo;
+  private String additionalInfo;
 
   /**
    * The movie which is on the dvd
    */
   @ManyToOne
   @Column(nullable = false)
-  public Movie movie;
+  private Movie movie;
 
   @Required
   @Column(nullable = false)
-  public Long createdDate;
+  private Long createdDate;
 
+  public Long getId() {
+    return id;
+  }
 
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public User getOwner() {
+    return owner;
+  }
+
+  public void setOwner(User owner) {
+    this.owner = owner;
+  }
+
+  public User getBorrower() {
+    return borrower;
+  }
+
+  public void setBorrower(User borrower) {
+    this.borrower = borrower;
+  }
+
+  public Set<DvdAttribute> getAttributes() {
+    return attributes;
+  }
+
+  public void setAttributes(Set<DvdAttribute> attributes) {
+    this.attributes = attributes;
+  }
+
+  public Long getBorrowDate() {
+    return borrowDate;
+  }
+
+  public void setBorrowDate(Long borrowDate) {
+    this.borrowDate = borrowDate;
+  }
+
+  public String getBorrowerName() {
+    return borrowerName;
+  }
+
+  public void setBorrowerName(String borrowerName) {
+    this.borrowerName = borrowerName;
+  }
+
+  public Integer getHullNr() {
+    return hullNr;
+  }
+
+  public void setHullNr(Integer hullNr) {
+    this.hullNr = hullNr;
+  }
+
+  public String getEanNr() {
+    return eanNr;
+  }
+
+  public void setEanNr(String eanNr) {
+    this.eanNr = eanNr;
+  }
+
+  public String getAsinNr() {
+    return asinNr;
+  }
+
+  public void setAsinNr(String asinNr) {
+    this.asinNr = asinNr;
+  }
+
+  public String getAdditionalInfo() {
+    return additionalInfo;
+  }
+
+  public void setAdditionalInfo(String additionalInfo) {
+    this.additionalInfo = additionalInfo;
+  }
+
+  public Movie getMovie() {
+    return movie;
+  }
+
+  public void setMovie(Movie movie) {
+    this.movie = movie;
+  }
+
+  public Long getCreatedDate() {
+    return createdDate;
+  }
+
+  public void setCreatedDate(Long createdDate) {
+    this.createdDate = createdDate;
+  }
 }

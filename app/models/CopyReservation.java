@@ -76,7 +76,7 @@ public class CopyReservation extends Model {
         reservation.copy = item.copyItem;
         reservation.date = time;
 
-        movieOwners.add(item.copyItem.owner);
+        movieOwners.add(item.copyItem.getOwner());
 
         reservation.save();
       }
@@ -173,7 +173,7 @@ public class CopyReservation extends Model {
         .findOne();
     if (reservation == null) {
       if (Logger.isErrorEnabled() == true) {
-        Logger.error("Could not find " + CopyReservation.class.getName() + ": " + reservationId + " where the owner is: " + currentUser.userName);
+        Logger.error("Could not find " + CopyReservation.class.getName() + ": " + reservationId + " where the owner is: " + currentUser.getUserName());
       }
       return;
     }
@@ -195,7 +195,7 @@ public class CopyReservation extends Model {
         .findOne();
     if (reservation == null) {
       if (Logger.isErrorEnabled() == true) {
-        Logger.error("Could not find " + CopyReservation.class.getName() + ": " + reservationId + " where the copy.owner is: " + currentUser.userName);
+        Logger.error("Could not find " + CopyReservation.class.getName() + ": " + reservationId + " where the copy.owner is: " + currentUser.getUserName());
       }
       return;
     }
@@ -219,7 +219,7 @@ public class CopyReservation extends Model {
     if (CollectionUtils.isEmpty(list) == false) {
       result.put("", "");
       for (final CopyReservation reservation : list) {
-        result.put(String.valueOf(reservation.id), reservation.borrower.userName);
+        result.put(String.valueOf(reservation.id), reservation.borrower.getUserName());
       }
     }
     return result;
@@ -235,7 +235,7 @@ public class CopyReservation extends Model {
       return null;
     }
 
-    return copyReservation.borrower.userName;
+    return copyReservation.borrower.getUserName();
   }
 
   /**
@@ -254,12 +254,12 @@ public class CopyReservation extends Model {
       return;
     }
 
-    final Long borrowDate = copyReservation.copy.borrowDate;
+    final Long borrowDate = copyReservation.copy.getBorrowDate();
     if (borrowDate != null) {
       return;
     }
 
-    DvdDao.lendDvdToUser(copyReservation.copy.id, currentUser.userName, copyReservation.borrower.userName, null, false);
+    DvdDao.lendDvdToUser(copyReservation.copy.getId(), currentUser.getUserName(), copyReservation.borrower.getUserName(), null, false);
 
     copyReservation.delete();
   }

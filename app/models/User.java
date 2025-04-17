@@ -19,65 +19,105 @@ public class User extends Model {
   public static final Finder<Long, User> FINDER = new Finder<>(User.class);
 
   @Id
-  public Long id;
+  private Long id;
 
   @Required
   @Formats.NonEmpty
   @Column(unique = true)
-  public String userName;
+  private String userName;
 
   @Required
   @Formats.NonEmpty
-  public String password;
+  private String password;
 
   @Required
   @Formats.NonEmpty
-  public String email;
+  private String email;
 
 
   /**
    * If true this means the user has a gravatar url to display.
    */
-  public boolean hasGravatar;
+  private boolean hasGravatar;
 
   /**
    * If set this will be taken when the user adds a new copy to his collection as defaultold Type.
    * Like BluRay etc ...
    */
-  public String defaultCopyType;
+  private String defaultCopyType;
 
   /**
    * If this token is set the user asked for a password reset
    */
-  public String passwordResetToken;
+  private String passwordResetToken;
 
   /**
    * If generated the user can use this token to access a rss feed
    */
-  public String rssAuthKey;
+  private String rssAuthKey;
 
 
-  public void setRssAuthKey(String rssAuthKey) {
-    this.rssAuthKey = rssAuthKey;
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public String getUserName() {
+    return userName;
+  }
+
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
+
+  public String getPassword() {
+    return password;
   }
 
   public void setPassword(String password) {
     this.password = password;
   }
 
+  public String getEmail() {
+    return email;
+  }
+
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  public boolean isHasGravatar() {
+    return hasGravatar;
   }
 
   public void setHasGravatar(boolean hasGravatar) {
     this.hasGravatar = hasGravatar;
   }
 
+  public String getDefaultCopyType() {
+    return defaultCopyType;
+  }
+
   public void setDefaultCopyType(String defaultCopyType) {
     this.defaultCopyType = defaultCopyType;
   }
 
+  public String getPasswordResetToken() {
+    return passwordResetToken;
+  }
+
   public void setPasswordResetToken(String passwordResetToken) {
     this.passwordResetToken = passwordResetToken;
+  }
+
+  public String getRssAuthKey() {
+    return rssAuthKey;
+  }
+
+  public void setRssAuthKey(String rssAuthKey) {
+    this.rssAuthKey = rssAuthKey;
   }
 }

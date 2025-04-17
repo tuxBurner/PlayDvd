@@ -35,15 +35,46 @@ public class MovieAttribute extends Model
   public static final Finder<Long, MovieAttribute> FINDER = new Finder<>(MovieAttribute.class);
 
   @Id
-  public Long pk;
+  private Long pk;
 
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)
-  public EMovieAttributeType attributeType;
+  private EMovieAttributeType attributeType;
 
-  public String value;
+  private String value;
 
   @ManyToMany(cascade = CascadeType.ALL)
-  public Set<Movie> movies;
+  private Set<Movie> movies;
 
+  public Long getPk() {
+    return pk;
+  }
+
+  public void setPk(Long pk) {
+    this.pk = pk;
+  }
+
+  public EMovieAttributeType getAttributeType() {
+    return attributeType;
+  }
+
+  public void setAttributeType(EMovieAttributeType attributeType) {
+    this.attributeType = attributeType;
+  }
+
+  public String getValue() {
+    return value;
+  }
+
+  public void setValue(String value) {
+    this.value = value;
+  }
+
+  public Set<Movie> getMovies() {
+    return movies;
+  }
+
+  public void setMovies(Set<Movie> movies) {
+    this.movies = movies;
+  }
 }

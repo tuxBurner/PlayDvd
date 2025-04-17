@@ -26,7 +26,7 @@ public class UserDao {
   public static void create(final User user) {
 
     try {
-      user.password = UserDao.cryptPassword(user.password);
+      user.setPassword(cryptPassword(user.getPassword()));
       user.save();
     } catch (final Exception e) {
       Logger.error("An error happend while creating the new user.", e);
@@ -121,7 +121,7 @@ public class UserDao {
     final List<String> result = new ArrayList<String>();
 
     for (final User user : users) {
-      result.add(user.userName);
+      result.add(user.getUserName());
     }
 
     final Gson gson = new Gson();
@@ -146,7 +146,7 @@ public class UserDao {
       list = new ArrayList<String>();
       list.add("");
       for (final User user : findList) {
-        list.add(user.userName);
+        list.add(user.getUserName());
       }
     }
     return list;
@@ -154,36 +154,37 @@ public class UserDao {
 
   /**
    * Gets a {@link User} by the rss auth key
+   *
    * @param rssAuthKey
    * @return
    */
   public static User findUserByRssAuthKey(final String rssAuthKey) {
-    if(StringUtils.isEmpty(rssAuthKey) == true) {
+    if (StringUtils.isEmpty(rssAuthKey) == true) {
       return null;
     }
 
     return User.FINDER.query()
         .where()
-        .eq("rssAuthKey",rssAuthKey)
+        .eq("rssAuthKey", rssAuthKey)
         .findOne();
   }
 
   /**
    * Creates a rss auth key for the current user
+   *
    * @return
    */
   public static User createUserRssAuthKey(final User currentUser) {
-    if(currentUser == null) {
+    if (currentUser == null) {
       return null;
     }
 
-    if(StringUtils.isEmpty(currentUser.rssAuthKey) == true) {
-      if(Logger.isDebugEnabled() == true) {
+    if (StringUtils.isEmpty(currentUser.getRssAuthKey()) == true) {
+      if (Logger.isDebugEnabled() == true) {
         Logger.debug("No rssAuthKey found for the user. Generating a new one");
       }
 
       final String key = UUID.randomUUID().toString();
-      //currentUser.rssAuthKey = key;
       currentUser.setRssAuthKey(key);
       currentUser.update();
     }

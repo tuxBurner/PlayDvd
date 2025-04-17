@@ -71,7 +71,7 @@ public class CopyForm {
    *
    * @param amazonResult
    * @param movieId
-   * @param copy if not null the form will be filled with the informations from the copy
+   * @param copy         if not null the form will be filled with the informations from the copy
    */
   public static CopyForm amazonAndMovieToDvdForm(final AmazonResult amazonResult, final Long movieId, final Dvd copy) {
 
@@ -84,6 +84,7 @@ public class CopyForm {
   /**
    * Creates a dvdform from the informations from the copy and the amazonresult
    * if the copy is null it will be an empty form with just the amazon results
+   *
    * @param copy
    * @param amazonResult
    * @return
@@ -96,8 +97,8 @@ public class CopyForm {
     copyForm.audioTypes = amazonResult.audioTypes;
     copyForm.asinNr = amazonResult.asin;
     copyForm.eanNr = amazonResult.ean;
-    if(copy != null && copy.movie != null) {
-      copyForm.movieId = copy.movie.getId();
+    if (copy != null && copy.getMovie() != null) {
+      copyForm.movieId = copy.getMovie().getId();
     }
 
     Collections.sort(copyForm.audioTypes);
@@ -117,17 +118,17 @@ public class CopyForm {
 
     final CopyForm copyForm = new CopyForm();
 
-    copyForm.movieId = copy.movie.getId();
-    copyForm.dvdId = copy.id;
-    copyForm.ownerName = copy.owner.userName;
-    copyForm.hullNr = copy.hullNr;
-    copyForm.eanNr = copy.eanNr;
-    copyForm.asinNr = copy.asinNr;
-    copyForm.additionalInfo = copy.additionalInfo;
-    copyForm.ownerHasGravatar = copy.owner.hasGravatar;
+    copyForm.movieId = copy.getMovie().getId();
+    copyForm.dvdId = copy.getId();
+    copyForm.ownerName = copy.getOwner().getUserName();
+    copyForm.hullNr = copy.getHullNr();
+    copyForm.eanNr = copy.getEanNr();
+    copyForm.asinNr = copy.getAsinNr();
+    copyForm.additionalInfo = copy.getAdditionalInfo();
+    copyForm.ownerHasGravatar = copy.getOwner().isHasGravatar();
 
 
-    final Set<DvdAttribute> dvdAttrs = copy.attributes;
+    final Set<DvdAttribute> dvdAttrs = copy.getAttributes();
     for (final DvdAttribute dvdAttribute : dvdAttrs) {
 
       switch (dvdAttribute.attributeType) {
@@ -171,9 +172,9 @@ public class CopyForm {
     }
 
     final Movie byId = Movie.FINDER.query()
-      .select("id, hasPoster,title")
-      .where().eq("id", movieId)
-      .findOne();
+        .select("id, hasPoster,title")
+        .where().eq("id", movieId)
+        .findOne();
 
     return gson.toJson(new MovieSelect2Value(byId));
   }
