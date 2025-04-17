@@ -91,7 +91,7 @@
           }
 
           <label for="series">@messages("lbl.audioformats"):</label>
-          <input type="hidden" name="audioTypes" id="audioTypes" class="span5" value="@forms.MovieForm.getDvdFormAttributesAsString(dvdForm("audioTypes").value.get())" data-placeholder="@messages("lbl.selectAudioTypes")"/>
+          <input type="hidden" name="audioTypes" id="audioTypes" class="span5" value="@forms.MovieForm.getDvdFormAttributesAsString(dvdForm("audioTypes").value)" data-placeholder="@messages("lbl.selectAudioTypes")"/>
 
           @inputText(dvdForm("hullNr"), '_label -> messages("lbl.hullNr"), 'class -> "span2")
 

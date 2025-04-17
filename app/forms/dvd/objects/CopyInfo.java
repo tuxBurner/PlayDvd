@@ -1,17 +1,17 @@
 package forms.dvd.objects;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import dao.DvdDao;
 import forms.MovieForm;
 import forms.dvd.CopyForm;
 import models.Commentable;
 import models.Dvd;
 import models.EDvdAttributeType;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class CopyInfo {
 
@@ -53,8 +53,8 @@ public class CopyInfo {
     }
 
     title = copy.movie.title;
-    if(StringUtils.isEmpty(copy.additionalInfo) == false) {
-      title += " ["+copy.additionalInfo+"]";
+    if (StringUtils.isEmpty(copy.additionalInfo) == false) {
+      title += " [" + copy.additionalInfo + "]";
     }
 
     //commentable = dvd.movie.commentable;
@@ -67,7 +67,7 @@ public class CopyInfo {
 
   /**
    * Collects all Dvds which have the attribute and the same owner
-   * 
+   *
    * @param dvd
    * @param attrvalue
    * @param attrvalue
@@ -80,7 +80,7 @@ public class CopyInfo {
       return null;
     }
 
-    final List<Dvd> boxDbDvds = Dvd.getbyMovieSeries(attrvalue, dvd);
+    final List<Dvd> boxDbDvds = DvdDao.getbyMovieSeries(attrvalue, dvd);
     List<CollectionDvd> returnList = null;
     if (CollectionUtils.isEmpty(boxDbDvds) == false) {
       returnList = new ArrayList<CollectionDvd>();
@@ -97,7 +97,7 @@ public class CopyInfo {
 
   /**
    * Collects all Dvds which have the attribute and the same owner
-   * 
+   *
    * @param dvd
    * @param attrType
    * @param attrvalue
@@ -109,7 +109,7 @@ public class CopyInfo {
       return null;
     }
 
-    final List<Dvd> boxDbDvds = Dvd.getDvdByBoxOrCollection(attrType, attrvalue, dvd);
+    final List<Dvd> boxDbDvds = DvdDao.getDvdByBoxOrCollection(attrType, attrvalue, dvd);
     List<CollectionDvd> returnList = null;
     if (CollectionUtils.isEmpty(boxDbDvds) == false) {
       returnList = new ArrayList<CollectionDvd>();

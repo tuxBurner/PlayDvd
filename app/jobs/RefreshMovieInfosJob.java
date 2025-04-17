@@ -2,6 +2,7 @@ package jobs;
 
 import akka.actor.ActorSystem;
 import com.github.tuxBurner.jobs.AbstractConfigurationJob;
+import dao.MovieDao;
 import forms.MovieForm;
 import forms.grabbers.GrabberInfoForm;
 import grabbers.GrabberHelper;
@@ -37,11 +38,11 @@ public class RefreshMovieInfosJob extends AbstractConfigurationJob {
 
     FiniteDuration finiteDuration = Duration.create(movieAge, TimeUnit.DAYS);
 
-    List<Movie> moviesToUpdate = Movie.findMoviesToUpdate(finiteDuration, movieAmount);
+    List<Movie> moviesToUpdate = MovieDao.findMoviesToUpdate(finiteDuration, movieAmount);
     Logger.info("Found: " + moviesToUpdate.size() + " to update the informations for.");
 
     for (Movie movie : moviesToUpdate) {
-      Logger.info("Going to fetch data for movie "+movie.title+" (" + movie.id + ") with grabber: " + movie.grabberType + " (" + movie.grabberId + ")");
+      Logger.info("Going to fetch data for movie " + movie.title + " (" + movie.id + ") with grabber: " + movie.grabberType + " (" + movie.grabberId + ")");
       IInfoGrabber grabber = GrabberHelper.getGrabber(movie.grabberType);
       GrabberInfoForm infoForm = new GrabberInfoForm();
       infoForm.grabberMovieId = movie.grabberId;
@@ -49,9 +50,9 @@ public class RefreshMovieInfosJob extends AbstractConfigurationJob {
       try {
         MovieForm movieForm = grabber.fillInfoToMovieForm(infoForm);
         movieForm.movieId = movie.id;
-        Movie.editOrAddFromForm(movieForm, false);
+        MovieDao.editOrAddFromForm(movieForm, false);
       } catch (Exception e) {
-        Logger.error("An error happened while getting movieinformations for movie: "+movie.title+" (" + movie.id + ") with grabber: " + movie.grabberType + " (" + movie.grabberId + ")", e);
+        Logger.error("An error happened while getting movieinformations for movie: " + movie.title + " (" + movie.id + ") with grabber: " + movie.grabberType + " (" + movie.grabberId + ")", e);
         movie.updatedDate = new Date().getTime();
         movie.update();
       }
@@ -61,6 +62,7 @@ public class RefreshMovieInfosJob extends AbstractConfigurationJob {
 
   /**
    * We want the job to start when the application is starting.
+   *
    * @return
    */
   @Override

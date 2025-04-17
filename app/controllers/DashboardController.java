@@ -2,6 +2,7 @@ package controllers;
 
 import com.github.tuxBurner.jsAnnotations.JSRoute;
 import com.google.inject.Singleton;
+import dao.DvdDao;
 import dao.UserDao;
 import forms.ExternalImageForm;
 import forms.LendForm;
@@ -95,7 +96,7 @@ public class DashboardController extends Controller {
     final CopyInfo copyInfo = new CopyInfo(copy);
 
     final CopySearchFrom currentSearchForm = CopySearchFrom.getCurrentSearchForm(cacheHelper, request);
-    final PrevNextCopies nextAndPrev = Dvd.getNextAndPrev(copy, currentSearchForm);
+    final PrevNextCopies nextAndPrev = DvdDao.getNextAndPrev(copy, currentSearchForm);
 
     final CacheShoppingCart shoppingCartFromCache = cacheHelper.getShoppingCartFromCache(request);
     final Set<Long> bookmarkedCopyIds = cacheHelper.getBookmarkedCopyIds(request);
@@ -119,12 +120,12 @@ public class DashboardController extends Controller {
   public Result lendDialogContent(final Long dvdId, final Http.Request request) {
     // check if the user may see the dvd
     final String userName = Secured.getUsernameStatic(request);
-    final Dvd dvdForUser = Dvd.getDvdForUser(dvdId, userName);
+    final Dvd dvdForUser = DvdDao.getDvdForUser(dvdId, userName);
     if (dvdForUser == null) {
       return Results.forbidden();
     }
 
-    final List<Dvd> dvdForUserInSameHull = Dvd.getDvdUnBorrowedSameHull(dvdForUser);
+    final List<Dvd> dvdForUserInSameHull = DvdDao.getDvdUnBorrowedSameHull(dvdForUser);
     final Map<String, String> reservationsForCopy = CopyReservation.getReservationsForCopy(dvdId);
 
     final Form<LendForm> form = formFactory.form(LendForm.class);
@@ -142,7 +143,7 @@ public class DashboardController extends Controller {
   public Result unLendDialogContent(final Long dvdId, final Http.Request request) {
     // check if the user may see the dvd
     final String userName = Secured.getUsernameStatic(request);
-    final Dvd dvdForUser = Dvd.getDvdForUser(dvdId, userName, true);
+    final Dvd dvdForUser = DvdDao.getDvdForUser(dvdId, userName, true);
     if (dvdForUser == null) {
       return Results.forbidden();
     }
@@ -164,7 +165,7 @@ public class DashboardController extends Controller {
       return Results.internalServerError(message);
     }
 
-    final List<Dvd> dvdBorrowedSameHull = Dvd.getDvdBorrowedSameHull(dvdForUser);
+    final List<Dvd> dvdBorrowedSameHull = DvdDao.getDvdBorrowedSameHull(dvdForUser);
     final Messages messages = this.messagesApi.preferred(request);
 
     return Results.ok(views.html.dashboard.unlendform.render(formFactory.form(UnLendForm.class), dvdForUser, dvdBorrowedSameHull, request, messages));
@@ -202,7 +203,7 @@ public class DashboardController extends Controller {
     }
 
     final String ownerName = request.session().get(Secured.AUTH_SESSION).get();
-    Dvd.lendDvdToUser(dvdId, ownerName, userName, freeName, lendForm.alsoOthersInHull);
+    DvdDao.lendDvdToUser(dvdId, ownerName, userName, freeName, lendForm.alsoOthersInHull);
 
     return Results.ok();
   }
@@ -222,7 +223,7 @@ public class DashboardController extends Controller {
     final UnLendForm unlendForm = form.get();
 
     final String ownerName = request.session().get(Secured.AUTH_SESSION).get();
-    Dvd.unlendDvdToUser(dvdId, ownerName, unlendForm.alsoOthersInHull);
+    DvdDao.unlendDvdToUser(dvdId, ownerName, unlendForm.alsoOthersInHull);
 
     return Results.ok();
   }
@@ -237,7 +238,7 @@ public class DashboardController extends Controller {
   public Result deleteDialogContent(final Long dvdId, final Http.Request request) {
 
     final String userName = Secured.getUsernameStatic(request);
-    final Dvd dvdForUser = Dvd.getDvdForUser(dvdId, userName);
+    final Dvd dvdForUser = DvdDao.getDvdForUser(dvdId, userName);
     if (dvdForUser == null) {
       return Results.forbidden();
     }
@@ -255,7 +256,7 @@ public class DashboardController extends Controller {
   @JSRoute
   public Result deleteDvd(final Long dvdId, final Http.Request request) {
     final String userName = Secured.getUsernameStatic(request);
-    final Dvd dvdForUser = Dvd.getDvdForUser(dvdId, userName);
+    final Dvd dvdForUser = DvdDao.getDvdForUser(dvdId, userName);
     if (dvdForUser == null) {
       return Results.forbidden();
     }

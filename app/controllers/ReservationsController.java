@@ -1,6 +1,7 @@
 package controllers;
 
 import com.github.tuxBurner.jsAnnotations.JSRoute;
+import dao.DvdDao;
 import dao.UserDao;
 import models.CopyReservation;
 import models.Dvd;
@@ -62,7 +63,7 @@ public class ReservationsController extends Controller {
    */
   public Result showLentCopies(final Http.Request request) {
     final Messages messages = this.messagesApi.preferred(request);
-    return ok(views.html.reservations.lentcopies.render(Dvd.getLentDvds(request), request, messages));
+    return ok(views.html.reservations.lentcopies.render(DvdDao.getLentDvds(request), request, messages));
   }
 
   /**
@@ -72,7 +73,7 @@ public class ReservationsController extends Controller {
    */
   public Result showBorrowedCopies(final Http.Request request) {
     final Messages messages = this.messagesApi.preferred(request);
-    return ok(showborrowed.render(Dvd.getBorrowedDvds(request), request, messages));
+    return ok(showborrowed.render(DvdDao.getBorrowedDvds(request), request, messages));
   }
 
   /**
@@ -143,7 +144,7 @@ public class ReservationsController extends Controller {
       final User currentUser = UserDao.findCurrentUser(request);
       for (final String id : ids) {
         if (StringUtils.isNumeric(id) == true) {
-          Dvd.unlendDvdToUser(Long.valueOf(id), Secured.getUsernameStatic(request), false);
+          DvdDao.unlendDvdToUser(Long.valueOf(id), Secured.getUsernameStatic(request), false);
         }
       }
     }

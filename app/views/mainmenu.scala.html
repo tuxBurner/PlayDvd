@@ -15,7 +15,7 @@
       </div>
     }
 
-    @reservations.menureservationbtn(CopyReservation.getReservationsCount(request),CopyReservation.getReservedCount(request),Dvd.getLentDvdsCount(request),Dvd.getBorrowedDvdsCount(request))
+    @reservations.menureservationbtn(CopyReservation.getReservationsCount(request),CopyReservation.getReservedCount(request),dao.DvdDao.getLentDvdsCount(request),dao.DvdDao.getBorrowedDvdsCount(request))
 
     <div class="btn-group">
     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">

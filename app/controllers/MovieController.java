@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.tuxBurner.jsAnnotations.JSRoute;
 import com.google.gson.Gson;
 import dao.MovieAttributeDao;
+import dao.MovieDao;
 import forms.MovieForm;
 import forms.grabbers.GrabberInfoForm;
 import grabbers.EGrabberType;
@@ -99,7 +100,7 @@ public class MovieController extends Controller {
       return Results.badRequest(movieform.render(movieForm, mode, request, messages));
     } else {
       try {
-        final Movie editOrAddFromForm = Movie.editOrAddFromForm(movieForm.get(), true);
+        final Movie editOrAddFromForm = MovieDao.editOrAddFromForm(movieForm.get(), true);
         final ObjectNode result = Json.newObject();
         result.put("id", editOrAddFromForm.id);
         result.put("title", editOrAddFromForm.title);
@@ -157,7 +158,7 @@ public class MovieController extends Controller {
     final List<MovieSelect2Value> result = new ArrayList<MovieSelect2Value>();
 
     if (StringUtils.isEmpty(term) == false) {
-      final List<Movie> searchLike = Movie.searchLike(term, 20);
+      final List<Movie> searchLike = MovieDao.searchLike(term, 20);
       for (final Movie movie : searchLike) {
         result.add(new MovieSelect2Value(movie));
       }
@@ -200,7 +201,7 @@ public class MovieController extends Controller {
   public Result checkIfMovieAlreadyExists(final String grabberId, final String grabberType) {
     final Gson gson = new Gson();
 
-    boolean movieExists = Movie.checkIfMovieWasGrabbedBefore(grabberId, EGrabberType.valueOf(grabberType));
+    boolean movieExists = MovieDao.checkIfMovieWasGrabbedBefore(grabberId, EGrabberType.valueOf(grabberType));
 
     return ok(gson.toJson(movieExists));
   }

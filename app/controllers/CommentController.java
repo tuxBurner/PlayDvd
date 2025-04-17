@@ -2,6 +2,7 @@ package controllers;
 
 import com.github.tuxBurner.jsAnnotations.JSRoute;
 import com.google.inject.Singleton;
+import dao.MovieDao;
 import models.Commentable;
 import models.Movie;
 import play.data.DynamicForm;
@@ -41,7 +42,7 @@ public class CommentController extends Controller {
     DynamicForm requestData = formFactory.form().bindFromRequest(request);
     final String commentText = requestData.get("commentText");
 
-    final Commentable commentable = Movie.addComment(movieId, commentText);
+    final Commentable commentable = MovieDao.addComment(movieId, commentText);
 
     request.flash().adding(COMMENT_SUCCESS_FLASH, "Comment was added to movie.");
 

@@ -1,5 +1,6 @@
 package models;
 
+import dao.DvdDao;
 import dao.UserDao;
 import io.ebean.Finder;
 import io.ebean.Model;
@@ -258,7 +259,7 @@ public class CopyReservation extends Model {
       return;
     }
 
-    Dvd.lendDvdToUser(copyReservation.copy.id, currentUser.userName, copyReservation.borrower.userName, null, false);
+    DvdDao.lendDvdToUser(copyReservation.copy.id, currentUser.userName, copyReservation.borrower.userName, null, false);
 
     copyReservation.delete();
   }

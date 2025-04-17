@@ -125,8 +125,11 @@ public class MovieForm {
    * @param values
    * @return
    */
-  public static String getDvdFormAttributesAsString(final String values) {
-    return StringUtils.replace(StringUtils.replaceChars(values, "[]", ""),", ",",");
+  public static String getDvdFormAttributesAsString(final Optional<String> values) {
+    if(values.isEmpty()) {
+      return "";
+    }
+    return StringUtils.replace(StringUtils.replaceChars(values.get(), "[]", ""),", ",",");
   }
 
   public Long getMovieId() {

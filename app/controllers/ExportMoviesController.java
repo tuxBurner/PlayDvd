@@ -1,6 +1,7 @@
 package controllers;
 
 
+import dao.DvdDao;
 import dao.UserDao;
 import models.Dvd;
 import models.DvdAttribute;
@@ -63,7 +64,7 @@ public class ExportMoviesController extends Controller {
 
     final var username = Secured.getUsernameStatic(request);
 
-    List<Dvd> dvds = Dvd.getAllCopiesForUserForExport(username);
+    List<Dvd> dvds = DvdDao.getAllCopiesForUserForExport(username);
     if (CollectionUtils.isEmpty(dvds) == false) {
 
       try {

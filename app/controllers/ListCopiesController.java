@@ -3,6 +3,7 @@ package controllers;
 import com.github.tuxBurner.jsAnnotations.JSRoute;
 import com.google.inject.Singleton;
 import com.typesafe.config.ConfigFactory;
+import dao.DvdDao;
 import forms.dvd.CopySearchFrom;
 import helpers.CacheHelper;
 import helpers.ConfigurationHelper;
@@ -223,7 +224,7 @@ public class ListCopiesController extends Controller {
     CopySearchFrom.setCurrentSearchForm(copySearchFrom, cacheHelper, request);
     final ECopyListView currentViewMode = getCurrentViewMode(request);
     final Integer itemsPerPage = DVDS_PER_PAGE_CONFIG.get(currentViewMode.name());
-    final PagedList<Dvd> dvdsByForm = Dvd.getDvdsBySearchForm(copySearchFrom, itemsPerPage);
+    final PagedList<Dvd> dvdsByForm = DvdDao.getDvdsBySearchForm(copySearchFrom, itemsPerPage);
     final DvdPage dvdPage = new DvdPage(dvdsByForm);
     final CacheShoppingCart shoppingCartFromCache = cacheHelper.getShoppingCartFromCache(request);
     final Set<Long> bookmarkedCopyIds = cacheHelper.getBookmarkedCopyIds(request);

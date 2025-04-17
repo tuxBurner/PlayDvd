@@ -34,7 +34,7 @@
       @inputText(movieForm("imdbId"),Symbol("_label") -> messages("lbl.imdbId"),Symbol("placeholder") -> "ID on IMDB")
 
       <label for="genres">@messages("lbl.genres")</label>
-      <input type="hidden" name="genres" id="genres"  class="span11" value="@forms.MovieForm.getDvdFormAttributesAsString(movieForm("genres").value.get())"/>
+      <input type="hidden" name="genres" id="genres"  class="span11" value="@forms.MovieForm.getDvdFormAttributesAsString(movieForm("genres").value)"/>
 
       <hr />
       <label for="series">@messages("lbl.movieSeries")</label>
@@ -44,7 +44,7 @@
       @inputText(movieForm("director"),Symbol("_label") -> "Director",Symbol("placeholder") -> messages("lbl.director"))
          
       <label for="actors">@messages("lbl.actors")</label>
-      <input type="hidden" name="actors" id="actors"  class="span11" value="@forms.MovieForm.getDvdFormAttributesAsString(movieForm("actors").value.get())"/>
+      <input type="hidden" name="actors" id="actors"  class="span11" value="@forms.MovieForm.getDvdFormAttributesAsString(movieForm("actors").value)"/>
 
       <hr />
       @inputText(movieForm("trailerUrl"),Symbol("_label") -> messages("lbl.trailerYoutubeId"))

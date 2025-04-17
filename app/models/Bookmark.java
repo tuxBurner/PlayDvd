@@ -2,6 +2,7 @@ package models;
 
 
 import controllers.Secured;
+import dao.DvdDao;
 import io.ebean.Finder;
 import io.ebean.Model;
 import io.ebean.PagedList;
@@ -79,7 +80,7 @@ public class Bookmark extends Model {
       return bookmarkCheck;
     }
 
-    Dvd copy = Dvd.getDvdForUser(copyId, username);
+    Dvd copy = DvdDao.getDvdForUser(copyId, username);
     if (copy == null) {
       if (Logger.isErrorEnabled() == true) {
         Logger.error("Could not find copy for mark to view");

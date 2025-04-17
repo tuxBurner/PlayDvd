@@ -1,6 +1,7 @@
 package controllers;
 
 import com.github.tuxBurner.jsAnnotations.JSRoute;
+import dao.DvdDao;
 import dao.UserDao;
 import helpers.CacheHelper;
 import helpers.ECacheObjectName;
@@ -61,7 +62,7 @@ public class ShoppingCartController extends Controller {
   @JSRoute
   public Result addCopyToCart(final Long copyId, final Http.Request request) {
 
-    Dvd copyToBorrow = Dvd.getDvdToBorrow(copyId, Secured.getUsernameStatic(request));
+    Dvd copyToBorrow = DvdDao.getDvdToBorrow(copyId, Secured.getUsernameStatic(request));
     if (copyToBorrow == null) {
       if (Logger.isErrorEnabled() == true) {
         Logger.error("Could not find dvd: " + copyId + " for adding it into the shopping cart");
