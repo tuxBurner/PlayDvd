@@ -251,7 +251,7 @@ public class DvdDao {
         orderDvdVal = dvd.createdDate;
         break;
       case MOVIE_TITLE:
-        orderDvdVal = dvd.movie.title;
+        orderDvdVal = dvd.movie.getTitle();
         break;
     }
 

@@ -185,7 +185,7 @@ public class Bookmark extends Model {
       return "";
     }
 
-    String title = bookmarkToDelete.copy.movie.title;
+    String title = bookmarkToDelete.copy.movie.getTitle();
 
     bookmarkToDelete.delete();
 

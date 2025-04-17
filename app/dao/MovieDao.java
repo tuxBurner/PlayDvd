@@ -51,62 +51,61 @@ public class MovieDao {
       movie = new Movie();
     }
 
-    movie.title = movieForm.title;
-    movie.description = movieForm.plot;
-    movie.year = movieForm.year;
-    movie.runtime = movieForm.runtime;
+    movie.setTitle(movieForm.title);
+    movie.setDescription(movieForm.plot);
+    movie.setYear(movieForm.year);
+    movie.setRuntime(movieForm.runtime);
 
-    if ((movie.id != null && StringUtils.isBlank(movieForm.trailerUrl) == false) || movie.id == null) {
-      movie.trailerUrl = movieForm.trailerUrl;
+    if ((movie.getId() != null && StringUtils.isBlank(movieForm.trailerUrl) == false) || movie.getId() == null) {
+      movie.setTrailerUrl(movieForm.trailerUrl);
     }
 
-    movie.hasToBeReviewed = false;
-    movie.imdbId = movieForm.imdbId;
-    movie.imdbRating = movieForm.imdbRating;
+    movie.setHasToBeReviewed(false);
+    movie.setImdbId(movieForm.imdbId);
+    movie.setImdbRating(movieForm.imdbRating);
     if (movieForm.grabberType != null && movieForm.grabberType != EGrabberType.NONE && StringUtils.isEmpty(movieForm.grabberId) == false) {
-      movie.grabberType = movieForm.grabberType;
-      movie.grabberId = movieForm.grabberId;
+      movie.setGrabberType(movieForm.grabberType);
+      movie.setGrabberId(movieForm.grabberId);
     } else {
-      movie.grabberType = EGrabberType.NONE;
+      movie.setGrabberType(EGrabberType.NONE);
     }
 
-    if (movie.id == null) {
-      movie.hasPoster = false;
-      movie.hasBackdrop = false;
+    if (movie.getId() == null) {
+      movie.setHasPoster(false);
+      movie.setHasBackdrop(false);
       movie.save();
     } else {
-      movie.attributes.clear();
+      movie.getAttributes().clear();
       movie.update();
-      //Ebean.dedeleteManyToManyAssociations(movie, "attributes");
     }
 
     // add the images if we have some :)
     if (updateImages == true) {
-      final Boolean newPoster = ImageHelper.createFileFromUrl(movie.id, movieForm.posterUrl, EImageType.POSTER);
-      if (movie.hasPoster == null || movie.hasPoster == false) {
-        movie.hasPoster = newPoster;
+      final Boolean newPoster = ImageHelper.createFileFromUrl(movie.getId(), movieForm.posterUrl, EImageType.POSTER);
+      if (movie.getHasPoster() == null || movie.getHasPoster() == false) {
+        movie.setHasPoster(newPoster);
       }
 
-      final Boolean newBackDrop = ImageHelper.createFileFromUrl(movie.id, movieForm.backDropUrl, EImageType.BACKDROP);
-      if (movie.hasBackdrop == null || movie.hasBackdrop == false) {
-        movie.hasBackdrop = newBackDrop;
+      final Boolean newBackDrop = ImageHelper.createFileFromUrl(movie.getId(), movieForm.backDropUrl, EImageType.BACKDROP);
+      if (movie.getHasBackdrop() == null || movie.getHasBackdrop() == false) {
+        movie.setHasBackdrop(newBackDrop);
       }
     }
 
-    movie.attributes = new HashSet<>();
+    movie.setAttributes(new HashSet<>());
 
     // gather all the genres and add them to the dvd
     final Set<MovieAttribute> genres = MovieAttributeDao.gatherAndAddAttributes(new HashSet<>(movieForm.genres), EMovieAttributeType.GENRE);
-    movie.attributes.addAll(genres);
+    movie.getAttributes().addAll(genres);
 
     final Set<MovieAttribute> actors = MovieAttributeDao.gatherAndAddAttributes(new HashSet<>(movieForm.actors), EMovieAttributeType.ACTOR);
-    movie.attributes.addAll(actors);
+    movie.getAttributes().addAll(actors);
 
     MovieDao.addSingleAttribute(movieForm.series, EMovieAttributeType.MOVIE_SERIES, movie);
 
     MovieDao.addSingleAttribute(movieForm.director, EMovieAttributeType.DIRECTOR, movie);
 
-    movie.updatedDate = new Date().getTime();
+    movie.setUpdatedDate(new Date().getTime());
 
     movie.update();
 
@@ -128,7 +127,7 @@ public class MovieDao {
     final Set<String> attribute = new HashSet<String>();
     attribute.add(attrToAdd);
     final Set<MovieAttribute> dbAttrs = MovieAttributeDao.gatherAndAddAttributes(attribute, attributeType);
-    movie.attributes.addAll(dbAttrs);
+    movie.getAttributes().addAll(dbAttrs);
   }
 
   /**
@@ -170,10 +169,10 @@ public class MovieDao {
         .eq("eanNr", eanNr)
         .findList();
     for (Dvd dvd : dvds) {
-      final Long movieId = dvd.movie.id;
+      final Long movieId = dvd.movie.getId();
       boolean foundMovie = false;
       for (Movie movie : movies) {
-        if (movie.id.equals(movieId) == true) {
+        if (movie.getId().equals(movieId) == true) {
           foundMovie = true;
           break;
         }

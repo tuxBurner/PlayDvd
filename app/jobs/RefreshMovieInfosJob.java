@@ -42,18 +42,18 @@ public class RefreshMovieInfosJob extends AbstractConfigurationJob {
     Logger.info("Found: " + moviesToUpdate.size() + " to update the informations for.");
 
     for (Movie movie : moviesToUpdate) {
-      Logger.info("Going to fetch data for movie " + movie.title + " (" + movie.id + ") with grabber: " + movie.grabberType + " (" + movie.grabberId + ")");
-      IInfoGrabber grabber = GrabberHelper.getGrabber(movie.grabberType);
+      Logger.info("Going to fetch data for movie " + movie.getTitle() + " (" + movie.getId() + ") with grabber: " + movie.getGrabberType() + " (" + movie.getGrabberId() + ")");
+      IInfoGrabber grabber = GrabberHelper.getGrabber(movie.getGrabberType());
       GrabberInfoForm infoForm = new GrabberInfoForm();
-      infoForm.grabberMovieId = movie.grabberId;
-      infoForm.movieToEditId = movie.id;
+      infoForm.grabberMovieId = movie.getGrabberId();
+      infoForm.movieToEditId = movie.getId();
       try {
         MovieForm movieForm = grabber.fillInfoToMovieForm(infoForm);
-        movieForm.movieId = movie.id;
+        movieForm.movieId = movie.getId();
         MovieDao.editOrAddFromForm(movieForm, false);
       } catch (Exception e) {
-        Logger.error("An error happened while getting movieinformations for movie: " + movie.title + " (" + movie.id + ") with grabber: " + movie.grabberType + " (" + movie.grabberId + ")", e);
-        movie.updatedDate = new Date().getTime();
+        Logger.error("An error happened while getting movieinformations for movie: " + movie.getTitle() + " (" + movie.getId() + ") with grabber: " + movie.getGrabberType() + " (" + movie.getGrabberId() + ")", e);
+        movie.setUpdatedDate(new Date().getTime());
         movie.update();
       }
 

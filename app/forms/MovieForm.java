@@ -71,26 +71,26 @@ public class MovieForm {
   public static MovieForm movieToForm(final Movie movie) {
     final MovieForm movieForm = new MovieForm();
 
-    movieForm.movieId = movie.id;
-    movieForm.title = movie.title;
-    movieForm.year = movie.year;
-    movieForm.runtime = movie.runtime;
-    movieForm.plot = movie.description;
-    movieForm.trailerUrl = movie.trailerUrl;
+    movieForm.movieId = movie.getId();
+    movieForm.title = movie.getTitle();
+    movieForm.year = movie.getYear();
+    movieForm.runtime = movie.getRuntime();
+    movieForm.plot = movie.getDescription();
+    movieForm.trailerUrl = movie.getTrailerUrl();
 
-    movieForm.hasBackdrop = movie.hasBackdrop;
-    movieForm.hasPoster = movie.hasPoster;
-    movieForm.imdbId = movie.imdbId;
-    movieForm.imdbRating = movie.imdbRating;
-    if(EGrabberType.NONE.equals(movie.grabberType) == false && StringUtils.isEmpty(movie.grabberId) == false) {
-      movieForm.grabberType = movie.grabberType;
-      movieForm.grabberId = movie.grabberId;
+    movieForm.hasBackdrop = movie.getHasBackdrop();
+    movieForm.hasPoster = movie.getHasPoster();
+    movieForm.imdbId = movie.getImdbId();
+    movieForm.imdbRating = movie.getImdbRating();
+    if(EGrabberType.NONE.equals(movie.getGrabberType()) == false && StringUtils.isEmpty(movie.getGrabberId()) == false) {
+      movieForm.grabberType = movie.getGrabberType();
+      movieForm.grabberId = movie.getGrabberId();
     }
 
     final Set<String> genreSet = new HashSet<String>();
     final Set<String> actorSet = new HashSet<String>();
 
-    final Set<MovieAttribute> attributes = movie.attributes;
+    final Set<MovieAttribute> attributes = movie.getAttributes();
     for (final MovieAttribute movieAttibute : attributes) {
       if (EMovieAttributeType.GENRE.equals(movieAttibute.attributeType)) {
         genreSet.add(movieAttibute.value.trim());

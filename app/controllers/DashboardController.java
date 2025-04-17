@@ -21,6 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 import play.data.Form;
 import play.data.FormFactory;
+import play.db.ebean.Transactional;
 import play.i18n.Messages;
 import play.i18n.MessagesApi;
 import play.mvc.*;

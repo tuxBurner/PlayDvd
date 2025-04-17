@@ -4,7 +4,7 @@
 
 
 @import helpers.EImageSize
-@messages("headline.markAsViewed"): @general.displayposter(copy.movie.id,copy.movie.hasPoster,EImageSize.TINY) <i>@general.displayCopyTitle(copy)</i>
+@messages("headline.markAsViewed"): @general.displayposter(copy.movie.getId,copy.movie.getHasPoster,EImageSize.TINY) <i>@general.displayCopyTitle(copy)</i>
 
 <input type="hidden" id="copyId" value="@copy.id" />
 

@@ -52,7 +52,7 @@ public class CopyInfo {
       borrowedOn = new Date(copy.borrowDate);
     }
 
-    title = copy.movie.title;
+    title = copy.movie.getTitle();
     if (StringUtils.isEmpty(copy.additionalInfo) == false) {
       title += " [" + copy.additionalInfo + "]";
     }

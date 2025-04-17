@@ -41,62 +41,186 @@ public class Movie extends Model
   public static final Finder<Long, Movie> FINDER = new Finder<>(Movie.class);
 
   @Id
-  public Long id;
+  private Long id;
 
   @Required
-  public String title;
+  private String title;
 
-  public Boolean hasPoster;
+  private Boolean hasPoster;
 
-  public Boolean hasBackdrop;
+  private Boolean hasBackdrop;
 
   /**
    * If true the movie has to be reviewed is for mass imports etc importand
    */
   @Column(nullable = false)
-  public Boolean hasToBeReviewed = false;
+  private Boolean hasToBeReviewed = false;
 
-  public String description;
+  private String description;
 
   @Required
   @Column(nullable = false)
-  public Integer year;
+  private Integer year;
 
-  public Integer runtime;
+  private Integer runtime;
 
   @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "movies")
-  public Set<MovieAttribute> attributes;
+  private Set<MovieAttribute> attributes;
 
   @OneToMany(mappedBy = "movie")
-  public Set<Dvd> dvds;
+  private Set<Dvd> dvds;
 
-  public String trailerUrl;
+  private String trailerUrl;
 
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)
-  public EGrabberType grabberType = EGrabberType.NONE;
+  private EGrabberType grabberType = EGrabberType.NONE;
 
   /**
    * Marks the date when the movie was las update/created
    */
-  public Long updatedDate;
+  private Long updatedDate;
 
   /**
    * Id to the imdb
    */
-  public String imdbId;
+  private String imdbId;
 
   /**
    * Rating of imdb for this movie
    */
-  public String imdbRating;
+  private String imdbRating;
 
   /**
    * If the EGrabberType is not null this is the id which is to use to FINDER the movie via the grabber
    */
-  public String grabberId;
+  private String grabberId;
 
+  public Long getId() {
+    return id;
+  }
 
+  public void setId(Long id) {
+    this.id = id;
+  }
 
+  public String getTitle() {
+    return title;
+  }
 
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public Boolean getHasPoster() {
+    return hasPoster;
+  }
+
+  public void setHasPoster(Boolean hasPoster) {
+    this.hasPoster = hasPoster;
+  }
+
+  public Boolean getHasBackdrop() {
+    return hasBackdrop;
+  }
+
+  public void setHasBackdrop(Boolean hasBackdrop) {
+    this.hasBackdrop = hasBackdrop;
+  }
+
+  public Boolean getHasToBeReviewed() {
+    return hasToBeReviewed;
+  }
+
+  public void setHasToBeReviewed(Boolean hasToBeReviewed) {
+    this.hasToBeReviewed = hasToBeReviewed;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public Integer getYear() {
+    return year;
+  }
+
+  public void setYear(Integer year) {
+    this.year = year;
+  }
+
+  public Integer getRuntime() {
+    return runtime;
+  }
+
+  public void setRuntime(Integer runtime) {
+    this.runtime = runtime;
+  }
+
+  public Set<MovieAttribute> getAttributes() {
+    return attributes;
+  }
+
+  public void setAttributes(Set<MovieAttribute> attributes) {
+    this.attributes = attributes;
+  }
+
+  public Set<Dvd> getDvds() {
+    return dvds;
+  }
+
+  public void setDvds(Set<Dvd> dvds) {
+    this.dvds = dvds;
+  }
+
+  public String getTrailerUrl() {
+    return trailerUrl;
+  }
+
+  public void setTrailerUrl(String trailerUrl) {
+    this.trailerUrl = trailerUrl;
+  }
+
+  public EGrabberType getGrabberType() {
+    return grabberType;
+  }
+
+  public void setGrabberType(EGrabberType grabberType) {
+    this.grabberType = grabberType;
+  }
+
+  public Long getUpdatedDate() {
+    return updatedDate;
+  }
+
+  public void setUpdatedDate(Long updatedDate) {
+    this.updatedDate = updatedDate;
+  }
+
+  public String getImdbId() {
+    return imdbId;
+  }
+
+  public void setImdbId(String imdbId) {
+    this.imdbId = imdbId;
+  }
+
+  public String getImdbRating() {
+    return imdbRating;
+  }
+
+  public void setImdbRating(String imdbRating) {
+    this.imdbRating = imdbRating;
+  }
+
+  public String getGrabberId() {
+    return grabberId;
+  }
+
+  public void setGrabberId(String grabberId) {
+    this.grabberId = grabberId;
+  }
 }

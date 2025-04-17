@@ -28,7 +28,7 @@ public class CacheShoppingCart {
 
     if(isInShoppingCart(copyItem.id) == true) {
       if(Logger.isDebugEnabled() == true) {
-        Logger.debug("The shopping cart already contains: "+copyItem.id+" ("+copyItem.movie.title+")");
+        Logger.debug("The shopping cart already contains: "+copyItem.id+" ("+copyItem.movie.getTitle()+")");
       }
       return Boolean.FALSE;
     }

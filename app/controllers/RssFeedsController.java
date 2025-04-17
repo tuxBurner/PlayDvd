@@ -172,7 +172,7 @@ public class RssFeedsController extends Controller {
   private SyndEntry convertCopyToFeedEntry(final Dvd copy, final Http.Request request) {
     final SyndEntryImpl entry = new SyndEntryImpl();
 
-    String title = copy.movie.title;
+    String title = copy.movie.getTitle();
     if (StringUtils.isEmpty(copy.additionalInfo) == false) {
       title += "[" + copy.additionalInfo + "]";
     }
@@ -184,7 +184,7 @@ public class RssFeedsController extends Controller {
 
 
     List<SyndCategory> genres = new ArrayList<SyndCategory>();
-    for (MovieAttribute attr : copy.movie.attributes) {
+    for (MovieAttribute attr : copy.movie.getAttributes()) {
       if (EMovieAttributeType.GENRE.equals(attr.attributeType) == true) {
         SyndCategory cat = new SyndCategoryImpl();
         cat.setName(attr.value);

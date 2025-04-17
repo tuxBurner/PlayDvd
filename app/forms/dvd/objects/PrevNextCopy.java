@@ -19,9 +19,9 @@ public class PrevNextCopy {
 
   public  PrevNextCopy(final Dvd copy) {
     this.id = copy.id;
-    this.title = copy.movie.title;
-    this.movieId = copy.movie.id;
-    this.hasPoster = copy.movie.hasPoster;
+    this.title = copy.movie.getTitle();
+    this.movieId = copy.movie.getId();
+    this.hasPoster = copy.movie.getHasPoster();
   }
 
 }

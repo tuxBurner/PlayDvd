@@ -13,7 +13,6 @@ import grabbers.GrabberHelper;
 import grabbers.IInfoGrabber;
 import grabbers.amazonwebcrawler.AmazonMovieWebCrawler;
 import grabbers.amazonwebcrawler.AmazonResult;
-import helpers.RequestToCollectionHelper;
 import models.Dvd;
 import models.DvdAttribute;
 import models.EDvdAttributeType;
@@ -93,8 +92,6 @@ public class CopyController extends Controller {
    */
   public Result addDvd(final String mode, final Http.Request request) {
 
-    final Map<String, String> map = RequestToCollectionHelper.requestToFormMap(request, "audioTypes");
-    // TODO: LIFT bind(map) is not working
     final Form<CopyForm> dvdForm = formFactory.form(CopyForm.class).bindFromRequest(request);
     final Messages messages = this.messagesApi.preferred(request);
     if (dvdForm.hasErrors()) {
@@ -107,12 +104,12 @@ public class CopyController extends Controller {
 
         if (CopyController.DVD_FORM_ADD_MODE.equals(mode) == true) {
           final Dvd createFromForm = DvdDao.createFromForm(userName, dvdForm.get());
-          request.flash().adding("success", "Dvd: " + createFromForm.movie.title + " added");
+          request.flash().adding("success", "Dvd: " + createFromForm.movie.getTitle() + " added");
         }
 
         if (CopyController.DVD_FORM_EDIT_MODE.equals(mode) == true) {
           final Dvd editFromForm = DvdDao.editFromForm(userName, dvdForm.get());
-          request.flash().adding("success", "Dvd: " + editFromForm.movie.title + " edited");
+          request.flash().adding("success", "Dvd: " + editFromForm.movie.getTitle() + " edited");
         }
 
       } catch (final Exception e) {
@@ -189,7 +186,7 @@ public class CopyController extends Controller {
         return Results.badRequest("An error happend while creating the new movie");
       }
 
-      return ok(String.valueOf(movie.id));
+      return ok(String.valueOf(movie.getId()));
 
     } catch (final Exception e) {
       if (Logger.isErrorEnabled()) {

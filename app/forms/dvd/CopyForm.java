@@ -97,7 +97,7 @@ public class CopyForm {
     copyForm.asinNr = amazonResult.asin;
     copyForm.eanNr = amazonResult.ean;
     if(copy != null && copy.movie != null) {
-      copyForm.movieId = copy.movie.id;
+      copyForm.movieId = copy.movie.getId();
     }
 
     Collections.sort(copyForm.audioTypes);
@@ -117,7 +117,7 @@ public class CopyForm {
 
     final CopyForm copyForm = new CopyForm();
 
-    copyForm.movieId = copy.movie.id;
+    copyForm.movieId = copy.movie.getId();
     copyForm.dvdId = copy.id;
     copyForm.ownerName = copy.owner.userName;
     copyForm.hullNr = copy.hullNr;

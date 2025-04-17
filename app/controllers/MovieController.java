@@ -11,7 +11,6 @@ import grabbers.EGrabberType;
 import grabbers.GrabberException;
 import grabbers.GrabberHelper;
 import grabbers.IInfoGrabber;
-import helpers.RequestToCollectionHelper;
 import models.EMovieAttributeType;
 import models.Movie;
 import models.MovieAttribute;
@@ -29,7 +28,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * This {@link Controller} handles all the edit and add {@link Movie} magic
@@ -90,9 +88,7 @@ public class MovieController extends Controller {
   @JSRoute
   public Result addOrEditMovie(final String mode, final Http.Request request) {
 
-    final Map<String, String> map = RequestToCollectionHelper.requestToFormMap(request, "actors", "genres");
-    //TODO: LIFT check why bind is so special implemented here
-    final Form<MovieForm> movieForm = formFactory.form(MovieForm.class).bindFromRequest(request);//  bind(map);
+    final Form<MovieForm> movieForm = formFactory.form(MovieForm.class).bindFromRequest(request);
 
     final Messages messages = this.messagesApi.preferred(request);
 
@@ -102,9 +98,9 @@ public class MovieController extends Controller {
       try {
         final Movie editOrAddFromForm = MovieDao.editOrAddFromForm(movieForm.get(), true);
         final ObjectNode result = Json.newObject();
-        result.put("id", editOrAddFromForm.id);
-        result.put("title", editOrAddFromForm.title);
-        result.put("hasPoster", editOrAddFromForm.hasPoster);
+        result.put("id", editOrAddFromForm.getId());
+        result.put("title", editOrAddFromForm.getTitle());
+        result.put("hasPoster", editOrAddFromForm.getHasPoster());
         return Results.ok(result);
       } catch (final Exception e) {
         e.printStackTrace();

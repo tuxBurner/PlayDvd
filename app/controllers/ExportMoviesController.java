@@ -76,7 +76,7 @@ public class ExportMoviesController extends Controller {
 
         for (final Dvd copy : dvds) {
           final String copyTypeAttribute = DvdAttribute.getCopyTypeAttribute(copy);
-          final StringBuilder entryName = new StringBuilder(copy.movie.title);
+          final StringBuilder entryName = new StringBuilder(copy.movie.getTitle());
           if (StringUtils.isEmpty(copy.additionalInfo) == false) {
             entryName.append(" - ");
             entryName.append(copy.additionalInfo);

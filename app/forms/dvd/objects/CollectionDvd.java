@@ -24,9 +24,9 @@ public class CollectionDvd {
   public Integer hullNr;
 
   public CollectionDvd(final Dvd copy) {
-    hasPoster = copy.movie.hasPoster;
-    title = copy.movie.title;
-    movieId = copy.movie.id;
+    hasPoster = copy.movie.getHasPoster();
+    title = copy.movie.getTitle();
+    movieId = copy.movie.getId();
     id = copy.id;
     hullNr = copy.hullNr;
 

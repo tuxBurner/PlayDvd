@@ -3,8 +3,8 @@
 <h1>@general.displayCopyTitle(copy)</h1>
 
 <div>
- @if(copy.movie.hasPoster == true) {
-   <img style="float: left; margin-right: 10px;" src="@routes.RssFeedsController.getPosterImage(copy.movie.id).absoluteURL()?@RssSecurityAction.RSS_FEED_AUTH_PARAM=@rssAuthKey" alt="poster" />
+ @if(copy.movie.getHasPoster == true) {
+   <img style="float: left; margin-right: 10px;" src="@routes.RssFeedsController.getPosterImage(copy.movie.getId).absoluteURL()?@RssSecurityAction.RSS_FEED_AUTH_PARAM=@rssAuthKey" alt="poster" />
  }
 
  <div>
@@ -20,8 +20,8 @@
      }
    </ul>
 
-   @if(StringUtils.isEmpty(copy.movie.description) == false) {
-     <p>@copy.movie.description</p>
+   @if(StringUtils.isEmpty(copy.movie.getDescription) == false) {
+     <p>@copy.movie.getDescription</p>
    }
 
  </div>

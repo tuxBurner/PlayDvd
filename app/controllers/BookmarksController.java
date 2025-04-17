@@ -60,7 +60,7 @@ public class BookmarksController extends Controller {
       return badRequest();
     }
 
-    String msg = messagesApi.preferred(request).at("msg.success.bookmarkAdded", bookmark.copy.movie.title);
+    String msg = messagesApi.preferred(request).at("msg.success.bookmarkAdded", bookmark.copy.movie.getTitle());
     request.flash().adding("success", msg);
 
     cacheHelper.removeSessionObj(ECacheObjectName.BOOKMARKS, request);

@@ -11,8 +11,8 @@ public class MovieSelect2Value {
   public Long id;
 
   public MovieSelect2Value(final Movie movie) {
-    title = movie.title;
-    hasPoster = movie.hasPoster;
-    id = movie.id;
+    title = movie.getTitle();
+    hasPoster = movie.getHasPoster();
+    id = movie.getId();
   }
 }

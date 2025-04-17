@@ -42,11 +42,11 @@
         <ul class="unstyled">
           @for(movie <- movies) {
             <li>
-              @if(movie.hasPoster) {
-                <img src="@routes.DashboardController.streamImage(movie.id,EImageType.POSTER.name(),EImageSize.TINY.name())"/>
+              @if(movie.getHasPoster) {
+                <img src="@routes.DashboardController.streamImage(movie.getId,EImageType.POSTER.name(),EImageSize.TINY.name())"/>
               }
-              @movie.title
-            <a href="@routes.CopyController.showDvdByAmazonAndMovie(code,movie.id,copyId)"  class="btn btn-primary"><i class="icon-reply"></i></a>
+              @movie.getTitle
+            <a href="@routes.CopyController.showDvdByAmazonAndMovie(code,movie.getId,copyId)"  class="btn btn-primary"><i class="icon-reply"></i></a>
             </li>
           }
         </ul>
