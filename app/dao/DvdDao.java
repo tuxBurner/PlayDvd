@@ -44,7 +44,7 @@ public class DvdDao {
     }
 
     final Dvd dvd = new Dvd();
-    dvd.owner = owner;
+    dvd.setOwner(owner);
 
     return DvdDao.createOrUpdateFromForm(copyForm, dvd);
   }
@@ -83,18 +83,17 @@ public class DvdDao {
       throw new Exception(message);
     }
 
-    copy.movie = movie;
-    copy.hullNr = copyForm.hullNr;
-    copy.eanNr = copyForm.eanNr;
-    copy.asinNr = copyForm.asinNr;
-    copy.additionalInfo = copyForm.additionalInfo;
+    copy.setMovie(movie);
+    copy.setHullNr(copyForm.hullNr);
+    copy.setEanNr(copyForm.eanNr);
+    copy.setAsinNr(copyForm.asinNr);
+    copy.setAdditionalInfo(copyForm.additionalInfo);
 
-    if (copy.id == null) {
-      copy.createdDate = new Date().getTime();
+    if (copy.getId() == null) {
+      copy.setCreatedDate(new Date().getTime());
       DvdDao.create(copy);
     } else {
-      //Ebean.deleteManyToManyAssociations(copy, "attributes");
-      copy.attributes.clear();
+      copy.getAttributes().clear();
       copy.update();
     }
 
@@ -103,7 +102,7 @@ public class DvdDao {
     DvdDao.addSingleAttribute(copyForm.ageRating, EDvdAttributeType.RATING, copy);
     DvdDao.addSingleAttribute(copyForm.copyType, EDvdAttributeType.COPY_TYPE, copy);
     final Set<DvdAttribute> audioTypes = DvdAttribute.gatherAndAddAttributes(new HashSet<String>(copyForm.audioTypes), EDvdAttributeType.AUDIO_TYPE);
-    copy.attributes.addAll(audioTypes);
+    copy.getAttributes().addAll(audioTypes);
 
     copy.update();
 
@@ -127,10 +126,10 @@ public class DvdDao {
     final Set<String> attribute = new HashSet<>();
     attribute.add(attrToAdd);
     final Set<DvdAttribute> dbAttrs = DvdAttribute.gatherAndAddAttributes(attribute, attributeType);
-    if (copy.attributes == null) {
-      copy.attributes = new HashSet<>();
+    if (copy.getAttributes() == null) {
+      copy.setAttributes(new HashSet<>());
     }
-    copy.attributes.addAll(dbAttrs);
+    copy.getAttributes().addAll(dbAttrs);
   }
 
   /**
@@ -145,8 +144,8 @@ public class DvdDao {
         .where()
         .eq("attributes.attributeType", attrType)
         .eq("attributes.value", attrValue)
-        .eq("owner.id", dvd.owner.id)
-        .ne("id", dvd.id)
+        .eq("owner.id", dvd.getOwner().getId())
+        .ne("id", dvd.getId())
         .orderBy("movie.year asc")
         .findList();
     return findList;
@@ -248,10 +247,10 @@ public class DvdDao {
 
     switch (orderBy) {
       case DATE:
-        orderDvdVal = dvd.createdDate;
+        orderDvdVal = dvd.getCreatedDate();
         break;
       case MOVIE_TITLE:
-        orderDvdVal = dvd.movie.getTitle();
+        orderDvdVal = dvd.getMovie().getTitle();
         break;
     }
 
@@ -353,7 +352,7 @@ public class DvdDao {
    *
    * @param id            the id of the {@link Dvd}
    * @param username      the name of the {@link User} owning the dvd
-   * @param fetchBorrower if true the {@link Dvd#borrower} information will be fetched to
+   * @param fetchBorrower if true the {@link Dvd#getBorrower()} information will be fetched to
    * @return
    */
   public static Dvd getDvdForUser(final Long id, final String username, final boolean fetchBorrower) {
@@ -389,16 +388,16 @@ public class DvdDao {
   public static List<Dvd> getDvdUnBorrowedSameHull(final Dvd dvd) {
 
     // dont bother the database
-    if (dvd.hullNr == null) {
+    if (dvd.getHullNr() == null) {
       return null;
     }
 
     final List<Dvd> findList = Dvd.FINDER.query()
         .fetch("movie")
         .where()
-        .eq("owner", dvd.owner)
-        .eq("hullNr", dvd.hullNr)
-        .ne("id", dvd.id)
+        .eq("owner", dvd.getOwner())
+        .eq("hullNr", dvd.getHullNr())
+        .ne("id", dvd.getId())
         .isNull("borrowDate")
         .orderBy("movie.title")
         .findList();
@@ -420,16 +419,16 @@ public class DvdDao {
   public static List<Dvd> getDvdBorrowedSameHull(final Dvd dvd) {
 
     // dont bother the database
-    if (dvd.hullNr == null) {
+    if (dvd.getHullNr() == null) {
       return null;
     }
 
     final ExpressionList<Dvd> notNull = Dvd.FINDER.query()
         .fetch("movie")
         .where()
-        .eq("owner", dvd.owner)
-        .eq("hullNr", dvd.hullNr)
-        .ne("id", dvd.id)
+        .eq("owner", dvd.getOwner())
+        .eq("hullNr", dvd.getHullNr())
+        .ne("id", dvd.getId())
         .isNotNull("borrowDate");
 
     DvdDao.borrowerOrBorrowed(dvd, notNull);
@@ -450,10 +449,10 @@ public class DvdDao {
    * @param notNull
    */
   private static void borrowerOrBorrowed(final Dvd dvd, final ExpressionList<Dvd> notNull) {
-    if (StringUtils.isEmpty(dvd.borrowerName) == false) {
-      notNull.eq("borrowerName", dvd.borrowerName);
+    if (StringUtils.isEmpty(dvd.getBorrowerName()) == false) {
+      notNull.eq("borrowerName", dvd.getBorrowerName());
     } else {
-      notNull.eq("borrower", dvd.borrower);
+      notNull.eq("borrower", dvd.getBorrower());
     }
   }
 
@@ -474,7 +473,7 @@ public class DvdDao {
         .findList();
     if (CollectionUtils.isEmpty(list) == false) {
       for (final Dvd dvd : list) {
-        final String borrower = (dvd.borrower != null) ? dvd.borrower.userName : dvd.borrowerName;
+        final String borrower = (dvd.getBorrower() != null) ? dvd.getBorrower().getUserName() : dvd.getBorrowerName();
         if (result.containsKey(borrower) == false) {
           result.put(borrower, new ArrayList<Dvd>());
         }
@@ -571,13 +570,13 @@ public class DvdDao {
       dvdsToLend.add(dvdToLend);
 
       // user also wants to lend dvds in the same hull
-      if (alsoOthersInHull == true && dvdToLend.hullNr != null) {
+      if (alsoOthersInHull == true && dvdToLend.getHullNr() != null) {
         final Set<Dvd> findSet = Dvd.FINDER.query()
             .where()
-            .eq("hullNr", dvdToLend.hullNr)
-            .ne("id", dvdToLend.id)
+            .eq("hullNr", dvdToLend.getHullNr())
+            .ne("id", dvdToLend.getId())
             .isNull("borrowDate")
-            .eq("owner", dvdToLend.owner)
+            .eq("owner", dvdToLend.getOwner())
             .findSet();
         dvdsToLend.addAll(findSet);
       }
@@ -593,18 +592,18 @@ public class DvdDao {
 
         if (userByName != null) {
 
-          dvd.borrower = userByName;
+          dvd.setBorrower(userByName);
           updated = true;
 
         }
 
         if (StringUtils.isEmpty(freeName) == false && updated == false) {
-          dvd.borrowerName = freeName;
+          dvd.setBorrowerName(freeName);
           updated = true;
         }
 
         if (updated == true) {
-          dvd.borrowDate = new Date().getTime();
+          dvd.setBorrowDate(new Date().getTime());
           dvd.update();
         }
       }
@@ -633,13 +632,13 @@ public class DvdDao {
       dvdsToUnlend.add(dvdToUnlend);
 
       // user also wants to lend dvds in the same hull
-      if (alsoOthersInHull == true && dvdToUnlend.hullNr != null) {
+      if (alsoOthersInHull == true && dvdToUnlend.getHullNr() != null) {
 
         final ExpressionList<Dvd> expression = Dvd.FINDER.query()
             .where()
-            .eq("hullNr", dvdToUnlend.hullNr)
-            .ne("id", dvdToUnlend.id)
-            .eq("owner", dvdToUnlend.owner)
+            .eq("hullNr", dvdToUnlend.getHullNr())
+            .ne("id", dvdToUnlend.getId())
+            .eq("owner", dvdToUnlend.getOwner())
             .isNotNull("borrowDate");
         DvdDao.borrowerOrBorrowed(dvdToUnlend, expression);
 
@@ -648,15 +647,15 @@ public class DvdDao {
 
       for (final Dvd dvd : dvdsToUnlend) {
 
-        unlendIds.add(dvd.id);
+        unlendIds.add(dvd.getId());
 
         if (Logger.isDebugEnabled()) {
           Logger.debug("Unlending dvd: " + dvdId);
         }
 
-        dvd.borrowDate = null;
-        dvd.borrower = null;
-        dvd.borrowerName = null;
+        dvd.setBorrowDate(null);
+        dvd.setBorrower(null);
+        dvd.setBorrowerName(null);
         dvd.update();
       }
 
@@ -668,7 +667,7 @@ public class DvdDao {
   }
 
   /**
-   * Gets a {@link Dvd} for a user which is not the owner and where the {@link Dvd#borrowDate} is null
+   * Gets a {@link Dvd} for a user which is not the owner and where the {@link Dvd#getBorrowDate()} is null
    *
    * @param dvdId
    * @return
@@ -698,8 +697,8 @@ public class DvdDao {
         .where()
         .eq("movie.attributes.attributeType", EMovieAttributeType.MOVIE_SERIES)
         .eq("movie.attributes.value", attrValue)
-        .eq("owner.id", dvd.owner.id)
-        .ne("id", dvd.id)
+        .eq("owner.id", dvd.getOwner().getId())
+        .ne("id", dvd.getId())
         .findList();
 
     return findList;

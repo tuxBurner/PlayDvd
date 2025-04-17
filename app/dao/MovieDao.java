@@ -142,7 +142,7 @@ public class MovieDao {
   {
     final Query<Movie> order = Movie.FINDER.query().where()
         .ilike("title", "%" + term + "%").select("id ,title, hasPoster")
-        .order("title asc");
+        .orderBy("title asc");
     if (numberOfResults <= 0) {
       return order.findList();
     } else {
@@ -169,7 +169,7 @@ public class MovieDao {
         .eq("eanNr", eanNr)
         .findList();
     for (Dvd dvd : dvds) {
-      final Long movieId = dvd.movie.getId();
+      final Long movieId = dvd.getMovie().getId();
       boolean foundMovie = false;
       for (Movie movie : movies) {
         if (movie.getId().equals(movieId) == true) {
@@ -178,7 +178,7 @@ public class MovieDao {
         }
       }
       if (foundMovie == false) {
-        movies.add(dvd.movie);
+        movies.add(dvd.getMovie());
       }
     }
 
