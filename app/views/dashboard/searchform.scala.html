@@ -1,6 +1,7 @@
 @import forms.dvd.CopySearchFrom
 @import helpers.CacheHelper
 @import dao.UserDao
+@import dao.MovieAttributeDao
 @(dvdSearchForm: Form[CopySearchFrom], cacheHelper: CacheHelper)(implicit request: Http.Request, messages: play.i18n.Messages)
 
 
@@ -9,7 +10,7 @@
 
 <script type="text/javascript">
 <!--
-  var avaibleGenres = @Html(MovieAttribute.getAvaibleAttributesAsJson(EMovieAttributeType.GENRE));
+  var avaibleGenres = @Html(MovieAttributeDao.getAvaibleAttributesAsJson(EMovieAttributeType.GENRE));
   var avaibleUsers = @Html(UserDao.loadUserNamesAsJson());
   var avaibleAgeRatings = @Html(forms.dvd.CopySearchFrom.getAgeRatingsAsJson());
   var avaibleCopyTypes = @Html(forms.dvd.CopySearchFrom.getCopyTypesJson());

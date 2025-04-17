@@ -40,7 +40,7 @@
 
       <label for="defaultCopyType">@messages("lbl.defaultCopyType")</label>
       @for((copyType,index) <- DvdInfoHelper.getCopyTypes.zipWithIndex) {
-        <input type="radio" id="defaultCopyType" name="defaultCopyType" value="@copyType" @if((copyType == profileForm("defaultCopyType").value.get) || index == 0 ){ checked="checked" } /><span><img alt="@copyType" src="@routes.Assets.versioned("images/copy_type/"+copyType+".png")" /></span>
+        <input type="radio" id="defaultCopyType" name="defaultCopyType" value="@copyType" @if((copyType == profileForm.get().defaultCopyType) || index == 0 ){ checked="checked" } /><span><img alt="@copyType" src="@routes.Assets.versioned("images/copy_type/"+copyType+".png")" /></span>
       }
       <hr />
 

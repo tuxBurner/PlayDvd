@@ -12,4 +12,11 @@ public class LostPasswordForm {
   @Constraints.Required(message = "msg.error.noUsername")
   public String username;
 
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
 }

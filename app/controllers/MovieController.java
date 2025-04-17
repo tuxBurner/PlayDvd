@@ -3,6 +3,7 @@ package controllers;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.tuxBurner.jsAnnotations.JSRoute;
 import com.google.gson.Gson;
+import dao.MovieAttributeDao;
 import forms.MovieForm;
 import forms.grabbers.GrabberInfoForm;
 import grabbers.EGrabberType;
@@ -179,10 +180,10 @@ public class MovieController extends Controller {
   public Result searchForMovieAttribute(final String term, final String attrType) {
     try {
       final EMovieAttributeType eattrType = EMovieAttributeType.valueOf(attrType);
-      final String result = MovieAttribute.searchAvaibleAttributesAsJson(eattrType, term);
+      final String result = MovieAttributeDao.searchAvaibleAttributesAsJson(eattrType, term);
       return Results.ok(result);
     } catch (final Exception e) {
-      Logger.error("An error happend while getting: " + attrType + " " + EMovieAttributeType.class.getName() + " with search term: " + term, e);
+      Logger.error("An error happened while getting: " + attrType + " " + EMovieAttributeType.class.getName() + " with search term: " + term, e);
     }
 
     return Results.badRequest();

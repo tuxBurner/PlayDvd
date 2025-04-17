@@ -3,13 +3,13 @@ var initializeMovieForm = function () {
   Holder.run();
 
   // check the url stuff and change the image if it is set
-  createPrevsrciewFromUrl('poster');
-  createPrevsrciewFromUrl('backDrop');
+  createPreviewFromUrl('poster');
+  createPreviewFromUrl('backDrop');
 
   // when the user change the inputs for the images we want to change the preview
   $('#posterUrl').blur(function () {
     if ($(this).val() !== null) {
-      createPrevsrciewFromUrl('poster');
+      createPreviewFromUrl('poster');
     }
   });
 
@@ -107,6 +107,9 @@ var submitMovieForm = function(formParams, mode) {
     mode = $('#movieForm').attr('mode');
   }
 
+  formParams.actors = formParams.actors.split(',');
+  formParams.genres = formParams.genres.split(',');
+
   pAjax(jsRoutes.controllers.MovieController.addOrEditMovie(mode), formParams,
     function (data) {
       $('#newMovieFormWrapper').html('').hide();
@@ -129,7 +132,7 @@ var submitMovieForm = function(formParams, mode) {
  * Creates a preview from the selected url
  * @param prevName
  */
-var createPrevsrciewFromUrl = function(prevName) {
+var createPreviewFromUrl = function(prevName) {
   var url = $('#' + prevName + 'Url').val();
   if (url !== "") {
     createPreview(prevName, url);

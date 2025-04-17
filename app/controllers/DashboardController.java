@@ -300,7 +300,7 @@ public class DashboardController extends Controller {
 
 
     final String etag = ETagHelper.getEtag(file);
-    final String nonMatch = request.header(IF_NONE_MATCH).get();
+    final String nonMatch = (request.header(IF_NONE_MATCH).isPresent()) ? request.header(IF_NONE_MATCH).get() : "";
     if (etag.equals(nonMatch) == true) {
       return status(304);
     }

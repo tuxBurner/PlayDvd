@@ -74,8 +74,7 @@ lazy val root = (project in file("."))
 //#play-ebean-models
 //Compile / playEbeanModels := Seq("models.*")
 //#play-ebean-debug
-playEbeanDebugLevel := 9
+//playEbeanDebugLevel := 9
 //#play-ebean-debug
-
 //playEbeanAgentArgs += ("detectPropertyAccess" -> "true")
 

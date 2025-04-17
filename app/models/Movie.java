@@ -1,6 +1,7 @@
 package models;
 
 
+import dao.MovieAttributeDao;
 import forms.MovieForm;
 import forms.dvd.CopyForm;
 import grabbers.EGrabberType;
@@ -170,10 +171,10 @@ public class Movie extends Model
     movie.attributes = new HashSet<>();
 
     // gather all the genres and add them to the dvd
-    final Set<MovieAttribute> genres = MovieAttribute.gatherAndAddAttributes(new HashSet<>(movieForm.genres), EMovieAttributeType.GENRE);
+    final Set<MovieAttribute> genres = MovieAttributeDao.gatherAndAddAttributes(new HashSet<>(movieForm.genres), EMovieAttributeType.GENRE);
     movie.attributes.addAll(genres);
 
-    final Set<MovieAttribute> actors = MovieAttribute.gatherAndAddAttributes(new HashSet<>(movieForm.actors), EMovieAttributeType.ACTOR);
+    final Set<MovieAttribute> actors = MovieAttributeDao.gatherAndAddAttributes(new HashSet<>(movieForm.actors), EMovieAttributeType.ACTOR);
     movie.attributes.addAll(actors);
 
     Movie.addSingleAttribute(movieForm.series, EMovieAttributeType.MOVIE_SERIES, movie);
@@ -201,7 +202,7 @@ public class Movie extends Model
     }
     final Set<String> attribute = new HashSet<String>();
     attribute.add(attrToAdd);
-    final Set<MovieAttribute> dbAttrs = MovieAttribute.gatherAndAddAttributes(attribute, attributeType);
+    final Set<MovieAttribute> dbAttrs = MovieAttributeDao.gatherAndAddAttributes(attribute, attributeType);
     movie.attributes.addAll(dbAttrs);
   }
 

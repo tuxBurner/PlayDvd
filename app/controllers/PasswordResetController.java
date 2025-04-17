@@ -85,7 +85,7 @@ public class PasswordResetController extends Controller {
       }
 
 
-      userByName.passwordResetToken = UUID.randomUUID().toString();
+      userByName.setPasswordResetToken(UUID.randomUUID().toString());
       userByName.update();
 
       final String activationUrl = routes.PasswordResetController.showPasswordReset(userByName.passwordResetToken).absoluteURL(request);
@@ -142,7 +142,7 @@ public class PasswordResetController extends Controller {
 
     User userByResetToken = UserDao.findUserByResetToken(token);
     if (userByResetToken != null) {
-      userByResetToken.password = UserDao.cryptPassword(passwordResetForm.get().password);
+      userByResetToken.setPassword(UserDao.cryptPassword(passwordResetForm.get().password));
       userByResetToken.update();
     }
 
