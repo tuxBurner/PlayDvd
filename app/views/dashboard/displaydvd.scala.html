@@ -121,11 +121,11 @@
 
         </dl>
 
-        @if(CollectionUtils.isEmpty(dvd.copyForm.audioTypes ) == false) {
+        @if(StringUtils.isEmpty(dvd.copyForm.audioTypes) == false) {
           <h5>@messages("lbl.audioformats"):</h5>
 
             <ul class="inline">
-            @for(audioType <- dvd.copyForm.audioTypes) {
+            @for(audioType <- dvd.copyForm.audioTypes.split(",")) {
               <li>@audioType</li>
             }
             </ul>

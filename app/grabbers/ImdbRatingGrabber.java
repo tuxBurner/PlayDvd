@@ -50,7 +50,7 @@ public class ImdbRatingGrabber {
 
 
     final Jerry imdbDoc = HttpBrowserHelper.getUrlAsJerryDoc(urlWithId);
-    final String imdbRating = imdbDoc.$(".imdbRating span[itemprop='ratingValue']").text();
+    final String imdbRating = imdbDoc.s(".imdbRating span[itemprop='ratingValue']").text();
 
     movieForm.imdbRating = imdbRating;
 

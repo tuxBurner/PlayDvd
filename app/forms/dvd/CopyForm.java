@@ -37,7 +37,7 @@ public class CopyForm {
   public String box;
 
   /**
-   * This describes a collection of boxses for example
+   * This describes a collection of boxes for example
    */
   public String collection;
 
@@ -64,7 +64,7 @@ public class CopyForm {
   @Constraints.MaxLength(value = 255)
   public String additionalInfo;
 
-  public List<String> audioTypes = new ArrayList<String>();
+  public String audioTypes;
 
   /**
    * Transforms an {@link AmazonResult} and movieId to a dvdForm
@@ -101,8 +101,6 @@ public class CopyForm {
       copyForm.movieId = copy.getMovie().getId();
     }
 
-    Collections.sort(copyForm.audioTypes);
-
     return copyForm;
   }
 
@@ -129,6 +127,11 @@ public class CopyForm {
 
 
     final Set<DvdAttribute> dvdAttrs = copy.getAttributes();
+
+
+    final List<String> audioTypes = new ArrayList<>();
+
+
     for (final DvdAttribute dvdAttribute : dvdAttrs) {
 
       switch (dvdAttribute.attributeType) {
@@ -145,11 +148,12 @@ public class CopyForm {
           copyForm.copyType = dvdAttribute.value;
           break;
         case AUDIO_TYPE:
-          copyForm.audioTypes.add(dvdAttribute.value);
+          audioTypes.add(dvdAttribute.value);
           break;
       }
 
-      Collections.sort(copyForm.audioTypes);
+      Collections.sort(audioTypes);
+      copyForm.audioTypes = StringUtils.join(audioTypes, ",");
 
     }
 
@@ -267,11 +271,11 @@ public class CopyForm {
     this.additionalInfo = additionalInfo;
   }
 
-  public List<String> getAudioTypes() {
+  public String getAudioTypes() {
     return audioTypes;
   }
 
-  public void setAudioTypes(List<String> audioTypes) {
+  public void setAudioTypes(String audioTypes) {
     this.audioTypes = audioTypes;
   }
 }

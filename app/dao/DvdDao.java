@@ -101,7 +101,8 @@ public class DvdDao {
     DvdDao.addSingleAttribute(copyForm.collection, EDvdAttributeType.COLLECTION, copy);
     DvdDao.addSingleAttribute(copyForm.ageRating, EDvdAttributeType.RATING, copy);
     DvdDao.addSingleAttribute(copyForm.copyType, EDvdAttributeType.COPY_TYPE, copy);
-    final Set<DvdAttribute> audioTypes = DvdAttribute.gatherAndAddAttributes(new HashSet<String>(copyForm.audioTypes), EDvdAttributeType.AUDIO_TYPE);
+
+    final Set<DvdAttribute> audioTypes = DvdAttribute.gatherAndAddAttributes(new HashSet<String>(Arrays.asList(copyForm.audioTypes.split(","))), EDvdAttributeType.AUDIO_TYPE);
     copy.getAttributes().addAll(audioTypes);
 
     copy.update();

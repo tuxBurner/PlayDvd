@@ -60,8 +60,8 @@ lazy val root = (project in file("."))
       "com.amazonaws" % "aws-java-sdk" % "1.11.311",
 
       // for nice and smooth html parsing
-      "org.jodd" % "jodd-http" % "5.0.12",
-      "org.jodd" % "jodd-lagarto" % "5.0.12"
+      "org.jodd" % "jodd-http" % "6.3.0",
+      "org.jodd" % "jodd-lagarto" % "6.0.6"
     ),
     javacOptions ++= Seq(
       "-encoding", "UTF-8",
@@ -71,6 +71,9 @@ lazy val root = (project in file("."))
       //,"-Werror"
     ),
 )
+
+JsEngineKeys.engineType:= JsEngineKeys.EngineType.Node
+JsEngineKeys.command:= Option.apply(file("/home/tuxburner/.nvm/versions/node/v22.18.0/bin/node"))
 //#play-ebean-models
 //Compile / playEbeanModels := Seq("models.*")
 //#play-ebean-debug

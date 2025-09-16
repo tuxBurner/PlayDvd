@@ -93,12 +93,12 @@
       </div>
     }
 
-    @if(CollectionUtils.isEmpty(dvd.copyForm.audioTypes ) == false) {
+    @if(StringUtils.isEmpty(dvd.copyForm.audioTypes ) == false) {
       <div class="row-fluid">
         <label class="span4">Audio:</label>
         <span>
           <ul class="unstyled">
-            @for(audioType <- dvd.copyForm.audioTypes) {
+            @for(audioType <- dvd.copyForm.audioTypes.split(",")) {
               <li>@audioType</li>
             }
           </ul>

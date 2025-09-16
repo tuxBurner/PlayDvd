@@ -77,7 +77,7 @@
 
           <label for="copyType">@messages("lbl.copyType"):</label>
           @for((copyType, index) <- helpers.DvdInfoHelper.getCopyTypes.zipWithIndex) {
-            <input type="radio" id="copyType" name="copyType" value="@copyType" @if(mode == CopyController.DVD_FORM_EDIT_MODE && copyType == dvdForm("copyType").value() || mode == CopyController.DVD_FORM_ADD_MODE && dvdForm("copyType").value() == null && (index == 0 || copyType.equals(UserDao.findCurrentUser(request).getDefaultCopyType)) || mode == CopyController.DVD_FORM_ADD_MODE && dvdForm("copyType").value() != null && copyType == dvdForm("copyType").value()) {
+            <input type="radio" id="copyType" name="copyType" value="@copyType" @if(mode == CopyController.DVD_FORM_EDIT_MODE && copyType == dvdForm.get().copyType || mode == CopyController.DVD_FORM_ADD_MODE && dvdForm.get().copyType == null && (index == 0 || copyType.equals(UserDao.findCurrentUser(request).getDefaultCopyType)) || mode == CopyController.DVD_FORM_ADD_MODE && dvdForm("copyType").value() != null && copyType == dvdForm("copyType").value()) {
               checked="checked"
           } /><span><img class="img-rounded" alt="@copyType" src="@routes.Assets.versioned("images/copy_type/" + copyType + ".png")" /></span>
           }
@@ -85,7 +85,7 @@
 
           <label for="ageRating">@messages("lbl.agerating"):</label>
           @for((rating, index) <- helpers.DvdInfoHelper.getAgeRatings.zipWithIndex) {
-            <input type="radio" id="ageRating" name="ageRating" value="@rating" @if(mode == CopyController.DVD_FORM_EDIT_MODE && rating == dvdForm("ageRating").value() || mode == CopyController.DVD_FORM_ADD_MODE && (rating == dvdForm("ageRating").value() || index == 0)) {
+            <input type="radio" id="ageRating" name="ageRating" value="@rating" @if(mode == CopyController.DVD_FORM_EDIT_MODE && rating == dvdForm.get().ageRating || mode == CopyController.DVD_FORM_ADD_MODE && (rating == dvdForm.get().ageRating || index == 0)) {
               checked="checked"
           } /><span><img class="img-rounded" alt="@rating" src="@routes.Assets.versioned("images/agerating/" + rating + ".gif")" /></span>
           }

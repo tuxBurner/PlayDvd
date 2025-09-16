@@ -3,7 +3,7 @@ $(function () {
    * button in the popup will be always clickable
    */
   $(document).on('click', '#grabber_search_button', function () {
-    searchGrabber($('#grabber_search_input').val(), $('#grabberType').val(), $('#movieToEditId').val(), $('#grabberAmazonCode').val(), $('#grabberCopyId').val());
+    searchGrabber($('#grabber_search_input').val(), $('#grabberTypeSelect').val(), $('#movieToEditId').val(), $('#grabberAmazonCode').val(), $('#grabberCopyId').val());
     return false;
   });
 

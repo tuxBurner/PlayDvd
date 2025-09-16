@@ -8,3 +8,6 @@ services:
       - MYSQL_ROOT_PASSWORD=mypw
     ports:
     - "6606:3306"
+    # add a volume which inits the database on first run from the avdb_mysql.dump.sql file
+    volumes:
+    - ./avdb_mysql.dump.sql:/docker-entrypoint-initdb.d/avdb_mysql.dump.sql

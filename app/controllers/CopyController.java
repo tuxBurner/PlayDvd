@@ -61,7 +61,7 @@ public class CopyController extends Controller {
   public Result showAddDvd(final Http.Request request) {
     final Messages messages = this.messagesApi.preferred(request);
     final Form<CopyForm> form = formFactory.form(CopyForm.class);
-    return Results.ok(views.html.dvd.dvdform.render(form.fill(new CopyForm()), CopyController.DVD_FORM_ADD_MODE, request, messages));
+    return Results.ok(views.html.copy.copyForm.render(form.fill(new CopyForm()), CopyController.DVD_FORM_ADD_MODE, request, messages));
   }
 
   /**
@@ -81,7 +81,7 @@ public class CopyController extends Controller {
     final Form<CopyForm> form = formFactory.form(CopyForm.class);
     final Messages messages = this.messagesApi.preferred(request);
 
-    return Results.ok(views.html.dvd.dvdform.render(form.fill(CopyForm.dvdToDvdForm(dvdToEdit)), CopyController.DVD_FORM_EDIT_MODE, request, messages));
+    return Results.ok(views.html.copy.copyForm.render(form.fill(CopyForm.dvdToDvdForm(dvdToEdit)), CopyController.DVD_FORM_EDIT_MODE, request, messages));
   }
 
   /**
@@ -94,7 +94,7 @@ public class CopyController extends Controller {
     final Form<CopyForm> dvdForm = formFactory.form(CopyForm.class).bindFromRequest(request);
     final Messages messages = this.messagesApi.preferred(request);
     if (dvdForm.hasErrors()) {
-      return Results.badRequest(views.html.dvd.dvdform.render(dvdForm, mode, request, messages));
+      return Results.badRequest(views.html.copy.copyForm.render(dvdForm, mode, request, messages));
     } else {
 
       try {
@@ -113,7 +113,7 @@ public class CopyController extends Controller {
 
       } catch (final Exception e) {
         e.printStackTrace();
-        return Results.badRequest(views.html.dvd.dvdform.render(dvdForm, mode, request, messages));
+        return Results.badRequest(views.html.copy.copyForm.render(dvdForm, mode, request, messages));
       }
 
       return Results.redirect(routes.ListCopiesController.listCopies(null));
@@ -141,7 +141,7 @@ public class CopyController extends Controller {
       }
     }
 
-    return ok(views.html.dvd.dvdAmazonPopUp.render(result.orElseGet(null), code, copyId, movies, request, messages));
+    return ok(views.html.copy.copyAmazonPopUp.render(result.orElseGet(null), code, copyId, movies, request, messages));
   }
 
   /**
@@ -162,7 +162,7 @@ public class CopyController extends Controller {
 
     final Messages messages = this.messagesApi.preferred(request);
 
-    return ok(views.html.dvd.searchAmazonByTitlePopUp.render(amazonResults, title, request, messages));
+    return ok(views.html.copy.searchAmazonByTitlePopUp.render(amazonResults, title, request, messages));
   }
 
   /**
@@ -238,11 +238,11 @@ public class CopyController extends Controller {
 
     final Messages messages = this.messagesApi.preferred(request);
 
-    return Results.ok(views.html.dvd.dvdform.render(form.fill(copyForm), mode, request, messages));
+    return Results.ok(views.html.copy.copyForm.render(form.fill(copyForm), mode, request, messages));
   }
 
   /**
-   * Just fills the informations from the amazon lookup to the copy form an returns it
+   * Just fills the information from the amazon lookup to the copy form and returns it
    */
   public Result showCopyFormWithAmazonInfo(final String code, final Long copyId, final Http.Request request) {
     if (StringUtils.isEmpty(code) == true) {
@@ -275,7 +275,7 @@ public class CopyController extends Controller {
     }
 
     final Messages messages = this.messagesApi.preferred(request);
-    return Results.ok(views.html.dvd.dvdform.render(form.fill(copyForm), mode, request, messages));
+    return Results.ok(views.html.copy.copyForm.render(form.fill(copyForm), mode, request, messages));
   }
 
   /**

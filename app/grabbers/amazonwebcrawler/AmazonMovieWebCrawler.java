@@ -32,19 +32,19 @@ public class AmazonMovieWebCrawler {
    * Map which contains the amazon copy type string -> internal copytype
    */
   private final static Map<String, String> AMAZON_COPY_TYPE_MAP = ConfigurationHelper
-    .createValMap("dvdb.amazon.grabber.matchCopyType");
+      .createValMap("dvdb.amazon.grabber.matchCopyType");
 
   /**
    * Map which contauns the amazon age rating -> internal age rating
    */
   private final static Map<String, String> AMAZON_AGE_RATING_MAP = ConfigurationHelper
-    .createValMap("dvdb.amazon.grabber.matchAgeRating");
+      .createValMap("dvdb.amazon.grabber.matchAgeRating");
 
   /**
    * List of strings which are to remove from the title
    */
   private static List<String> AMAZON_REMOVE_FROM_TITLE = ConfigFactory.load()
-    .getStringList("dvdb.amazon.grabber.removeFromTitle");
+      .getStringList("dvdb.amazon.grabber.removeFromTitle");
 
   static {
     AMAZON_ENDPOINT_URL = ConfigFactory.load().getString("dvddb.amazon.webEndPoint");
@@ -57,7 +57,7 @@ public class AmazonMovieWebCrawler {
     AMAZON_CATEGORY = ConfigFactory.load().getString("dvddb.amazon.webCategory");
     if (StringUtils.isEmpty(AMAZON_CATEGORY) == true) {
       if (Logger.isErrorEnabled() == true) {
-        Logger.error("No amazon web cytegory set in the configuration.");
+        Logger.error("No amazon web category set in the configuration.");
       }
     }
   }
@@ -94,7 +94,8 @@ public class AmazonMovieWebCrawler {
 
     final List<AmazonResult> result = new ArrayList<>();
 
-    final Jerry children = document.$("[data-component-type='s-search-results'] .s-result-list").children();
+    // get all search results which are not an AdHolder
+    final Jerry children = document.s("[data-component-type='s-search-result']").not(".AdHolder");
 
     for (final Jerry copyInfosChild : children) {
       final List<AmazonResult> amazonResults = parseInfosFromSearchHtmlPart(copyInfosChild);
@@ -132,25 +133,20 @@ public class AmazonMovieWebCrawler {
 
     final List<AmazonResult> result = new ArrayList<>();
 
-    final String title = cleanTitle(copyInfosChild.$("h2 span").text());
+    final String title = cleanTitle(copyInfosChild.s("h2 span").text());
 
-    if (StringUtils
-      .contains(copyInfosChild.html(), "<span class=\"a-size-base a-color-secondary\">Gesponsert</span>")) {
-      Logger.info("Skipping: " + title + " for search it is an affiliated content.");
-      return result;
-    }
 
     final String asin = copyInfosChild.attr("data-asin");
-    final String imageUrl = copyInfosChild.$("[data-component-type='s-product-image'] img").attr("src");
+    final String imageUrl = copyInfosChild.s("[data-component-type='s-product-image'] img").attr("src");
 
     final String rating = extractRating("a-icon-star-small", copyInfosChild);
 
     // Get all the types like dvd and bluray ...
-    final Jerry typeLinks = copyInfosChild.$("a.a-text-bold");
+    final Jerry typeLinks = copyInfosChild.s("a.a-text-bold");
     for (final Jerry typeLink : typeLinks) {
       final String copyType = getCopyTypeFromAmazonText(typeLink.text());
 
-      result.add(new AmazonResult(title, rating, "", copyType, asin, "", new HashSet<>(), imageUrl));
+      result.add(new AmazonResult(title, rating, "", copyType, asin, "", "", imageUrl));
     }
 
     return result;
@@ -165,7 +161,7 @@ public class AmazonMovieWebCrawler {
    */
   private static Optional<AmazonResult> lookupByEanCode(final String eanNr) {
     final Jerry doc = searchBookButtler(eanNr);
-    final String asinNr = doc.$("td[asin]").attr("asin");
+    final String asinNr = doc.s("td[asin]").attr("asin");
 
     Logger.info("Found asin: " + asinNr + " for ean: " + eanNr + " on bookbuttler");
 
@@ -188,10 +184,11 @@ public class AmazonMovieWebCrawler {
    * @return "" when nothing found or the ean nr
    */
   private static String asinToEanNr(final String asinNr) {
-    final Jerry doc = searchBookButtler(asinNr);
-    final String eanNr = doc.$("img[alt^='EAN']").attr("alt").replace("EAN ", "");
+    /*final Jerry doc = searchBookButtler(asinNr);
+    final String eanNr = doc.s("img[alt^='EAN']").attr("alt").replace("EAN ", "");
     Logger.info("Found ean: " + eanNr + " for asin: " + asinNr + " on bookbuttler");
-    return eanNr;
+    return eanNr;*/
+    return "TODO: FIX ME";
   }
 
   /**
@@ -218,14 +215,14 @@ public class AmazonMovieWebCrawler {
 
     final Jerry doc = HttpBrowserHelper.getUrlAsJerryDoc(url);
 
-    final String title = cleanTitle(doc.$("#dp-container #title").text());
-    final String rating = extractRating("a-icon-star", doc.$("#dp-container"));
+    final String title = cleanTitle(doc.s("#dp-container #title").text());
+    final String rating = extractRating("a-icon-star", doc.s("#dp-container"));
 
-    final String typeString = doc.$("#dp-container #bylineInfo_feature_div span:contains('Format: ')").next().text();
+    final String typeString = doc.s("#dp-container #bylineInfo_feature_div span:contains('Format: ')").next().text();
     final String copyType = getCopyTypeFromAmazonText(typeString);
 
-    final String amazonAgeRating = doc.$("#dp-container #bylineInfo_feature_div span:contains('Alterseinstufung: ')")
-      .next().text();
+    final String amazonAgeRating = doc.s("#dp-container #bylineInfo_feature_div span:contains('Alterseinstufung: ')")
+        .next().text();
     String ageRating = "";
     if (AMAZON_AGE_RATING_MAP.containsKey(amazonAgeRating) == false) {
       Logger.error("No age rating matching configured for amazon rating: " + amazonAgeRating);
@@ -233,12 +230,12 @@ public class AmazonMovieWebCrawler {
       ageRating = AMAZON_AGE_RATING_MAP.get(amazonAgeRating);
     }
 
-    final String languageInformations = doc.$("#productDetailsTable b:contains('Sprache:')").parent().text().replace("Sprache:", "");
-    final String[] languageSplit = StringUtils.split(languageInformations, ',');
-    final Set<String> audioFormats = new HashSet<>(Arrays.asList(languageSplit));
+    final String languageInformations = doc.s("#detailBullets_feature_div span:contains('Sprache')").parent().s("span:nth-child(2)").text();
+    //final String[] languageSplit = StringUtils.split(languageInformations, ',');
+    //final Set<String> audioFormats = new HashSet<>(Arrays.asList(languageSplit));
     final String eanNr = asinToEanNr(asinNr);
 
-    return Optional.of(new AmazonResult(title, ageRating, rating, copyType, asinNr, eanNr, audioFormats, ""));
+    return Optional.of(new AmazonResult(title, ageRating, rating, copyType, asinNr, eanNr, languageInformations, ""));
   }
 
   /**
@@ -248,7 +245,7 @@ public class AmazonMovieWebCrawler {
    * @param parent      the parent content containing the raiting
    */
   private static String extractRating(final String parentClass, final Jerry parent) {
-    final String ratingText = parent.$("." + parentClass + " .a-icon-alt").text();
+    final String ratingText = parent.s("." + parentClass + " .a-icon-alt").text();
     final String rating = (StringUtils.isBlank(ratingText)) ? "" : StringUtils.split(ratingText, ' ')[0];
     return rating;
   }

@@ -16,6 +16,9 @@
     <logger name="com.github.tuxBurner.jobs.JobModule" level="Debug" />
     <!--logger name="io.ebean" level="DEBUG" /-->
 
+    <!-- silent parsing errors in the log it is working anyway -->
+    <logger name="jodd.lagarto.dom.LagartoDOMBuilderTagVisitor" level="OFF"/>
+
     <root level="ERROR">
         <appender-ref ref="STDOUT" />
     </root>

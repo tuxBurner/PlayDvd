@@ -1,8 +1,6 @@
 package grabbers;
 
 import com.typesafe.config.ConfigFactory;
-import helpers.ConfigurationHelper;
-import jodd.http.HttpBrowser;
 import jodd.http.HttpRequest;
 import jodd.http.HttpResponse;
 import jodd.jerry.Jerry;
@@ -19,7 +17,7 @@ public class HttpBrowserHelper {
    * User agent to set on the request
    */
   private final static String WEB_BROWSER_USER_AGENT = ConfigFactory.load()
-    .getString("dvdb.browser.useragent");
+      .getString("dvdb.browser.useragent");
 
   /**
    * Calls the given url and returns the content as a {@link String}
@@ -30,13 +28,13 @@ public class HttpBrowserHelper {
    */
   public static String getContentFromUrl(final String url, final Map<String, String> queryParameters) {
 
-    final HttpBrowser browser = new HttpBrowser();
-            
+
     HttpRequest request = HttpRequest.get(url)
-      .charset(StandardCharsets.UTF_8.name())
-      .contentType(MimeTypes.MIME_TEXT_HTML)
-      .connectionKeepAlive(true)
-      .followRedirects(true);
+        .charset(StandardCharsets.UTF_8.name())
+        .contentType(MimeTypes.MIME_TEXT_HTML)
+        .connectionKeepAlive(true)
+        .acceptEncoding("gzip")
+        .followRedirects(true);
 
 
     if (queryParameters != null && queryParameters.isEmpty() == false) {
@@ -44,11 +42,11 @@ public class HttpBrowserHelper {
     }
 
 
-    request.header("User-Agent",WEB_BROWSER_USER_AGENT);
+    request.header("User-Agent", WEB_BROWSER_USER_AGENT);
 
-    Logger.debug("Calling url: "+url+" ("+  request.toString()+" )");
+    Logger.debug("Calling url: " + url + " (" + request.toString() + " )");
 
-    final HttpResponse httpResponse = browser.sendRequest(request);
+    final HttpResponse httpResponse = request.send().unzip();
     httpResponse.charset(StandardCharsets.UTF_8.name());
 
 
@@ -69,7 +67,7 @@ public class HttpBrowserHelper {
    */
   public static Jerry getUrlAsJerryDoc(final String url, final Map<String, String> queryParameters) {
     final String contentFromUrl = getContentFromUrl(url, queryParameters);
-    return Jerry.jerry(contentFromUrl);
+    return Jerry.of(contentFromUrl);
   }
 
   /**
@@ -80,7 +78,7 @@ public class HttpBrowserHelper {
    */
   public static Jerry getUrlAsJerryDoc(final String url) {
     final String contentFromUrl = getContentFromUrl(url, null);
-    return Jerry.jerry(contentFromUrl);
+    return Jerry.of(contentFromUrl);
   }
 
   /**
@@ -95,7 +93,7 @@ public class HttpBrowserHelper {
     final Map<String, String> queryParameters = new HashMap<>();
     queryParameters.put(queryKey, queryValue);
     final String contentFromUrl = getContentFromUrl(url, queryParameters);
-    return Jerry.jerry(contentFromUrl);
+    return Jerry.of(contentFromUrl);
   }
 
 }
