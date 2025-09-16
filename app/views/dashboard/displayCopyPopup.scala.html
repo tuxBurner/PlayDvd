@@ -1,4 +1,4 @@
-@import forms.dvd.objects.CopyInfo
+@import forms.copy.objects.CopyInfo
 @(dvd: CopyInfo)(username: String)(implicit request: Http.Request, messages: play.i18n.Messages)
 
 @import org.apache.commons.collections.CollectionUtils
@@ -163,7 +163,7 @@
   
   @displaysubCopy(dvd.boxDvds, dvd, "box",dvd.copyForm.box,username)
     
-  @displaysubCopy(dvd.collectionDvds, dvd, "collection",dvd.copyForm.collection,username)
+  @displaysubCopy(dvd.collectionCopies, dvd, "collection",dvd.copyForm.collection,username)
   
   @displaysubCopy(dvd.seriesDvd, dvd, "movie series "+dvd.movieForm.series,dvd.copyForm.collection,username)
 

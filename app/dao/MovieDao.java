@@ -1,7 +1,7 @@
 package dao;
 
 import forms.MovieForm;
-import forms.dvd.CopyForm;
+import forms.copy.CopyForm;
 import grabbers.EGrabberType;
 import grabbers.ImdbRatingGrabber;
 import helpers.EImageType;

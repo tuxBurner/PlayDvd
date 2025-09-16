@@ -1,4 +1,4 @@
-@import forms.dvd.CopyForm
+@import forms.copy.CopyForm
 @(dvdForm: Form[CopyForm])(mode: String)(implicit request: Http.Request, messages: play.i18n.Messages)
 
 
@@ -11,7 +11,7 @@
       <!--
       var avaibleBoxes = @Html(DvdAttribute.getAllByTypeAsJson(EDvdAttributeType.BOX));
       var avaibleCollections = @Html(DvdAttribute.getAllByTypeAsJson(EDvdAttributeType.COLLECTION));
-      var selectedMovie = @Html(forms.dvd.CopyForm.getSelectedMovieAsJson(dvdForm("movieId").value().orElse("")));
+      var selectedMovie = @Html(forms.copy.CopyForm.getSelectedMovieAsJson(dvdForm("movieId").value().orElse("")));
       var avaibleSeries = @Html(dao.MovieAttributeDao.getAvaibleAttributesAsJson(EMovieAttributeType.MOVIE_SERIES));
       //-->
   </script>

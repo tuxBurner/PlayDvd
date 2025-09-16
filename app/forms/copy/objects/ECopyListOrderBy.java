@@ -1,4 +1,4 @@
-package forms.dvd.objects;
+package forms.copy.objects;
 
 import com.google.gson.Gson;
 
@@ -8,7 +8,7 @@ import com.google.gson.Gson;
  * @author tuxburner
  * 
  */
-public enum EDvdListOrderBy {
+public enum ECopyListOrderBy {
 
   MOVIE_TITLE("movie.title"),
   DATE("createdDate"),
@@ -20,12 +20,12 @@ public enum EDvdListOrderBy {
    */
   public String dbField;
 
-  EDvdListOrderBy(final String dbField) {
+  ECopyListOrderBy(final String dbField) {
     this.dbField = dbField;
   }
 
   public static String getAsJson() {
-    return new Gson().toJson(EDvdListOrderBy.values());
+    return new Gson().toJson(ECopyListOrderBy.values());
   }
 
 }

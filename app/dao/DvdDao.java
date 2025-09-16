@@ -1,10 +1,10 @@
 package dao;
 
-import forms.dvd.CopyForm;
-import forms.dvd.CopySearchFrom;
-import forms.dvd.objects.EDvdListOrderBy;
-import forms.dvd.objects.EDvdListOrderHow;
-import forms.dvd.objects.PrevNextCopies;
+import forms.copy.CopyForm;
+import forms.copy.CopySearchFrom;
+import forms.copy.objects.ECopyListOrderBy;
+import forms.copy.objects.ECopyListOrderHow;
+import forms.copy.objects.PrevNextCopies;
 import io.ebean.ExpressionList;
 import io.ebean.PagedList;
 import io.ebean.Query;
@@ -242,7 +242,7 @@ public class DvdDao {
    */
   public static PrevNextCopies getNextAndPrev(final Dvd dvd, final CopySearchFrom searchFrom) {
 
-    final EDvdListOrderBy orderBy = searchFrom.orderBy;
+    final ECopyListOrderBy orderBy = searchFrom.orderBy;
 
     Object orderDvdVal = null;
 
@@ -277,13 +277,13 @@ public class DvdDao {
    * @return
    */
   private static Dvd getPrev(final CopySearchFrom searchFrom, final Object orderDvdVal) {
-    final EDvdListOrderBy orderBy = searchFrom.orderBy;
-    final EDvdListOrderHow orderHow = searchFrom.orderHow;
+    final ECopyListOrderBy orderBy = searchFrom.orderBy;
+    final ECopyListOrderHow orderHow = searchFrom.orderHow;
 
     final ExpressionList<Dvd> prev = buildExpressionFromSearchFrom(searchFrom);
 
     // decide which to take
-    if (EDvdListOrderHow.UP.equals(orderHow)) {
+    if (ECopyListOrderHow.UP.equals(orderHow)) {
       prev.lt(orderBy.dbField, orderDvdVal);
     } else {
       prev.gt(orderBy.dbField, orderDvdVal);
@@ -314,12 +314,12 @@ public class DvdDao {
    */
   private static Dvd getNext(final CopySearchFrom searchFrom, final Object orderDvdVal) {
 
-    final EDvdListOrderBy orderBy = searchFrom.orderBy;
-    final EDvdListOrderHow orderHow = searchFrom.orderHow;
+    final ECopyListOrderBy orderBy = searchFrom.orderBy;
+    final ECopyListOrderHow orderHow = searchFrom.orderHow;
     final ExpressionList<Dvd> next = buildExpressionFromSearchFrom(searchFrom);
 
     // decide which to take
-    if (EDvdListOrderHow.UP.equals(orderHow)) {
+    if (ECopyListOrderHow.UP.equals(orderHow)) {
       next.gt(orderBy.dbField, orderDvdVal);
     } else {
       next.lt(orderBy.dbField, orderDvdVal);
@@ -540,7 +540,7 @@ public class DvdDao {
    * @param itemsPerPage
    * @return
    */
-  private static PagedList<Dvd> getByDefaultPaging(final ExpressionList<Dvd> expressionList, Integer pageNr, final EDvdListOrderBy orderBy, final EDvdListOrderHow orderHow, final Integer itemsPerPage) {
+  private static PagedList<Dvd> getByDefaultPaging(final ExpressionList<Dvd> expressionList, Integer pageNr, final ECopyListOrderBy orderBy, final ECopyListOrderHow orderHow, final Integer itemsPerPage) {
 
     if (pageNr == null) {
       pageNr = 0;

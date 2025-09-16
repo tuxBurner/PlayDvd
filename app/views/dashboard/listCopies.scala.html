@@ -1,4 +1,4 @@
-@import forms.dvd.CopySearchFrom
+@import forms.copy.CopySearchFrom
 @import helpers.CacheHelper
 @(dvdPage: DvdPage)(dvdListForm: Form[CopySearchFrom], cacheHelper: CacheHelper)(username: String)(shoppingCart: objects.shoppingcart.CacheShoppingCart)(viewMode: helpers.ECopyListView)(bookmarkedCopys: Set[Long])(implicit request: Http.Request, messages: play.i18n.Messages)
 

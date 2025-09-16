@@ -1,5 +1,5 @@
-@import forms.dvd.objects.CopyInfo
-@(dvd: CopyInfo,username: String, prevNext: forms.dvd.objects.PrevNextCopies,shoppingCart: objects.shoppingcart.CacheShoppingCart, bookmarkedCopys: Set[Long], viewedCopy: List[ViewedCopy])(implicit request: Http.Request, messages: play.i18n.Messages)
+@import forms.copy.objects.CopyInfo
+@(dvd: CopyInfo,username: String, prevNext: forms.copy.objects.PrevNextCopies,shoppingCart: objects.shoppingcart.CacheShoppingCart, bookmarkedCopys: Set[Long], viewedCopy: List[ViewedCopy])(implicit request: Http.Request, messages: play.i18n.Messages)
 
 @import org.apache.commons.collections.CollectionUtils
 @import org.apache.commons.lang3.StringUtils
@@ -237,7 +237,7 @@
 
   @dashboard.displaysubCopy(dvd.boxDvds, dvd, messages("lbl.box"),dvd.copyForm.box,username)
     
-  @dashboard.displaysubCopy(dvd.collectionDvds, dvd, messages("lbl.collection"),dvd.copyForm.collection,username)
+  @dashboard.displaysubCopy(dvd.collectionCopies, dvd, messages("lbl.collection"),dvd.copyForm.collection,username)
 
   @dashboard.displaysubCopy(dvd.seriesDvd, dvd, messages("lbl.movieSeries")+" "+dvd.movieForm.series,dvd.copyForm.collection,username)
   </div>

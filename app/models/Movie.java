@@ -1,22 +1,10 @@
 package models;
 
 
-import dao.MovieAttributeDao;
-import forms.MovieForm;
-import forms.dvd.CopyForm;
 import grabbers.EGrabberType;
-import grabbers.ImdbRatingGrabber;
-import helpers.EImageType;
-import helpers.ImageHelper;
-import io.ebean.Expr;
 import io.ebean.Finder;
 import io.ebean.Model;
-import io.ebean.Query;
-import org.apache.commons.lang3.StringUtils;
-import play.Logger;
 import play.data.validation.Constraints.Required;
-import play.db.ebean.Transactional;
-import scala.concurrent.duration.FiniteDuration;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -26,9 +14,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
+
 import java.util.Set;
 
 @Entity

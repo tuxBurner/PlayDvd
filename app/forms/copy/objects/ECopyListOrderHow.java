@@ -1,6 +1,6 @@
-package forms.dvd.objects;
+package forms.copy.objects;
 
-public enum EDvdListOrderHow {
+public enum ECopyListOrderHow {
 
   UP("asc"),
   DOWN("desc");
@@ -10,7 +10,7 @@ public enum EDvdListOrderHow {
    */
   public String dbOrder;
 
-  EDvdListOrderHow(final String dbField) {
+  ECopyListOrderHow(final String dbField) {
     this.dbOrder = dbField;
   }
 

@@ -4,7 +4,7 @@ import com.github.tuxBurner.jsAnnotations.JSRoute;
 import com.google.inject.Singleton;
 import com.typesafe.config.ConfigFactory;
 import dao.DvdDao;
-import forms.dvd.CopySearchFrom;
+import forms.copy.CopySearchFrom;
 import helpers.CacheHelper;
 import helpers.ConfigurationHelper;
 import helpers.ECopyListView;

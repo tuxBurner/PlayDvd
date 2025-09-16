@@ -1,13 +1,12 @@
-package forms.dvd;
+package forms.copy;
 
 import com.google.gson.Gson;
-import forms.dvd.objects.EDvdListOrderBy;
-import forms.dvd.objects.EDvdListOrderHow;
+import forms.copy.objects.ECopyListOrderBy;
+import forms.copy.objects.ECopyListOrderHow;
 import helpers.CacheHelper;
 import helpers.DvdInfoHelper;
 import helpers.ECacheObjectName;
 import org.apache.commons.lang3.StringUtils;
-import play.mvc.Controller;
 import play.mvc.Http;
 
 /**
@@ -66,12 +65,12 @@ public class CopySearchFrom {
   /**
    * What field in the database to use to order the list
    */
-  public EDvdListOrderBy orderBy = EDvdListOrderBy.DATE;
+  public ECopyListOrderBy orderBy = ECopyListOrderBy.DATE;
 
   /**
    * How to order the result list
    */
-  public EDvdListOrderHow orderHow = EDvdListOrderHow.DOWN;
+  public ECopyListOrderHow orderHow = ECopyListOrderHow.DOWN;
 
   /**
    * What copy type to display
@@ -205,19 +204,19 @@ public class CopySearchFrom {
     this.ageRating = ageRating;
   }
 
-  public EDvdListOrderBy getOrderBy() {
+  public ECopyListOrderBy getOrderBy() {
     return orderBy;
   }
 
-  public void setOrderBy(EDvdListOrderBy orderBy) {
+  public void setOrderBy(ECopyListOrderBy orderBy) {
     this.orderBy = orderBy;
   }
 
-  public EDvdListOrderHow getOrderHow() {
+  public ECopyListOrderHow getOrderHow() {
     return orderHow;
   }
 
-  public void setOrderHow(EDvdListOrderHow orderHow) {
+  public void setOrderHow(ECopyListOrderHow orderHow) {
     this.orderHow = orderHow;
   }
 

@@ -1,5 +1,6 @@
-@import forms.dvd.objects.CopyInfo
-@(subDvds : List[forms.dvd.objects.CollectionDvd], dvd: CopyInfo, title: String, subTitle: String, username:String)(implicit request: Http.Request, messages: play.i18n.Messages)
+@import forms.copy.objects.CopyInfo
+@import forms.copy.objects.CollectionCopy
+@(subDvds : List[CollectionCopy], dvd: CopyInfo, title: String, subTitle: String, username:String)(implicit request: Http.Request, messages: play.i18n.Messages)
 
 
 @import helpers.EImageSize

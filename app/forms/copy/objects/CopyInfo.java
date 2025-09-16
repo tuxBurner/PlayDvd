@@ -1,8 +1,8 @@
-package forms.dvd.objects;
+package forms.copy.objects;
 
 import dao.DvdDao;
 import forms.MovieForm;
-import forms.dvd.CopyForm;
+import forms.copy.CopyForm;
 import models.Commentable;
 import models.Dvd;
 import models.EDvdAttributeType;
@@ -19,11 +19,11 @@ public class CopyInfo {
 
   public CopyForm copyForm;
 
-  public List<CollectionDvd> boxDvds;
+  public List<CollectionCopy> boxDvds;
 
-  public List<CollectionDvd> collectionDvds;
+  public List<CollectionCopy> collectionCopies;
 
-  public List<CollectionDvd> seriesDvd;
+  public List<CollectionCopy> seriesDvd;
 
   public String borrowedBy;
 
@@ -60,7 +60,7 @@ public class CopyInfo {
 
     final List<Long> alreadyAdded = new ArrayList<Long>();
     boxDvds = getDvdsByBoxOrCollection(copy, EDvdAttributeType.BOX, copyForm.box, alreadyAdded);
-    collectionDvds = getDvdsByBoxOrCollection(copy, EDvdAttributeType.COLLECTION, copyForm.collection, alreadyAdded);
+    collectionCopies = getDvdsByBoxOrCollection(copy, EDvdAttributeType.COLLECTION, copyForm.collection, alreadyAdded);
     seriesDvd = getDvdsByMovieSeries(copy, movieForm.series, alreadyAdded);
   }
 
@@ -73,19 +73,19 @@ public class CopyInfo {
    * @param alreadyAdded
    * @return
    */
-  private List<CollectionDvd> getDvdsByMovieSeries(final Dvd dvd, final String attrvalue, final List<Long> alreadyAdded) {
+  private List<CollectionCopy> getDvdsByMovieSeries(final Dvd dvd, final String attrvalue, final List<Long> alreadyAdded) {
 
     if (StringUtils.isEmpty(attrvalue) == true) {
       return null;
     }
 
     final List<Dvd> boxDbDvds = DvdDao.getbyMovieSeries(attrvalue, dvd);
-    List<CollectionDvd> returnList = null;
+    List<CollectionCopy> returnList = null;
     if (CollectionUtils.isEmpty(boxDbDvds) == false) {
-      returnList = new ArrayList<CollectionDvd>();
+      returnList = new ArrayList<CollectionCopy>();
       for (final Dvd boxDvd : boxDbDvds) {
         if (alreadyAdded.contains(boxDvd.getId()) == false) {
-          returnList.add(new CollectionDvd(boxDvd));
+          returnList.add(new CollectionCopy(boxDvd));
           alreadyAdded.add(boxDvd.getId());
         }
       }
@@ -102,20 +102,20 @@ public class CopyInfo {
    * @param attrvalue
    * @return
    */
-  private List<CollectionDvd> getDvdsByBoxOrCollection(final Dvd dvd, final EDvdAttributeType attrType, final String attrvalue, final List<Long> alreadyAdded) {
+  private List<CollectionCopy> getDvdsByBoxOrCollection(final Dvd dvd, final EDvdAttributeType attrType, final String attrvalue, final List<Long> alreadyAdded) {
 
     if (StringUtils.isEmpty(attrvalue) == true) {
       return null;
     }
 
     final List<Dvd> boxDbDvds = DvdDao.getDvdByBoxOrCollection(attrType, attrvalue, dvd);
-    List<CollectionDvd> returnList = null;
+    List<CollectionCopy> returnList = null;
     if (CollectionUtils.isEmpty(boxDbDvds) == false) {
-      returnList = new ArrayList<CollectionDvd>();
+      returnList = new ArrayList<CollectionCopy>();
       for (final Dvd boxDvd : boxDbDvds) {
         if (alreadyAdded.contains(boxDvd.getId()) == false) {
           alreadyAdded.add(boxDvd.getId());
-          returnList.add(new CollectionDvd(boxDvd));
+          returnList.add(new CollectionCopy(boxDvd));
         }
       }
     }

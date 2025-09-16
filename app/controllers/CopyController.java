@@ -6,7 +6,7 @@ import com.google.inject.Singleton;
 import dao.DvdDao;
 import dao.MovieDao;
 import forms.MovieForm;
-import forms.dvd.CopyForm;
+import forms.copy.CopyForm;
 import forms.grabbers.GrabberInfoForm;
 import grabbers.EGrabberType;
 import grabbers.GrabberHelper;

@@ -1,4 +1,4 @@
-package forms.dvd.objects;
+package forms.copy.objects;
 
 import models.Dvd;
 import models.DvdAttribute;
@@ -10,7 +10,7 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @author tuxburner
  */
-public class CollectionDvd {
+public class CollectionCopy {
 
   public Boolean hasPoster;
   public String title;
@@ -21,7 +21,7 @@ public class CollectionDvd {
   public String ageRating;
   public Integer hullNr;
 
-  public CollectionDvd(final Dvd copy) {
+  public CollectionCopy(final Dvd copy) {
     hasPoster = copy.getMovie().getHasPoster();
     title = copy.getMovie().getTitle();
     movieId = copy.getMovie().getId();
