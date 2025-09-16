@@ -44,7 +44,7 @@
         <tbody>
           @for(viewedCopy <-viewedCopyPage.getList) {
             <tr>
-              <td>@general.displayitem(viewedCopy.copy,true)</td>
+              <td>@general.displayItem(viewedCopy.copy,true)</td>
               <td>@{new Date(viewedCopy.date).format(messages("dateFormatHour"))}</td>
             </tr>
           }

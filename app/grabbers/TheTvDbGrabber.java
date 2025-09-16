@@ -160,7 +160,7 @@ public class TheTvDbGrabber implements IInfoGrabber {
             final String seriesId = split[0];
             final String seasonId = split[1];
 
-            final Series series = theTVDB.getSeries(seriesId, TheTvDbGrabber.LANGUAGE);
+            final Series series = null;//theTVDB.getSeries(seriesId, TheTvDbGrabber.LANGUAGE);
             if (series == null) {
                 final String message = "Could not find series: " + seriesId;
                 Logger.error(message);

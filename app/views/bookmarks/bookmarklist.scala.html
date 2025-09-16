@@ -47,7 +47,7 @@
         <tbody>
           @for(bookmark <-bookmarkPage.getList) {
             <tr>
-              <td>@general.displayitem(bookmark.copy,true)</td>
+              <td>@general.displayItem(bookmark.copy,true)</td>
               <td>@{new Date(bookmark.date).format(messages("dateFormatHour"))}</td>
               <td><a href="@routes.BookmarksController.removeBookmark(bookmark.id)" class="btn btn-danger" ><i class="icon-trash"></i></a></td>
             </tr>

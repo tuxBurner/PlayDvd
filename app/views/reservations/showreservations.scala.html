@@ -48,7 +48,7 @@
                               <input title="checkAll" type="checkbox" class="reservationsCopyCheckBox" data-borrower="@borrower.getId" data-resid="@reservation.id" />
                             }
                           </td>
-                          <td>@general.displayitem(reservation.copy,true)</td>
+                          <td>@general.displayItem(reservation.copy,true)</td>
                           <td>@{new Date(reservation.date).format(messages("dateFormatHour"))}</td>
                         </tr>
                       }

@@ -1,7 +1,7 @@
 @(item: Dvd, displayBorrower: Boolean = false)(implicit request: Http.Request, messages: play.i18n.Messages)
 <div class="media @if(item.getBorrowDate != null) {alert alert-error}">
   <span class="pull-left">
-    @general.displaycover(item)
+    @general.displayCover(item)
   </span>
   <div class="media-body">
     <h6 class="media-heading">

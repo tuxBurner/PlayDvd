@@ -5,7 +5,7 @@
 <ul class="unstyled">
   @for(otherCopy <- inSameHull) {
     <li>
-      @general.displayposter(otherCopy.getMovie.getId,otherCopy.getMovie.getHasPoster,EImageSize.TINY)
+      @general.displayPoster(otherCopy.getMovie.getId,otherCopy.getMovie.getHasPoster,EImageSize.TINY)
       @general.displayCopyTitle(otherCopy)
     </li>
   }

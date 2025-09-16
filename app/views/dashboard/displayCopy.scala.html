@@ -59,7 +59,7 @@
        <div class="span6">
          @if(prevNext.prev != null) {
            <a href="@routes.DashboardController.displayCopyOnPage(prevNext.prev.id)">
-             @general.displayposter(prevNext.prev.movieId,prevNext.prev.hasPoster,EImageSize.TINY)
+             @general.displayPoster(prevNext.prev.movieId,prevNext.prev.hasPoster,EImageSize.TINY)
              @prevNext.prev.title
            </a>
          }
@@ -67,7 +67,7 @@
        <div class="span5">
          @if(prevNext.next != null) {
            <a class="pull-right" href="@routes.DashboardController.displayCopyOnPage(prevNext.next.id)">
-             @general.displayposter(prevNext.next.movieId,prevNext.next.hasPoster,EImageSize.TINY)
+             @general.displayPoster(prevNext.next.movieId,prevNext.next.hasPoster,EImageSize.TINY)
              @prevNext.next.title
            </a>
          }
@@ -186,7 +186,7 @@
               <div class="rateWrapper"><img  class="img-rounded" src="@routes.Assets.versioned("images/agerating/"+dvd.copyForm.ageRating+".gif")" /></div>
             </em>
             <a>
-            @general.displayposter(dvd.movieForm.movieId, dvd.movieForm.hasPoster, EImageSize.SMALL)
+            @general.displayPoster(dvd.movieForm.movieId, dvd.movieForm.hasPoster, EImageSize.SMALL)
             </a>
           </div>
         </div>

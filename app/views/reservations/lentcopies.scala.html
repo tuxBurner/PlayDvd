@@ -43,7 +43,7 @@
                           <td>
                             <input title="checkAll" type="checkbox" class="lentCopyCheckBox" data-borrower="@borrower" data-resid="@copy.getId" />
                           </td>
-                          <td>@general.displayitem(copy,true)</td>
+                          <td>@general.displayItem(copy,true)</td>
                           <td>@{new Date(copy.getBorrowDate).format(messages("dateFormatHour"))}</td>
                         </tr>
                       }

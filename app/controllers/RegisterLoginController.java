@@ -84,9 +84,9 @@ public class RegisterLoginController extends Controller {
       return Results.badRequest(views.html.user.login.render(loginForm, request, messages));
     } else {
       final User userByName = UserDao.findUserByName(loginForm.get().username);
-      final String msg = messagesApi.preferred(request).at("msg.success.login", loginForm.get().username);
+      final String msg = messagesApi.preferred(request).at("msg.success.login", userByName.getUserName());
       return Results.redirect(routes.ApplicationController.index()).flashing("success", msg).withNewSession()
-          .addingToSession(request, Secured.AUTH_SESSION, loginForm.get().username)
+          .addingToSession(request, Secured.AUTH_SESSION, userByName.getUserName())
           .addingToSession(request, Secured.AUTH_HAS_GRAVATAR, String.valueOf(userByName.isHasGravatar()));
     }
   }

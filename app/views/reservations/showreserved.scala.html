@@ -26,7 +26,7 @@
           <tbody>
             @for(reservation <- reservedCopies) {
               <tr id="ownReservation@reservation.id">
-              <td>@general.displayitem(reservation.copy,true)</td>
+              <td>@general.displayItem(reservation.copy,true)</td>
               <td>@{new Date(reservation.date).format(messages("dateFormatHour"))}</td>
               <td><button type="button" class="btn btn-danger" onclick="removeReserved(@reservation.id);"><i class="icon-trash"></i></button></td>
               </tr>

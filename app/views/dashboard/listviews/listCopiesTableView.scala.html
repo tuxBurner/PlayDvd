@@ -17,7 +17,7 @@
 
   @for(dvd <- dvdPage.list) {
     <tr class="@if(dvd.getBorrower != null || dvd.getBorrowerName != null) {error} @if(dvd.getBorrower != null && dvd.getBorrower.getUserName == username) {warning}">
-      <td><a href="#" class="displayCopy" data-dvd-id="@dvd.getId">@general.displayposter(dvd.getMovie.getId, dvd.getMovie.getHasPoster, EImageSize.TINY)</a></td>
+      <td><a href="#" class="displayCopy" data-dvd-id="@dvd.getId">@general.displayPoster(dvd.getMovie.getId, dvd.getMovie.getHasPoster, EImageSize.TINY)</a></td>
       <td><a href="#" class="displayCopy" data-dvd-id="@dvd.getId">@dvd.getMovie.getTitle</a></td>
       <td>
         @if(DvdAttribute.getCopyTypeAttribute(dvd) != null) {
