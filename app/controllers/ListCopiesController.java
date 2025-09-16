@@ -18,7 +18,7 @@ import play.data.FormFactory;
 import play.i18n.Messages;
 import play.i18n.MessagesApi;
 import play.mvc.*;
-import views.html.dashboard.listdvds;
+import views.html.dashboard.listCopies;
 
 import javax.inject.Inject;
 import java.io.UnsupportedEncodingException;
@@ -233,7 +233,7 @@ public class ListCopiesController extends Controller {
 
     if (jsMode == false) {
       final Form<CopySearchFrom> form = formFactory.form(CopySearchFrom.class);
-      return Results.ok(listdvds.render(dvdPage, form.fill(copySearchFrom), cacheHelper, username, shoppingCartFromCache, currentViewMode, bookmarkedCopyIds, request, messages));
+      return Results.ok(listCopies.render(dvdPage, form.fill(copySearchFrom), cacheHelper, username, shoppingCartFromCache, currentViewMode, bookmarkedCopyIds, request, messages));
     } else {
       return Results.ok(views.html.dashboard.listviews.listviewsWrapper.render(dvdPage, username, shoppingCartFromCache, bookmarkedCopyIds, currentViewMode, request, messages));
     }

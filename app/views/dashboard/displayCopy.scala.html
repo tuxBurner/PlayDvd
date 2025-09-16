@@ -235,11 +235,11 @@
      </div>
    }
 
-  @dashboard.displaysubdvd(dvd.boxDvds, dvd, messages("lbl.box"),dvd.copyForm.box,username)
+  @dashboard.displaysubCopy(dvd.boxDvds, dvd, messages("lbl.box"),dvd.copyForm.box,username)
     
-  @dashboard.displaysubdvd(dvd.collectionDvds, dvd, messages("lbl.collection"),dvd.copyForm.collection,username)
+  @dashboard.displaysubCopy(dvd.collectionDvds, dvd, messages("lbl.collection"),dvd.copyForm.collection,username)
 
-  @dashboard.displaysubdvd(dvd.seriesDvd, dvd, messages("lbl.movieSeries")+" "+dvd.movieForm.series,dvd.copyForm.collection,username)
+  @dashboard.displaysubCopy(dvd.seriesDvd, dvd, messages("lbl.movieSeries")+" "+dvd.movieForm.series,dvd.copyForm.collection,username)
   </div>
 </div>
 }

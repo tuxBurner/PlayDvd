@@ -106,9 +106,9 @@ public class DashboardController extends Controller {
     final Messages messages = this.messagesApi.preferred(request);
     final var usernameStatic = Secured.getUsernameStatic(request);
     if (popup == true) {
-      return Results.ok(views.html.dashboard.displaydvdPopup.render(copyInfo, usernameStatic, request, messages));
+      return Results.ok(views.html.dashboard.displayCopyPopup.render(copyInfo, usernameStatic, request, messages));
     } else {
-      return Results.ok(views.html.dashboard.displaydvd.render(copyInfo, usernameStatic, nextAndPrev, shoppingCartFromCache, bookmarkedCopyIds, copyViewed, request, messages));
+      return Results.ok(views.html.dashboard.displayCopy.render(copyInfo, usernameStatic, nextAndPrev, shoppingCartFromCache, bookmarkedCopyIds, copyViewed, request, messages));
     }
   }
 
@@ -234,7 +234,7 @@ public class DashboardController extends Controller {
     }
 
     final Messages messages = this.messagesApi.preferred(request);
-    return Results.ok(views.html.dashboard.deletedvd.render(dvdForUser, request, messages));
+    return Results.ok(views.html.dashboard.deleteCopy.render(dvdForUser, request, messages));
   }
 
   /**

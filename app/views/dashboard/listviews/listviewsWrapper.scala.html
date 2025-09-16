@@ -10,22 +10,22 @@
 </div>
 
 
-@dashboard.dvdlistnav(dvdPage)(request, messages)
+@dashboard.copyListnav(dvdPage)(request, messages)
 
 <div class="row">
   <div class="span12" id="navInfos" data-hasnext="@dvdPage.page.hasNext" data-hasprev="@dvdPage.page.hasPrev" data-curridx="@dvdPage.page.getPageIndex">
     @if(viewMode == ECopyListView.COVERVIEW) {
-      @dashboard.listviews.listDvdsCoverView(dvdPage,username,shoppingCart,bookmarkedCopys)
+      @dashboard.listviews.listCopiesCoverView(dvdPage,username,shoppingCart,bookmarkedCopys)
     }
 
     @if(viewMode == ECopyListView.SMALLCOVERVIEW) {
-      @dashboard.listviews.listDvdsItemView(dvdPage,username,shoppingCart,bookmarkedCopys)
+      @dashboard.listviews.listCopiesItemView(dvdPage,username,shoppingCart,bookmarkedCopys)
     }
 
     @if(viewMode == ECopyListView.TABLEVIEW) {
-      @dashboard.listviews.listDvdsTableView(dvdPage,username,shoppingCart,bookmarkedCopys)
+      @dashboard.listviews.listCopiesTableView(dvdPage,username,shoppingCart,bookmarkedCopys)
     }
   </div>
 </div>
 
-@dashboard.dvdlistnav(dvdPage)(request, messages)
+@dashboard.copyListnav(dvdPage)(request, messages)
