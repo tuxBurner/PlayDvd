@@ -26,7 +26,7 @@ public interface IInfoGrabber {
 
   /**
    * This displays the movie the user picked from the search result and displays
-   * all avaible backdrops and urls
+   * all available backdrops and urls
    * 
    * @param id
    * @return

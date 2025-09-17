@@ -15,9 +15,9 @@ lazy val root = (project in file("."))
 
       "commons-io" % "commons-io" % "2.18.0",
       "commons-collections" % "commons-collections" % "3.2.2",
-      "org.apache.commons" % "commons-lang3" % "3.17.0",
+      "org.apache.commons" % "commons-lang3" % "3.18.0",
 
-      "com.google.code.gson" % "gson" % "2.2.4",
+      "com.google.code.gson" % "gson" % "2.8.9",
 
       "com.timgroup" % "jgravatar" % "1.2",
 
@@ -26,7 +26,8 @@ lazy val root = (project in file("."))
       "rome" % "rome" % "1.0",
 
       // grabbers
-      "com.omertron" % "thetvdbapi" % "1.9",
+      //"com.omertron" % "thetvdbapi" % "1.9",
+      "com.uwetrottmann.thetvdb-java" % "thetvdb-java" % "2.4.0",
       "com.omertron" % "themoviedbapi" % "4.3",
       "com.omertron" % "traileraddictapi" % "1.5",
 

@@ -341,7 +341,7 @@ public class DashboardController extends Controller {
     final String gravatarEmail = (userByName == null) ? "" : userByName.getEmail();
 
     final String etag = ETagHelper.getEtag(ECacheObjectName.GRAVATAR_IMAGES + gravatarEmail + size);
-    final String nonMatch = request.header(IF_NONE_MATCH).get();
+    final String nonMatch = request.header(IF_NONE_MATCH).orElseGet(null);
     if (etag != null && etag.equals(nonMatch) == true) {
       return status(304);
     }
